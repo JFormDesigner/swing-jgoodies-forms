@@ -50,7 +50,7 @@ public final class GrowingExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Growing");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new GrowingExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
@@ -194,8 +194,8 @@ public final class GrowingExample {
     
     private JComponent createTextArea(int rows, int cols) {
         return new JScrollPane(new JTextArea(rows, cols),
-                    JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                    ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
     
     

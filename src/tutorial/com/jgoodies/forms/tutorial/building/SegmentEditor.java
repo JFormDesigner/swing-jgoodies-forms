@@ -74,7 +74,7 @@ public final class SegmentEditor {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Building:: Dynamic Rows");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new SegmentEditor().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

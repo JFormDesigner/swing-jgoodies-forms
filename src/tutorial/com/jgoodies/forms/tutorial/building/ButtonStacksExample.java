@@ -54,7 +54,7 @@ public final class ButtonStacksExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Demo :: Button Bars");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new ButtonStacksExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

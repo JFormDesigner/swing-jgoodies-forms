@@ -71,26 +71,26 @@ public final class RowSpecTest extends TestCase {
      */
     public void testValidRowSpecEncodings() {
         RowSpec spec;
-        spec = new RowSpec(RowSpec.TOP, Sizes.PREFERRED, RowSpec.NO_GROW);
+        spec = new RowSpec(RowSpec.TOP, Sizes.PREFERRED, FormSpec.NO_GROW);
         assertEquals(spec, new RowSpec("t:p"));
         assertEquals(spec, new RowSpec("top:p"));
         assertEquals(spec, new RowSpec("t:pref"));
         assertEquals(spec, new RowSpec("top:pref"));
         
-        spec = new RowSpec(RowSpec.DEFAULT, Sizes.MINIMUM, RowSpec.NO_GROW);
+        spec = new RowSpec(RowSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
         assertEquals(spec, new RowSpec("min"));
         assertEquals(spec, new RowSpec("c:min"));
         assertEquals(spec, new RowSpec("center:min"));
         assertEquals(spec, new RowSpec("c:min:none"));
         assertEquals(spec, new RowSpec("center:min:grow(0)"));
         
-        spec = new RowSpec(RowSpec.FILL, Sizes.DEFAULT, RowSpec.NO_GROW);
+        spec = new RowSpec(RowSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
         assertEquals(spec, new RowSpec("f:default"));
         assertEquals(spec, new RowSpec("fill:default"));
         assertEquals(spec, new RowSpec("f:default:none"));
         assertEquals(spec, new RowSpec("fill:default:grow(0)"));
         
-        spec = new RowSpec(RowSpec.BOTTOM, Sizes.pixel(10), RowSpec.NO_GROW);
+        spec = new RowSpec(RowSpec.BOTTOM, Sizes.pixel(10), FormSpec.NO_GROW);
         assertEquals(spec, new RowSpec("b:10px"));
         assertEquals(spec, new RowSpec("bottom:10px"));
         assertEquals(spec, new RowSpec("bottom:10px:none"));
@@ -98,23 +98,23 @@ public final class RowSpecTest extends TestCase {
         assertEquals(spec, new RowSpec("bottom:10px:g(0)"));
         
         Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
-        spec = new RowSpec(RowSpec.BOTTOM, size, RowSpec.NO_GROW);
+        spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
         assertEquals(spec, new RowSpec("bottom:max(10px;pref)"));
         assertEquals(spec, new RowSpec("bottom:max(pref;10px)"));
         
         size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
-        spec = new RowSpec(RowSpec.BOTTOM, size, RowSpec.NO_GROW);
+        spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
         assertEquals(spec, new RowSpec("bottom:min(10px;pref)"));
         assertEquals(spec, new RowSpec("bottom:min(pref;10px)"));
 
         size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
-        spec = new RowSpec(RowSpec.DEFAULT, size, RowSpec.NO_GROW);
+        spec = new RowSpec(RowSpec.DEFAULT, size, FormSpec.NO_GROW);
         assertEquals(spec, new RowSpec("min(10px;default)"));
         assertEquals(spec, new RowSpec("min(10px;d)"));
         assertEquals(spec, new RowSpec("min(default;10px)"));
         assertEquals(spec, new RowSpec("min(d;10px)"));
         
-        spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, RowSpec.DEFAULT_GROW);
+        spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
         assertEquals(spec, new RowSpec("d:grow"));
         assertEquals(spec, new RowSpec("default:grow(1)"));
         assertEquals(spec, new RowSpec("c:d:g"));

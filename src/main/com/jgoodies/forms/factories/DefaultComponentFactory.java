@@ -117,7 +117,7 @@ public class DefaultComponentFactory implements ComponentFactory {
     private JLabel createTitle(String textWithMnemonic, int gap) {
         JLabel label = new TitleLabel();
         setTextAndMnemonic(label, textWithMnemonic);
-        label.setVerticalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createEmptyBorder(1, 0, 1, gap));
         return label;
     }
@@ -133,7 +133,7 @@ public class DefaultComponentFactory implements ComponentFactory {
      * @return a title label with separator on the side
      */
     public JComponent createSeparator(String text) {
-        return createSeparator(text, JLabel.LEFT);
+        return createSeparator(text, SwingConstants.LEFT);
     }
     
     /**

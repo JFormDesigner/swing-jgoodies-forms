@@ -53,7 +53,7 @@ public final class UnitsExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Units");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new UnitsExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
@@ -196,8 +196,8 @@ public final class UnitsExample {
         JTextArea area = new JTextArea(rows, cols);
         //area.setText(text);
         return new JScrollPane(area,
-                    JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                    ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
     
     // Helper Code ************************************************************

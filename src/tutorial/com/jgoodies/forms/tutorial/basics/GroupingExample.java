@@ -49,7 +49,7 @@ public final class GroupingExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Grouping");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new GroupingExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

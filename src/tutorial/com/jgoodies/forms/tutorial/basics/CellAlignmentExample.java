@@ -51,7 +51,7 @@ public final class CellAlignmentExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Cell Alignments");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new CellAlignmentExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
