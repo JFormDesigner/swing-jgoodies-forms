@@ -54,7 +54,7 @@ public final class ButtonBarFactoryExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Demo :: ButtonBarFactory");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new ButtonBarFactoryExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

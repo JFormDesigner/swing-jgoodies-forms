@@ -75,7 +75,7 @@ public final class DescriptionEditor {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Building:: Plain");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new DescriptionEditor().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

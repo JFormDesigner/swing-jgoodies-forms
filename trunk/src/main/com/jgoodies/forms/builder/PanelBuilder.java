@@ -35,6 +35,7 @@ import java.awt.Component;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.Borders;
@@ -261,8 +262,8 @@ public class PanelBuilder extends AbstractFormBuilder {
     public final JComponent addSeparator(String text, CellConstraints constraints) {
         int titleAlignment =
             getPanel().getComponentOrientation().isLeftToRight()
-                ? JLabel.LEFT
-                : JLabel.RIGHT;
+                ? SwingConstants.LEFT
+                : SwingConstants.RIGHT;
         JComponent titledSeparator =
             getComponentFactory().createSeparator(text, titleAlignment);
         add(titledSeparator, constraints);

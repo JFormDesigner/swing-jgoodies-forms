@@ -50,7 +50,7 @@ public final class BasicSizesExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Basic Sizes");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new BasicSizesExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
@@ -127,8 +127,8 @@ public final class BasicSizesExample {
     
     private JComponent createTextArea(int rows, int cols) {
         return new JScrollPane(new JTextArea(rows, cols),
-                    JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                    ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
     
     

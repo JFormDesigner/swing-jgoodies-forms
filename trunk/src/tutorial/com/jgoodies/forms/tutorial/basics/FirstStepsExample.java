@@ -50,7 +50,7 @@ public final class FirstStepsExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: First Steps");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new FirstStepsExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

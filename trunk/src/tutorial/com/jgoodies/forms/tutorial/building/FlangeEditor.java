@@ -75,7 +75,7 @@ public final class FlangeEditor {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Building:: DefaultFormBuilder");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new FlangeEditor().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

@@ -50,7 +50,7 @@ public final class BoundedSizesExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Basic Sizes");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new BoundedSizesExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();

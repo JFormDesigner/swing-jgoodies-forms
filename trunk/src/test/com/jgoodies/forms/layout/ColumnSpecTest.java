@@ -71,20 +71,20 @@ public final class ColumnSpecTest extends TestCase {
      */
     public void testValidColumnSpecEncodings() {
         ColumnSpec spec;
-        spec = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, ColumnSpec.NO_GROW);
+        spec = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, FormSpec.NO_GROW);
         assertEquals(spec, new ColumnSpec("l:p"));
         assertEquals(spec, new ColumnSpec("left:p"));
         assertEquals(spec, new ColumnSpec("l:pref"));
         assertEquals(spec, new ColumnSpec("left:pref"));
         
-        spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.MINIMUM, ColumnSpec.NO_GROW);
+        spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
         assertEquals(spec, new ColumnSpec("min"));
         assertEquals(spec, new ColumnSpec("f:min"));
         assertEquals(spec, new ColumnSpec("fill:min"));
         assertEquals(spec, new ColumnSpec("f:min:nogrow"));
         assertEquals(spec, new ColumnSpec("fill:min:grow(0)"));
         
-        spec = new ColumnSpec(ColumnSpec.FILL, Sizes.DEFAULT, ColumnSpec.NO_GROW);
+        spec = new ColumnSpec(ColumnSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
         assertEquals(spec, new ColumnSpec("d"));
         assertEquals(spec, new ColumnSpec("default"));
         assertEquals(spec, new ColumnSpec("f:default"));
@@ -92,7 +92,7 @@ public final class ColumnSpecTest extends TestCase {
         assertEquals(spec, new ColumnSpec("f:default:nogrow"));
         assertEquals(spec, new ColumnSpec("fill:default:grow(0)"));
         
-        spec = new ColumnSpec(ColumnSpec.RIGHT, Sizes.pixel(10), ColumnSpec.NO_GROW);
+        spec = new ColumnSpec(ColumnSpec.RIGHT, Sizes.pixel(10), FormSpec.NO_GROW);
         assertEquals(spec, new ColumnSpec("r:10px"));
         assertEquals(spec, new ColumnSpec("right:10px"));
         assertEquals(spec, new ColumnSpec("right:10px:nogrow"));
@@ -100,23 +100,23 @@ public final class ColumnSpecTest extends TestCase {
         assertEquals(spec, new ColumnSpec("right:10px:g(0)"));
         
         Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
-        spec = new ColumnSpec(ColumnSpec.RIGHT, size, ColumnSpec.NO_GROW);
+        spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
         assertEquals(spec, new ColumnSpec("right:max(10px;pref)"));
         assertEquals(spec, new ColumnSpec("right:max(pref;10px)"));
         
         size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
-        spec = new ColumnSpec(ColumnSpec.RIGHT, size, ColumnSpec.NO_GROW);
+        spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
         assertEquals(spec, new ColumnSpec("right:min(10px;pref)"));
         assertEquals(spec, new ColumnSpec("right:min(pref;10px)"));
 
         size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
-        spec = new ColumnSpec(ColumnSpec.DEFAULT, size, ColumnSpec.NO_GROW);
+        spec = new ColumnSpec(ColumnSpec.DEFAULT, size, FormSpec.NO_GROW);
         assertEquals(spec, new ColumnSpec("min(10px;default)"));
         assertEquals(spec, new ColumnSpec("min(10px;d)"));
         assertEquals(spec, new ColumnSpec("min(default;10px)"));
         assertEquals(spec, new ColumnSpec("min(d;10px)"));
         
-        spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, ColumnSpec.DEFAULT_GROW);
+        spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
         assertEquals(spec, new ColumnSpec("d:grow"));
         assertEquals(spec, new ColumnSpec("default:grow(1)"));
         assertEquals(spec, new ColumnSpec("f:d:g"));

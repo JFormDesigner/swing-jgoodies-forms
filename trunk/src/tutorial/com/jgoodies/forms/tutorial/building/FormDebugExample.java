@@ -61,7 +61,7 @@ public final class FormDebugExample {
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Building :: Debug a Form");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new ShaftEditor().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
