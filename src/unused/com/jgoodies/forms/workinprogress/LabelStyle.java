@@ -36,7 +36,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 
 /**
  * A typesafe enumeration for label layout styles that describes the alignment
- * and wether a colon should be added or not. This class provides constants
+ * and whether a colon should be added or not. This class provides constants
  * for different fixed styles, platform styles for Windows and Mac,
  * and a logical style that honors the platform.
  * <p>
