@@ -55,8 +55,8 @@ public final class QuickStartExample {
 
     private JTextField companyField;
     private JTextField contactField;
-    private JTextField powerField;
     private JTextField ptiField;
+    private JTextField powerField;
     private JTextField radiusField;
     private JTextField diameterField;
 
