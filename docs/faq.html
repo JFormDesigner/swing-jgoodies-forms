@@ -84,9 +84,8 @@
 		<br>&nbsp;<a href="#1.4">1.4 - Where do I get support?</a>
 		<br>&nbsp;<a href="#1.5">1.5 - How can I help improve the Forms?</a>
 		<br>&nbsp;<a href="#1.6">1.6 - Which layout managers complement the FormLayout?</a>
-		<br>&nbsp;<a href="#1.7">1.7 - Why isn't the DefaultFormBuilder in the library core?</a>
-		<br>&nbsp;<a href="#1.8">1.8 - Are there any visual builders that support FormLayout?</a>
-		<br>&nbsp;<a href="#1.9">1.9 - Can I use FormLayout with the SWT?</a>
+		<br>&nbsp;<a href="#1.7">1.7 - Are there any visual builders that support FormLayout?</a>
+		<br>&nbsp;<a href="#1.8">1.8 - Can I use FormLayout with the SWT?</a>
 
 
 	<h2>2. Working With Layout</h2>
@@ -172,25 +171,7 @@
 		layout manager, such as FormLayout and ExplicitLayout.
 		
 		
-		<h2><a name="1.7">1.7 - Why isn't the DefaultFormBuilder in the library core?</a></h2>
-
-		The whole set of builders is quite new for me and Java layout systems.
-		The predefined builder implementations are primarily intended to introduce 
-		the builder layer; I tried demonstrate how to separate the building process 
-		and builder code from the layout manager and container hierarchy.<p>
-		
-		Unlike the other abstract and simple builder, the DefaultFormBuilder
-		is more complex and difficult to understand in all its details.
-		And it reflects just my personal findings on how to build a huge
-		class of form based layouts efficiently. Therefore I feel a need 
-		for more feedback from the Forms user community before I can move 
-		the DefaultFormBuilder into the library core.
-		Since there's almost no feedback regarding this builder, 
-		I consider moving it into the core in the 1.0.4 version. 
-		But I need to test its API for right-to-left layouts before I will do so.
-				
-		
-		<h2><a name="1.8">1.8 - Are there any visual builders that support FormLayout?</a></h2>
+		<h2><a name="1.7">1.7 - Are there any visual builders that support FormLayout?</a></h2>
 
 		There are some projects working on visual builders that support FormLayout.
 		Some just work with the FormLayout, others support the whole Forms framework,
@@ -200,7 +181,7 @@
 		available.
 				
 		
-		<h2><a name="1.9">1.9 - Can I use the FormLayout with the SWT?</a></h2>
+		<h2><a name="1.8">1.8 - Can I use the FormLayout with the SWT?</a></h2>
 
 		There are two ports of the FormLayout for the SWT. I will announce
 		these ports as soon as they are available in the Forms announcement list
