@@ -85,7 +85,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -459,9 +459,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @return the added separator
      */
     public final JComponent addSeparator(String text, int columnSpan) {
-        return addSeparator(
-                text, 
-                createLeftAdjustedConstraints(columnSpan));
+        return addSeparator(text, createLeftAdjustedConstraints(columnSpan));
     }
     
      
