@@ -31,10 +31,6 @@
 package com.jgoodies.forms.tutorial.building;
 
 import javax.swing.*;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.debug.FormDebugUtils;
@@ -62,7 +58,7 @@ public final class FormDebugExample {
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Building :: Debug a Form");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        JComponent panel = new ShaftEditor().buildPanel();
+        JComponent panel = new FormDebugExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
         frame.show();
