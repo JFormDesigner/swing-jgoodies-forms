@@ -68,41 +68,46 @@ public final class CellConstraints implements Cloneable {
     /**
      * Use the column's or row's default alignment.
      */
-    public static final Alignment DEFAULT = new Alignment("default");
+    public static final Alignment DEFAULT =
+        new Alignment("default", Alignment.BOTH);
 
     /**
      * Fill the cell either horizontally or vertically.
      */
-    public static final Alignment FILL = new Alignment("fill");
+    public static final Alignment FILL = 
+        new Alignment("fill", Alignment.BOTH);
 
     /**
      * Put the component in the left.
      */
-    public static final Alignment LEFT = new Alignment("left");
+    public static final Alignment LEFT =
+        new Alignment("left", Alignment.HORIZONTAL);
 
     /**
      * Put the component in the right.
      */
-    public static final Alignment RIGHT = new Alignment("right");
-
+    public static final Alignment RIGHT =
+        new Alignment("right", Alignment.HORIZONTAL);
     /**
      * Put the component in the center.
      */
-    public static final Alignment CENTER = new Alignment("center");
+    public static final Alignment CENTER =
+        new Alignment("center", Alignment.BOTH);
 
     /**
      * Put the component in the top.
      */
-    public static final Alignment TOP = new Alignment("top");
+    public static final Alignment TOP =
+        new Alignment("top", Alignment.VERTICAL);
 
     /**
      * Put the component in the bottom.
      */
-    public static final Alignment BOTTOM = new Alignment("bottom");
+    public static final Alignment BOTTOM =
+        new Alignment("bottom", Alignment.VERTICAL);
 
-
-    private static final Insets EMPTY_INSETS = new Insets(0, 0, 0, 0);
-    
+    private static final Insets EMPTY_INSETS = 
+        new Insets(0, 0, 0, 0);
     
     // Fields ***************************************************************
     
@@ -218,6 +223,7 @@ public final class CellConstraints implements Cloneable {
      * @param insets		the component's display area <code>Insets</code>
      * @throws IndexOutOfBoundsException if the grid origin or extent is negative
      * @throws NullPointerException if the horizontal or vertical alignment is null
+     * @throws IllegalArgumentException if an alignment orientation is invalid
      */
     public CellConstraints(int gridX, int gridY, int gridWidth, int gridHeight, 
                             Alignment hAlign, Alignment vAlign, Insets insets) {
@@ -240,6 +246,7 @@ public final class CellConstraints implements Cloneable {
             throw new NullPointerException("The horizontal alignment must not be null.");
         if (vAlign == null)
             throw new NullPointerException("The vertical alignment must not be null.");
+        ensureValidOrientations(hAlign, vAlign);
     }
     
     /**
@@ -321,6 +328,7 @@ public final class CellConstraints implements Cloneable {
      * @param rowSpan            the row span or grid height
      * @param encodedAlignments  string describing the alignments
      * @return this
+     * @throws IllegalArgumentException if an alignment orientation is invalid
      */
     public CellConstraints xywh(int col, int row, int colSpan, int rowSpan, 
                                  String encodedAlignments) {
@@ -340,6 +348,7 @@ public final class CellConstraints implements Cloneable {
      * @param colAlign  horizontal component alignment
      * @param rowAlign  vertical component alignment     
      * @return this
+     * @throws IllegalArgumentException if an alignment orientation is invalid
      */
     public CellConstraints xywh(int col, int row, int colSpan, int rowSpan, 
                                  Alignment colAlign, Alignment rowAlign) {
@@ -349,6 +358,7 @@ public final class CellConstraints implements Cloneable {
         this.gridHeight = rowSpan;
         this.hAlign     = colAlign;
         this.vAlign     = rowAlign;
+        ensureValidOrientations(hAlign, vAlign);
         return this;
     }
     
@@ -368,7 +378,7 @@ public final class CellConstraints implements Cloneable {
      * 
      * @param encodedAlignments represents horizontal and vertical alignment
      * @throws IllegalArgumentException if the encoded constraints do not
-     * follow the constraint syntax
+     *     follow the constraint syntax
      */
     private void initFromConstraints(String encodedConstraints) {
         StringTokenizer tokenizer = new StringTokenizer(encodedConstraints, " ,");
@@ -424,6 +434,7 @@ public final class CellConstraints implements Cloneable {
             
         hAlign = decodeAlignment(token);
         vAlign = decodeAlignment(tokenizer.nextToken());
+        ensureValidOrientations(hAlign, vAlign);
     }
     
     
@@ -443,11 +454,13 @@ public final class CellConstraints implements Cloneable {
      * <p>
      *
      * @param encodedAlignments represents horizontal and vertical alignment
+     * @throws IllegalArgumentException if an alignment orientation is invalid
      */
     private void setAlignments(String encodedAlignments) {
         StringTokenizer tokenizer = new StringTokenizer(encodedAlignments, " ,");
         hAlign = decodeAlignment(tokenizer.nextToken());
         vAlign = decodeAlignment(tokenizer.nextToken());
+        ensureValidOrientations(hAlign, vAlign);
     }
 
     /**
@@ -514,6 +527,22 @@ public final class CellConstraints implements Cloneable {
                 "The grid height " + gridHeight + " must be less than or equal to "
                     + (rowCount - gridY + 1) + ".");
         }
+    }
+    
+    
+    /**
+     * Checks and verifies that the horizontal alignment is a horizontal
+     * and the vertical alignment is vertical. 
+     * 
+     * @param horizontalAlignment  the horizontal alignment
+     * @param verticalAlignment    the vertical alignment
+     * @throws IllegalArgumentException if an alignment is invalid
+     */
+    private void ensureValidOrientations(Alignment horizontalAlignment, Alignment verticalAlignment) {
+        if (!horizontalAlignment.isHorizontal())
+            throw new IllegalArgumentException("The horizontal alignment must be one of: left, center, right, fill, default.");
+        if (!verticalAlignment.isVertical())
+            throw new IllegalArgumentException("The vertical alignment must be one of: top, center, botto, fill, default.");
     }
     
     
@@ -788,10 +817,17 @@ public final class CellConstraints implements Cloneable {
      * the {@link FormLayout}.
      */
     public static final class Alignment {
+        
+        private static final int HORIZONTAL = 0;
+        private static final int VERTICAL   = 1;
+        private static final int BOTH       = 2;
+        
         private final String name;
-
-        private Alignment(String name) { 
-            this.name = name; 
+        private final int    orientation;
+        
+        private Alignment(String name, int orientation) { 
+            this.name        = name; 
+            this.orientation = orientation;
         }
         
         static Alignment valueOf(String nameOrAbbreviation) {
@@ -817,9 +853,21 @@ public final class CellConstraints implements Cloneable {
                     + "fill, default, l, c, r, t, b, f, d.");
         }
 
-        public String toString()  { return name; }
+        public String toString() {
+            return name;
+        }
+
+        public char abbreviation() {
+            return name.charAt(0);
+        }
         
-        public char abbreviation() { return name.charAt(0); }
+        private boolean isHorizontal() {
+            return orientation != VERTICAL;
+        }
+
+        private boolean isVertical() {
+            return orientation != HORIZONTAL;
+        }
 
     }
 
