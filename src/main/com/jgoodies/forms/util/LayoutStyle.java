@@ -35,16 +35,16 @@ import com.jgoodies.forms.layout.Size;
 
 /**
  * An abstract class that describes a layout and design style guide.
- * It provides constants used to layout panels consistently.
- * <p>
+ * It provides constants used to lay out panels consistently.<p>
+ * 
  * This class is work in progress and the API may change without notice.
  * Therefore it is recommended to not write custom subclasses 
  * for production code.
  * A future version of this class will likely collaborate with a class
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
+ * @version $Revision: 1.3 $
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
  */
 
 public abstract class LayoutStyle {
