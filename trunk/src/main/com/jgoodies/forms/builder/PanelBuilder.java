@@ -78,7 +78,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * return builder.getPanel();
  * </pre>
  * 
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @author  Karsten Lentzsch
  * @see     com.jgoodies.forms.extras.I15dPanelBuilder
  * @see     com.jgoodies.forms.extras.DefaultFormBuilder
@@ -188,17 +188,54 @@ public class PanelBuilder extends AbstractFormBuilder {
     
     /**
      * Adds a label and component to the panel using the given cell constraints.
-     * Sets the given label as <i>the</i> component label using Label#setLabelFor.
+     * Sets the given label as <i>the</i> component label using 
+     * {@link JLabel#setLabelFor(java.awt.Component)}.<p>
+     * 
+     * <strong>Note:</strong> The {@link CellConstraints} objects for the label 
+     * and the component must be different. Cell constraints are implicitly 
+     * cloned by the <code>FormLayout</code> when added to the container. 
+     * However, in this case you may be tempted to reuse a 
+     * <code>CellConstraints</code> object in the same way as with many other 
+     * builder methods that require a single <code>CellConstraints</code> 
+     * parameter. 
+     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code> 
+     * just set the coordinates but do <em>not</em> create a new instance.
+     * And so the second invocation of <code>xy***(...)</code> overrides
+     * the settings performed in the first invocation before the object
+     * is cloned by the <code>FormLayout</code>.<p>
+     * 
+     * <strong>Wrong:</strong><pre>
+     * builder.add(nameLabel, 
+     *             cc.xy(1, 7),         // will be modified by the code below
+     *             nameField, 
+     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
+     *            );
+     * </pre>
+     * <strong>Correct:</strong><pre>
+     * builder.add(nameLabel, 
+     *             cc.xy(1, 7).clone(), // cloned before the next modification 
+     *             nameField, 
+     *             cc.xy(3, 7)          // sets this instance to (3, 7)
+     *            );
+     * </pre>
      * 
      * @param label                 the label to add
      * @param labelConstraints      the label's cell constraints
      * @param component             the component to add
      * @param componentConstraints  the component's cell constraints
      * @return the added label
+     * @throws IllegalArgumentException if the same cell constraints instance
+     *     is used for the label and the component
      * @see JLabel#setLabelFor(java.awt.Component)
      */
     public final JLabel add(JLabel label,        CellConstraints labelConstraints,
                              Component component, CellConstraints componentConstraints) {
+        if (labelConstraints == componentConstraints)
+            throw new IllegalArgumentException(
+                    "You must provide two CellConstraints instances, " +
+                    "one for the label and one for the component.\n" +
+                	"Consider using #clone(). See the JavaDocs for details.");
+        
         add(label,     labelConstraints);
         add(component, componentConstraints);
         label.setLabelFor(component);   
@@ -207,18 +244,56 @@ public class PanelBuilder extends AbstractFormBuilder {
     
     /**
      * Adds a label and component to the panel using the given cell constraints.
-     * Sets the given label as <i>the</i> component label using Label#setLabelFor.
+     * Sets the given label as <i>the</i> component label using 
+     * {@link JLabel#setLabelFor(java.awt.Component)}.<p>
+     * 
+     * <strong>Note:</strong> The {@link CellConstraints} objects for the label 
+     * and the component must be different. Cell constraints are implicitly 
+     * cloned by the <code>FormLayout</code> when added to the container. 
+     * However, in this case you may be tempted to reuse a 
+     * <code>CellConstraints</code> object in the same way as with many other 
+     * builder methods that require a single <code>CellConstraints</code> 
+     * parameter. 
+     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code> 
+     * just set the coordinates but do <em>not</em> create a new instance.
+     * And so the second invocation of <code>xy***(...)</code> overrides
+     * the settings performed in the first invocation before the object
+     * is cloned by the <code>FormLayout</code>.<p>
+     * 
+     * <strong>Wrong:</strong><pre>
+     * builder.add("Name:", 
+     *             cc.xy(1, 7),         // will be modified by the code below
+     *             nameField, 
+     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
+     *            );
+     * </pre>
+     * <strong>Correct:</strong><pre>
+     * builder.add("Name:", 
+     *             cc.xy(1, 7).clone(), // cloned before the next modification 
+     *             nameField, 
+     *             cc.xy(3, 7)          // sets this instance to (3, 7)
+     *            );
+     * </pre>
      * 
      * @param textWithMnemonic      the label's text - may contain a mnemonic marker
      * @param labelConstraints      the label's cell constraints
      * @param component             the component to add
      * @param componentConstraints  the component's cell constraints
      * @return the added label
+     * @throws IllegalArgumentException if the same cell constraints instance
+     *     is used for the label and the component
      * @see JLabel#setLabelFor(java.awt.Component)
      */
     public final JLabel addLabel(
         String textWithMnemonic, CellConstraints labelConstraints,
         Component component,     CellConstraints componentConstraints) {
+
+        if (labelConstraints == componentConstraints)
+            throw new IllegalArgumentException(
+                    "You must provide two CellConstraints instances, " +
+                    "one for the label and one for the component.\n" +
+                    "Consider using #clone(). See the JavaDocs for details.");
+        
         JLabel label = addLabel(textWithMnemonic, labelConstraints);
         add(component, componentConstraints);
         label.setLabelFor(component);
