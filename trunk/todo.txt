@@ -1,0 +1,23 @@
+
+JGoodies Forms(tm) To-Do
+========================
+
+o Write a tutorial
+o Extend unit tests:
+   + test rounding behavior
+   + test computed bounds
+   + test the resizing behavior
+o Overhaul the titled separator:
+   + rewrite with FormLayout or a custom layout manager
+   + offer alignments: left, center, right
+   + honor the component orientation 
+o Improve parser error messages
+
+o Discuss logical sizes
+o Discuss requirements for perceived bounds and
+  font baseline alignment
+  
+  
+o Consider the following extensions/changes:
+  + add a flag to the ButtonBarFactory for bar vs. stack
+  
