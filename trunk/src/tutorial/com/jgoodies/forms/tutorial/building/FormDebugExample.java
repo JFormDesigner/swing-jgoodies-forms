@@ -74,7 +74,7 @@ public final class FormDebugExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Building :: Debug a Form");
+        frame.setTitle("Forms Tutorial :: Debug a Form");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new FormDebugExample().buildPanel();
         frame.getContentPane().add(panel);

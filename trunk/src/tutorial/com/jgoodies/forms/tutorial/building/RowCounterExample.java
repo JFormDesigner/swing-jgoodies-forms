@@ -71,7 +71,7 @@ public final class RowCounterExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Building:: Row Counter");
+        frame.setTitle("Forms Tutorial :: Row Counter");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new RowCounterExample().buildPanel();
         frame.getContentPane().add(panel);

@@ -76,7 +76,7 @@ public final class PlainExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Building:: Plain");
+        frame.setTitle("Forms Tutorial :: Plain Building");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new PlainExample().buildPanel();
         frame.getContentPane().add(panel);

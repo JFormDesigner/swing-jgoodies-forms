@@ -54,7 +54,7 @@ public final class ButtonBarsExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Demo :: Button Bars");
+        frame.setTitle("Forms Tutorial :: Button Bars");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new ButtonBarsExample().buildPanel();
         frame.getContentPane().add(panel);

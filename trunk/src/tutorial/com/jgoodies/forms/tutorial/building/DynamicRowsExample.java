@@ -73,7 +73,7 @@ public final class DynamicRowsExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Building:: Dynamic Rows");
+        frame.setTitle("Forms Tutorial :: Dynamic Rows");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new DynamicRowsExample().buildPanel();
         frame.getContentPane().add(panel);

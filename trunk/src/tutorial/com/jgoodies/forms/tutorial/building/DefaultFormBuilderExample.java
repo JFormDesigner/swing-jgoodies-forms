@@ -75,7 +75,7 @@ public final class DefaultFormBuilderExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Building:: Default Form");
+        frame.setTitle("Forms Tutorial :: Default Form");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new DefaultFormBuilderExample().buildPanel();
         frame.getContentPane().add(panel);
