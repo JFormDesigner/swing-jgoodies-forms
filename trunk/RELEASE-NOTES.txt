@@ -40,6 +40,7 @@ OTHER CHANGES
     o Tutorial: Added example for component sizes
     o Tutorial: Added example for custom rows and DefaultFormBuilder
     o Test:     Added tests for invalid CellConstraints alignments
+    o Test:     Added tests for bounded sizes
     o Docs:     Removed comparison with HIGLayout from the whitepaper
     o Docs:     Some throws clauses added to the JavaDocs
     o Build:    process reflects the distribution changes
