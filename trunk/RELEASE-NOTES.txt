@@ -1,12 +1,13 @@
 
 
-                    JGoodies Forms, Version 1.0.5 SNAPSHOT
+                    JGoodies Forms, Version 1.0.5
                             Release Notes
                         
 
 INTRODUCTION
 
-    This maintenance release fixes bugs and ...
+    This maintenance release fixes bugs, adds features, and brings 
+    minors improvements for the code, documentation and tutorial.
     
     
 NEW FEATURES
@@ -28,18 +29,29 @@ BUGS FIXED
     
 OTHER CHANGES
 
-    o Removed unused code in class BoundedSize.
-    o Refreshed links to visual builders that support the FormLayout.
-    o Added a reference to the SWT port by the SwtForms project.
-    o Minor code cleanup: removed unused else.
-    o Added FAQ #2.6.
-    o Builders avoid the creation of obsolete FlowLayout instances.
-    o Overhauled builder constructors; marked some as deprecated.
-    o Separators created by the DefaultComponentFactory are not opaque.
-    o Corrected implementation title and vendor in the JAR manifest.
-    o Improved FormDebugPanel's constructor JavaDocs.
-    o Added overview information to the JavaDocs.
-    o DefaultUnitConverter#LAFChangeHandler -> LookAndFeelChangeHandler.
+    o Code: Builders avoid the creation of obsolete FlowLayout instances.
+    o Code: Overhauled builder constructors; marked some as deprecated.
+    o Code: Changed separators created by the DefaultComponentFactory 
+            to be opaque.
+    o Code: Renamed DefaultUnitConverter#LAFChangeHandler to 
+            LookAndFeelChangeHandler.
+    o Code: Removed unused code in class BoundedSize.
+    o Code: Minor code cleanup: removed unused else.
+    o Tut.: Added pitfall example for vertically non-filled component.
+    o Tut.: Added pitfall example for the ever-growing text area.
+    o Docs: Improved FormDebugPanel's constructor JavaDocs.
+    o Docs: Added overview information to the JavaDocs.
+    o Docs: Refreshed links to visual builders that support the FormLayout.
+    o Docs: Refreshed some FAQ items.
+    o Docs: Added FAQ #2.6: How to remove a component from the layout?
+    o Docs: Added FAQ #3.6: Why do some text areas grow and never shrink?
+    o Docs: Added a reference to the SWT port by the SwtForms project.
+    o Docs: Added a reference to Gerald Rosenberg's JFormComposer.
+    o Docs: Clarified the semantics and use case for CellConstraint insets.
+    o Docs: Indicated that FormFactory factory methods may be removed.
+    o Dist: Corrected implementation title and vendor in the JAR manifest.
+    o Dist: Added project name tag to the ANT build file.
+    o Dist: Overhauled the README.html.
     
     
 ---------------------------------------------------------------------------
