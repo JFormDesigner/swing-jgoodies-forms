@@ -37,15 +37,17 @@ import javax.swing.JLabel;
  * An interface that defines the factory methods as used by the 
  * {@link com.jgoodies.forms.builder.PanelBuilder} and its subclasses.<p>
  * 
- * The texts used in methods <code>#createLabel(String)</code> and 
- * <code>#createTitle(String)</code> can contain an optional mnemonic marker. 
- * The mnemonic and mnemonic index are indicated by a single ampersand 
- * (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, 
- * or <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself 
- * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
+ * The String arguments passed to the methods <code>#createLabel(String)</code>, 
+ * <code>#createTitle(String)</code>, and 
+ * <code>#createSeparator(String, int)</code> can contain an optional 
+ * mnemonic marker. The mnemonic and mnemonic index are indicated 
+ * by a single ampersand (<tt>&amp;</tt>). For example 
+ * <tt>&quot;&amp;Save&quot</tt>, or <tt>&quot;Save&nbsp;&amp;as&quot</tt>. 
+ * To use the ampersand itself duplicate it, for example 
+ * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
@@ -63,14 +65,15 @@ public interface ComponentFactory {
      * createLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
      * </pre>
      * 
-     * @param textWithMnemonic  the label's text - may contain a mnemonic 
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an label with optional mnemonic
      */
     public JLabel createLabel(String textWithMnemonic);
   
     
     /**
-     * Creates and returns a label that uses the foreground color
+     * Creates and returns a title label that uses the foreground color
      * and font of a <code>TitledBorder</code>.<p>
      * 
      * <pre>
@@ -80,22 +83,33 @@ public interface ComponentFactory {
      * createTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
      * </pre>
      * 
-     * @param textWithMnemonic  the title's text - may contain a mnemonic
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an emphasized title label
      */
     public JLabel createTitle(String textWithMnemonic);
     
 
     /**
-     * Creates and returns a labeled separator. Useful to separate paragraphs 
-     * in a panel, which is often a better choice than a 
-     * <code>TitledBorder</code>.
+     * Creates and returns a labeled separator. Useful to separate 
+     * paragraphs in a panel, which is often a better choice than a 
+     * <code>TitledBorder</code>.<p>
      * 
-     * @param text        the title's text
-     * @param alignment   text alignment: left, center, right 
+     * <pre>
+     * final int LEFT = SwingConstants.LEFT;
+     * createSeparator("Name",       LEFT); // No mnemonic
+     * createSeparator("N&ame",      LEFT); // Mnemonic is 'a'
+     * createSeparator("Save &as",   LEFT); // Mnemonic is the second 'a'
+     * createSeparator("Look&&Feel", LEFT); // No mnemonic, text is Look&Feel
+     * </pre>
+     * 
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @param alignment text alignment, one of <code>SwingConstants.LEFT</code>,
+     *     <code>SwingConstants.CENTER</code>, <code>SwingConstants.RIGHT</code> 
      * @return a title label with separator on the side
      */
-    public JComponent createSeparator(String text, int alignment);
+    public JComponent createSeparator(String textWithMnemonic, int alignment);
     
     
 }

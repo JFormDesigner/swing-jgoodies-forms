@@ -59,11 +59,13 @@ import com.jgoodies.forms.layout.FormLayout;
  * static rows vs. dynamically added rows. Also, you may check out the
  * Tips &amp; Tricks section of the Forms HTML documentation.<p>
  * 
- * The texts used in method <code>#addLabel</code> can contain an optional
- * mnemonic marker. The mnemonic and mnemonic index are indicated by 
- * a single ampersand (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, or 
- * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself, 
- * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * The text arguments passed to the methods <code>#addLabel</code>, 
+ * <code>#addTitle</code>, and <code>#addSeparator</code> can contain 
+ * an optional mnemonic marker. The mnemonic and mnemonic index 
+ * are indicated by a single ampersand (<tt>&amp;</tt>). For example 
+ * <tt>&quot;&amp;Save&quot</tt>, or <tt>&quot;Save&nbsp;&amp;as&quot</tt>. 
+ * To use the ampersand itself duplicate it, for example 
+ * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  * 
  * <strong>Example:</strong><br>
  * This example creates a panel with 3 columns and 3 rows.
@@ -85,7 +87,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -178,15 +180,38 @@ public class PanelBuilder extends AbstractFormBuilder {
     // Adding Labels **********************************************************
     
     /**
+     * Adds a textual label to the form using the default constraints.<p>
+     * 
+     * <pre>
+     * addLabel("Name");       // No Mnemonic
+     * addLabel("N&ame");      // Mnemonic is 'a'
+     * addLabel("Save &as");   // Mnemonic is the second 'a'
+     * addLabel("Look&&Feel"); // No mnemonic, text is "look&feel"
+     * </pre>
+     * 
+     * @param textWithMnemonic   the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @return the new label
+     * 
+     * @see ComponentFactory
+     */
+    public final JLabel addLabel(String textWithMnemonic) {
+        return addLabel(textWithMnemonic, cellConstraints());
+    }
+    
+
+    /**
      * Adds a textual label to the form using the specified constraints.<p>
      * 
      * <pre>
      * addLabel("Name",       cc.xy(1, 1)); // No Mnemonic
      * addLabel("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
+     * addLabel("Save &as",   cc.xy(1, 1)); // Mnemonic is the second 'a'
      * addLabel("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
      * </pre>
      * 
-     * @param textWithMnemonic  the label's text - may contain a mnemonic marker
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param constraints       the label's cell constraints
      * @return the new label
      * 
@@ -205,10 +230,12 @@ public class PanelBuilder extends AbstractFormBuilder {
      * <pre>
      * addLabel("Name",       "1, 1"); // No Mnemonic
      * addLabel("N&ame",      "1, 1"); // Mnemonic is 'a'
+     * addLabel("Save &as",   "1, 1"); // Mnemonic is the second 'a'
      * addLabel("Look&&Feel", "1, 1"); // No mnemonic, text is "look&feel"
      * </pre>
      * 
-     * @param textWithMnemonic    the label's text - may contain a mnemonic marker
+     * @param textWithMnemonic    the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param encodedConstraints  a string representation for the constraints
      * @return the new label
      * 
@@ -219,25 +246,6 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
     
     
-    /**
-     * Adds a textual label to the form using the default constraints.<p>
-     * 
-     * <pre>
-     * addLabel("Name");       // No Mnemonic
-     * addLabel("N&ame");      // Mnemonic is 'a'
-     * addLabel("Look&&Feel"); // No mnemonic, text is "look&feel"
-     * </pre>
-     * 
-     * @param textWithMnemonic  the label's text - may contain a mnemonic marker
-     * @return the new label
-     * 
-     * @see ComponentFactory
-     */
-    public final JLabel addLabel(String textWithMnemonic) {
-        return addLabel(textWithMnemonic, cellConstraints());
-    }
-    
-
     // Adding Label with related Component ************************************
     
     /**
@@ -300,7 +308,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @see DefaultFormBuilder
      */
     public final JLabel add(JLabel label,        CellConstraints labelConstraints,
-                             Component component, CellConstraints componentConstraints) {
+                            Component component, CellConstraints componentConstraints) {
         if (labelConstraints == componentConstraints)
             throw new IllegalArgumentException(
                     "You must provide two CellConstraints instances, " +
@@ -334,7 +342,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * 
      * <strong>Wrong:</strong><pre>
      * builder.addLabel(
-     *     "&Name:", 
+     *     "&Name:",            // Mnemonic is 'N'
      *     cc.xy(1, 7),         // will be modified by the code below
      *     nameField, 
      *     cc.xy(3, 7)          // sets the single instance to (3, 7)
@@ -354,14 +362,15 @@ public class PanelBuilder extends AbstractFormBuilder {
      * CellConstraints cc1 = new CellConstraints();
      * CellConstraints cc2 = new CellConstraints();
      * builder.addLabel(
-     *     "&Name:", 
+     *     "&Name:",           // Mnemonic is 'N'
      *     cc1.xy(1, 7),       // sets instance 1 to (1, 7)
      *     nameField, 
      *     cc2.xy(3, 7)        // sets instance 2 to (3, 7)
      * );
      * </pre>
      * 
-     * @param textWithMnemonic      the label's text - may contain a mnemonic marker
+     * @param textWithMnemonic      the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param labelConstraints      the label's cell constraints
      * @param component             the component to add
      * @param componentConstraints  the component's cell constraints
@@ -393,103 +402,159 @@ public class PanelBuilder extends AbstractFormBuilder {
     // Adding Titles ----------------------------------------------------------
      
     /**
-     * Adds a title label to the form using the specified constraints.
+     * Adds a title label to the form using the default constraints.<p>
      * 
-     * @param text         the label's title text
-     * @param constraints  the separator's cell constraints
+     * <pre>
+     * addTitle("Name");       // No mnemonic
+     * addTitle("N&ame");      // Mnemonic is 'a'
+     * addTitle("Save &as");   // Mnemonic is the second 'a'
+     * addTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * </pre>
+     * 
+     * @param textWithMnemonic   the title label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the added title label
      * 
      * @see ComponentFactory
      */
-    public final JLabel addTitle(String text, CellConstraints constraints) {
-        JLabel titleLabel = getComponentFactory().createTitle(text);
+    public final JLabel addTitle(String textWithMnemonic) {
+        return addTitle(textWithMnemonic, cellConstraints());
+    }
+     
+
+    /**
+     * Adds a title label to the form using the specified constraints.<p>
+     * 
+     * <pre>
+     * addTitle("Name",       cc.xy(1, 1)); // No mnemonic
+     * addTitle("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
+     * addTitle("Save &as",   cc.xy(1, 1)); // Mnemonic is the second 'a'
+     * addTitle("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is Look&Feel
+     * </pre>
+     * 
+     * @param textWithMnemonic   the title label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @param constraints        the separator's cell constraints
+     * @return the added title label
+     * 
+     * @see ComponentFactory
+     */
+    public final JLabel addTitle(String textWithMnemonic, CellConstraints constraints) {
+        JLabel titleLabel = getComponentFactory().createTitle(textWithMnemonic);
         add(titleLabel, constraints);
         return titleLabel;
     }
     
     
     /**
-     * Adds a title label to the form using the specified constraints.
+     * Adds a title label to the form using the specified constraints.<p>
      * 
-     * @param text                the label's text
+     * <pre>
+     * addTitle("Name",       "1, 1"); // No mnemonic
+     * addTitle("N&ame",      "1, 1"); // Mnemonic is 'a'
+     * addTitle("Save &as",   "1, 1"); // Mnemonic is the second 'a'
+     * addTitle("Look&&Feel", "1, 1"); // No mnemonic, text is Look&Feel
+     * </pre>
+     * 
+     * @param textWithMnemonic   the title label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param encodedConstraints  a string representation for the constraints
      * @return the added title label
      * 
      * @see ComponentFactory
      */
-    public final JLabel addTitle(String text, String encodedConstraints) {
-        return addTitle(text, new CellConstraints(encodedConstraints));
+    public final JLabel addTitle(String textWithMnemonic, String encodedConstraints) {
+        return addTitle(textWithMnemonic, new CellConstraints(encodedConstraints));
     }
      
     
-    /**
-     * Adds a title label to the form using the default constraints.
-     * 
-     * @param text   the separator titel
-     * @return the added title label
-     * 
-     * @see ComponentFactory
-     */
-    public final JLabel addTitle(String text) {
-        return addTitle(text, cellConstraints());
-    }
-     
-
     // Adding Separators ------------------------------------------------------
     
     /**
-     * Adds a titled separator to the form using the specified constraints.
+     * Adds a titled separator to the form that spans all columns.<p>
      * 
-     * @param text         the separator title
+     * <pre>
+     * addSeparator("Name");       // No Mnemonic
+     * addSeparator("N&ame");      // Mnemonic is 'a'
+     * addSeparator("Save &as");   // Mnemonic is the second 'a'
+     * addSeparator("Look&&Feel"); // No mnemonic, text is "look&feel"
+     * </pre>
+     * 
+     * @param textWithMnemonic   the separator label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @return the added separator
+     */
+    public final JComponent addSeparator(String textWithMnemonic) {
+        return addSeparator(textWithMnemonic, getLayout().getColumnCount());
+    }
+    
+
+    /**
+     * Adds a titled separator to the form using the specified constraints.<p>
+     * 
+     * <pre>
+     * addSeparator("Name",       cc.xy(1, 1)); // No Mnemonic
+     * addSeparator("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
+     * addSeparator("Save &as",   cc.xy(1, 1)); // Mnemonic is the second 'a'
+     * addSeparator("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
+     * </pre>
+     * 
+     * @param textWithMnemonic   the separator label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param constraints  the separator's cell constraints
      * @return the added separator
      */
-    public final JComponent addSeparator(String text, CellConstraints constraints) {
+    public final JComponent addSeparator(String textWithMnemonic, CellConstraints constraints) {
         int titleAlignment = isLeftToRight()
                 ? SwingConstants.LEFT
                 : SwingConstants.RIGHT;
         JComponent titledSeparator =
-            getComponentFactory().createSeparator(text, titleAlignment);
+            getComponentFactory().createSeparator(textWithMnemonic, titleAlignment);
         add(titledSeparator, constraints);
         return titledSeparator;
     }
     
     
     /**
-     * Adds a titled separator to the form using the specified constraints.
+     * Adds a titled separator to the form using the specified constraints.<p>
      * 
-     * @param text                the separator titel
+     * <pre>
+     * addSeparator("Name",       "1, 1"); // No Mnemonic
+     * addSeparator("N&ame",      "1, 1"); // Mnemonic is 'a'
+     * addSeparator("Save &as",   "1, 1"); // Mnemonic is the second 'a'
+     * addSeparator("Look&&Feel", "1, 1"); // No mnemonic, text is "look&feel"
+     * </pre>
+     * 
+     * @param textWithMnemonic   the separator label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param encodedConstraints  a string representation for the constraints
      * @return the added separator
      */
-    public final JComponent addSeparator(String text, String encodedConstraints) {
-        return addSeparator(text, new CellConstraints(encodedConstraints));
+    public final JComponent addSeparator(String textWithMnemonic, String encodedConstraints) {
+        return addSeparator(textWithMnemonic, new CellConstraints(encodedConstraints));
     }
      
     
     /**
-     * Adds a titled separator to the form that spans the specified columns.
+     * Adds a titled separator to the form that spans the specified columns.<p>
      * 
-     * @param text  		the separator titel
+     * <pre>
+     * addSeparator("Name",       3); // No Mnemonic
+     * addSeparator("N&ame",      3); // Mnemonic is 'a'
+     * addSeparator("Save &as",   3); // Mnemonic is the second 'a'
+     * addSeparator("Look&&Feel", 3); // No mnemonic, text is "look&feel"
+     * </pre>
+     * 
+     * @param textWithMnemonic   the separator label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param columnSpan	the number of columns the separator spans
      * @return the added separator
      */
-    public final JComponent addSeparator(String text, int columnSpan) {
-        return addSeparator(text, createLeftAdjustedConstraints(columnSpan));
+    public final JComponent addSeparator(String textWithMnemonic, int columnSpan) {
+        return addSeparator(textWithMnemonic, createLeftAdjustedConstraints(columnSpan));
     }
     
      
-    /**
-     * Adds a titled separator to the form that spans all columns.
-     * 
-     * @param text  the separator titel
-     * @return the added separator
-     */
-    public final JComponent addSeparator(String text) {
-        return addSeparator(text, getLayout().getColumnCount());
-    }
-    
-
     // Accessing the ComponentFactory *****************************************
     
     /**
