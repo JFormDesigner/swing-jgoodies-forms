@@ -32,10 +32,16 @@ package com.jgoodies.forms.factories;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
+
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.Sizes;
 
 /**
  * A singleton implementaton of the {@link ComponentFactory} interface
@@ -43,7 +49,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -58,6 +64,9 @@ public class DefaultComponentFactory implements ComponentFactory {
      * The character used to indicate the mnemonic position for labels. 
      */
     private static final char MNEMONIC_MARKER = '&';
+    
+    private static final ColumnSpec PREF_GROWING_COL_SPEC = 
+        new ColumnSpec(ColumnSpec.FILL, Sizes.PREFERRED, ColumnSpec.DEFAULT_GROW);
         
         
     // Instance *************************************************************
@@ -99,27 +108,13 @@ public class DefaultComponentFactory implements ComponentFactory {
      * @return an emphasized title label
      */
     public JLabel createTitle(String textWithMnemonic) {
-        return createTitle(textWithMnemonic, 0);
-    }
-    
-    
-    /**
-     * Creates and return a label that uses the foreground color
-     * and font of a <code>TitledBorder</code>.
-     * 
-     * @param textWithMnemonic  the title's text - may contain a mnemonic
-     * @param gap               the right-hand side gap
-     * @return an emphasized title label
-     */
-    private JLabel createTitle(String textWithMnemonic, int gap) {
         JLabel label = new TitleLabel();
         setTextAndMnemonic(label, textWithMnemonic);
         label.setVerticalAlignment(SwingConstants.CENTER);
-        label.setBorder(BorderFactory.createEmptyBorder(1, 0, 1, gap));
         return label;
     }
     
-
+    
     /**
      * Creates and returns a labeled separator with the label in the left-hand
      * side. Useful to separate paragraphs in a panel; often a better choice 
@@ -135,39 +130,60 @@ public class DefaultComponentFactory implements ComponentFactory {
     /**
      * Creates and returns a labeled separator. Useful to separate paragraphs 
      * in a panel, which is often a better choice than a 
-     * <code>TitledBorder</code>.<p>
-     * 
-     * TODO: Honor the alignment.
+     * <code>TitledBorder</code>.
      * 
      * @param text  the title's text
      * @param alignment   text alignment: left, center, right 
      * @return a separator with title label 
      */
     public JComponent createSeparator(String text, int alignment) {
-        JPanel header = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx = 0.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.SOUTHWEST;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 3;
-        if (text != null && text.length() > 0) {
-            header.add(createTitle(text, 4), gbc);
+        if (text == null || text.length() == 0) {
+            return new JSeparator();
         }
-
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridheight = 1;
-        JSeparator separator = new JSeparator();
-        header.add(Box.createGlue(), gbc);
-        gbc.weighty = 0.0;
-        header.add(separator, gbc);
-        gbc.weighty = 1.0;
-        header.add(Box.createGlue(), gbc);
-
-        return header;
+        JLabel title = createTitle(text);
+        JPanel panel = new JPanel();
+        ColumnSpec gapSpec = new ColumnSpec(
+                isLafAqua() ? Sizes.ZERO : Sizes.DLUX3);
+        FormLayout layout;
+        CellConstraints cc = new CellConstraints();
+        if (alignment == SwingConstants.LEFT) {
+            layout = new FormLayout(
+                    new ColumnSpec[]{
+                            FormFactory.PREF_COLSPEC,
+                            gapSpec,
+                            PREF_GROWING_COL_SPEC},
+                    new RowSpec[] {
+                            FormFactory.PREF_ROWSPEC});
+            panel.setLayout(layout);
+            panel.add(title,            cc.xy(1, 1));
+            panel.add(new JSeparator(), cc.xy(3, 1));
+        } else if (alignment == SwingConstants.RIGHT) {
+            layout = new FormLayout(
+                    new ColumnSpec[]{
+                            PREF_GROWING_COL_SPEC,
+                            gapSpec,
+                            FormFactory.PREF_COLSPEC},
+                    new RowSpec[] {
+                            FormFactory.PREF_ROWSPEC});
+            panel.setLayout(layout);
+            panel.add(new JSeparator(), cc.xy(1, 1));
+            panel.add(title,            cc.xy(3, 1));
+        } else if (alignment == SwingConstants.CENTER) {
+            layout = new FormLayout(
+                    new ColumnSpec[]{
+                            PREF_GROWING_COL_SPEC,
+                            gapSpec,
+                            FormFactory.PREF_COLSPEC,
+                            gapSpec,
+                            PREF_GROWING_COL_SPEC},
+                    new RowSpec[] {
+                            FormFactory.PREF_ROWSPEC});
+            panel.setLayout(layout);
+            panel.add(new JSeparator(), cc.xy(1, 1));
+            panel.add(title,            cc.xy(3, 1));
+            panel.add(new JSeparator(), cc.xy(5, 1));
+        } 
+        return panel;
     }
     
     
@@ -235,9 +251,6 @@ public class DefaultComponentFactory implements ComponentFactory {
         }
         
         /**
-         * TODO: The Mac Java 1.4.1_01 Aqua l&amp;f uses a title font that is 
-         * a little bit too small and plain. Use a bold label font instead.
-         * 
          * TODO: Consider asking a <code>TitledBorder</code> instance for its 
          * font and font color use <code>#getTitleFont</code> and 
          * <code>#getTitleColor</code> for the Synth-based looks.
@@ -257,10 +270,67 @@ public class DefaultComponentFactory implements ComponentFactory {
                 : UIManager.getFont("TitledBorder.font");
         }
         
-        private boolean isLafAqua() {
-            return UIManager.getLookAndFeel().getName().startsWith("Mac OS X Aqua");
+    }
+    
+    
+    // TODO: Move the code below this line to a new class 
+    // com.jgoodies.forms.util.Utilities 
+
+    // Caching and Lazily Computing the Laf State *****************************
+    
+    /**
+     * Holds the cached result of the Aqua l&amp;f check.
+     * Is invalidated by the <code>LookAndFeelChangeHandler</code>
+     * if the look&amp;feel changes.
+     */
+    private static Boolean cachedIsLafAqua;
+    
+    /**
+     * Describes whether the <code>LookAndFeelChangeHandler</code>
+     * has been registered with the <code>UIManager</code> or not.
+     * It is registered lazily when the first cached l&amp;f state is computed.
+     */
+    private static boolean changeHandlerRegistered = false;
+    
+    private synchronized static void ensureLookAndFeelChangeHandlerRegistered() {
+        if (!changeHandlerRegistered)
+            UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
+    }
+    
+    /**
+     * Lazily checks and answers whether the Aqua look&amp;feel is active.
+     * 
+     * @return true if the current look&amp;feel is Aqua
+     */
+    private static boolean isLafAqua() {
+        if (cachedIsLafAqua == null) {
+            cachedIsLafAqua = Boolean.valueOf(computeIsLafAqua());
+            ensureLookAndFeelChangeHandlerRegistered();
         }
-        
+        return cachedIsLafAqua.booleanValue();
+    }
+    
+    /**
+     * Computes and answers whether the Aqua look&amp;feel is active.
+     * 
+     * @return true if the current look&amp;feel is Aqua
+     */
+    private static boolean computeIsLafAqua() {
+        LookAndFeel laf = UIManager.getLookAndFeel();
+        return laf.getName().startsWith("Mac OS X Aqua");
     }
 
+    // Handles l&amp;f changes
+    private static class LookAndFeelChangeHandler implements PropertyChangeListener {
+        
+        /**
+         * Invalidates the cached laf states if the look&amp;feel changes.
+         * 
+         * @param evt  describes the property change
+         */
+        public void propertyChange(PropertyChangeEvent evt) {
+            cachedIsLafAqua = null;
+        }
+    }
+    
 }
