@@ -32,7 +32,7 @@ package com.jgoodies.forms.tutorial.building;
 
 import javax.swing.*;
 
-import com.jgoodies.forms.extras.DefaultFormBuilder;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
@@ -44,12 +44,11 @@ import com.jgoodies.forms.layout.RowSpec;
  * <li> standard + custom row, 
  * <li> multiple standard rows.
  * </ol>
- * 
- * They differ in the position of the 'Comment' label, the alignment 
+ * These differ in the position of the 'Comment' label, the alignment 
  * of font baselines and the height of the custom row. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see    DefaultFormBuilder
  * @see    DefaultFormWithCustomAreasExample
@@ -87,15 +86,15 @@ public final class DefaultFormWithCustomRowsExample {
      *  Creates and intializes the UI components.
      */
     private void initComponents() {
-        name1Field     = new JTextField("Name  (font baselines shall be aligned)");
+        name1Field     = new JTextField("Name - font baselines shall be aligned");
+        name2Field     = new JTextField("Name - font baselines shall be aligned");
+        name3Field     = new JTextField("Name - font baselines shall be aligned");
         comment1Area   = new JTextArea(2, 20);
-        comment1Area.setText("The label is a little bit too high.\nLikely the font baselines are unaligned.");
-        name2Field     = new JTextField("Name  (font baselines shall be aligned)");
         comment2Area   = new JTextArea(2, 20);
-        comment2Area.setText("The label is positioned well.\nThe font baselines shall be aligned.");
-        name3Field     = new JTextField("Name  (font baselines shall be aligned)");
         comment3Area   = new JTextArea(2, 20);
-        comment3Area.setText("The label is positioned well.\nThe font baselines shall be aligned.");
+        comment1Area.setText("Comment - likely baselines are unaligned");
+        comment2Area.setText("Comment - baselines shall be aligned");
+        comment3Area.setText("Comment - baselines shall be aligned");
     }
 
 
