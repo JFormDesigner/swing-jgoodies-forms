@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see	PlainExample
  * @see	RowCounterExample
@@ -79,11 +79,11 @@ public final class DynamicRowsExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Dynamic Rows");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new DynamicRowsExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
     
 
