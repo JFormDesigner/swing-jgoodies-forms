@@ -7,7 +7,8 @@
 INTRODUCTION
 
     This release is primarily a documentation and distribution update; 
-    it contains no API changes and only a minor new feature in the extras.
+    it contains no API changes, only a minor new feature in the extras.
+
 
 
 DISTRIBUTION CHANGES
@@ -18,24 +19,31 @@ DISTRIBUTION CHANGES
     o Library sources ship as a single ZIP file  
 
 
+
 NEW FEATURES
 
     o Extras:   DefaultFormBuilder.appendComponentRow(RowSpec)
     
+
     
 BUGS FIXED
 
     o Tutorial: Corrected FormDebugExample.main 
     
+
     
 OTHER CHANGES
 
+    o Main:     Added sanity checks for invalid CellConstraints alignments
     o Main:     Minor code cleanup: removed obsolete casts and semicolons
     o Main:     Library compiled against 1.3 but with Sun's javac 1.4.2
+    o Test:     Added tests for invalid CellConstraints alignments
     o Build:    process reflects the distribution changes
 
 
+
 -------------------------------------------------------------------------------
+
 
 Find below the change history for older releases.
 
