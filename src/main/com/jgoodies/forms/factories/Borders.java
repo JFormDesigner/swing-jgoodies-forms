@@ -39,22 +39,21 @@ import javax.swing.border.Border;
 
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.Sizes;
+import com.jgoodies.forms.util.LayoutStyle;
 
 /**
  * Provides constants and factory methods for <code>Border</code>s that use
- * instances of {@link ConstantSize} to define the margins.
- * <p>
- * <b>Examples:</b><br>
+ * instances of {@link ConstantSize} to define the margins.<p>
+ * 
+ * <strong>Examples:</strong><br>
  * <pre>
  * Borders.DLU2_BORDER
  * Borders.createEmptyBorder(Sizes.DLUY4, Sizes.DLUX2, Sizes.DLUY4, Sizes.DLUX2);
  * Borders.createEmptyBorder("4dlu, 2dlu, 4dlu, 2dlu");
  * </pre>
- * <p>
- * TODO: Honor the current LayoutStyle
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see     Border
  * @see     Sizes
  */
@@ -68,7 +67,8 @@ public final class Borders {
      */ 
     public static final Border EMPTY_BORDER = 
         new javax.swing.border.EmptyBorder(0, 0, 0, 0);
-        
+    
+    
     /**
      * A prepared and reusable Border with 2dlu on all sides.
      */ 
@@ -77,7 +77,8 @@ public final class Borders {
                           Sizes.DLUX2, 
                           Sizes.DLUY2, 
                           Sizes.DLUX2);
-                        
+    
+    
     /**
      * A prepared and reusable Border with 4dlu on all sides.
      */ 
@@ -86,7 +87,8 @@ public final class Borders {
                           Sizes.DLUX4, 
                           Sizes.DLUY4, 
                           Sizes.DLUX4);
-                        
+
+    
     /**
      * A prepared and reusable Border with 7dlu on all sides.
      */ 
@@ -95,7 +97,8 @@ public final class Borders {
                           Sizes.DLUX7, 
                           Sizes.DLUY7, 
                           Sizes.DLUX7);
-                        
+
+    
     /**
      * A prepared Border with 14dlu on all sides.
      */ 
@@ -104,39 +107,52 @@ public final class Borders {
                           Sizes.DLUX14, 
                           Sizes.DLUY14, 
                           Sizes.DLUX14);
-                        
+
+    
     /**
      * A standardized Border that describes the gap between a dialog
-     * content and a bottom button bar.
-     * A future version of this constant shall honor the 
-     * {@link com.jgoodies.forms.util.LayoutStyle}.
+     * content and a bottom button bar.<p>
+     * 
+     * TODO: Honor the current {@link com.jgoodies.forms.util.LayoutStyle}.
      */ 
     public static final Border BUTTON_BAR_GAP_BORDER = 
         createEmptyBorder(Sizes.DLUY6, Sizes.ZERO, Sizes.ZERO, Sizes.ZERO);
-                        
+
+    
     /**
      * A standardized Border that describes the border around 
      * a dialog content that has no tabs.
-     * A future version of this constant shall honor the 
-     * {@link com.jgoodies.forms.util.LayoutStyle}.
+     * 
+     * @see #TABBED_DIALOG_BORDER
      */ 
     public static final Border DIALOG_BORDER = 
-        DLU7_BORDER;
-        
+        createEmptyBorder(
+            LayoutStyle.getCurrent().getDialogMarginY(),
+            LayoutStyle.getCurrent().getDialogMarginX(),
+            LayoutStyle.getCurrent().getDialogMarginY(),
+            LayoutStyle.getCurrent().getDialogMarginX()
+        );
+
+    
     /**
      * A standardized Border that describes the border around 
      * a dialog content that uses tabs.
-     * A future version of this constant shall honor the 
-     * {@link com.jgoodies.forms.util.LayoutStyle}.
+     * 
+     * @see #DIALOG_BORDER
      */ 
     public static final Border TABBED_DIALOG_BORDER = 
-        DLU4_BORDER;
+        createEmptyBorder(
+                LayoutStyle.getCurrent().getTabbedDialogMarginY(),
+                LayoutStyle.getCurrent().getTabbedDialogMarginX(),
+                LayoutStyle.getCurrent().getTabbedDialogMarginY(),
+                LayoutStyle.getCurrent().getTabbedDialogMarginX()
+        );
     
     
     // Factory Methods ******************************************************
     
     /**
-     * Creates and answers an <code>EmptyBorder</code> with the specified
+     * Creates and returns an <code>EmptyBorder</code> with the specified
      * gaps.
      * 
      * @param top		the top gap
@@ -144,6 +160,8 @@ public final class Borders {
      * @param bottom	the bottom gap
      * @param right	the right-hand side gap
      * @return an <code>EmptyBorder</code> with the specified gaps
+     * 
+     * @see #createEmptyBorder(String)
      */
     public static Border createEmptyBorder(ConstantSize top,   ConstantSize left, 
                                             ConstantSize bottom, ConstantSize right) {
@@ -151,12 +169,14 @@ public final class Borders {
     }
     
     /**
-     * Creates and answers a <code>Border</code> using sizes as specified by
+     * Creates and returns a <code>Border</code> using sizes as specified by
      * the given string. This string is a comma-separated encoding of
      * 4 <code>ConstantSize</code>s.
      * 
      * @param encodedSizes	 top, left, bottom, right gap encoded as String
      * @return an <code>EmptyBorder</code> with the specified gaps
+     * 
+     * @see #createEmptyBorder(ConstantSize, ConstantSize, ConstantSize, ConstantSize)
      */
     public static Border createEmptyBorder(String encodedSizes) {
         StringTokenizer tokenizer = new StringTokenizer(encodedSizes, ", ");
@@ -172,10 +192,14 @@ public final class Borders {
         ConstantSize right  = Sizes.constant(tokenizer.nextToken(), true);
         return createEmptyBorder(top, left, bottom, right);
     }
+    
 
     /**
      * An empty border that uses 4 instances of {@link ConstantSize} 
-     * to define the gaps on all sides.
+     * to define the gaps on all sides.<p>
+     * 
+     * TODO: Consider providing read-access to the four constant sizes
+     * so that interactive builders can read the sizes.
      */    
     public static final class EmptyBorder implements Border {
         
@@ -184,10 +208,10 @@ public final class Borders {
         private final ConstantSize bottom;
         private final ConstantSize right;
         
-        EmptyBorder(ConstantSize top, 
-                                ConstantSize left,
-                                ConstantSize bottom,
-                                ConstantSize right) {
+        private EmptyBorder(ConstantSize top, 
+                    ConstantSize left,
+                    ConstantSize bottom,
+                    ConstantSize right) {
             this.top    = top;
             this.left   = left;
             this.bottom = bottom;
