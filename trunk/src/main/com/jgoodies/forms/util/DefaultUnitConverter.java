@@ -56,9 +56,9 @@ import javax.swing.UIManager;
  * The DefaultUnitConverter computes dialog base units using a default font 
  * and a test string for the average character width. You can configure
  * the font and the test string via the bound Bean properties
- * <i>defaultDialogFont</i> and <i>averageCharacterWidthTestString</i>. 
+ * <em>defaultDialogFont</em> and <em>averageCharacterWidthTestString</em>. 
  * 
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -278,15 +278,17 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     }
     
     /**
-     * Computes and answers the horizontal dialog base units. 
+     * Computes and returns the horizontal dialog base units. 
      * Honors the font, font size and resolution.<p>
      * 
      * Implementation Note: 14dluY map to 22 pixel for 8pt Tahoma on 96 dpi.
      * I could not yet manage to compute the Microsoft compliant font height.
      * Therefore this method adds a correction value that seems to work
-     * well with the vast majority of desktops.
-     * Anyway, I plan to revise this, as soon as I have more information
-     * about the original computation for vertical dialog base units.
+     * well with the vast majority of desktops.<p>
+     * 
+     * TODO: revise the computation of vertical base untis, as soon as 
+     * there are more information about the original computation 
+     * in Microsoft environments.
      * 
      * @param metrics  the FontMetrics used to measure the dialog font
      * @return the horizontal and vertical dialog base units
