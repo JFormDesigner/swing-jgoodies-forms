@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see	PlainExample
  * @see	DynamicRowsExample
@@ -143,7 +143,7 @@ public final class RowCounterExample {
         CellConstraints cc = new CellConstraints();
         int row = 1;
 
-        builder.addSeparator("Shaft",     cc.xywh(1, row++, 7, 1));
+        builder.addSeparator("Shaft",     cc.xyw (1, row++, 7));
         row++;
         
         builder.addLabel("Identifier",    cc.xy  (1, row));
@@ -162,7 +162,7 @@ public final class RowCounterExample {
         builder.add(iceClassComboBox,     cc.xy  (7, row++));
         row++;
 
-        builder.addSeparator("Comments",  cc.xywh(1, row++, 7, 1));
+        builder.addSeparator("Comments",  cc.xyw (1, row++, 7));
         row++;
         
         builder.addLabel("Machinery",     cc.xy  (1, row));

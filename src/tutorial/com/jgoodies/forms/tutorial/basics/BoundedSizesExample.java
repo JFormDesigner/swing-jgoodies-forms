@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public final class BoundedSizesExample {
 
@@ -118,14 +118,14 @@ public final class BoundedSizesExample {
         builder.setDefaultDialogBorder();
         CellConstraints cc = new CellConstraints();
 
-        builder.addLabel("File number:",        cc.xy  (1,  1));
-        builder.add(new JTextField(),           cc.xywh(3,  1, 7, 1));
-        builder.addLabel("RFQ number:",         cc.xy  (1,  3));
-        builder.add(new JTextField(),           cc.xywh(3,  3, 7, 1));
-        builder.addLabel("Entry date:",         cc.xy  (1,  5));
-        builder.add(new JTextField(),           cc.xy  (3,  5));
-        builder.addLabel("Sales Person:",       cc.xy  (1,  7));
-        builder.add(new JTextField(),           cc.xywh(3,  7, 7, 1));
+        builder.addLabel("File number:",        cc.xy (1,  1));
+        builder.add(new JTextField(),           cc.xyw(3,  1, 7));
+        builder.addLabel("RFQ number:",         cc.xy (1,  3));
+        builder.add(new JTextField(),           cc.xyw(3,  3, 7));
+        builder.addLabel("Entry date:",         cc.xy (1,  5));
+        builder.add(new JTextField(),           cc.xy (3,  5));
+        builder.addLabel("Sales Person:",       cc.xy (1,  7));
+        builder.add(new JTextField(),           cc.xyw(3,  7, 7));
         
         return builder.getPanel();
     }
@@ -143,18 +143,18 @@ public final class BoundedSizesExample {
         builder.setDefaultDialogBorder();
         CellConstraints cc = new CellConstraints();
 
-        builder.addLabel("Shipper:",            cc.xy  (1, 1));
-        builder.add(new JTextField(),           cc.xy  (3, 1));
-        builder.add(new JTextField(),           cc.xywh(5, 1, 5, 1));
-        builder.addLabel("Consignee:",          cc.xy  (1, 3));
-        builder.add(new JTextField(),           cc.xy  (3, 3));
-        builder.add(new JTextField(),           cc.xywh(5, 3, 5, 1));
-        builder.addLabel("Departure:",          cc.xy  (1, 5));
-        builder.add(new JTextField(),           cc.xy  (3, 5));
-        builder.add(new JTextField(),           cc.xywh(5, 5, 5, 1));
-        builder.addLabel("Destination:",        cc.xy  (1, 7));
-        builder.add(new JTextField(),           cc.xy  (3, 7));
-        builder.add(new JTextField(),           cc.xywh(5, 7, 5, 1));
+        builder.addLabel("Shipper:",            cc.xy (1, 1));
+        builder.add(new JTextField(),           cc.xy (3, 1));
+        builder.add(new JTextField(),           cc.xyw(5, 1, 5));
+        builder.addLabel("Consignee:",          cc.xy (1, 3));
+        builder.add(new JTextField(),           cc.xy (3, 3));
+        builder.add(new JTextField(),           cc.xyw(5, 3, 5));
+        builder.addLabel("Departure:",          cc.xy (1, 5));
+        builder.add(new JTextField(),           cc.xy (3, 5));
+        builder.add(new JTextField(),           cc.xyw(5, 5, 5));
+        builder.addLabel("Destination:",        cc.xy (1, 7));
+        builder.add(new JTextField(),           cc.xy (3, 7));
+        builder.add(new JTextField(),           cc.xyw(5, 7, 5));
         
         return builder.getPanel();
     }

@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how components can span multiple columns and rows.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public final class SpanExample {
     
@@ -92,18 +92,18 @@ public final class SpanExample {
         panel.setBorder(Borders.DIALOG_BORDER);
         CellConstraints cc = new CellConstraints();
 
-        panel.add(new JLabel("Name:"),     cc.xy  (1, 1));
-        panel.add(new JTextField(),        cc.xywh(3, 1, 3, 1));
+        panel.add(new JLabel("Name:"),     cc.xy (1, 1));
+        panel.add(new JTextField(),        cc.xyw(3, 1, 3));
         
-        panel.add(new JLabel("Phone:"),    cc.xy  (1, 3));
-        panel.add(new JTextField(),        cc.xywh(3, 3, 3, 1));
+        panel.add(new JLabel("Phone:"),    cc.xy (1, 3));
+        panel.add(new JTextField(),        cc.xyw(3, 3, 3));
         
-        panel.add(new JLabel("ZIP/City:"), cc.xy  (1, 5));
-        panel.add(new JTextField(),        cc.xy  (3, 5));
-        panel.add(new JTextField(),        cc.xy  (5, 5));
+        panel.add(new JLabel("ZIP/City:"), cc.xy (1, 5));
+        panel.add(new JTextField(),        cc.xy (3, 5));
+        panel.add(new JTextField(),        cc.xy (5, 5));
         
-        panel.add(new JLabel("Country:"),  cc.xy  (1, 7));
-        panel.add(new JTextField(),        cc.xywh(3, 7, 3, 1));
+        panel.add(new JLabel("Country:"),  cc.xy (1, 7));
+        panel.add(new JTextField(),        cc.xyw(3, 7, 3));
         
         return panel;
     }
