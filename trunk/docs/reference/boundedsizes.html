@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>JGoodies Forms :: Reference :: Sizes</title>
+	<title>JGoodies Forms :: Reference :: Bounded Sizes</title>
         <link rel="stylesheet" type="text/css" href="../style.css" >
 	<meta name="description" content="The JGoodies Forms helps you layout and implement elegant Panel quickly and consistently.">
 	<meta name="author"	 content="Karsten Lentzsch">
@@ -15,7 +15,7 @@
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
     <td colspan="3" bgcolor="DDDCDC"><a href="../../README.html"><img 
-	src="../images/banner.gif" width="436" height="46" alt=":: JGOODIES Looks :: Professional Swing Look&amp;Feels" border="0"></a></td>
+	src="../images/banner.gif" width="436" height="46" alt=":: JGOODIES :: Forms" border="0"></a></td>
 </tr>
 <tr>
     <td colspan="3" height="1" bgcolor="C9C8C8"></td>
@@ -39,7 +39,6 @@
 	<br>::&nbsp;<a class="nav" href="../tutorial/basics.html">Basics</a>
 	<br>::&nbsp;<a class="nav" href="../tutorial/building.html">Building</a>
 	<br>::&nbsp;<a class="nav" href="../tutorial/factories.html">Factories</a>
-	<br>::&nbsp;<a class="nav" href="../tutorial/debugging.html">Debugging</a>
 	<p>
 	<b>Reference</b>
 	<br>::&nbsp;<a class="nav" href="alignments.html">Alignments</a>
@@ -108,11 +107,18 @@ boundedSize ::=   MIN(constantSize;componentSize)
                 | MAX(constantSize;componentSize)
 </pre>
 
+    <b>Note:</b> The string representation uses <i>max</i>
+    to specify a minimum size, and <i>min</i> to specify a maximum size.
+    Think of this as a function - like <tt>Math.max</tt> and <tt>Math.min</tt>.
+    The max function provides a lower bound, the min function an upper bound.
+    
+    
+
 
 	<h2>Examples</h2><pre>
-new ColumnSpec("max(50dlu;pref)");
+new ColumnSpec("max(50dlu;pref)");  // maximum of 50dlu and pref size
 
-new RowSpec("min(pref;100dlu)");
+new RowSpec("min(pref;100dlu)");    // minimum of pref size and 100dlu
 
 new FormLayout("max(50dlu;pref), 4dlu, max(100dlu;min)", 
                "p, 3dlu, p, 3dlu, max(200dlu;p):grow");
