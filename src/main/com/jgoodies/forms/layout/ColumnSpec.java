@@ -33,9 +33,9 @@ package com.jgoodies.forms.layout;
 
 /**
  * Specifies columns in {@link FormLayout} by their default orientation, start
- * size and resizing behavior.
- * <p>
- * <b>Examples:</b><br>
+ * size and resizing behavior.<p>
+ * 
+ * <strong>Examples:</strong><br>
  * The following examples specify a column with FILL alignment, a size of 
  * 10&nbsp;dlu that won't grow.
  * <pre>
@@ -45,13 +45,13 @@ package com.jgoodies.forms.layout;
  * new ColumnSpec("10dlu");
  * new ColumnSpec("10dlu:0");
  * new ColumnSpec("fill:10dlu:0");
- * </pre>
- * <p>
+ * </pre><p>
+ * 
  * The {@link com.jgoodies.forms.factories.FormFactory} provides
  * predefined frequently used <code>ColumnSpec</code> instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 
