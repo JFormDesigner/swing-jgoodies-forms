@@ -37,17 +37,19 @@ import java.io.Serializable;
 import java.util.StringTokenizer;
 
 /**
- * Defines constraints for components that are layed out with the
- * {@link FormLayout}. Defines the components display area: 
- * grid&nbsp;x, grid&nbsp;y, grid width (column span), 
- * grid height (row span), horizontal alignment and vertical alignment.<p>
+ * Defines constraints for components that are layed out with the FormLayout.
+ * Defines the components display area: grid&nbsp;x, grid&nbsp;y, 
+ * grid width (column span), grid height (row span), horizontal alignment 
+ * and vertical alignment.<p>
  * 
  * Most methods return <em>this</em> object to enable method chaining.<p>
  * 
  * You can set optional insets in a constructor. This is useful if you
  * need to use a pixel-size insets to align perceived component bounds
- * with pixel data, for example an icon.
- * Anyway, this feature is rarely used.<p>
+ * with pixel data, for example an icon. Anyway, this is rarely used.
+ * The insets don't affect the size computation for columns and rows.
+ * I consider renaming the insets to offsets to better indicate the
+ * motivation for this option.<p>
  * 
  * <strong>Examples</strong>:<br>
  * The following cell constraints locate a component in the third
@@ -68,10 +70,12 @@ import java.util.StringTokenizer;
  * cc.xywh(3, 5, 1, 1, CellConstraints.RIGHT, CellConstraints.BOTTOM);
  * cc.xywh(3, 5, 1, 1, "right, bottom"); 
  * </pre>
- * See also the examples in the {@link FormLayout} class comment.
+ * See also the examples in the {@link FormLayout} class comment.<p>
+ * 
+ * TODO: Consider renaming the inset to offsets.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
