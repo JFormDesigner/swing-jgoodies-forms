@@ -72,24 +72,52 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
+ * 
+ * @see ButtonBarBuilder
+ * @see com.jgoodies.forms.factories.ButtonBarFactory
+ * @see com.jgoodies.forms.util.LayoutStyle
  */
 public final class ButtonStackBuilder extends PanelBuilder {
     
+    /**
+     * Specifies the FormLayout's the single button stack column.
+     */
     private static final ColumnSpec[] COL_SPECS =
         new ColumnSpec[] { FormFactory.BUTTON_COLSPEC };
         
-    private static final RowSpec[]    ROW_SPECS = 
+    /**
+     * Specifies the rows of the initial FormLayout used in constructors.
+     */
+    private static final RowSpec[] ROW_SPECS = 
         new RowSpec[]{};
     
-    private static final String       NARROW_KEY = "jgoodies.isNarrow";
+    /**
+     * The client property key used to indicate that a button shall
+     * get narrow margins on the left and right hand side.<p>
+     * 
+     * This optional setting will be honored by all JGoodies Look&amp;Feel 
+     * implementations. The Mac Aqua l&amp;f uses narrow margins only.
+     * Other look&amp;feel implementations will likely ignore this key
+     * and so may render a wider button margin.
+     */
+    private static final String NARROW_KEY = "jgoodies.isNarrow";
     
     
     // Instance Creation ****************************************************
 
     /**
+     * Constructs an instance of <code>ButtonStackBuilder</code> on a default
+     * <code>JPanel</code> using a preconfigured FormLayout as layout manager.
+     */
+    public ButtonStackBuilder() {
+        this(new JPanel(null));
+    }
+
+
+    /**
      * Constructs an instance of <code>ButtonStackBuilder</code> on the given
-     * panel.
+     * panel using a preconfigured FormLayout as layout manager.
      * 
      * @param panel   the layout container
      */
@@ -97,15 +125,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
         super(panel, new FormLayout(COL_SPECS, ROW_SPECS));
     }
 
-    /**
-     * Constructs an instance of <code>ButtonStackBuilder</code> on a default
-     * <code>JPanel</code>.
-     */
-    public ButtonStackBuilder() {
-        this(new JPanel());
-    }
-
-
+    
     // Adding Components ****************************************************
     
     /**

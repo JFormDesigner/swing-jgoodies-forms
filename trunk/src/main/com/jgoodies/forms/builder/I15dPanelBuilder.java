@@ -56,7 +56,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @since 1.0.3
  * 
  * @see	ResourceBundle
@@ -94,7 +94,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      * @param bundle    the resource bundle used to lookup i15d strings
      */
     public I15dPanelBuilder(FormLayout layout, ResourceBundle bundle){        
-        this(new JPanel(), layout, bundle);
+        this(new JPanel(null), layout, bundle);
     }
 
 
