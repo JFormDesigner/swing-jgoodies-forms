@@ -51,7 +51,7 @@ public final class TestPanel {
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
         frame.setTitle("FormLayout Demo");

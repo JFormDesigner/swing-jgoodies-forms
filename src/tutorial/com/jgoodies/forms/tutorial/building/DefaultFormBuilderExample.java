@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * rows before the panel is filled with components. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see     DefaultFormBuilder
  * @see     PlainExample
@@ -74,7 +74,7 @@ public final class DefaultFormBuilderExample {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
             // Likely PlasticXP is not in the class path; ignore.
         }

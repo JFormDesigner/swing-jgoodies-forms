@@ -36,7 +36,7 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Combines the <code>FormLayout</code> with the <code>PanelBuilder</code>. 
+ * Combines the FormLayout with the PanelBuilder. 
  * Columns and rows are specified before the panel is filled 
  * with components. The builder's cursor is used to determine the location 
  * of the next component. And the builder's convenience methods are used 
@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see	PlainExample
  * @see	RowCounterExample
@@ -73,7 +73,7 @@ public final class DynamicRowsExample {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
             // Likely PlasticXP is not in the class path; ignore.
         }

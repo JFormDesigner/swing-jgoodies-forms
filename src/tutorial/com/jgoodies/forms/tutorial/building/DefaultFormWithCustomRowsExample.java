@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * of font baselines and the height of the custom row. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see    DefaultFormBuilder
  * @see    DefaultFormWithCustomAreasExample
@@ -66,7 +66,7 @@ public final class DefaultFormWithCustomRowsExample {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
             // Likely PlasticXP is not in the class path; ignore.
         }
