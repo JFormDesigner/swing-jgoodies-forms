@@ -23,6 +23,7 @@ BUGS FIXED
     o DefaultFormBuilder ignores the current row span set by #setRowSpan.
     o AbstractFormBuilder#createLeftAdjustedConstraints(int)
       ignores the current row span.
+    o DefaultComponentFactory can register L&fChangeHandler multiple times.
     
     
 OTHER CHANGES
@@ -34,6 +35,8 @@ OTHER CHANGES
     o Added FAQ #2.6.
     o Builders avoid the creation of obsolete FlowLayout instances.
     o Overhauled builder constructors; marked some as deprecated.
+    o Separators created by the DefaultComponentFactory are not opaque.
+    o Corrected implementation title and vendor in the JAR manifest.
     
     
 ---------------------------------------------------------------------------
