@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * A panel that paints grid bounds if and only if the panel's layout manager 
  * is a {@link FormLayout}. You can tweak the debug paint process by setting
  * a custom grid color, painting optional diagonals and painting the grid
- * in the background.<p>
+ * in the background or foreground.<p>
  * 
  * This class is not intended to be extended. However, it is not
  * marked as <code>final</code> to allow users to subclass it for 
@@ -53,7 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * <code>#paintComponent</code> or <code>#updateUI</code>.  
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see     FormDebugUtils
  */
@@ -178,9 +178,13 @@ public class FormDebugPanel extends JPanel {
     // Painting *************************************************************
 
     /**
-     * Paints the component and - if background painting is enabled - the grid
+     * Paints the component and - if background painting is enabled - the grid.
+     * If foreground painting is enabled, the grid will be painted in 
+     * <code>#paint</code>.
      * 
-     * @param g   the Graphics object to paint on 
+     * @param g   the Graphics object to paint on
+     * 
+     * @see #paint(Graphics)
      */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -191,10 +195,14 @@ public class FormDebugPanel extends JPanel {
 
 
     /**
-     * Paints the panel. If the panel's layout manager is a 
-     * FormLayout it paints the form's grid lines.
+     * Paints the panel. If the panel's layout manager is a FormLayout 
+     * and foreground painting is enabled, it paints the form's grid lines.
+     * If the grid shall be painted in the background, the grid will be
+     * painted in <code>#paintComponent</code>.
      * 
      * @param g   the Graphics object to paint on 
+     * 
+     * @see #paintComponent(Graphics)
      */
     public void paint(Graphics g) {
         super.paint(g);
