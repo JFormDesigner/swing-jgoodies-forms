@@ -32,9 +32,9 @@ package com.jgoodies.forms.tutorial.building;
 
 import javax.swing.*;
 
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.debug.FormDebugUtils;
-import com.jgoodies.forms.extras.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to use a leading indent column.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
 public final class FormDebugExample {

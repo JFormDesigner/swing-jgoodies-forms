@@ -36,7 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
-import com.jgoodies.forms.extras.DefaultFormBuilder;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * indent column using the DefaultFormBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see     DefaultFormBuilder
  */
 
