@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * your codebase.
  * 
  * @author Karsten Lentzsch
- * @version $revision: $
+ * @version $Revision: 1.2 $
  */
 
 public final class FormLayoutUtils {
@@ -175,7 +175,7 @@ public final class FormLayoutUtils {
      * otherwise the behavior of this iterator is unspecified and unsafe. 
      * 
      * @author Karsten
-     * @version $Revision: 1.1 $
+     * @version $Revision: 1.2 $
      * 
      * @see FormLayout
      * @see CellConstraints
