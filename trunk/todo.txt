@@ -2,6 +2,9 @@
 JGoodies Forms(tm) To-Do
 ========================
 
+o Form 1.0.5 tutorial examples shall use the class names
+  of the JGoodies Looks 1.3.
+  
 o Add custom ComponentFactory example
 
 o Move example title and comment from the Forms Demo
