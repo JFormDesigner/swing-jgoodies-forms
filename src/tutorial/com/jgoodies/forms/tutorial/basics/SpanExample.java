@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how components can span multiple columns and rows.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public final class SpanExample {
     
@@ -63,7 +63,7 @@ public final class SpanExample {
 
 
     /**
-     * Builds and answers a tabbed pane with tabs for the column span example
+     * Builds and returns a tabbed pane with tabs for the column span example
      * and the row span example.
      * 
      * @return a tabbed pane that shows horizontal and vertical spans 
@@ -110,8 +110,8 @@ public final class SpanExample {
     
     
     /**
-     * Builds and answers a panel where a component spans multiple rows.
-     * <p>
+     * Builds and returns a panel where a component spans multiple rows.<p>
+     * 
      * This demo method is about layout. The default FocusTraversalPolicy
      * will lead to a poor focus traversal order: name, notes, phone, fax;
      * where the order should be: name, phone, fax, notes.
