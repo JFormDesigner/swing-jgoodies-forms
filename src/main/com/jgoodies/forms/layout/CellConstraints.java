@@ -72,10 +72,14 @@ import java.util.StringTokenizer;
  * </pre>
  * See also the examples in the {@link FormLayout} class comment.<p>
  * 
- * TODO: Consider renaming the inset to offsets.
+ * TODO: Explain in the JavaDocs that the insets are actually offsets.
+ * And describe that these offsets are not taken into account when
+ * FormLayout computes the column and row sizes.<p>
  *
+ * TODO: Rename the inset to offsets.
+ * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -615,19 +619,18 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     
     /**
-     * Decodes a string description for the horizontal and vertical 
-     * alignment and set the alignment values.
-     * <p>
+     * Decodes a string description for the horizontal and vertical alignment 
+     * and sets this CellConstraints' alignment values.<p>
+     * 
      * Valid horizontal aligmnents are: left, middle, right, default, and fill.
      * Valid vertical alignments are: top, center, bottom, default, and fill.
      * The anchor's string representation abbreviates the alignment:
-     * l, m, r, d, f, t, c, and b. 
-     * <p>
+     * l, m, r, d, f, t, c, and b.<p>
+     * 
      * Anchor examples:
-     * "mc" is centered, "lt" is northwest, "mt" is north, "rc" east.
-     * "md" is horizontally centered and uses the row's default alignment.
-     * "dt" is on top of the cell and uses the column's default alignment.
-     * <p>
+     * "m, c" is centered, "l, t" is northwest, "m, t" is north, "r, c" east.
+     * "m, d" is horizontally centered and uses the row's default alignment.
+     * "d, t" is on top of the cell and uses the column's default alignment.<p>
      *
      * @param encodedAlignments represents horizontal and vertical alignment
      * @throws IllegalArgumentException if an alignment orientation is invalid
