@@ -81,15 +81,52 @@ public final class CellConstraintsTest extends TestCase {
      * Tests that the CellConstraints parser rejects invalid encodings.
      */
     public void testRejectInvalidCellConstraintsEncodings() {
-        assertRejects("0, 1, 1, 1");    // Illegal bounds
-        assertRejects("0, 1, 1");       // Illegal number of arguments
-        assertRejects("0, 1, 1, 1, 1"); // Illegal number of arguments
-        assertRejects("1");             // Syntax error
-        assertRejects("1, 1, fill");    // Syntax error
-        assertRejects("1, 1, 3, 4, f"); // Syntax error
+        assertRejects("0, 1, 1, 1");        // Illegal bounds
+        assertRejects("0, 1, 1");           // Illegal number of arguments
+        assertRejects("0, 1, 1, 1, 1");     // Illegal number of arguments
+        assertRejects("1");                 // Syntax error
+        assertRejects("1, 1, fill");        // Syntax error
+        assertRejects("1, 1, 3, 4, f");     // Syntax error
+        assertRejects("1, 1, top, center"); // Illegal column alignment
+        assertRejects("1, 1, fill, left");  // Illegal row alignment
+        assertRejects("1, 1, 2, 3, t, c");  // Illegal column alignment
+        assertRejects("1, 1, 2, 3, f, l");  // Illegal row alignment
     }
 
-
+    /**
+     * Tests that the CellConstraints parser rejects invalid encodings.
+     */
+    public void testRejectInvalidCellConstraintsAlignments() {
+        try {
+            new CellConstraints(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
+            fail("The CellConstraints constructor should reject invalid orientations.");
+        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            fail("The constructor has thrown an unexpected exception: " + e);
+        }
+        try {
+            new CellConstraints(1, 1, CellConstraints.CENTER, CellConstraints.RIGHT);
+            fail("The CellConstraints constructor should reject invalid orientations.");
+        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            fail("The constructor has thrown an unexpected exception: " + e);
+        }
+        CellConstraints cc = new CellConstraints();
+        try {
+            cc.xy(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
+            fail("The CellConstraints setter should reject invalid orientations.");
+        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            fail("The setter has thrown an unexpected exception: " + e);
+        }
+        try {
+            cc.xy(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
+            fail("The CellConstraints setter should reject invalid orientations.");
+        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            fail("The setter has thrown an unexpected exception: " + e);
+        }
+    }
 
     // Helper Code ***********************************************************
 
