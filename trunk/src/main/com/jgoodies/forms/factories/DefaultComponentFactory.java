@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.Sizes;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -143,7 +143,7 @@ public class DefaultComponentFactory implements ComponentFactory {
         JLabel title = createTitle(text);
         JPanel panel = new JPanel();
         ColumnSpec gapSpec = new ColumnSpec(
-                isLafAqua() ? Sizes.ZERO : Sizes.DLUX3);
+                isLafAqua() ? Sizes.DLUX1 : Sizes.DLUX3);
         FormLayout layout;
         CellConstraints cc = new CellConstraints();
         if (alignment == SwingConstants.LEFT) {
