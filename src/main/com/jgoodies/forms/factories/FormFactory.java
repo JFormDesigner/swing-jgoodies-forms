@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -62,7 +62,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
  */
@@ -79,7 +79,7 @@ public final class FormFactory {
      * @see #DEFAULT_COLSPEC
      */
     public static final ColumnSpec MIN_COLSPEC = 
-        new ColumnSpec(Sizes.MINIMUM).asUnmodifyable();   
+        new ColumnSpec(Sizes.MINIMUM);   
               
     
     /**
@@ -90,7 +90,7 @@ public final class FormFactory {
      * @see #DEFAULT_COLSPEC
      */
     public static final ColumnSpec PREF_COLSPEC = 
-        new ColumnSpec(Sizes.PREFERRED).asUnmodifyable();   
+        new ColumnSpec(Sizes.PREFERRED);   
     
     
     /**
@@ -105,7 +105,7 @@ public final class FormFactory {
      * @see #PREF_COLSPEC
      */
     public static final ColumnSpec DEFAULT_COLSPEC = 
-        new ColumnSpec(Sizes.DEFAULT).asUnmodifyable();   
+        new ColumnSpec(Sizes.DEFAULT);   
                     
     
     /**
@@ -116,7 +116,7 @@ public final class FormFactory {
      * @see #GLUE_ROWSPEC
      */
     public static final ColumnSpec GLUE_COLSPEC = 
-        new ColumnSpec(ColumnSpec.DEFAULT, Sizes.ZERO, ColumnSpec.DEFAULT_GROW).asUnmodifyable();                               
+        new ColumnSpec(ColumnSpec.DEFAULT, Sizes.ZERO, ColumnSpec.DEFAULT_GROW);                               
 
     
     // Layout Style Dependent Column Specs ***********************************
@@ -173,7 +173,7 @@ public final class FormFactory {
     public static final ColumnSpec BUTTON_COLSPEC = 
         new ColumnSpec(Sizes.bounded(Sizes.PREFERRED,
                                      LayoutStyle.getCurrent().getDefaultButtonWidth(),
-                                     null)).asUnmodifyable();
+                                     null));
         
 
     /**
@@ -188,7 +188,7 @@ public final class FormFactory {
     public static final ColumnSpec GROWING_BUTTON_COLSPEC = 
         new ColumnSpec(ColumnSpec.DEFAULT,
                        BUTTON_COLSPEC.getSize(),
-                       ColumnSpec.DEFAULT_GROW).asUnmodifyable();
+                       ColumnSpec.DEFAULT_GROW);
     
     
     // Frequently used Row Specifications ***********************************
@@ -201,7 +201,7 @@ public final class FormFactory {
      * @see #DEFAULT_ROWSPEC
      */
     public static final RowSpec MIN_ROWSPEC = 
-        new RowSpec(Sizes.MINIMUM).asUnmodifyable();  
+        new RowSpec(Sizes.MINIMUM);  
     
                                     
     /**
@@ -212,7 +212,7 @@ public final class FormFactory {
      * @see #DEFAULT_ROWSPEC
      */
     public static final RowSpec PREF_ROWSPEC = 
-        new RowSpec(Sizes.PREFERRED).asUnmodifyable();   
+        new RowSpec(Sizes.PREFERRED);   
     
                                     
     /**
@@ -227,7 +227,7 @@ public final class FormFactory {
      * @see #PREF_COLSPEC
      */
     public static final RowSpec DEFAULT_ROWSPEC = 
-        new RowSpec(Sizes.DEFAULT).asUnmodifyable();  
+        new RowSpec(Sizes.DEFAULT);  
     
                                     
     /**
@@ -238,7 +238,7 @@ public final class FormFactory {
      * @see #GLUE_COLSPEC
      */
     public static final RowSpec GLUE_ROWSPEC = 
-        new RowSpec(RowSpec.DEFAULT, Sizes.ZERO, RowSpec.DEFAULT_GROW).asUnmodifyable();                               
+        new RowSpec(RowSpec.DEFAULT, Sizes.ZERO, RowSpec.DEFAULT_GROW);                               
 
     
     // Layout Style Dependent Row Specs *************************************
@@ -449,11 +449,10 @@ public final class FormFactory {
      * specified {@link ConstantSize}.
      * 
      * @param gapSize	a <code>ConstantSize</code> that specifies the gap
-     * @return an unmodifyable <code>ColumnSpec</code> that describes a horizontal gap
+     * @return a <code>ColumnSpec</code> that describes a horizontal gap
      */
     public static ColumnSpec createGapColumnSpec(ConstantSize gapSize) {
-        ColumnSpec spec = new ColumnSpec(ColumnSpec.LEFT, gapSize, ColumnSpec.NO_GROW);
-        return spec.asUnmodifyable();
+        return new ColumnSpec(ColumnSpec.LEFT, gapSize, ColumnSpec.NO_GROW);
     }
 
     /**
@@ -461,11 +460,10 @@ public final class FormFactory {
      * specified {@link ConstantSize}.
      * 
      * @param gapSize   a <code>ConstantSize</code> that specifies the gap
-     * @return an unmodifyable <code>RowSpec</code> that describes a vertical gap
+     * @return a <code>RowSpec</code> that describes a vertical gap
      */
     public static RowSpec createGapRowSpec(ConstantSize gapSize) {
-        RowSpec spec = new RowSpec(RowSpec.TOP, gapSize, RowSpec.NO_GROW);
-        return spec.asUnmodifyable();
+        return new RowSpec(RowSpec.TOP, gapSize, RowSpec.NO_GROW);
     }
     
     

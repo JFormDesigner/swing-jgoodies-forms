@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -199,7 +199,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -298,7 +298,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      */
     public void setLineGapSize(ConstantSize lineGapSize) {
         RowSpec rowSpec = FormFactory.createGapRowSpec(lineGapSize);
-        this.lineGapSpec = rowSpec.asUnmodifyable();
+        this.lineGapSpec = rowSpec;
     }
     
     /**
@@ -319,7 +319,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      */
     public void setParagraphGapSize(ConstantSize paragraphGapSize) {
         RowSpec rowSpec = FormFactory.createGapRowSpec(paragraphGapSize);
-        this.paragraphGapSpec = rowSpec.asUnmodifyable();
+        this.paragraphGapSpec = rowSpec;
     }
     
     /**

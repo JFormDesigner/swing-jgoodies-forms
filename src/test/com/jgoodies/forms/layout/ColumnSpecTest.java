@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class ColumnSpecTest extends TestCase {
     
@@ -144,32 +144,6 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    /**
-     * Checks that an unmodifyable ColumnSpec rejects all modifications.
-     */
-    public void testUnmodifyable() {
-        ColumnSpec unmodifyableSpec = new ColumnSpec("p").asUnmodifyable();
-        try {
-            unmodifyableSpec.setDefaultAlignment(ColumnSpec.CENTER);
-            fail("An unmodifyable ColumnSpec should reject alignment changes.");
-        } catch (UnsupportedOperationException e) {
-            // The expected behavior
-        }
-        try {
-            unmodifyableSpec.setSize(Sizes.MINIMUM);
-            fail("An unmodifyable ColumnSpec should reject size changes.");
-        } catch (UnsupportedOperationException e) {
-            // The expected behavior
-        }
-        try {
-            unmodifyableSpec.setResizeWeight(5.5);
-            fail("An unmodifyable ColumnSpec should reject resize weight changes.");
-        } catch (UnsupportedOperationException e) {
-            // The expected behavior
-        }
-    }
-
-    
     // Helper Code ***********************************************************
     
     /**

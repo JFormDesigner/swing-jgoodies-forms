@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class RowSpecTest extends TestCase {
     
@@ -142,32 +142,6 @@ public final class RowSpecTest extends TestCase {
     }
 
 
-    /**
-     * Checks that an unmodifyable RowSpec rejects all modifications.
-     */
-    public void testUnmodifyable() {
-        RowSpec unmodifyableSpec = new RowSpec("p").asUnmodifyable();
-        try {
-            unmodifyableSpec.setDefaultAlignment(RowSpec.CENTER);
-            fail("An unmodifyable RowSpec should reject alignment changes.");
-        } catch (UnsupportedOperationException e) {
-            // The expected behavior
-        }
-        try {
-            unmodifyableSpec.setSize(Sizes.MINIMUM);
-            fail("An unmodifyable RowSpec should reject size changes.");
-        } catch (UnsupportedOperationException e) {
-            // The expected behavior
-        }
-        try {
-            unmodifyableSpec.setResizeWeight(5.5);
-            fail("An unmodifyable RowSpec should reject resize weight changes.");
-        } catch (UnsupportedOperationException e) {
-            // The expected behavior
-        }
-    }
-
-    
     // Helper Code ***********************************************************
     
     /**

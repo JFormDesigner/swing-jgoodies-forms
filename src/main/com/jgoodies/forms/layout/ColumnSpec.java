@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -53,11 +53,12 @@ import java.util.StringTokenizer;
  * predefined frequently used <code>ColumnSpec</code> instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
+ * 
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 
-public class ColumnSpec extends FormSpec {
+public final class ColumnSpec extends FormSpec {
     
     
     // Horizontal Orientations *********************************************
@@ -138,17 +139,6 @@ public class ColumnSpec extends FormSpec {
 	}
 
     
-    /**
-     * Creates and returns an unmodifyable version of this
-     * <code>ColumnSpec</code>.
-     * 
-     * @return an unmodifyable version of this <code>ColumnSpec</code>
-     */
-    public ColumnSpec asUnmodifyable() {
-        return new UnmodifyableColumnSpec(this);
-    }
-
-
     // Implementing Abstract Behavior ***************************************
 
     /**
@@ -189,53 +179,5 @@ public class ColumnSpec extends FormSpec {
         return columnSpecs;
     }
 
-
-    
-    // An Unmodifyable Version of ColumnSpec *********************************
-    
-    private static final class UnmodifyableColumnSpec extends ColumnSpec {
-        
-        private UnmodifyableColumnSpec(ColumnSpec columnSpec) {
-            super(columnSpec.getDefaultAlignment(), 
-                   columnSpec.getSize(),
-                   columnSpec.getResizeWeight());
-        }
-
-        /**
-         * @param newDefaultAlignment   the new default alignment
-         * @throws UnsupportedOperationException always
-         */
-        public void setDefaultAlignment(DefaultAlignment newDefaultAlignment) {
-            throw new UnsupportedOperationException();
-        }
-
-        /**
-         * @param size   the new size
-         * @throws UnsupportedOperationException always
-         */
-        public void setSize(Size size) {
-            throw new UnsupportedOperationException();
-        }
-        
-        /**
-         * @param weight    the new resize weight
-         * @throws UnsupportedOperationException always
-         */
-        public void setResizeWeight(double weight) {
-            throw new UnsupportedOperationException();
-        }
-        
-        /**
-         * Returns this <code>ColumnSpec</code>; it already is unmodifyable.
-         * 
-         * @return this <code>ColumnSpec</code>
-         */
-        public ColumnSpec asUnmodifyable() {
-            return this;
-        }
-    
-    }
-    
-    	
 }
 
