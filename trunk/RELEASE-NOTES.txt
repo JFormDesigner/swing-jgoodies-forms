@@ -6,14 +6,23 @@
 
 INTRODUCTION
 
-    This release is a maintenance update that ...
-
+    This release is a maintenance update that contains two new core classes,
+    adds some builder methods, and comes with slightly improved JavaDocs.
+    Also, the FAQ and tutorial have been extended and improved.
+    
 
 NEW FEATURES
     
-    o Code:     Added new method in class I15dPanelBuilder:
-                #addI15dLabel(String, CellConstraints, Component, CellConstraints)
-    o Code:     CellConstraints is serializable
+    o General:  Moved DefaultFormBuilder and I15dPanelBuilder to the core.
+    o Code:     FormLayout is serializable.
+    o Code:     AbstractFormBuilder#appendLabelComponentGapColumn()
+    o Code:     AbstractFormBuilder#appendParagraphGapRow()
+    o Code:     AbstractFormBuilder#setComponentFactory(...) now public
+    o Code:     I15dPanelBuilder#addI15dLabel(String, CellConstraints, 
+                                              Component, CellConstraints)
+    o Code:     LayoutStyle#getTabbedDialogMarginX()
+    o Code:     LayoutStyle#getTabbedDialogMarginY()
+    o Code:     FormFactory#LABEL_COMPONENT_COLSPEC
 
  
 OTHER CHANGES
@@ -23,8 +32,10 @@ OTHER CHANGES
                 #add(String, CellConstraints, Component, CellConstraints)
     o Code:     DefaultComponentFactory#setTextAndMnemonic(JLabel) now private
     o JavaDocs: Extended and corrected 
+    o JavaDocs: Clarified some semantics
     o Docs:     Fixed spelling and grammar errors
     o Docs:     Extended and reorganized the FAQ
+    o Tutorial: Improved alignment texts in custom row and custom areas example
     
 
 -------------------------------------------------------------------------------
