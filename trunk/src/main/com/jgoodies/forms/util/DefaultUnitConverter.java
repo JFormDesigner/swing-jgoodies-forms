@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <em>defaultDialogFont</em> and <em>averageCharacterWidthTestString</em>. 
  * 
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -130,7 +130,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * a listener that handles changes in the look&amp;feel.
      */
     private DefaultUnitConverter () {
-        UIManager.addPropertyChangeListener(new LAFChangeHandler());
+        UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
         changeSupport = new PropertyChangeSupport(this);
     }
     
@@ -475,8 +475,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         }
     }
     
-    // Listens to changes of the Look and Feel and invalidates a cache
-    private class LAFChangeHandler implements PropertyChangeListener {
+    // Listens to changes of the Look and Feel and invalidates the cache
+    private class LookAndFeelChangeHandler implements PropertyChangeListener {
         public void propertyChange(PropertyChangeEvent evt) {
             invalidateCaches();
         }

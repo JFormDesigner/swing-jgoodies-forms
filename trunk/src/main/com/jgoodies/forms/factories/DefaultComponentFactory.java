@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -466,7 +466,7 @@ public class DefaultComponentFactory implements ComponentFactory {
         return laf.getName().startsWith("Mac OS X Aqua");
     }
 
-    // Handles l&amp;f changes
+    // Listens to changes of the Look and Feel and invalidates the cache
     private static class LookAndFeelChangeHandler implements PropertyChangeListener {
         
         /**
