@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.10 2004-08-26 12:39:42 karsten Exp $
+   $Id: build.xml,v 1.11 2004-08-28 13:36:31 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -240,13 +240,13 @@
                     <attribute name ="Specification-Version"
                                value="${spec.version}" />
                     <attribute name ="Specification-Vendor"
-                               value="${vendor}" />
+                               value="${spec.vendor}" />
              		<attribute name ="Implementation-Title"
                                value="${implementation.title}" />
              		<attribute name ="Implementation-Version"
                                value="${impl.version} ${DATE}" />
                     <attribute name ="Implementation-Vendor"
-                               value="${vendor}" />
+                               value="${impl.vendor}" />
                 </section>
            </manifest>
 		</jar>
