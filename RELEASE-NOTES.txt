@@ -7,7 +7,7 @@
 INTRODUCTION
 
     This release is primarily a documentation and distribution update; 
-    it contains no API changes, only a minor new feature in the extras.
+    it fixes a bug (with maximum sizes) and contains no API changes.
 
 
 
@@ -20,14 +20,10 @@ DISTRIBUTION CHANGES
 
 
 
-NEW FEATURES
-
-    o Extras:   DefaultFormBuilder.appendComponentRow(RowSpec)
-    
-
-    
 BUGS FIXED
 
+    o Main:     Fixed broken maximum sizes that had the same effect as minimum
+    o Main:     Fixed FormFactory.BUTTON_COLSPEC to use a lower, not upper bound
     o Tutorial: Corrected FormDebugExample.main 
     
 
@@ -36,8 +32,16 @@ OTHER CHANGES
 
     o Main:     Added sanity checks for invalid CellConstraints alignments
     o Main:     Minor code cleanup: removed obsolete casts and semicolons
+    o Main:     Minor improvement: parameter names made more consistent
     o Main:     Library compiled against 1.3 but with Sun's javac 1.4.2
+    o Main:     FormFactory.GROWING_BUTTON_COLSPEC honors LayoutStyle
+    o Main:     All FormFactory specs are now unmodifyable
+    o Tutorial: Added Quick Start example
+    o Tutorial: Added example for component sizes
+    o Tutorial: Added example for custom rows and DefaultFormBuilder
     o Test:     Added tests for invalid CellConstraints alignments
+    o Docs:     Removed comparison with HIGLayout from the whitepaper
+    o Docs:     Some throws clauses added to the JavaDocs
     o Build:    process reflects the distribution changes
 
 
