@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to create text labels and separators. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see     PanelBuilderExample
  * @see	RowCounterExample
@@ -81,11 +81,11 @@ public final class PlainExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Plain Building");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new PlainExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
     
 

@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * a lean example over a fully functional.  
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see     DefaultFormBuilder
  */
@@ -83,11 +83,11 @@ public final class IndentColumnExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Indent Column");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new FormDebugExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 
