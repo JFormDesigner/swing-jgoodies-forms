@@ -39,13 +39,15 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * Compares approaches how to append a custom area at the end of
- * a panel built with the DefaultFormBuilder:
- * 1) using two custom rows to align the leading label,
- * 2) using a single custom row with label on top,
- * 3) using a separator.
+ * a panel built with the DefaultFormBuilder:<ol>
+ * <li> using two custom rows to align the leading label,
+ * <li> using a single custom row with label on top,
+ * <li> using a separator.
+ * </ol>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
+ * 
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
  */
@@ -104,8 +106,8 @@ public final class DefaultFormWithCustomAreasExample {
     
     /**
      * Demonstrates how to append a larger custom area at the end of
-     * a panel that is build with a {@link DefaultFormBuilder}.
-     * <p>
+     * a panel that is build with a {@link DefaultFormBuilder}.<p>
+     * 
      * We add a gap and a single custom row that grows and that
      * is filled vertically (where the default is center vertically).
      * The area uses a standard leading label.
@@ -117,7 +119,7 @@ public final class DefaultFormWithCustomAreasExample {
 
         CellConstraints cc = new CellConstraints();
         
-        builder.append("Feeback");
+        builder.append("Feedback");
         builder.appendRow(new RowSpec("0:grow"));
         builder.add(new JScrollPane(new JTextArea()),
                     cc.xywh(builder.getColumn(), builder.getRow(), 1, 2, "fill, fill"));
