@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * Tests column and row groups of the FormLayout. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public final class FormLayoutGroupsTest extends TestCase {
@@ -107,7 +107,9 @@ public final class FormLayoutGroupsTest extends TestCase {
         try {
             layout.setColumnGroups(new int[][]{{1, 5}});
             fail("An invalid column index should be rejected.");
-        } catch (Exception e) {}
+        } catch (IndexOutOfBoundsException e) {
+            // The expected behavior
+        }
     }
     
     /**
@@ -117,7 +119,9 @@ public final class FormLayoutGroupsTest extends TestCase {
         try {
             layout.setRowGroups(new int[][]{{1, 5}});
             fail("An invalid row index should be rejected.");
-        } catch (Exception e) {}
+        } catch (IndexOutOfBoundsException e) {
+            // The expected behavior
+        }
     }
     
     /**
@@ -127,7 +131,9 @@ public final class FormLayoutGroupsTest extends TestCase {
         try {
             layout.setColumnGroups(new int[][]{{1, 2}, {2, 3}});
             fail("A duplicate column index should be rejected.");
-        } catch (Exception e) {}
+        } catch (IllegalArgumentException e) {
+            // The expected behavior
+        }
     }
     
     /**
@@ -137,7 +143,9 @@ public final class FormLayoutGroupsTest extends TestCase {
         try {
             layout.setRowGroups(new int[][]{{1, 2}, {2, 3}});
             fail("A duplicate row index should be rejected.");
-        } catch (Exception e) {}
+        } catch (IllegalArgumentException e) {
+            // The expected behavior
+        }
     }
     
 

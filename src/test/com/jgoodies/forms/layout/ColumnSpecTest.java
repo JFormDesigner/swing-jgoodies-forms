@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public final class ColumnSpecTest extends TestCase {
     
@@ -48,6 +48,7 @@ public final class ColumnSpecTest extends TestCase {
             new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, -1);
             fail("The ColumnSpec constructor should reject negative resize weights.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The ColumnSpec constructor has thrown an unexpected exception.");
         }
@@ -61,6 +62,7 @@ public final class ColumnSpecTest extends TestCase {
             new ColumnSpec("right:default:-1");
             fail("The ColumnSpec parser constructor should reject negative resize weights.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The ColumnSpec constructor has thrown an unexpected exception.");
         }
@@ -150,15 +152,21 @@ public final class ColumnSpecTest extends TestCase {
         try {
             unmodifyableSpec.setDefaultAlignment(ColumnSpec.CENTER);
             fail("An unmodifyable ColumnSpec should reject alignment changes.");
-        } catch (Exception e) {}
+        } catch (UnsupportedOperationException e) {
+            // The expected behavior
+        }
         try {
             unmodifyableSpec.setSize(Sizes.MINIMUM);
             fail("An unmodifyable ColumnSpec should reject size changes.");
-        } catch (Exception e) {}
+        } catch (UnsupportedOperationException e) {
+            // The expected behavior
+        }
         try {
             unmodifyableSpec.setResizeWeight(5.5);
             fail("An unmodifyable ColumnSpec should reject resize weight changes.");
-        } catch (Exception e) {}
+        } catch (UnsupportedOperationException e) {
+            // The expected behavior
+        }
     }
 
     
@@ -189,7 +197,9 @@ public final class ColumnSpecTest extends TestCase {
         try {
             new ColumnSpec(invalidEncoding);
             fail("The parser should reject the invalid encoding:" + invalidEncoding);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // The expected behavior
+        }
     }
 
 }

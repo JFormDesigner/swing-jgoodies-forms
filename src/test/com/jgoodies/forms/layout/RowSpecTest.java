@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public final class RowSpecTest extends TestCase {
     
@@ -48,6 +48,7 @@ public final class RowSpecTest extends TestCase {
             new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, -1);
             fail("The RowSpec constructor should reject negative resize weights.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The RowSpec constructor has thrown an unexpected exception.");
         }
@@ -61,6 +62,7 @@ public final class RowSpecTest extends TestCase {
             new RowSpec("right:default:-1");
             fail("The RowSpec parser constructor should reject negative resize weights.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The RowSpec constructor has thrown an unexpected exception.");
         }
@@ -148,15 +150,21 @@ public final class RowSpecTest extends TestCase {
         try {
             unmodifyableSpec.setDefaultAlignment(RowSpec.CENTER);
             fail("An unmodifyable RowSpec should reject alignment changes.");
-        } catch (Exception e) {}
+        } catch (UnsupportedOperationException e) {
+            // The expected behavior
+        }
         try {
             unmodifyableSpec.setSize(Sizes.MINIMUM);
             fail("An unmodifyable RowSpec should reject size changes.");
-        } catch (Exception e) {}
+        } catch (UnsupportedOperationException e) {
+            // The expected behavior
+        }
         try {
             unmodifyableSpec.setResizeWeight(5.5);
             fail("An unmodifyable RowSpec should reject resize weight changes.");
-        } catch (Exception e) {}
+        } catch (UnsupportedOperationException e) {
+            // The expected behavior
+        }
     }
 
     
@@ -187,7 +195,9 @@ public final class RowSpecTest extends TestCase {
         try {
             new RowSpec(encodedRowSpec);
             fail("The parser should reject encoding:" + encodedRowSpec);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // The expected behavior
+        }
     }
 
 }
