@@ -108,6 +108,19 @@ builder.add(ageField,    cc.xy(3, 3));
 </pre>
 
 
+	<h2>Spanning Multiple Columns/Rows</h2>
+	
+	You can let components span multiple columns or rows, 
+	for example by using the CellConstraints method 
+	<tt>#xywh</tt> where you specify the x and y position 
+	of the leading cell and the width and height of the display area.
+	<p>
+	<b>Note:</b> these components do not affect the width of
+	the spanned columns or rows, nevertheless, they may expand
+	the whole container. See also the <a href="../faq.html#L.5">FAQ</a>
+	for details and how to handle this situation.
+
+
 	<h2>Examples</h2>
 
 1) Creation methods intended for use by humans 
