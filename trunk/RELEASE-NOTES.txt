@@ -1,5 +1,55 @@
 
 
+                    JGoodies Forms, Version 1.0.4 Snapshot
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This maintenance release fixes bugs and aims to simplify the API.
+    
+    
+VISUAL INCOMPATIBILITIES
+
+    ...
+    
+    Changed button order in factory methods for AddRemoveProperties?
+    
+    
+API INCOMPATIBILITIES
+
+    o ColumnSpec and RowSpec are now immutable.
+    o Removed deprecated method ButtonStackBuilder#addGriddedNarrow(JComponent)
+    
+
+NEW FEATURES
+
+    ...
+    
+    
+    
+BUGS FIXED
+
+    o DefaultUnitConverter#setDefaultDialogFont throws NPE
+    o DefaultUnitConverter#setAverageCharacterWidthTestString throws NPE
+    
+    
+KNOWN ISSUES
+
+    o In some cases components that span multiple columns/rows 
+      can expand the container size, although none of the spanned
+      columns/rows are allowed to grow. See the FAQ for details.
+      
+ 
+OTHER CHANGES
+
+    o ...
+    
+-------------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+
                     JGoodies Forms, Version 1.0.3
                             Release Notes
                         
