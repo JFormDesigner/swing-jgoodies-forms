@@ -42,7 +42,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -78,7 +78,7 @@ public class DefaultComponentFactory implements ComponentFactory {
     // Component Creation ***************************************************
 
     /**
-     * Creates and answers a label with an optional mnemonic.
+     * Creates and returns a label with an optional mnemonic.
      * 
      * @param textWithMnemonic  the label's text - may contain a mnemonic 
      * @return an label with optional mnemonic
@@ -89,8 +89,9 @@ public class DefaultComponentFactory implements ComponentFactory {
         return label;
     }
     
+    
     /**
-     * Creates and answers a label that uses the foreground color
+     * Creates and returns a label that uses the foreground color
      * and font of a <code>TitledBorder</code>.
      * 
      * @param textWithMnemonic  the title's text - may contain a mnemonic
@@ -100,8 +101,9 @@ public class DefaultComponentFactory implements ComponentFactory {
         return createTitle(textWithMnemonic, 0);
     }
     
+    
     /**
-     * Creates and answers a label that uses the foreground color
+     * Creates and return a label that uses the foreground color
      * and font of a <code>TitledBorder</code>.
      * 
      * @param textWithMnemonic  the title's text - may contain a mnemonic
@@ -115,13 +117,12 @@ public class DefaultComponentFactory implements ComponentFactory {
         label.setBorder(BorderFactory.createEmptyBorder(1, 0, 1, gap));
         return label;
     }
+    
 
     /**
-     * Creates and answers a label with separator on the left hand side. 
-     * Useful to separate paragraphs in a panel. This is often a better choice
-     * than a <code>TitledBorder</code>.
-     * <p>
-     * The current implementation doesn't support component alignments.
+     * Creates and returns a labeled separator with the label in the left-hand
+     * side. Useful to separate paragraphs in a panel; often a better choice 
+     * than a <code>TitledBorder</code>.<p>
      * 
      * @param text  the title's text
      * @return a title label with separator on the side
@@ -131,11 +132,11 @@ public class DefaultComponentFactory implements ComponentFactory {
     }
     
     /**
-     * Creates and answers a label with separator; useful to separate 
-     * paragraphs in a panel. This is often a better choice than 
-     * a <code>TitledBorder</code>.
-     * <p>
-     * The current implementation doesn't support component alignments.
+     * Creates and returns a labeled separator. Useful to separate paragraphs 
+     * in a panel, which is often a better choice than a 
+     * <code>TitledBorder</code>.<p>
+     * 
+     * TODO: Honor the alignment.
      * 
      * @param text  the title's text
      * @param alignment   text alignment: left, center, right 
@@ -181,7 +182,7 @@ public class DefaultComponentFactory implements ComponentFactory {
      * @param label             the label that gets a mnemonic
      * @param textWithMnemonic  the text with optional mnemonic marker
      */
-    public static void setTextAndMnemonic(
+    private static void setTextAndMnemonic(
         JLabel label,
         String textWithMnemonic) {
         int markerIndex = textWithMnemonic.indexOf(MNEMONIC_MARKER);
@@ -225,7 +226,7 @@ public class DefaultComponentFactory implements ComponentFactory {
     private static class TitleLabel extends JLabel {
         
         private TitleLabel() {
-            // Do nothing
+            // Just invoke the super constructor.
         }
         
         private TitleLabel(String text) {
@@ -234,9 +235,12 @@ public class DefaultComponentFactory implements ComponentFactory {
         
         /**
          * TODO: It seems that the Mac Aqua l&f doesn't set the
-         * TitledBorder settings in the UIDefaults table. 
-         * Consider asking a TitledBorder instance for its font and 
-         * font color use #getTitleFont and #getTitleColor instead. 
+         * TitledBorder settings in the <code>UIDefaults</code> table. 
+         * Consider asking a <code>TitledBorder</code> instance for its 
+         * font and font color use <code>#getTitleFont</code> and 
+         * <code>#getTitleColor</code> instead.<p>
+         * 
+         * The same problem may appear with the Synth-based looks.
          */
         public void updateUI() {
             super.updateUI();
