@@ -36,6 +36,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -48,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class GrowingTextAreaExample {
     
@@ -86,7 +88,7 @@ public final class GrowingTextAreaExample {
             "This text area has line wrapping disabled\n"
           + "and uses a hand-wrapped text (using '\\n').\n\n"
           + "Its minimum and preferred sizes are constant and so,\n"
-          + " the area will grow but shrink down to its minimum size.";
+          + "the area will grow but shrink down to its minimum size.";
       
         tabbedPane.add("2", 
               buildTab("Pref Size, Line Wrap Disabled (Good)",
@@ -96,12 +98,13 @@ public final class GrowingTextAreaExample {
         String example3Text = 
                   "This text area grows horizontally and will never shrink again. "
                 + "Since line wrapping is enabled, "
-                + "the area's minimum and preferred sizes are defined by its size. "
-                + "(For details see BasicTextAreaUI#getPreferredSize(Component). "
+                + "the area's preferred size is defined by its size. "
+                + "(See BasicTextAreaUI#getPreferredSize(Component).\n\n"
                 + "If the layout container grows, the layout manager "
-                + "sets a larger size, and hence, the minimum and preferred sizes grow."
-                + "\nThe FormLayout honors the area's minimum size to compute "
-                + "the current area width, and so it won't shrink.";
+                + "sets a larger size, and hence, the preferred size grows."
+                + "The FormLayout honors the area's preferred size to compute "
+                + "the new column width, and so the area won't shrink again.\n\n"
+                + "Even if you use a 'default' width the column won't shrink.";
 
         tabbedPane.add("3", 
                 buildTab("Pref Size, Line Wrap Enabled (Never Shrinks)",
@@ -110,12 +113,15 @@ public final class GrowingTextAreaExample {
         
         String example4Text = 
             "This text area grows but never shrinks. "
-            + "Since line wrapping is enabled, "
-            + "the area's minimum and preferred sizes is defined by its size. "
+            + "Since line wrapping is enabled, the area's "
+            + "minimum and preferred sizes are defined by its size.\n\n"
             + "If the layout container grows, the layout manager "
-            + "sets a larger size, and hence, the preferred size grows. "
-            + "\nHowever, the area can shrink again, because the minimum size" 
-            + "is independent from the size previously set by the layout manager.";
+            + "sets a larger size, and hence, the minimum and preferred sizes grow. "
+            + "If the layout container shrinks, the layout manager can shrink "
+            + "the column width down to the area's minimum width. "
+            + "But the minimum size is like the preferred size determined "
+            + "by the size previously set, and so, the column won't shrink.\n\n"
+            + "A solution to this problem is to set a custom minimum size.";
         
         tabbedPane.add("4", 
                 buildTab("Default Size, Line Wrap Enabled (Never Shrinks)",
@@ -125,7 +131,7 @@ public final class GrowingTextAreaExample {
         String example5Text = 
             "This text area has uses a column width of 30 characters. "
             + "But that just affects the initial preferred and minimum size."
-            + "The area grows and won't shrink again.";
+            + "The area grows and won't shrink again - just as in tabs 3 and 4.";
         
         tabbedPane.add("5", 
                 buildTab("Default Size, Line Wrap Enabled, Columns Set (Never Shrinks)",
@@ -136,14 +142,15 @@ public final class GrowingTextAreaExample {
             "This text area grows and shrinks. "
             + "Since line wrapping is enabled, "
             + "the area's preferred size is defined by its size. "
-            + "Here a custom minimum size (100, 32) has been set. "
+            + "Here a custom minimum size (100, 32) has been set.\n\n"
             + "If the layout container grows, the layout manager "
             + "sets a larger size, and hence, the preferred size grows. "
-            + "\nHowever, the area can shrink again, because the minimum size" 
-            + "is independent from the size previously set by the layout manager.";
+            + "However, if the layout container shrinks, the layout can "
+            + "shrink the column down to the area's minimum width, which is 100; "
+            + "the minimum size is independent from the size previously set.";
         
         tabbedPane.add("6", 
-                buildTab("Default Size, Line Wrap Enabled, Min Size Set",
+                buildTab("Default Size, Line Wrap Enabled, Min Size Set (Good)",
                          "fill:default:grow", 
                          createArea(example6Text, true, 0, new Dimension(100, 32))));
         
@@ -157,7 +164,9 @@ public final class GrowingTextAreaExample {
             int columns,
             Dimension minimumSize) {
         JTextArea area  = new JTextArea(text);
-        area.setBorder(new LineBorder(Color.BLACK));
+        area.setBorder(new CompoundBorder(
+                new LineBorder(Color.GRAY),
+                new EmptyBorder(1, 3, 1, 1)));
         area.setLineWrap(lineWrap);
         area.setWrapStyleWord(true);
         area.setColumns(columns);
