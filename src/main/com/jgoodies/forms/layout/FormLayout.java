@@ -51,7 +51,7 @@ import java.util.*;
  * about the FormLayout ships with the product documentation and is available 
  * <a href="http://www.jgoodies.com/articles/forms.pdf">online</a>.<p>
  * 
- * To use <code>FormLayout</code> you first define the grid by specifying the
+ * To use FormLayout you first define the grid by specifying the
  * columns and rows. In a second step you add components to the grid. You can
  * specify columns and rows via human-readable String descriptions or via
  * arrays of {@link ColumnSpec} and {@link RowSpec} instances.<p>
@@ -91,7 +91,7 @@ import java.util.*;
  * panel.add(new JTextField(),       cc.xy  (3, 3));
  * panel.add(new JLabel("Label3"),   cc.xy  (1, 5));
  * panel.add(new JTextField(),       cc.xy  (3, 5));
- * panel.add(new JButton("..."),     cc.xy  (5, 5));
+ * panel.add(new JButton("/u2026"),  cc.xy  (5, 5));
  * return panel;
  * </pre><p>
  * 
@@ -105,13 +105,13 @@ import java.util.*;
  *
  * PanelBuilder builder = new PanelBuilder(layout);
  * CellConstraints cc = new CellConstraints();
- * builder.addLabel("Label1",        cc.xy  (1, 1));
- * builder.add(new JTextField(),     cc.xywh(3, 1, 3, 1));
- * builder.addLabel("Label2",        cc.xy  (1, 3));
- * builder.add(new JTextField(),     cc.xy  (3, 3));
- * builder.addLabel("Label3",        cc.xy  (1, 5));
- * builder.add(new JTextField(),     cc.xy  (3, 5));
- * builder.add(new JButton("..."),   cc.xy  (5, 5));
+ * builder.addLabel("Label1",         cc.xy  (1, 1));
+ * builder.add(new JTextField(),      cc.xywh(3, 1, 3, 1));
+ * builder.addLabel("Label2",         cc.xy  (1, 3));
+ * builder.add(new JTextField(),      cc.xy  (3, 3));
+ * builder.addLabel("Label3",         cc.xy  (1, 5));
+ * builder.add(new JTextField(),      cc.xy  (3, 5));
+ * builder.add(new JButton("/u2026"), cc.xy  (5, 5));
  * return builder.getPanel();
  * </pre><p>
  * 
@@ -121,19 +121,18 @@ import java.util.*;
  * ships with the source distribution. 
  * <pre>
  * FormLayout layout = new FormLayout(
- *      "right:pref, 6dlu, 50dlu, 4dlu, default",  // columns 
- *      "");                                       // add rows dynamically
+ *      "right:pref, 6dlu, 50dlu, 4dlu, default"); // 5 columns; add rows later
  *
  * DefaultFormBuilder builder = new DefaultFormBuilder(layout);
  * builder.append("Label1", new JTextField(), 3);
  * builder.append("Label2", new JTextField());
  * builder.append("Label3", new JTextField());
- * builder.append(new JButton("..."));
+ * builder.append(new JButton("/u2026"));
  * return builder.getPanel();
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -235,8 +234,84 @@ public final class FormLayout implements LayoutManager2, Serializable {
     // Instance Creation ****************************************************
  
     /**
-     * Constructs an instance of <code>FormLayout</code> using the
-     * given column and row specifications.
+     * Constructs an empty FormLayout. Columns and rows must be added
+     * before components can be added to the layout container.<p>
+     * 
+     * This constructor is intended to be used in environments
+     * that add columns and rows dynamically.
+     */
+    public FormLayout() {
+        this(new ColumnSpec[0], new RowSpec[0]);
+    }
+    
+    
+    /**
+     * Constructs a FormLayout using the given encoded column specifications. 
+     * The constructed layout has no rows; these must be added 
+     * before components can be added to the layout container.<p>
+     * 
+     * This constructor is primarily intended to be used with builder classes
+     * that add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * // Label, gap, component
+     * FormLayout layout = new FormLayout(
+     *      "pref, 4dlu, pref");  
+     *                 
+     * // Right-aligned label, gap, component, gap, component                                         
+     * FormLayout layout = new FormLayout(
+     *      "right:pref, 4dlu, 50dlu, 4dlu, 50dlu");  
+     *      
+     * // Left-aligned labels, gap, components, gap, components                                         
+     * FormLayout layout = new FormLayout(
+     *      "left:pref, 4dlu, pref, 4dlu, pref"); 
+     * </pre> See the class comment for more examples.
+     * 
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @throws NullPointerException  if encodedColumnSpecs is <code>null</code>
+     */
+    public FormLayout(String encodedColumnSpecs) {
+        this(ColumnSpec.decodeSpecs(encodedColumnSpecs), new RowSpec[0]);
+    }
+    
+    
+    /**
+     * Constructs a FormLayout using the given 
+     * encoded column and row specifications.<p>
+     * 
+     * This constructor is recommended for most hand-coded layouts.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * FormLayout layout = new FormLayout(
+     *      "pref, 4dlu, pref",               // columns 
+     *      "p, 3dlu, p");                    // rows
+     *                 
+     * FormLayout layout = new FormLayout(
+     *      "right:pref, 4dlu, pref",         // columns 
+     *      "p, 3dlu, p, 3dlu, fill:p:grow"); // rows
+     *      
+     * FormLayout layout = new FormLayout(
+     *      "left:pref, 4dlu, 50dlu",         // columns 
+     *      "p, 2px, p, 3dlu, p, 9dlu, p");   // rows
+     *      
+     * FormLayout layout = new FormLayout(
+     *      "max(75dlu;pref), 4dlu, default", // columns 
+     *      "p, 3dlu, p, 3dlu, p, 3dlu, p");  // rows
+     * </pre> See the class comment for more examples.
+     * 
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @param encodedRowSpecs     comma separated encoded row specifications
+     * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs 
+     *     is <code>null</code>
+     */
+    public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
+        this(ColumnSpec.decodeSpecs(encodedColumnSpecs),
+             RowSpec.   decodeSpecs(encodedRowSpecs));
+    }
+       
+    
+    /**
+     * Constructs a FormLayout using the given column and row specifications.
      * 
 	 * @param colSpecs	an array of column specifications.
      * @param rowSpecs	an array of row specifications.
@@ -259,41 +334,6 @@ public final class FormLayout implements LayoutManager2, Serializable {
         minimumHeightMeasure   = new MinimumHeightMeasure(componentSizeCache);
         preferredWidthMeasure  = new PreferredWidthMeasure(componentSizeCache);
         preferredHeightMeasure = new PreferredHeightMeasure(componentSizeCache);
-    }
-    
-    
-    /**
-     * Constructs an instance of <code>FormLayout</code> using the given
-     * encoded string representations for column and row specifications.<p>
-     * 
-     * See the class comment for examples.
-     * 
-     * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @param encodedRowSpecs     comma separated encoded row specifications
-     * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs is null
-     */
-    public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
-        this(ColumnSpec.decodeSpecs(encodedColumnSpecs),
-             RowSpec.   decodeSpecs(encodedRowSpecs));
-    }
-       
-    
-    /**
-     * Constructs an instance of <code>FormLayout</code> using the given
-     * encoded string representation for column specifications.
-     * The constructed layout has no rows; these must be added before
-     * any component can be added to the layout container.<p>
-     * 
-     * This constructor is primarily intended to be used with builder classes
-     * that add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
-     * 
-     * See the class comment for examples.
-     * 
-     * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @throws NullPointerException  if encodedColumnSpecs is null
-     */
-    public FormLayout(String encodedColumnSpecs) {
-        this(encodedColumnSpecs, "");
     }
     
     
