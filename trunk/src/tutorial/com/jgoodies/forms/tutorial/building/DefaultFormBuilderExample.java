@@ -32,7 +32,7 @@ package com.jgoodies.forms.tutorial.building;
 
 import javax.swing.*;
 
-import com.jgoodies.forms.extras.DefaultFormBuilder;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * rows before the panel is filled with components. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see     DefaultFormBuilder
  * @see     PlainExample
  * @see     RowCounterExample

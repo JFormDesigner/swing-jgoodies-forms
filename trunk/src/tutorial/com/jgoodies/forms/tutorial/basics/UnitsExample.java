@@ -32,7 +32,7 @@ package com.jgoodies.forms.tutorial.basics;
 
 import javax.swing.*;
 
-import com.jgoodies.forms.extras.DefaultFormBuilder;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class UnitsExample {
 

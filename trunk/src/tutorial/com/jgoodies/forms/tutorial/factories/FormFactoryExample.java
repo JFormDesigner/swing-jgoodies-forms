@@ -34,7 +34,7 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-import com.jgoodies.forms.extras.DefaultFormBuilder;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.Sizes;
 /**
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @author	Karsten Lentzsch
  * @see	com.jgoodies.forms.factories.ButtonBarFactory
  */

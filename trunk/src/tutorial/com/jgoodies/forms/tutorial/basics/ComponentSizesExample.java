@@ -33,8 +33,8 @@ package com.jgoodies.forms.tutorial.basics;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.extras.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -45,7 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public final class ComponentSizesExample {
 
