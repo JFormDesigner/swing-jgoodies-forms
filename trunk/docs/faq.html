@@ -86,9 +86,11 @@
 
 	<h2>Layout</h2>
     <p>
-		    ::&nbsp;<a href="#L.1">Why don't components in growing rows fill the vertical space?</a>
-		<br>::&nbsp;<a href="#L.2">Why don't components that span multiple columns affect the column widths?</a>
-		<br>::&nbsp;<a href="#L.3">Why do components that span multiple columns affect the container width?</a>
+		    ::&nbsp;<a href="#L.1">What does the 'fill' alignment do?</a>
+		<br>::&nbsp;<a href="#L.2">When to choose the 'pref' size and when 'default'?</a>
+		<br>::&nbsp;<a href="#L.3">Why don't components in growing rows fill the vertical space?</a>
+		<br>::&nbsp;<a href="#L.4">Why don't components that span multiple columns affect the column widths?</a>
+		<br>::&nbsp;<a href="#L.5">Why do components that span multiple columns affect the container width?</a>
 
 
 	
@@ -145,7 +147,33 @@
 	
 	<h1>:: Layout Questions ::</h2>
 	
-		<h2><a name="L.1">Why don't components in growing rows fill the vertical space?</a></h2>
+		<h2><a name="L.1">What does the 'fill' alignment do?</a></h2>
+
+		The horizontal and vertical fill alignments let a component consume 
+		all the space in its display area, where the display area is the
+		set of cells a component spans. For example a horizontal fill 
+		positions the component's left-hand side at the left side of 
+		the display area and the component's right-hand side at the right-hand
+		side of the display area. 
+
+
+		<h2><a name="L.2">When to chose the 'pref' size and when 'default'?</a></h2>
+
+		First off, 'pref'and 'default' differ only if a panel can be resized. 
+		As long as there's enough space in the container to give all components 
+		their desired preferred sizes, the 'default' size is equal to the 
+		'pref' size. This is the case for all packed panels.
+		If the panel is then shrinked, the 'pref' size would cut off some
+		components, where the 'default' size shrinks them down until
+		the minimum size is reached.
+		<p>
+		If the panel cannot be resized use 'pref', just because it is easier
+		to understand. Otherwise favor 'default' over 'pref' for columns
+		and 'pref' over 'default' for rows. The latter is just a rule of thumb;
+		in some cases rows shall shrink too.
+
+
+		<h2><a name="L.3">Why don't components in growing rows fill the vertical space?</a></h2>
 
 		Forms has been designed to reduce the layout code for frequently used layouts.
 		I've found that the bulk of form-oriented panels requires components to be
@@ -161,7 +189,7 @@
 		where the second <tt>fill</tt> is responsible for filling the vertical space.
 		
 
-		<h2><a name="L.2">Why don't components that span multiple columns affect the column widths?</a></h2>
+		<h2><a name="L.4">Why don't components that span multiple columns affect the column widths?</a></h2>
 
 		Components that span multipe columns/rows are excluded from 
 		the computation of the column widths and row heights respectively.
@@ -179,7 +207,7 @@
 		specify that they shall grow. See also the next question.
 		
 
-		<h2><a name="L.3">Why do components that span multiple columns affect the container width?</a></h2>
+		<h2><a name="L.5">Why do components that span multiple columns affect the container width?</a></h2>
 		
 		Unlike the column expansion mentioned in the previous question,
 		it is quite easy to let components that span multipe columns/rows
