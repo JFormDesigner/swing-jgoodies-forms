@@ -38,7 +38,7 @@ import java.awt.Dimension;
  * with fixed minimum and preferred sizes.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class TestComponent extends Component {
     
@@ -89,7 +89,7 @@ public final class TestComponent extends Component {
      * Returns the minimum size of this component.
      * 
      * @return a dimension object indicating this component's minimum size
-     * @see #getPreferredSize
+     * @see #getPreferredSize()
      */
     public Dimension getMinimumSize() {
         return minimumSize;
@@ -100,7 +100,7 @@ public final class TestComponent extends Component {
      * Returns the preferred size of this component.
      * 
      * @return a dimension object indicating this component's preferred size
-     * @see #getMinimumSize
+     * @see #getMinimumSize()
      */
     public Dimension getPreferredSize() {
         return preferredSize;

@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class ColumnSpecTest extends TestCase {
     
@@ -175,6 +175,9 @@ public final class ColumnSpecTest extends TestCase {
     /**
      * Checks if the given ColumnSpec instances are equal and throws a failure
      * if not.
+     * 
+     * @param spec1  the first spec object to be compared
+     * @param spec2  the second spec object to be compared
      */
     private void assertEquals(ColumnSpec spec1, ColumnSpec spec2) {
         if (!spec1.getDefaultAlignment().equals(spec2.getDefaultAlignment())) {
@@ -191,7 +194,7 @@ public final class ColumnSpecTest extends TestCase {
     /**
      * Asserts that the specified column spec encoding is rejected.
      * 
-     * @param encodedColumnSpec  an encoded column spec
+     * @param invalidEncoding  the invalid encoded column spec
      */
     private void assertRejects(String invalidEncoding) {
         try {

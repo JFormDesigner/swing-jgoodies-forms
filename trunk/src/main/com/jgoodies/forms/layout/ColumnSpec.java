@@ -51,7 +51,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used <code>ColumnSpec</code> instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 
@@ -170,6 +170,7 @@ public class ColumnSpec extends FormSpec {
         }
 
         /**
+         * @param newDefaultAlignment   the new default alignment
          * @throws UnsupportedOperationException always
          */
         public void setDefaultAlignment(DefaultAlignment newDefaultAlignment) {
@@ -177,6 +178,7 @@ public class ColumnSpec extends FormSpec {
         }
 
         /**
+         * @param size   the new size
          * @throws UnsupportedOperationException always
          */
         public void setSize(Size size) {
@@ -184,6 +186,7 @@ public class ColumnSpec extends FormSpec {
         }
         
         /**
+         * @param weight    the new resize weight
          * @throws UnsupportedOperationException always
          */
         public void setResizeWeight(double weight) {

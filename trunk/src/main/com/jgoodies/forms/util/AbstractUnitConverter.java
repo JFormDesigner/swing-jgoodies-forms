@@ -38,8 +38,8 @@ import java.awt.Toolkit;
  * An abstract implementation of the {@link UnitConverter} that minimizes 
  * the effort required to convert font-dependent sizes to pixels. 
  * 
+ * @version $Revision: 1.3 $
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
  * @see    DefaultUnitConverter
  * @see    com.jgoodies.forms.layout.Size
  * @see    com.jgoodies.forms.layout.Sizes

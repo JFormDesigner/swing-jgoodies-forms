@@ -200,7 +200,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
  * @see	com.jgoodies.forms.factories.FormFactory
  * @see	com.jgoodies.forms.layout.FormLayout
@@ -445,7 +445,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @param c                 the component to add
      * @param columnSpan        number of columns the component shall span
      * @return the added label
-     * @see JLabel#setLabelFor
+     * @see JLabel#setLabelFor(java.awt.Component)
      */    
     public JLabel append(String textWithMnemonic, Component c, int columnSpan) {
         JLabel label = append(textWithMnemonic);

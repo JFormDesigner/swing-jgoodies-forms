@@ -42,10 +42,10 @@ import com.jgoodies.forms.layout.FormLayout;
 /**
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
+ * @version $Revision: 1.7 $
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
  * @see     ButtonBarBuilder
- * @see     ButtonBarFactory
+ * @see     com.jgoodies.forms.factories.ButtonBarFactory
  */
 public final class ButtonBarsExample {
     

@@ -45,21 +45,21 @@ import javax.swing.UIManager;
 
 /**
  * This is the default implementation of the {@link UnitConverter} interface.
- * It converts horizontal and vertical dialog base units to pixels.
- * <p> 
+ * It converts horizontal and vertical dialog base units to pixels.<p>
+ *  
  * The horizontal base unit is equal to the average width, in pixels,
  * of the characters in the system font; the vertical base unit is equal
  * to the height, in pixels, of the font.
  * Each horizontal base unit is equal to 4 horizontal dialog units;
- * each vertical base unit is equal to 8 vertical dialog units.
- * <p>
+ * each vertical base unit is equal to 8 vertical dialog units.<p>
+ * 
  * The DefaultUnitConverter computes dialog base units using a default font 
  * and a test string for the average character width. You can configure
  * the font and the test string via the bound Bean properties
  * <i>defaultDialogFont</i> and <i>averageCharacterWidthTestString</i>. 
  * 
+ * @version $Revision: 1.3 $
  * @author  Karsten Lentzsch
- * @version $Revision: 1.2 $
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
  * @see     com.jgoodies.forms.layout.Sizes
@@ -98,9 +98,10 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * the <code>changeSupport</code> field describes them.
      *
      * @serial
-     * @see #addPropertyChangeListener
-     * @see #removePropertyChangeListener
-     * @see #firePropertyChange
+     * @see #addPropertyChangeListener(PropertyChangeListener)
+     * @see #addPropertyChangeListener(String, PropertyChangeListener)
+     * @see #removePropertyChangeListener(PropertyChangeListener)
+     * @see #removePropertyChangeListener(String, PropertyChangeListener)
      */
     private PropertyChangeSupport changeSupport;
     
@@ -134,6 +135,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     
     /**
      * Lazily instantiates and returns the sole instance.
+     * 
+     * @return the lazily instantiated sole instance 
      */
     public static DefaultUnitConverter getInstance() {
         if (instance == null) {
@@ -236,6 +239,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     /**
      * Lazily computes and answer the global dialog base units.
      * Should be re-computed if the l&amp;f, platform, or screen changes. 
+     * 
+     * @return a cached DialogBaseUnits object used globally if no container is available 
      */
     private DialogBaseUnits getGlobalDialogBaseUnits() {
         if (cachedGlobalDialogBaseUnits == null) {
@@ -247,14 +252,14 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     /**
      * Looks up and answers the dialog base units for the given component.
      * In case the component is <code>null</code> the global dialog base units
-     * are answered.
-     * <p>
+     * are answered.<p>
+     * 
      * Before we compute the dialog base units, we check wether they
      * have been computed and cached before - for the same component
      * <code>FontMetrics</code>.
      * 
      * @param c  the component that provides the graphics object
-     * @return
+     * @return the DialogBaseUnits object for the given component
      */
     private DialogBaseUnits getDialogBaseUnits(Component c) {
         if (c == null) { // || (font = c.getFont()) == null) {
@@ -272,8 +277,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     
     /**
      * Computes and answers the horizontal dialog base units. 
-     * Honors the font, font size and resolution.
-     * <p>
+     * Honors the font, font size and resolution.<p>
+     * 
      * Implementation Note: 14dluY map to 22 pixel for 8pt Tahoma on 96 dpi.
      * I could not yet manage to compute the Microsoft compliant font height.
      * Therefore this method adds a correction value that seems to work
@@ -281,6 +286,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * Anyway, I plan to revise this, as soon as I have more information
      * about the original computation for vertical dialog base units.
      * 
+     * @param metrics  the FontMetrics used to measure the dialog font
      * @return the horizontal and vertical dialog base units
      */
     private DialogBaseUnits computeDialogBaseUnits(FontMetrics metrics) {
@@ -302,9 +308,11 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * Computes the global dialog base units. The current implementation
      * assumes a fixed 8pt font and on 96 or 120 dpi. A better implementation
      * should ask for the main dialog font and should honor the current
-     * screen resolution.
-     * <p>
-     * Should be re-computed if the l&amp;f, platform, or screen changes. 
+     * screen resolution.<p>
+     * 
+     * Should be re-computed if the l&amp;f, platform, or screen changes.
+     * 
+     * @return a DialogBaseUnits object used globally if no container is available 
      */
     private DialogBaseUnits computeGlobalDialogBaseUnits() {
         logInfo("Computing global dialog base units...");
@@ -355,8 +363,9 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      *
      * @param listener      the PropertyChangeListener to be added
      *
-     * @see #removePropertyChangeListener
-     * @see #addPropertyChangeListener(java.lang.String, java.beans.PropertyChangeListener)
+     * @see #removePropertyChangeListener(PropertyChangeListener)
+     * @see #removePropertyChangeListener(String, PropertyChangeListener)
+     * @see #addPropertyChangeListener(String, PropertyChangeListener)
      */
     public final synchronized void addPropertyChangeListener(
                                             PropertyChangeListener listener) {
@@ -379,8 +388,9 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      *
      * @param listener      the PropertyChangeListener to be removed
      *
-     * @see #addPropertyChangeListener
-     * @see #removePropertyChangeListener(java.lang.String,java.beans.PropertyChangeListener)
+     * @see #addPropertyChangeListener(PropertyChangeListener)
+     * @see #addPropertyChangeListener(String, PropertyChangeListener)
+     * @see #removePropertyChangeListener(String, PropertyChangeListener)
      */
     public final synchronized void removePropertyChangeListener(
                                         PropertyChangeListener listener) {

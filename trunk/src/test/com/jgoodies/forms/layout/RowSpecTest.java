@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class RowSpecTest extends TestCase {
     
@@ -173,6 +173,9 @@ public final class RowSpecTest extends TestCase {
     /**
      * Checks if the given RowSpec instances are equal and throws a failure
      * if not.
+     * 
+     * @param spec1    the first row spec object to be compared
+     * @param spec2    the second row spec object to be compared
      */
     private void assertEquals(RowSpec spec1, RowSpec spec2) {
         if (!spec1.getDefaultAlignment().equals(spec2.getDefaultAlignment())) {

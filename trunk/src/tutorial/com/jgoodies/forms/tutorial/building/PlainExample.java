@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to create text labels and separators. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see     PanelBuilderExample
  * @see	RowCounterExample
  * @see	DynamicRowsExample
@@ -108,6 +108,8 @@ public final class PlainExample {
 
     /**
      * Creates and returns a combo box for the approval states.
+     * 
+     * @return a combo box for the approval status
      */
     private JComboBox createApprovalStatusComboBox() {
         return new JComboBox(
@@ -116,6 +118,8 @@ public final class PlainExample {
 
     /**
      * Creates and returns a combo box for the project types.
+     * 
+     * @return a combo box for the project type
      */
     private JComboBox createProjectTypeComboBox() {
         return new JComboBox(
@@ -127,6 +131,8 @@ public final class PlainExample {
 
     /**
      * Builds the pane.
+     * 
+     * @return the built panel
      */
     public JComponent buildPanel() {
         initComponents();

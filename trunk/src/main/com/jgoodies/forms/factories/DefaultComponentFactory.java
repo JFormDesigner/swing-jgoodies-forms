@@ -44,7 +44,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -264,6 +264,8 @@ public class DefaultComponentFactory implements ComponentFactory {
     
     /**
      * Checks and answers whether this is a J2RE 1.2 or 1.3.
+     * 
+     * @return true if before 1.4, false otherwise
      */
     private static boolean isBefore14() {
         String version = System.getProperty("java.version");

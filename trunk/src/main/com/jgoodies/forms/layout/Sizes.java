@@ -47,7 +47,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see     Size
  * @see     UnitConverter
  * @see     DefaultUnitConverter
@@ -255,6 +255,8 @@ public final class Sizes {
     /**
      * Returns the current {@link UnitConverter}. If it has not been initialized 
      * before it will get an instance of {@link DefaultUnitConverter}.
+     * 
+     * @return the current <code>UnitConverter</code>
      */
     public static UnitConverter getUnitConverter() {
         if (unitConverter == null) {
@@ -310,7 +312,12 @@ public final class Sizes {
          * <p>
          * Invoked by FormLayout to determine the size of one of my elements
          * 
-         * @return the maximum size for the given list of components
+         * @param container       the layout container
+         * @param components      the list of components to measure
+         * @param minMeasure      the measure used to determine the minimum size
+         * @param prefMeasure     the measure used to determine the preferred size
+         * @param defaultMeasure  the measure used to determine the default size
+         * @return the maximum size in pixels for the given list of components
          */
         public int maximumSize(
             Container container,

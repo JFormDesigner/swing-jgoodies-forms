@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link CellConstraints}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public final class CellConstraintsTest extends TestCase {
     
@@ -138,6 +138,8 @@ public final class CellConstraintsTest extends TestCase {
     /**
      * Checks if the CellConstraints constructor allows to construct
      * an instance for the specified cell bounds.
+     * 
+     * @param invalidEncoding   the encoding that should be rejected
      */
     private void assertRejects(String invalidEncoding) {    
         try {
@@ -157,6 +159,11 @@ public final class CellConstraintsTest extends TestCase {
     /**
      * Checks if the CellConstraints constructor allows to construct
      * an instance for the specified cell bounds.
+     * 
+     * @param gridX   the first column in the grid
+     * @param gridY   the first row in the grid
+     * @param gridWidth the column span
+     * @param gridHeight the row span
      */
     private void assertRejects(int gridX, int gridY,
                                 int gridWidth, int gridHeight) {    
@@ -173,6 +180,9 @@ public final class CellConstraintsTest extends TestCase {
     /**
      * Checks if the given RowSpec instances are equal and throws a failure
      * if not.
+     * 
+     * @param cc1   the first constraints object to be compared
+     * @param cc2   the second constraints object to be compared
      */
     private void assertEquals(CellConstraints cc1, CellConstraints cc2) {
         if (   cc1.gridX != cc2.gridX

@@ -45,7 +45,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * 3) using a separator.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
  */
@@ -109,6 +109,8 @@ public final class DefaultFormWithCustomAreasExample {
      * We add a gap and a single custom row that grows and that
      * is filled vertically (where the default is center vertically).
      * The area uses a standard leading label.
+     * 
+     * @return the custom area panel with aligned labels
      */
     private JComponent buildCustomAreaWithAlignedLabelPanel() {
         DefaultFormBuilder builder = buildPanelHeader();
@@ -127,6 +129,8 @@ public final class DefaultFormWithCustomAreasExample {
     /**
      * Demonstrates how to append two custom areas at the end of
      * a panel that is build with a {@link DefaultFormBuilder}.
+     * 
+     * @return the custom area panel with label in the top
      */
     private JComponent buildCustomAreaWithTopLabelPanel() {
         DefaultFormBuilder builder = buildPanelHeader();
@@ -152,6 +156,8 @@ public final class DefaultFormWithCustomAreasExample {
      * is filled vertically (where the default is center vertically).
      * The area is separated by a titled separator and it is indented
      * using an empty leading label.
+     * 
+     * @return the custom area panel with separators
      */
     private JComponent buildCustomAreaWithSeparatorPanel() {
         DefaultFormBuilder builder = buildPanelHeader();

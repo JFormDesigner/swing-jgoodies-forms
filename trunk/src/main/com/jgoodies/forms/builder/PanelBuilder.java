@@ -78,7 +78,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * return builder.getPanel();
  * </pre>
  * 
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @author  Karsten Lentzsch
  * @see     com.jgoodies.forms.extras.I15dPanelBuilder
  * @see     com.jgoodies.forms.extras.DefaultFormBuilder
@@ -120,6 +120,8 @@ public class PanelBuilder extends AbstractFormBuilder {
 
     /**
      * Returns the panel used to build the form.
+     * 
+     * @return the panel used by this builder to build the form
      */
     public final JPanel getPanel() { 
         return (JPanel) getContainer();  
@@ -193,7 +195,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param component             the component to add
      * @param componentConstraints  the component's cell constraints
      * @return the added label
-     * @see javax.swing.JLabel#setLabelFor
+     * @see JLabel#setLabelFor(java.awt.Component)
      */
     public final JLabel add(JLabel label,        CellConstraints labelConstraints,
                              Component component, CellConstraints componentConstraints) {
@@ -212,7 +214,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param component             the component to add
      * @param componentConstraints  the component's cell constraints
      * @return the added label
-     * @see javax.swing.JLabel#setLabelFor
+     * @see JLabel#setLabelFor(java.awt.Component)
      */
     public final JLabel addLabel(
         String textWithMnemonic, CellConstraints labelConstraints,

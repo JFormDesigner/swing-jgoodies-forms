@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see	PlainExample
  * @see	DynamicRowsExample
  * @see	DefaultFormBuilderExample
@@ -100,6 +100,8 @@ public final class RowCounterExample {
 
     /**
      * Builds and returns a combo box for materials.
+     * 
+     * @return a combo box for different materials
      */
     private JComboBox createMaterialComboBox() {
         return new JComboBox(new String[] {"C45E, ReH=600", 
@@ -107,6 +109,8 @@ public final class RowCounterExample {
     }
     /**
      * Builds and returns a combo box for ice classes.
+     * 
+     * @return a combo box for a bunch of ice classes
      */
     private JComboBox createIceClassComboBox() {
         return new JComboBox(new String[] { "E", "E1", "E2", "E3", "E4" });
@@ -117,6 +121,8 @@ public final class RowCounterExample {
 
     /**
      * Builds the content pane.
+     * 
+     * @return the built panel
      */
     public JComponent buildPanel() {
         initComponents();

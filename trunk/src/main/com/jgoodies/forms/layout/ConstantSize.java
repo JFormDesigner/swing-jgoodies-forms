@@ -58,7 +58,7 @@ import java.util.List;
  * </table>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @see	Size
  * @see	Sizes
  */
@@ -119,6 +119,7 @@ public final class ConstantSize implements Size {
      * 
      * @param encodedValueAndUnit  the size's value and unit as string
      * @param horizontal			true for horizontal, false for vertical
+     * @return a constant size for the given encoding and unit description
      * @throws IllegalArgumentException   if the unit requires integer
      *    but the value is not an integer
      */
@@ -201,6 +202,7 @@ public final class ConstantSize implements Size {
      * @param minMeasure      the measure that determines the minimum sizes
      * @param prefMeasure     the measure that determines the preferred sizes
      * @param defaultMeasure  the measure that determines the default sizes
+     * @return the computed maximum size in pixel 
      */
     public int maximumSize(Container container, 
                     List components, 
@@ -304,6 +306,7 @@ public final class ConstantSize implements Size {
          * specified string.
          * 
          * @param str   the encoded unit
+         * @param horizontal  true for a horizontal unit, false for vertical
          * @return the corresponding Unit
          * @throws IllegalArgumentException if no Unit exists for the string
          */
