@@ -43,7 +43,7 @@ import junit.framework.TestCase;
  * Tests the unit conversion used by the Forms layout system. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
 public final class UnitConversionTest extends TestCase {
@@ -51,12 +51,10 @@ public final class UnitConversionTest extends TestCase {
     /**
      * Checks that users can set a custom font for use in 
      * the DefaultUnitConverter.
-     */
+     */ 
     public void testSetDefaultDialogFont() {
         DefaultUnitConverter duc = DefaultUnitConverter.getInstance();
         Font customFont = new Font("Serif", Font.PLAIN, 16);
-        if (customFont == null)
-            fail("Can't get a serif font.");
         duc.setDefaultDialogFont(customFont);
     }
     
