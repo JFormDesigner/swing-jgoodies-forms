@@ -43,16 +43,47 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 /**
- * Provides a means to build consistent form-oriented panels quickly
+ * Provides a means to build form-oriented panels quickly and consistently
  * using the {@link FormLayout}. This builder combines frequently used
  * panel building steps: add a new row, add a label, proceed to the next 
- * data column, then add a component.
+ * data column, then add a component. 
+ * <p>
+ * The extra value lies in the <code>#append</code> methods that 
+ * append gap rows and component rows if necessary and then add
+ * the given components. They are built upon the superclass behavior 
+ * <code>#appendRow</code> and the set of <code>#add</code> methods.
+ * A set of component appenders allows to add a textual label and
+ * associated component in a single step.
  * <p>
  * This builder can map resource keys to internationalized (i15d) texts
  * when creating text labels, titles and titled separators. Therefore
  * you must specify a <code>ResourceBundle</code> in the constructor.
  * The builder methods throw an <code>IllegalStateException</code>
  * if one of the mapping builder methods is invoked and no bundle has been set.
+ * <p>
+ * You can configure the build process by setting a leading column,
+ * enabling the row grouping and by modifying the gaps between normal
+ * lines and between paragraphs. The leading column will be honored
+ * if the cursor proceeds to the next row. All appended components
+ * start in the specified lead column, except appended separators that
+ * span all columns.
+ * <p>
+ * It is temptive to use the DefaultFormBuilder all the time and 
+ * to let it add rows automatically. Use a simpler style if it increases 
+ * the code readability. Explicit row specifications and cell constraints 
+ * make your layout easier to understand - but harder to maintain.
+ * See also the accompanying tutorial sources and the Tips &amp; Tricks
+ * that are part of the Forms documentation.
+ * <p>
+ * Sometimes a form consists of many standardized rows but has a few
+ * rows that require a customization. The DefaultFormBuilder can do everything
+ * that the superclasses {@link com.jgoodies.forms.builder.AbstractFormBuilder}
+ * and {@link com.jgoodies.forms.builder.PanelBuilder} can do; 
+ * among other things: appending new rows and moving the cursor.
+ * Again, ask yourself if the DefaultFormBuilder is the appropriate builder.
+ * As a rule of thumb you should have more components than builder commands.
+ * There are different ways to add custom rows. Find below example code
+ * that presents and compares the pros and cons of three approaches. 
  * <p>
  * This class is not yet part of the binary Forms library; 
  * it comes with the Forms distributions as an extra.
@@ -107,8 +138,69 @@ import com.jgoodies.forms.layout.RowSpec;
  *     builder.append("ds [mm]",    new JTextField());
  * }
  * </pre>
+ * <p>
+ * <b>Custom Row Example:</b>
+ * <pre>
+ * public JComponent buildPanel() {
+ *     initComponents();
+ *
+ *     FormLayout layout = new FormLayout(
+ *             "right:pref, 3dlu, default:grow", 
+ *             "");
+ *     DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+ *     builder.setDefaultDialogBorder();
+ *     builder.setRowGroupingEnabled(true);
+ *      
+ *     CellConstraints cc = new CellConstraints();
+ *
+ *     // In this approach, we add a gap and a custom row.
+ *     // The advantage of this approach is, that we can express
+ *     // the row spec and comment area cell constraints freely.
+ *     // The disadvantage is the misalignment of the leading label.
+ *     // Also the row's height may be inconsistent with other rows. 
+ *     builder.appendSeparator("Single Custom Row");
+ *     builder.append("Name", name1Field); 
+ *     builder.appendRow(builder.getLineGapSpec());
+ *     builder.appendRow(new RowSpec("top:31dlu")); // Assumes line is 14, gap is 3
+ *     builder.nextLine(2);
+ *     builder.append("Comment");
+ *     builder.add(new JScrollPane(comment1Area), 
+ *                 cc.xy(builder.getColumn(), builder.getRow(), "fill, fill"));
+ *     builder.nextLine();
+ *
+ *     // In this approach, we append a standard row with gap before it.
+ *     // The advantage is, that the leading label is aligned well.
+ *     // The disadvantage is that the comment area now spans
+ *     // multiple cells and is slightly less flexible.
+ *     // Also the row's height may be inconsistent with other rows. 
+ *     builder.appendSeparator("Standard + Custom Row");
+ *     builder.append("Name", name2Field); 
+ *     builder.append("Comment");
+ *     builder.appendRow(new RowSpec("17dlu")); // Assumes line is 14, gap is 3
+ *     builder.add(new JScrollPane(comment2Area), 
+ *                 cc.xywh(builder.getColumn(), builder.getRow(), 1, 2));
+ *     builder.nextLine(2);
+ *
+ *     // In this approach, we append two standard rows with associated gaps.
+ *     // The advantage is, that the leading label is aligned well, 
+ *     // and the height is consistent with other rows.
+ *     // The disadvantage is that the comment area now spans
+ *     // multiple cells and is slightly less flexible.
+ *     builder.appendSeparator("Two Standard Rows");
+ *     builder.append("Name", name3Field); 
+ *     builder.append("Comment");
+ *     builder.nextLine();
+ *     builder.append("");
+ *     builder.nextRow(-2);
+ *     builder.add(new JScrollPane(comment3Area), 
+ *                 cc.xywh(builder.getColumn(), builder.getRow(), 1, 3));
+ *
+ *     return builder.getPanel();
+ * }
+ * </pre>
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
  * @see	com.jgoodies.forms.factories.FormFactory
  * @see	com.jgoodies.forms.layout.FormLayout
