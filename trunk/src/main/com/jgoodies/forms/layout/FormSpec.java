@@ -46,11 +46,12 @@ import java.util.StringTokenizer;
  * Since this breaks the API, this should happen in version 1.1. 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
+ * 
  * @see	FormLayout
  * @see	CellConstraints
  */
-abstract class FormSpec implements Serializable {
+public abstract class FormSpec implements Serializable {
     
     
     // Horizontal and Vertical Default Alignments ***************************
