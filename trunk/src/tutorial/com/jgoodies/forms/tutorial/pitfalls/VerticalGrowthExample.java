@@ -45,7 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * the available vertical space. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public final class VerticalGrowthExample {
@@ -69,7 +69,7 @@ public final class VerticalGrowthExample {
         JComponent panel = new VerticalGrowthExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.setSize(500, 400);
-        frame.show();
+        frame.setVisible(true);
     }
     
     
