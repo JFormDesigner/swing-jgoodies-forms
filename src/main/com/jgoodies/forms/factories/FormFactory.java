@@ -56,13 +56,13 @@ import com.jgoodies.forms.util.LayoutStyle;
  * label1 textfield1a textfield1b  label2 textfield2a textfield2b
  * label3 textfield3a textfield3b  label4 textfield4
  * label5 textfield5               label6 textfield6
- * </pre>
- * <p>
- * Most forms use 1, 2, 3 or 4 major columns, which in turn are often split
+ * </pre><p>
+ * 
+ * Many forms use 1, 2, 3 or 4 major columns, which in turn are often split
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003, 2004 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -35,11 +35,11 @@ import java.awt.FontMetrics;
 import java.awt.Toolkit;
 
 /**
- * An abstract implementation of the {@link UnitConverter} that minimizes 
- * the effort required to convert font-dependent sizes to pixels. 
+ * An abstract implementation of the {@link UnitConverter} interface that 
+ * minimizes the effort required to convert font-dependent sizes to pixels. 
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see    DefaultUnitConverter
  * @see    com.jgoodies.forms.layout.Size

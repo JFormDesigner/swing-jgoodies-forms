@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -51,16 +51,19 @@ import com.jgoodies.forms.util.LayoutStyle;
  * 
  * Buttons added to the builder are either gridded or fixed and may fill
  * their FormLayout cell or not. All gridded buttons get the same width,
- * while fixed button use their own size. Gridded buttons honor 
+ * while fixed buttons use their own size. Gridded buttons honor 
  * the default minimum button width as specified by the current 
  * {@link com.jgoodies.forms.util.LayoutStyle}.<p>
  * 
- * A button can optionally be declared as narrow, so that it has 
- * narrow margins if displayed with a JGoodies look&amp;feel.
- * This is useful if you want to lay out buttons with equal width 
- * even if a button has a large label. For example, in a bar with
- * 'Add...', 'Remove', 'Properties...' you may declare the properties button 
- * to use narrow margins.<p>
+ * You can set an optional hint for narrow  margin for the fixed width buttons.
+ * This is useful if you want to lay out a button bar that includes a button
+ * with a long text. For example, in a bar with
+ * 'Copy to Clipboard', 'OK', 'Cancel' you may declare the clipboard button 
+ * as a fixed size button with narrow margins, OK and Cancel as gridded.
+ * Gridded buttons are marked as narrow by default.
+ * Note that some look&amp;feels do not support the narrow margin feature,
+ * and conversely, others have only narrow margins. The JGoodies look&amp;feels
+ * honor the setting, the Mac Aqua l&amp;f uses narrow margins all the time.<p>
  * 
  * To honor the platform's button order (left-to-right vs. right-to-left)
  * this builder uses the <em>leftToRightButtonOrder</em> property.
@@ -125,8 +128,10 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre> 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
+ * @see ButtonStackBuilder
+ * @see com.jgoodies.forms.factories.ButtonBarFactory
  * @see com.jgoodies.forms.util.LayoutStyle
  */
 public final class ButtonBarBuilder extends PanelBuilder {
