@@ -42,10 +42,9 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * A non-visual builder that assists you in building consistent button stacks
- * using the {@link FormLayout}.
+ * using the {@link FormLayout}.<p>
  *
- * <p>
- * <b>Example:</b><br>
+ * <strong>Example:</strong><br>
  * The following example builds a button stack with <i>Close, Up</i> and 
  * <i>Down</i>, where Up and Down are related, and Close is not related
  * to the other buttons, which makes a wide gap for the unrelated and 
@@ -64,7 +63,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class ButtonStackBuilder extends PanelBuilder {
     
@@ -125,24 +124,31 @@ public final class ButtonStackBuilder extends PanelBuilder {
     }
 
     /**
-     * Adds a gridded component.
+     * Adds a gridded component. 
      * 
      * @param component  the component to add
      */
     public void addGridded(JComponent component) {
         getLayout().appendRow(FormFactory.PREF_ROWSPEC);
         getLayout().addGroupedRow(getRow());
+        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         add(component);
         nextRow();
     }
 
     /**
-     * Adds a gridded narrow component.
+     * Adds a gridded narrow component.<p>
+     * 
+     * Since version 1.0.3 all buttons in button stacks get a narrow hint. 
+     * And so this method is obsolete and has been marked as deprecated.
+     * <strong>This method will be removed for version 1.0.4!</strong>.<p>
+     * 
+     * TODO: Remove for 1.0.4
      * 
      * @param component  the component to add
+     * @deprecated Replaced by {@link #addGridded(JComponent)}.
      */
     public void addGriddedNarrow(JComponent component) {
-        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         addGridded(component);
     }
 
