@@ -33,7 +33,7 @@ package com.jgoodies.forms.layout;
 import junit.framework.TestCase;
 
 /**
- * A test case for class {@link FormLayout}. 
+ * Tests column and row groups of the FormLayout. 
  *
  * @author Karsten Lentzsch
  */
