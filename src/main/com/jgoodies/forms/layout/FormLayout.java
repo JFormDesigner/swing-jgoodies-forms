@@ -36,6 +36,9 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager2;
 import java.awt.Rectangle;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -46,31 +49,31 @@ import java.util.*;
  * more cells.
  * A <a href="../../../../../whitepaper.pdf" target="secondary">whitepaper</a>
  * about the FormLayout ships with the product documentation and is available 
- * <a href="http://www.jgoodies.com/articles/forms.pdf">online</a>.
- * <p>
+ * <a href="http://www.jgoodies.com/articles/forms.pdf">online</a>.<p>
+ * 
  * To use <code>FormLayout</code> you first define the grid by specifying the
  * columns and rows. In a second step you add components to the grid. You can
  * specify columns and rows via human-readable String descriptions or via
- * arrays of {@link ColumnSpec} and {@link RowSpec} instances.
- * <p>
+ * arrays of {@link ColumnSpec} and {@link RowSpec} instances.<p>
+ * 
  * Each component managed by a FormLayout is associated with an instance of
  * {@link CellConstraints}. The constraints object specifies where a component
  * should be located on the form's grid and how the component should be
  * positioned. In addition to its constraints object the
  * <code>FormLayout</code> also considers each component's minimum and
- * preferred sizes in order to determine a component's size.
- * <p>
+ * preferred sizes in order to determine a component's size.<p>
+ * 
  * FormLayout has been designed to work with non-visual builders that help you
  * specify the layout and fill the grid. For example, the 
  * {@link com.jgoodies.forms.builder.ButtonBarBuilder} assists you in building button
  * bars; it creates a standardized FormLayout and provides a minimal API that
  * specializes in adding buttons. Other builders can create frequently used
  * panel design, for example a form that consists of rows of label-component
- * pairs.
- * <p> 
+ * pairs.<p>
+ *  
  * FormLayout has been prepared to work with different types of sizes as
- * defined by the {@link Size} interface.
- * <p>
+ * defined by the {@link Size} interface.<p>
+ * 
  * <strong>Example 1</strong> (Plain FormLayout):<br>
  * The following example creates a panel with 3 data columns and 3 data rows; 
  * the columns and rows are specified before components are added 
@@ -90,8 +93,8 @@ import java.util.*;
  * panel.add(new JTextField(),       cc.xy  (3, 5));
  * panel.add(new JButton("..."),     cc.xy  (5, 5));
  * return panel;
- * </pre>
- * <p>
+ * </pre><p>
+ * 
  * <strong>Example 2</strong> (Using PanelBuilder):<br>
  * This example creates the same panel as above using the 
  * {@link com.jgoodies.forms.builder.PanelBuilder} to add components to the form. 
@@ -110,8 +113,8 @@ import java.util.*;
  * builder.add(new JTextField(),     cc.xy  (3, 5));
  * builder.add(new JButton("..."),   cc.xy  (5, 5));
  * return builder.getPanel();
- * </pre>
- * <p>
+ * </pre><p>
+ * 
  * <strong>Example 3</strong> (Using DefaultFormBuilder):<br>
  * This example utilizes the 
  * {@link com.jgoodies.forms.extras.DefaultFormBuilder} that 
@@ -130,7 +133,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
@@ -141,22 +144,25 @@ import java.util.*;
  * @see	Sizes
  */
 
-public final class FormLayout implements LayoutManager2 {
+public final class FormLayout implements LayoutManager2, Serializable {
 
     /**
      * Holds the column specifications.
+     * 
      * @see ColumnSpec
      */    
     private final List colSpecs;
 
     /**
      * Holds the row specifications.
+     * 
      * @see RowSpec
      */
     private final List rowSpecs;
 
     /**
      * Holds the column groups as an array of arrays of column indices.
+     * 
      * @see #setColumnGroups(int[][])
      * @see #getColumnGroups()
      */
@@ -164,6 +170,7 @@ public final class FormLayout implements LayoutManager2 {
 
     /**
      * Holds the row groups as an array of arrays of row indices.
+     * 
      * @see #setRowGroups(int[][])
      * @see #getRowGroups()
      */
@@ -171,6 +178,7 @@ public final class FormLayout implements LayoutManager2 {
 
     /**
      * Maps components to their associated <code>CellConstraints</code>.
+     * 
      * @see CellConstraints
      */
     private final Map constraintMap;
@@ -182,13 +190,13 @@ public final class FormLayout implements LayoutManager2 {
      * Holds the components that occupy exactly one column. 
      * For each column we keep a list of these components.
      */
-    private List[] colComponents;
+    private transient List[] colComponents;
 
     /**
      * Holds the components that occupy exactly one row. 
      * For each row we keep a list of these components.
      */
-    private List[] rowComponents;
+    private transient List[] rowComponents;
     
     /**
      * Caches component minimum and preferred sizes.
@@ -220,9 +228,9 @@ public final class FormLayout implements LayoutManager2 {
      */
     public FormLayout(ColumnSpec[] colSpecs, RowSpec[] rowSpecs) {
         if (colSpecs == null)
-            throw new NullPointerException("Column specifications must not be null.");
+            throw new NullPointerException("The column specifications must not be null.");
         if (rowSpecs == null)
-            throw new NullPointerException("Row specifications must not be null.");
+            throw new NullPointerException("The row specifications must not be null.");
         
         this.colSpecs  = new ArrayList(Arrays.asList(colSpecs));
         this.rowSpecs  = new ArrayList(Arrays.asList(rowSpecs));
@@ -1469,7 +1477,7 @@ public final class FormLayout implements LayoutManager2 {
         }
         
         /**
-         * Answers the minimum size for the given component. Tries to look up
+         * Returns the minimum size for the given component. Tries to look up
          * the value from the cache; lazily creates the value if it has not
          * been requested before.
          * 
@@ -1486,7 +1494,7 @@ public final class FormLayout implements LayoutManager2 {
         }
 
         /**
-         * Answers the preferred size for the given component. Tries to look
+         * Returns the preferred size for the given component. Tries to look
          * up the value from the cache; lazily creates the value if it has not
          * been requested before.
          * 
@@ -1512,14 +1520,14 @@ public final class FormLayout implements LayoutManager2 {
     // Exposing the Layout Information **************************************
     
     /**
-     * Computes and answers the horizontal and vertical grid origins.
-     * Performs the same layout process as #layoutContainer but
-     * does not layout the components.
-     * <p>
+     * Computes and returns the horizontal and vertical grid origins.
+     * Performs the same layout process as <code>#layoutContainer</code> 
+     * but does not layout the components.<p>
+     * 
      * This method has been added only to make it easier to debug
-     * the form layout. <b>You must not call this method directly;
+     * the form layout. <strong>You must not call this method directly;
      * It may be removed in a future release or the visibility
-     * may be reduced.</b> 
+     * may be reduced.</strong> 
      * 
      * @param parent   the <code>Container</code> to inspect
      * @return an object that comprises the grid x and y origins
@@ -1648,6 +1656,22 @@ public final class FormLayout implements LayoutManager2 {
         return result;
     }
     
+    
+    // Serialization ********************************************************
+    
+    /**
+     * In addition to the default serialization mechanism this class
+     * invalidates the component size cache. The cache will be populated
+     * again after the deserialization.
+     * Also, the fields <code>colComponents</code> and 
+     * <code>rowComponents</code> have been marked as transient to exclude
+     * them from the serialization.
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        invalidateCaches();
+        out.defaultWriteObject();
+    }
+    
 
     // Debug Helper Code ****************************************************
  
@@ -1677,6 +1701,5 @@ public final class FormLayout implements LayoutManager2 {
     }
 
     */
-
     
 }
