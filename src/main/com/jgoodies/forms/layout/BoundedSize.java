@@ -35,11 +35,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Describes sizes that provide lower and upper bounds as used by 
- * the JGoodies {@link com.jgoodies.forms.layout.FormLayout}.
+ * Describes sizes that provide lower and upper bounds 
+ * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see	Sizes
  * @see	ConstantSize
@@ -67,7 +67,7 @@ final class BoundedSize implements Size, Serializable {
     // Instance Creation ****************************************************
     
     /**
-     * Constructs a <code>BoundedSize</code> for the given basis using the
+     * Constructs a BoundedSize for the given basis using the
      * specified lower and upper bounds.
      * 
      * @param basis  the base size
@@ -189,8 +189,8 @@ final class BoundedSize implements Size, Serializable {
             if (upperBound == null) {
                 return "max(" + basis + ';' + lowerBound + ')';
             } else {
-                return "max(" + basis + ';'
-                      + "min(" + lowerBound + ';' + upperBound + "))";
+                return "max(" + lowerBound + ';'
+                      + "min(" + basis + ';' + upperBound + "))";
             }
         } else if (upperBound != null) {
             return "min(" + basis + ';' + upperBound + ')';
