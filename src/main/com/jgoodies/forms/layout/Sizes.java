@@ -42,13 +42,13 @@ import com.jgoodies.forms.util.UnitConverter;
 
 /**
  * Consists only of static methods that create and convert sizes 
- * as required by the {@link FormLayout}. The conversion of sizes
+ * as required by the FormLayout. The conversion of sizes
  * that are not based on pixel is delegated to an implementation 
  * of {@link UnitConverter}. The conversion methods require the 
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see     Size
  * @see     UnitConverter
@@ -144,7 +144,7 @@ public final class Sizes {
     }
         
     /**
-     * Returns an instance of <code>Size</code> for the specified value
+     * Creates and returns a ConstantSize for the specified value
      * in horizontal dialog units.
      * 
      * @param value	size value in horizontal dialog units	
@@ -155,7 +155,7 @@ public final class Sizes {
     }
     
     /**
-     * Returns an instance of <code>Size</code> for the specified value
+     * Creates and returns a ConstantSize for the specified value
      * in vertical dialog units.
      * 
      * @param value 	size value in vertical dialog units   
@@ -166,7 +166,7 @@ public final class Sizes {
     }
     
     /**
-     * Creates and returns an instance of <code>Size</code> 
+     * Creates and returns a ConstantSize 
      * for the specified pixel value.
      * 
      * @param value  value in pixel
@@ -177,7 +177,7 @@ public final class Sizes {
     }
     
     /**
-     * Creates and returns a <code>BoundedSize</code> for the given basis
+     * Creates and returns a BoundedSize for the given basis
      * using the specified lower and upper bounds.
      * 
      * @param basis  		the base size
@@ -293,7 +293,7 @@ public final class Sizes {
     }
     
     /**
-     * Sets a new {@link UnitConverter} that will be used to convert
+     * Sets a new UnitConverter that will be used to convert
      * font-dependent sizes to pixel sizes.
      * 
      * @param newUnitConverter  the unit converter to be set
@@ -307,7 +307,7 @@ public final class Sizes {
     
     /**
      * An ordinal-based serializable typesafe enumeration that implements
-     * the  {@link Size} interface for the component sizes: 
+     * the {@link Size} interface for the component sizes: 
      * <em>min, pref, default</em>.
      */
     static final class ComponentSize implements Size, Serializable {
