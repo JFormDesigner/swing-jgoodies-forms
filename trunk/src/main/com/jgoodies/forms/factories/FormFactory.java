@@ -62,7 +62,8 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
+ * 
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -40,15 +40,16 @@ import com.jgoodies.forms.layout.FormLayout;
  * Columns are specified before the panel is filled with components, 
  * rows are added dynamically. The builder is used to hold a cursor, 
  * to add rows dynamically, and to fill components. 
- * The builder's convenience methods are used to add labels and separators.
- * <p> 
+ * The builder's convenience methods are used to add labels and separators.<p>
+ *  
  * This panel building style is recommended unless you have a more
  * powerful builder or don't want to add rows dynamically. 
  * See the {@link DynamicRowsExample} for an implementation that specifies 
  * rows before the panel is filled with components. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
+ * 
  * @see     DefaultFormBuilder
  * @see     PlainExample
  * @see     RowCounterExample
