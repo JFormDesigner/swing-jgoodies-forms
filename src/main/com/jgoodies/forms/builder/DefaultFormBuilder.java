@@ -85,6 +85,15 @@ import com.jgoodies.forms.layout.RowSpec;
  * There are different ways to add custom rows. Find below example code
  * that presents and compares the pros and cons of three approaches.<p>
  * 
+ * The texts used in methods <code>#append(String, ...)</code> and 
+ * <code>#appendTitle(String)</code> as well as the localized texts used in 
+ * methods <code>#appendI15d</code> and <code>#appendI15dTitle</code> 
+ * can contain an optional mnemonic marker. The mnemonic and mnemonic index 
+ * are indicated by a single ampersand (<tt>&amp;</tt>). 
+ * For example <tt>&quot;&amp;Save&quot</tt>, or 
+ * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself, 
+ * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * 
  * <strong>Example:</strong>
  * <pre>
  * public void build() {
@@ -199,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder

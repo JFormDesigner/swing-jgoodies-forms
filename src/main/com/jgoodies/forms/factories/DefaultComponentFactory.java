@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -48,15 +48,15 @@ import com.jgoodies.forms.layout.Sizes;
  * that creates UI components as required by the 
  * {@link com.jgoodies.forms.builder.PanelBuilder}.<p>
  * 
- * The methods <code>#createLabel(String)</code> and 
- * <code>#createTitle(String)</code> accept a text with optional 
- * mnemonic marker. The mnemonic and mnemonic index are indicated 
- * by the <tt>&amp;</tt> char. For example <tt>&quot;&amp;Save&quot</tt>, 
+ * The texts used in methods <code>#createLabel(String)</code> and 
+ * <code>#createTitle(String)</code> can contain an optional mnemonic marker. 
+ * The mnemonic and mnemonic index are indicated by a single ampersand 
+ * (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, 
  * or <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself 
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {

@@ -37,15 +37,15 @@ import javax.swing.JLabel;
  * An interface that defines the factory methods as used by the 
  * {@link com.jgoodies.forms.builder.PanelBuilder} and its subclasses.<p>
  * 
- * The methods <code>#createLabel(String)</code> and 
- * <code>#createTitle(String)</code> accept a text with optional 
- * mnemonic marker. The mnemonic and mnemonic index are indicated 
- * by the <tt>&amp;</tt> char. For example <tt>&quot;&amp;Save&quot</tt>, 
+ * The texts used in methods <code>#createLabel(String)</code> and 
+ * <code>#createTitle(String)</code> can contain an optional mnemonic marker. 
+ * The mnemonic and mnemonic index are indicated by a single ampersand 
+ * (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, 
  * or <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself 
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
