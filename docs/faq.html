@@ -89,8 +89,9 @@
 		    ::&nbsp;<a href="#L.1">What does the 'fill' alignment do?</a>
 		<br>::&nbsp;<a href="#L.2">When is it recommended to use the 'pref' size instead of 'default'?</a>
 		<br>::&nbsp;<a href="#L.3">Why don't components in growing rows fill the vertical space?</a>
-		<br>::&nbsp;<a href="#L.4">Why don't components that span multiple columns affect the column widths?</a>
-		<br>::&nbsp;<a href="#L.5">Why do components that span multiple columns affect the container width?</a>
+		<br>::&nbsp;<a href="#L.4">How to give columns a percentage of the available space?</a>
+		<br>::&nbsp;<a href="#L.5">Why don't components that span multiple columns affect the column widths?</a>
+		<br>::&nbsp;<a href="#L.6">Why do components that span multiple columns affect the container width?</a>
 
 
 	
@@ -189,7 +190,19 @@
 		where the second <tt>fill</tt> is responsible for filling the vertical space.
 		
 
-		<h2><a name="L.4">Why don't components that span multiple columns affect the column widths?</a></h2>
+		<h2><a name="L.4">How to give columns a percentage of the available space?</a></h2>
+
+		If all components have an initial size of 0 pixel, then the resize
+		weight can be used as percentage of the available space. 
+		For example <tt>&quot;0:g(0.25), 0:g(0.75)&quot;</tt> gives the first column
+		25% of the available space and the second column 75%.
+		<p>
+		More generally, the resize weights distribute the available
+		extra space of the growing columns/rows. The extra space is
+		<i>container space - insets -  fixed space</i>.
+
+
+		<h2><a name="L.5">Why don't components that span multiple columns affect the column widths?</a></h2>
 
 		Components that span multipe columns/rows are excluded from 
 		the computation of the column widths and row heights respectively.
@@ -207,7 +220,7 @@
 		specify that they shall grow. See also the next question.
 		
 
-		<h2><a name="L.5">Why do components that span multiple columns affect the container width?</a></h2>
+		<h2><a name="L.6">Why do components that span multiple columns affect the container width?</a></h2>
 		
 		Unlike the column expansion mentioned in the previous question,
 		it is quite easy to let components that span multipe columns/rows
