@@ -38,7 +38,7 @@ import java.util.List;
  * that provide lower and upper bounds.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see	Sizes
  * @see	ConstantSize
  * @see	Sizes.ComponentSize
@@ -117,12 +117,18 @@ final class BoundedSize implements Size {
     
     /**
      * Returns this size as pixel size. Neither requires the component
-     * list nor the specified measures. Honors the lower and upper bound.
-     * <p> 
+     * list nor the specified measures. Honors the lower and upper bound.<p>
+     *  
      * Invoked by <code>FormSpec</code> to determine the size of a column or
      * row.
      * 
-     * @see FormSpec#maximumSize
+     * @param container       the layout container
+     * @param components      the list of components to measure
+     * @param minMeasure      the measure used to determine the minimum size
+     * @param prefMeasure     the measure used to determine the preferred size
+     * @param defaultMeasure  the measure used to determine the default size
+     * @return the maximum size in pixels
+     * @see FormSpec#maximumSize(Container, List, FormLayout.Measure, FormLayout.Measure, FormLayout.Measure)
      */
     public int maximumSize(Container container,
                     List components, 
@@ -159,16 +165,16 @@ final class BoundedSize implements Size {
     /**
      * Indicates whether some other BoundedSize is "equal to" this one.
      *
-     * @param size   the BoundedSize with which to compare
+     * @param object   the object with which to compare
      * @return <code>true</code> if this object is the same as the obj
      * argument; <code>false</code> otherwise.
      * @see     java.lang.Object#hashCode()
      * @see     java.util.Hashtable
      */
-    public boolean equals(Object o) {
-        if (!(o instanceof BoundedSize))
+    public boolean equals(Object object) {
+        if (!(object instanceof BoundedSize))
             return false;
-        BoundedSize size = (BoundedSize) o;
+        BoundedSize size = (BoundedSize) object;
         return basis.equals(size.basis)
              && (   (lowerBound == null && size.lowerBound == null)
                  || (lowerBound != null && lowerBound.equals(size.lowerBound)))

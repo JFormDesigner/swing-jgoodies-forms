@@ -45,7 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public final class ComponentSizesExample {
 
@@ -78,6 +78,8 @@ public final class ComponentSizesExample {
         
     /**
      * Builds and answer the panel that combines the three sizing panels.
+     * 
+     * @return the combined panel
      */
     private JComponent buildCombinedPanel() {
         FormLayout layout = new FormLayout(

@@ -47,7 +47,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * about the layout grid, layout groups and cell constraints to the console.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class FormDebugUtils {
     
@@ -56,6 +56,8 @@ public final class FormDebugUtils {
     /**
      * Dumps all layout state to the console: column and row specifications,
      * column and row groups, grid bounds and cell constraints.
+     * 
+     * @param container  the layout container
      */
     public static void dumpAll(Container container) {
         if (!(container.getLayout() instanceof FormLayout)) {

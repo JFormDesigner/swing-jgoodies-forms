@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * by <code>#buildPanel()</code>. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public final class QuickStartExample {
@@ -99,6 +99,8 @@ public final class QuickStartExample {
      * Builds the panel. Initializes and configures components first,
      * then creates a FormLayout, configures the layout, creates a builder,
      * sets a border, and finally adds the components.
+     * 
+     * @return the built panel
      */
     public JComponent buildPanel() {
         // Separating the component initialization and configuration

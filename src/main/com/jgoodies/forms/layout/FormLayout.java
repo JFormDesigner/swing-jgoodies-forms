@@ -130,7 +130,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
@@ -157,13 +157,15 @@ public final class FormLayout implements LayoutManager2 {
 
     /**
      * Holds the column groups as an array of arrays of column indices.
-     * @see #setColGroupIndices
+     * @see #setColumnGroups(int[][])
+     * @see #getColumnGroups()
      */
     private int[][] colGroupIndices;
 
     /**
      * Holds the row groups as an array of arrays of row indices.
-     * @see #setRowGroupIndices
+     * @see #setRowGroups(int[][])
+     * @see #getRowGroups()
      */
     private int[][] rowGroupIndices;
 
@@ -371,8 +373,8 @@ public final class FormLayout implements LayoutManager2 {
      * 
      * @param columnIndex  index of the column to remove
      * @throws IndexOutOfBoundsException if the column index is out of range
-     * @throws IllegalStateException if the column contains components
-     * @throws IllegalStateException if the column is grouped
+     * @throws IllegalStateException  if the column contains components
+     *     or if the column is already grouped
      */
     public void removeColumn(int columnIndex) {
         if (columnIndex < 1 || columnIndex > getColumnCount()) {
@@ -441,7 +443,7 @@ public final class FormLayout implements LayoutManager2 {
      * @param rowIndex  index of the row to remove
      * @throws IndexOutOfBoundsException if the row index is out of range
      * @throws IllegalStateException if the row contains components
-     * @throws IllegalStateException if the row is grouped
+     *     or if the row is already grouped
      */
     public void removeRow(int rowIndex) {
         if (rowIndex < 1 || rowIndex > getRowCount()) {
@@ -456,8 +458,8 @@ public final class FormLayout implements LayoutManager2 {
     
     
     /**
-     * Shifts components horizontally, either to the left if a column has been
-     * inserted or the the right if a column has been removed.
+     * Shifts components horizontally, either to the right if a column has been
+     * inserted or to the left if a column has been removed.
      * 
      * @param columnIndex  index of the column to remove
      * @param remove  		true for remove, false for insert
@@ -485,10 +487,10 @@ public final class FormLayout implements LayoutManager2 {
     }
     
     /**
-     * Shifts components horizontally, either to the left if a column has been
-     * inserted or the the right if a column has been removed.
+     * Shifts components vertically, either to the bottom if a row has been
+     * inserted or to the top if a row has been removed.
      * 
-     * @param columnIndex  index of the column to remove
+     * @param rowIndex      index of the row to remove
      * @param remove        true for remove, false for insert
      * @throws IllegalStateException if a removed column contains components
      */
@@ -547,8 +549,8 @@ public final class FormLayout implements LayoutManager2 {
      * 
      * @param component	the component to be modified
      * @param constraints	the constraints to be applied
-     * @throws NullPointerException if the component is null
-     * @throws NullPointerException if the constraints are null
+     * @throws NullPointerException   if the component or constraints 
+     *     is <code>null</code>
      */
     public void setConstraints(Component component, CellConstraints constraints) {
         if (component == null)
@@ -790,11 +792,12 @@ public final class FormLayout implements LayoutManager2 {
 
     /**
      * Determines the minimum size of the <code>parent</code> container
-     * using this form layout.
-     * <p>
+     * using this form layout.<p>
+     * 
      * Most applications do not call this method directly.
+     * 
      * @param parent   the container in which to do the layout
-     * @see java.awt.Container#doLayout
+     * @see Container#doLayout()
      * @return the minimum size of the <code>parent</code> container
      */
     public Dimension minimumLayoutSize(Container parent) {
@@ -805,12 +808,12 @@ public final class FormLayout implements LayoutManager2 {
 
     /**
      * Determines the preferred size of the <code>parent</code>
-     * container using this form layout.
-     * <p>
+     * container using this form layout.<p>
+     * 
      * Most applications do not call this method directly.
      *
      * @param parent   the container in which to do the layout
-     * @see java.awt.Container#getPreferredSize
+     * @see Container#getPreferredSize()
      * @return the preferred size of the <code>parent</code> container
      */
     public Dimension preferredLayoutSize(Container parent) {
@@ -840,6 +843,7 @@ public final class FormLayout implements LayoutManager2 {
      * where 0 represents alignment along the origin, 1 is aligned
      * the furthest away from the origin, 0.5 is centered, etc.
      * 
+     * @param parent   the parent container
      * @return the value <code>0.5f</code> to indicate center alignment
      */
     public float getLayoutAlignmentX(Container parent) {
@@ -853,6 +857,7 @@ public final class FormLayout implements LayoutManager2 {
      * where 0 represents alignment along the origin, 1 is aligned
      * the furthest away from the origin, 0.5 is centered, etc.
      * 
+     * @param parent  the parent container
      * @return the value <code>0.5f</code> to indicate center alignment
      */
     public float getLayoutAlignmentY(Container parent) {
@@ -863,6 +868,8 @@ public final class FormLayout implements LayoutManager2 {
     /**
      * Invalidates the layout, indicating that if the layout manager
      * has cached information it should be discarded.
+     * 
+     * @param target   the container that holds the layout to be invalidated
      */
     public void invalidateLayout(Container target) {
         invalidateCaches();
@@ -888,8 +895,8 @@ public final class FormLayout implements LayoutManager2 {
      * <li>set components bounds
      * </ol>
      * @param parent	the container in which to do the layout
-     * @see java.awt.Container
-     * @see java.awt.Container#doLayout
+     * @see Container
+     * @see Container#doLayout()
      */
     public void layoutContainer(Container parent) {
         synchronized (parent.getTreeLock()) {
@@ -963,6 +970,8 @@ public final class FormLayout implements LayoutManager2 {
      * container using the specified measures.
      *
      * @param parent   the container in which to do the layout
+     * @param defaultWidthMeasure   the measure used to compute the default width
+     * @param defaultHeightMeasure  the measure used to compute the default height
      * @return the layout size of the <code>parent</code> container
      */
     private Dimension computeLayoutSize(Container parent,

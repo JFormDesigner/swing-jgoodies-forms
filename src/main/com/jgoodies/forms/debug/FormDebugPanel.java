@@ -53,7 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * <code>#paintComponent</code> or <code>#updateUI</code>.  
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see     FormDebugUtils
  */
 public class FormDebugPanel extends JPanel {
@@ -170,8 +170,9 @@ public class FormDebugPanel extends JPanel {
     // Painting *************************************************************
 
     /**
-     * Paints the component.
-     * @see javax.swing.JComponent#paintComponent(Graphics)
+     * Paints the component and - if background painting is enabled - the grid
+     * 
+     * @param g   the Graphics object to paint on 
      */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -184,6 +185,8 @@ public class FormDebugPanel extends JPanel {
     /**
      * Paints the panel. If the panel's layout manager is a 
      * <code>FormLayout</code> it paints the form's grid lines.
+     * 
+     * @param g   the Graphics object to paint on 
      */
     public void paint(Graphics g) {
         super.paint(g);
@@ -195,6 +198,8 @@ public class FormDebugPanel extends JPanel {
     
     /**
      * Paints the form's grid lines and diagonals.
+     * 
+     * @param g    the Graphics object used to paint
      */
     private void paintGrid(Graphics g) {
         if (!(getLayout() instanceof FormLayout)) {

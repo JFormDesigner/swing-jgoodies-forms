@@ -36,16 +36,16 @@ import java.util.List;
 /**
  * An interface that describes sizes as used by the {@link FormLayout}:
  * component measuring sizes, constant sizes with value and unit, 
- * and bounded sizes that provide lower and upper bounds for a size.
- * <p>
+ * and bounded sizes that provide lower and upper bounds for a size.<p>
+ * 
  * You can find a motivation for the different <code>Size</code> types in
  * the Forms article that is part of the product documentation and that is
  * available online too, see
  * <a href="http://www.jgoodies.com/articles/forms.pdf" >
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
+ * @version $Revision: 1.3 $
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
  * @see	Sizes
  * @see	ConstantSize
  */
@@ -54,8 +54,8 @@ public interface Size {
     
     /**
      * Computes and answers my maximum size applied to the given list of
-     * components using the specified measures.
-     * <p>
+     * components using the specified measures.<p>
+     * 
      * Invoked by {@link com.jgoodies.forms.layout.FormSpec} to determine 
      * the size of a column or row. This method is not intended to be called 
      * by API users, and it uses API invisible parameter types.
@@ -65,6 +65,7 @@ public interface Size {
      * @param minMeasure      the measure that determines the minimum sizes
      * @param prefMeasure     the measure that determines the preferred sizes
      * @param defaultMeasure  the measure that determines the default sizes
+     * @return the maximum size in pixels for the given list of components
      */
     int maximumSize(Container container,
                     List components, 

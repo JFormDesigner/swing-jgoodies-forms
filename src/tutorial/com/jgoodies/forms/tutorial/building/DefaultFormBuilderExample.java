@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * rows before the panel is filled with components. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see     DefaultFormBuilder
  * @see     PlainExample
  * @see     RowCounterExample
@@ -109,6 +109,8 @@ public final class DefaultFormBuilderExample {
 
     /**
      * Creates and returns a combo box for the locations.
+     * 
+     * @return a combo box for three locations
      */
     private JComboBox createLocationComboBox() {
         return new JComboBox(
@@ -124,10 +126,12 @@ public final class DefaultFormBuilderExample {
     /**
      * Builds the flange editor panel. 
      * Columns are specified before components are added to the form, 
-     * rows are added dynamically using the {@link DefaultFormBuilder}.
-     * <p>
+     * rows are added dynamically using the {@link DefaultFormBuilder}.<p>
+     * 
      * The builder combines a step that is done again and again:
      * add a label, proceed to the next data column and add a component.
+     * 
+     * @return the built panel
      */
     public JComponent buildPanel() {
         initComponents();

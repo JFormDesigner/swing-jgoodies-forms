@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
  * alignment, start size and resizing behavior.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see	FormLayout
  * @see	CellConstraints
  */
@@ -151,7 +151,9 @@ abstract class FormSpec {
     // Public API ***********************************************************
     
     /**
-     * Answers the default alignment.
+     * Returns the default alignment.
+     * 
+     * @return the default alignment
      */
     public final DefaultAlignment getDefaultAlignment() {
         return defaultAlignment;
@@ -222,6 +224,7 @@ abstract class FormSpec {
      * Parses an encoded form spec and initializes all required fields.
      * The encoded description must be in lower case.
      * 
+     * @param encodedDescription   the FormSpec in an encoded format
      * @throws IllegalArgumentException if the string is empty, has no size,
      * or is otherwise invalid
      */
@@ -276,8 +279,10 @@ abstract class FormSpec {
      * max(<atomic size>;<atomic size2>) | min(<atomic size1>;<atomic size2>)
      * One of the two atomic sizes must be a logical size, the other must
      * be a size constant.
+     * 
      * @param token  a token for a bounded size, e.g. "max(50dlu; pref)"
      * @param setMax  if true we set a maximum size, otherwise a minimum size
+     * @return a Size that represents the parse result
      */
     private Size parseAndInitBoundedSize(String token, boolean setMax) {
         int semicolonIndex = token.indexOf(';');
@@ -423,9 +428,16 @@ abstract class FormSpec {
     
     /**
      * Computes the maximum size for the given list of components, using
-     * this form spec and the specified measure. 
-     * <p>
+     * this form spec and the specified measure.<p>
+     * 
      * Invoked by FormLayout to determine the size of one of my elements
+     * 
+     * @param container       the layout container
+     * @param components      the list of components to measure
+     * @param minMeasure      the measure used to determine the minimum size
+     * @param prefMeasure     the measure used to determine the preferred size
+     * @param defaultMeasure  the measure used to determine the default size
+     * @return the maximum size in pixels
      */
     final int maximumSize(Container container,
                     List components, 

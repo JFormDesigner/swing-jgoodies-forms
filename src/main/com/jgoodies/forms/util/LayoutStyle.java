@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.Size;
  * A future version of this class will likely collaborate with a class
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @author Karsten Lentzsch
  */
 
@@ -68,6 +68,8 @@ public abstract class LayoutStyle {
     
     /**
      * Set a new <code>LayoutStyle</code>
+     * 
+     * @param newLayoutStyle   the style to be set
      */
     public static void setCurrent(LayoutStyle newLayoutStyle) {
         current = newLayoutStyle;

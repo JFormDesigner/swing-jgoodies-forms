@@ -45,7 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see	PlainExample
  * @see	RowCounterExample
  * @see	DefaultFormBuilderExample
@@ -109,6 +109,8 @@ public final class DynamicRowsExample {
 
     /**
      * Creates and answers a combo box for the locations.
+     * 
+     * @return a combo box for three locations
      */
     private JComboBox createLocationComboBox() {
         return new JComboBox(
@@ -123,6 +125,8 @@ public final class DynamicRowsExample {
 
     /**
      * Builds the pane.
+     * 
+     * @return the built panel
      */
     public JComponent buildPanel() {
         initComponents();

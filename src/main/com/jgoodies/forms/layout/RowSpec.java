@@ -50,7 +50,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used <code>RowSpec</code> instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 
@@ -161,6 +161,7 @@ public class RowSpec extends FormSpec {
         }
 
         /**
+         * @param newDefaultAlignment   the default alignment to be set
          * @throws UnsupportedOperationException always
          */
         public void setDefaultAlignment(DefaultAlignment newDefaultAlignment) {
@@ -168,6 +169,7 @@ public class RowSpec extends FormSpec {
         }
 
         /**
+         * @param size   the size to be set
          * @throws UnsupportedOperationException always
          */
         public void setSize(Size size) {
@@ -175,6 +177,7 @@ public class RowSpec extends FormSpec {
         }
         
         /**
+         * @param weight   the weight to be set
          * @throws UnsupportedOperationException always
          */
         public void setResizeWeight(double weight) {

@@ -60,7 +60,7 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public final class CellConstraints implements Cloneable {
     
@@ -377,7 +377,7 @@ public final class CellConstraints implements Cloneable {
      * "x, y, w, h, hAlign, vAlign"
      * </pre> 
      * 
-     * @param encodedAlignments represents horizontal and vertical alignment
+     * @param encodedConstraints represents horizontal and vertical alignment
      * @throws IllegalArgumentException if the encoded constraints do not
      *     follow the constraint syntax
      */
@@ -553,8 +553,7 @@ public final class CellConstraints implements Cloneable {
      * Sets the component's bounds using the given component and cell bounds.
      * 
      * @param c		  		  the component to set bounds
-     * @param colSpec	  		  the specification for the component's column
-     * @param rowSpec	  		  the specification for the component's row
+     * @param layout             the FormLayout instance that computes the bounds
      * @param cellBounds 		  the cell's bounds
      * @param minWidthMeasure	  measures the minimum width
      * @param minHeightMeasure	  measures the minimum height
@@ -601,8 +600,8 @@ public final class CellConstraints implements Cloneable {
      * alignment, unless it is <code>DEFAULT</code>, where the alignment 
      * is inherited from the column or row resp.
      * 
-     * @param alignment   this cell's aligment
-     * @param formSpec    the associated column or row specification
+     * @param cellAlignment   this cell's aligment
+     * @param formSpec        the associated column or row specification
      * @return the concrete alignment
      */
     private Alignment concreteAlignment(Alignment cellAlignment, FormSpec formSpec) {
@@ -764,12 +763,13 @@ public final class CellConstraints implements Cloneable {
     
     
     /**
-     * Answers a short string representation of this constraints object.
+     * Returns a short string representation of this constraints object.
      * This method can use the given <code>FormLayout</code> 
      * to display extra information how default alignments
      * are mapped to concrete alignments. Therefore it asks the 
      * related column and row as specified by this constraints object. 
      * 
+     * @param layout  the layout to be presented as a string
      * @return a short string representation of this constraints object
      */
     public String toShortString(FormLayout layout) {

@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * of font baselines and the height of the custom row. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @see    DefaultFormBuilder
  */
 
@@ -101,6 +101,8 @@ public final class DefaultFormWithCustomRowsExample {
     /**
      * Demonstrates three different ways to add custom rows to a form
      * that is build with a {@link DefaultFormBuilder}.
+     * 
+     * @return the built panel
      */
     public JComponent buildPanel() {
         initComponents();

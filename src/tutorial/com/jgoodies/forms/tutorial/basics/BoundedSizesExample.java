@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class BoundedSizesExample {
 
@@ -107,6 +107,9 @@ public final class BoundedSizesExample {
 
     /**
      * Builds and answer the editor's general tab for the given layout.
+     * 
+     * @param layout   the layout to be used
+     * @return the editor's general panel
      */
     private JComponent buildEditorGeneralPanel(FormLayout layout) {
         layout.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
@@ -129,6 +132,9 @@ public final class BoundedSizesExample {
     
     /**
      * Builds and answer the editor's transport tab for the given layout.
+     * 
+     * @param layout   the layout to be used
+     * @return the editor's transport panel
      */
     private JComponent buildEditorTransportPanel(FormLayout layout) {
         layout.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });

@@ -54,7 +54,7 @@ import com.jgoodies.forms.layout.Sizes;
  * TODO: Honor the current LayoutStyle
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see     Border
  * @see     Sizes
  */
@@ -211,8 +211,10 @@ public final class Borders {
         }
     
         /**
-         * Returns the insets of the border.  
+         * Returns the insets of the border. 
+         *  
          * @param c the component for which this border insets value applies
+         * @return the border's Insets
          */
         public Insets getBorderInsets(Component c) {
             return new Insets(top.getPixelSize(c),
@@ -225,6 +227,8 @@ public final class Borders {
          * Returns whether or not the border is opaque.  If the border
          * is opaque, it is responsible for filling in it's own
          * background when painting.
+         * 
+         * @return false - because the empty border is not opaque
          */
         public boolean isBorderOpaque() {
             return false;
