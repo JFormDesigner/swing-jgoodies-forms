@@ -133,7 +133,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -327,6 +327,23 @@ public final class FormLayout implements LayoutManager2, Serializable {
     public ColumnSpec getColumnSpec(int columnIndex) {
         return (ColumnSpec) colSpecs.get(columnIndex - 1);
     }
+    
+
+    /**
+     * Sets the <code>ColumnSpec</code> at the specified column index.
+     * 
+     * @param columnIndex   the index of the column to be changed
+     * @param columnSpec    the <code>ColumnSpec</code> to be set
+     * @throws NullPointerException if the column specification is null
+     * @throws IndexOutOfBoundsException if the column index is out of range
+     */
+    public void setColumnSpec(int columnIndex, ColumnSpec columnSpec) {
+        if (columnSpec == null) {
+            throw new NullPointerException("The column spec must not be null.");
+        }
+        colSpecs.set(columnIndex - 1, columnSpec);
+    }
+    
 
     /**
      * Returns the <code>RowSpec</code> at the specified row index.
@@ -338,6 +355,22 @@ public final class FormLayout implements LayoutManager2, Serializable {
     public RowSpec getRowSpec(int rowIndex) {
         return (RowSpec) rowSpecs.get(rowIndex - 1);
     }
+
+    /**
+     * Sets the <code>RowSpec</code> at the specified row index.
+     * 
+     * @param rowIndex   the index of the row to be changed
+     * @param rowSpec    the <code>RowSpec</code> to be set
+     * @throws NullPointerException if the row specification is null
+     * @throws IndexOutOfBoundsException if the row index is out of range
+     */
+    public void setRowSpec(int rowIndex, RowSpec rowSpec) {
+        if (rowSpec == null) {
+            throw new NullPointerException("The row spec must not be null.");
+        }
+        rowSpecs.set(rowIndex - 1, rowSpec);
+    }
+    
 
     /**
      * Appends the given column specification to the right hand side of all
