@@ -46,20 +46,20 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * An general purpose panel builder that uses the {@link FormLayout} 
- * to layout <code>JPanel</code>s. It provides convenience methods 
- * to set a default border and to add labels, titles and titled separators.
- * <p>
+ * to lay out <code>JPanel</code>s. It provides convenience methods 
+ * to set a default border and to add labels, titles and titled separators.<p>
+ * 
  * The PanelBuilder is the working horse for layouts when more specialized 
  * builders like the {@link com.jgoodies.forms.builder.ButtonBarBuilder}
- * or {@link com.jgoodies.forms.extras.DefaultFormBuilder} are inappropriate.
- * <p>
+ * or {@link com.jgoodies.forms.extras.DefaultFormBuilder} are inappropriate.<p>
+ * 
  * The Forms tutorial includes several examples that present and compare
  * different style to build with the PanelBuilder: static row numbers
  * vs. row variable, explicit CellConstraints vs. builder cursor,
  * static rows vs. dynamically added rows. Also, you may check out the
- * Tips &amp; Tricks section of the Forms HTML documentation. 
- * <p>
- * <b>Example:</b><br>
+ * Tips &amp; Tricks section of the Forms HTML documentation.<p>
+ * 
+ * <strong>Example:</strong><br>
  * This example creates a panel with 3 columns and 3 rows.
  * <pre>
  * FormLayout layout = new FormLayout(
@@ -78,8 +78,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * return builder.getPanel();
  * </pre>
  * 
+ * @version $Revision: 1.4 $
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
  * @see     com.jgoodies.forms.extras.I15dPanelBuilder
  * @see     com.jgoodies.forms.extras.DefaultFormBuilder
  */

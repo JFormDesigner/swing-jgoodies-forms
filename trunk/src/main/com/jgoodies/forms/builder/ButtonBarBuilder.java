@@ -46,22 +46,22 @@ import com.jgoodies.forms.layout.RowSpec;
  * that comply with popular UI style guides. It utilizes the {@link FormLayout}.
  * This class is in turn used by the 
  * {@link com.jgoodies.forms.factories.ButtonBarFactory} that provides 
- * an even higher level of abstraction for building consistent button bars.
- * <p>
+ * an even higher level of abstraction for building consistent button bars.<p>
+ * 
  * Buttons added to the builder are either gridded or fixed and may fill
  * their FormLayout cell or not. All gridded buttons get the same width,
  * while fixed button use their own size. Gridded buttons honor 
  * the default minimum button width as specified by the current 
- * {@link com.jgoodies.forms.util.LayoutStyle}.
- * <p>
+ * {@link com.jgoodies.forms.util.LayoutStyle}.<p>
+ * 
  * A button can optionally be declared as narrow, so that it has 
  * narrow margins if displayed with a JGoodies look&amp;feel.
- * This is useful if you want to layout buttons with equal width 
+ * This is useful if you want to lay out buttons with equal width 
  * even if a button has a large label. For example, in a bar with
  * 'Add...', 'Remove', 'Properties...' you may declare the properties button 
- * to use narrow margins.
- * <p>
- * <b>Example:</b><br>
+ * to use narrow margins.<p>
+ * 
+ * <strong>Example:</strong><br>
  * The following example builds a button bar with <i>Help</i> button on the 
  * left-hand side and <i>OK, Cancel, Apply</i> buttons on the right-hand side.
  * <pre>
@@ -76,8 +76,8 @@ import com.jgoodies.forms.layout.RowSpec;
  * }
  * </pre> 
  *
+ * @version $Revision: 1.4 $
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
  */
 public final class ButtonBarBuilder extends PanelBuilder {
     

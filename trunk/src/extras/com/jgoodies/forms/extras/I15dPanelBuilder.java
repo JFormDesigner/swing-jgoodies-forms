@@ -43,18 +43,18 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * A general purpose panel builder that uses the {@link FormLayout} 
- * to layout <code>JPanel</code>s. In addition to its superclass
+ * to lay out <code>JPanel</code>s. In addition to its superclass
  * {@link PanelBuilder} this class provides convenience behavior to map 
  * resource keys to their associated internationalized (i15d) strings
- * when adding labels, titles and titled separators.
- * <p>
+ * when adding labels, titles and titled separators.<p>
+ * 
  * This class is not yet part of the binary Forms library; 
  * it comes with the Forms distributions as an extra.
  * <b>The API is work in progress and may change without notice.</b>
  * If you want to use this class, you may consider copying it into your codebase.
  *
+ * @version $Revision: 1.3 $
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
  * @see	ResourceBundle
  */
 public class I15dPanelBuilder extends PanelBuilder {

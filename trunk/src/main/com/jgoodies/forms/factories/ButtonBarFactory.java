@@ -36,15 +36,15 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.builder.ButtonBarBuilder;
 
 /**
- * A factory class that consists only of static methods to build frequently
- * used button bars. Utilizes the 
- * {@link com.jgoodies.forms.builder.ButtonBarBuilder} that in turn uses
- * the {@link com.jgoodies.forms.layout.FormLayout} to layout the bars.
- * <p>
- * The button bars answered by this build comply with popular UI style guides.
+ * A factory class that consists only of static methods to build frequently used 
+ * button bars. Utilizes the {@link com.jgoodies.forms.builder.ButtonBarBuilder} 
+ * that in turn uses the {@link com.jgoodies.forms.layout.FormLayout} 
+ * to lay out the bars.<p>
+ * 
+ * The button bars returned by this builder comply with popular UI style guides.
  *
+ * @version $Revision: 1.4 $
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
  */
 
 public final class ButtonBarFactory {
