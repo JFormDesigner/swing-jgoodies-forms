@@ -55,7 +55,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * 
  * @see     PanelBuilder
  * @see	RowCounterExample
@@ -79,7 +79,7 @@ public final class PanelBuilderExample {
  
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
             // Likely PlasticXP is not in the class path; ignore.
         }

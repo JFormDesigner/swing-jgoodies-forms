@@ -66,7 +66,7 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.  
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
@@ -75,7 +75,7 @@ public final class ComponentOrientationExample {
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
             // Likely PlasticXP is not in the class path; ignore.
         }

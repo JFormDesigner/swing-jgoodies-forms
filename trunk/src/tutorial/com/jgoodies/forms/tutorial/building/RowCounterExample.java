@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Demonstrates the <code>FormLayout</code> with a <code>PanelBuilder</code>. 
+ * Demonstrates the FormLayout with a PanelBuilder. 
  * Columns and rows are specified before the panel is filled with components.
  * Unlike the {@link PlainExample} this class uses a local variable
  * to keep track of the current row. The advantage over fixed numbers is, 
@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * 
  * @see	PlainExample
  * @see	DynamicRowsExample
@@ -70,7 +70,7 @@ public final class RowCounterExample {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
             // Likely PlasticXP is not in the class path; ignore.
         }

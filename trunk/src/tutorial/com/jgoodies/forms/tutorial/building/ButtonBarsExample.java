@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  * 
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -53,7 +53,7 @@ public final class ButtonBarsExample {
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
             // Likely PlasticXP is not in the class path; ignore.
         }
