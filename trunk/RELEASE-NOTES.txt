@@ -28,7 +28,7 @@ OTHER CHANGES
     o Docs: Corrected JavaDoc @throws texts in ColumnSpec and RowSpec.
     o Docs: Corrected and extended JavaDocs regarding the mnemonic marker
             in ComponentFactory, DefaultComponentFactory, PanelBuilder.
-    o Dist: ...
+    o Dist: Fixed broken package information in the JAR manifest.
     o Tut.: Main methods use the new JGoodies Looks 1.3 package names.
     
     

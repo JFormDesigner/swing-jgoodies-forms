@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.13 2004-10-06 09:35:43 karsten Exp $
+   $Id: build.xml,v 1.14 2005-03-02 13:44:20 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -234,21 +234,18 @@
             <manifest>
                 <attribute name ="Built-By" 
                            value="${user.name}"/>
-                           
-                <section name="com/jgoodies/forms" >
-                    <attribute name ="Specification-Title"
-                               value="${Name}" />
-                    <attribute name ="Specification-Version"
-                               value="${spec.version}" />
-                    <attribute name ="Specification-Vendor"
-                               value="${spec.vendor}" />
-             		<attribute name ="Implementation-Title"
-                               value="${implementation.title}" />
-             		<attribute name ="Implementation-Version"
-                               value="${impl.version} ${DATE}" />
-                    <attribute name ="Implementation-Vendor"
-                               value="${impl.vendor}" />
-                </section>
+                <attribute name ="Specification-Title"
+                           value="${spec.title}" />
+                <attribute name ="Specification-Version"
+                           value="${spec.version}" />
+                <attribute name ="Specification-Vendor"
+                           value="${spec.vendor}" />
+         		<attribute name ="Implementation-Title"
+                           value="${impl.title}" />
+         		<attribute name ="Implementation-Version"
+                           value="${impl.version} ${DATE}" />
+                <attribute name ="Implementation-Vendor"
+                           value="${impl.vendor}" />
            </manifest>
 		</jar>
 	</target>
