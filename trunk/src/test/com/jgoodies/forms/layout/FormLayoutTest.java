@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.layout;
 
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 
 import junit.framework.TestCase;
@@ -38,6 +40,7 @@ import junit.framework.TestCase;
  * Tests the FormLayout's layout algorithm. 
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  */
 
 public final class FormLayoutTest extends TestCase {
@@ -219,6 +222,130 @@ public final class FormLayoutTest extends TestCase {
         assertEquals("min(10px;c8_pref).height",  10, c8.getHeight());
     }
     
+    
+    // Testing components that span multiple columns/rows *********************
+    
+    /**
+     * Checks and verifies that components that span multiple columns
+     * do not expand the container of no column grows.
+     */
+    public void testNoExtraExpansionIfAllColumnsAreFixed() {
+        TestComponent c1 = new TestComponent(10, 1, 50, 1);
+        TestComponent c2 = new TestComponent(10, 1, 50, 1);
+        TestComponent c3 = new TestComponent(10, 1, 50, 1);
+        TestComponent c4 = new TestComponent(10, 1, 50, 1);
+        FormLayout layout = new FormLayout(
+            "10px, 15px, 20px",
+            "pref, pref");
+            
+        JPanel panel = new JPanel(layout);
+        panel.add(c1, cc.xy  (1, 1));
+        panel.add(c2, cc.xy  (2, 1));
+        panel.add(c3, cc.xy  (3, 1));
+        panel.add(c4, cc.xywh(1, 2, 2, 1));
+
+        Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
+        panel.setSize(preferredLayoutSize);
+        panel.doLayout();
+        int col1And2Width = c2.getX() + c2.getWidth();
+        int gridWidth     = c3.getX() + c3.getWidth();
+        int totalWidth    = preferredLayoutSize.width;
+        
+        assertEquals("Col1+2 width", 25, col1And2Width);
+        assertEquals("Grid width",   45, gridWidth);
+        assertEquals("Total width",  45, totalWidth);
+    }
+    
+
+    /**
+     * Checks and verifies that components that span multiple columns
+     * do not expand the container of no column grows.
+     */
+    public void testNoExtraExpansionIfSpannedColumnsAreFixed() {
+        TestComponent c1 = new TestComponent(10, 1, 50, 1);
+        TestComponent c2 = new TestComponent(10, 1, 50, 1);
+        TestComponent c3 = new TestComponent(10, 1, 50, 1);
+        TestComponent c4 = new TestComponent(10, 1, 50, 1);
+        FormLayout layout = new FormLayout(
+            "10px, 15px, 20px:grow",
+            "pref, pref");
+            
+        JPanel panel = new JPanel(layout);
+        panel.add(c1, cc.xy  (1, 1));
+        panel.add(c2, cc.xy  (2, 1));
+        panel.add(c3, cc.xy  (3, 1));
+        panel.add(c4, cc.xywh(1, 2, 2, 1));
+        
+        Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
+        panel.setSize(preferredLayoutSize);
+        panel.doLayout();
+        int col1And2Width = c2.getX() + c2.getWidth();
+        int gridWidth     = c3.getX() + c3.getWidth();
+        int totalWidth    = preferredLayoutSize.width;
+        
+        assertEquals("Col1+2 width",  25, col1And2Width);
+        assertEquals("Grid width",    45, gridWidth);
+        assertEquals("Total width",   45, totalWidth); // 70 is wrong
+    }
+    
+
+    /**
+     * Checks and verifies that components that span multiple columns
+     * do not expand the container of no column grows.
+     */
+    public void testExtraExpansionIfSpannedColumnsGrow() {
+        TestComponent c1 = new TestComponent(10, 1, 50, 1);
+        TestComponent c2 = new TestComponent(10, 1, 50, 1);
+        TestComponent c3 = new TestComponent(10, 1, 50, 1);
+        TestComponent c4 = new TestComponent(10, 1, 50, 1);
+        FormLayout layout = new FormLayout(
+            "10px, 15px:grow, 20px",
+            "pref, pref");
+            
+        JPanel panel = new JPanel(layout);
+        panel.add(c1, cc.xy  (1, 1));
+        panel.add(c2, cc.xy  (2, 1));
+        panel.add(c3, cc.xy  (3, 1));
+        panel.add(c4, cc.xywh(1, 2, 2, 1));
+        
+        Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
+        panel.setSize(preferredLayoutSize);
+        panel.doLayout();
+        int col1And2Width = c2.getX() + c2.getWidth();
+        int gridWidth     = c3.getX() + c3.getWidth();
+        int totalWidth    = preferredLayoutSize.width;
+        
+        assertEquals("Col1+2 width",  50, col1And2Width);
+        assertEquals("Grid width",    70, gridWidth);
+        assertEquals("Total width",   70, totalWidth); 
+    }
+    
+
+    /**
+     * Checks and verifies that components that span multiple columns
+     * and that expand the container are measured using the correct measure.
+     */
+    public void testExtraExpansionHonorsCurrentMeasure() {
+        TestComponent c1 = new TestComponent(10, 1, 50, 1);
+        TestComponent c2 = new TestComponent(10, 1, 50, 1);
+        TestComponent c3 = new TestComponent(10, 1, 50, 1);
+        TestComponent c4 = new TestComponent(10, 1, 50, 1);
+        FormLayout layout = new FormLayout(
+            "10px, 15px:grow, 20px",
+            "pref, pref");
+            
+        JPanel panel = new JPanel(layout);
+        panel.add(c1, cc.xy  (1, 1));
+        panel.add(c2, cc.xy  (2, 1));
+        panel.add(c3, cc.xy  (3, 1));
+        panel.add(c4, cc.xywh(1, 2, 2, 1));
+        
+        int minimumLayoutWidth   = layout.minimumLayoutSize(panel).width;
+        int preferredLayoutWidth = layout.preferredLayoutSize(panel).width;
+        
+        assertEquals("Minimum layout width",   45, minimumLayoutWidth);
+        assertEquals("Preferred layout width", 70, preferredLayoutWidth);
+    }
     
 
 }
