@@ -44,7 +44,7 @@ import com.jgoodies.forms.builder.ButtonBarBuilder;
  * The button bars returned by this builder comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see com.jgoodies.forms.builder.ButtonBarBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
@@ -819,7 +819,7 @@ public final class ButtonBarFactory {
         builder.addRelatedGap();
         builder.addGriddedGrowing(remove);
         builder.addRelatedGap();
-        builder.addGriddedGrowingNarrow(properties);
+        builder.addGriddedGrowing(properties);
         return builder.getPanel();
     }
     
