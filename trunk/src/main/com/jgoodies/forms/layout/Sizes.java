@@ -35,7 +35,8 @@ import java.awt.Container;
 import java.util.Iterator;
 import java.util.List;
 
-import com.jgoodies.forms.util.*;
+import com.jgoodies.forms.util.DefaultUnitConverter;
+import com.jgoodies.forms.util.UnitConverter;
 
 
 /**
