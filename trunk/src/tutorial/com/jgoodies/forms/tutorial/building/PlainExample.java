@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to create text labels and separators. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see     PanelBuilderExample
  * @see	RowCounterExample
@@ -150,31 +150,31 @@ public final class PlainExample {
 
         // Fill the table with labels and components.
         CellConstraints cc = new CellConstraints();
-        panel.add(createSeparator("Manufacturer"),  cc.xywh(1,  1, 7, 1));
-        panel.add(new JLabel("Company"),            cc.xy  (1,  3));
-        panel.add(companyNameField,                 cc.xywh(3,  3, 5, 1));
-        panel.add(new JLabel("Contact"),            cc.xy  (1,  5));
-        panel.add(contactPersonField,               cc.xywh(3,  5, 5, 1));
-        panel.add(new JLabel("Order No"),           cc.xy  (1, 7));
-        panel.add(orderNoField,                     cc.xy  (3, 7));
+        panel.add(createSeparator("Manufacturer"),  cc.xyw(1,  1, 7));
+        panel.add(new JLabel("Company"),            cc.xy (1,  3));
+        panel.add(companyNameField,                 cc.xyw(3,  3, 5));
+        panel.add(new JLabel("Contact"),            cc.xy (1,  5));
+        panel.add(contactPersonField,               cc.xyw(3,  5, 5));
+        panel.add(new JLabel("Order No"),           cc.xy (1, 7));
+        panel.add(orderNoField,                     cc.xy (3, 7));
 
-        panel.add(createSeparator("Inspector"),     cc.xywh(1, 9, 7, 1));
-        panel.add(new JLabel("Name"),               cc.xy  (1, 11));
-        panel.add(inspectorField,                   cc.xywh(3, 11, 5, 1));
-        panel.add(new JLabel("Reference No"),       cc.xy  (1, 13));
-        panel.add(referenceNoField,                 cc.xy  (3, 13));
-        panel.add(new JLabel("Status"),             cc.xy  (1, 15));
-        panel.add(approvalStatusComboBox,           cc.xy  (3, 15));
+        panel.add(createSeparator("Inspector"),     cc.xyw(1, 9, 7));
+        panel.add(new JLabel("Name"),               cc.xy (1, 11));
+        panel.add(inspectorField,                   cc.xyw(3, 11, 5));
+        panel.add(new JLabel("Reference No"),       cc.xy (1, 13));
+        panel.add(referenceNoField,                 cc.xy (3, 13));
+        panel.add(new JLabel("Status"),             cc.xy (1, 15));
+        panel.add(approvalStatusComboBox,           cc.xy (3, 15));
         
-        panel.add(createSeparator("Ship"),          cc.xywh(1, 17, 7, 1));
-        panel.add(new JLabel("Shipyard"),           cc.xy  (1, 19));
-        panel.add(shipYardField,                    cc.xywh(3, 19, 5, 1));
-        panel.add(new JLabel("Register No"),        cc.xy  (1, 21));
-        panel.add(registerNoField,                  cc.xy  (3, 21));
-        panel.add(new JLabel("Hull No"),            cc.xy  (5, 21));
-        panel.add(hullNumbersField,                 cc.xy  (7, 21));
-        panel.add(new JLabel("Project Type"),       cc.xy  (1, 23));
-        panel.add(projectTypeComboBox,              cc.xy  (3, 23));
+        panel.add(createSeparator("Ship"),          cc.xyw(1, 17, 7));
+        panel.add(new JLabel("Shipyard"),           cc.xy (1, 19));
+        panel.add(shipYardField,                    cc.xyw(3, 19, 5));
+        panel.add(new JLabel("Register No"),        cc.xy (1, 21));
+        panel.add(registerNoField,                  cc.xy (3, 21));
+        panel.add(new JLabel("Hull No"),            cc.xy (5, 21));
+        panel.add(hullNumbersField,                 cc.xy (7, 21));
+        panel.add(new JLabel("Project Type"),       cc.xy (1, 23));
+        panel.add(projectTypeComboBox,              cc.xy (3, 23));
         
         return panel;
     }

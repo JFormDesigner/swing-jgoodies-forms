@@ -40,7 +40,7 @@ import junit.framework.TestCase;
  * Tests the FormLayout's layout algorithm. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public final class FormLayoutTest extends TestCase {
@@ -239,10 +239,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
             
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy  (1, 1));
-        panel.add(c2, cc.xy  (2, 1));
-        panel.add(c3, cc.xy  (3, 1));
-        panel.add(c4, cc.xywh(1, 2, 2, 1));
+        panel.add(c1, cc.xy (1, 1));
+        panel.add(c2, cc.xy (2, 1));
+        panel.add(c3, cc.xy (3, 1));
+        panel.add(c4, cc.xyw(1, 2, 2));
 
         Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
         panel.setSize(preferredLayoutSize);
@@ -271,10 +271,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
             
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy  (1, 1));
-        panel.add(c2, cc.xy  (2, 1));
-        panel.add(c3, cc.xy  (3, 1));
-        panel.add(c4, cc.xywh(1, 2, 2, 1));
+        panel.add(c1, cc.xy (1, 1));
+        panel.add(c2, cc.xy (2, 1));
+        panel.add(c3, cc.xy (3, 1));
+        panel.add(c4, cc.xyw(1, 2, 2));
         
         Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
         panel.setSize(preferredLayoutSize);
@@ -303,10 +303,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
             
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy  (1, 1));
-        panel.add(c2, cc.xy  (2, 1));
-        panel.add(c3, cc.xy  (3, 1));
-        panel.add(c4, cc.xywh(1, 2, 2, 1));
+        panel.add(c1, cc.xy (1, 1));
+        panel.add(c2, cc.xy (2, 1));
+        panel.add(c3, cc.xy (3, 1));
+        panel.add(c4, cc.xyw(1, 2, 2));
         
         Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
         panel.setSize(preferredLayoutSize);
@@ -335,10 +335,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
             
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy  (1, 1));
-        panel.add(c2, cc.xy  (2, 1));
-        panel.add(c3, cc.xy  (3, 1));
-        panel.add(c4, cc.xywh(1, 2, 2, 1));
+        panel.add(c1, cc.xy (1, 1));
+        panel.add(c2, cc.xy (2, 1));
+        panel.add(c3, cc.xy (3, 1));
+        panel.add(c4, cc.xyw(1, 2, 2));
         
         int minimumLayoutWidth   = layout.minimumLayoutSize(panel).width;
         int preferredLayoutWidth = layout.preferredLayoutSize(panel).width;

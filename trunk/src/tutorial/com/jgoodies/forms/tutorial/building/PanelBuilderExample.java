@@ -55,7 +55,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see     PanelBuilder
  * @see	RowCounterExample
@@ -154,31 +154,31 @@ public final class PanelBuilderExample {
 
         // Fill the table with labels and components.
         CellConstraints cc = new CellConstraints();
-        builder.addSeparator("Manufacturer", cc.xywh(1,  1, 7, 1));
-        builder.addLabel("Company",          cc.xy  (1,  3));
-        builder.add(companyNameField,        cc.xywh(3,  3, 5, 1));
-        builder.addLabel("Contact",          cc.xy  (1,  5));
-        builder.add(contactPersonField,      cc.xywh(3,  5, 5, 1));
-        builder.addLabel("Order No",         cc.xy  (1,  7));
-        builder.add(orderNoField,            cc.xy  (3,  7));
+        builder.addSeparator("Manufacturer", cc.xyw(1,  1, 7));
+        builder.addLabel("Company",          cc.xy (1,  3));
+        builder.add(companyNameField,        cc.xyw(3,  3, 5));
+        builder.addLabel("Contact",          cc.xy (1,  5));
+        builder.add(contactPersonField,      cc.xyw(3,  5, 5));
+        builder.addLabel("Order No",         cc.xy (1,  7));
+        builder.add(orderNoField,            cc.xy (3,  7));
 
-        builder.addSeparator("Inspector",    cc.xywh(1,  9, 7, 1));
-        builder.addLabel("Name",             cc.xy  (1, 11));
-        builder.add(inspectorField,          cc.xywh(3, 11, 5, 1));
-        builder.addLabel("Reference No",     cc.xy  (1, 13));
-        builder.add(referenceNoField,        cc.xy  (3, 13));
-        builder.addLabel("Status",           cc.xy  (1, 15));
-        builder.add(approvalStatusComboBox,  cc.xy  (3, 15));
+        builder.addSeparator("Inspector",    cc.xyw(1,  9, 7));
+        builder.addLabel("Name",             cc.xy (1, 11));
+        builder.add(inspectorField,          cc.xyw(3, 11, 5));
+        builder.addLabel("Reference No",     cc.xy (1, 13));
+        builder.add(referenceNoField,        cc.xy (3, 13));
+        builder.addLabel("Status",           cc.xy (1, 15));
+        builder.add(approvalStatusComboBox,  cc.xy (3, 15));
         
-        builder.addSeparator("Ship",         cc.xywh(1, 17, 7, 1));
-        builder.addLabel("Shipyard",         cc.xy  (1, 19));
-        builder.add(shipYardField,           cc.xywh(3, 19, 5, 1));
-        builder.addLabel("Register No",      cc.xy  (1, 21));
-        builder.add(registerNoField,         cc.xy  (3, 21));
-        builder.addLabel("Hull No",          cc.xy  (5, 21));
-        builder.add(hullNumbersField,        cc.xy  (7, 21));
-        builder.addLabel("Project Type",     cc.xy  (1, 23));
-        builder.add(projectTypeComboBox,     cc.xy  (3, 23));
+        builder.addSeparator("Ship",         cc.xyw(1, 17, 7));
+        builder.addLabel("Shipyard",         cc.xy (1, 19));
+        builder.add(shipYardField,           cc.xyw(3, 19, 5));
+        builder.addLabel("Register No",      cc.xy (1, 21));
+        builder.add(registerNoField,         cc.xy (3, 21));
+        builder.addLabel("Hull No",          cc.xy (5, 21));
+        builder.add(hullNumbersField,        cc.xy (7, 21));
+        builder.addLabel("Project Type",     cc.xy (1, 23));
+        builder.add(projectTypeComboBox,     cc.xy (3, 23));
         
         return builder.getPanel();
     }

@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how columns and rows can be grouped in FormLayout.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public final class GroupingExample {
     
@@ -105,26 +105,26 @@ public final class GroupingExample {
         panel.setBorder(Borders.DIALOG_BORDER);
         CellConstraints cc = new CellConstraints();
 
-        panel.add(new JLabel("File number:"),       cc.xy  (1,  1));
-        panel.add(new JTextField(),                 cc.xywh(3,  1, 7, 1));
-        panel.add(new JLabel("BL/MBL number:"),     cc.xy  (1,  3));
-        panel.add(new JTextField(),                 cc.xy  (3,  3));
-        panel.add(new JTextField(),                 cc.xy  (5,  3));
-        panel.add(new JLabel("Entry date:"),        cc.xy  (1,  5));
-        panel.add(new JTextField(),                 cc.xy  (3,  5));
-        panel.add(new JLabel("RFQ number:"),        cc.xy  (1,  7));
-        panel.add(new JTextField(),                 cc.xywh(3,  7, 7, 1));
-        panel.add(new JLabel("Goods:"),             cc.xy  (1,  9));
-        panel.add(new JCheckBox("Dangerous"),       cc.xywh(3,  9, 7, 1));
-        panel.add(new JLabel("Shipper:"),           cc.xy  (1, 11));
-        panel.add(new JTextField(),                 cc.xywh(3, 11, 7, 1));
-        panel.add(new JLabel("Customer:"),          cc.xy  (1, 13));
-        panel.add(new JTextField(),                 cc.xywh(3, 13, 5, 1));
-        panel.add(new JButton("..."),               cc.xy  (9, 13));
-        panel.add(new JLabel("Port of loading:"),   cc.xy  (1, 15));
-        panel.add(new JTextField(),                 cc.xywh(3, 15, 7, 1));
-        panel.add(new JLabel("Destination:"),       cc.xy  (1, 17));
-        panel.add(new JTextField(),                 cc.xywh(3, 17, 7, 1));
+        panel.add(new JLabel("File number:"),       cc.xy (1,  1));
+        panel.add(new JTextField(),                 cc.xyw(3,  1, 7));
+        panel.add(new JLabel("BL/MBL number:"),     cc.xy (1,  3));
+        panel.add(new JTextField(),                 cc.xy (3,  3));
+        panel.add(new JTextField(),                 cc.xy (5,  3));
+        panel.add(new JLabel("Entry date:"),        cc.xy (1,  5));
+        panel.add(new JTextField(),                 cc.xy (3,  5));
+        panel.add(new JLabel("RFQ number:"),        cc.xy (1,  7));
+        panel.add(new JTextField(),                 cc.xyw(3,  7, 7));
+        panel.add(new JLabel("Goods:"),             cc.xy (1,  9));
+        panel.add(new JCheckBox("Dangerous"),       cc.xyw(3,  9, 7));
+        panel.add(new JLabel("Shipper:"),           cc.xy (1, 11));
+        panel.add(new JTextField(),                 cc.xyw(3, 11, 7));
+        panel.add(new JLabel("Customer:"),          cc.xy (1, 13));
+        panel.add(new JTextField(),                 cc.xyw(3, 13, 5));
+        panel.add(new JButton("..."),               cc.xy (9, 13));
+        panel.add(new JLabel("Port of loading:"),   cc.xy (1, 15));
+        panel.add(new JTextField(),                 cc.xyw(3, 15, 7));
+        panel.add(new JLabel("Destination:"),       cc.xy (1, 17));
+        panel.add(new JTextField(),                 cc.xyw(3, 17, 7));
         
         return panel;
     }

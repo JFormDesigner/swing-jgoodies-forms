@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * by <code>#buildPanel()</code>. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public final class QuickStartExample {
@@ -128,22 +128,22 @@ public final class QuickStartExample {
         // Fill the grid with components; the builder offers to create
         // frequently used components, e.g. separators and labels.
         
-        // Add a titled separator to cell (1, 1) that spans 7 columns and 1 row.
-        builder.addSeparator("General",   cc.xywh(1,  1, 7, 1));
-        builder.addLabel("Company",       cc.xy  (1,  3));
-        builder.add(companyField,         cc.xywh(3,  3, 5, 1));
-        builder.addLabel("Contact",       cc.xy  (1,  5));
-        builder.add(contactField,         cc.xywh(3,  5, 5, 1));
+        // Add a titled separator to cell (1, 1) that spans 7 columns.
+        builder.addSeparator("General",   cc.xyw(1,  1, 7));
+        builder.addLabel("Company",       cc.xy (1,  3));
+        builder.add(companyField,         cc.xyw(3,  3, 5));
+        builder.addLabel("Contact",       cc.xy (1,  5));
+        builder.add(contactField,         cc.xyw(3,  5, 5));
 
-        builder.addSeparator("Propeller", cc.xywh(1,  7, 7, 1));
-        builder.addLabel("PTI [kW]",      cc.xy  (1,  9));
-        builder.add(ptiField,             cc.xy  (3,  9));
-        builder.addLabel("Power [kW]",    cc.xy  (5,  9));
-        builder.add(powerField,           cc.xy  (7,  9));
-        builder.addLabel("R [mm]",        cc.xy  (1, 11));
-        builder.add(radiusField,          cc.xy  (3, 11));
-        builder.addLabel("D [mm]",        cc.xy  (5, 11));
-        builder.add(diameterField,        cc.xy  (7, 11));
+        builder.addSeparator("Propeller", cc.xyw(1,  7, 7));
+        builder.addLabel("PTI [kW]",      cc.xy (1,  9));
+        builder.add(ptiField,             cc.xy (3,  9));
+        builder.addLabel("Power [kW]",    cc.xy (5,  9));
+        builder.add(powerField,           cc.xy (7,  9));
+        builder.addLabel("R [mm]",        cc.xy (1, 11));
+        builder.add(radiusField,          cc.xy (3, 11));
+        builder.addLabel("D [mm]",        cc.xy (5, 11));
+        builder.add(diameterField,        cc.xy (7, 11));
         
         // The builder holds the layout container that we now return.
         return builder.getPanel();
