@@ -39,11 +39,13 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Exercise: 
- *    Fix the panel layout so that the JTable spans from top to bottom.
+ * Demonstrates a frequent pitfall when specifying a growing row. 
+ * In this layout a row grows, but the text area in that row is centered 
+ * and doesn't 'grow'. In other words, the area doesn't fill 
+ * the available vertical space. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
 public final class VerticalGrowthExample {
