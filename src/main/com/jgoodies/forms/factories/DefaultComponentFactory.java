@@ -33,8 +33,6 @@ package com.jgoodies.forms.factories;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import javax.swing.*;
 
@@ -44,7 +42,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -55,11 +53,6 @@ public class DefaultComponentFactory implements ComponentFactory {
     private static final DefaultComponentFactory INSTANCE =
         new DefaultComponentFactory();
 
-    /**
-     * Indicates whether this is a J2SE 1.2 or 1.3. 
-     */
-    private static final boolean IS_BEFORE_14 = isBefore14();
-    
     /** 
      * The character used to indicate the mnemonic position for labels. 
      */
@@ -224,52 +217,8 @@ public class DefaultComponentFactory implements ComponentFactory {
         if ((mnemonicIndex != -1) && (mnemonicIndex + 1 < length)) {
             label.setDisplayedMnemonic(
                 textWithMnemonic.charAt(mnemonicIndex + 1));
-            setDisplayedMnemonicIndex(label, mnemonicIndex);
+            label.setDisplayedMnemonicIndex(mnemonicIndex);
         }
-    }
-
-    /**
-     * Sets the displayed mnemonic index of the given label.
-     * In 1.4 environments we just delegate to 
-     * <code>JLabel#setDisplayedMnemonicIndex</code>.
-     * In 1.3 environments the mnemonic index is set as
-     * a client property, so that a look can honor it
-     * - so do the JGoodies l&amp;fs.
-     * <p>
-     * TODO: Obsolete in 1.4
-     *  
-     * @param label                   the label that gets a mnemonic
-     * @param displayedMnemonicIndex  the index
-     */
-        private static void setDisplayedMnemonicIndex(JLabel label,
-            int displayedMnemonicIndex) {
-        Integer index = new Integer(displayedMnemonicIndex);
-        if (IS_BEFORE_14) {
-            label.putClientProperty("displayedMnemonicIndex", index);
-            return;
-        }
-        try {
-            Method method = AbstractButton.class.getMethod(
-                    "setDisplayedMnemonicIndex", new Class[]{});
-            method.invoke(label, new Integer[]{index});
-            return;
-        } catch (NoSuchMethodException e) {
-            // Likely we're not on 1.4; ignore
-        } catch (InvocationTargetException e) {
-            // Likely we're not on 1.4; ignore
-        } catch (IllegalAccessException e) {
-            // Likely we're not on 1.4; ignore
-        }
-    }
-    
-    /**
-     * Checks and answers whether this is a J2RE 1.2 or 1.3.
-     * 
-     * @return true if before 1.4, false otherwise
-     */
-    private static boolean isBefore14() {
-        String version = System.getProperty("java.version");
-        return version.startsWith("1.2") || version.startsWith("1.3");
     }
 
     // A label that uses the TitleBorder font and color
