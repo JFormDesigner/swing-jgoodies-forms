@@ -59,10 +59,14 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * column specification defaul alignments and to reverse the order of
  * column specifications. Cell constraints need to be adjusted too; this
  * example avoids the problem by using a builder that creates <em>all</em>
- * cell constraints.  
+ * cell constraints.<p>
+ * 
+ * You can find information about the latest additions regarding the
+ * Forms support for different component orientations in the comments for 
+ * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.  
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
