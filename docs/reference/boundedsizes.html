@@ -73,17 +73,25 @@
 	<table width="530" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 	  <td>
-	<h1>:: Reference :: Bounded Sizes ::</h2>
+	<h1>:: Reference :: Bounded Sizes ::</h1>
 
-	Bounded sizes are used to restrict how layout elements grow and shrink. 
-	They usually combine a component size (min, pref or default)
-	with a constant size as lower or upper bound.
+	Bounded sizes are used to restrict a layout element's initial size.
+	They add context related layout information that the element
+	does not or cannot provide. 
+	To use a bounded size, you typically combine a component size 
+	(min, pref or default) with a constant size as lower or upper bound.
 	
 	<p>
 	For example, a well designed command button honors the
 	button's label and icon size, but also uses a minimum width.
 	The latter increases the design consistency and often
 	makes it easier to click on buttons with short labels.
+	A Swing <tt>JButton</tt> is used in different contexts:
+	form, button bar, button stack, toolbar with icons, toolbar with texts,
+	toolbar in large button mode, etc. Since the JButton (or the
+	ButtonUI) can only provide a single <tt>preferredSize</tt>
+	that often lacks the context. And so, the button lacks information
+	about context-related layout requirements. 
 	
 	
 	<h2>String Representations</h2>
