@@ -76,42 +76,55 @@
 	  
 	<h1>:: Frequently Asked Questions ::</h1>
 
-	<h2>General</h2>
+	<h2>1. General</h2>
     <p>
-		    ::&nbsp;<a href="#G.1">What are the main benefits of the Forms?</a>
-		<br>::&nbsp;<a href="#G.2">Can I use the Forms in a commercial product?</a>
-		<br>::&nbsp;<a href="#G.3">Where do I get the latest version?</a>
-		<br>::&nbsp;<a href="#G.4">Where do I get support?</a>
-		<br>::&nbsp;<a href="#G.5">How can I help improve the Forms?</a>
+		    &nbsp;<a href="#1.1">1.1 - What are the main benefits of the Forms?</a>
+		<br>&nbsp;<a href="#1.2">1.2 - Can I use the Forms in a commercial product?</a>
+		<br>&nbsp;<a href="#1.3">1.3 - Where do I get the latest version?</a>
+		<br>&nbsp;<a href="#1.4">1.4 - Where do I get support?</a>
+		<br>&nbsp;<a href="#1.5">1.5 - How can I help improve the Forms?</a>
+		<br>&nbsp;<a href="#1.6">1.6 - Which layout managers complement the FormLayout?</a>
+		<br>&nbsp;<a href="#1.7">1.7 - Why isn't the DefaultFormBuilder in the library core?</a>
+		<br>&nbsp;<a href="#1.8">1.8 - Are there any visual builders that support FormLayout?</a>
+		<br>&nbsp;<a href="#1.9">1.9 - Can I use FormLayout with the SWT?</a>
 
-	<h2>Layout</h2>
+
+	<h2>2. Working With Layout</h2>
     <p>
-		    ::&nbsp;<a href="#L.1">What does the 'fill' alignment do?</a>
-		<br>::&nbsp;<a href="#L.2">When is it recommended to use the 'pref' size instead of 'default'?</a>
-		<br>::&nbsp;<a href="#L.3">Why don't components in growing rows fill the vertical space?</a>
-		<br>::&nbsp;<a href="#L.4">How to give columns a percentage of the available space?</a>
-		<br>::&nbsp;<a href="#L.5">Why don't components that span multiple columns affect the column widths?</a>
-		<br>::&nbsp;<a href="#L.6">Why do components that span multiple columns affect the container width?</a>
+		    &nbsp;<a href="#2.1">2.1 - How to give columns a percentage of the available space?</a>
+		<br>&nbsp;<a href="#2.2">2.2 - How to assign the same width to two or more columns?</a>
+		<br>&nbsp;<a href="#2.3">2.3 - How can I append a custom row using the DefaultFormBuilder?</a>
+		<br>&nbsp;<a href="#2.4">2.4 - How can I append a custom area using the DefaultFormBuilder?</a>
+		<br>&nbsp;<a href="#2.5">2.5 - How can I identify and understand layout problems?</a>
+
+
+	<h2>3. Understanding FormLayout</h2>
+    <p>
+		    &nbsp;<a href="#3.1">3.1 - What does the 'fill' alignment do?</a>
+		<br>&nbsp;<a href="#3.2">3.2 - When is it recommended to use the 'pref' size instead of 'default'?</a>
+		<br>&nbsp;<a href="#3.3">3.3 - Why don't components in growing rows fill the vertical space?</a>
+		<br>&nbsp;<a href="#3.4">3.4 - Why don't components that span multiple columns affect the column widths?</a>
+		<br>&nbsp;<a href="#3.5">3.5 - Why do components that span multiple columns affect the container width?</a>
 
 
 	
-	<h1>:: General Questions ::</h2>
+	<h1>:: 1. General ::</h2>
 	
-		<h2><a name="G.1">What are the main benefits of the Forms?</a></h2>
+		<h2><a name="1.1">1.1 - What are the main benefits of the Forms?</a></h2>
 
 		Forms aims to make the layout process faster, better and easier. 
-		It makes simple things easy, and the 
-		hard stuff possible, good design easy and the bad difficult.
+		It makes simple things easy and the hard stuff possible, 
+		good design easy and the bad difficult.
 
 
-		<h2><a name="G.2">Can I use the Forms in a commercial product?</a></h2>
+		<h2><a name="1.2">1.2 - Can I use the Forms in a commercial product?</a></h2>
 
 		You can use and redistribute the Forms in source and binary form
 		- even for commercial use - if you comply with the terms of the 
 		<a href="../LICENSE.txt">BSD open source license</a>.
 
 
-		<h2><a name="G.3">Where do I get the latest version?</a></h2>
+		<h2><a name="1.3">1.3 - Where do I get the latest version?</a></h2>
 
 		The latest version is available in the project's 
 		<a href="https://forms.dev.java.net/servlets/ProjectDocumentList">file 
@@ -119,7 +132,7 @@
 		sources, tutorial, documentation and a whitepaper.
 		
 
-		<h2><a name="G.4">Where do I get support?</a></h2>
+		<h2><a name="1.4">1.4 - Where do I get support?</a></h2>
 
 		Forms is supported at JavaDesktop.org,
 		see <a href="http://forms.dev.java.net/">http://forms.dev.java.net</a>.
@@ -135,20 +148,145 @@
 		us by phone or send questions directly to support@JGoodies.com.
 		
 
-		<h2><a name="G.5">How can I help improve the Forms?</a></h2>
+		<h2><a name="1.5">1.5 - How can I help improve the Forms?</a></h2>
 
 		I'd appreciate your feedback and suggestions regarding the
 		FormLayout API, column and row specifications, builder classes
 		and all related issues.		
 		
 		
+		<h2><a name="1.6">1.6 - Which layout managers complement the FormLayout?</a></h2>
+
+		<a href="http://www.zookitec.com/explicitlayout.html">ExplicitLayout</a>
+		complements the FormLayout when it comes to non-rectangular layouts, 
+		for example if you want to position components along a curve.<p>
 		
+		The highly extensible SpringLayout can implement a huge class of layouts,
+		but it is quite difficult to understand.
+		You may consider using it if neither FormLayout nor ExplicitLayout do a good job,
+		or if you want to implement a non-grid-based layout with a layout manager
+		that ships with the JDK.<p>
+		
+		Allthough the FormLayout is intended to replace the GridBagLayout,
+		the latter is still a good choice, if you cannot add a third party
+		layout manager, such as FormLayout and ExplicitLayout.
+		
+		
+		<h2><a name="1.7">1.7 - Why isn't the DefaultFormBuilder in the library core?</a></h2>
+
+		The whole set of builders is quite new for me and Java layout systems.
+		The predefined builder implementations are primarily intended to introduce 
+		the builder layer; I tried demonstrate how to separate the building process 
+		and builder code from the layout manager and container hierarchy.<p>
+		
+		Unlike the other abstract and simple builder, the DefaultFormBuilder
+		is more complex and difficult to understand in all its details.
+		And it reflects just my personal findings on how to build a huge
+		class of form based layouts efficiently. Therefore I feel a need 
+		for more feedback from the Forms user community before I can move 
+		the DefaultFormBuilder into the library core.
+		Since there's almost no feedback regarding this builder, 
+		I consider moving it into the core in the 1.0.4 version. 
+		But I need to test its API for right-to-left layouts before I will do so.
+				
+		
+		<h2><a name="1.8">1.8 - Are there any visual builders that support FormLayout?</a></h2>
+
+		There are some projects working on visual builders that support FormLayout.
+		Some just work with the FormLayout, others support the whole Forms framework,
+		including the factories and builders. Anyway, none of these projects is
+		available to the general public. I will announce these builders in the 
+		Forms announcement mailing list and at JavaDesktop.org as soon as they are
+		available.
+				
+		
+		<h2><a name="1.9">1.9 - Can I use the FormLayout with the SWT?</a></h2>
+
+		There are two ports of the FormLayout for the SWT. I will announce
+		these ports as soon as they are available in the Forms announcement list
+		and at JavaDesktop.org.
+
+
+
 
 	<p>&nbsp;<br>
 	
-	<h1>:: Layout Questions ::</h2>
+	<h1>:: 2. Working With Layout ::</h2>
 	
-		<h2><a name="L.1">What does the 'fill' alignment do?</a></h2>
+		<h2><a name="2.1">2.1 - How to give columns a percentage of the available space?</a></h2>
+
+		If all components have an initial size of 0 pixel, then the resize
+		weight can be used as percentage of the available space. 
+		For example <tt>&quot;0:g(0.25), 0:g(0.75)&quot;</tt> gives the first column
+		25% of the available space and the second column 75%.
+		<p>
+		More generally, the resize weights distribute the available
+		extra space of the growing columns/rows. The extra space is
+		<i>container space - insets -  fixed space</i>.
+
+
+		<h2><a name="2.2">2.2 - How to assign the same width to two or more columns?</a></h2>
+
+		You can either use the same constant size for all columns,
+		or you can group the columns using <tt>FormLayout#setColumnGroups(int[][])</tt>.
+		The latter mechanism gives columns in a group the same width
+		after their normal width has been computed.<p>
+		
+		The distribution of extra space is the last step; it happens
+		after the group elements have been equalized. To make columns
+		equal wide, ensure that they have the same growing weight assigned
+		(the default is <tt>1.0</tt>).
+		
+		
+		<h2><a name="2.3">2.3 - How can I append a custom row using the DefaultFormBuilder?</a></h2>
+
+		You can append a custom row using <tt>DefaultFormBuilder#appendRow(RowSpec)</tt>.
+		However, you may consider using a combination of standard rows 
+		to achieve a more regular layout grid and regular layout row heights
+		and row alignments.<p>
+		
+		The Forms tutorial contains the <tt>DefaultFormWithCustomRowsExample</tt> class
+		that demonstrates three approaches for appending a custom row.
+		These differ in the position of the leading label, the alignment 
+		of font baselines and the height of the custom row.
+		
+
+		<h2><a name="2.4">2.4 - How to assign the same width to two or more columns?</a></h2>
+
+		You can append a custom area using <tt>DefaultFormBuilder#appendRow(RowSpec)</tt>.
+		However, you may consider using a standard row to better align the
+		leading label. Another alternative is to separate the custom area
+		with a titled separator.<p>
+		
+		The Forms tutorial contains the <tt>DefaultFormWithCustomAreasExample</tt>
+		that demonstrates three approaches for appending a custom area at the bottom
+		of a form.
+		These differ in the position of the leading label, the alignment 
+		of font baselines and the way the area is separated from the rest.
+		
+
+		<h2><a name="2.5">2.5 - How can I identify and understand layout problems?</a></h2>
+
+		Forms ships with two classes that help you debug layouts:
+		<tt>FormDebugPanel</tt> paints the layout grid and helps you understand
+		how you have specified the layout grid and positioned the components
+		in the grid.
+		Class <tt>FormDebugUtils</tt> dumps detailed information about the
+		grid, groups, component cell positions, component cell constraints, 
+		component positions, and container size.<p>
+		
+		The Forms tutorial contains the <tt>FormDebugExample</tt> that demonstrates
+		how to use these two classes.
+		
+		
+		
+		
+	<p>&nbsp;<br>
+	
+	<h1>:: 3. Understanding FormLayout ::</h2>
+	
+
+		<h2><a name="3.1">3.1 - What does the 'fill' alignment do?</a></h2>
 
 		The horizontal and vertical fill alignments let a component consume 
 		all the space in its display area, where the display area is the
@@ -158,7 +296,7 @@
 		side of the display area. 
 
 
-		<h2><a name="L.2">When is it recommended to use the 'pref' size instead of 'default'?</a></h2>
+		<h2><a name="3.2">3.2 - When is it recommended to use the 'pref' size instead of 'default'?</a></h2>
 
 		First off, 'pref'and 'default' differ only if a panel can be resized. 
 		As long as there's enough space in the container to give all components 
@@ -174,7 +312,7 @@
 		columns and 'pref' over 'default' for rows. 
 
 
-		<h2><a name="L.3">Why don't components in growing rows fill the vertical space?</a></h2>
+		<h2><a name="3.3">3.3 - Why don't components in growing rows fill the vertical space?</a></h2>
 
 		Forms has been designed to reduce the layout code for frequently used layouts.
 		I've found that the bulk of form-oriented panels requires components to be
@@ -190,37 +328,24 @@
 		where the second <tt>fill</tt> is responsible for filling the vertical space.
 		
 
-		<h2><a name="L.4">How to give columns a percentage of the available space?</a></h2>
-
-		If all components have an initial size of 0 pixel, then the resize
-		weight can be used as percentage of the available space. 
-		For example <tt>&quot;0:g(0.25), 0:g(0.75)&quot;</tt> gives the first column
-		25% of the available space and the second column 75%.
-		<p>
-		More generally, the resize weights distribute the available
-		extra space of the growing columns/rows. The extra space is
-		<i>container space - insets -  fixed space</i>.
-
-
-		<h2><a name="L.5">Why don't components that span multiple columns affect the column widths?</a></h2>
+		<h2><a name="3.4">3.4 - Why don't components that span multiple columns affect the column widths?</a></h2>
 
 		Components that span multipe columns/rows are excluded from 
 		the computation of the column widths and row heights respectively.
 		I couldn't find an appropriate algorithm how to expand the columns/rows 
 		if a large component spans them; either the algorithm leads to good layout 
 		but is difficult to understand, or it's easy to understand but 
-		leads to poor layout.
-		<p>
+		leads to poor layout.<p>
+		
 		If a component must expand the columns or rows it must be in 
 		a single column. If necessary, you can move the columns/rows
-		it spans to a sublayout. 
+		it spans to a sublayout.<p>
 		
-		<p>
 		If you want such components affect the spanned columns/rows, 
 		specify that they shall grow. See also the next question.
 		
 
-		<h2><a name="L.6">Why do components that span multiple columns affect the container width?</a></h2>
+		<h2><a name="3.5">3.5 - Why do components that span multiple columns affect the container width?</a></h2>
 		
 		Unlike the column expansion mentioned in the previous question,
 		it is quite easy to let components that span multipe columns/rows
