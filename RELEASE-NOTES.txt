@@ -1,12 +1,12 @@
 
 
-                    JGoodies Forms, Version 1.0.5 Snapshot
+                    JGoodies Forms, Version 1.0.5 SNAPSHOT
                             Release Notes
                         
 
 INTRODUCTION
 
-    This maintenance release ...
+    This maintenance release fixes bugs and ...
     
     
 NEW FEATURES
@@ -20,11 +20,20 @@ BUGS FIXED
     o Titled separator on Aqua not aligned along the label's font baseline.
     o Button minimum width too wide on MacLayoutStyle.
     o Related gap too narrow in MacLayoutStyle.
+    o DefaultFormBuilder ignores the current row span set by #setRowSpan.
+    o AbstractFormBuilder#createLeftAdjustedConstraints(int)
+      ignores the current row span.
     
     
 OTHER CHANGES
 
     o Removed unused code in class BoundedSize.
+    o Refreshed links to visual builders that support the FormLayout.
+    o Added a reference to the SWT port by the SwtForms project.
+    o Minor code cleanup: removed unused else.
+    o Added FAQ #2.6.
+    o Builders avoid the creation of obsolete FlowLayout instances.
+    o Overhauled builder constructors; marked some as deprecated.
     
     
 ---------------------------------------------------------------------------
