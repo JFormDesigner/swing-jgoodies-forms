@@ -42,7 +42,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  * 
  * @see     ColumnSpec
  * @see     RowSpec
@@ -391,7 +391,6 @@ public abstract class FormSpec implements Serializable {
      * <strong>Note:</strong> The string representation may change
      * at any time. It is strongly recommended to not use this string
      * for parsing purposes.
-     * 
      * 
      * @return  a string representation of the form specification.
      */
