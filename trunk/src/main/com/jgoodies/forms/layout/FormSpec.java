@@ -42,7 +42,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  * 
  * @see     ColumnSpec
  * @see     RowSpec
@@ -181,7 +181,7 @@ public abstract class FormSpec implements Serializable {
     }
     
     /**
-     * Answers the current resize weight.
+     * Returns the current resize weight.
      * 
      * @return the resize weight.
      */
@@ -295,8 +295,9 @@ public abstract class FormSpec implements Serializable {
     
     
     /**
-     * Decodes and answers an atomic size that is either a constant size or a
+     * Decodes and returns an atomic size that is either a constant size or a
      * component size.
+     * 
      * @param token	the encoded size 
      * @return the decoded size either a constant or component size
      */
@@ -312,10 +313,11 @@ public abstract class FormSpec implements Serializable {
     /**
      * Decodes an encoded resize mode and resize weight and answers
      * the resize weight.
+     * 
      * @param token	the encoded resize weight
      * @return the decoded resize weight
      * @throws IllegalArgumentException if the string description is an
-     * invalid string representation
+     *     invalid string representation
      */
     private double decodeResize(String token) {
         if (token.equals("g") || token.equals("grow")) {

@@ -71,7 +71,7 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -538,7 +538,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     // Parsing and Decoding String Descriptions *****************************
     
     /**
-     * Decodes and answers the grid bounds and alignments for this 
+     * Decodes and returns the grid bounds and alignments for this 
      * constraints as an array of six integers. The string representation
      * is a comma separated sequence, one of
      * <pre>
@@ -637,7 +637,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
 
     /**
-     * Decodes an integer string representation and answers the
+     * Decodes an integer string representation and returns the
      * associated Integer or null in case of an invalid number format.
      * 
      * @param token		the encoded integer
@@ -654,7 +654,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     /**
      * Parses an alignment string description and 
-     * answers the corresponding alignment value.
+     * returns the corresponding alignment value.
      * 
      * @param encodedAlignment	the encoded alignment
      * @return the associated <code>Alignment</code> instance
@@ -762,14 +762,14 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     
     /**
-     * Computes and answers the concrete alignment. Takes into account
-     * the cell alignment and <i>the</i> <code>FormSpec</code> if applicable.
-     * <p>
+     * Computes and returns the concrete alignment. Takes into account
+     * the cell alignment and <i>the</i> <code>FormSpec</code> if applicable.<p>
+     * 
      * If this constraints object doesn't belong to a single column or row,
      * the <code>formSpec</code> parameter is <code>null</code>.
      * In this case the cell alignment is answered, but <code>DEFAULT</code>
-     * is mapped to <code>FILL</code>.
-     * <p>
+     * is mapped to <code>FILL</code>.<p>
+     * 
      * If the cell belongs to a single column or row, we use the cell
      * alignment, unless it is <code>DEFAULT</code>, where the alignment 
      * is inherited from the column or row resp.
@@ -786,7 +786,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
     
     /**
-     * Answers the alignment used for a given form constraints object.
+     * Returns the alignment used for a given form constraints object.
      * The cell alignment overrides the column or row default, unless
      * it is <code>DEFAULT</code>. In the latter case, we use the
      * column or row alignment.
@@ -817,7 +817,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     
     /**
-     * Computes and answers the pixel size of the given component using the
+     * Computes and returns the pixel size of the given component using the
      * given form specification, measures, and cell size.
      * 
      * @param component	the component to measure 
@@ -845,7 +845,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     
     /**
-     * Computes and answers the component's pixel origin.
+     * Computes and returns the component's pixel origin.
      * 
      * @param alignment		the component's alignment
      * @param cellOrigin		the origin of the display area
@@ -868,7 +868,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     
     /**
-     * Answers the component's pixel extent.
+     * Returns the component's pixel extent.
      * 
      * @param alignment		the component's alignment
      * @param cellSize			the size of the display area
@@ -902,7 +902,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     
     /**
-     * Constructs and answers a string representation of this constraints object.
+     * Constructs and returns a string representation of this constraints object.
      * 
      * @return	string representation of this constraints object
      */

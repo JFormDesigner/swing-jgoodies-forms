@@ -66,7 +66,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see	Size
  * @see	Sizes
@@ -154,7 +154,7 @@ public final class ConstantSize implements Size, Serializable {
     }
     
     /**
-     * Answers an instance of <code>Size</code> for the specified value
+     * Returns an instance of <code>Size</code> for the specified value
      * in horizontal dialog units.
      * 
      * @param value	size value in horizontal dialog units	
@@ -165,7 +165,7 @@ public final class ConstantSize implements Size, Serializable {
     }
     
     /**
-     * Answers an instance of <code>Size</code> for the specified value
+     * Returns an instance of <code>Size</code> for the specified value
      * in vertical dialog units.
      * 
      * @param value    size value in vertical dialog units   
@@ -179,7 +179,7 @@ public final class ConstantSize implements Size, Serializable {
     // Accessing the Value **************************************************
     
     /**
-     * Converts the size if necessary and answers the value in pixels.
+     * Converts the size if necessary and returns the value in pixels.
      * 
      * @param component  the associated component
      * @return the size in pixels
@@ -208,8 +208,8 @@ public final class ConstantSize implements Size, Serializable {
     
     /**
      * Returns this size as pixel size. Neither requires the component
-     * list nor the specified measures.
-     * <p> 
+     * list nor the specified measures.<p>
+     *  
      * Invoked by {@link com.jgoodies.forms.layout.FormSpec} to determine 
      * the size of a column or row.
      * 
@@ -231,8 +231,7 @@ public final class ConstantSize implements Size, Serializable {
     // Overriding Object Behavior *******************************************
     
     /**
-     * Indicates whether some other ConstantSize is "equal to" 
-     * this one.
+     * Indicates whether some other ConstantSize is "equal to" this one.
      *
      * @param o   the Object with which to compare
      * @return <code>true</code> if this object is the same as the obj
@@ -283,7 +282,7 @@ public final class ConstantSize implements Size, Serializable {
     
     /**
      * Splits a string that encodes size with unit into the size and unit
-     * substrings. Answers an array of two strings.
+     * substrings. Returns an array of two strings.
      * 
      * @param encodedValueAndUnit  a strings that represents a size with unit
      * @return the first element is size, the second is unit
@@ -320,7 +319,7 @@ public final class ConstantSize implements Size, Serializable {
         }
 
         /**
-         * Answers an instance of <code>Unit</code> that corresponds to the
+         * Returns an instance of <code>Unit</code> that corresponds to the
          * specified string.
          * 
          * @param str   the encoded unit
