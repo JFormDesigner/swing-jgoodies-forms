@@ -2,9 +2,10 @@
 JGoodies Forms(tm) Change History
 
 
-20030719 (July-19-2003)
+20030722 (July-22-2003)
 
    o Minor code cleanup: removed obsolete casts and semicolons
+   o FormDebugExample main method corrected
 
 
 1.0 (July-18-2003)
