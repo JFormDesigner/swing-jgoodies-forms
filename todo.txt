@@ -2,6 +2,9 @@
 JGoodies Forms(tm) To-Do
 ========================
 
+o Add a references the explicit-tablelayout project;
+  update the whitepaper to mention this layout system.
+
 o Integrate Karl Tauber's customization code
 
 o Consider adding a second set of factory methods
