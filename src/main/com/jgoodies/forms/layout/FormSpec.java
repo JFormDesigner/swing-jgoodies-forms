@@ -186,6 +186,7 @@ abstract class FormSpec {
     
     /**
      * Answers the current resize weight.
+     * 
      * @return the resize weight.
      */
     public final double getResizeWeight() {
@@ -194,10 +195,23 @@ abstract class FormSpec {
     
     /**
      * Sets a new resize weight.
+     * 
      * @param weight	the new resize weight
      */
     public void setResizeWeight(double weight) {
         resizeWeight = weight;
+    }
+    
+    
+    /**
+     * Checks and answers whether this spec can grow or not.
+     * That is the case if and only if the resize weight is 
+     * != <code>NO_GROW</code>.
+     * 
+     * @return true if it can grow, false if it can't grow
+     */
+    final boolean canGrow() {
+        return getResizeWeight() != NO_GROW;
     }
 
 
