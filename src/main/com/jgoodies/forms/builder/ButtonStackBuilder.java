@@ -72,7 +72,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see ButtonBarBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -122,7 +122,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
      * @param panel   the layout container
      */
     public ButtonStackBuilder(JPanel panel) {
-        super(panel, new FormLayout(COL_SPECS, ROW_SPECS));
+        super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
     }
 
     

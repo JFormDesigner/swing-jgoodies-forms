@@ -56,7 +56,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @since 1.0.3
  * 
  * @see	ResourceBundle
@@ -74,20 +74,6 @@ public class I15dPanelBuilder extends PanelBuilder {
 
     /**
      * Constructs an instance of <code>I15dPanelBuilder</code> for the given
-     * panel and layout.
-     * 
-     * @param panel   the layout container
-     * @param layout  the <code>FormLayout</code> used to layout the container
-     * @param bundle  the <code>ResourceBundle</code> used to lookup i15d
-     * strings
-     */
-    public I15dPanelBuilder(JPanel panel, FormLayout layout, ResourceBundle bundle){        
-        super(panel, layout);
-        this.bundle = bundle;
-    }
-
-    /**
-     * Constructs an instance of <code>I15dPanelBuilder</code> for the given
      * layout. Uses an instance of <code>JPanel</code> as layout container.
      * 
      * @param layout    the form layout used to layout the container
@@ -95,6 +81,33 @@ public class I15dPanelBuilder extends PanelBuilder {
      */
     public I15dPanelBuilder(FormLayout layout, ResourceBundle bundle){        
         this(new JPanel(null), layout, bundle);
+    }
+
+    /**
+     * Constructs an instance of <code>I15dPanelBuilder</code> 
+     * for the given FormLayout and layout container.
+     * 
+     * @param layout  the <code>FormLayout</code> used to layout the container
+     * @param bundle  the <code>ResourceBundle</code> used to lookup i15d strings
+     * @param panel   the layout container
+     */
+    public I15dPanelBuilder(FormLayout layout, ResourceBundle bundle, JPanel panel){        
+        super(layout, panel);
+        this.bundle = bundle;
+    }
+
+    /**
+     * Constructs an instance of <code>I15dPanelBuilder</code> 
+     * for the given FormLayout and layout container.
+     * 
+     * @param panel   the layout container
+     * @param bundle  the <code>ResourceBundle</code> used to lookup i15d strings
+     * @param layout  the <code>FormLayout</code> used to layout the container
+     * 
+     * @deprecated Replaced by {@link #I15dPanelBuilder(FormLayout, ResourceBundle, JPanel)}.
+     */
+    public I15dPanelBuilder(JPanel panel, FormLayout layout, ResourceBundle bundle){        
+        this(layout, bundle, panel);
     }
 
 

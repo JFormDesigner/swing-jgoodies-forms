@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -263,10 +263,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * Constructs an instance of <code>DefaultFormBuilder</code> for the given
      * panel and layout.
      * 
-     * @param panel		the layout container
-     * @param layout		the <code>FormLayout</code> to be used
+     * @param layout    the <code>FormLayout</code> to be used
+     * @param panel     the layout container
      */    
-    public DefaultFormBuilder(JPanel panel, FormLayout layout) {
+    public DefaultFormBuilder(FormLayout layout, JPanel panel) {
         this(panel, layout, null);
     }
     
@@ -286,13 +286,42 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * Constructs an instance of <code>DefaultFormBuilder</code> for the given
      * panel, layout and resource bundle.
      * 
+     * @param layout    the <code>FormLayout</code> to be used
+     * @param panel     the layout container
+     * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
+     * strings
+     */    
+    public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle, JPanel panel) {
+        super(layout, bundle, panel);
+    }
+
+    
+    /**
+     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
+     * panel and layout.
+     * 
+     * @param panel     the layout container
+     * @param layout    the <code>FormLayout</code> to be used
+     * 
+     * @deprecated Replaced by {@link #DefaultFormBuilder(FormLayout, JPanel)}.
+     */    
+    public DefaultFormBuilder(JPanel panel, FormLayout layout) {
+        this(layout, null, panel);
+    }
+    
+    /**
+     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
+     * panel, layout and resource bundle.
+     * 
      * @param panel     the layout container
      * @param layout    the <code>FormLayout</code> to be used
      * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
      * strings
+     * 
+     * @deprecated Replaced by {@link #DefaultFormBuilder(FormLayout, ResourceBundle, JPanel)}.
      */    
     public DefaultFormBuilder(JPanel panel, FormLayout layout, ResourceBundle bundle) {
-        super(panel, layout, bundle);
+        super(layout, bundle, panel);
     }
     
     
