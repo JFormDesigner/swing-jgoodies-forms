@@ -1284,7 +1284,7 @@ public final class FormLayout implements LayoutManager2 {
             if (weight == FormSpec.NO_GROW) {
                 sizes[i] = inputSizes[i];
             } else {
-                double roundingCorrection = restSpace - (double) roundedRestSpace;
+                double roundingCorrection = restSpace - roundedRestSpace;
                 double extraSpace = totalFreeSpace * weight / totalWeight;
                 double correctedExtraSpace = extraSpace - roundingCorrection;
                 int roundedExtraSpace = (int) Math.round(correctedExtraSpace);
