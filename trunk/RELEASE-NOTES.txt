@@ -23,12 +23,13 @@ BUGS FIXED
 OTHER CHANGES
 
     o Code: ...
-    o Tut.: ...
     o Docs: Removed several JavaDoc <code> tags to improve readability.
-    o Tut.: Main methods use the new JGoodies Looks 1.3 package names.
     o Docs: Added examples to FormLayout constructors.
     o Docs: Corrected JavaDoc @throws texts in ColumnSpec and RowSpec.
+    o Docs: Corrected and extended JavaDocs regarding the mnemonic marker
+            in ComponentFactory, DefaultComponentFactory, PanelBuilder.
     o Dist: ...
+    o Tut.: Main methods use the new JGoodies Looks 1.3 package names.
     
     
 ---------------------------------------------------------------------------

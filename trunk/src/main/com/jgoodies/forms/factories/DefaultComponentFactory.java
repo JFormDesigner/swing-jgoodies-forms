@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -97,7 +97,8 @@ public class DefaultComponentFactory implements ComponentFactory {
      * createLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
      * </pre>
      * 
-     * @param textWithMnemonic  the label's text - may contain a mnemonic 
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an label with optional mnemonic
      */
     public JLabel createLabel(String textWithMnemonic) {
@@ -108,7 +109,7 @@ public class DefaultComponentFactory implements ComponentFactory {
     
     
     /**
-     * Creates and returns a label that uses the foreground color
+     * Creates and returns a title label that uses the foreground color
      * and font of a <code>TitledBorder</code>.<p>
      * 
      * <pre>
@@ -118,7 +119,8 @@ public class DefaultComponentFactory implements ComponentFactory {
      * createTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
      * </pre>
      * 
-     * @param textWithMnemonic  the title's text - may contain a mnemonic
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an emphasized title label
      */
     public JLabel createTitle(String textWithMnemonic) {
@@ -132,37 +134,55 @@ public class DefaultComponentFactory implements ComponentFactory {
     /**
      * Creates and returns a labeled separator with the label in the left-hand
      * side. Useful to separate paragraphs in a panel; often a better choice 
-     * than a <code>TitledBorder</code>.
+     * than a <code>TitledBorder</code>.<p>
      * 
-     * @param text  the title's text
+     * <pre>
+     * createSeparator("Name");       // No mnemonic
+     * createSeparator("N&ame");      // Mnemonic is 'a'
+     * createSeparator("Save &as");   // Mnemonic is the second 'a'
+     * createSeparator("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * </pre>
+     * 
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return a title label with separator on the side
      */
-    public JComponent createSeparator(String text) {
-        return createSeparator(text, SwingConstants.LEFT);
+    public JComponent createSeparator(String textWithMnemonic) {
+        return createSeparator(textWithMnemonic, SwingConstants.LEFT);
     }
     
     /**
-     * Creates and returns a labeled separator. Useful to separate paragraphs 
-     * in a panel, which is often a better choice than a 
-     * <code>TitledBorder</code>.
+     * Creates and returns a labeled separator. Useful to separate 
+     * paragraphs in a panel, which is often a better choice than a 
+     * <code>TitledBorder</code>.<p>
      * 
-     * @param text        the title's text
-     * @param alignment   text alignment: left, center, right 
+     * <pre>
+     * final int LEFT = SwingConstants.LEFT;
+     * createSeparator("Name",       LEFT); // No mnemonic
+     * createSeparator("N&ame",      LEFT); // Mnemonic is 'a'
+     * createSeparator("Save &as",   LEFT); // Mnemonic is the second 'a'
+     * createSeparator("Look&&Feel", LEFT); // No mnemonic, text is Look&Feel
+     * </pre>
+     * 
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @param alignment text alignment, one of <code>SwingConstants.LEFT</code>,
+     *     <code>SwingConstants.CENTER</code>, <code>SwingConstants.RIGHT</code> 
      * @return a separator with title label 
      */
-    public JComponent createSeparator(String text, int alignment) {
-        if (text == null || text.length() == 0) {
+    public JComponent createSeparator(String textWithMnemonic, int alignment) {
+        if (textWithMnemonic == null || textWithMnemonic.length() == 0) {
             return new JSeparator();
         }
-        JLabel title = createTitle(text);
+        JLabel title = createTitle(textWithMnemonic);
         title.setHorizontalAlignment(alignment);
         return createSeparator(title);
     }
     
     
     /**
-     * Creates and returns a labeled separator. Useful to separate paragraphs 
-     * in a panel, which is often a better choice than a 
+     * Creates and returns a labeled separator. Useful to separate 
+     * paragraphs in a panel, which is often a better choice than a 
      * <code>TitledBorder</code>.<p>
      * 
      * The label's position is determined by the label's horizontal alignment.
@@ -190,10 +210,11 @@ public class DefaultComponentFactory implements ComponentFactory {
     
     /**
      * Sets the text of the given label and optionally a mnemonic.
-     * The given text may contain mnemonic markers <b>&&</b>,
-     * where such a marker indicates that the following character
-     * shall be the mnemonic. If you want to use the <b>\&</b> 
-     * charachter, just put two together, for example &quot;&&&&&quot;.
+     * The given text may contain an ampersand (<tt>&amp;</tt>)
+     * to mark a mnemonic and its position. Such a marker indicates 
+     * that the character that follows the ampersand shall be the mnemonic. 
+     * If you want to use the ampersand itself duplicate it, for example 
+     * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
      *  
      * @param label             the label that gets a mnemonic
      * @param textWithMnemonic  the text with optional mnemonic marker
