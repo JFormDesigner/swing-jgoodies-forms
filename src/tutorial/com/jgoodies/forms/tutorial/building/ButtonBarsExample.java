@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  * 
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -172,8 +172,8 @@ public final class ButtonBarsExample {
         Component textPane = new JScrollPane(textArea);
         
         FormLayout layout = new FormLayout(
-                        "fill:default:grow",
-                        "fill:p:grow, 4dlu, p");
+                        "fill:100dlu:grow",
+                        "fill:56dlu:grow, 4dlu, p");
         JPanel panel = new JPanel(layout);
         CellConstraints cc = new CellConstraints();
         panel.setBorder(Borders.DIALOG_BORDER);
