@@ -9,29 +9,28 @@ INTRODUCTION
     This maintenance release fixes bugs and aims to simplify the API.
     
     
-VISUAL INCOMPATIBILITIES
-
-    ...
-    
-    Changed button order in factory methods for AddRemoveProperties?
-    
-    
 API INCOMPATIBILITIES
 
     o ColumnSpec and RowSpec are now immutable.
-    o Removed deprecated method ButtonStackBuilder#addGriddedNarrow(JComponent)
+    o Removed method ButtonStackBuilder#addGriddedNarrow(JComponent)
     
 
 NEW FEATURES
 
-    ...
-    
+    o CellConstraints#xyw
     
     
 BUGS FIXED
 
-    o DefaultUnitConverter#setDefaultDialogFont throws NPE
-    o DefaultUnitConverter#setAverageCharacterWidthTestString throws NPE
+    o DefaultUnitConverter#setDefaultDialogFont throws NPE.
+    o DefaultUnitConverter#setAverageCharacterWidthTestString throws NPE.
+    o Invalid sample code in PanelBuilder JavaDocs.
+    
+    
+OTHER CHANGES
+
+    o Extended and corrected JavaDoc class comments.
+    o Added examples to many methods comments.
     
     
 KNOWN ISSUES
@@ -41,13 +40,8 @@ KNOWN ISSUES
       columns/rows are allowed to grow. See the FAQ for details.
       
  
-OTHER CHANGES
-
-    o ...
-    
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 Find below the change history for older releases.
-
 
 
                     JGoodies Forms, Version 1.0.3
@@ -140,10 +134,10 @@ OTHER CHANGES
     o Tutorial: Improved alignment texts in custom row and custom areas example
     o Tutorial: Added ButtonOrderExample
     o Tutorial: Added ComponentOrientationExample
-    o Tutorial: Added OrientationUtils to ComponentOrientationExample (final)
+    o Tutorial: Added OrientationUtils to ComponentOrientationExample 
     
     
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------
 Find below the change history for older releases.
 
 
@@ -212,7 +206,7 @@ OTHER CHANGES
     o All code: Documented empty blocks.
 
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 Find below the change history for older releases.
 
 
@@ -263,7 +257,7 @@ OTHER CHANGES
 
 
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 
 1.0 (July-18-2003)
@@ -285,48 +279,3 @@ OTHER CHANGES
    o Packaging reflects the new license
    o Library jar is unobfuscated
    o Library jar is unsigned
-
-
-1.0b2 (May-31-2003)
-
-   o Main methods in tutorial sources corrected
-   o Right hand side gap of titled labels removed
-   o Workaround for compiler bug in JBuilder and JDeveloper:
-     binary library Jar can now be used in these environments
-   o Extended whitepaper: added comparison with ExplicitLayout
-
-
-1.0b1  (May-5-2003)
-
-   o Removed the deprecated growing constants FILL and NO_FILL 
-   o Removed backward compatibility for deprecated growing constraints
-   o DefaultFormBuilder inherits internationalization support
-     from the I15dPanelBuilder
-   o JavaDocs extended and corrected.
-
-
-0.9.9  (Apr-27-2003)
-
-   o The API has been frozen; I've reduced the visibility 
-     of some helper methods to ensure a stable API.
-   o Helper classes reorganized
-   o FormDebug classes moved to com.jgoodies.forms.debug
-   o Sizes class delegates unit conversions to UnitConversion 
-   o Dialog unit conversion for all resolution and fonts
-   o Title labels created by Builders can have mnemonics
-   o Moved FormDebugPanel and FormDebugUtils to the core
-   o Removed deprecated methods ButtonBarFactory.createFilled*
-   o ComponentFactory creates components for the builders
-   o FontMeasure computes font dependent sizes such as dialog units
-   o More examples in the tutorial 
-   o Demo refreshed
-   o Forms Demo integrated
-   o Forms Tutorial classes and sources added
-   o Forms article refreshed
-   o PanelBuilder component creation overhauled:
-     + creation methods are non-final
-     + implicitly created labels can have a mnemonic
-   o DefaultFormBuilder.append(String, Component, ...)
-     sets the created label as label for the first component.
-   o Hidden variables renamed
-   o mm, cm, in accept double values
