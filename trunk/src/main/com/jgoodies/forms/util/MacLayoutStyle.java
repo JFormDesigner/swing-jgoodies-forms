@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
 final class MacLayoutStyle extends LayoutStyle {
@@ -53,21 +53,21 @@ final class MacLayoutStyle extends LayoutStyle {
 
     // Component Sizes ******************************************************
 
-    private static final Size         BUTTON_WIDTH              = Sizes.dluX(45);
+    private static final Size         BUTTON_WIDTH              = Sizes.dluX(39);
     private static final Size         BUTTON_HEIGHT             = Sizes.dluY(14);
     
 
     // Gaps ******************************************************************
 
-    private static final ConstantSize DIALOG_MARGIN_X           = Sizes.DLUX7;
-    private static final ConstantSize DIALOG_MARGIN_Y           = Sizes.DLUY7;
+    private static final ConstantSize DIALOG_MARGIN_X           = Sizes.DLUX9;
+    private static final ConstantSize DIALOG_MARGIN_Y           = Sizes.DLUY9;
     
     private static final ConstantSize TABBED_DIALOG_MARGIN_X    = Sizes.DLUX4;
     private static final ConstantSize TABBED_DIALOG_MARGIN_Y    = Sizes.DLUY4;
     
     private static final ConstantSize LABEL_COMPONENT_PADX      = Sizes.DLUX3;
-    private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX3;
-    private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX6;
+    private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX4;
+    private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX8;
     
     private static final ConstantSize RELATED_COMPONENTS_PADY   = Sizes.DLUY3;
     private static final ConstantSize UNRELATED_COMPONENTS_PADY = Sizes.DLUY6;
