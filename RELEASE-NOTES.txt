@@ -1,6 +1,6 @@
 
 
-                    JGoodies Forms, Version 1.0.3 Preview
+                    JGoodies Forms, Version 1.0.3
                             Release Notes
                         
 
@@ -40,27 +40,38 @@ API INCOMPATIBILITIES
 
 NEW FEATURES
     
-    o General:  Moved DefaultFormBuilder and I15dPanelBuilder to the core.
-    o Code:     FormLayout is serializable.
-    o Code:     AbstractFormBuilder#appendLabelComponentGapColumn()
-    o Code:     AbstractFormBuilder#appendParagraphGapRow()
-    o Code:     AbstractFormBuilder#setComponentFactory(...) now public
-    o Code:     I15dPanelBuilder#addI15dLabel(String, CellConstraints, 
-                                              Component, CellConstraints)
-    o Code:     LayoutStyle#getTabbedDialogMarginX()
-    o Code:     LayoutStyle#getTabbedDialogMarginY()
-    o Code:     LayoutStyle#getButtonBarPad()
-    o Code:     LayoutStyle#isLeftToRightButtonOrder()
-    o Code:     FormFactory#LABEL_COMPONENT_COLSPEC
-    o Code:     MacLayoutStyle
-    o Code:     AbstractFormBuilder#createLeftAdjustedConstraints(int)
+    o Moved DefaultFormBuilder and I15dPanelBuilder to the core.
+    o FormLayout is serializable.
+    o AbstractFormBuilder#appendLabelComponentGapColumn()
+    o AbstractFormBuilder#appendParagraphGapRow()
+    o AbstractFormBuilder#setComponentFactory(...) now public
+    o I15dPanelBuilder#addI15dLabel(String, CellConstraints, 
+                                    Component, CellConstraints)
+    o LayoutStyle#getTabbedDialogMarginX()
+    o LayoutStyle#getTabbedDialogMarginY()
+    o LayoutStyle#getButtonBarPad()
+    o LayoutStyle#isLeftToRightButtonOrder()
+    o FormFactory#LABEL_COMPONENT_COLSPEC
+    o MacLayoutStyle
+    o AbstractFormBuilder#createLeftAdjustedConstraints(int)
+    o ColumnSpec#decodeSpecs(String encodedColumnSpecs) (final)
+    o RowSpec#decodeSpecs(String encodedRowSpecs) (final)
+    o FormSpec.DefaultAlignment now visible (final)
     
     
 BUGS FIXED
 
     o PanelBuilder fails to build right-to-left if column span > 1.
     o DefaultFormBuilder fails to build right-to-left if column span > 1.
+    o Deserialization fails in 1.0.3 preview.
+    
+    
+KNOWN ISSUES
 
+    o In some cases components that span multiple columns/rows 
+      can expand the container size, although none of the spanned
+      columns/rows are allowed to grow. See the FAQ for details.
+      
  
 OTHER CHANGES
 
@@ -68,6 +79,8 @@ OTHER CHANGES
                 #add(JLabel, CellConstraints, Component, CellConstraints)
                 #add(String, CellConstraints, Component, CellConstraints)
     o Code:     DefaultComponentFactory#setTextAndMnemonic(JLabel) now private
+    o Code:     DefaultUnitConverter refers indirectly to ToolKit#getFontMetrics
+    o Code:     Marked ButtonStackBuilder#addGriddedNarrow as deprecated
     o JavaDocs: Extended and corrected 
     o JavaDocs: Clarified some semantics
     o Docs:     Fixed spelling and grammar errors
@@ -75,13 +88,9 @@ OTHER CHANGES
     o Tutorial: Improved alignment texts in custom row and custom areas example
     o Tutorial: Added ButtonOrderExample
     o Tutorial: Added ComponentOrientationExample
+    o Tutorial: Added OrientationUtils to ComponentOrientationExample (final)
     
     
-THINGS TO BE DONE FOR THE 1.0.3 FINAL
-
-    o Test the serialization.
-    
-
 -------------------------------------------------------------------------------
 Find below the change history for older releases.
 
