@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @see     ButtonStackBuilder
  */
 public final class ButtonStacksExample {
@@ -150,7 +150,7 @@ public final class ButtonStacksExample {
         builder.addGridded(new JButton("Help"));
         builder.addUnrelatedGap();
         builder.addGlue();
-        builder.addGriddedNarrow(new JButton("Copy to Clipboard"));
+        builder.addGridded(new JButton("Copy to Clipboard"));
 
         return wrap(builder.getPanel(),
             "Demonstrates a glue (between Help and Copy),\n" +
