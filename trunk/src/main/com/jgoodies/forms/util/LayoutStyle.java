@@ -43,8 +43,12 @@ import com.jgoodies.forms.layout.Size;
  * A future version of this class will likely collaborate with a class
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
- * @version $Revision: 1.4 $
  * @author Karsten Lentzsch
+ * @version $Revision: 1.5 $
+ * 
+ * @see com.jgoodies.forms.util.WindowsLayoutStyle
+ * @see com.jgoodies.forms.factories.FormFactory
+ * @see com.jgoodies.forms.factories.Borders
  */
 
 public abstract class LayoutStyle {
@@ -66,6 +70,7 @@ public abstract class LayoutStyle {
         return current;
     }
     
+    
     /**
      * Set a new <code>LayoutStyle</code>
      * 
@@ -79,86 +84,159 @@ public abstract class LayoutStyle {
     // Layout Sizes *********************************************************
 
     /**
-     * Answers the style's default button width.
+     * Returns this style's default button width.
      * 
      * @return the default button width
+     * 
+     * @see #getDefaultButtonHeight()
      */
     abstract public Size getDefaultButtonWidth();
 
+    
     /**
-     * Answers the style's default button height.
+     * Returns this style's default button height.
      * 
      * @return the default button height
+     * 
+     * @see #getDefaultButtonWidth()
      */
     abstract public Size getDefaultButtonHeight();
 
+    
     /**
-     * Answers the style's horizontal dialog margin.
+     * Returns this style's horizontal margin for general dialogs.
      * 
-     * @return the horizontal dialog margin
+     * @return the horizontal margin for general dialogs
+     * 
+     * @see #getDialogMarginY()
+     * @see #getTabbedDialogMarginX()
      */
     abstract public ConstantSize getDialogMarginX();
 
+    
     /**
-     * Answers the style's vertical dialog margin.
+     * Returns this style's vertical margin for general dialogs.
      * 
-     * @return the vertical dialog margin
+     * @return the vertical margin for general dialogs
+     * 
+     * @see #getDialogMarginX()
+     * @see #getTabbedDialogMarginY()
      */
     abstract public ConstantSize getDialogMarginY();
 
+    
     /**
-     * Answers a gap used to separate a label and associated control.
+     * Returns this style's horizontal margin for dialogs that consist of 
+     * a tabbed pane.
+     * 
+     * @return the horizontal margin for dialogs that consist of a tabbed pane
+     * @since 1.0.3
+     * 
+     * @see #getTabbedDialogMarginY()
+     * @see #getDialogMarginX()
+     */
+    abstract public ConstantSize getTabbedDialogMarginX();
+
+    
+    /**
+     * Returns this style's vertical margin for dialogs that consist of
+     * a tabbed pane.
+     * 
+     * @return the vertical margin for dialogs that consist of a tabbed pane
+     * @since 1.0.3
+     * 
+     * @see #getTabbedDialogMarginX()
+     * @see #getDialogMarginY()
+     */
+    abstract public ConstantSize getTabbedDialogMarginY();
+
+    
+    /**
+     * Returns a gap used to separate a label and associated control.
      * 
      * @return a gap between label and associated control
+     * 
+     * @see #getRelatedComponentsPadX()
+     * @see #getUnrelatedComponentsPadX()
      */
     abstract public ConstantSize getLabelComponentPadX();
 
+    
     /**
-     * Answers a horizontal gap used to separate related controls.
+     * Returns a horizontal gap used to separate related controls.
      * 
      * @return a horizontal gap between related controls
+     * 
+     * @see #getLabelComponentPadX()
+     * @see #getRelatedComponentsPadY()
+     * @see #getUnrelatedComponentsPadX()
      */
     abstract public ConstantSize getRelatedComponentsPadX();
 
+    
     /**
-     * Answers a vertical gap used to separate related controls.
+     * Returns a vertical gap used to separate related controls.
      * 
      * @return a vertical gap between related controls
+     * 
+     * @see #getRelatedComponentsPadX()
+     * @see #getUnrelatedComponentsPadY()
      */
     abstract public ConstantSize getRelatedComponentsPadY();
 
+    
     /**
-     * Answers a horizontal gap used to separate unrelated controls.
+     * Returns a horizontal gap used to separate unrelated controls.
      * 
      * @return a horizontal gap between unrelated controls
+     * 
+     * @see #getLabelComponentPadX()
+     * @see #getUnrelatedComponentsPadY()
+     * @see #getRelatedComponentsPadX()
      */
     abstract public ConstantSize getUnrelatedComponentsPadX();
 
+    
     /**
-     * Answers a vertical gap used to separate unrelated controls.
+     * Returns a vertical gap used to separate unrelated controls.
      * 
      * @return a vertical gap between unrelated controls
+     * 
+     * @see #getUnrelatedComponentsPadX()
+     * @see #getRelatedComponentsPadY()
      */
     abstract public ConstantSize getUnrelatedComponentsPadY();
 
+    
     /**
-     * Answers a narrow vertical pad used to separate lines.
-     * 
-     * @return a vertical pad used to separate lines
-     */
-    abstract public ConstantSize getLinePad();
-
-    /**
-     * Answers a narrow vertical pad used to separate lines.
+     * Returns a narrow vertical pad used to separate lines.
      * 
      * @return a narrow vertical pad used to separate lines
+     * 
+     * @see #getLinePad()
+     * @see #getParagraphPad()
      */
     abstract public ConstantSize getNarrowLinePad();
 
+    
     /**
-     * Answers a pad used to paragraphs.
+     * Returns a narrow vertical pad used to separate lines.
+     * 
+     * @return a vertical pad used to separate lines
+     * 
+     * @see #getNarrowLinePad()
+     * @see #getParagraphPad()
+     */
+    abstract public ConstantSize getLinePad();
+
+    
+    /**
+     * Returns a pad used to paragraphs.
      * 
      * @return a vertical pad used to separate paragraphs
+     * 
+     * @see #getNarrowLinePad()
+     * @see #getLinePad()
      */
     abstract public ConstantSize getParagraphPad();
 
