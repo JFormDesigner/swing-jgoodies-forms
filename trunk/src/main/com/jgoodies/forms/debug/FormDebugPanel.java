@@ -42,11 +42,20 @@ import com.jgoodies.forms.layout.FormLayout;
  * A panel that paints grid bounds if and only if the panel's layout manager 
  * is a {@link FormLayout}. In addition, you can choose to dump information 
  * about the layout grid, layout groups and cell constraints to the console.
+ * <p>
+ * This class is not intended to be extended. However, it is no longer
+ * marked as <code>final</code> to allow users to subclass it for 
+ * debugging purposes. In general it is recommended to use JPanel
+ * instances, not extend them. You can see this implementation style
+ * in the Forms tutorial classes. Only rarely there's a need to extend
+ * JPanel; for example if you provide a custom behavior for 
+ * <code>#paintComponent</code> or <code>#updateUI</code>.  
  *
  * @author  Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see     FormDebugUtils
  */
-public final class FormDebugPanel extends JPanel {
+public class FormDebugPanel extends JPanel {
     
     /** 
      * The default color used to paint the form's grid. 
