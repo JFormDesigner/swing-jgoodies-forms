@@ -199,7 +199,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -383,9 +383,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         ensureHasGapRow(lineGapSpec);
         ensureHasComponentLine();
         
-        setColumnSpan(columnSpan);
-        add(component);
-        setColumnSpan(1);
+        add(component, createLeftAdjustedConstraints(columnSpan));
         nextColumn(columnSpan + 1);
     }
 
@@ -720,8 +718,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     // Overriding Superclass Behavior ***************************************
     
     /**
-     * Returns the leading column. Unlike the superclass we take a 
-     * column offset into account.
+     * Returns the leading column. Unlike the superclass this method
+     * honors the column offset.
      * 
      * @return the leading column
      */
@@ -739,7 +737,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * of the next line.
      */
     private void ensureCursorColumnInGrid() {
-        if (getColumn() > getColumnCount()) {
+        if (   ( isLeftToRight() && (getColumn() > getColumnCount()))
+            || (!isLeftToRight() && (getColumn() < 1))) {
             nextLine();
         }
     }

@@ -62,6 +62,18 @@ import com.jgoodies.forms.util.LayoutStyle;
  * 'Add...', 'Remove', 'Properties...' you may declare the properties button 
  * to use narrow margins.<p>
  * 
+ * To honor the platform's button order (left-to-right vs. right-to-left)
+ * this builder uses the <em>leftToRightButtonOrder</em> property.
+ * It is initialized with the current LayoutStyle's button order,
+ * which in turn is left-to-right on most platforms and right-to-left
+ * on the Mac OS X. Builder methods that create sequences of buttons 
+ * (e.g. {@link #addGriddedButtons(JButton[])} honor the button order.
+ * If you want to ignore the default button order, you can either
+ * add add individual buttons, or create a ButtonBarBuilder instance
+ * with the order set to left-to-right. For the latter see 
+ * {@link #createLeftToRightBuilder()}. Also see the button order 
+ * example below.<p>
+ * 
  * <strong>Example:</strong><br>
  * The following example builds a button bar with <i>Help</i> button on the 
  * left-hand side and <i>OK, Cancel, Apply</i> buttons on the right-hand side.
@@ -75,10 +87,45 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     builder.addGriddedButtons(new JButton[]{ok, cancel, apply});
  *     return builder.getPanel();
  * }
+ * </pre><p>
+ *  
+ * <strong>Button Order Example:</strong><br>
+ * The following example builds three button bars where one honors
+ * the platform's button order and the other two ignore it.
+ * <pre>
+ * public JComponent buildPanel() {
+ *     FormLayout layout = new FormLayout("pref");
+ *     DefaultFormBuilder rowBuilder = new DefaultFormBuilder(layout);
+ *     rowBuilder.setDefaultDialogBorder();
+ *     
+ *     rowBuilder.append(buildButtonSequence(new ButtonBarBuilder()));
+ *     rowBuilder.append(buildButtonSequence(ButtonBarBuilder.createLeftToRightBuilder()));
+ *     rowBuilder.append(buildIndividualButtons(new ButtonBarBuilder()));
+ *     
+ *     return rowBuilder.getPanel();
+ * }
+ * 
+ * private Component buildButtonSequence(ButtonBarBuilder builder) {
+ *     builder.addGriddedButtons(new JButton[] {
+ *             new JButton("One"),
+ *             new JButton("Two"),
+ *             new JButton("Three")
+ *     });
+ *     return builder.getPanel();
+ * }
+ *
+ * private Component buildIndividualButtons(ButtonBarBuilder builder) {
+ *     builder.addGridded(new JButton("One"));
+ *     builder.addRelatedGap();
+ *     builder.addGridded(new JButton("Two"));
+ *     builder.addRelatedGap();
+ *     builder.addGridded(new JButton("Three"));
+ *     return builder.getPanel();
+ * }
  * </pre> 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see com.jgoodies.forms.util.LayoutStyle
  */
@@ -88,16 +135,34 @@ public final class ButtonBarBuilder extends PanelBuilder {
     private static final RowSpec      ROW_SPEC   = new RowSpec("center:pref");
     private static final RowSpec[]    ROW_SPECS  = new RowSpec[]{ROW_SPEC};
     
-    private static final String       NARROW_KEY = "jgoodies.isNarrow";
+    
+    /**
+     * The client property key used to indicate that a button shall
+     * get narrow margins on the left and right hand side.<p>
+     * 
+     * This optional setting will be honored by all JGoodies Look&amp;Feel 
+     * implementations. The Mac Aqua l&amp;f uses narrow margins only.
+     * Other look&amp;feel implementations will likely ignore this key
+     * and so may render a wider button margin.
+     */
+    private static final String NARROW_KEY = "jgoodies.isNarrow";
+    
     
     /**
      * Describes how sequences of buttons are added to the button bar:
-     * left-to-right or right-to-left.
+     * left-to-right or right-to-left. This setting is initialized using
+     * the current {@link LayoutStyle}'s button order. It is honored
+     * only by builder methods that build sequences of button, for example
+     * {@link #addGriddedButtons(JButton[])}, and ignored if you add
+     * individual button, for example using {@link #addGridded(JButton)}.
      * 
      * @see #isLeftToRight()
      * @see #setLeftToRight(boolean)
+     * @see #addGriddedButtons(JButton[])
+     * @see #addGriddedGrowingButtons(JButton[])
      */
     private boolean leftToRight;
+    
     
     // Instance Creation ****************************************************
 
@@ -119,6 +184,19 @@ public final class ButtonBarBuilder extends PanelBuilder {
     public ButtonBarBuilder(JPanel panel) {
         super(panel, new FormLayout(COL_SPECS, ROW_SPECS));
         leftToRight = LayoutStyle.getCurrent().isLeftToRightButtonOrder();
+    }
+    
+    
+    /**
+     * Creates and returns a <code>ButtonBarBuilder</code> with
+     * initialized with a left to right button order.
+     * 
+     * @return a button bar builder with button order set to left-to-right
+     */
+    public static ButtonBarBuilder createLeftToRightBuilder() {
+        ButtonBarBuilder builder = new ButtonBarBuilder();
+        builder.setLeftToRightButtonOrder(true);
+        return builder;
     }
     
 
@@ -166,9 +244,13 @@ public final class ButtonBarBuilder extends PanelBuilder {
     // Adding Components ****************************************************
     
     /**
-     * Adds a sequence of related gridded buttons separated by a default gap.
+     * Adds a sequence of related gridded buttons each separated by 
+     * a default gap. Honors this builder's button order. If you
+     * want to use a fixed left to right order, add individual buttons.
      * 
      * @param buttons  an array of buttons to add
+     * 
+     * @see LayoutStyle
      */
     public void addGriddedButtons(JButton[] buttons) {
         int length = buttons.length;
@@ -179,29 +261,18 @@ public final class ButtonBarBuilder extends PanelBuilder {
                 addRelatedGap();
         }
     }
-
-    /**
-     * Adds a sequence of narrow gridded buttons 
-     * where each is separated by a default gap.
-     * 
-     * @param buttons  an array of buttons to add
-     * @deprecated #addGriddedButtons already makes the borders narrow
-     */
-    public void addGriddedNarrowButtons(JButton[] buttons) {
-        int length = buttons.length;
-        for (int i = 0; i < length; i++) {
-            int index = leftToRight ? i : length -1 - i;
-            addGriddedNarrow(buttons[index]);
-            if (i < buttons.length - 1)
-                addRelatedGap();
-        }
-    }
     
+
     /**
      * Adds a sequence of gridded buttons that grow
      * where each is separated by a default gap.
+     * Honors this builder's button order. If you
+     * want to use a fixed left to right order, 
+     * add individual buttons.
      * 
      * @param buttons  an array of buttons to add
+     * 
+     * @see LayoutStyle
      */
     public void addGriddedGrowingButtons(JButton[] buttons) {
         int length = buttons.length;
@@ -213,6 +284,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         }
     }
     
+    
     /**
      * Adds a fixed size component.
      * 
@@ -223,6 +295,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         add(component);
         nextColumn();
     }
+    
 
     /**
      * Adds a fixed size component with narrow margins.
@@ -233,6 +306,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         addFixed(component);
     }
+    
 
     /**
      * Adds a gridded component.
@@ -246,16 +320,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         add(component);
         nextColumn();
     }
-
-    /**
-     * Adds a gridded narrow component.
-     * 
-     * @param component  the component to add
-     * @deprecated #addGridded(JComponent) already makes the border narrow
-     */
-    public void addGriddedNarrow(JComponent component) {
-        addGridded(component);
-    }
+    
 
     /**
      * Adds a gridded component that grows.
@@ -269,6 +334,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         add(component);
         nextColumn();
     }
+    
 
     /**
      * Adds a gridded, narrow component that grows.
@@ -279,6 +345,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         addGriddedGrowing(component);
     }
+    
 
     /**
      * Adds a glue that will be given the extra space, 
@@ -288,6 +355,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         appendGlueColumn();
         nextColumn();
     }
+    
 
     /**
      * Adds the standard gap for related components.
@@ -297,6 +365,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         nextColumn();
     }
 
+    
     /**
      * Adds the standard gap for unrelated components.
      */
@@ -305,6 +374,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
         nextColumn();
     }
 
+    
     /** 
      * Adds a strut of a specified size.
      * 
