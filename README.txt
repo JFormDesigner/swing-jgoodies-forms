@@ -6,9 +6,9 @@
 
 INTRODUCTION
 
-     The JGoodies Forms framework helps you layout and 
-     implement elegant Swing panels quickly and consistently. 
-     It makes simple things easy and the hard stuff possible,
+     The JGoodies Forms framework helps you layout and implement 
+     elegant Swing panels quickly and consistently. It aims 
+     to make simple things easy and the hard stuff possible,
      the good design easy and the bad difficult.
           
      The Forms distribution ships with tutorial sources, and
@@ -29,10 +29,9 @@ DISTRIBUTION CONTENTS
        o src/tutorial        - tutorial sources
        o src/test            - test case sources
 
+       o CHANGES.txt         - the change history
        o LICENSE.txt         - the BSD license agreement 
-       o changes.txt         - the change history
-       o readme.txt          - this readme file
-       o todo.txt            - the to do-list
+       o README.txt          - this readme file
        o build.xml           - ANT build file
        o default.properties  - ANT default build properties
        o forms-1.0.1.jar     - the library jar 
