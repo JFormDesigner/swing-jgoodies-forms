@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to use a leading indent column.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
 public final class FormDebugExample {
@@ -114,10 +114,11 @@ public final class FormDebugExample {
         deliveryDateField     = new JTextField();
     }
 
+    
     // Building *************************************************************
 
     /**
-     * Builds the pane.
+     * Builds the panel.
      * 
      * @return the built panel
      */
@@ -125,12 +126,11 @@ public final class FormDebugExample {
         initComponents();
         
         FormLayout layout = new FormLayout(
-                "12dlu, pref, 3dlu, max(45dlu;min), 2dlu, min, 2dlu, min, 2dlu, min, ",
-                "");
+                "12dlu, pref, 3dlu, max(45dlu;min), 2dlu, min, 2dlu, min, 2dlu, min");
         layout.setColumnGroups(new int[][] { { 4, 6, 8, 10 } });
         
         DefaultFormBuilder builder = 
-            new DefaultFormBuilder(new FormDebugPanel(), layout);
+            new DefaultFormBuilder(layout, new FormDebugPanel());
             
         builder.setDefaultDialogBorder();
         builder.setLeadingColumnOffset(1);
