@@ -117,7 +117,7 @@ import java.util.*;
  * 
  * <strong>Example 3</strong> (Using DefaultFormBuilder):<br>
  * This example utilizes the 
- * {@link com.jgoodies.forms.extras.DefaultFormBuilder} that 
+ * {@link com.jgoodies.forms.builder.DefaultFormBuilder} that 
  * ships with the source distribution. 
  * <pre>
  * FormLayout layout = new FormLayout(
@@ -133,12 +133,13 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
  * @see	com.jgoodies.forms.builder.ButtonBarBuilder
+ * @see	com.jgoodies.forms.builder.DefaultFormBuilder
  * @see	com.jgoodies.forms.factories.FormFactory
  * @see	Size
  * @see	Sizes
