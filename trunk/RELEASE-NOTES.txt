@@ -16,12 +16,14 @@ NEW FEATURES
     
 BUGS FIXED
 
-    o ...
+    o BoundedSize#toString wrong if lower and upper bound exist.
     
     
 OTHER CHANGES
 
     o Code: ...
+    o Tut.: ...
+    o Docs: Removed several JavaDoc <code> tags to improve readability.
     o Tut.: Main methods use the new JGoodies Looks 1.3 package names.
     o Docs: Added examples to FormLayout constructors.
     o Docs: Corrected JavaDoc @throws texts in ColumnSpec and RowSpec.
