@@ -32,6 +32,7 @@ package com.jgoodies.forms.layout;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ import java.util.List;
  * </table>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see	Size
  * @see	Sizes
  */
@@ -225,6 +226,8 @@ public final class ConstantSize implements Size {
      * @see     java.util.Hashtable
      */
     public boolean equals(Object o) {
+        if (this == o)
+            return true;
         if (!(o instanceof ConstantSize))
             return false;
         ConstantSize size = (ConstantSize) o;
@@ -286,14 +289,14 @@ public final class ConstantSize implements Size {
     // Helper Class *********************************************************
     
     /**
-     * A typesafe enumeration for units as used in instances of
-     * {@link ConstantSize}.
+     * An ordinal-based serializable typesafe enumeration for units 
+     * as used in instances of {@link ConstantSize}.
      */
-    public static final class Unit {
+    public static final class Unit implements Serializable {
         
-        private final String name;
-        private final String abbreviation;
-                 final boolean requiresIntegers;
+        private final transient String name;
+        private final transient String abbreviation;
+                 final transient boolean requiresIntegers;
 
         private Unit(String name, String abbreviation, boolean requiresIntegers) { 
             this.name = name;
@@ -338,6 +341,19 @@ public final class ConstantSize implements Size {
             return abbreviation;
         }
         
+        // Serialization *****************************************************
+        
+        private static int nextOrdinal = 0;
+        
+        private final int ordinal = nextOrdinal++;
+        
+        private static final Unit[] VALUES = 
+            { PIXEL, POINT, DIALOG_UNITS_X, DIALOG_UNITS_Y, MILLIMETER, CENTIMETER, INCH};
+        
+        private Object readResolve() {
+            return VALUES[ordinal];  // Canonicalize
+        }
+
     }
     
     
