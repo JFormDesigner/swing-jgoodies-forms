@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -59,6 +59,12 @@ import com.jgoodies.forms.layout.FormLayout;
  * static rows vs. dynamically added rows. Also, you may check out the
  * Tips &amp; Tricks section of the Forms HTML documentation.<p>
  * 
+ * The <code>#addLabel</code> methods accept a text with mnemonic marker.
+ * The mnemonic and mnemonic index are indicated by the <tt>&amp;</tt> char.
+ * For example <tt>&quot;&amp;Save&quot</tt>, or 
+ * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself 
+ * duplicate it, for example <tt>&quot;Look &amp;&amp; Feel&quot</tt>.<p>
+ * 
  * <strong>Example:</strong><br>
  * This example creates a panel with 3 columns and 3 rows.
  * <pre>
@@ -79,7 +85,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
@@ -155,7 +161,13 @@ public class PanelBuilder extends AbstractFormBuilder {
     // Adding Labels **********************************************************
     
     /**
-     * Adds a textual label to the form using the specified constraints.
+     * Adds a textual label to the form using the specified constraints.<p>
+     * 
+     * <pre>
+     * addLabel("Name",       cc.xy(1, 1));
+     * addLabel("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
+     * addLabel("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
+     * </pre>
      * 
      * @param textWithMnemonic  the label's text - may contain a mnemonic marker
      * @param constraints       the label's cell constraints
@@ -171,7 +183,13 @@ public class PanelBuilder extends AbstractFormBuilder {
     
     
     /**
-     * Adds a textual label to the form using the specified constraints.
+     * Adds a textual label to the form using the specified constraints.<p>
+     * 
+     * <pre>
+     * addLabel("Name",       "1, 1");
+     * addLabel("N&ame",      "1, 1"); // Mnemonic is 'a'
+     * addLabel("Look&&Feel", "1, 1"); // No mnemonic, text is "look&feel"
+     * </pre>
      * 
      * @param textWithMnemonic    the label's text - may contain a mnemonic marker
      * @param encodedConstraints  a string representation for the constraints
@@ -185,7 +203,13 @@ public class PanelBuilder extends AbstractFormBuilder {
     
     
     /**
-     * Adds a textual label to the form using the default constraints.
+     * Adds a textual label to the form using the default constraints.<p>
+     * 
+     * <pre>
+     * addLabel("Name");       // No Mnemonic
+     * addLabel("N&ame");      // Mnemonic is 'a'
+     * addLabel("Look&&Feel"); // No mnemonic, text is "look&feel"
+     * </pre>
      * 
      * @param textWithMnemonic  the label's text - may contain a mnemonic marker
      * @return the new label
@@ -218,18 +242,20 @@ public class PanelBuilder extends AbstractFormBuilder {
      * is cloned by the <code>FormLayout</code>.<p>
      * 
      * <strong>Wrong:</strong><pre>
-     * builder.add(nameLabel, 
-     *             cc.xy(1, 7),         // will be modified by the code below
-     *             nameField, 
-     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
-     *            );
+     * builder.add(
+     *     nameLabel, 
+     *     cc.xy(1, 7),         // will be modified by the code below
+     *     nameField, 
+     *     cc.xy(3, 7)          // sets the single instance to (3, 7)
+     * );
      * </pre>
      * <strong>Correct:</strong><pre>
-     * builder.add(nameLabel, 
-     *             cc.xy(1, 7).clone(), // cloned before the next modification 
-     *             nameField, 
-     *             cc.xy(3, 7)          // sets this instance to (3, 7)
-     *            );
+     * builder.add(
+     *     nameLabel, 
+     *     (CellConstraints) cc.xy(1, 7).clone(), // cloned before the next modification 
+     *     nameField, 
+     *     cc.xy(3, 7)                            // sets this instance to (3, 7)
+     * );
      * </pre>
      * 
      * @param label                 the label to add
@@ -276,18 +302,20 @@ public class PanelBuilder extends AbstractFormBuilder {
      * is cloned by the <code>FormLayout</code>.<p>
      * 
      * <strong>Wrong:</strong><pre>
-     * builder.add("Name:", 
-     *             cc.xy(1, 7),         // will be modified by the code below
-     *             nameField, 
-     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
-     *            );
+     * builder.addLabel(
+     *     "Name:", 
+     *     cc.xy(1, 7),         // will be modified by the code below
+     *     nameField, 
+     *     cc.xy(3, 7)          // sets the single instance to (3, 7)
+     * );
      * </pre>
      * <strong>Correct:</strong><pre>
-     * builder.add("Name:", 
-     *             cc.xy(1, 7).clone(), // cloned before the next modification 
-     *             nameField, 
-     *             cc.xy(3, 7)          // sets this instance to (3, 7)
-     *            );
+     * builder.addLabel(
+     *     "Name:", 
+     *     (CellConstraints) cc.xy(1, 7).clone(), // cloned before the next modification 
+     *     nameField, 
+     *     cc.xy(3, 7)                            // sets this instance to (3, 7)
+     * );
      * </pre>
      * 
      * @param textWithMnemonic      the label's text - may contain a mnemonic marker

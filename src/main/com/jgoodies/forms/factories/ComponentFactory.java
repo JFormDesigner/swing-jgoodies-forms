@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -34,11 +34,19 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 /**
- * An interface that defines the factory methods as used 
- * by the {@link com.jgoodies.forms.builder.PanelBuilder}.
+ * An interface that defines the factory methods as used by the 
+ * {@link com.jgoodies.forms.builder.PanelBuilder} and its subclasses.<p>
+ * 
+ * The methods <code>#createLabel(String)</code> and 
+ * <code>#createTitle(String)</code> accept a text with optional 
+ * mnemonic marker. The mnemonic and mnemonic index are indicated 
+ * by the <tt>&amp;</tt> char. For example <tt>&quot;&amp;Save&quot</tt>, 
+ * or <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself 
+ * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
+ * 
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
  */
@@ -46,7 +54,14 @@ import javax.swing.JLabel;
 public interface ComponentFactory {
     
     /**
-     * Creates and returns a label with an optional mnemonic.
+     * Creates and returns a label with an optional mnemonic.<p>
+     * 
+     * <pre>
+     * createLabel("Name");       // No mnemonic
+     * createLabel("N&ame");      // Mnemonic is 'a'
+     * createLabel("Save &as");   // Mnemonic is the second 'a'
+     * createLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * </pre>
      * 
      * @param textWithMnemonic  the label's text - may contain a mnemonic 
      * @return an label with optional mnemonic
@@ -56,7 +71,14 @@ public interface ComponentFactory {
     
     /**
      * Creates and returns a label that uses the foreground color
-     * and font of a <code>TitledBorder</code>.
+     * and font of a <code>TitledBorder</code>.<p>
+     * 
+     * <pre>
+     * createTitle("Name");       // No mnemonic
+     * createTitle("N&ame");      // Mnemonic is 'a'
+     * createTitle("Save &as");   // Mnemonic is the second 'a'
+     * createTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * </pre>
      * 
      * @param textWithMnemonic  the title's text - may contain a mnemonic
      * @return an emphasized title label
