@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -587,9 +587,10 @@ public abstract class AbstractFormBuilder {
     // Misc *****************************************************************
     
     /**
-     * Returns the cell constraints.
+     * Returns the CellConstraints object that is used as a cursor and
+     * holds the current column span and row span.
      * 
-     * @return the builder's current {@link CellConstraints}
+     * @return the builder's current {@link CellConstraints} object
      */
     protected final CellConstraints cellConstraints() {
         return currentCellConstraints;
@@ -625,15 +626,16 @@ public abstract class AbstractFormBuilder {
      * the current cursor position that uses the given column span
      * and is adjusted to the left. Useful when building from right to left. 
      * 
-     * @param columnSpan   the column span to be set in the constraints
+     * @param columnSpan   the column span to be used in the constraints
      * @return CellConstraints adjusted to the left hand side
      */
-    protected final CellConstraints createLeftAdjustedConstraints(
-                                                                  int columnSpan) {
+    protected final CellConstraints createLeftAdjustedConstraints(int columnSpan) {
         int firstColumn = isLeftToRight() 
-        ? getColumn() 
-        : getColumn() + 1 - columnSpan;
-        return new CellConstraints(firstColumn, getRow(), columnSpan, 1);
+                            ? getColumn() 
+                            : getColumn() + 1 - columnSpan;
+        return new CellConstraints(firstColumn, getRow(), 
+                                    columnSpan, 
+                                    cellConstraints().gridHeight);
     }
     
     
