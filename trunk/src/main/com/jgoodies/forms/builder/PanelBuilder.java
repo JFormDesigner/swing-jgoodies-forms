@@ -59,11 +59,11 @@ import com.jgoodies.forms.layout.FormLayout;
  * static rows vs. dynamically added rows. Also, you may check out the
  * Tips &amp; Tricks section of the Forms HTML documentation.<p>
  * 
- * The <code>#addLabel</code> methods accept a text with mnemonic marker.
- * The mnemonic and mnemonic index are indicated by the <tt>&amp;</tt> char.
- * For example <tt>&quot;&amp;Save&quot</tt>, or 
- * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself 
- * duplicate it, for example <tt>&quot;Look &amp;&amp; Feel&quot</tt>.<p>
+ * The texts used in method <code>#addLabel</code> can contain an optional
+ * mnemonic marker. The mnemonic and mnemonic index are indicated by 
+ * a single ampersand (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, or 
+ * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself, 
+ * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  * 
  * <strong>Example:</strong><br>
  * This example creates a panel with 3 columns and 3 rows.
@@ -74,18 +74,18 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * PanelBuilder builder = new PanelBuilder(layout);
  * CellConstraints cc = new CellConstraints();
- * builder.addLabel("Label1",      cc.xy  (1, 1));
+ * builder.addLabel("&Title",      cc.xy  (1, 1));
  * builder.add(new JTextField(),   cc.xywh(3, 1, 3, 1));
- * builder.addLabel("Label2",      cc.xy  (1, 3));
+ * builder.addLabel("&Price",      cc.xy  (1, 3));
  * builder.add(new JTextField(),   cc.xy  (3, 3));
- * builder.addLabel("Label3",      cc.xy  (1, 5));
+ * builder.addLabel("&Author",     cc.xy  (1, 5));
  * builder.add(new JTextField(),   cc.xy  (3, 5));
  * builder.add(new JButton("..."), cc.xy  (5, 5));
  * return builder.getPanel();
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
@@ -164,7 +164,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a textual label to the form using the specified constraints.<p>
      * 
      * <pre>
-     * addLabel("Name",       cc.xy(1, 1));
+     * addLabel("Name",       cc.xy(1, 1)); // No Mnemonic
      * addLabel("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
      * addLabel("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
      * </pre>
@@ -186,7 +186,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a textual label to the form using the specified constraints.<p>
      * 
      * <pre>
-     * addLabel("Name",       "1, 1");
+     * addLabel("Name",       "1, 1"); // No Mnemonic
      * addLabel("N&ame",      "1, 1"); // Mnemonic is 'a'
      * addLabel("Look&&Feel", "1, 1"); // No mnemonic, text is "look&feel"
      * </pre>
@@ -235,13 +235,14 @@ public class PanelBuilder extends AbstractFormBuilder {
      * <code>CellConstraints</code> object in the same way as with many other 
      * builder methods that require a single <code>CellConstraints</code> 
      * parameter. 
-     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code> 
+     * The pitfall is that the methods <code>CellConstraints.xy*(...)</code> 
      * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy***(...)</code> overrides
+     * And so the second invocation of <code>xy*(...)</code> overrides
      * the settings performed in the first invocation before the object
      * is cloned by the <code>FormLayout</code>.<p>
      * 
      * <strong>Wrong:</strong><pre>
+     * CellConstraints cc = new CellConstraints();
      * builder.add(
      *     nameLabel, 
      *     cc.xy(1, 7),         // will be modified by the code below
@@ -250,11 +251,23 @@ public class PanelBuilder extends AbstractFormBuilder {
      * );
      * </pre>
      * <strong>Correct:</strong><pre>
+     * // Using a single CellConstraints instance and cloning
+     * CellConstraints cc = new CellConstraints();
      * builder.add(
      *     nameLabel, 
      *     (CellConstraints) cc.xy(1, 7).clone(), // cloned before the next modification 
      *     nameField, 
      *     cc.xy(3, 7)                            // sets this instance to (3, 7)
+     * );
+     * 
+     * // Using two CellConstraints instances 
+     * CellConstraints cc1 = new CellConstraints();
+     * CellConstraints cc2 = new CellConstraints();
+     * builder.add(
+     *     nameLabel, 
+     *     cc1.xy(1, 7),       // sets instance 1 to (1, 7)
+     *     nameField, 
+     *     cc2.xy(3, 7)        // sets instance 2 to (3, 7)
      * );
      * </pre>
      * 
@@ -267,6 +280,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      *     is used for the label and the component
      * 
      * @see JLabel#setLabelFor(java.awt.Component)
+     * @see DefaultFormBuilder
      */
     public final JLabel add(JLabel label,        CellConstraints labelConstraints,
                              Component component, CellConstraints componentConstraints) {
@@ -295,26 +309,38 @@ public class PanelBuilder extends AbstractFormBuilder {
      * <code>CellConstraints</code> object in the same way as with many other 
      * builder methods that require a single <code>CellConstraints</code> 
      * parameter. 
-     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code> 
+     * The pitfall is that the methods <code>CellConstraints.xy*(...)</code> 
      * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy***(...)</code> overrides
+     * And so the second invocation of <code>xy*(...)</code> overrides
      * the settings performed in the first invocation before the object
      * is cloned by the <code>FormLayout</code>.<p>
      * 
      * <strong>Wrong:</strong><pre>
      * builder.addLabel(
-     *     "Name:", 
+     *     "&Name:", 
      *     cc.xy(1, 7),         // will be modified by the code below
      *     nameField, 
      *     cc.xy(3, 7)          // sets the single instance to (3, 7)
      * );
      * </pre>
      * <strong>Correct:</strong><pre>
+     * // Using a single CellConstraints instance and cloning
+     * CellConstraints cc = new CellConstraints();
      * builder.addLabel(
-     *     "Name:", 
+     *     "&Name:", 
      *     (CellConstraints) cc.xy(1, 7).clone(), // cloned before the next modification 
      *     nameField, 
      *     cc.xy(3, 7)                            // sets this instance to (3, 7)
+     * );
+     * 
+     * // Using two CellConstraints instances 
+     * CellConstraints cc1 = new CellConstraints();
+     * CellConstraints cc2 = new CellConstraints();
+     * builder.addLabel(
+     *     "&Name:", 
+     *     cc1.xy(1, 7),       // sets instance 1 to (1, 7)
+     *     nameField, 
+     *     cc2.xy(3, 7)        // sets instance 2 to (3, 7)
      * );
      * </pre>
      * 
@@ -328,6 +354,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * 
      * @see JLabel#setLabelFor(java.awt.Component)
      * @see ComponentFactory
+     * @see DefaultFormBuilder
      */
     public final JLabel addLabel(
         String textWithMnemonic, CellConstraints labelConstraints,

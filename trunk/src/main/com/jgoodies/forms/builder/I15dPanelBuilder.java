@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -46,10 +46,17 @@ import com.jgoodies.forms.layout.FormLayout;
  * to lay out <code>JPanel</code>s. In addition to its superclass
  * {@link PanelBuilder} this class provides convenience behavior to map 
  * resource keys to their associated internationalized (i15d) strings
- * when adding labels, titles and titled separators.
+ * when adding labels, titles and titled separators.<p>
  *
+ * The localized texts used in methods <code>#addI15dLabel</code> 
+ * and <code>#addI15dTitle</code> can contain an optional mnemonic marker. 
+ * The mnemonic and mnemonic index are indicated by a single ampersand 
+ * (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, or 
+ * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself, 
+ * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @since 1.0.3
  * 
  * @see	ResourceBundle
