@@ -2,7 +2,6 @@
 JGoodies Forms(tm) To-Do
 ========================
 
-o Write a tutorial
 o Extend unit tests:
    + test rounding behavior
    + test computed bounds
@@ -12,12 +11,26 @@ o Overhaul the titled separator:
    + offer alignments: left, center, right
    + honor the component orientation 
 o Improve parser error messages
-
-o Discuss logical sizes
-o Discuss requirements for perceived bounds and
-  font baseline alignment
+o Improve DefaultFormBuilder's support for dynamically
+  added custom rows
   
+  
+o Documentation:
+  + Write a tutorial
+  + Explain #add and #append builder naming conventions
+    and their contracts.
+  +
+  
+o Discussions:
+  + logical sizes
+  + requirements for perceived bounds and font baseline alignment
+  + powerful sizing specification beyond min/pref/max.
+    May map a component size to a fitness value
+    so one can specify a preferred range, not just a single value.
   
 o Consider the following extensions/changes:
   + add a flag to the ButtonBarFactory for bar vs. stack
+  + add PanelBuilder.getRemainingColumns()
+  + DefaultFormBuilder.appendComponentRow(RowSpec)
+  
   
