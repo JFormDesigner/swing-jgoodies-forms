@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.util;
 
+import java.util.logging.Logger;
+
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.Size;
 
@@ -44,7 +46,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
  * @see com.jgoodies.forms.factories.FormFactory
@@ -56,8 +58,56 @@ public abstract class LayoutStyle {
     /**
      * Holds the current layout style.
      */
-    private static LayoutStyle current = WindowsLayoutStyle.INSTANCE;
+    private static LayoutStyle current = initialLayoutStyle();
     
+    
+    // Computing the initial layout style *************************************
+    
+    /**
+     * Computes and returns the initial <code>LayoutStyle</code>.
+     * Checks the OS name and returns <code>MacLayoutStyle</code> 
+     * on Mac OS X and <code>WindowLayoutStyle</code> on all other platforms.
+     * 
+     * @return MacLayoutStyle on Mac, WindowsLayoutStyle on all other platforms
+     */
+    private static LayoutStyle initialLayoutStyle() {
+        if (isOSMac())
+        	return MacLayoutStyle.INSTANCE;
+        else
+            return WindowsLayoutStyle.INSTANCE;
+    }
+    
+    
+    /**
+     * Checks and answers whether Java runs on a Mac by requesting
+     * the system property <em>os.name</em>.
+     * 
+     * @return true on Mac, false on all other Platforms
+     */
+    private static boolean isOSMac() {
+        return getSystemProperty("os.name").startsWith("Mac");
+    }
+    
+    
+    /**
+     * Tries to look up the System property for the given key.
+     * In untrusted environments this may throw a SecurityException.
+     * In this case we catch the exception and answer <code>null</code>. 
+     * 
+     * @param key   the name of the system property
+     * @return the system property's String value, or a blank string 
+     *     if there's no such value, or a SecurityException has been catched
+     */
+    private static String getSystemProperty(String key) {
+        try {
+            return System.getProperty(key);
+        } catch (SecurityException e) {
+            Logger.getLogger(LayoutStyle.class.getName()).warning(
+                    "Can't read the System property " + key + ".");
+            return "";
+        }
+    }
+
     
     // Accessing the current style ******************************************
     
@@ -231,7 +281,7 @@ public abstract class LayoutStyle {
 
     
     /**
-     * Returns a pad used to paragraphs.
+     * Returns a pad used to separate paragraphs.
      * 
      * @return a vertical pad used to separate paragraphs
      * 
@@ -240,4 +290,40 @@ public abstract class LayoutStyle {
      */
     abstract public ConstantSize getParagraphPad();
 
+
+    /**
+     * Returns a pad used to separate a button bar from a component.
+     * 
+     * @return a vertical pad used to separate paragraphs
+     * @since 1.0.3
+     * 
+     * @see #getRelatedComponentsPadY()
+     * @see #getUnrelatedComponentsPadY()
+     */
+    abstract public ConstantSize getButtonBarPad();
+
+    
+    /**
+     * Checks and answers whether buttons are typically ordered from 
+     * left to right or from right to left. Useful for building button bars 
+     * that shall comply with the platform's layout style guide.<p>
+     * 
+     * For example the Windows style guide recommends to layout out
+     * <em>OK, Cancel, Apply</em> from left to right, where the 
+     * Mac Aqua style guide recommends to layout out these buttons
+     * from right to left.<p>
+     * 
+     * Although most button sequences shall honor this order
+     * some buttons require a left to right order. For example
+     * <em>Back, Next</em> or <em>Move Left, Move Right</em>.<p>
+     * 
+     * @return true if buttons are typically ordered from left to right
+     * @since 1.0.3
+     * 
+     * @see com.jgoodies.forms.builder.ButtonBarBuilder
+     * @see com.jgoodies.forms.factories.ButtonBarFactory
+     */
+    abstract public boolean isLeftToRightButtonOrder();
+
+    
 }

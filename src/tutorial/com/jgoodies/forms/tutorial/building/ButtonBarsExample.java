@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
 /**
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @author  Karsten Lentzsch
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -91,10 +91,10 @@ public final class ButtonBarsExample {
     private Component buildButtonBar2Panel() {
         ButtonBarBuilder builder = new ButtonBarBuilder();
         builder.addGlue();
-        builder.addGridded(new JButton("Yes"));                      
-        builder.addRelatedGap();                   
-        builder.addGridded(new JButton("No"));  
-         
+        builder.addGriddedButtons(new JButton[] {
+                new JButton("Yes"),
+                new JButton("No")
+                });  
         return wrap(builder.getPanel(),
             "\nThis bar has been built with a ButtonBarBuilder.\n" +
             " o The buttons have a minimum widths and\n" +
@@ -104,12 +104,11 @@ public final class ButtonBarsExample {
     private Component buildButtonBar3Panel() {
         ButtonBarBuilder builder = new ButtonBarBuilder();
         builder.addGlue();
-        builder.addGridded(new JButton("Related"));   
-        builder.addRelatedGap();                   
-        builder.addGridded(new JButton("Related"));   
-        builder.addRelatedGap();                   
-        builder.addGridded(new JButton("Related"));   
-
+        builder.addGriddedButtons(new JButton[] {
+                new JButton("First"),
+                new JButton("Second"),
+                new JButton("Third")
+        	});   
         return wrap(builder.getPanel(),
             "\nThis bar uses the logical gap for related buttons.\n");    }
     
@@ -133,10 +132,10 @@ public final class ButtonBarsExample {
         builder.addUnrelatedGap();
         builder.addFixed(new JButton("Copy to Clipboard"));
         builder.addUnrelatedGap();
-        builder.addGridded(new JButton("OK"));   
-        builder.addRelatedGap();                   
-        builder.addGridded(new JButton("Cancel"));   
-
+        builder.addGriddedButtons(new JButton[] {
+                new JButton("OK"),
+                new JButton("Cancel")
+        	});   
         return wrap(builder.getPanel(),
             "\nDemonstrates a glue (between Help and the rest),\n" +            "has related and unrelated buttons and an ungridded button\n" +            "with a default margin (Copy to Clipboard).");
     }
@@ -148,10 +147,10 @@ public final class ButtonBarsExample {
         builder.addUnrelatedGap();
         builder.addFixedNarrow(new JButton("Copy to Clipboard"));
         builder.addUnrelatedGap();
-        builder.addGridded(new JButton("OK"));   
-        builder.addRelatedGap();                   
-        builder.addGridded(new JButton("Cancel"));   
-
+        builder.addGriddedButtons(new JButton[] {
+                new JButton("OK"),
+                new JButton("Cancel")
+        });   
         return wrap(builder.getPanel(),
             "\nDemonstrates a glue (between Help and the rest),\n" +
             "has related and unrelated buttons and an ungridded button\n" +

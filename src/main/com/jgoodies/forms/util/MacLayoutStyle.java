@@ -39,21 +39,21 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.1 $
  */
 
-final class WindowsLayoutStyle extends LayoutStyle {
+final class MacLayoutStyle extends LayoutStyle {
     
-    static final WindowsLayoutStyle INSTANCE = new WindowsLayoutStyle();
+    static final MacLayoutStyle INSTANCE = new MacLayoutStyle();
     
-    private WindowsLayoutStyle() {
+    private MacLayoutStyle() {
         // Suppresses default constructor, ensuring non-instantiability.
     }
     
 
     // Component Sizes ******************************************************
 
-    private static final Size         BUTTON_WIDTH              = Sizes.dluX(50);
+    private static final Size         BUTTON_WIDTH              = Sizes.dluX(45);
     private static final Size         BUTTON_HEIGHT             = Sizes.dluY(14);
     
 
@@ -66,15 +66,15 @@ final class WindowsLayoutStyle extends LayoutStyle {
     private static final ConstantSize TABBED_DIALOG_MARGIN_Y    = Sizes.DLUY4;
     
     private static final ConstantSize LABEL_COMPONENT_PADX      = Sizes.DLUX3;
-    private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX4;
-    private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX7;
+    private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX3;
+    private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX6;
     
-    private static final ConstantSize RELATED_COMPONENTS_PADY   = Sizes.DLUY4;
-    private static final ConstantSize UNRELATED_COMPONENTS_PADY = Sizes.DLUY7;
+    private static final ConstantSize RELATED_COMPONENTS_PADY   = Sizes.DLUY3;
+    private static final ConstantSize UNRELATED_COMPONENTS_PADY = Sizes.DLUY6;
     private static final ConstantSize NARROW_LINE_PAD           = Sizes.DLUY2;
     private static final ConstantSize LINE_PAD                  = Sizes.DLUY3;
     private static final ConstantSize PARAGRAPH_PAD             = Sizes.DLUY9;
-    private static final ConstantSize BUTTON_BAR_PAD            = Sizes.DLUY5;
+    private static final ConstantSize BUTTON_BAR_PAD            = Sizes.DLUY4;
     
 
     // Layout Sizes *********************************************************
@@ -278,7 +278,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
         return BUTTON_BAR_PAD;
     }
 
-
+    
     /**
      * Checks and answers whether buttons are typically ordered from 
      * left to right or from right to left. Useful for building button bars 
@@ -300,7 +300,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
      * @see com.jgoodies.forms.factories.ButtonBarFactory
      */
     public boolean isLeftToRightButtonOrder() {
-        return true;
+        return false;
     }
     
 
