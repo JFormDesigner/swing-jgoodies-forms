@@ -1,5 +1,38 @@
 
 
+                    JGoodies Forms, Version 1.0.6
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This maintenance release ...
+    
+    
+NEW FEATURES
+
+    o ...
+    
+    
+BUGS FIXED
+
+    o ...
+    
+    
+OTHER CHANGES
+
+    o Code: ...
+    o Tut.: ...
+    o Docs: ...
+    o Dist: ...
+    
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+
+
                     JGoodies Forms, Version 1.0.5
                             Release Notes
                         
@@ -7,7 +40,7 @@
 INTRODUCTION
 
     This maintenance release fixes bugs, adds features, and brings 
-    minors improvements for the code, documentation and tutorial.
+    minor improvements for the code, documentation and tutorial.
     
     
 NEW FEATURES

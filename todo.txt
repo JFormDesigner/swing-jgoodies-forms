@@ -2,6 +2,8 @@
 JGoodies Forms(tm) To-Do
 ========================
 
+o Integrate Karl Tauber's customization code
+
 o Add custom ComponentFactory example
 
 o Move example title and comment from the Forms Demo
