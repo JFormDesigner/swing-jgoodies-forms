@@ -40,12 +40,12 @@ import com.jgoodies.forms.util.LayoutStyle;
 /**
  * A factory that creates instances of 
  * {@link com.jgoodies.forms.layout.FormLayout} for frequently used
- * form layouts. It makes form creation easier and more consistent.
- * <p>
- * <b>The <code>FormLayout</code> factory methods are work in progress 
- * and may change without notice.</b> If you want to use these methods, 
- * you may consider copying them into your codebase.
- * <p> 
+ * form layouts. It makes form creation easier and more consistent.<p>
+ * 
+ * <strong>The <code>FormLayout</code> factory methods are work in progress 
+ * and may change without notice.</strong> If you want to use these methods, 
+ * you may consider copying them into your codebase.<p>
+ *  
  * The forms are described by major and minor columns. Major columns
  * consist of a leading label and a set of related components, for example: a
  * label plus textfield, or label plus textfield plus button. The component
@@ -62,7 +62,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
  */
@@ -71,71 +71,243 @@ public final class FormFactory {
 
     // Frequently used Column Specifications ********************************
 
+    /**
+     * An unmodifyable <code>ColumnSpec</code> that determines its width by
+     * computing the maximum of all column component minimum widths.
+     * 
+     * @see #PREF_COLSPEC
+     * @see #DEFAULT_COLSPEC
+     */
     public static final ColumnSpec MIN_COLSPEC = 
         new ColumnSpec(Sizes.MINIMUM).asUnmodifyable();   
-                                    
+              
+    
+    /**
+     * An unmodifyable <code>ColumnSpec</code> that determines its width by
+     * computing the maximum of all column component preferred widths.
+     * 
+     * @see #MIN_COLSPEC
+     * @see #DEFAULT_COLSPEC
+     */
     public static final ColumnSpec PREF_COLSPEC = 
         new ColumnSpec(Sizes.PREFERRED).asUnmodifyable();   
-                                    
+    
+    
+    /**
+     * An unmodifyable <code>ColumnSpec</code> that determines its preferred 
+     * width by computing the maximum of all column component preferred widths
+     * and its minimum width by computing all column component minimum widths.<p>
+     * 
+     * Useful to let a column shrink from preferred width to minimum width 
+     * if the container space gets scarce.
+     * 
+     * @see #MIN_COLSPEC
+     * @see #PREF_COLSPEC
+     */
     public static final ColumnSpec DEFAULT_COLSPEC = 
         new ColumnSpec(Sizes.DEFAULT).asUnmodifyable();   
-                                    
+                    
+    
+    /**
+     * An unmodifyable <code>ColumnSpec</code> that has an initial width
+     * of 0 pixels and that grows. Useful to describe <em>glue</em> columns
+     * that fill the space between other columns.
+     * 
+     * @see #GLUE_ROWSPEC
+     */
     public static final ColumnSpec GLUE_COLSPEC = 
         new ColumnSpec(ColumnSpec.DEFAULT, Sizes.ZERO, ColumnSpec.DEFAULT_GROW).asUnmodifyable();                               
 
-    /*
-     * The following four constants use logical sizes that change with the
-     * layout style. A future release will likely define them using 
-     * a class <code>LogicalSize</code> or <code>StyledSize</code>.
+    
+    // Layout Style Dependent Column Specs ***********************************
+    
+    /**
+     * Describes a logical horizontal gap between a label and an associated 
+     * component. Useful for builders that automatically fill a grid with labels
+     * and components.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @since 1.0.3
+     */
+    public static final ColumnSpec LABEL_COMPONENT_GAP_COLSPEC =
+        createGapColumnSpec(LayoutStyle.getCurrent().getLabelComponentPadX());
+    
+
+    /**
+     * Describes a logical horizontal gap between two related components. 
+     * For example the <em>OK</em> and <em>Cancel</em> buttons are considered
+     * related.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #UNRELATED_GAP_COLSPEC 
      */
     public static final ColumnSpec RELATED_GAP_COLSPEC =
         createGapColumnSpec(LayoutStyle.getCurrent().getRelatedComponentsPadX());
         
+
+    /**
+     * Describes a logical horizontal gap between two unrelated components.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #RELATED_GAP_COLSPEC 
+     */
     public static final ColumnSpec UNRELATED_GAP_COLSPEC =
         createGapColumnSpec(LayoutStyle.getCurrent().getUnrelatedComponentsPadX()); 
         
+
+    /**
+     * Describes a logical horizontal column for a fixed size button. This spec 
+     * honors the current layout style's default button minimum width.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #GROWING_BUTTON_COLSPEC 
+     */
     public static final ColumnSpec BUTTON_COLSPEC = 
         new ColumnSpec(Sizes.bounded(Sizes.PREFERRED,
                                      LayoutStyle.getCurrent().getDefaultButtonWidth(),
                                      null)).asUnmodifyable();
         
+
+    /**
+     * Describes a logical horizontal column for a growing button. This spec 
+     * does <em>not</em> use the layout style's default button minimum width.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #BUTTON_COLSPEC 
+     */
     public static final ColumnSpec GROWING_BUTTON_COLSPEC = 
         new ColumnSpec(ColumnSpec.DEFAULT,
                        BUTTON_COLSPEC.getSize(),
                        ColumnSpec.DEFAULT_GROW).asUnmodifyable();
-        
+    
     
     // Frequently used Row Specifications ***********************************
     
+    /**
+     * An unmodifyable <code>RowSpec</code> that determines its height by
+     * computing the maximum of all column component minimum heights.
+     * 
+     * @see #PREF_ROWSPEC
+     * @see #DEFAULT_ROWSPEC
+     */
     public static final RowSpec MIN_ROWSPEC = 
-        new RowSpec(Sizes.MINIMUM).asUnmodifyable();   
+        new RowSpec(Sizes.MINIMUM).asUnmodifyable();  
+    
                                     
+    /**
+     * An unmodifyable <code>RowSpec</code> that determines its height by
+     * computing the maximum of all column component preferred heights.
+     * 
+     * @see #MIN_ROWSPEC
+     * @see #DEFAULT_ROWSPEC
+     */
     public static final RowSpec PREF_ROWSPEC = 
         new RowSpec(Sizes.PREFERRED).asUnmodifyable();   
+    
                                     
+    /**
+     * An unmodifyable <code>RowSpec</code> that determines its preferred 
+     * height by computing the maximum of all column component preferred heights
+     * and its minimum height by computing all column component minimum heights.<p>
+     * 
+     * Useful to let a column shrink from preferred height to minimum height 
+     * if the container space gets scarce.
+     * 
+     * @see #MIN_COLSPEC
+     * @see #PREF_COLSPEC
+     */
     public static final RowSpec DEFAULT_ROWSPEC = 
-        new RowSpec(Sizes.DEFAULT).asUnmodifyable();   
+        new RowSpec(Sizes.DEFAULT).asUnmodifyable();  
+    
                                     
+    /**
+     * An unmodifyable <code>RowSpec</code> that has an initial height
+     * of 0 pixels and that grows. Useful to describe <em>glue</em> rows
+     * that fill the space between other rows.
+     * 
+     * @see #GLUE_COLSPEC
+     */
     public static final RowSpec GLUE_ROWSPEC = 
         new RowSpec(RowSpec.DEFAULT, Sizes.ZERO, RowSpec.DEFAULT_GROW).asUnmodifyable();                               
 
-    /*
-     * The following five constants use logical sizes that change with the
-     * layout style. A future release will likely defined them using a class
-     * <code>LogicalSize</code> or <code>StyledSize</code>.
+    
+    // Layout Style Dependent Row Specs *************************************
+
+    /**
+     * Describes a logical vertzical gap between two related components. 
+     * For example the <em>OK</em> and <em>Cancel</em> buttons are considered
+     * related.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #UNRELATED_GAP_ROWSPEC 
      */
     public static final RowSpec RELATED_GAP_ROWSPEC =
         createGapRowSpec(LayoutStyle.getCurrent().getRelatedComponentsPadY());
         
+    
+    /**
+     * Describes a logical vertical gap between two unrelated components.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #RELATED_GAP_ROWSPEC 
+     */
     public static final RowSpec UNRELATED_GAP_ROWSPEC =
         createGapRowSpec(LayoutStyle.getCurrent().getUnrelatedComponentsPadY());
         
-    public static final RowSpec LINE_GAP_ROWSPEC =
-        createGapRowSpec(LayoutStyle.getCurrent().getLinePad());
-
+    
+    /**
+     * Describes a logical vertical narrow gap between two rows in the grid.
+     * Useful if the vertical space is scarce or if an individual vertical gap
+     * shall be small than the default line gap.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #LINE_GAP_ROWSPEC 
+     * @see #PARAGRAPH_GAP_ROWSPEC
+     */
     public static final RowSpec NARROW_LINE_GAP_ROWSPEC =
         createGapRowSpec(LayoutStyle.getCurrent().getNarrowLinePad());
 
+    
+    /**
+     * Describes the logical vertical default gap between two rows in the grid.
+     * A little bit larger than the narrow line gap.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #NARROW_LINE_GAP_ROWSPEC 
+     * @see #PARAGRAPH_GAP_ROWSPEC
+     */
+    public static final RowSpec LINE_GAP_ROWSPEC =
+        createGapRowSpec(LayoutStyle.getCurrent().getLinePad());
+
+    
+    /**
+     * Describes the logical vertical default gap between two paragraphs in 
+     * the layout grid. This gap is larger than the default line gap.<p>
+     * 
+     * <strong>Note:</strong> In a future version this constant will likely 
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * 
+     * @see #NARROW_LINE_GAP_ROWSPEC 
+     * @see #LINE_GAP_ROWSPEC 
+     */
     public static final RowSpec PARAGRAPH_GAP_ROWSPEC =
         createGapRowSpec(LayoutStyle.getCurrent().getParagraphPad());
         
@@ -145,12 +317,12 @@ public final class FormFactory {
 
     /**
      * Creates and answers an instance of <code>FormLayout</code>
-     * to build forms with the specified number of major and minor columns.
-     * <p>
-     * The layout will use default values for all gaps.
-     * <p>
-     * <b>This method is work in progress and may be moved, removed, 
-     * or change without notice.</b>
+     * to build forms with the specified number of major and minor columns.<p>
+     * 
+     * The layout will use default values for all gaps.<p>
+     * 
+     * <strong>This method is work in progress and may be moved, removed, 
+     * or change without notice.</strong>
      *
      * @param majorColumns     the number of used major columns
      * @param minorColumns     the number of used minor columns
@@ -173,13 +345,13 @@ public final class FormFactory {
      * Creates and answers an instance of <code>FormLayout</code>
      * to build forms with the given number of major columns. 
      * Major columns consists of a label and a component section, where each 
-     * component section is divided into the given number of minor columns.
-     * <p>
+     * component section is divided into the given number of minor columns.<p>
+     * 
      * The layout will use the specified gaps to separate major columns, 
-     * and the label and component section.
-     * <p>
-     * <b>This method is work in progress and may be moved, removed, 
-     * or change without notice.</b>
+     * and the label and component section.<p>
+     * 
+     * <strong>This method is work in progress and may be moved, removed, 
+     * or change without notice.</strong>
      * 
      * @param majorColumns         the number of major columns
      * @param minorColumns         the number of minor columns
@@ -207,16 +379,16 @@ public final class FormFactory {
     }
                 
     /**
-     * Creates and answers an instance of <code>FormLayout</code>
+     * Creates and returns an instance of <code>FormLayout</code>
      * to build forms with the given number of major columns. 
      * Major columns consists of a label and a component section, where each 
-     * component section is divided into the given number of minor columns.
-     * <p>
+     * component section is divided into the given number of minor columns.<p>
+     * 
      * The layout will use the specified gaps to separate major columns, 
-     * minor columns, and the label and component section.
-     * <p>
-     * <b>This method is work in progress and may be moved, removed, 
-     * or change without notice.</b>
+     * minor columns, and the label and component section.<p>
+     * 
+     * <strong>This method is work in progress and may be moved, removed, 
+     * or change without notice.</strong>
      * 
      * @param majorColumns         the number of major columns
      * @param minorColumns         the number of minor columns
@@ -273,7 +445,7 @@ public final class FormFactory {
     // Helper Code **********************************************************
     
     /**
-     * Creates and answers a {@link ColumnSpec} that represents a gap with the
+     * Creates and returns a {@link ColumnSpec} that represents a gap with the
      * specified {@link ConstantSize}.
      * 
      * @param gapSize	a <code>ConstantSize</code> that specifies the gap
@@ -285,7 +457,7 @@ public final class FormFactory {
     }
 
     /**
-     * Creates and answers a {@link RowSpec} that represents a gap with the
+     * Creates and returns a {@link RowSpec} that represents a gap with the
      * specified {@link ConstantSize}.
      * 
      * @param gapSize   a <code>ConstantSize</code> that specifies the gap
