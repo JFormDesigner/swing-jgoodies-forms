@@ -66,7 +66,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see	Size
  * @see	Sizes
@@ -265,6 +265,10 @@ public final class ConstantSize implements Size, Serializable {
     /**
      * Returns a string representation of this size object.
      *
+     * <strong>Note:</strong> The string representation may change
+     * at any time. It is strongly recommended to not use this string
+     * for parsing purposes.
+     * 
      * @return  a string representation of the constant size
      */
     public String toString() {
