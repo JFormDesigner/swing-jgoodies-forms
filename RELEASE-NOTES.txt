@@ -6,14 +6,15 @@
 
 INTRODUCTION
 
-    This release is a maintenance update that fixes a bug with some L&fs 
-    and it comes with a slightly improved and extended documentation.
+    This release is a maintenance update that fixes bugs, comes with 
+    a new example and a slightly improved and extended documentation.
 
 
 
 DISTRIBUTION CHANGES
 
-    o Added FAQ
+    o Added a list of FAQ.
+    o Added JavaDoc version tags to all class comments.
 
 
 
@@ -37,6 +38,8 @@ BUGS FIXED
       an area that can grow. The old behavior performed this action ALWAYS;
       the patch check whether A column/row can grow; 
       the upcoming fix  will check the growing behavior of the spanned area.
+      This problem is reflected by the FormLayout unit tests, where currently
+      one out of three tests fails, see FormLayoutTests.test*ExtraExpansion*
 
 
     
@@ -48,7 +51,10 @@ OTHER CHANGES
                 in the FormDebugUtils
     o Main:     Extended JavaDoc for the DefaultUnitConverter
     o Extras:   Extended JavaDoc for the DefaultFormBuilder
+    o Tutorial: Added example for custom areas with DefautFormBuilder
+    o Tutorial: Changed some text field widths from 'default' to 'min'
     o Tutorial: Corrected frame titles
+    o Tests:    Added tests for components that span multiple columns
     o Docs:     Improved grouping diagrams
     o Docs:     Fixed invalid link to a tutorial pdf
 
