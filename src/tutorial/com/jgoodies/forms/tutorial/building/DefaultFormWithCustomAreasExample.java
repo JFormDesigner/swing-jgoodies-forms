@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and the text area. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
@@ -132,7 +132,7 @@ public final class DefaultFormWithCustomAreasExample {
 
     /**
      * Demonstrates how to append two custom areas at the end of
-     * a panel that is build with a {@link DefaultFormBuilder}.
+     * a panel that is build with a DefaultFormBuilder.
      * 
      * @return the custom area panel with label in the top
      */
@@ -141,7 +141,7 @@ public final class DefaultFormWithCustomAreasExample {
 
         CellConstraints cc = new CellConstraints();
         builder.appendRow(builder.getLineGapSpec());
-        builder.appendRow(new RowSpec("top:pref:grow"));
+        builder.appendRow(new RowSpec("top:28dlu:grow"));
         builder.nextLine(2);
         builder.append("Feedback");
         builder.add(new JScrollPane(new JTextArea("Feedback - likely the baselines are not aligned")),
@@ -153,8 +153,8 @@ public final class DefaultFormWithCustomAreasExample {
 
     /**
      * Demonstrates how to append a larger custom area at the end of
-     * a panel that is build with a {@link DefaultFormBuilder}.
-     * <p>
+     * a panel that is build with a DefaultFormBuilder.<p>
+     * 
      * We add a gap and a single custom row that grows and that
      * is filled vertically (where the default is center vertically).
      * The area is separated by a titled separator and it is indented
@@ -167,7 +167,7 @@ public final class DefaultFormWithCustomAreasExample {
         
         builder.appendSeparator("Customer Feedback");
         builder.appendRow(builder.getLineGapSpec());
-        builder.appendRow(new RowSpec("fill:pref:grow"));
+        builder.appendRow(new RowSpec("fill:28dlu:grow"));
         builder.nextLine(2);
         builder.append("", new JScrollPane(new JTextArea()));
 
