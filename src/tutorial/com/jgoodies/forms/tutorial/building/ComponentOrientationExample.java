@@ -47,7 +47,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * component orientation: left-to-right vs. right-to-left.
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * 
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
@@ -83,6 +83,13 @@ public final class ComponentOrientationExample {
         return rowBuilder.getPanel();
     }
     
+    /**
+     * Creates and returns a sample panel that consists of a titled
+     * separator and two component lines each with a 'leading' label.
+     * Honors the specified component orientation.
+     * 
+     * @return the sample panel
+     */
     private Component buildSample(String title, boolean leftToRight) {
         FormLayout layout = new FormLayout(
                 leftToRight 
@@ -93,10 +100,11 @@ public final class ComponentOrientationExample {
         builder.setDefaultDialogBorder();
         
         builder.appendSeparator(title);
-        builder.append("Anna"); builder.append(new JTextField(10), 3);
-        builder.append("Level", new JTextField(10));
+        builder.append("Level"); 
+        builder.append(new JTextField(10), 3);
+        
+        builder.append("Radar", new JTextField(10));
         builder.append(new JTextField(10));
-        builder.append("Radar"); builder.append(new JTextField(10), 3); 
         return builder.getPanel();
     }
 
