@@ -30,25 +30,24 @@
 
 package com.jgoodies.forms.tutorial.building;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
-import com.jgoodies.forms.debug.FormDebugPanel;
-import com.jgoodies.forms.debug.FormDebugUtils;
 import com.jgoodies.forms.extras.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Demonstrates how to find bugs in the layout using 
- * the {@link FormDebugPanel} and the {@link FormDebugUtils}.
- * <p>
- * The example also demonstrates efficient panel building with 
- * the DefaultFormBuilder. The builder has been configured 
- * to use a leading indent column.
+ * Demonstrates how to efficiently build a panel with a leading
+ * indent column using the DefaultFormBuilder.
  *
- * @author Karsten Lentzsch
+ * @author  Karsten Lentzsch
+ * @see     DefaultFormBuilder
  */
 
-public final class FormDebugExample {
+public final class IndentColumnExample {
     
     private JTextField fileNumberField;
     private JTextField rfqNumberField;
@@ -74,7 +73,7 @@ public final class FormDebugExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Building :: Debug a Form");
+        frame.setTitle("Forms Tutorial :: Building :: Indent Column");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new FormDebugExample().buildPanel();
         frame.getContentPane().add(panel);
@@ -124,9 +123,7 @@ public final class FormDebugExample {
                 "");
         layout.setColumnGroups(new int[][] { { 4, 6, 8, 10 } });
         
-        DefaultFormBuilder builder = 
-            new DefaultFormBuilder(new FormDebugPanel(), layout);
-            
+        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.setDefaultDialogBorder();
         builder.setLeadingColumnOffset(1);
 
@@ -144,8 +141,6 @@ public final class FormDebugExample {
         builder.append("Departure",      departureCodeField,   departurePortField,   5);
         builder.append("Destination",    destinationCodeField, destinationPortField, 5);
         builder.append("Delivery Date",  deliveryDateField); builder.nextLine();
-        
-        FormDebugUtils.dumpAll(builder.getPanel());
         
         return builder.getPanel();
     }
