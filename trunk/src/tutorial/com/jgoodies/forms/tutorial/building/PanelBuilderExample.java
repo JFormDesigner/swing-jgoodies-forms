@@ -55,6 +55,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.4 $
  * @see     PanelBuilder
  * @see	RowCounterExample
  * @see	DynamicRowsExample

@@ -43,6 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  * 
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.5 $
  */
 public final class UnitsExample {
 

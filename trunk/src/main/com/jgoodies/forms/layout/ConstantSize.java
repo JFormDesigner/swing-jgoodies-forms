@@ -58,6 +58,7 @@ import java.util.List;
  * </table>
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see	Size
  * @see	Sizes
  */

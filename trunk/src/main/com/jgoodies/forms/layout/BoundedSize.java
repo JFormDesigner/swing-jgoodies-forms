@@ -38,6 +38,7 @@ import java.util.List;
  * that provide lower and upper bounds.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see	Sizes
  * @see	ConstantSize
  * @see	Sizes.ComponentSize

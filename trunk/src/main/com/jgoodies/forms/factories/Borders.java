@@ -54,6 +54,7 @@ import com.jgoodies.forms.layout.Sizes;
  * TODO: Honor the current LayoutStyle
  *
  * @author  Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see     Border
  * @see     Sizes
  */

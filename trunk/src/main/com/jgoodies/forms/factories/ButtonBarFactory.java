@@ -44,6 +44,7 @@ import com.jgoodies.forms.builder.ButtonBarBuilder;
  * The button bars answered by this build comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  */
 
 public final class ButtonBarFactory {

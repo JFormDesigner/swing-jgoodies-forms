@@ -44,6 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * indent column using the DefaultFormBuilder.
  *
  * @author  Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see     DefaultFormBuilder
  */
 

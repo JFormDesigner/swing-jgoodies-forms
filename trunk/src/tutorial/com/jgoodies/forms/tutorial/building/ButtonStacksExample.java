@@ -43,6 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
  * @author  Karsten Lentzsch
+ * @version $Revision: 1.5 $
  * @see     ButtonStackBuilder
  */
 public final class ButtonStacksExample {

@@ -39,6 +39,7 @@ import java.awt.Toolkit;
  * the effort required to convert font-dependent sizes to pixels. 
  * 
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see    DefaultUnitConverter
  * @see    com.jgoodies.forms.layout.Size
  * @see    com.jgoodies.forms.layout.Sizes

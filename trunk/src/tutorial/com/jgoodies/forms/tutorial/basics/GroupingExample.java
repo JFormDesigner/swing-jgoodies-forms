@@ -40,6 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how columns and rows can be grouped in FormLayout.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.5 $
  */
 public final class GroupingExample {
     

@@ -38,6 +38,7 @@ import javax.swing.JLabel;
  * by the {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
  */

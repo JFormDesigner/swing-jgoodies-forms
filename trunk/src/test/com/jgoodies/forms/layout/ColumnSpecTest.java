@@ -36,6 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  * 
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.4 $
  */
 public final class ColumnSpecTest extends TestCase {
     

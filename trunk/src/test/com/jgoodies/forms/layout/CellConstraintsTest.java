@@ -36,6 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link CellConstraints}.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.3 $
  */
 public final class CellConstraintsTest extends TestCase {
     

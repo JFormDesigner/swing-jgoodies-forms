@@ -45,6 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.2 $
  */
 public final class ComponentSizesExample {
 

@@ -45,6 +45,7 @@ import java.util.List;
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see	Sizes
  * @see	ConstantSize
  */
@@ -56,7 +57,8 @@ public interface Size {
      * components using the specified measures.
      * <p>
      * Invoked by {@link com.jgoodies.forms.layout.FormSpec} to determine 
-     * the size of a column or row.
+     * the size of a column or row. This method is not intended to be called 
+     * by API users, and it uses API invisible parameter types.
      * 
      * @param container       the layout container
      * @param components      the list of components used to compute the size

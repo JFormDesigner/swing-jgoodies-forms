@@ -40,6 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the different FormLayout alignments.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.6 $
  */
 public final class AlignmentExample {
 

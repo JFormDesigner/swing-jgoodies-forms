@@ -49,6 +49,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * by <code>#buildPanel()</code>. 
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.3 $
  */
 
 public final class QuickStartExample {

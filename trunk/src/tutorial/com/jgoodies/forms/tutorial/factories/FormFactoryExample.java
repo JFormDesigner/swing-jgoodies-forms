@@ -44,6 +44,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.4 $
  * @see	ButtonBarFactory
  * @see	WizardBarFactory
  */

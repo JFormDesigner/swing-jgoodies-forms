@@ -45,6 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}. 
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see	PlainExample
  * @see	RowCounterExample
  * @see	DefaultFormBuilderExample

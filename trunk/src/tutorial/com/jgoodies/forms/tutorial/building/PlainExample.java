@@ -51,6 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to create text labels and separators. 
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see     PanelBuilderExample
  * @see	RowCounterExample
  * @see	DynamicRowsExample

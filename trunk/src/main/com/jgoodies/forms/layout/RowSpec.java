@@ -50,6 +50,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used <code>RowSpec</code> instances.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 

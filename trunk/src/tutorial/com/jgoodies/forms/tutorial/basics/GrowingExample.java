@@ -40,6 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the FormLayout growing options: none, default, weighted.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.5 $
  */
 public final class GrowingExample {
 
