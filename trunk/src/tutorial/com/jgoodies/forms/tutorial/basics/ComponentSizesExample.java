@@ -45,7 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class ComponentSizesExample {
 
@@ -53,7 +53,9 @@ public final class ComponentSizesExample {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // Likely PlasticXP is not in the class path; ignore.
+        }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Component Sizes");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class UnitsExample {
 
@@ -51,7 +51,9 @@ public final class UnitsExample {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // Likely PlasticXP is not in the class path; ignore.
+        }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Units");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

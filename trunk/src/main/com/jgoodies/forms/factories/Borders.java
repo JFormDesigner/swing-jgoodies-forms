@@ -54,7 +54,7 @@ import com.jgoodies.forms.layout.Sizes;
  * TODO: Honor the current LayoutStyle
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see     Border
  * @see     Sizes
  */
@@ -197,6 +197,7 @@ public final class Borders {
         /**
          * Paints the border for the specified component with the specified 
          * position and size.
+         * 
          * @param c the component for which this border is being painted
          * @param g the paint graphics
          * @param x the x position of the painted border
@@ -206,6 +207,7 @@ public final class Borders {
          */
         public void paintBorder(Component c, Graphics g, 
                                 int x, int y, int width, int height) {
+            // An empty border doesn't paint.
         }
     
         /**

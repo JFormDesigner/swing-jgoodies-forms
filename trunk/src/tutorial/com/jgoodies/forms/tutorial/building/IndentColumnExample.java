@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * indent column using the DefaultFormBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see     DefaultFormBuilder
  */
 
@@ -72,7 +72,9 @@ public final class IndentColumnExample {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // Likely PlasticXP is not in the class path; ignore.
+        }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Indent Column");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

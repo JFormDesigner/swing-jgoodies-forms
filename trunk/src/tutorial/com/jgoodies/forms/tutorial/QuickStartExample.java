@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * by <code>#buildPanel()</code>. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public final class QuickStartExample {
@@ -65,7 +65,9 @@ public final class QuickStartExample {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // Likely PlasticXP is not in the class path; ignore.
+        }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Quick Start");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
