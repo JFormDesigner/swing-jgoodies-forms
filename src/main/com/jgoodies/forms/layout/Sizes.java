@@ -47,7 +47,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see     Size
  * @see     UnitConverter
  * @see     DefaultUnitConverter
@@ -109,8 +109,9 @@ public final class Sizes {
     
     // Instance Creation ******************************************************
      
-    // Override default constructor; prevents instantiability
-    private Sizes() {}
+    private Sizes() {
+        // Suppresses default constructor, ensuring non-instantiability.
+    }
 
 
     // Creation of Size Instances *********************************************

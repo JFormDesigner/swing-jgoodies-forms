@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class BasicSizesExample {
 
@@ -48,7 +48,9 @@ public final class BasicSizesExample {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // Likely PlasticXP is not in the class path; ignore.
+        }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Basic Sizes");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

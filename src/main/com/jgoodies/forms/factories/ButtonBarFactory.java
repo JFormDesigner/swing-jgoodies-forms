@@ -44,13 +44,14 @@ import com.jgoodies.forms.builder.ButtonBarBuilder;
  * The button bars answered by this build comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
 public final class ButtonBarFactory {
     
-    // Override default constructor; prevents instantiability.
-    private ButtonBarFactory() {}
+    private ButtonBarFactory() {
+        // Suppresses default constructor, ensuring non-instantiability.
+    }
 
 	
     // General Purpose Factory Methods: Left Aligned ************************

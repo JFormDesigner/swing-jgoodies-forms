@@ -44,7 +44,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -68,8 +68,8 @@ public class DefaultComponentFactory implements ComponentFactory {
         
     // Instance *************************************************************
         
-    // Override default constructor; prevents instantiation.
     private DefaultComponentFactory() {
+        // Suppresses default constructor, ensuring non-instantiability.
     }
     
     /**
@@ -241,25 +241,24 @@ public class DefaultComponentFactory implements ComponentFactory {
      * @param label                   the label that gets a mnemonic
      * @param displayedMnemonicIndex  the index
      */
-    private static void setDisplayedMnemonicIndex(
-        JLabel label,
-        int displayedMnemonicIndex) {
+        private static void setDisplayedMnemonicIndex(JLabel label,
+            int displayedMnemonicIndex) {
         Integer index = new Integer(displayedMnemonicIndex);
         if (IS_BEFORE_14) {
             label.putClientProperty("displayedMnemonicIndex", index);
             return;
         }
         try {
-            Method method =
-                AbstractButton
-                    .class
-                    .getMethod("setDisplayedMnemonicIndex", new Class[] {
-            });
-            method.invoke(label, new Integer[] { index });
+            Method method = AbstractButton.class.getMethod(
+                    "setDisplayedMnemonicIndex", new Class[]{});
+            method.invoke(label, new Integer[]{index});
             return;
         } catch (NoSuchMethodException e) {
+            // Likely we're not on 1.4; ignore
         } catch (InvocationTargetException e) {
+            // Likely we're not on 1.4; ignore
         } catch (IllegalAccessException e) {
+            // Likely we're not on 1.4; ignore
         }
     }
     
@@ -275,6 +274,7 @@ public class DefaultComponentFactory implements ComponentFactory {
     private static class TitleLabel extends JLabel {
         
         private TitleLabel() {
+            // Do nothing
         }
         
         private TitleLabel(String text) {

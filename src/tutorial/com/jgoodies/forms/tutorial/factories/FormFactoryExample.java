@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see	ButtonBarFactory
  * @see	WizardBarFactory
  */
@@ -52,9 +52,9 @@ public final class FormFactoryExample {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(
-                "com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {
+            // Likely PlasticXP is not in the class path; ignore.
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: FormFactory");

@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link CellConstraints}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public final class CellConstraintsTest extends TestCase {
     
@@ -102,6 +102,7 @@ public final class CellConstraintsTest extends TestCase {
             new CellConstraints(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
             fail("The CellConstraints constructor should reject invalid orientations.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The constructor has thrown an unexpected exception: " + e);
         }
@@ -109,6 +110,7 @@ public final class CellConstraintsTest extends TestCase {
             new CellConstraints(1, 1, CellConstraints.CENTER, CellConstraints.RIGHT);
             fail("The CellConstraints constructor should reject invalid orientations.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The constructor has thrown an unexpected exception: " + e);
         }
@@ -117,6 +119,7 @@ public final class CellConstraintsTest extends TestCase {
             cc.xy(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
             fail("The CellConstraints setter should reject invalid orientations.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The setter has thrown an unexpected exception: " + e);
         }
@@ -124,6 +127,7 @@ public final class CellConstraintsTest extends TestCase {
             cc.xy(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
             fail("The CellConstraints setter should reject invalid orientations.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The setter has thrown an unexpected exception: " + e);
         }
@@ -140,7 +144,9 @@ public final class CellConstraintsTest extends TestCase {
             new CellConstraints(invalidEncoding);
             fail("The parser should reject the invalid encoding: " + invalidEncoding);
         } catch (IllegalArgumentException e) {
+            // The expected behavior
         } catch (IndexOutOfBoundsException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The parser has thrown an unexpected exception for:" 
                  + invalidEncoding 
@@ -158,6 +164,7 @@ public final class CellConstraintsTest extends TestCase {
             new CellConstraints(gridX, gridY, gridWidth, gridHeight);
             fail("The CellConstraints constructor should reject non-positive bounds values.");
         } catch (IndexOutOfBoundsException e) {
+            // The expected behavior
         } catch (Exception e) {
             fail("The CellConstraints constructor has thrown an unexpected exception:" + e);
         }

@@ -39,15 +39,16 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
 final class WindowsLayoutStyle extends LayoutStyle {
     
     static final WindowsLayoutStyle INSTANCE = new WindowsLayoutStyle();
     
-    // Overrides default constructor; prevents instantiability.
-    private WindowsLayoutStyle() {}
+    private WindowsLayoutStyle() {
+        // Suppresses default constructor, ensuring non-instantiability.
+    }
     
 
     // Component Sizes ******************************************************

@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to use a leading indent column.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public final class FormDebugExample {
@@ -73,7 +73,9 @@ public final class FormDebugExample {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            // Likely PlasticXP is not in the class path; ignore.
+        }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Debug a Form");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
