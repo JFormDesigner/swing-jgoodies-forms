@@ -36,6 +36,7 @@ API INCOMPATIBILITIES
     o Removed deprecated methods from the ButtonBarBuilder class:
       #addGriddedNarrow(JButton)
       #addGriddedNarrowButtons(JButton[])
+      #addGriddedGrowingNarrow(JComponent)
     
 
 NEW FEATURES
@@ -57,6 +58,7 @@ NEW FEATURES
     o ColumnSpec#decodeSpecs(String encodedColumnSpecs) (final)
     o RowSpec#decodeSpecs(String encodedRowSpecs) (final)
     o FormSpec.DefaultAlignment now visible (final)
+    o Borders.EmptyBorder provides methods for the 4 sizes.
     
     
 BUGS FIXED
@@ -147,7 +149,9 @@ OTHER CHANGES
     o Main:     Removed FormDebugPanel features that are available 
                 in the FormDebugUtils
     o Main:     Extended JavaDoc for the DefaultUnitConverter
-    o Extras:   Extended JavaDoc for the DefaultFormBuilder
+    o Main:     Extended JavaDoc for the DefaultFormBuilder
+    o Main:     Border.BUTTON_BAR_GAP_BORDER uses dlu only.
+    o Main:     Faster conversion of sizes with a 0 value.
     o Tutorial: Added example for custom areas with DefautFormBuilder
     o Tutorial: Changed some text field widths from 'default' to 'min'
     o Tutorial: Corrected frame titles
