@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.6 2003-09-02 16:25:56 karsten Exp $
+   $Id: build.xml,v 1.7 2003-09-29 10:10:33 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -264,7 +264,7 @@
 		<!-- Compile the documentation. -->
 		<copy todir="${dist.docs.dir}" >
 			<fileset dir="${docs.dir}"  
-			         excludes="**/*.psd, *.sxw"     />
+			         excludes="**/*.psd, **/*.sxw"     />
 		</copy>
 		<move todir="${dist.docs.dir}" >
 		    <fileset dir="${build.docs.dir}" />
@@ -285,7 +285,7 @@
 				     excludes="todo.txt" />
 		</copy>
 
-		<!-- Copy the jar file. -->
+		<!-- Copy the library jar file. -->
 		<copy tofile="${dist.main.jar}" file="${build.main.jar}" />
 		
 		<!-- Create a source zip for the libary jar. -->
