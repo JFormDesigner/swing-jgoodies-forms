@@ -32,6 +32,7 @@ package com.jgoodies.forms.layout;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,7 +48,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see     Size
  * @see     UnitConverter
  * @see     DefaultUnitConverter
@@ -279,11 +280,13 @@ public final class Sizes {
     // Helper Class *********************************************************
     
     /**
-     * A {@link Size} interface implementation for the component sizes.
+     * An ordinal-based serializable typesafe enumeration that implements
+     * the  {@link Size} interface for the component sizes: 
+     * <em>min, pref, default</em>.
      */
-    static final class ComponentSize implements Size {
+    static final class ComponentSize implements Size, Serializable {
         
-        private final String name;
+        private final transient String name;
 
         private ComponentSize(String name) { 
             this.name = name;
@@ -338,6 +341,20 @@ public final class Sizes {
         }
 
         public String toString()  { return name.substring(0, 1); }
+
+        
+        // Serialization *****************************************************
+        
+        private static int nextOrdinal = 0;
+        
+        private final int ordinal = nextOrdinal++;
+        
+        private static final ComponentSize[] VALUES = 
+            { MINIMUM, PREFERRED, DEFAULT};
+        
+        private Object readResolve() {
+            return VALUES[ordinal];  // Canonicalize
+        }
 
     }
     

@@ -33,7 +33,6 @@ package com.jgoodies.forms.layout;
 import java.awt.Component;
 import java.awt.Insets;
 import java.awt.Rectangle;
-import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.StringTokenizer;
 
@@ -62,7 +61,7 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -836,7 +835,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         private static final int BOTH       = 2;
         
         private final transient String name;
-        private final int    orientation;
+        private final transient int    orientation;
         
         private Alignment(String name, int orientation) { 
             this.name        = name; 
@@ -882,6 +881,7 @@ public final class CellConstraints implements Cloneable, Serializable {
             return orientation != HORIZONTAL;
         }
 
+        
         // Serialization *********************************************************
         
         private static int nextOrdinal = 0;
@@ -891,10 +891,9 @@ public final class CellConstraints implements Cloneable, Serializable {
         private static final Alignment[] VALUES = 
             { DEFAULT, FILL, LEFT, RIGHT, CENTER, TOP, BOTTOM };
         
-        private Object readResolve() throws ObjectStreamException {
+        private Object readResolve() {
             return VALUES[ordinal];  // Canonicalize
         }
-
 
     }
 
