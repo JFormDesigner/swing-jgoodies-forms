@@ -15,7 +15,7 @@
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
     <td colspan="3" bgcolor="DDDCDC"><a href="../../README.html"><img 
-	src="../images/banner.gif" width="436" height="46" alt=":: JGOODIES Looks :: Professional Swing Look&amp;Feels" border="0"></a></td>
+	src="../images/banner.gif" width="436" height="46" alt=":: JGOODIES :: Forms" border="0"></a></td>
 </tr>
 <tr>
     <td colspan="3" height="1" bgcolor="C9C8C8"></td>
@@ -39,7 +39,6 @@
 	<br>::&nbsp;<a class="nav" href="basics.html">Basics</a>
 	<br>::&nbsp;<a class="nav" href="building.html">Building</a>
 	<br>::&nbsp;<a class="nav" href="factories.html"><b>Factories</b></a>
-	<br>::&nbsp;<a class="nav" href="debugging.html">Debugging</a>
 	<p>
 	<b>Reference</b>
 	<br>::&nbsp;<a class="nav" href="../reference/alignments.html">Alignments</a>
@@ -74,11 +73,39 @@
 	<table width="530" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 	  <td>
-	<h1>:: Tutorial :: Factories ::</h2>
+	<h1>:: Tutorial :: Factories ::</h1>
+
+	Forms provides factories that can create frequently used layouts, panels 
+	and button bars. You should favor these factories over builders
+	to increase the consistency of your layouts and in turn applications.
+	
+	<p>
+	<b>It is recommended to have the JGoodies Forms Demo open on your screen!</b>	
 
 
+	<h2>ButtonBarFactory</h2>
+	
+	The <tt>ButtonBarFactory</tt> vends prepared button bars for 
+	general dialogs, wizards and in-form bars. It offers generic bars,
+	for example a right-aligned bar with 3 buttons, and specific bars, 
+	for example <i>OK, Cancel, Help</i>. 
+	
+	See the <a href="../api/index.html">API docs</a> for details.
 
 
+	<h2>FormFactory</h2>
+	
+	The <tt>FormFactory</tt> provides frequently used column and row specifications
+	and can create standardized form layouts. 
+	For example <tt>FormFactory.GLUE_COLSPEC</tt> is a <tt>ColumnSpec</tt> 
+	that represents a glue, i. e. a gap with initial size 0px that grows.
+	
+	
+	<h2>Borders</h2>
+	
+	Class <tt>Borders</tt> provides a bunch of prepared and reusable
+	<tt>Border</tt> instances, for example <tt>EMPTY_BORDER</tt>,
+	<tt>DLU4_BORDER</tt> and <tt>DIALOG_BORDER</tt>.
 
 	</td>
 	</tr>
