@@ -6,14 +6,12 @@ o Add custom ComponentFactory example
 
 o Move example title and comment from the Forms Demo
   to the examples.
-
+  
 o Extend unit tests:
    + test rounding behavior
    + test computed bounds
    + test the resizing behavior
 o Overhaul the titled separator:
-   + rewrite with FormLayout or a custom layout manager
-   + offer alignments: left, center, right
    + honor the component orientation 
    + get title font and color from a TitledBorder, not the UIDefaults
 o Improve parser error messages
@@ -38,6 +36,5 @@ o Consider the following extensions/changes:
   + add a flag to the ButtonBarFactory for bar vs. stack
   + add PanelBuilder.getRemainingColumns()
   + DefaultFormBuilder.appendComponentRow(RowSpec)
-  + make CellConstraints.initFromConstraints(String) public
   
   
