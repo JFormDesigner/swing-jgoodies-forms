@@ -29,6 +29,14 @@ BUGS FIXED
     o Fixed broken button font lookup in DefaultUnitConverter
       that failed to find a font for GTKLookAndFeel, and more
       generally, SynthLookAndFeel subclasses.
+    o Fixed #minimumLayoutSize that measured components that span
+      multiple columns/rows with the preferredSize, now the minimumsize.
+    o Patched the container expansion forced by components that span
+      multiple columns/rows for the case that no column or row can grow.
+      This expansion shall be performed if and only if the component spans
+      an area that can grow. The old behavior performed this action ALWAYS;
+      the patch check whether A column/row can grow; 
+      the upcoming fix  will check the growing behavior of the spanned area.
 
 
     
