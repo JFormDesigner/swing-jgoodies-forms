@@ -47,7 +47,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * or with a button order that honors the platform's style.
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -62,11 +62,11 @@ public final class ButtonOrderExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Button Order");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new ButtonOrderExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 

@@ -66,7 +66,7 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.  
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
@@ -81,11 +81,11 @@ public final class ComponentOrientationExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Component Orientation");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new ComponentOrientationExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 

@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the FormLayout growing options: none, default, weighted.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public final class GrowingExample {
 
@@ -53,11 +53,11 @@ public final class GrowingExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Growing");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new GrowingExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 

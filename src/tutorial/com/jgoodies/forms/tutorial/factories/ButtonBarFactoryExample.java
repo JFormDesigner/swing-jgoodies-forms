@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see	ButtonBarFactory
  */
@@ -57,11 +57,11 @@ public final class ButtonBarFactoryExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: ButtonBarFactory");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new ButtonBarFactoryExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 

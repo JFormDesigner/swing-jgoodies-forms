@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see	com.jgoodies.forms.factories.ButtonBarFactory
  */
@@ -58,11 +58,11 @@ public final class FormFactoryExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: FormFactory");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new FormFactoryExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
     public JComponent buildPanel() {

@@ -55,7 +55,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see     PanelBuilder
  * @see	RowCounterExample
@@ -85,11 +85,11 @@ public final class PanelBuilderExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: PanelBuilder");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new PanelBuilderExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
     
 

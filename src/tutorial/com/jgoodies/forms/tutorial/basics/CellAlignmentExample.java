@@ -41,7 +41,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * alignments to cells, and how to override the defaults.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public final class CellAlignmentExample {
 
@@ -54,11 +54,11 @@ public final class CellAlignmentExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Cell Alignments");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new CellAlignmentExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 

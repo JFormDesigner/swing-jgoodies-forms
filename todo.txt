@@ -2,8 +2,10 @@
 JGoodies Forms(tm) To-Do
 ========================
 
-o Forms 1.0.5 tutorial shall use EXIT_ON_CLOSE and
-  shall use Frame#setVisible(true) instead of #show.
+o FormDebugUtils shall warn about components in
+  growing rows that don't fill - at least if
+  there are no individual cell constraints for
+  the alignment.
   
 o Forms 1.0.6 tutorial examples shall use the class names
   of the JGoodies Looks 1.3.

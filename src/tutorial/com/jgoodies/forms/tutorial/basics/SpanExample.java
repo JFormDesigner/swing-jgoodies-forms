@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how components can span multiple columns and rows.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public final class SpanExample {
     
@@ -54,11 +54,11 @@ public final class SpanExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Span");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new SpanExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 

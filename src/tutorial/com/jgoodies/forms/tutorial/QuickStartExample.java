@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * by <code>#buildPanel()</code>. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
 public final class QuickStartExample {
@@ -70,11 +70,11 @@ public final class QuickStartExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Quick Start");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new QuickStartExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
     
 

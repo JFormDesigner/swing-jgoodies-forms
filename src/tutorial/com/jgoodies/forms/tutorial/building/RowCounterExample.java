@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see	PlainExample
  * @see	DynamicRowsExample
@@ -76,11 +76,11 @@ public final class RowCounterExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Row Counter");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new RowCounterExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 

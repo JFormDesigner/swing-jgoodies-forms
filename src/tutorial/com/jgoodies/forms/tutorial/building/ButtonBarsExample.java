@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  * 
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -59,11 +59,11 @@ public final class ButtonBarsExample {
         }
         JFrame frame = new JFrame();
         frame.setTitle("Forms Tutorial :: Button Bars");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JComponent panel = new ButtonBarsExample().buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
 
 
