@@ -55,8 +55,10 @@ OTHER CHANGES
     o Tutorial: Changed some text field widths from 'default' to 'min'
     o Tutorial: Corrected frame titles
     o Tests:    Added tests for components that span multiple columns
+    o Tests:    Specialized some exceptions in catch clauses
     o Docs:     Improved grouping diagrams
     o Docs:     Fixed invalid link to a tutorial pdf
+    o All code: Documented empty blocks.
 
 
 -------------------------------------------------------------------------------
