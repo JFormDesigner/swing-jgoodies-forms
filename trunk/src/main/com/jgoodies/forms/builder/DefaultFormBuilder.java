@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -386,8 +386,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     // Filling Columns ******************************************************
     
     /**
-     * Adds a component to the panel using the default constraints.
-     * Proceeds to the next data column.
+     * Adds a component to the panel using the default constraints
+     * with a column span of 1. Then proceeds to the next data column.
      * 
      * @param component	the component to add
      */
