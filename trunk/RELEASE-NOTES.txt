@@ -39,6 +39,7 @@ OTHER CHANGES
     o Docs:     Fixed spelling and grammar errors
     o Docs:     Extended and reorganized the FAQ
     o Tutorial: Improved alignment texts in custom row and custom areas example
+    o Tutorial: Added ButtonOrderExample
     
 
 -------------------------------------------------------------------------------
