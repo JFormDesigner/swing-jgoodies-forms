@@ -52,7 +52,7 @@ public final class ButtonStacksExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Demo :: Button Bars");
+        frame.setTitle("Forms Tutorial :: Button Stacks");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new ButtonStacksExample().buildPanel();
         frame.getContentPane().add(panel);

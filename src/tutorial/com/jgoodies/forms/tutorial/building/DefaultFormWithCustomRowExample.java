@@ -66,7 +66,7 @@ public final class DefaultFormWithCustomRowExample {
             UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
         } catch (Exception e) {}
         JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Building:: Custom Rows");
+        frame.setTitle("Forms Tutorial :: Custom Rows");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JComponent panel = new DefaultFormWithCustomRowExample().buildPanel();
         frame.getContentPane().add(panel);
