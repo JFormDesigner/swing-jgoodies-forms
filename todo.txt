@@ -10,6 +10,7 @@ o Overhaul the titled separator:
    + rewrite with FormLayout or a custom layout manager
    + offer alignments: left, center, right
    + honor the component orientation 
+   + get title font and color from a TitledBorder, not the UIDefaults
 o Improve parser error messages
 o Improve DefaultFormBuilder's support for dynamically
   added custom rows
@@ -19,7 +20,7 @@ o Documentation:
   + Write a tutorial
   + Explain #add and #append builder naming conventions
     and their contracts.
-  +
+  + Provide the JavaDocs online at forms.dev.java.net or JGoodies.com
   
 o Discussions:
   + logical sizes
@@ -32,5 +33,6 @@ o Consider the following extensions/changes:
   + add a flag to the ButtonBarFactory for bar vs. stack
   + add PanelBuilder.getRemainingColumns()
   + DefaultFormBuilder.appendComponentRow(RowSpec)
+  + make CellConstraints.initFromConstraints(String) public
   
   
