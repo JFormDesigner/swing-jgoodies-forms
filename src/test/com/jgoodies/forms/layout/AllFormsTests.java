@@ -49,6 +49,7 @@ public final class AllFormsTests {
         //$JUnit-BEGIN$
         suite.addTest(new TestSuite(CellConstraintsTest.class));
         suite.addTest(new TestSuite(ColumnSpecTest.class));
+        suite.addTest(new TestSuite(FormLayoutTest.class));
         suite.addTest(new TestSuite(FormLayoutGroupsTest.class));
         suite.addTest(new TestSuite(RowSpecTest.class));
         //$JUnit-END$
