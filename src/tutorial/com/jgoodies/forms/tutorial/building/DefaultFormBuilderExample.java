@@ -47,11 +47,12 @@ import com.jgoodies.forms.layout.FormLayout;
  * See the {@link DynamicRowsExample} for an implementation that specifies 
  * rows before the panel is filled with components. 
  *
- * @author Karsten Lentzsch
- * @see    DefaultFormBuilder
- * @see	PlainExample
- * @see	RowCounterExample
- * @see	DynamicRowsExample
+ * @author  Karsten Lentzsch
+ * @version $Revision: 1.3 $
+ * @see     DefaultFormBuilder
+ * @see     PlainExample
+ * @see     RowCounterExample
+ * @see     DynamicRowsExample
  */
 
 public final class DefaultFormBuilderExample {

@@ -44,6 +44,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  */
 
 public abstract class LayoutStyle {

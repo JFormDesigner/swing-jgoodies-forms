@@ -37,6 +37,7 @@ import junit.framework.TestSuite;
  * A test suite for all tests related to the JGoodies Forms framework.
  * 
  * @author Karsten Lentzsch
+ * @version $Revision: 1.3 $
  */
 public final class AllFormsTests {
 

@@ -44,6 +44,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.3 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {

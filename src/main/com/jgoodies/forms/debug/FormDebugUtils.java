@@ -47,6 +47,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * about the layout grid, layout groups and cell constraints to the console.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.2 $
  */
 public final class FormDebugUtils {
     

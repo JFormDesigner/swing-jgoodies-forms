@@ -36,6 +36,7 @@ import junit.framework.TestCase;
  * A test case for class {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.4 $
  */
 public final class RowSpecTest extends TestCase {
     

@@ -60,6 +60,7 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.3 $
  */
 public final class CellConstraints implements Cloneable {
     

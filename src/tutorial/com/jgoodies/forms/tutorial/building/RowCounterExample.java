@@ -50,6 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.4 $
  * @see	PlainExample
  * @see	DynamicRowsExample
  * @see	DefaultFormBuilderExample

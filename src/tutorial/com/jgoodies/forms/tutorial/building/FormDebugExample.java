@@ -46,6 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to use a leading indent column.
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.6 $
  */
 
 public final class FormDebugExample {

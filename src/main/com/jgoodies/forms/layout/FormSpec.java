@@ -40,6 +40,7 @@ import java.util.StringTokenizer;
  * alignment, start size and resizing behavior.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.4 $
  * @see	FormLayout
  * @see	CellConstraints
  */

@@ -54,6 +54,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * If you want to use this class, you may consider copying it into your codebase.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see	ResourceBundle
  */
 public class I15dPanelBuilder extends PanelBuilder {

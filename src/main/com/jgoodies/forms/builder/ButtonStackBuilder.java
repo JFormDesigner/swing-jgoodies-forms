@@ -64,6 +64,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  * 
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.2 $
  */
 public final class ButtonStackBuilder extends PanelBuilder {
     

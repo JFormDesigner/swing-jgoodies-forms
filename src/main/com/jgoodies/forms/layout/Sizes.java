@@ -47,6 +47,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see     Size
  * @see     UnitConverter
  * @see     DefaultUnitConverter

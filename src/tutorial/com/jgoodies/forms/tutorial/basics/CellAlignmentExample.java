@@ -41,6 +41,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * alignments to cells, and how to override the defaults.
  *
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.5 $
  */
 public final class CellAlignmentExample {
 
