@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2003, 2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -38,8 +38,9 @@ import java.awt.Toolkit;
  * An abstract implementation of the {@link UnitConverter} that minimizes 
  * the effort required to convert font-dependent sizes to pixels. 
  * 
- * @version $Revision: 1.3 $
  * @author Karsten Lentzsch
+ * @version $Revision: 1.4 $
+ * 
  * @see    DefaultUnitConverter
  * @see    com.jgoodies.forms.layout.Size
  * @see    com.jgoodies.forms.layout.Sizes
@@ -52,7 +53,7 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     // Unit Converter Implementation *********************************************
 
     /**
-     * Converts Inches and answers pixels using the specified resolution.
+     * Converts Inches and returns pixels using the specified resolution.
      * 
      * @param in         the Inches
      * @param component  the component that provides the graphics object
@@ -61,9 +62,10 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     public int inchAsPixel(double in, Component component) {
         return inchAsPixel(in, getScreenResolution(component));
     }
+    
 
     /**
-     * Converts Millimeters and answers pixels using the resolution of the
+     * Converts Millimeters and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param mm            Millimeters
@@ -73,9 +75,10 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     public int millimeterAsPixel(double mm, Component component) {
         return millimeterAsPixel(mm, getScreenResolution(component));
     }
+    
 
     /**
-     * Converts Centimeters and answers pixels using the resolution of the
+     * Converts Centimeters and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param cm            Centimeters
@@ -85,9 +88,10 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     public int centimeterAsPixel(double cm, Component component) {
         return centimeterAsPixel(cm, getScreenResolution(component));
     }
+    
 
     /**
-     * Converts DTP Points and answers pixels using the resolution of the
+     * Converts DTP Points and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param pt            DTP Points
@@ -99,7 +103,7 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     }
     
     /**
-     * Converts horizontal dialog units and answers pixels. 
+     * Converts horizontal dialog units and returns pixels. 
      * Honors the resolution, dialog font size, platform, and l&amp;f.
      * 
      * @param dluX  the horizontal dialog units
@@ -110,8 +114,9 @@ abstract public class AbstractUnitConverter implements UnitConverter {
         return dialogUnitXAsPixel(dluX, getDialogBaseUnitsX(c));
     }
     
+    
     /**
-     * Converts vertical dialog units and answers pixels. 
+     * Converts vertical dialog units and returns pixels. 
      * Honors the resolution, dialog font size, platform, and l&amp;f.
      * 
      * @param dluY  the vertical dialog units
@@ -126,7 +131,7 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     // Abstract Behavior *****************************************************
     
     /**
-     * Gets and answers the horizontal dialog base units. 
+     * Gets and returns the horizontal dialog base units. 
      * Implementations are encouraged to cache previously computed
      * dialog base units.
      * 
@@ -135,8 +140,9 @@ abstract public class AbstractUnitConverter implements UnitConverter {
      */
     abstract protected double getDialogBaseUnitsX(Component component);
     
+    
     /**
-     * Gets and answers the vertical dialog base units. 
+     * Gets and returns the vertical dialog base units. 
      * Implementations are encouraged to cache previously computed
      * dialog base units.
      * 
@@ -149,7 +155,7 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     // Convenience Methods ***************************************************
 
     /**
-     * Converts Inches and answers pixels using the specified resolution.
+     * Converts Inches and returns pixels using the specified resolution.
      * 
      * @param in    the Inches
      * @param dpi   the resolution
@@ -158,9 +164,10 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     protected final int inchAsPixel(double in, int dpi) {
         return (int) Math.round(dpi * in);
     }
+    
 
     /**
-     * Converts Millimeters and answers pixels using the specified resolution.
+     * Converts Millimeters and returns pixels using the specified resolution.
      * 
      * @param mm    Millimeters
      * @param dpi   the resolution
@@ -170,8 +177,9 @@ abstract public class AbstractUnitConverter implements UnitConverter {
         return (int) Math.round(dpi * mm * 10 / 254);
     }
 
+    
     /**
-     * Converts Centimeters and answers pixels using the specified resolution.
+     * Converts Centimeters and returns pixels using the specified resolution.
      * 
      * @param cm    Centimeters
      * @param dpi   the resolution
@@ -180,9 +188,10 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     protected final int centimeterAsPixel(double cm, int dpi) {
         return (int) Math.round(dpi * cm * 100 / 254);
     }
+    
 
     /**
-     * Converts DTP Points and answers pixels using the specified resolution.
+     * Converts DTP Points and returns pixels using the specified resolution.
      * 
      * @param pt    DTP Points
      * @param dpi   the resolution in dpi
@@ -192,8 +201,9 @@ abstract public class AbstractUnitConverter implements UnitConverter {
         return Math.round(dpi * pt / DTP_RESOLUTION);
     }
     
+    
     /**
-     * Converts horizontal dialog units and answers pixels.
+     * Converts horizontal dialog units and returns pixels.
      * 
      * @param dluX                  the horizontal dialog units
      * @param dialogBaseUnitsX      the horizontal dialog base units
@@ -202,9 +212,10 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     protected int dialogUnitXAsPixel(int dluX, double dialogBaseUnitsX) {
         return (int) Math.round(dluX * dialogBaseUnitsX / 4);
     }
+    
 
     /**
-     * Converts vertical dialog units and answers pixels.
+     * Converts vertical dialog units and returns pixels.
      * 
      * @param dluY                  the vertical dialog units
      * @param dialogBaseUnitsY      the vertical dialog base units
@@ -245,8 +256,9 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     
     private static int defaultScreenResolution = -1;
     
+    
     /**
-     * Computes and answers the default resolution.
+     * Computes and returns the default resolution.
      * 
      * @return the default screen resolution
      */
