@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -38,15 +38,10 @@ import java.util.StringTokenizer;
 
 /**
  * Specifies columns and rows in {@link FormLayout} by their default
- * alignment, start size and resizing behavior.<p>
+ * alignment, start size and resizing behavior.
  * 
- * TODO: Consider turning this class into an immutable class.
- * In this case remove the setters and the unmodifyable class version
- * of its subclasses <code>ColumnSpec</code> and <code>RowSpec</code>.
- * Since this breaks the API, this should happen in version 1.1. 
- *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * 
  * @see	FormLayout
  * @see	CellConstraints
@@ -174,18 +169,6 @@ public abstract class FormSpec implements Serializable {
     }
     
     /**
-     * Sets the default alignment.<p>
-     * 
-     * <strong>Note:</strong> This method may be removed from a future
-     * version of the Forms framework.
-     * 
-     * @param newDefaultAlignment	the new default alignment
-     */
-    public void setDefaultAlignment(DefaultAlignment newDefaultAlignment) {
-        defaultAlignment = newDefaultAlignment;
-    }
-    
-    /**
      * Returns the size.
      *  
      * @return the size
@@ -195,19 +178,6 @@ public abstract class FormSpec implements Serializable {
     }
     
     /**
-     * Sets the size.<p>
-     * 
-     * <strong>Note:</strong> This method may be removed from a future
-     * version of the Forms framework.
-     *  
-     * @param size	the new size
-     */
-    public void setSize(Size size) {
-        this.size = size;
-    }
-    
-    
-    /**
      * Answers the current resize weight.
      * 
      * @return the resize weight.
@@ -215,19 +185,6 @@ public abstract class FormSpec implements Serializable {
     public final double getResizeWeight() {
         return resizeWeight;
     }
-    
-    /**
-     * Sets a new resize weight.<p>
-     * 
-     * <strong>Note:</strong> This method may be removed from a future
-     * version of the Forms framework.
-     * 
-     * @param weight	the new resize weight
-     */
-    public void setResizeWeight(double weight) {
-        resizeWeight = weight;
-    }
-    
     
     /**
      * Checks and answers whether this spec can grow or not.
@@ -262,7 +219,7 @@ public abstract class FormSpec implements Serializable {
         // Check if the first token is an orientation.
         DefaultAlignment alignment = DefaultAlignment.valueOf(token, isHorizontal());
         if (alignment != null) {
-            setDefaultAlignment(alignment);
+            defaultAlignment = alignment;
             if (!tokenizer.hasMoreTokens()) {
                 throw new IllegalArgumentException(
                                     "The form spec must provide a size.");
@@ -273,7 +230,7 @@ public abstract class FormSpec implements Serializable {
         parseAndInitSize(token);
         
         if (tokenizer.hasMoreTokens()) {
-            setResizeWeight(decodeResize(tokenizer.nextToken()));
+           resizeWeight = decodeResize(tokenizer.nextToken());
         }  
     }
     
@@ -285,14 +242,14 @@ public abstract class FormSpec implements Serializable {
      */
     private void parseAndInitSize(String token) {
         if (token.startsWith("max(") && token.endsWith(")")) {
-            setSize(parseAndInitBoundedSize(token, false));
+            size = parseAndInitBoundedSize(token, false);
             return;
         } 
         if (token.startsWith("min(") && token.endsWith(")")) {
-            setSize(parseAndInitBoundedSize(token, true));
+            size = parseAndInitBoundedSize(token, true);
             return;
         }
-        setSize(decodeAtomicSize(token));
+        size = decodeAtomicSize(token);
     }
 
 

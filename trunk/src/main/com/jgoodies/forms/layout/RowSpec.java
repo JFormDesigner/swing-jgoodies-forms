@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -34,9 +34,9 @@ import java.util.StringTokenizer;
 
 /**
  * Specifies rows in in {@link FormLayout} by their default orientation, start
- * size and resizing behavior.
- * <p>
- * <b>Examples:</b><br>
+ * size and resizing behavior.<p>
+ * 
+ * <strong>Examples:</strong><br>
  * The following examples specify a centered row with a size of 14&nbsp;dlu 
  * that won't grow.
  * <pre>
@@ -46,17 +46,18 @@ import java.util.StringTokenizer;
  * new RowSpec("14dlu");
  * new RowSpec("14dlu:0");
  * new RowSpec("center:14dlu:0");
- * </pre>
- * <p>
+ * </pre><p>
+ * 
  * The {@link com.jgoodies.forms.factories.FormFactory} provides
  * predefined frequently used <code>RowSpec</code> instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
+ * 
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 
-public class RowSpec extends FormSpec {
+public final class RowSpec extends FormSpec {
     
     
     // Vertical Orientations ************************************************
@@ -129,17 +130,6 @@ public class RowSpec extends FormSpec {
 	}
     
     
-    /**
-     * Creates and answers an unmodifyable version of this
-     * <code>RowSpec</code>.
-     * 
-     * @return an unmodifyable version of this <code>RowSpec</code>
-     */
-    public RowSpec asUnmodifyable() {
-        return new UnmodifyableRowSpec(this);
-    }
-    
-
     // Implementing Abstract Behavior ***************************************
 
     /**
@@ -178,53 +168,6 @@ public class RowSpec extends FormSpec {
         return rowSpecs;
     }
 
-
-    // An Unmodifyable Version of RowSpec ***********************************
-    
-    private static final class UnmodifyableRowSpec extends RowSpec {
-        
-        private UnmodifyableRowSpec(RowSpec rowSpec) {
-            super(rowSpec.getDefaultAlignment(), 
-                   rowSpec.getSize(),
-                   rowSpec.getResizeWeight());
-        }
-
-        /**
-         * @param newDefaultAlignment   the default alignment to be set
-         * @throws UnsupportedOperationException always
-         */
-        public void setDefaultAlignment(DefaultAlignment newDefaultAlignment) {
-            throw new UnsupportedOperationException();
-        }
-
-        /**
-         * @param size   the size to be set
-         * @throws UnsupportedOperationException always
-         */
-        public void setSize(Size size) {
-            throw new UnsupportedOperationException();
-        }
-        
-        /**
-         * @param weight   the weight to be set
-         * @throws UnsupportedOperationException always
-         */
-        public void setResizeWeight(double weight) {
-            throw new UnsupportedOperationException();
-        }
-        
-        /**
-         * Returns this <code>RowSpec</code>; it already is unmodifyable.
-         * 
-         * @return this <code>RowSpec</code>
-         */
-        public RowSpec asUnmodifyable() {
-            return this;
-        }
-    
-    }
-    
-    
     	
 }
 
