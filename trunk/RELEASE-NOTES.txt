@@ -12,6 +12,7 @@ INTRODUCTION
 OTHER CHANGES
 
     o Docs:     Fixed spelling and grammar errors
+    o JavaDocs: Extended and corrected 
     
 
 -------------------------------------------------------------------------------
