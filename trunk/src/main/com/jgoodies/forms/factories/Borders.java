@@ -53,7 +53,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see     Border
  * @see     Sizes
@@ -117,9 +117,9 @@ public final class Borders {
     public static final Border BUTTON_BAR_GAP_BORDER = 
         createEmptyBorder(
             LayoutStyle.getCurrent().getButtonBarPad(), 
-            Sizes.ZERO, 
-            Sizes.ZERO, 
-            Sizes.ZERO);
+            Sizes.dluX(0), 
+            Sizes.dluY(0), 
+            Sizes.dluX(0));
 
     
     /**
@@ -199,10 +199,7 @@ public final class Borders {
 
     /**
      * An empty border that uses 4 instances of {@link ConstantSize} 
-     * to define the gaps on all sides.<p>
-     * 
-     * TODO: Consider providing read-access to the four constant sizes
-     * so that interactive builders can read the sizes.
+     * to define the gaps on all sides.
      */    
     public static final class EmptyBorder implements Border {
         
@@ -219,6 +216,42 @@ public final class Borders {
             this.left   = left;
             this.bottom = bottom;
             this.right  = right;
+        }
+        
+        /**
+         * Returns this border's top size.
+         * 
+         * @return this border's top size
+         */
+        public ConstantSize top() { 
+            return top; 
+        }
+        
+        /**
+         * Returns this border's left size.
+         * 
+         * @return this border's left size
+         */
+        public ConstantSize left() { 
+            return left; 
+        }
+        
+        /**
+         * Returns this border's bottom size.
+         * 
+         * @return this border's bottom size
+         */
+        public ConstantSize bottom() { 
+            return bottom; 
+        }
+        
+        /**
+         * Returns this border's right size.
+         * 
+         * @return this border's right size
+         */
+        public ConstantSize right() { 
+            return right; 
         }
 
         /**
