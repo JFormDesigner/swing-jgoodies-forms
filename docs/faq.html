@@ -87,7 +87,7 @@
 	<h2>Layout</h2>
     <p>
 		    ::&nbsp;<a href="#L.1">What does the 'fill' alignment do?</a>
-		<br>::&nbsp;<a href="#L.2">When to choose the 'pref' size and when 'default'?</a>
+		<br>::&nbsp;<a href="#L.2">When is it recommended to use the 'pref' size instead of 'default'?</a>
 		<br>::&nbsp;<a href="#L.3">Why don't components in growing rows fill the vertical space?</a>
 		<br>::&nbsp;<a href="#L.4">Why don't components that span multiple columns affect the column widths?</a>
 		<br>::&nbsp;<a href="#L.5">Why do components that span multiple columns affect the container width?</a>
@@ -157,7 +157,7 @@
 		side of the display area. 
 
 
-		<h2><a name="L.2">When to chose the 'pref' size and when 'default'?</a></h2>
+		<h2><a name="L.2">When is it recommended to use the 'pref' size instead of 'default'?</a></h2>
 
 		First off, 'pref'and 'default' differ only if a panel can be resized. 
 		As long as there's enough space in the container to give all components 
@@ -167,10 +167,10 @@
 		components, where the 'default' size shrinks them down until
 		the minimum size is reached.
 		<p>
-		If the panel cannot be resized use 'pref', just because it is easier
-		to understand. Otherwise favor 'default' over 'pref' for columns
-		and 'pref' over 'default' for rows. The latter is just a rule of thumb;
-		in some cases rows shall shrink too.
+		To make a layout easier to understand favor 'pref' over 'default' 
+		if 'default' adds no value, for example if the panel cannot be resized.
+		Otherwise a rule of thumb is to favor 'default' over 'pref' for 
+		columns and 'pref' over 'default' for rows. 
 
 
 		<h2><a name="L.3">Why don't components in growing rows fill the vertical space?</a></h2>
