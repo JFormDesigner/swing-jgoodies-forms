@@ -59,12 +59,12 @@ import java.util.List;
  * </table>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see	Size
  * @see	Sizes
  */
 
-public final class ConstantSize implements Size {
+public final class ConstantSize implements Size, Serializable {
     
     // Public Units *********************************************************
     
@@ -80,6 +80,13 @@ public final class ConstantSize implements Size {
     public static final Unit CM             = CENTIMETER;
     public static final Unit INCH           = new Unit("Inch", "in", false);
     public static final Unit IN             = INCH;
+    
+    /**
+     * An array of all enumeration values used to canonicalize 
+     * deserialized units.
+     */
+    private static final Unit[] VALUES = 
+        { PIXEL, POINT, DIALOG_UNITS_X, DIALOG_UNITS_Y, MILLIMETER, CENTIMETER, INCH};
     
     
     // Fields ***************************************************************
@@ -346,9 +353,6 @@ public final class ConstantSize implements Size {
         private static int nextOrdinal = 0;
         
         private final int ordinal = nextOrdinal++;
-        
-        private static final Unit[] VALUES = 
-            { PIXEL, POINT, DIALOG_UNITS_X, DIALOG_UNITS_Y, MILLIMETER, CENTIMETER, INCH};
         
         private Object readResolve() {
             return VALUES[ordinal];  // Canonicalize

@@ -46,11 +46,11 @@ import java.util.StringTokenizer;
  * Since this breaks the API, this should happen in version 1.1. 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @see	FormLayout
  * @see	CellConstraints
  */
-abstract class FormSpec {
+abstract class FormSpec implements Serializable {
     
     
     // Horizontal and Vertical Default Alignments ***************************
@@ -85,7 +85,14 @@ abstract class FormSpec {
      */
     static final DefaultAlignment FILL_ALIGN = new DefaultAlignment("fill");
 
-
+    /**
+     * An array of all enumeration values used to canonicalize 
+     * deserialized default alignments.
+     */
+    private static final DefaultAlignment[] VALUES = 
+        { LEFT_ALIGN, RIGHT_ALIGN, TOP_ALIGN, BOTTOM_ALIGN, CENTER_ALIGN, FILL_ALIGN};
+    
+    
     // Resizing Weights *****************************************************
 
     /**
@@ -536,9 +543,6 @@ abstract class FormSpec {
         private static int nextOrdinal = 0;
         
         private final int ordinal = nextOrdinal++;
-        
-        private static final DefaultAlignment[] VALUES = 
-            { LEFT_ALIGN, RIGHT_ALIGN, TOP_ALIGN, BOTTOM_ALIGN, CENTER_ALIGN, FILL_ALIGN};
         
         private Object readResolve() {
             return VALUES[ordinal];  // Canonicalize

@@ -61,7 +61,7 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -114,6 +114,13 @@ public final class CellConstraints implements Cloneable, Serializable {
     public static final Alignment BOTTOM =
         new Alignment("bottom", Alignment.VERTICAL);
 
+    /**
+     * An array of all enumeration values used to canonicalize 
+     * deserialized alignments.
+     */
+    private static final Alignment[] VALUES = 
+        { DEFAULT, FILL, LEFT, RIGHT, CENTER, TOP, BOTTOM };
+    
     /**
      * A reusable <code>Insets</code> object to reduce object instantiation.
      */
@@ -887,9 +894,6 @@ public final class CellConstraints implements Cloneable, Serializable {
         private static int nextOrdinal = 0;
         
         private final int ordinal = nextOrdinal++;
-        
-        private static final Alignment[] VALUES = 
-            { DEFAULT, FILL, LEFT, RIGHT, CENTER, TOP, BOTTOM };
         
         private Object readResolve() {
             return VALUES[ordinal];  // Canonicalize

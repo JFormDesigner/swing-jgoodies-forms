@@ -31,6 +31,7 @@
 package com.jgoodies.forms.layout;
 
 import java.awt.Container;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -38,13 +39,13 @@ import java.util.List;
  * that provide lower and upper bounds.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see	Sizes
  * @see	ConstantSize
  * @see	Sizes.ComponentSize
  */
 
-final class BoundedSize implements Size {
+final class BoundedSize implements Size, Serializable {
     
     /**
      * Holds the base size.
