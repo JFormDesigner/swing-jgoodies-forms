@@ -44,7 +44,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -281,6 +281,12 @@ public class DefaultComponentFactory implements ComponentFactory {
             super(text);
         }
         
+        /**
+         * TODO: It seems that the Mac Aqua l&f doesn't set the
+         * TitledBorder settings in the UIDefaults table. 
+         * Consider asking a TitledBorder instance for its font and 
+         * font color use #getTitleFont and #getTitleColor instead. 
+         */
         public void updateUI() {
             super.updateUI();
             Color foreground =
