@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2003, 2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,8 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
+ * 
  * @see     Size
  * @see     UnitConverter
  * @see     DefaultUnitConverter
@@ -130,7 +131,7 @@ public final class Sizes {
     // Creation of Size Instances *********************************************
     
     /**
-     * Creates and answers an instance of <code>ConstantSize</code> from the
+     * Creates and returns an instance of <code>ConstantSize</code> from the
      * given encoded size and unit description.
      * 
      * @param encodedValueAndUnit  value and unit in string representation
@@ -143,7 +144,7 @@ public final class Sizes {
     }
         
     /**
-     * Answers an instance of <code>Size</code> for the specified value
+     * Returns an instance of <code>Size</code> for the specified value
      * in horizontal dialog units.
      * 
      * @param value	size value in horizontal dialog units	
@@ -154,7 +155,7 @@ public final class Sizes {
     }
     
     /**
-     * Answers an instance of <code>Size</code> for the specified value
+     * Returns an instance of <code>Size</code> for the specified value
      * in vertical dialog units.
      * 
      * @param value 	size value in vertical dialog units   
@@ -165,7 +166,8 @@ public final class Sizes {
     }
     
     /**
-     * Answers an instance of <code>Size</code> for the specified pixel value.
+     * Creates and returns an instance of <code>Size</code> 
+     * for the specified pixel value.
      * 
      * @param value  value in pixel
      * @return the associated <code>ConstantSize</code>
@@ -175,7 +177,7 @@ public final class Sizes {
     }
     
     /**
-     * Creates and answers a <code>BoundedSize</code> for the given basis
+     * Creates and returns a <code>BoundedSize</code> for the given basis
      * using the specified lower and upper bounds.
      * 
      * @param basis  		the base size
@@ -192,18 +194,20 @@ public final class Sizes {
     // Unit Conversion ******************************************************
     
     /**
-     * Converts Inches and answers pixels using the specified resolution.
+     * Converts Inches and returns pixels using the specified resolution.
      * 
      * @param in           the Inches
      * @param component    the component that provides the graphics object
      * @return the given Inches as pixels
      */
     public static int inchAsPixel(double in, Component component) {
-        return getUnitConverter().inchAsPixel(in, component);
+        return in == 0d
+            ? 0
+            : getUnitConverter().inchAsPixel(in, component);
     }
 
     /**
-     * Converts Millimeters and answers pixels using the resolution of the
+     * Converts Millimeters and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param mm	        Millimeters
@@ -211,11 +215,13 @@ public final class Sizes {
      * @return the given Millimeters as pixels
      */
     public static int millimeterAsPixel(double mm, Component component) {
-        return getUnitConverter().millimeterAsPixel(mm, component);
+        return mm == 0d
+            ? 0
+            : getUnitConverter().millimeterAsPixel(mm, component);
     }
 
     /**
-     * Converts Centimeters and answers pixels using the resolution of the
+     * Converts Centimeters and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param cm	        Centimeters
@@ -223,11 +229,13 @@ public final class Sizes {
      * @return the given Centimeters as pixels
      */
     public static int centimeterAsPixel(double cm, Component component) {
-        return getUnitConverter().centimeterAsPixel(cm, component);
+        return cm == 0d
+            ? 0
+            : getUnitConverter().centimeterAsPixel(cm, component);
     }
 
     /**
-     * Converts DTP Points and answers pixels using the resolution of the
+     * Converts DTP Points and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param pt	        DTP Points
@@ -235,11 +243,13 @@ public final class Sizes {
      * @return the given Points as pixels
      */
     public static int pointAsPixel(int pt, Component component) {
-        return getUnitConverter().pointAsPixel(pt, component);
+        return pt == 0
+            ? 0
+            :getUnitConverter().pointAsPixel(pt, component);
     }
     
     /**
-     * Converts horizontal dialog units and answers pixels. 
+     * Converts horizontal dialog units and returns pixels. 
      * Honors the resolution, dialog font size, platform, and l&amp;f.
      * 
      * @param dluX         the horizontal dialog units
@@ -247,11 +257,13 @@ public final class Sizes {
      * @return the given horizontal dialog units as pixels
      */
     public static int dialogUnitXAsPixel(int dluX, Component component) {
-        return getUnitConverter().dialogUnitXAsPixel(dluX, component);
+        return dluX == 0
+            ? 0
+            : getUnitConverter().dialogUnitXAsPixel(dluX, component);
     }
 
     /**
-     * Converts vertical dialog units and answers pixels. 
+     * Converts vertical dialog units and returns pixels. 
      * Honors the resolution, dialog font size, platform, and l&amp;f.
      * 
      * @param dluY         the vertical dialog units
@@ -259,7 +271,9 @@ public final class Sizes {
      * @return the given vertical dialog units as pixels
      */
     public static int dialogUnitYAsPixel(int dluY, Component component) {
-        return getUnitConverter().dialogUnitYAsPixel(dluY, component);
+        return dluY == 0 
+            ? 0 
+            : getUnitConverter().dialogUnitYAsPixel(dluY, component);
     }
     
     
@@ -305,7 +319,7 @@ public final class Sizes {
         }
 
         /**
-         * Answers an instance of <code>ComponentSize</code> that corresponds
+         * Returns an instance of <code>ComponentSize</code> that corresponds
          * to the specified string.
          * @param str   		the encoded component size
          * @return the corresponding ComponentSize or null if none matches
