@@ -59,6 +59,12 @@ public final class SpanExample {
     }
 
 
+    /**
+     * Builds and answers a tabbed pane with tabs for the column span example
+     * and the row span example.
+     * 
+     * @return a tabbed pane that shows horizontal and vertical spans 
+     */
     public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
@@ -69,6 +75,11 @@ public final class SpanExample {
     }
     
     
+    /**
+     * Builds and answers a panel where a component spans multiple columns.
+     * 
+     * @return a panel with a component that spans multiple columns
+     */
     private JComponent buildColumnSpanExample() {
         FormLayout layout = new FormLayout(
             "pref, 8px, 100px, 4px, 200px",   
@@ -95,6 +106,19 @@ public final class SpanExample {
     }
     
     
+    /**
+     * Builds and answers a panel where a component spans multiple rows.
+     * <p>
+     * This demo method is about layout. The default FocusTraversalPolicy
+     * will lead to a poor focus traversal order: name, notes, phone, fax;
+     * where the order should be: name, phone, fax, notes.
+     * The components are added in the same order as they shall be
+     * traversed by the focus. 
+     * Hence, if you set a ContainerOrderFocusTraversalPolicy,
+     * the focus will traverse the fields in the appropriate order.
+     * 
+     * @return a panel with a component that spans multiple rows
+     */
     private JComponent buildRowSpanExample() {
         FormLayout layout = new FormLayout(
             "200px, 25px, 200px",   
