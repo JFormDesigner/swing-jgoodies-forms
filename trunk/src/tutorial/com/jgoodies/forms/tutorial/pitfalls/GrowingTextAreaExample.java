@@ -30,14 +30,16 @@
 
 package com.jgoodies.forms.tutorial.pitfalls;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
+import javax.swing.border.LineBorder;
 
-import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -46,13 +48,9 @@ import com.jgoodies.forms.layout.FormLayout;
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public final class GrowingTextAreaExample {
-    
-    private JTextArea growingArea;
-    private JTextArea constantArea;
-
     
     public static void main(String[] args) {
         try {
@@ -70,71 +68,178 @@ public final class GrowingTextAreaExample {
     }
     
     
-    private void initComponents() {
-        growingArea  = new JTextArea("The preferred size of this area grows with the container.");
-        //growingArea.setLineWrap(true);
-        constantArea = new JTextArea("The preferred size\nof this area\nis constant.", 5, 60);
-    }
-    
-    private void initEventHandling() {
-        growingArea.addComponentListener(new SizeChangeHandler("Growing", growingArea));
-        constantArea.addComponentListener(new SizeChangeHandler("Constant", constantArea));
-    }
-
-
     public JComponent buildPanel() {
-        initComponents();
-        initEventHandling();
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
+        
+        String example1Text = 
+            "Here the layout uses a fixed initial size of 200 dlu. "
+          + "The area's minimum and preferred sizes will be ignored. "
+          + "And so, the area will grow and shrink.";
+      
+        tabbedPane.add("1", 
+              buildTab("Fixed Size (Good)",
+                       "fill:200dlu:grow", 
+                       createArea(example1Text, true, 0, null)));
+      
+        String example2Text =
+            "This text area has line wrapping disabled\n"
+          + "and uses a hand-wrapped text (using '\\n').\n\n"
+          + "Its minimum and preferred sizes are constant and so,\n"
+          + " the area will grow but shrink down to its minimum size.";
+      
+        tabbedPane.add("2", 
+              buildTab("Pref Size, Line Wrap Disabled (Good)",
+                       "fill:pref:grow", 
+                       createArea(example2Text, false, 0, null)));
+      
+        String example3Text = 
+                  "This text area grows horizontally and will never shrink again. "
+                + "Since line wrapping is enabled, "
+                + "the area's minimum and preferred sizes are defined by its size. "
+                + "(For details see BasicTextAreaUI#getPreferredSize(Component). "
+                + "If the layout container grows, the layout manager "
+                + "sets a larger size, and hence, the minimum and preferred sizes grow."
+                + "\nThe FormLayout honors the area's minimum size to compute "
+                + "the current area width, and so it won't shrink.";
 
-        tabbedPane.add("Growing",    buildGrowingTextArea());
-        tabbedPane.add("Constant",   buildConstantTextArea());
+        tabbedPane.add("3", 
+                buildTab("Pref Size, Line Wrap Enabled (Never Shrinks)",
+                         "fill:pref:grow", 
+                         createArea(example3Text, true, 0, null)));
+        
+        String example4Text = 
+            "This text area grows but never shrinks. "
+            + "Since line wrapping is enabled, "
+            + "the area's minimum and preferred sizes is defined by its size. "
+            + "If the layout container grows, the layout manager "
+            + "sets a larger size, and hence, the preferred size grows. "
+            + "\nHowever, the area can shrink again, because the minimum size" 
+            + "is independent from the size previously set by the layout manager.";
+        
+        tabbedPane.add("4", 
+                buildTab("Default Size, Line Wrap Enabled (Never Shrinks)",
+                         "fill:default:grow", 
+                         createArea(example4Text, true, 0, null)));
+        
+        String example5Text = 
+            "This text area has uses a column width of 30 characters. "
+            + "But that just affects the initial preferred and minimum size."
+            + "The area grows and won't shrink again.";
+        
+        tabbedPane.add("5", 
+                buildTab("Default Size, Line Wrap Enabled, Columns Set (Never Shrinks)",
+                         "fill:default:grow", 
+                         createArea(example5Text, true, 30, null)));
+        
+        String example6Text = 
+            "This text area grows and shrinks. "
+            + "Since line wrapping is enabled, "
+            + "the area's preferred size is defined by its size. "
+            + "Here a custom minimum size (100, 32) has been set. "
+            + "If the layout container grows, the layout manager "
+            + "sets a larger size, and hence, the preferred size grows. "
+            + "\nHowever, the area can shrink again, because the minimum size" 
+            + "is independent from the size previously set by the layout manager.";
+        
+        tabbedPane.add("6", 
+                buildTab("Default Size, Line Wrap Enabled, Min Size Set",
+                         "fill:default:grow", 
+                         createArea(example6Text, true, 0, new Dimension(100, 32))));
+        
         return tabbedPane;
     }
     
     
-    private JComponent buildGrowingTextArea0() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(Borders.DIALOG_BORDER);
-        panel.add(growingArea, BorderLayout.CENTER);
-        return panel;
+    private JTextArea createArea(
+            String text,
+            boolean lineWrap, 
+            int columns,
+            Dimension minimumSize) {
+        JTextArea area  = new JTextArea(text);
+        area.setBorder(new LineBorder(Color.BLACK));
+        area.setLineWrap(lineWrap);
+        area.setWrapStyleWord(true);
+        area.setColumns(columns);
+        if (minimumSize != null) {
+            area.setMinimumSize(new Dimension(100, 32));
+        }
+        return area;
     }
-    
-    
-    private JComponent buildGrowingTextArea() {
-        FormLayout layout = new FormLayout("fill:pref:grow", "fill:pref:grow");
-        JPanel panel = new JPanel(layout);
-        panel.setBorder(Borders.DIALOG_BORDER);
-        panel.add(growingArea, new CellConstraints(1, 1));
-        return panel;
-    }
-    
-    
-    private JComponent buildConstantTextArea() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(Borders.DIALOG_BORDER);
-        panel.add(constantArea, BorderLayout.CENTER);
-        return panel;
-    }
-    
-    
-    // Writes sizes to the system.
-    private class SizeChangeHandler extends ComponentAdapter {
+
+    private JComponent buildTab(String title, String columnSpec, JTextArea area) {
+        JLabel columnSpecLabel = new JLabel(columnSpec);
+        columnSpecLabel.setHorizontalAlignment(JLabel.CENTER);
         
-        private final String     name;
-        private final JTextComponent component;
+        FormLayout layout = new FormLayout(
+                columnSpec, 
+                "pref, 9dlu, pref, 3dlu, fill:default:grow, 9dlu, pref");
+        PanelBuilder builder = new PanelBuilder(layout);
+        builder.setDefaultDialogBorder();
+        CellConstraints cc = new CellConstraints();
+        builder.addTitle(title,           cc.xy(1, 1));
+        builder.add(columnSpecLabel,      cc.xy(1, 3));
+        builder.add(area,                 cc.xy(1, 5));
+        builder.add(buildInfoPanel(area), cc.xy(1, 7));
+
+        return builder.getPanel();
+    }
+    
+    
+    private JComponent buildInfoPanel(JTextArea area) {
+        JLabel sizeLabel      = new JLabel();
+        JLabel minSizeLabel   = new JLabel();
+        JLabel prefSizeLabel  = new JLabel();
+        JLabel lineWrapLabel  = new JLabel(area.getLineWrap() ? "enabled" : "disabled");
+        JLabel customMinLabel = new JLabel(area.isMinimumSizeSet() ? "set" : "computed");
+        JLabel columnsLabel   = new JLabel(area.getColumns() == 0 
+                                            ? "not specified" 
+                                            : String.valueOf(area.getColumns()));
+
+        area.addComponentListener(new SizeChangeHandler(
+                area, sizeLabel, minSizeLabel, prefSizeLabel));
+
+        FormLayout layout = new FormLayout("pref, 4dlu, pref, 21dlu, pref, 4dlu, pref");
+        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+        builder.append("Size:",      sizeLabel);
+        builder.append("Line wrap:", lineWrapLabel);
         
-        private SizeChangeHandler(String name, JTextComponent component) {
-            this.name      = name;
-            this.component = component;
+        builder.append("Min size:",  minSizeLabel);
+        builder.append("Min size:", customMinLabel);
+        
+        builder.append("Pref size:", prefSizeLabel);
+        builder.append("Columns:",   columnsLabel);
+        return builder.getPanel();
+    }
+    
+    
+    // Listens to area size changes and writes the formatted sizes to the given labels.
+    private static class SizeChangeHandler extends ComponentAdapter {
+        
+        private final JTextArea area;
+        private final JLabel    sizeLabel;
+        private final JLabel    minSizeLabel;
+        private final JLabel    prefSizeLabel;
+        
+        private SizeChangeHandler(
+                JTextArea area,
+                JLabel sizeLabel,
+                JLabel minSizeLabel,
+                JLabel prefSizeLabel) {
+            this.area = area;
+            this.sizeLabel = sizeLabel;
+            this.minSizeLabel = minSizeLabel;
+            this.prefSizeLabel = prefSizeLabel;
         }
         
         public void componentResized(ComponentEvent evt) {
-            System.out.println(name + " size        =" + component.getSize());
-            System.out.println(name + " min  size   =" + component.getMinimumSize());
-            System.out.println(name + " pref size   =" + component.getPreferredSize());
-            System.out.println(name + " UI pref size=" + component.getUI().getPreferredSize(component));
+            sizeLabel.setText(format(area.getSize()));
+            minSizeLabel.setText(format(area.getMinimumSize()));
+            prefSizeLabel.setText(format(area.getPreferredSize()));
+        }
+        
+        private String format(Dimension d) {
+            return String.valueOf(d.width) + ", " + d.height;
         }
         
     }
