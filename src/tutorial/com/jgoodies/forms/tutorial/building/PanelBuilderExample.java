@@ -149,10 +149,10 @@ public final class PanelBuilderExample {
         builder.add(companyNameField,        cc.xywh(3,  3, 5, 1));
         builder.addLabel("Contact",          cc.xy  (1,  5));
         builder.add(contactPersonField,      cc.xywh(3,  5, 5, 1));
-        builder.addLabel("Order No",         cc.xy  (1, 7));
-        builder.add(orderNoField,            cc.xy  (3, 7));
+        builder.addLabel("Order No",         cc.xy  (1,  7));
+        builder.add(orderNoField,            cc.xy  (3,  7));
 
-        builder.addSeparator("Inspector",    cc.xywh(1, 9, 7, 1));
+        builder.addSeparator("Inspector",    cc.xywh(1,  9, 7, 1));
         builder.addLabel("Name",             cc.xy  (1, 11));
         builder.add(inspectorField,          cc.xywh(3, 11, 5, 1));
         builder.addLabel("Reference No",     cc.xy  (1, 13));
