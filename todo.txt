@@ -18,6 +18,11 @@ o Improve parser error messages
 o Improve DefaultFormBuilder's support for dynamically
   added custom rows
   
+o Mac OS X:
+  + AquaLayoutStyle
+  + TitledSeparator font plain, not bold
+  + TitledSeparator line aligned along the font baseline
+  
   
 o Documentation:
   + Write a tutorial
