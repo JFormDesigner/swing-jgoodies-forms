@@ -53,7 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * <code>#paintComponent</code> or <code>#updateUI</code>.  
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see     FormDebugUtils
  */
@@ -87,7 +87,7 @@ public class FormDebugPanel extends JPanel {
     // Instance Creation ****************************************************
     
     /**
-     * Constructs a <code>FormDebugPanel</code> with all options turned off. 
+     * Constructs a FormDebugPanel with all options turned off. 
      */
     public FormDebugPanel() {
         this(null);
@@ -95,8 +95,8 @@ public class FormDebugPanel extends JPanel {
     
 
     /**
-     * Constructs a <code>FormDebugPanel</code> on the given 
-     * <code>FormLayout</code> instance with all options turned off.
+     * Constructs a FormDebugPanel on the given FormLayout instance 
+     * that paints the grid in the foreground and paints no diagonals.
      * 
      * @param layout  the panel's FormLayout instance 
      */
@@ -106,12 +106,15 @@ public class FormDebugPanel extends JPanel {
 
 
     /**
-     * Constructs a <code>FormDebugPanel</code> on the given
-     * <code>FormLayout</code> using the specified settings that are
-     * otherwise turned off.
+     * Constructs a FormDebugPanel on the given FormLayout 
+     * using the specified settings that are otherwise turned off.
      * 
-     * @param paintInBackground true to paint grid lines in the background
-     * @param paintDiagonals    true to paint diagonals, false to not paint them 
+     * @param paintInBackground 
+     *     true to paint grid lines in the background,
+     *     false to paint the grid in the foreground
+     * @param paintDiagonals    
+     *     true to paint diagonals, 
+     *     false to not paint them 
      */
     public FormDebugPanel(boolean paintInBackground, 
                            boolean paintDiagonals) {
@@ -120,13 +123,17 @@ public class FormDebugPanel extends JPanel {
     
 
     /**
-     * Constructs a <code>FormDebugPanel</code> on the given
-     * <code>FormLayout</code> using the specified settings that are
-     * otherwise turned off.
+     * Constructs a FormDebugPanel on the given FormLayout using 
+     * the specified settings that are otherwise turned off.
      * 
-     * @param layout  the panel's FormLayout instance
-     * @param paintInBackground true to paint grid lines in the background
-     * @param paintDiagonals    true to paint diagonals, false to not paint them 
+     * @param layout  
+     *     the panel's FormLayout instance
+     * @param paintInBackground 
+     *     true to paint grid lines in the background,
+     *     false to paint the grid in the foreground
+     * @param paintDiagonals    
+     *     true to paint diagonals, 
+     *     false to not paint them 
      */
     public FormDebugPanel(FormLayout layout,
                            boolean paintInBackground, 
@@ -185,7 +192,7 @@ public class FormDebugPanel extends JPanel {
 
     /**
      * Paints the panel. If the panel's layout manager is a 
-     * <code>FormLayout</code> it paints the form's grid lines.
+     * FormLayout it paints the form's grid lines.
      * 
      * @param g   the Graphics object to paint on 
      */
