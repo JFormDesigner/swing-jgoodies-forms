@@ -30,9 +30,13 @@
 
 package com.jgoodies.forms.layout;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.LayoutManager2;
+import java.awt.Rectangle;
 import java.util.*;
-import java.util.List;
 
 
 /**
@@ -210,6 +214,7 @@ public final class FormLayout implements LayoutManager2 {
      * 
 	 * @param colSpecs	an array of column specifications.
      * @param rowSpecs	an array of row specifications.
+     * @throws NullPointerException if colSpecs or rowSpecs is null
      */
     public FormLayout(ColumnSpec[] colSpecs, RowSpec[] rowSpecs) {
         if (colSpecs == null)
@@ -233,9 +238,12 @@ public final class FormLayout implements LayoutManager2 {
     /**
      * Constructs an instance of <code>FormLayout</code> using the given
      * encoded string representations for column and row specifications.
+     * <p>
+     * See the class comment for examples.
      * 
      * @param encodedColumnSpecs  comma separated encoded column specifications
      * @param encodedRowSpecs     comma separated encoded row specifications
+     * @throws NullPointerException if encodedColumnSpecs or encodedRowSpecs is null
      */
     public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
         this(decodeColSpecs(encodedColumnSpecs),
@@ -245,8 +253,11 @@ public final class FormLayout implements LayoutManager2 {
     /**
      * Constructs an instance of <code>FormLayout</code> using the given
      * encoded string representations for column and row specifications.
+     * <p>
+     * See the class comment for examples.
      * 
      * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @throws NullPointerException if encodedColumnSpecs is null
      */
     public FormLayout(String encodedColumnSpecs) {
         this(encodedColumnSpecs, "");
@@ -276,28 +287,30 @@ public final class FormLayout implements LayoutManager2 {
     /**
      * Returns the <code>ColumnSpec</code> at the specified column.
      * 
-     * @param column   the column index of the requested <code>ColumnSpec</code>
+     * @param columnIndex   the column index of the requested <code>ColumnSpec</code>
      * @return the <code>ColumnSpec</code> at the specified column
+     * @throws IndexOutOfBoundsException if the column index is out of range
      */
-    public ColumnSpec getColumnSpec(int column) {
-        return (ColumnSpec) colSpecs.get(column - 1);
+    public ColumnSpec getColumnSpec(int columnIndex) {
+        return (ColumnSpec) colSpecs.get(columnIndex - 1);
     }
 
     /**
      * Returns the <code>RowSpec</code> at the specified row.
      * 
-     * @param row   the row index of the requested <code>RowSpec</code>
+     * @param rowIndex   the row index of the requested <code>RowSpec</code>
      * @return the <code>RowSpec</code> at the specified row
+     * @throws IndexOutOfBoundsException if the row index is out of range
      */
-    public RowSpec getRowSpec(int row) {
-        return (RowSpec) rowSpecs.get(row - 1);
+    public RowSpec getRowSpec(int rowIndex) {
+        return (RowSpec) rowSpecs.get(rowIndex - 1);
     }
 
     /**
      * Appends the given column specification to the right hand side of all
      * columns.
      * @param columnSpec the column specification to be added 
-     * @throws NullPointerException if the column speficcation is null
+     * @throws NullPointerException if the column specification is null
      */
     public void appendColumn(ColumnSpec columnSpec) {
         if (columnSpec == null) {
@@ -307,8 +320,8 @@ public final class FormLayout implements LayoutManager2 {
     }
     
     /**
-     * Inserts the specified column at the specified position. Shifts
-     * components that intersect the new column to the right and readjusts
+     * Inserts the specified column at the specified position. Shifts components 
+     * that intersect the new column to the right hand side and readjusts
      * column groups.
      * <p> 
      * The component shift works as follows: components that were located on
@@ -547,7 +560,7 @@ public final class FormLayout implements LayoutManager2 {
      * @param component				  the component to be queried
      * @return the <code>CellConstraints</code> for the specified component
      * @throws NullPointerException if component is null or has not been added
-     * to the Container
+     *     to the Container
      */
     public CellConstraints getConstraints(Component component) {
         if (component == null)
@@ -594,8 +607,7 @@ public final class FormLayout implements LayoutManager2 {
      * setColumnGroups(new int[][]{ {1, 3, 4}, {7, 9}});
      * </pre>
      * 
-     * @param colGroupIndices	a two-dimensional array of column groups
-     * indices.
+     * @param colGroupIndices	a two-dimensional array of column groups indices
      * @throws	IndexOutOfBoundsException if an index is outside the grid
      * @throws IllegalArgumentException if a column index is used twice
      */
@@ -1538,16 +1550,17 @@ public final class FormLayout implements LayoutManager2 {
     
     /**
      * Parses and splits encoded column specifications and returns an array of
-     * <code>ColumnSpec</code>s.
+     * <code>ColumnSpec</code> objects.
      * 
+     * @param encodedColSpec  the encoded column specification
      * @return an array of decoded column specifications
      * @throws NullPointerException if the string description is null
      */
-    private static ColumnSpec[] decodeColSpecs(String description) {
-        if (description == null) 
+    private static ColumnSpec[] decodeColSpecs(String encodedColSpec) {
+        if (encodedColSpec == null) 
             throw new NullPointerException("The column description must not be null.");
         
-        StringTokenizer tokenizer = new StringTokenizer(description, ", ");
+        StringTokenizer tokenizer = new StringTokenizer(encodedColSpec, ", ");
         int columnCount = tokenizer.countTokens();
         ColumnSpec[] colSpecs = new ColumnSpec[columnCount]; 
         for (int i = 0; i < columnCount; i++) {
@@ -1559,16 +1572,17 @@ public final class FormLayout implements LayoutManager2 {
 
     /**
      * Parses and splits encoded row specifications and returns an array of
-     * <code>RowSpec</code>s.
+     * <code>RowSpec</code> objects.
      * 
+     * @param encodedRowSpec  the encoded row specification
      * @return an array of decoded row specifications
      * @throws NullPointerException if the string description is null
      */
-    private static RowSpec[] decodeRowSpecs(String description) {
-        if (description == null) 
+    private static RowSpec[] decodeRowSpecs(String encodedRowSpec) {
+        if (encodedRowSpec == null) 
             throw new NullPointerException("The row description must not be null.");
         
-        StringTokenizer tokenizer = new StringTokenizer(description, ", ");
+        StringTokenizer tokenizer = new StringTokenizer(encodedRowSpec, ", ");
         int rowCount = tokenizer.countTokens();
         RowSpec[] rowSpecs = new RowSpec[rowCount]; 
         for (int i = 0; i < rowCount; i++) {
