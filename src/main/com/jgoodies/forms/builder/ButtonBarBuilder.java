@@ -37,9 +37,9 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.ConstantSize;
 
 /**
  * A non-visual builder that assists you in building consistent button bars
