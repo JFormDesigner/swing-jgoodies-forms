@@ -72,7 +72,7 @@ import java.util.*;
  * FormLayout has been prepared to work with different types of sizes as
  * defined by the {@link Size} interface.
  * <p>
- * <b>Example 1</b> (Plain FormLayout):<br>
+ * <strong>Example 1</strong> (Plain FormLayout):<br>
  * The following example creates a panel with 3 data columns and 3 data rows; 
  * the columns and rows are specified before components are added 
  * to the form.
@@ -93,7 +93,7 @@ import java.util.*;
  * return panel;
  * </pre>
  * <p>
- * <b>Example 2</b> (Using PanelBuilder):<br>
+ * <strong>Example 2</strong> (Using PanelBuilder):<br>
  * This example creates the same panel as above using the 
  * {@link com.jgoodies.forms.builder.PanelBuilder} to add components to the form. 
  * <pre>
@@ -113,7 +113,7 @@ import java.util.*;
  * return builder.getPanel();
  * </pre>
  * <p>
- * <b>Example 3</b> (Using DefaultFormBuilder):<br>
+ * <strong>Example 3</strong> (Using DefaultFormBuilder):<br>
  * This example utilizes the 
  * {@link com.jgoodies.forms.extras.DefaultFormBuilder} that 
  * ships with the source distribution. 
@@ -983,7 +983,17 @@ public final class FormLayout implements LayoutManager2 {
             int maxWidth = width1;
             int maxHeight = height1;
 
-            // Take components that span multiple columns or rows into account.
+            /*
+             * Take components that span multiple columns or rows into account.
+             * This shall be done if and only if a component spans an interval
+             * that can grow. 
+             * <strong>Note: </strong> The current algorithm doesn't reflect the 
+             * above specification; it checks only if any column or row can grow.
+             */
+            // First determine whether a column or row can grow:
+            boolean canGrowHorizontally = containsSpecThatCanGrow(colSpecs);
+            boolean canGrowVertically   = containsSpecThatCanGrow(rowSpecs);
+            
             for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
                 Map.Entry entry = (Map.Entry) i.next();
                 Component component = (Component) entry.getKey();
@@ -991,8 +1001,10 @@ public final class FormLayout implements LayoutManager2 {
                     continue;
                 
                 CellConstraints constraints = (CellConstraints) entry.getValue();
-                if (constraints.gridWidth > 1) {
-                    int compWidth = preferredWidthMeasure.sizeOf(component);
+                if (canGrowHorizontally && (constraints.gridWidth > 1)) {
+                    //int compWidth = minimumWidthMeasure.sizeOf(component);
+                    int compWidth = defaultWidthMeasure.sizeOf(component);
+                    //int compWidth = preferredWidthMeasure.sizeOf(component);
                     int gridX1 = constraints.gridX-1;
                     int gridX2 = gridX1 + constraints.gridWidth;
                     int lead  = xOrigins[gridX1];
@@ -1003,8 +1015,10 @@ public final class FormLayout implements LayoutManager2 {
                     }
                 }
             
-                if (constraints.gridHeight > 1) { 
-                    int compHeight = preferredHeightMeasure.sizeOf(component);
+                if (canGrowVertically && (constraints.gridHeight > 1)) { 
+                    //int compHeight = minimumHeightMeasure.sizeOf(component);
+                    int compHeight = defaultHeightMeasure.sizeOf(component);
+                    //int compHeight = preferredHeightMeasure.sizeOf(component);
                     int gridY1 = constraints.gridY-1;
                     int gridY2 = gridY1 + constraints.gridHeight;
                     int lead  = yOrigins[gridY1];
@@ -1126,7 +1140,7 @@ public final class FormLayout implements LayoutManager2 {
     
 
     /**
-     * Invalidates all caches.
+     * Invalidates the component size caches.
      */
     private void invalidateCaches() {
         componentSizeCache.invalidate();
@@ -1321,6 +1335,15 @@ public final class FormLayout implements LayoutManager2 {
             sum += sizes[i];
         }
         return sum;
+    }
+    
+    private boolean containsSpecThatCanGrow(List formSpecs) {
+        for (Iterator it = formSpecs.iterator(); it.hasNext();) {
+            FormSpec formSpec = (FormSpec) it.next();
+            if (formSpec.canGrow())
+                return true;
+        }
+        return false;
     }
     
       
