@@ -44,6 +44,15 @@ import com.jgoodies.forms.layout.RowSpec;
  * A non-visual builder that assists you in building consistent button stacks
  * using the {@link FormLayout}.<p>
  *
+ * This builder sets a hint for narrow  margin for the gridded buttons.
+ * This can reduce the button stack's width if some buttons have long texts.
+ * For example, a stack with 'OK', 'Cancel', 'Configure...' will likely
+ * exceed the minimum button width. The narrow margins help getting narrow
+ * stacks.
+ * Note that some look&amp;feels do not support the narrow margin feature,
+ * and conversely, others have only narrow margins. The JGoodies look&amp;feels
+ * honor the setting, the Mac Aqua l&amp;f uses narrow margins all the time.<p>
+ * 
  * <strong>Example:</strong><br>
  * The following example builds a button stack with <i>Close, Up</i> and 
  * <i>Down</i>, where Up and Down are related, and Close is not related
@@ -63,7 +72,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public final class ButtonStackBuilder extends PanelBuilder {
     

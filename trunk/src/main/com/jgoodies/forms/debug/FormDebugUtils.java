@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -43,11 +43,24 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * Provides static methods that help you understand and fix layout problems 
- * when using the {@link FormLayout}. Therefore it can dump information 
- * about the layout grid, layout groups and cell constraints to the console.
+ * when using the {@link FormLayout}. Dumps information about the layout grid, 
+ * layout groups and cell constraints to the console.<p>
+ * 
+ * Implicit values are mapped to concrete. For example, implicit alignments
+ * in column and row specifications will be visible. And cell constraint
+ * alignments that use or override the column and row defaults are visible too.
+ * <pre>
+ * ColumnSpec("p")   -> ColumnSpec("fill:pref:0");
+ * ColumnSpec("p:1") -> ColumnSpec("fill:pref:1");
+ * 
+ * RowSpec("p")      -> RowSpec("center:pref:0");
+ * RowSpec("p:1")    -> RowSpec("center:pref:1");
+ * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
+ * 
+ * @see FormDebugPanel
  */
 public final class FormDebugUtils {
     

@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -299,18 +299,6 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     // Settings Gap Sizes ***************************************************
 
     /**
-     * Sets the size of gaps between component lines using the given 
-     * constant size.
-     *  
-     * @param lineGapSize   the <coide>ConstantSize</code> that describes 
-     *     the size of the gaps between component lines
-     */
-    public void setLineGapSize(ConstantSize lineGapSize) {
-        RowSpec rowSpec = FormFactory.createGapRowSpec(lineGapSize);
-        this.lineGapSpec = rowSpec;
-    }
-    
-    /**
      * Returns the row specification that is used to separate component lines.
      *  
      * @return the <code>RowSpec</code> that is used to separate lines 
@@ -320,16 +308,42 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     }
     
     /**
-     * Sets the size of gaps between paragraphs using the given 
-     * constant size.
+     * Sets the size of gaps between component lines using the given 
+     * constant size.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * builder.setLineGapSize(Sizes.ZERO);
+     * builder.setLineGapSize(Sizes.DLUY9);
+     * builder.setLineGapSize(Sizes.pixel(1));
+     * </pre>
      *  
-     * @param paragraphGapSize   the <coide>ConstantSize</code> that describes 
+     * @param lineGapSize   the <code>ConstantSize</code> that describes 
+     *     the size of the gaps between component lines
+     */
+    public void setLineGapSize(ConstantSize lineGapSize) {
+        RowSpec rowSpec = FormFactory.createGapRowSpec(lineGapSize);
+        this.lineGapSpec = rowSpec;
+    }
+    
+    
+    /**
+     * Sets the size of gaps between paragraphs using the given 
+     * constant size.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * builder.setParagraphGapSize(Sizes.DLUY14);
+     * builder.setParagraphGapSize(Sizes.dluY(22));
+     * builder.setParagraphGapSize(Sizes.pixel(42));
+     * </pre>
+     *  
+     * @param paragraphGapSize   the <code>ConstantSize</code> that describes 
      *     the size of the gaps between paragraphs
      */
     public void setParagraphGapSize(ConstantSize paragraphGapSize) {
         RowSpec rowSpec = FormFactory.createGapRowSpec(paragraphGapSize);
         this.paragraphGapSpec = rowSpec;
     }
+    
     
     /**
      * Returns the offset of the leading column, often 0 or 1.
@@ -348,6 +362,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     public void setLeadingColumnOffset(int columnOffset) {
         this.leadingColumnOffset = columnOffset;
     }
+    
     
     /**
      * Returns whether new data rows are being grouped or not.

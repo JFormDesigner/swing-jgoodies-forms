@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -42,18 +42,19 @@ import com.jgoodies.forms.layout.FormLayout;
  * A panel that paints grid bounds if and only if the panel's layout manager 
  * is a {@link FormLayout}. You can tweak the debug paint process by setting
  * a custom grid color, painting optional diagonals and painting the grid
- * in the background.
- * <p>
- * This class is not intended to be extended. However, it is no longer
+ * in the background.<p>
+ * 
+ * This class is not intended to be extended. However, it is not
  * marked as <code>final</code> to allow users to subclass it for 
- * debugging purposes. In general it is recommended to use JPanel
- * instances, not extend them. You can see this implementation style
+ * debugging purposes. In general it is recommended to <em>use</em> JPanel
+ * instances, not <em>extend</em> them. You can see this implementation style
  * in the Forms tutorial classes. Rarely there's a need to extend JPanel; 
  * for example if you provide a custom behavior for 
  * <code>#paintComponent</code> or <code>#updateUI</code>.  
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
+ * 
  * @see     FormDebugUtils
  */
 public class FormDebugPanel extends JPanel {

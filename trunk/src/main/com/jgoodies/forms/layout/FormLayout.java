@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -133,7 +133,8 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
+ * 
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
@@ -617,11 +618,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * Sets the column groups, where each column in a group gets the same
      * group wide width. Each group is described by an array of integers that
      * are interpreted as column indices. The parameter is an array of such
-     * group descriptions.
-     * <p>
-     * Example: we build two groups, the first of columns 1, 3, and 4;
-     * and a second group for columns 7 and 9.
-     * <pre>
+     * group descriptions.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * // Group columns 1, 3 and 4. 
+     * setColumnGroups(new int[][]{ {1, 3, 4}});
+     * 
+     * // Group columns 1, 3, 4, and group columns 7 and 9
      * setColumnGroups(new int[][]{ {1, 3, 4}, {7, 9}});
      * </pre>
      * 
@@ -687,11 +690,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * Sets the row groups, where each row in such a group gets the same group
      * wide height. Each group is described by an array of integers that are
      * interpreted as row indices. The parameter is an array of such group
-     * descriptions.
-     * <p>
-     * Example: we build two groups, the first of rows 1, and 2,; and a second
-     * group for rows 5, 7, and 9.
-     * <pre>
+     * descriptions.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * // Group rows 1 and 2.
+     * setRowGroups(new int[][]{ {1, 2}});
+     * 
+     * // Group rows 1 and 2, and group rows 5, 7, and 9.
      * setRowGroups(new int[][]{ {1, 2}, {5, 7, 9}});
      * </pre>
      * 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -42,8 +42,8 @@ import java.util.List;
  * You can get instances of <code>ConstantSize</code> using
  * the factory methods and constants in the {@link Sizes} class.
  * Logical constant sizes that vary with the current layout style
- * are delivered by the {@link com.jgoodies.forms.util.LayoutStyle} class.
- * <p>
+ * are delivered by the {@link com.jgoodies.forms.util.LayoutStyle} class.<p>
+ * 
  * This class supports different size units:
  * <table>
  * <tr><td><b>Unit</b>&nbsp;
@@ -56,10 +56,18 @@ import java.util.List;
  * <tr><td>Pixel</td><td>px</td><td>1/(resolution in dpi) in</td></tr>
  * <tr><td>Dialog Unit</td><td>dlu</td><td>honors l&amp;f, resolution, and 
  * dialog font size</td></tr>
- * </table>
+ * </table><p>
+ * 
+ * <strong>Examples:</strong><pre>
+ * Sizes.ZERO;
+ * Sizes.DLUX9;
+ * Sizes.dluX(42); 
+ * Sizes.pixel(99);
+ * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
+ * 
  * @see	Size
  * @see	Sizes
  */

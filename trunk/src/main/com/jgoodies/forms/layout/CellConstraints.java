@@ -43,6 +43,12 @@ import java.util.StringTokenizer;
  * grid height (row span), horizontal alignment and vertical alignment.<p>
  * 
  * Most methods return <em>this</em> object to enable method chaining.<p>
+ * 
+ * You can set optional insets in a constructor. This is useful if you
+ * need to use a pixel-size insets to align perceived component bounds
+ * with pixel data, for example an icon.
+ * Anyway, this feature is rarely used.<p>
+ * 
  * <strong>Examples</strong>:<br>
  * The following cell constraints locate a component in the third
  * column of the fifth row; column and row span are 1; the component
@@ -53,6 +59,11 @@ import java.util.StringTokenizer;
  * cc.xy  (3, 5);
  * cc.xy  (3, 5, CellConstraints.RIGHT, CellConstraints.BOTTOM);
  * cc.xy  (3, 5, "right, bottom");
+ * 
+ * cc.xyw (3, 5, 1);
+ * cc.xyw (3, 5, 1, CellConstraints.RIGHT, CellConstraints.BOTTOM);
+ * cc.xyw (3, 5, 1, "right, bottom");
+ *  
  * cc.xywh(3, 5, 1, 1);
  * cc.xywh(3, 5, 1, 1, CellConstraints.RIGHT, CellConstraints.BOTTOM);
  * cc.xywh(3, 5, 1, 1, "right, bottom"); 
@@ -60,7 +71,7 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
