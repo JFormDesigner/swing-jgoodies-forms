@@ -70,7 +70,7 @@ public final class AlignmentExample {
     
     private JComponent buildHorizontalButtons() {
         FormLayout layout = new FormLayout(
-            "left:pref, 25px, center:pref, 25px, right:pref, 25px, fill:pref",   
+            "left:pref, 15px, center:pref, 15px, right:pref, 15px, fill:pref, 15px, pref",   
             "pref, 12px, pref, 4px, pref, 4px, pref, 4px, pref, 4px, pref"); 
             
         // Create a panel that uses the layout.
@@ -104,12 +104,19 @@ public final class AlignmentExample {
         panel.add(new JButton("Email"),   cc.xy(5,  9));
         panel.add(new JButton("Address"), cc.xy(5, 11));
 
-        panel.add(new JLabel("Fill"),     cc.xy(7,  1));
+        panel.add(new JLabel("Fill"),     cc.xy(7,  1, "center, center"));
         panel.add(new JButton("Name"),    cc.xy(7,  3));
         panel.add(new JButton("Phone"),   cc.xy(7,  5));
         panel.add(new JButton("Fax"),     cc.xy(7,  7));
         panel.add(new JButton("Email"),   cc.xy(7,  9));
         panel.add(new JButton("Address"), cc.xy(7, 11));
+
+        panel.add(new JLabel("Default"),  cc.xy(9,  1, "center, center"));
+        panel.add(new JButton("Name"),    cc.xy(9,  3));
+        panel.add(new JButton("Phone"),   cc.xy(9,  5));
+        panel.add(new JButton("Fax"),     cc.xy(9,  7));
+        panel.add(new JButton("Email"),   cc.xy(9,  9));
+        panel.add(new JButton("Address"), cc.xy(9, 11));
 
         return panel;
     }
@@ -117,8 +124,8 @@ public final class AlignmentExample {
     
     private JComponent buildVerticalButtons() {
         FormLayout layout = new FormLayout(
-            "pref, 12px, pref, 6px, pref, 6px, pref",   
-            "top:pref, 15px, center:pref, 15px, bottom:pref, 15px, fill:pref"); 
+            "pref, 8dlu, pref, 4dlu, pref",   
+            "top:pref, 9dlu, center:pref, 9dlu, bottom:pref, 9dlu, fill:pref, 9dlu, pref"); 
             
         // Create a panel that uses the layout.
         JPanel panel = new JPanel(layout);
@@ -133,22 +140,22 @@ public final class AlignmentExample {
         panel.add(new JLabel("Top"),      cc.xy(1,  1));
         panel.add(createSmallButton(),    cc.xy(3,  1));
         panel.add(createMediumButton(),   cc.xy(5,  1));
-        panel.add(createLargeButton(),    cc.xy(7,  1));
 
         panel.add(new JLabel("Center"),   cc.xy(1,  3));
         panel.add(createSmallButton(),    cc.xy(3,  3));
         panel.add(createMediumButton(),   cc.xy(5,  3));
-        panel.add(createLargeButton(),    cc.xy(7,  3));
 
         panel.add(new JLabel("Bottom"),   cc.xy(1,  5));
         panel.add(createSmallButton(),    cc.xy(3,  5));
         panel.add(createMediumButton(),   cc.xy(5,  5));
-        panel.add(createLargeButton(),    cc.xy(7,  5));
 
         panel.add(new JLabel("Fill"),     cc.xy(1,  7));
         panel.add(createSmallButton(),    cc.xy(3,  7));
         panel.add(createMediumButton(),   cc.xy(5,  7));
-        panel.add(createLargeButton(),    cc.xy(7,  7));
+
+        panel.add(new JLabel("Default"),  cc.xy(1,  9));
+        panel.add(createSmallButton(),    cc.xy(3,  9));
+        panel.add(createMediumButton(),   cc.xy(5,  9));
 
         return panel;
     }
@@ -159,10 +166,6 @@ public final class AlignmentExample {
     
     private JButton createMediumButton() {
         return new JButton("<html>One<br>Two</html>");
-    }
-    
-    private JButton createLargeButton() {
-        return new JButton("<html>One<br>Two<br>Three</html>");
     }
     
     
