@@ -133,7 +133,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -1512,6 +1512,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private static abstract class CachingMeasure implements Measure, Serializable {
         
+        /**
+         * Holds previously requested component sizes. 
+         * Used to minimize size requests to subcomponents. 
+         */
         protected final ComponentSizeCache cache;
         
         private CachingMeasure(ComponentSizeCache cache) {
@@ -1678,12 +1682,19 @@ public final class FormLayout implements LayoutManager2, Serializable {
     }
     
     
-    /*
+    /**
      * Stores column and row origins. 
      */
     public static final class LayoutInfo {
         
+        /**
+         * Holds the origins of the columns.
+         */
         public final int[] columnOrigins;
+        
+        /**
+         * Holds the origins of the rows. 
+         */
         public final int[] rowOrigins;
         
         private LayoutInfo(int[] xOrigins, int[] yOrigins) {
@@ -1691,18 +1702,39 @@ public final class FormLayout implements LayoutManager2, Serializable {
             this.rowOrigins = yOrigins;
         }
         
+        /**
+         * Returns the layout's horizontal origin, the origin of the first column.
+         * 
+         * @return the layout's horizontal origin, the origin of the first column.
+         */
         public int getX() {
             return columnOrigins[0];
         }
         
+        /**
+         * Returns the layout's vertical origin, the origin of the first row.
+         * 
+         * @return the layout's vertical origin, the origin of the first row.
+         */
         public int getY() {
             return rowOrigins[0];
         }
         
+        /**
+         * Returns the layout's width, the size between the first and the last
+         * column origin.
+         * 
+         * @return the layout's width.
+         */
         public int getWidth() {
             return columnOrigins[columnOrigins.length-1] - columnOrigins[0];
         }
         
+        /**
+         * Returns the layout's height, the size between the first and last row.
+         * 
+         * @return the layout's height.
+         */
         public int getHeight() {
             return rowOrigins[rowOrigins.length-1] - rowOrigins[0];
         }

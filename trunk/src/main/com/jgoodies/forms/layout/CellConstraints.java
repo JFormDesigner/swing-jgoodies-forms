@@ -75,7 +75,7 @@ import java.util.StringTokenizer;
  * TODO: Consider renaming the inset to offsets.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -1035,10 +1035,21 @@ public final class CellConstraints implements Cloneable, Serializable {
                     + "fill, default, l, c, r, t, b, f, d.");
         }
 
+        /**
+         * Returns this Alignment's name.
+         * 
+         * @return this alignment's name.
+         */
         public String toString() {
             return name;
         }
 
+        /**
+         * Returns the first character of this Alignment's name.
+         * Used to identify it in short format strings.
+         * 
+         * @return the name's first character.
+         */
         public char abbreviation() {
             return name.charAt(0);
         }

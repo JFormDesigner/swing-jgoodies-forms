@@ -66,7 +66,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see	Size
  * @see	Sizes
@@ -355,9 +355,16 @@ public final class ConstantSize implements Size, Serializable {
             return name;
         }
 
+        /**
+         * Returns the first character of this Unit's name.
+         * Used to identify it in short format strings.
+         * 
+         * @return the first character of this Unit's name.
+         */
         public String abbreviation() {
             return abbreviation;
         }
+        
         
         // Serialization *****************************************************
         
