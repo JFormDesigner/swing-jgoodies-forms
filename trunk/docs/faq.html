@@ -97,6 +97,7 @@
 		<br>&nbsp;<a href="#2.3">2.3 - How can I append a custom row using the DefaultFormBuilder?</a>
 		<br>&nbsp;<a href="#2.4">2.4 - How can I append a custom area using the DefaultFormBuilder?</a>
 		<br>&nbsp;<a href="#2.5">2.5 - How can I identify and understand layout problems?</a>
+		<br>&nbsp;<a href="#2.6">2.6 - How can I remove a component from the layout?</a>
 
 
 	<h2>3. Understanding FormLayout</h2>
@@ -268,6 +269,13 @@
 		how to use these two classes.
 		
 		
+		<h2><a name="2.6">2.6 - How can I remove a component from the layout?</a></h2>
+
+		You don't remove a component from layout but from the layout container.
+		The container holds a list of layout components. Often the container
+		is a <tt>JPanel</tt> or a JPanel subclass.
+		To remove a component from the container invoke <tt>Container#remove</tt>.
+		You can remove all components using <tt>Container#removeAll</tt>.
 		
 		
 	<p>&nbsp;<br>
