@@ -39,17 +39,20 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * Shows three approaches how to add custom rows to a form that is built
- * using a DefaultFormBuilder. 
- * 1) single custom row, 
- * 2) standard + custom row, 
- * 3) multiple standard rows.
+ * using a DefaultFormBuilder.<ol> 
+ * <li> single custom row, 
+ * <li> standard + custom row, 
+ * <li> multiple standard rows.
+ * </ol>
  * 
  * They differ in the position of the 'Comment' label, the alignment 
  * of font baselines and the height of the custom row. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
+ * 
  * @see    DefaultFormBuilder
+ * @see    DefaultFormWithCustomAreasExample
  */
 
 public final class DefaultFormWithCustomRowsExample {
