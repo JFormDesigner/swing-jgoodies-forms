@@ -38,6 +38,7 @@ OTHER CHANGES
                 see the class comment for details
     o Main:     Extended JavaDoc for the DefaultUnitConverter
     o Extras:   Extended JavaDoc for the DefaultFormBuilder
+    o Tutorial: Corrected frame titles
     o Docs:     Improved grouping diagrams
     o Docs:     Fixed invalid link to a tutorial pdf
 
