@@ -35,11 +35,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Describes sizes as used by the {@link com.jgoodies.forms.layout.FormLayout}
- * that provide lower and upper bounds.
+ * Describes sizes that provide lower and upper bounds as used by 
+ * the JGoodies {@link com.jgoodies.forms.layout.FormLayout}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
+ * 
  * @see	Sizes
  * @see	ConstantSize
  * @see	Sizes.ComponentSize
@@ -82,37 +83,6 @@ final class BoundedSize implements Size, Serializable {
         this.upperBound = upperBound;
     }
     
-    /**
-     * Constructs a <code>BoundedSize</code> for the given basis having
-     * no lower and upper bounds.
-     * 
-     * @param basis  the base size
-     * @throws NullPointerException if the basis is null
-     */
-    BoundedSize(Size basis) {
-        this(basis, null, null);
-    }
-    
-    
-    // Accessors ************************************************************
-    
-    /**
-     * Sets the lower bound.
-     * 
-     * @param lowerBound  the new lower bound
-     */
-    void setLowerBound(Size lowerBound) {
-        this.lowerBound = lowerBound;
-    }
-    
-    /**
-     * Sets the upper bound.
-     * 
-     * @param upperBound  the new upper bound
-     */
-    void setUpperBound(Size upperBound) {
-        this.upperBound = upperBound;
-    }
     
     // Implementation of the Size Interface *********************************
     
@@ -167,9 +137,9 @@ final class BoundedSize implements Size, Serializable {
      * Indicates whether some other BoundedSize is "equal to" this one.
      *
      * @param object   the object with which to compare
-     * @return <code>true</code> if this object is the same as the obj
-     * argument; <code>false</code> otherwise.
-     * @see     java.lang.Object#hashCode()
+     * @return <code>true</code> if this object is the same as the object
+     *     argument, <code>false</code> otherwise.
+     * @see     Object#hashCode()
      * @see     java.util.Hashtable
      */
     public boolean equals(Object object) {
@@ -191,7 +161,7 @@ final class BoundedSize implements Size, Serializable {
      * <code>java.util.Hashtable</code>. 
      * 
      * @return  a hash code value for this object.
-     * @see     java.lang.Object#equals(java.lang.Object)
+     * @see     Object#equals(Object)
      * @see     java.util.Hashtable
      */
     public int hashCode() {
@@ -208,6 +178,10 @@ final class BoundedSize implements Size, Serializable {
     /**
      * Returns a string representation of this size object.
      *
+     * <strong>Note:</strong> The string representation may change
+     * at any time. It is strongly recommended to not use this string
+     * for parsing purposes.
+     * 
      * @return  a string representation of the constant size
      */
     public String toString() {
