@@ -49,6 +49,16 @@ import com.jgoodies.forms.layout.FormLayout;
  * to layout <code>JPanel</code>s. It provides convenience methods 
  * to set a default border and to add labels, titles and titled separators.
  * <p>
+ * The PanelBuilder is the working horse for layouts when more specialized 
+ * builders like the {@link com.jgoodies.forms.builder.ButtonBarBuilder}
+ * or {@link com.jgoodies.forms.extras.DefaultFormBuilder} are inappropriate.
+ * <p>
+ * The Forms tutorial includes several examples that present and compare
+ * different style to build with the PanelBuilder: static row numbers
+ * vs. row variable, explicit CellConstraints vs. builder cursor,
+ * static rows vs. dynamically added rows. Also, you may check out the
+ * Tips &amp; Tricks section of the Forms HTML documentation. 
+ * <p>
  * <b>Example:</b><br>
  * This example creates a panel with 3 columns and 3 rows.
  * <pre>
@@ -58,17 +68,18 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * PanelBuilder builder = new PanelBuilder(layout);
  * CellConstraints cc = new CellConstraints();
- * builder.addLabel("Label1",        cc.xy  (1, 1));
- * builder.add(new JTextField(),     cc.xywh(3, 1, 3, 1));
- * builder.addLabel("Label2",        cc.xy  (1, 3));
- * builder.add(new JTextField(),     cc.xy  (3, 3));
- * builder.addLabel("Label3",        cc.xy  (1, 5));
- * builder.add(new JTextField(),     cc.xy  (3, 5));
- * builder.add(new JButton("..."),   cc.xy  (5, 5));
+ * builder.addLabel("Label1",      cc.xy  (1, 1));
+ * builder.add(new JTextField(),   cc.xywh(3, 1, 3, 1));
+ * builder.addLabel("Label2",      cc.xy  (1, 3));
+ * builder.add(new JTextField(),   cc.xy  (3, 3));
+ * builder.addLabel("Label3",      cc.xy  (1, 5));
+ * builder.add(new JTextField(),   cc.xy  (3, 5));
+ * builder.add(new JButton("..."), cc.xy  (5, 5));
  * return builder.getPanel();
  * </pre>
  * 
  * @author  Karsten Lentzsch
+ * @version $Revision: 1.3 $
  * @see     com.jgoodies.forms.extras.I15dPanelBuilder
  * @see     com.jgoodies.forms.extras.DefaultFormBuilder
  */

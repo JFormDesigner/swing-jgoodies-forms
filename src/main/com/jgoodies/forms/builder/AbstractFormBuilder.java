@@ -46,9 +46,11 @@ import com.jgoodies.forms.layout.RowSpec;
  * Builders hide details of the FormLayout and provide convenience behavior 
  * that assists you in constructing a form.
  * This class provides a cell cursor that helps you traverse a form while
- * you fill in components.
+ * you add components. Also, it offers several methods to append custom
+ * and logical columns and rows. 
  *
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
  * @see    PanelBuilder
