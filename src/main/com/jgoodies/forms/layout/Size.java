@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2005 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -45,7 +45,7 @@ import java.util.List;
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see	Sizes
  * @see	ConstantSize
