@@ -30,17 +30,12 @@
 
 package com.jgoodies.forms.factories;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
 
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
 
 /**
@@ -56,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -72,8 +67,6 @@ public class DefaultComponentFactory implements ComponentFactory {
      */
     private static final char MNEMONIC_MARKER = '&';
     
-    private static final ColumnSpec PREF_GROWING_COL_SPEC = 
-        new ColumnSpec(ColumnSpec.FILL, Sizes.PREFERRED, ColumnSpec.DEFAULT_GROW);
         
         
     // Instance *************************************************************
@@ -139,7 +132,7 @@ public class DefaultComponentFactory implements ComponentFactory {
     /**
      * Creates and returns a labeled separator with the label in the left-hand
      * side. Useful to separate paragraphs in a panel; often a better choice 
-     * than a <code>TitledBorder</code>.<p>
+     * than a <code>TitledBorder</code>.
      * 
      * @param text  the title's text
      * @return a title label with separator on the side
@@ -153,7 +146,7 @@ public class DefaultComponentFactory implements ComponentFactory {
      * in a panel, which is often a better choice than a 
      * <code>TitledBorder</code>.
      * 
-     * @param text  the title's text
+     * @param text        the title's text
      * @param alignment   text alignment: left, center, right 
      * @return a separator with title label 
      */
@@ -162,48 +155,32 @@ public class DefaultComponentFactory implements ComponentFactory {
             return new JSeparator();
         }
         JLabel title = createTitle(text);
-        JPanel panel = new JPanel();
-        ColumnSpec gapSpec = new ColumnSpec(
-                isLafAqua() ? Sizes.DLUX1 : Sizes.DLUX3);
-        FormLayout layout;
-        CellConstraints cc = new CellConstraints();
-        if (alignment == SwingConstants.LEFT) {
-            layout = new FormLayout(
-                    new ColumnSpec[]{
-                            FormFactory.PREF_COLSPEC,
-                            gapSpec,
-                            PREF_GROWING_COL_SPEC},
-                    new RowSpec[] {
-                            FormFactory.PREF_ROWSPEC});
-            panel.setLayout(layout);
-            panel.add(title,            cc.xy(1, 1));
-            panel.add(new JSeparator(), cc.xy(3, 1));
-        } else if (alignment == SwingConstants.RIGHT) {
-            layout = new FormLayout(
-                    new ColumnSpec[]{
-                            PREF_GROWING_COL_SPEC,
-                            gapSpec,
-                            FormFactory.PREF_COLSPEC},
-                    new RowSpec[] {
-                            FormFactory.PREF_ROWSPEC});
-            panel.setLayout(layout);
-            panel.add(new JSeparator(), cc.xy(1, 1));
-            panel.add(title,            cc.xy(3, 1));
-        } else if (alignment == SwingConstants.CENTER) {
-            layout = new FormLayout(
-                    new ColumnSpec[]{
-                            PREF_GROWING_COL_SPEC,
-                            gapSpec,
-                            FormFactory.PREF_COLSPEC,
-                            gapSpec,
-                            PREF_GROWING_COL_SPEC},
-                    new RowSpec[] {
-                            FormFactory.PREF_ROWSPEC});
-            panel.setLayout(layout);
-            panel.add(new JSeparator(), cc.xy(1, 1));
-            panel.add(title,            cc.xy(3, 1));
-            panel.add(new JSeparator(), cc.xy(5, 1));
-        } 
+        title.setHorizontalAlignment(alignment);
+        return createSeparator(title);
+    }
+    
+    
+    /**
+     * Creates and returns a labeled separator. Useful to separate paragraphs 
+     * in a panel, which is often a better choice than a 
+     * <code>TitledBorder</code>.<p>
+     * 
+     * The label's position is determined by the label's horizontal alignment.
+     * 
+     * @param label       the title label component
+     * @return a separator with title label
+     * @throws NullPointerException if the label is <code>null</code> 
+     */
+    private JComponent createSeparator(JLabel label) {
+        if (label == null)
+            throw new NullPointerException("The label must not be null.");
+
+        JPanel panel = new JPanel(new TitledSeparatorLayout(!isLafAqua()));
+        panel.add(label);
+        panel.add(new JSeparator());
+        if (label.getHorizontalAlignment() == SwingConstants.CENTER) {
+            panel.add(new JSeparator());
+        }
         return panel;
     }
     
@@ -285,10 +262,155 @@ public class DefaultComponentFactory implements ComponentFactory {
             setFont(getTitleFont());
         }
         
+        /**
+         * Looks up and returns the font used for title labels.
+         * Since Mac Aqua uses an inappropriate titled border font,
+         * we use a bold label font instead. Actually if the title
+         * is used in a titled separator, the bold weight is questionable.
+         * It seems that most native Aqua tools use a plain label in
+         * titled separators.
+         * 
+         * @return the font used for title labels
+         */
         private Font getTitleFont() {
             return isLafAqua()
             	? UIManager.getFont("Label.font").deriveFont(Font.BOLD) 
                 : UIManager.getFont("TitledBorder.font");
+        }
+        
+    }
+    
+    
+    // A layout for the title label and separator(s) in titled separators.
+    private static class TitledSeparatorLayout implements LayoutManager {
+        
+        private final boolean centerSeparators;
+        
+        /**
+         * Constructs a TitledSeparatorLayout that either centers the separators
+         * or aligns them along the font baseline of the title label.
+         * 
+         * @param centerSeparators  true to center, false to align along
+         *     the font baseline of the title label
+         */
+        private TitledSeparatorLayout(boolean centerSeparators) {
+            this.centerSeparators = centerSeparators;
+        }
+        
+        /**
+         * Does nothing. This layout manager looks up the components
+         * from the layout container and used the component's index
+         * in the child array to identify the label and separators.
+         * 
+         * @param name the string to be associated with the component
+         * @param comp the component to be added
+         */
+        public void addLayoutComponent(String name, Component comp) {
+            // Does nothing.
+        }
+
+        /**
+         * Does nothing. This layout manager looks up the components
+         * from the layout container and used the component's index
+         * in the child array to identify the label and separators.
+         * 
+         * @param comp the component to be removed
+         */
+        public void removeLayoutComponent(Component comp) {
+            // Does nothing.
+        }
+        
+        /** 
+         * Computes and returns the minimum size dimensions 
+         * for the specified container. Forwards this request 
+         * to <code>#preferredLayoutSize</code>.
+         * 
+         * @param parent the component to be laid out
+         * @see #preferredLayoutSize(Container)
+         */
+        public Dimension minimumLayoutSize(Container parent) {
+            return preferredLayoutSize(parent);
+        }
+        
+        /** 
+         * Computes and returns the preferred size dimensions 
+         * for the specified container. Returns the title label's
+         * preferred size.
+         * 
+         * @param parent the component to be laid out
+         * @see #minimumLayoutSize(Container)
+         */
+        public Dimension preferredLayoutSize(Container parent) {
+            Component label = getLabel(parent);
+            Dimension labelSize = label.getPreferredSize();
+            Insets insets = parent.getInsets();
+            int width  = labelSize.width  + insets.left + insets.right;
+            int height = labelSize.height + insets.top  + insets.bottom; 
+            return new Dimension(width, height);
+        }
+
+        /** 
+         * Lays out the specified container.
+         * 
+         * @param parent the container to be laid out 
+         */
+        public void layoutContainer(Container parent) {
+            synchronized (parent.getTreeLock()) {
+                // Look up the parent size and insets
+                Dimension size = parent.getSize();
+                Insets insets = parent.getInsets();
+                int width  = size.width - insets.left - insets.right;
+                
+                // Look up components and their sizes
+                JLabel label = getLabel(parent);
+                Dimension labelSize = label.getPreferredSize();
+                int labelWidth  = labelSize.width;
+                int labelHeight = labelSize.height;
+                Component separator1 = parent.getComponent(1);
+                int separatorHeight  = separator1.getPreferredSize().height;
+
+                FontMetrics metrics = label.getFontMetrics(label.getFont());
+                int ascent  = metrics.getMaxAscent();
+                int hGapDlu = centerSeparators ? 3 : 1;
+                int hGap    = Sizes.dialogUnitXAsPixel(hGapDlu, label);
+                int vOffset = centerSeparators
+                    ? 1 + (labelHeight - separatorHeight) / 2
+                    : ascent - separatorHeight / 2;
+                
+                int alignment = label.getHorizontalAlignment();
+                int y = insets.top;                  
+                if (alignment == JLabel.LEFT) {
+                    int x = insets.left;
+                    label.setBounds(x, y, labelWidth, labelHeight);
+                    x+= labelWidth;
+                    x+= hGap;
+                    int separatorWidth = size.width - insets.right - x;
+                    separator1.setBounds(x, y + vOffset, separatorWidth, separatorHeight);
+                } else if (alignment == JLabel.RIGHT) {
+                    int x = insets.left + width - labelWidth;
+                    label.setBounds(x, y, labelWidth, labelHeight);
+                    x -= hGap;
+                    x--;
+                    int separatorWidth = x - insets.left;
+                    separator1.setBounds(insets.left, y + vOffset, separatorWidth, separatorHeight);
+                } else {
+                    int xOffset = (width - labelWidth - 2*hGap) / 2;
+                    int x = insets.left;
+                    separator1.setBounds(x, y + vOffset, xOffset-1, separatorHeight);
+                    x += xOffset;
+                    x += hGap;
+                    label.setBounds(x, y, labelWidth, labelHeight);
+                    x += labelWidth;
+                    x += hGap;
+                    Component separator2 = parent.getComponent(2);
+                    int separatorWidth = size.width - insets.right - x;
+                    separator2.setBounds(x, y + vOffset,separatorWidth ,separatorHeight);
+                }
+            }
+        }
+        
+        private JLabel getLabel(Container parent) {
+            return (JLabel) parent.getComponent(0);
         }
         
     }
