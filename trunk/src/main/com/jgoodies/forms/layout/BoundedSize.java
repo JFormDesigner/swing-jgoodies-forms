@@ -116,7 +116,7 @@ final class BoundedSize implements Size {
     
     /**
      * Returns this size as pixel size. Neither requires the component
-     * list nor the specified measures.
+     * list nor the specified measures. Honors the lower and upper bound.
      * <p> 
      * Invoked by <code>FormSpec</code> to determine the size of a column or
      * row.
@@ -142,7 +142,7 @@ final class BoundedSize implements Size {
                                      defaultMeasure));
         }
         if (upperBound != null) {
-            size = Math.max(size, upperBound.maximumSize(
+            size = Math.min(size, upperBound.maximumSize(
                                      container,
                                      components,
                                      minMeasure,
