@@ -40,62 +40,45 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * A panel that paints grid bounds if and only if the panel's layout manager 
- * is a {@link FormLayout}. In addition, you can choose to dump information 
- * about the layout grid, layout groups and cell constraints to the console.
+ * is a {@link FormLayout}. You can tweak the debug paint process by setting
+ * a custom grid color, painting optional diagonals and painting the grid
+ * in the background.
  * <p>
  * This class is not intended to be extended. However, it is no longer
  * marked as <code>final</code> to allow users to subclass it for 
  * debugging purposes. In general it is recommended to use JPanel
  * instances, not extend them. You can see this implementation style
- * in the Forms tutorial classes. Only rarely there's a need to extend
- * JPanel; for example if you provide a custom behavior for 
+ * in the Forms tutorial classes. Rarely there's a need to extend JPanel; 
+ * for example if you provide a custom behavior for 
  * <code>#paintComponent</code> or <code>#updateUI</code>.  
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @see     FormDebugUtils
  */
 public class FormDebugPanel extends JPanel {
     
     /** 
-     * The default color used to paint the form's grid. 
+     * The default color used to paint the form's debug grid. 
      */
     private static final Color DEFAULT_GRID_COLOR = Color.red;
 
 
     /** 
-     * Specifies if the grid info should be dumped to the console.
-     */
-    private boolean dumpGridInfo;
-    
-    
-    /**
-     * Specifies whether the column and row groups shall be dumped to the console. 
-     */
-    private boolean dumpGroups;
-
-
-    /**
-     * Specifies whether the form constraints shall be dumped to the console. 
-     */
-    private boolean dumpConstraints;
-
-
-    /** 
-     * Specifies if the grid should be painted in the background. 
+     * Specifies whether the grid shall be painted in the background. 
      * Is off by default and so the grid is painted in the foreground.
      */
     private boolean paintInBackground;
     
     
     /**
-     * Specifies if the container's diagonals should be painted.
+     * Specifies whether the container's diagonals should be painted.
      */
     private boolean paintDiagonals;
 
 
     /**
-     * Specifies the color used to paint the grid.
+     * Holds the color used to paint the debug grid.
      */
     private Color gridColor = DEFAULT_GRID_COLOR;
 
@@ -103,77 +86,63 @@ public class FormDebugPanel extends JPanel {
     // Instance Creation ****************************************************
     
     /**
-     * Constructs a <code>FormDebugPanel</code>. 
-     * All options are off by default.
+     * Constructs a <code>FormDebugPanel</code> with all options turned off. 
      */
     public FormDebugPanel() {
         this(null);
     }
+    
 
     /**
-     * Constructs a <code>FormDebugPanel</code>. 
-     * All options are off by default.
+     * Constructs a <code>FormDebugPanel</code> on the given 
+     * <code>FormLayout</code> instance with all options turned off.
+     * 
+     * @param layout  the panel's FormLayout instance 
      */
     public FormDebugPanel(FormLayout layout) {
-        this(layout, false, false, false, false, false);
+        this(layout, false, false);
     }
 
+
     /**
-     * Constructs a <code>FormDebugPanel</code> for the given
-     * <code>FormLayout</code> and the specified settings.
+     * Constructs a <code>FormDebugPanel</code> on the given
+     * <code>FormLayout</code> using the specified settings that are
+     * otherwise turned off.
+     * 
+     * @param paintInBackground true to paint grid lines in the background
+     * @param paintDiagonals    true to paint diagonals, false to not paint them 
      */
-    public FormDebugPanel(boolean dumpGridInfo,   
-                           boolean dumpGroups,   
-                           boolean dumpConstraints,
-                           boolean paintInBackground, 
+    public FormDebugPanel(boolean paintInBackground, 
                            boolean paintDiagonals) {
-        this(null, dumpGridInfo, dumpGroups, dumpConstraints, paintInBackground, paintDiagonals);
+        this(null, paintInBackground, paintDiagonals);
     }
     
+
     /**
-     * Constructs a <code>FormDebugPanel</code> for the given
-     * <code>FormLayout</code> and the specified settings.
+     * Constructs a <code>FormDebugPanel</code> on the given
+     * <code>FormLayout</code> using the specified settings that are
+     * otherwise turned off.
+     * 
+     * @param layout  the panel's FormLayout instance
+     * @param paintInBackground true to paint grid lines in the background
+     * @param paintDiagonals    true to paint diagonals, false to not paint them 
      */
     public FormDebugPanel(FormLayout layout,
-                           boolean dumpGridInfo,   
-                           boolean dumpGroups,   
-                           boolean dumpConstraints,
                            boolean paintInBackground, 
                            boolean paintDiagonals) {
         super(layout);
-        setDumpGridInfo(dumpGridInfo);
-        setDumpGroups(dumpGroups);
-        setDumpConstraints(dumpConstraints);
         setPaintInBackground(paintInBackground);
         setPaintDiagonals(paintDiagonals);
         setGridColor(DEFAULT_GRID_COLOR);
     }
+    
 
     // Accessors ************************************************************
     
     /**
-     * Enables or disables the dump of the form's grid info.
-     */
-    public void setDumpGridInfo(boolean b) { 
-        dumpGridInfo = b; 
-    }
-
-    /**
-     * Enables or disables the dump of the form's groups.
-     */
-    public void setDumpGroups(boolean b) { 
-        dumpGroups = b; 
-    }
-
-    /**
-     * Enables or disables the dump of the component's form constraints.
-     */
-    public void setDumpConstraints(boolean b) { 
-        dumpConstraints = b; 
-    }
-
-    /**
      * Specifies to paint in background or foreground.
+     * 
+     * @param b    true to paint in the background, false for the foreground
      */
     public void setPaintInBackground(boolean b) { 
         paintInBackground = b; 
@@ -181,15 +150,17 @@ public class FormDebugPanel extends JPanel {
 
     /**
      * Enables or disables to paint the panel's diagonals.
+     * 
+     * @param b    true to paint diagonals, false to not paint them
      */
     public void setPaintDiagonals(boolean b) { 
         paintDiagonals = b; 
     }
 
     /**
-     * Sets the grid color.
+     * Sets the debug grid's color.
      * 
-     * @param color  the grid color
+     * @param color  the color used to paint the debug grid
      */
     public void setGridColor(Color color) { 
         gridColor = color; 
@@ -202,7 +173,7 @@ public class FormDebugPanel extends JPanel {
      * Paints the component.
      * @see javax.swing.JComponent#paintComponent(Graphics)
      */
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (paintInBackground) {
             paintGrid(g);
@@ -229,22 +200,7 @@ public class FormDebugPanel extends JPanel {
         if (!(getLayout() instanceof FormLayout)) {
             return;
         }
-        FormLayout layout = (FormLayout) getLayout();
         FormLayout.LayoutInfo layoutInfo = FormDebugUtils.getLayoutInfo(this);
-        
-        if (dumpGridInfo) {
-            FormDebugUtils.dumpGridBounds(layoutInfo);
-        }
-        
-        if (dumpGroups) {
-            FormDebugUtils.dumpColumnGroups(layout);
-            FormDebugUtils.dumpRowGroups(layout);
-        }
-        
-        if (dumpConstraints) {
-            FormDebugUtils.dumpConstraints(this);
-        }
-        
         int left   = layoutInfo.getX();
         int top    = layoutInfo.getY();
         int width  = layoutInfo.getWidth();
