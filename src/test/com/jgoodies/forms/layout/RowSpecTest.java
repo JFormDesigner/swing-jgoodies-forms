@@ -31,7 +31,6 @@
 package com.jgoodies.forms.layout;
 
 import junit.framework.TestCase;
-import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * A test case for class {@link RowSpec}.
