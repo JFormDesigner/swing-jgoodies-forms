@@ -2,15 +2,10 @@
 JGoodies Forms(tm) To-Do
 ========================
 
-o Test the FormLayout serializability
-
 o Add custom ComponentFactory example
 
 o Move example title and comment from the Forms Demo
   to the examples.
-
-o Integrate Jeanette's changes
-
 
 o Extend unit tests:
    + test rounding behavior
