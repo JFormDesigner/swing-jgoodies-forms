@@ -125,7 +125,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre> 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see com.jgoodies.forms.util.LayoutStyle
  */
@@ -286,7 +286,8 @@ public final class ButtonBarBuilder extends PanelBuilder {
     
     
     /**
-     * Adds a fixed size component.
+     * Adds a fixed size component. Unlike the gridded components,
+     * this component keeps its individual preferred dimension.
      * 
      * @param component  the component to add
      */
@@ -298,7 +299,8 @@ public final class ButtonBarBuilder extends PanelBuilder {
     
 
     /**
-     * Adds a fixed size component with narrow margins.
+     * Adds a fixed size component with narrow margins. Unlike the gridded 
+     * components, this component keeps its individual preferred dimension.
      * 
      * @param component  the component to add
      */
@@ -309,7 +311,8 @@ public final class ButtonBarBuilder extends PanelBuilder {
     
 
     /**
-     * Adds a gridded component.
+     * Adds a gridded component, i.e. a component that will get 
+     * the same dimension as all other gridded components.
      * 
      * @param component  the component to add
      */
@@ -323,7 +326,8 @@ public final class ButtonBarBuilder extends PanelBuilder {
     
 
     /**
-     * Adds a gridded component that grows.
+     * Adds a gridded component that grows. The component's initial size
+     * (before it grows) is the same as for all other gridded components.
      * 
      * @param component  the component to add
      */
@@ -333,17 +337,6 @@ public final class ButtonBarBuilder extends PanelBuilder {
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         add(component);
         nextColumn();
-    }
-    
-
-    /**
-     * Adds a gridded, narrow component that grows.
-     * 
-     * @param component  the component to add
-     */
-    public void addGriddedGrowingNarrow(JComponent component) {
-        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
-        addGriddedGrowing(component);
     }
     
 
