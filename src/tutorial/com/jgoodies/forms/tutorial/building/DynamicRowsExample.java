@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -37,15 +37,17 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Combines the <code>FormLayout</code> with the <code>PanelBuilder</code>. 
- * Columns and rows are specified before the panel is filled with components. 
- * The builder's cursor is used to determine the location of the next component. 
- * And the builder's convenience methods are used to add labels and separators.
- * <p> 
+ * Columns and rows are specified before the panel is filled 
+ * with components. The builder's cursor is used to determine the location 
+ * of the next component. And the builder's convenience methods are used 
+ * to add labels and separators.<p>
+ *  
  * This panel building style is intended for learning purposes only.
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
+ * 
  * @see	PlainExample
  * @see	RowCounterExample
  * @see	DefaultFormBuilderExample

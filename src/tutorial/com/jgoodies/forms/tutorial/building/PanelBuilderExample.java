@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -44,18 +44,19 @@ import com.jgoodies.forms.layout.FormLayout;
 /**
  * Demonstrates a typical use of the FormLayout.
  * Columns and rows are specified before the panel is filled with
- * components, and the panel is filled with a PanelBuilder. 
- * <p>
+ * components, and the panel is filled with a PanelBuilder.<p>
+ * 
  * Unlike the PlainExample, this implementation can delegate
  * the component creation for text labels and titled separators
- * to the builder.
- * <p>
+ * to the builder.<p>
+ * 
  * This panel building style is recommended for panels with
  * a medium number of rows and components. If the panel has more rows, 
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
+ * 
  * @see     PanelBuilder
  * @see	RowCounterExample
  * @see	DynamicRowsExample

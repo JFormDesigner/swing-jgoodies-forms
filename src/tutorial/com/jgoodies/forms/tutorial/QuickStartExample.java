@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -42,14 +42,14 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Quickly introduces the most important features of the FormLayout:
- * create and configure a layout, create a builder, add components.
- * <p>
+ * create and configure a layout, create a builder, add components.<p>
+ * 
  * Note that this class is not a JPanel subclass;
  * it justs uses a JPanel as layout container that will be returned
  * by <code>#buildPanel()</code>. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
 public final class QuickStartExample {
