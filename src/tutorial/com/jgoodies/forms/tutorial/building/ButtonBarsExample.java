@@ -40,11 +40,12 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Demonstrates the use of Factories as provided by the Forms framework.
+ * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
- * @author	Karsten Lentzsch
- * @see	ButtonBarFactory
- * @see	WizardBarFactory
+ * @author  Karsten Lentzsch
+ * @see     ButtonBarBuilder
+ * @see     ButtonBarFactory
+ * @see     WizardBarFactory
  */
 public final class ButtonBarsExample {
     

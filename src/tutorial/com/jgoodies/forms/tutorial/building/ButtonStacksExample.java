@@ -40,11 +40,10 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Demonstrates the use of Factories as provided by the Forms framework.
+ * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
- * @author	Karsten Lentzsch
- * @see	ButtonBarFactory
- * @see	WizardBarFactory
+ * @author  Karsten Lentzsch
+ * @see     ButtonStackBuilder
  */
 public final class ButtonStacksExample {
     
@@ -68,8 +67,8 @@ public final class ButtonStacksExample {
 
         tabbedPane.add(buildButtonStackNoBuilder(),    "No Builder");
         tabbedPane.add(buildButtonStackWithBuilder(),  "With Builder");
-        tabbedPane.add(buildButtonStackRelated(),      "Gaps - Related");
-        tabbedPane.add(buildButtonStackUnrelated(),    "Gaps - Unrelated ");
+        tabbedPane.add(buildButtonStackRelated(),      "Related");
+        tabbedPane.add(buildButtonStackUnrelated(),    "Unrelated ");
         tabbedPane.add(buildButtonStackMixedDefault(), "Mix Default");
         tabbedPane.add(buildButtonStackMixedNarrow(),  "Mix Narrow");
         return tabbedPane;
