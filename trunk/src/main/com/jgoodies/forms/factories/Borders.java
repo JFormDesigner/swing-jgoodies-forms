@@ -50,6 +50,8 @@ import com.jgoodies.forms.layout.Sizes;
  * Borders.createEmptyBorder(Sizes.DLUY4, Sizes.DLUX2, Sizes.DLUY4, Sizes.DLUX2);
  * Borders.createEmptyBorder("4dlu, 2dlu, 4dlu, 2dlu");
  * </pre>
+ * <p>
+ * TODO: Honor the current LayoutStyle
  *
  * @author  Karsten Lentzsch
  * @see     Border
@@ -60,45 +62,72 @@ public final class Borders {
 
     // Constant Borders *****************************************************
 
+    /**
+     * A prepared and reusable EmptyBorder without gaps.
+     */ 
     public static final Border EMPTY_BORDER = 
         new javax.swing.border.EmptyBorder(0, 0, 0, 0);
         
+    /**
+     * A prepared and reusable Border with 2dlu on all sides.
+     */ 
     public static final Border DLU2_BORDER = 
         createEmptyBorder(Sizes.DLUY2, 
                           Sizes.DLUX2, 
                           Sizes.DLUY2, 
                           Sizes.DLUX2);
                         
+    /**
+     * A prepared and reusable Border with 4dlu on all sides.
+     */ 
     public static final Border DLU4_BORDER = 
         createEmptyBorder(Sizes.DLUY4, 
                           Sizes.DLUX4, 
                           Sizes.DLUY4, 
                           Sizes.DLUX4);
                         
+    /**
+     * A prepared and reusable Border with 7dlu on all sides.
+     */ 
     public static final Border DLU7_BORDER = 
         createEmptyBorder(Sizes.DLUY7, 
                           Sizes.DLUX7, 
                           Sizes.DLUY7, 
                           Sizes.DLUX7);
                         
+    /**
+     * A prepared Border with 14dlu on all sides.
+     */ 
     public static final Border DLU14_BORDER = 
         createEmptyBorder(Sizes.DLUY14, 
                           Sizes.DLUX14, 
                           Sizes.DLUY14, 
                           Sizes.DLUX14);
                         
-    /*
-     * The following three constants use logical sizes that change with the
-     * layout style. A future release will likely define them using a class
-     * <code>LogicalSize</code> or <code>StyledSize</code>.
-     */
-     
+    /**
+     * A standardized Border that describes the gap between a dialog
+     * content and a bottom button bar.
+     * A future version of this constant shall honor the 
+     * {@link com.jgoodies.forms.util.LayoutStyle}.
+     */ 
     public static final Border BUTTON_BAR_GAP_BORDER = 
         createEmptyBorder(Sizes.DLUY6, Sizes.ZERO, Sizes.ZERO, Sizes.ZERO);
                         
+    /**
+     * A standardized Border that describes the border around 
+     * a dialog content that has no tabs.
+     * A future version of this constant shall honor the 
+     * {@link com.jgoodies.forms.util.LayoutStyle}.
+     */ 
     public static final Border DIALOG_BORDER = 
         DLU7_BORDER;
         
+    /**
+     * A standardized Border that describes the border around 
+     * a dialog content that uses tabs.
+     * A future version of this constant shall honor the 
+     * {@link com.jgoodies.forms.util.LayoutStyle}.
+     */ 
     public static final Border TABBED_DIALOG_BORDER = 
         DLU4_BORDER;
     
