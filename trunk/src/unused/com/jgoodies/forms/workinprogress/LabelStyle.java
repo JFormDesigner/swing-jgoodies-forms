@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -90,7 +90,7 @@ public final class LabelStyle {
     // Label and Text Creation **********************************************
     
     /**
-     * Creates and answers a decorated <code>JLabel</code> that has a colon or
+     * Creates and returns a decorated <code>JLabel</code> that has a colon or
      * not, depending on the <code>colon</code> flag of this style.
      * 
      * @param text    the label's text
@@ -101,7 +101,7 @@ public final class LabelStyle {
     }
 
     /**
-     * Answers the given text, unchanged if the colon property is false,
+     * Returns the given text, unchanged if the colon property is false,
      * and extended by a colon if it's true.
      * 
      * @param text   the unchanged text
@@ -114,7 +114,7 @@ public final class LabelStyle {
     
 
     /**
-     * Computes and answers the column default alignment that is associated
+     * Computes and returns the column default alignment that is associated
      * with this label style.
      * 
      * @return the label style's associated column alignment
@@ -137,7 +137,7 @@ public final class LabelStyle {
     // Helper Code **********************************************************
     
     /**
-     * Computes and answers the platform's default style.
+     * Computes and returns the platform's default style.
      * 
      * @return the platform's default <code>LabelStyle</code>
      */

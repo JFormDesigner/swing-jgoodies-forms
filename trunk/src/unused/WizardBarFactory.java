@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -59,7 +59,7 @@ public final class WizardBarFactory {
     // Wizard Bars: No Help, No Cancel, Finish replaces Next*****************
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Next.
      */
     public static JPanel createNextBar(JButton next) {
@@ -70,7 +70,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Back and Next.
      */
     public static JPanel createBackNextBar(JButton back, JButton next) {
@@ -82,7 +82,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Back and Finish.
      */
     public static JPanel createBackFinishBar(JButton back, JButton finish) {
@@ -96,7 +96,7 @@ public final class WizardBarFactory {
     // Wizard Bars: No Help, No Cancel, Finish coexists with Next************
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Finish.
      */
     public static JPanel createFinishBar(JButton finish) {
@@ -107,7 +107,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Next and Finish.
      */
     public static JPanel createNextFinishBar(JButton next, JButton finish) {
@@ -118,7 +118,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createBackNextFinishBar(
         JButton back,
@@ -134,7 +134,7 @@ public final class WizardBarFactory {
     // Wizard Bars: No Help, Cancel in the right hand side ******************    
 
     /**
-     * Creates and answers a button bar with Next and Cancel.
+     * Creates and returns a button bar with Next and Cancel.
      */
     public static JPanel createNextCancelBar(JButton next, JButton cancel) {
         ButtonBarBuilder builder = new ButtonBarBuilder();
@@ -144,7 +144,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createBackNextCancelBar(
         JButton back,
@@ -158,7 +158,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createBackFinishCancelBar(
         JButton back,
@@ -174,7 +174,7 @@ public final class WizardBarFactory {
     // Wizard Bars: No Help, Cancel in the right hand side, Finish and Next *
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createFinishCancelBar(
         JButton finish,
@@ -186,7 +186,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createNextFinishCancelBar(
         JButton next,
@@ -199,7 +199,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createBackNextFinishCancelBar(
         JButton back,
@@ -216,7 +216,7 @@ public final class WizardBarFactory {
     // Wizard Bars: Help, No Cancel, Finish replaces Next*****************
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Help and Next.
      */
     public static JPanel createHelpNextBar(JButton help, JButton next) {
@@ -229,7 +229,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Help, Back and Next.
      */
     public static JPanel createHelpBackNextBar(
@@ -246,7 +246,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Back and Finish.
      */
     public static JPanel createHelpBackFinishBar(
@@ -265,7 +265,7 @@ public final class WizardBarFactory {
     // Wizard Bars: Help, No Cancel, Finish coexists with Next************
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Finish.
      */
     public static JPanel createHelpFinishBar(JButton help, JButton finish) {
@@ -278,7 +278,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Next and Finish.
      */
     public static JPanel createHelpNextFinishBar(
@@ -294,7 +294,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createHelpBackNextFinishBar(
         JButton help,
@@ -313,7 +313,7 @@ public final class WizardBarFactory {
     // Wizard Bars: No Help, Cancel in the left *****************************
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Help, Back, Next and Cancel.
      */
     public static JPanel createHelpBackNextCancelBar(
@@ -331,7 +331,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Help, Back, Next and Finish.
      */
     public static JPanel createHelpBackFinishCancelBar(
@@ -351,7 +351,7 @@ public final class WizardBarFactory {
     // Wizard Bars: Help, Cancel in the right hand side, Finish and Next *
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createHelpNextCancelBar(
         JButton help,
@@ -366,7 +366,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createHelpFinishCancelBar(
         JButton help,
@@ -381,7 +381,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createHelpNextFinishCancelBar(
         JButton help,
@@ -397,7 +397,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createHelpBackNextFinishCancelBar(
         JButton help,
@@ -417,7 +417,7 @@ public final class WizardBarFactory {
     // Wizard Bars: No Help, Cancel in left, Finish replaces Next ***********
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Next.
      */
     public static JPanel createCancelNextBar(JButton cancel, JButton next) {
@@ -430,7 +430,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Back and Next.
      */
     public static JPanel createCancelBackNextBar(
@@ -447,7 +447,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Back and Finish.
      */
     public static JPanel createCancelBackFinishBar(
@@ -466,7 +466,7 @@ public final class WizardBarFactory {
     // Wizard Bars: No Help, Cancel in the left, Finish coexists with Next************
 
     /**
-     * Creates and answers a button bar with 
+     * Creates and returns a button bar with 
      * Finish.
      */
     public static JPanel createCancelFinishBar(
@@ -481,7 +481,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with
+     * Creates and returns a button bar with
      * Next and Finish.
      */
     public static JPanel createCancelNextFinishBar(
@@ -497,7 +497,7 @@ public final class WizardBarFactory {
     }
 
     /**
-     * Creates and answers a button bar with Next and Finish.
+     * Creates and returns a button bar with Next and Finish.
      */
     public static JPanel createCancelBackNextFinishBar(
         JButton cancel,

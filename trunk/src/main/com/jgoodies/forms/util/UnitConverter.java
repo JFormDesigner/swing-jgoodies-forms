@@ -39,7 +39,7 @@ import java.awt.Component;
  * delegates all size conversions to an implementation of this interface. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see    com.jgoodies.forms.layout.Sizes
  * @see    com.jgoodies.forms.layout.ConstantSize
  * @see    AbstractUnitConverter
@@ -49,7 +49,7 @@ public interface UnitConverter {
     
     
     /**
-     * Converts Inches and answers pixels using the specified resolution.
+     * Converts Inches and returns pixels using the specified resolution.
      * 
      * @param in         the Inches
      * @param component  the component that provides the graphics object
@@ -59,7 +59,7 @@ public interface UnitConverter {
     
 
     /**
-     * Converts Millimeters and answers pixels using the resolution of the
+     * Converts Millimeters and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param mm         Millimeters
@@ -70,7 +70,7 @@ public interface UnitConverter {
 
 
     /**
-     * Converts Centimeters and answers pixels using the resolution of the
+     * Converts Centimeters and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param cm         Centimeters
@@ -81,7 +81,7 @@ public interface UnitConverter {
     
 
     /**
-     * Converts DTP Points and answers pixels using the resolution of the
+     * Converts DTP Points and returns pixels using the resolution of the
      * given component's graphics object.
      * 
      * @param pt          DTP Points
@@ -92,7 +92,7 @@ public interface UnitConverter {
     
     
     /**
-     * Converts horizontal dialog units and answers pixels. 
+     * Converts horizontal dialog units and returns pixels. 
      * Honors the resolution, dialog font size, platform and look&amp;feel.
      * 
      * @param dluX       the horizontal dialog units
@@ -103,7 +103,7 @@ public interface UnitConverter {
             
                     
     /**
-     * Converts vertical dialog units and answers pixels. 
+     * Converts vertical dialog units and returns pixels. 
      * Honors the resolution, dialog font size, platform and look&amp;feel.
      * 
      * @param dluY       the vertical dialog units

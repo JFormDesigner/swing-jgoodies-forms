@@ -62,7 +62,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -317,7 +317,7 @@ public final class FormFactory {
     // Factory Methods ******************************************************
 
     /**
-     * Creates and answers an instance of <code>FormLayout</code>
+     * Creates and returns an instance of <code>FormLayout</code>
      * to build forms with the specified number of major and minor columns.<p>
      * 
      * The layout will use default values for all gaps.<p>
@@ -343,7 +343,7 @@ public final class FormFactory {
     }
 
     /**
-     * Creates and answers an instance of <code>FormLayout</code>
+     * Creates and returns an instance of <code>FormLayout</code>
      * to build forms with the given number of major columns. 
      * Major columns consists of a label and a component section, where each 
      * component section is divided into the given number of minor columns.<p>

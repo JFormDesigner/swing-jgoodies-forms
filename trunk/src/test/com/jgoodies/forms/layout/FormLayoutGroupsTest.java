@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * Tests column and row groups of the FormLayout. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public final class FormLayoutGroupsTest extends TestCase {
@@ -158,7 +158,7 @@ public final class FormLayoutGroupsTest extends TestCase {
     }
     
     /**
-     * Checks and answers if the two-dimensional arrays are equal.
+     * Checks and returns if the two-dimensional arrays are equal.
      * @param array1	a two-dimensional array
      * @param array2	a second two-dimensional array
      * @return true if both arrays are equal, false otherwise

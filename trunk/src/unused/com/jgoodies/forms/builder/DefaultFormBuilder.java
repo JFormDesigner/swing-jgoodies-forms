@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -336,7 +336,7 @@ public final class DefaultFormBuilder extends PanelBuilder {
     // Component Creation ***************************************************
     
     /**
-     * Creates and answers a decorated <code>JLabel</code>.
+     * Creates and returns a decorated <code>JLabel</code>.
      * 
      * @param text		the label's text
      */

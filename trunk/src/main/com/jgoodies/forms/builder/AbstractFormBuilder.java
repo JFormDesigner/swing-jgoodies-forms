@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -597,8 +597,8 @@ public abstract class AbstractFormBuilder {
     
     
     /**
-     * Returns the leading column.
-     * <p>
+     * Returns the index of the leading column.<p>
+     * 
      * Subclasses may override this method, for example, if the form
      * has a leading gap column that should not be filled with components.
      * 

@@ -56,7 +56,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @since 1.0.3
  * 
  * @see	ResourceBundle
@@ -225,7 +225,7 @@ public class I15dPanelBuilder extends PanelBuilder {
     // Helper Code **********************************************************
     
     /**
-     * Looks up and answers the internationalized (i15d) string for the given
+     * Looks up and returns the internationalized (i15d) string for the given
      * resource key from the <code>ResourceBundle</code>.
      * 
      * @param resourceKey  the key to look for in the resource bundle
