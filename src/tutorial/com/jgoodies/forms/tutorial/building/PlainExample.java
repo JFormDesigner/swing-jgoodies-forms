@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to create text labels and separators. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see     PanelBuilderExample
  * @see	RowCounterExample
@@ -180,13 +180,22 @@ public final class PlainExample {
     }
     
     /**
-     * Creates and answer a separator with a label in the left hand side.
+     * Creates and returns a separator with a label in the left hand side.<p>
      * 
-     * @param text   the label's text
+     * <pre>
+     * createSeparator("Name");       // No mnemonic
+     * createSeparator("N&ame");      // Mnemonic is 'a'
+     * createSeparator("Save &as");   // Mnemonic is the second 'a'
+     * createSeparator("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * </pre>
+     * 
+     * @param textWithMnemonic  the label's text - 
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return a separator with label in the left hand side
      */
-    private Component createSeparator(String text) {
-        return DefaultComponentFactory.getInstance().createSeparator(text);
+    private Component createSeparator(String textWithMnemonic) {
+        return DefaultComponentFactory.getInstance().createSeparator(
+                textWithMnemonic);
     }
 
 }
