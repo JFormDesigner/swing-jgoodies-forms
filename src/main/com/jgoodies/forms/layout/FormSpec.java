@@ -239,6 +239,8 @@ abstract class FormSpec {
 
     /**
      * Parses an encoded size spec and initializes the size fields.
+     * 
+     * @param token    a token that represents a size, either bounded or plain
      */
     private void parseAndInitSize(String token) {
         if (token.startsWith("max(") && token.endsWith(")")) {
@@ -259,8 +261,8 @@ abstract class FormSpec {
      * max(<atomic size>;<atomic size2>) | min(<atomic size1>;<atomic size2>)
      * One of the two atomic sizes must be a logical size, the other must
      * be a size constant.
-     * @param token
-     * @param isMax
+     * @param token  a token for a bounded size, e.g. "max(50dlu; pref)"
+     * @param setMax  if true we set a maximum size, otherwise a minimum size
      */
     private Size parseAndInitBoundedSize(String token, boolean setMax) {
         int semicolonIndex = token.indexOf(';');
