@@ -133,7 +133,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
@@ -258,8 +258,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs is null
      */
     public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
-        this(decodeColSpecs(encodedColumnSpecs),
-             decodeRowSpecs(encodedRowSpecs));
+        this(ColumnSpec.decodeSpecs(encodedColumnSpecs),
+             RowSpec.   decodeSpecs(encodedRowSpecs));
     }
        
     
@@ -1594,51 +1594,6 @@ public final class FormLayout implements LayoutManager2, Serializable {
         
     }
     
-    // Parsing and Decoding of Column and Row Descriptions ******************
-    
-    /**
-     * Parses and splits encoded column specifications and returns an array of
-     * <code>ColumnSpec</code> objects.
-     * 
-     * @param encodedColSpec  the encoded column specification
-     * @return an array of decoded column specifications
-     * @throws NullPointerException if the string description is null
-     */
-    private static ColumnSpec[] decodeColSpecs(String encodedColSpec) {
-        if (encodedColSpec == null) 
-            throw new NullPointerException("The column description must not be null.");
-        
-        StringTokenizer tokenizer = new StringTokenizer(encodedColSpec, ", ");
-        int columnCount = tokenizer.countTokens();
-        ColumnSpec[] colSpecs = new ColumnSpec[columnCount]; 
-        for (int i = 0; i < columnCount; i++) {
-            colSpecs[i] = new ColumnSpec(tokenizer.nextToken());
-        }
-        return colSpecs;
-    }
-
-
-    /**
-     * Parses and splits encoded row specifications and returns an array of
-     * <code>RowSpec</code> objects.
-     * 
-     * @param encodedRowSpec  the encoded row specification
-     * @return an array of decoded row specifications
-     * @throws NullPointerException if the string description is null
-     */
-    private static RowSpec[] decodeRowSpecs(String encodedRowSpec) {
-        if (encodedRowSpec == null) 
-            throw new NullPointerException("The row description must not be null.");
-        
-        StringTokenizer tokenizer = new StringTokenizer(encodedRowSpec, ", ");
-        int rowCount = tokenizer.countTokens();
-        RowSpec[] rowSpecs = new RowSpec[rowCount]; 
-        for (int i = 0; i < rowCount; i++) {
-            rowSpecs[i] = new RowSpec(tokenizer.nextToken());
-        }
-        return rowSpecs;
-    }
-
 
     // Helper Code **********************************************************
     

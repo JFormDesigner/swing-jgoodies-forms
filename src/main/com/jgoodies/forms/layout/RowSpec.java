@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.layout;
 
+import java.util.StringTokenizer;
+
 /**
  * Specifies rows in in {@link FormLayout} by their default orientation, start
  * size and resizing behavior.
@@ -50,7 +52,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used <code>RowSpec</code> instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 
@@ -148,6 +150,33 @@ public class RowSpec extends FormSpec {
      * @return true for horizontal, false for vertical
      */
     protected final boolean isHorizontal() { return false; }
+
+
+    // Parsing and Decoding of Row Descriptions *****************************
+    
+    /**
+     * Parses and splits encoded row specifications and returns 
+     * an array of <code>RowSpec</code> objects.
+     * 
+     * @param encodedRowSpecs     comma separated encoded row specifications
+     * @return an array of decoded row specifications
+     * @throws NullPointerException if the encoded row specifications string 
+     *     is <code>null</code>
+     * 
+     * @see RowSpec#RowSpec(String)
+     */
+    public static RowSpec[] decodeSpecs(String encodedRowSpecs) {
+        if (encodedRowSpecs == null) 
+            throw new NullPointerException("The row description must not be null.");
+        
+        StringTokenizer tokenizer = new StringTokenizer(encodedRowSpecs, ", ");
+        int rowCount = tokenizer.countTokens();
+        RowSpec[] rowSpecs = new RowSpec[rowCount]; 
+        for (int i = 0; i < rowCount; i++) {
+            rowSpecs[i] = new RowSpec(tokenizer.nextToken());
+        }
+        return rowSpecs;
+    }
 
 
     // An Unmodifyable Version of RowSpec ***********************************

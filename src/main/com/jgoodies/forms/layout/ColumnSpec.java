@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.layout;
 
+import java.util.StringTokenizer;
+
 
 /**
  * Specifies columns in {@link FormLayout} by their default orientation, start
@@ -51,7 +53,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used <code>ColumnSpec</code> instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see     com.jgoodies.forms.factories.FormFactory
  */
 
@@ -124,6 +126,7 @@ public class ColumnSpec extends FormSpec {
         super(DEFAULT, size, NO_GROW);
     }
     
+    
     /**
      * Constructs a <code>ColumnSpec</code> from the specified encoded
      * description. The description will be parsed to set initial values.
@@ -134,8 +137,9 @@ public class ColumnSpec extends FormSpec {
         super(DEFAULT, encodedDescription);
 	}
 
+    
     /**
-     * Creates and answers an unmodifyable version of this
+     * Creates and returns an unmodifyable version of this
      * <code>ColumnSpec</code>.
      * 
      * @return an unmodifyable version of this <code>ColumnSpec</code>
@@ -159,6 +163,34 @@ public class ColumnSpec extends FormSpec {
     }
 
 
+    // Parsing and Decoding of Column Descriptions **************************
+    
+    /**
+     * Parses and splits encoded column specifications and returns 
+     * an array of <code>ColumnSpec</code> objects.
+     * 
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @return an array of decoded column specifications
+     * @throws NullPointerException if the encoded column specifications string
+     *     is <code>null</code>
+     * 
+     * @see ColumnSpec#ColumnSpec(String)
+     */
+    public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs) {
+        if (encodedColumnSpecs == null) 
+            throw new NullPointerException("The column description must not be null.");
+        
+        StringTokenizer tokenizer = new StringTokenizer(encodedColumnSpecs, ", ");
+        int columnCount = tokenizer.countTokens();
+        ColumnSpec[] columnSpecs = new ColumnSpec[columnCount]; 
+        for (int i = 0; i < columnCount; i++) {
+            columnSpecs[i] = new ColumnSpec(tokenizer.nextToken());
+        }
+        return columnSpecs;
+    }
+
+
+    
     // An Unmodifyable Version of ColumnSpec *********************************
     
     private static final class UnmodifyableColumnSpec extends ColumnSpec {
