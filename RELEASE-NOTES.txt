@@ -1,5 +1,51 @@
 
 
+                    JGoodies Forms, Version 1.0.2
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This release is a maintenance update that fixes a bug with some L&fs 
+    and it comes with a slightly improved and extended documentation.
+
+
+
+DISTRIBUTION CHANGES
+
+    o Added FAQ
+
+
+
+NEW FEATURES
+    
+    o DefaultUnitConverter provides bound Bean properties for the 
+      default dialog font and the average character width test string.
+
+
+ 
+BUGS FIXED
+
+    o Fixed broken button font lookup in DefaultUnitConverter
+      that failed to find a font for GTKLookAndFeel, and more
+      generally, SynthLookAndFeel subclasses.
+
+
+    
+OTHER CHANGES
+
+    o Main:     Removed the final marker from FormDebugPanel; 
+                see the class comment for details
+    o Main:     Extended JavaDoc for the DefaultUnitConverter
+    o Extras:   Extended JavaDoc for the DefaultFormBuilder
+    o Docs:     Improved grouping diagrams
+    o Docs:     Fixed invalid link to a tutorial pdf
+
+
+-------------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
                     JGoodies Forms, Version 1.0.1
                             Release Notes
                         
@@ -48,9 +94,6 @@ OTHER CHANGES
 
 
 -------------------------------------------------------------------------------
-
-
-Find below the change history for older releases.
 
 
 1.0 (July-18-2003)
