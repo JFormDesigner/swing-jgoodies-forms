@@ -40,14 +40,13 @@ import java.util.*;
 
 
 /**
- * <code>FormLayout</code> is a powerful, flexible and precise general
- * purpose layout manager. It aligns components vertically and horizontally in
+ * FormLayout is a powerful, flexible and precise general purpose 
+ * layout manager. It aligns components vertically and horizontally in
  * a dynamic rectangular grid of cells, with each component occupying one or
  * more cells.
- * An article about the FormLayout is part of the product documentation
- * and is available online, see
- * <a href="http://www.jgoodies.com/articles/forms.pdf" >
- * http://www.jgoodies.com/articles/forms.pdf</a>.
+ * A <a href="../../../../../whitepaper.pdf" target="secondary">whitepaper</a>
+ * about the FormLayout ships with the product documentation and is available 
+ * <a href="http://www.jgoodies.com/articles/forms.pdf">online</a>.
  * <p>
  * To use <code>FormLayout</code> you first define the grid by specifying the
  * columns and rows. In a second step you add components to the grid. You can
@@ -131,6 +130,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
+ * @version $Revision: 1.5 $
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
@@ -234,7 +234,8 @@ public final class FormLayout implements LayoutManager2 {
         preferredWidthMeasure  = new PreferredWidthMeasure(componentSizeCache);
         preferredHeightMeasure = new PreferredHeightMeasure(componentSizeCache);
     }
-      
+    
+    
     /**
      * Constructs an instance of <code>FormLayout</code> using the given
      * encoded string representations for column and row specifications.
@@ -243,21 +244,27 @@ public final class FormLayout implements LayoutManager2 {
      * 
      * @param encodedColumnSpecs  comma separated encoded column specifications
      * @param encodedRowSpecs     comma separated encoded row specifications
-     * @throws NullPointerException if encodedColumnSpecs or encodedRowSpecs is null
+     * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs is null
      */
     public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
         this(decodeColSpecs(encodedColumnSpecs),
              decodeRowSpecs(encodedRowSpecs));
     }
        
+    
     /**
      * Constructs an instance of <code>FormLayout</code> using the given
-     * encoded string representations for column and row specifications.
+     * encoded string representation for column specifications.
+     * The constructed layout has no rows; these must be added before
+     * any component can be added to the layout container. 
+     * <p>
+     * This constructor is primarily intended to be used with builder classes
+     * that add rows dynamically, such as the <code>DefaultFormBuilder</code>.
      * <p>
      * See the class comment for examples.
      * 
      * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @throws NullPointerException if encodedColumnSpecs is null
+     * @throws NullPointerException  if encodedColumnSpecs is null
      */
     public FormLayout(String encodedColumnSpecs) {
         this(encodedColumnSpecs, "");
