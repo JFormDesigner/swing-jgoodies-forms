@@ -24,7 +24,6 @@ DISTRIBUTION CONTENTS
        o docs/api            - JavaDocs directory
        o docs/whitepaper.pdf - a background article about the Forms
        
-       o src/main            - the framework sources
        o src/extras          - useful extensions - work in progress
        o src/tutorial        - tutorial sources
        o src/test            - test case sources
@@ -34,6 +33,8 @@ DISTRIBUTION CONTENTS
        o README.txt          - this readme file
        o build.xml           - ANT build file
        o default.properties  - ANT default build properties
+       
+       o forms-1.0.1-src.zip - zipped library sources
        o forms-1.0.1.jar     - the library jar 
        
        
