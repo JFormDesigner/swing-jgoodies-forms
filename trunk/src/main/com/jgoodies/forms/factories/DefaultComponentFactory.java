@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -185,7 +185,10 @@ public class DefaultComponentFactory implements ComponentFactory {
      * paragraphs in a panel, which is often a better choice than a 
      * <code>TitledBorder</code>.<p>
      * 
-     * The label's position is determined by the label's horizontal alignment.
+     * The label's position is determined by the label's horizontal alignment.<p>
+     * 
+     * TODO: Turn this into a public method. Extend the JavaDoc comment
+     * to precisely describe the semantic of the method.
      * 
      * @param label       the title label component
      * @return a separator with title label
