@@ -42,7 +42,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  * 
  * @see     ColumnSpec
  * @see     RowSpec
@@ -494,9 +494,24 @@ public abstract class FormSpec implements Serializable {
             }
         }
 
-        public String toString()  { return name; }
+        /**
+         * Returns this Alignment's name.
+         * 
+         * @return this alignment's name.
+         */
+        public String toString()  { 
+            return name; 
+        }
 
-        public char abbreviation() { return name.charAt(0); }
+        /**
+         * Returns the first character of this Alignment's name.
+         * Used to identify it in short format strings.
+         * 
+         * @return the name's first character.
+         */
+        public char abbreviation() {
+            return name.charAt(0);
+        }
 
         
         // Serialization *****************************************************

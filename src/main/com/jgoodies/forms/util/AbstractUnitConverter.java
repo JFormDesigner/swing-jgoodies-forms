@@ -39,7 +39,7 @@ import java.awt.Toolkit;
  * minimizes the effort required to convert font-dependent sizes to pixels. 
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see    DefaultUnitConverter
  * @see    com.jgoodies.forms.layout.Size
@@ -228,8 +228,18 @@ abstract public class AbstractUnitConverter implements UnitConverter {
     
     // Helper Code ************************************************************
     
-    protected double computeAverageCharWidth(FontMetrics metrics,
-     String testString) {
+    /**
+     * Computes and returns the average character width 
+     * of the specified test string using the given FontMetrics.
+     * The test string shall represent an "average" text.
+     * 
+     * @param metrics     used to compute the test string's width
+     * @param testString  the string that shall represent an "average" text
+     * @return the test string's average character width.
+     */
+    protected double computeAverageCharWidth(
+            FontMetrics metrics,
+            String testString) {
          int width = metrics.stringWidth(testString);
          double average = (double) width / testString.length();
          //System.out.println("Average width of '" + testString + "'=" + average);
