@@ -45,7 +45,7 @@ import java.util.List;
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see	Sizes
  * @see	ConstantSize
@@ -54,7 +54,7 @@ import java.util.List;
 public interface Size {
     
     /**
-     * Computes and answers my maximum size applied to the given list of
+     * Computes and returns my maximum size applied to the given list of
      * components using the specified measures.<p>
      * 
      * Invoked by {@link com.jgoodies.forms.layout.FormSpec} to determine 
