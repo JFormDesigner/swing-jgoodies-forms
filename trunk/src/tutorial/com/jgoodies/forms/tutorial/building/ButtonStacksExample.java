@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  * 
  * @see     ButtonStackBuilder
  */
@@ -171,8 +171,8 @@ public final class ButtonStacksExample {
     	Component textPane = new JScrollPane(textArea);
     	
         FormLayout layout = new FormLayout(
-                        "fill:p:grow, 6dlu, p",
-                        "fill:p:grow");
+                        "fill:100dlu:grow, 6dlu, p",
+                        "fill:56dlu:grow");
         JPanel panel = new JPanel(layout);
         CellConstraints cc = new CellConstraints();
         panel.setBorder(Borders.DIALOG_BORDER);
