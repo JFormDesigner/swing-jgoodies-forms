@@ -133,7 +133,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -1065,12 +1065,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
              * Take components that span multiple columns or rows into account.
              * This shall be done if and only if a component spans an interval
              * that can grow. 
-             * <strong>Note: </strong> The current algorithm doesn't reflect the 
-             * above specification; it checks only if any column or row can grow.
              */
-            // First determine whether a column or row can grow:
-            boolean canGrowHorizontally = containsSpecThatCanGrow(colSpecs);
-            boolean canGrowVertically   = containsSpecThatCanGrow(rowSpecs);
+            // First computes the maximum number of cols/rows a component
+            // can span without spanning a growing column.
+            int[] maxFixedSizeColsTable = computeMaximumFixedSpanTable(colSpecs);
+            int[] maxFixedSizeRowsTable = computeMaximumFixedSpanTable(rowSpecs);
             
             for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
                 Map.Entry entry = (Map.Entry) i.next();
@@ -1079,7 +1078,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                     continue;
                 
                 CellConstraints constraints = (CellConstraints) entry.getValue();
-                if (canGrowHorizontally && (constraints.gridWidth > 1)) {
+                if ((constraints.gridWidth > 1) && 
+                    (constraints.gridWidth > maxFixedSizeColsTable[constraints.gridX-1])) {
                     //int compWidth = minimumWidthMeasure.sizeOf(component);
                     int compWidth = defaultWidthMeasure.sizeOf(component);
                     //int compWidth = preferredWidthMeasure.sizeOf(component);
@@ -1093,7 +1093,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                     }
                 }
             
-                if (canGrowVertically && (constraints.gridHeight > 1)) { 
+                if ((constraints.gridHeight > 1) && 
+                    (constraints.gridHeight > maxFixedSizeRowsTable[constraints.gridY-1])) {
                     //int compHeight = minimumHeightMeasure.sizeOf(component);
                     int compHeight = defaultHeightMeasure.sizeOf(component);
                     //int compHeight = preferredHeightMeasure.sizeOf(component);
@@ -1416,24 +1417,42 @@ public final class FormLayout implements LayoutManager2, Serializable {
     }
     
     /**
-     * Checks and answer whether the given list of FormSpecs contains
-     * a spec that can grow. Used by the final layout size computation
-     * to determine whether components that span multiple columns/rows
-     * extend the container size.<p>
+     * Computes and returns a table that maps a column/row index
+     * to the maximum number of columns/rows that a component can span
+     * without spanning a growing column.<p>
      * 
-     * Actually this computation should be invoked for the spanned
-     * columns/rows, not all columns/rows. 
+     * Iterates over the specs from right to left/bottom to top,
+     * sets the table value to zero if a spec can grow,
+     * otherwise increases the span by one.<p>
      * 
-     * @param formSpecs
-     * @return true if a spec can grow, false if all specs are fixed
+     * <strong>Examples:</strong><pre>
+     * "pref, 4dlu, pref, 2dlu, p:grow, 2dlu,      pref" ->
+     * [4,    3,    2,    1,    0,      MAX_VALUE, MAX_VALUE]
+     * 
+     * "p:grow, 4dlu, p:grow, 9dlu,      pref" ->
+     * [0,      1,    0,      MAX_VALUE, MAX_VALUE]
+     * 
+     * "p, 4dlu, p, 2dlu, 0:grow" ->
+     * [4, 3,    2, 1,    0]
+     * 
+     * @param formSpecs  the column specs or row specs
+     * @return a table that maps a spec index to the maximum span for 
+     *    fixed size specs
      */
-    private boolean containsSpecThatCanGrow(List formSpecs) {
-        for (Iterator it = formSpecs.iterator(); it.hasNext();) {
-            FormSpec formSpec = (FormSpec) it.next();
-            if (formSpec.canGrow())
-                return true;
+    private int[] computeMaximumFixedSpanTable(List formSpecs) {
+        int size = formSpecs.size();
+        int[] table = new int[size];
+        int maximumFixedSpan = Integer.MAX_VALUE;        // Could be 1
+        for (int i = size-1; i >= 0; i--) {
+            FormSpec spec = (FormSpec) formSpecs.get(i); // ArrayList access
+            if (spec.canGrow()) {
+                maximumFixedSpan = 0;
+            }
+            table[i] = maximumFixedSpan;
+            if (maximumFixedSpan < Integer.MAX_VALUE)
+                maximumFixedSpan++;
         }
-        return false;
+        return table;
     }
     
       
