@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -61,7 +61,7 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -174,6 +174,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     public CellConstraints() {
         this(1, 1);
     }
+    
 
     /**
      * Constructs an instance of <code>CellConstraints</code> for the given
@@ -185,6 +186,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     public CellConstraints(int gridX, int gridY) {
         this(gridX, gridY, 1, 1);
     }
+    
 
     /**
      * Constructs an instance of <code>CellConstraints</code> for the given
@@ -200,6 +202,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         this(gridX, gridY, 1, 1, hAlign, vAlign, EMPTY_INSETS);
     }
 
+    
     /**
      * Constructs an instance of <code>CellConstraints</code> for the given
      * cell position and size.
@@ -212,6 +215,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     public CellConstraints(int gridX, int gridY, int gridWidth, int gridHeight) {
         this(gridX, gridY, gridWidth, gridHeight, DEFAULT, DEFAULT);
     }
+    
 
     /**
      * Constructs an instance of <code>CellConstraints</code> for the given
@@ -228,6 +232,7 @@ public final class CellConstraints implements Cloneable, Serializable {
                             Alignment hAlign, Alignment vAlign) {
         this(gridX, gridY, gridWidth, gridHeight, hAlign, vAlign, EMPTY_INSETS);
     }
+    
 
     /**
      * Constructs an instance of <code>CellConstraints</code> for 
@@ -268,6 +273,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         ensureValidOrientations(hAlign, vAlign);
     }
     
+    
     /**
      * Constructs an instance of <code>CellConstraints</code> from
      * the given encoded string properties.
@@ -293,6 +299,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     public CellConstraints xy(int col, int row) {
         return xywh(col, row, 1, 1);
     }
+    
 	
     /**
      * Sets row and column origins; sets width and height to 1; 
@@ -324,6 +331,57 @@ public final class CellConstraints implements Cloneable, Serializable {
     
 
     /**
+     * Sets the row, column, width, and height; uses a height (row span) of 1 
+     * and the horizontal and vertical default alignments.
+     * 
+     * @param col      the new column index
+     * @param row      the new row index
+     * @param colSpan  the column span or grid width
+     * @return this
+     */
+    public CellConstraints xyw(int col, int row, int colSpan) {
+        return xywh(col, row, colSpan, 1, DEFAULT, DEFAULT);
+    }
+	
+
+    /**
+     * Sets the row, column, width, and height; 
+     * decodes the horizontal and vertical alignments from the given string.
+     * The row span (height) is set to 1.
+     *  
+     * @param col                the new column index
+     * @param row                the new row index
+     * @param colSpan            the column span or grid width
+     * @param encodedAlignments  string describing the alignments
+     * @return this
+     * @throws IllegalArgumentException if an alignment orientation is invalid
+     */
+    public CellConstraints xyw(int col, int row, int colSpan,  
+                                 String encodedAlignments) {
+        return xywh(col, row, colSpan, 1, encodedAlignments);
+    }
+
+    
+    /**
+     * Sets the row, column, width, and height; sets the horizontal 
+     * and vertical aligment using the specified alignment objects.
+     * The row span (height) is set to 1.
+     *
+     * @param col       the new column index
+     * @param row       the new row index
+     * @param colSpan   the column span or grid width
+     * @param colAlign  horizontal component alignment
+     * @param rowAlign  vertical component alignment     
+     * @return this
+     * @throws IllegalArgumentException if an alignment orientation is invalid
+     */
+    public CellConstraints xyw(int col, int row, int colSpan, 
+                                 Alignment colAlign, Alignment rowAlign) {
+        return xywh(col, row, colSpan, 1, colAlign, rowAlign);
+    }
+    
+
+    /**
      * Sets the row, column, width, and height; 
      * uses default alignments.
      * 
@@ -336,7 +394,8 @@ public final class CellConstraints implements Cloneable, Serializable {
     public CellConstraints xywh(int col, int row, int colSpan, int rowSpan) {
         return xywh(col, row, colSpan, rowSpan, DEFAULT, DEFAULT);
     }
-	
+    
+
     /**
      * Sets the row, column, width, and height; 
      * decodes the horizontal and vertical alignments from the given string.
@@ -356,6 +415,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         return result;
     }
 
+    
     /**
      * Sets the row, column, width, and height; sets the horizontal 
      * and vertical aligment using the specified alignment objects.
@@ -481,6 +541,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         vAlign = decodeAlignment(tokenizer.nextToken());
         ensureValidOrientations(hAlign, vAlign);
     }
+    
 
     /**
      * Decodes an integer string representation and answers the
@@ -497,6 +558,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         }
     }
     
+    
     /**
      * Parses an alignment string description and 
      * answers the corresponding alignment value.
@@ -508,6 +570,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         return Alignment.valueOf(encodedAlignment);
     }
 
+    
     /**
      * Checks and verifies that this constraints object has valid grid 
      * index values, i. e. the display area cells are inside the form's grid. 
@@ -628,6 +691,7 @@ public final class CellConstraints implements Cloneable, Serializable {
             : usedAlignment(cellAlignment, formSpec);
     }
 
+    
     /**
      * Answers the alignment used for a given form constraints object.
      * The cell alignment overrides the column or row default, unless
@@ -658,6 +722,7 @@ public final class CellConstraints implements Cloneable, Serializable {
             return BOTTOM;    
     }
     
+    
     /**
      * Computes and answers the pixel size of the given component using the
      * given form specification, measures, and cell size.
@@ -685,6 +750,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         }
     }
     
+    
     /**
      * Computes and answers the component's pixel origin.
      * 
@@ -707,6 +773,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         }
     }
     
+    
     /**
      * Answers the component's pixel extent.
      * 
@@ -720,7 +787,6 @@ public final class CellConstraints implements Cloneable, Serializable {
                     ? cellSize
                     : componentSize;
     }
-    
     
     
     // Misc *****************************************************************
@@ -770,8 +836,9 @@ public final class CellConstraints implements Cloneable, Serializable {
         return buffer.toString();
     }  
     
+    
     /**
-     * Answers a short string representation of this constraints object.
+     * Returns a short string representation of this constraints object.
      * 
      * @return a short string representation of this constraints object
      */
@@ -826,7 +893,6 @@ public final class CellConstraints implements Cloneable, Serializable {
         buffer.append(')');
         return buffer.toString();
     }  
-    
     
     
     // Helper Class *********************************************************
@@ -903,7 +969,8 @@ public final class CellConstraints implements Cloneable, Serializable {
 
 
     /**
-     * Answers an integer that has a minimum of two characters.
+     * Returns an integer that has a minimum of two characters.
+     * 
      * @param number   the number to format
      * @return a string representation for a number with a minum of two chars
      */
@@ -911,5 +978,6 @@ public final class CellConstraints implements Cloneable, Serializable {
         String str = Integer.toString(number);
         return number < 10 ? " " + str : str;
     }
+    
 }
 
