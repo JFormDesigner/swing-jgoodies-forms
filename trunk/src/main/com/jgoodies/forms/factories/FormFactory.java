@@ -71,16 +71,16 @@ public final class FormFactory {
     // Frequently used Column Specifications ********************************
 
     public static final ColumnSpec MIN_COLSPEC = 
-        new ColumnSpec("min").asUnmodifyable();   
+        new ColumnSpec(Sizes.MINIMUM).asUnmodifyable();   
                                     
     public static final ColumnSpec PREF_COLSPEC = 
-        new ColumnSpec("pref").asUnmodifyable();   
+        new ColumnSpec(Sizes.PREFERRED).asUnmodifyable();   
                                     
     public static final ColumnSpec DEFAULT_COLSPEC = 
-        new ColumnSpec("default").asUnmodifyable();   
+        new ColumnSpec(Sizes.DEFAULT).asUnmodifyable();   
                                     
     public static final ColumnSpec GLUE_COLSPEC = 
-        new ColumnSpec("0px:grow").asUnmodifyable();                               
+        new ColumnSpec(ColumnSpec.DEFAULT, Sizes.ZERO, ColumnSpec.DEFAULT_GROW).asUnmodifyable();                               
 
     /*
      * The following four constants use logical sizes that change with the
@@ -94,27 +94,29 @@ public final class FormFactory {
         createGapColumnSpec(LayoutStyle.getCurrent().getUnrelatedComponentsPadX()); 
         
     public static final ColumnSpec BUTTON_COLSPEC = 
-        new ColumnSpec(Sizes.bounded(LayoutStyle.getCurrent().getDefaultButtonWidth(),
-                                      null,
-                                      Sizes.PREFERRED));
+        new ColumnSpec(Sizes.bounded(Sizes.PREFERRED,
+                                     LayoutStyle.getCurrent().getDefaultButtonWidth(),
+                                     null)).asUnmodifyable();
         
     public static final ColumnSpec GROWING_BUTTON_COLSPEC = 
-        new ColumnSpec("max(50dlu;pref):grow").asUnmodifyable();
+        new ColumnSpec(ColumnSpec.DEFAULT,
+                       BUTTON_COLSPEC.getSize(),
+                       ColumnSpec.DEFAULT_GROW).asUnmodifyable();
         
     
     // Frequently used Row Specifications ***********************************
     
     public static final RowSpec MIN_ROWSPEC = 
-        new RowSpec("min").asUnmodifyable();   
+        new RowSpec(Sizes.MINIMUM).asUnmodifyable();   
                                     
     public static final RowSpec PREF_ROWSPEC = 
-        new RowSpec("pref").asUnmodifyable();   
+        new RowSpec(Sizes.PREFERRED).asUnmodifyable();   
                                     
     public static final RowSpec DEFAULT_ROWSPEC = 
-        new RowSpec("default").asUnmodifyable();   
+        new RowSpec(Sizes.DEFAULT).asUnmodifyable();   
                                     
     public static final RowSpec GLUE_ROWSPEC = 
-        new RowSpec("0px:grow").asUnmodifyable();                               
+        new RowSpec(RowSpec.DEFAULT, Sizes.ZERO, RowSpec.DEFAULT_GROW).asUnmodifyable();                               
 
     /*
      * The following five constants use logical sizes that change with the
@@ -238,7 +240,7 @@ public final class FormFactory {
                 
         ColumnSpec majorGapColSpec = createGapColumnSpec(majorColumnGap);
         ColumnSpec minorGapColSpec = createGapColumnSpec(minorColumnGap);
-        FormLayout layout = new FormLayout("", "");
+        FormLayout layout = new FormLayout(new ColumnSpec[]{}, new RowSpec[]{});
 
         // Add the optional leading indent.
         if (indent != null) { 
