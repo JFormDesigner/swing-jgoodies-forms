@@ -1,14 +1,41 @@
 
 
-                    JGoodies Forms, Version 1.0.3
+                    JGoodies Forms, Version 1.0.3 Preview
                             Release Notes
                         
 
 INTRODUCTION
 
-    This release is a maintenance update that contains two new core classes,
-    adds some builder methods, and comes with slightly improved JavaDocs.
-    Also, the FAQ and tutorial have been extended and improved.
+    This maintenance release contains new core classes, adds methods,
+    and comes with improved JavaDocs and an extended tutorial and FAQ.
+    The DefaultFormBuilder has been moved from the extras to the core.
+
+    Also, the support for the Mac OS X has been improved significantly:
+    the DefaultComponentFactory has been adjusted for the Aqua look&feel, 
+    the new MacLayoutStyle describes the Mac and Aqua styles guide lines,
+    and the ButtonBarBuilder and ButtonBarFactory now honor a button order.
+    
+    
+VISUAL INCOMPATIBILITIES
+
+    On the Mac OS X platform Forms 1.0.3 changes the button order;
+    other platforms are not affected. In most cases this will improve 
+    the user experience of your applications. It is recommended to
+    check your ButtonBarBuilder invocation to use a fixed left to right
+    order where necessary.
+    
+    ButtonBarBuilder methods that create sequences of buttons now honor 
+    the LayoutStyle's button order. On Mac OS X this is right to left.
+    Builder methods that add individual buttons are not affected.
+    See the ButtonOrderExample in the tutorial for details on how to
+    use or ignore the LayoutStyle's button order.
+    
+    
+API INCOMPATIBILITIES
+
+    o Removed deprecated methods from the ButtonBarBuilder class:
+      #addGriddedNarrow(JButton)
+      #addGriddedNarrowButtons(JButton[])
     
 
 NEW FEATURES
@@ -26,6 +53,13 @@ NEW FEATURES
     o Code:     LayoutStyle#isLeftToRightButtonOrder()
     o Code:     FormFactory#LABEL_COMPONENT_COLSPEC
     o Code:     MacLayoutStyle
+    o Code:     AbstractFormBuilder#createLeftAdjustedConstraints(int)
+    
+    
+BUGS FIXED
+
+    o PanelBuilder fails to build right-to-left if column span > 1.
+    o DefaultFormBuilder fails to build right-to-left if column span > 1.
 
  
 OTHER CHANGES
@@ -40,6 +74,12 @@ OTHER CHANGES
     o Docs:     Extended and reorganized the FAQ
     o Tutorial: Improved alignment texts in custom row and custom areas example
     o Tutorial: Added ButtonOrderExample
+    o Tutorial: Added ComponentOrientationExample
+    
+    
+THINGS TO BE DONE FOR THE 1.0.3 FINAL
+
+    o Test the serialization.
     
 
 -------------------------------------------------------------------------------
