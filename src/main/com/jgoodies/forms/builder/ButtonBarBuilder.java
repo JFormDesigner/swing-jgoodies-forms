@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre> 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -136,9 +136,17 @@ import com.jgoodies.forms.util.LayoutStyle;
  */
 public final class ButtonBarBuilder extends PanelBuilder {
     
-    private static final ColumnSpec[] COL_SPECS  = new ColumnSpec[]{};
-    private static final RowSpec      ROW_SPEC   = new RowSpec("center:pref");
-    private static final RowSpec[]    ROW_SPECS  = new RowSpec[]{ROW_SPEC};
+    /**
+     * Specifies the columns of the initial FormLayout used in constructors.
+     */
+    private static final ColumnSpec[] COL_SPECS  = 
+        new ColumnSpec[]{};
+
+    /**
+     * Specifies the FormLayout's the single button bar row.
+     */
+    private static final RowSpec[] ROW_SPECS  = 
+        new RowSpec[]{ new RowSpec("center:pref") };
     
     
     /**
@@ -173,16 +181,16 @@ public final class ButtonBarBuilder extends PanelBuilder {
 
     /**
      * Constructs an instance of <code>ButtonBarBuilder</code> on a
-     * <code>JPanel</code>.
+     * <code>JPanel</code> using a preconfigured FormLayout as layout manager.
      */
     public ButtonBarBuilder() {
-        this(new JPanel());
+        this(new JPanel(null));
     }
 
 
     /**
      * Constructs an instance of <code>ButtonBarBuilder</code> on the given
-     * panel.
+     * panel using a preconfigured FormLayout as layout manager.
      * 
      * @param panel  the layout container
      */

@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -256,7 +256,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @param layout	the <code>FormLayout</code> to be used
      */    
     public DefaultFormBuilder(FormLayout layout) {
-        this(new JPanel(), layout);
+        this(new JPanel(null), layout);
     }
     
     /**
@@ -279,7 +279,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * strings
      */    
     public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle) {
-        this(new JPanel(), layout, bundle);
+        this(new JPanel(null), layout, bundle);
     }
     
     /**
