@@ -33,6 +33,8 @@ package com.jgoodies.forms.layout;
 import java.awt.Component;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.io.ObjectStreamException;
+import java.io.Serializable;
 import java.util.StringTokenizer;
 
 /**
@@ -60,12 +62,17 @@ import java.util.StringTokenizer;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
-public final class CellConstraints implements Cloneable {
+public final class CellConstraints implements Cloneable, Serializable {
     
     // Alignment Constants *************************************************
-
+    
+    /*
+     * Implementation Note: Do not change the order of the following constants.
+     * The serialization of class Alignment is ordinal-based and relies on it.
+     */
+    
     /**
      * Use the column's or row's default alignment.
      */
@@ -89,6 +96,7 @@ public final class CellConstraints implements Cloneable {
      */
     public static final Alignment RIGHT =
         new Alignment("right", Alignment.HORIZONTAL);
+    
     /**
      * Put the component in the center.
      */
@@ -107,8 +115,12 @@ public final class CellConstraints implements Cloneable {
     public static final Alignment BOTTOM =
         new Alignment("bottom", Alignment.VERTICAL);
 
+    /**
+     * A reusable <code>Insets</code> object to reduce object instantiation.
+     */
     private static final Insets EMPTY_INSETS = 
         new Insets(0, 0, 0, 0);
+    
     
     // Fields ***************************************************************
     
@@ -814,16 +826,16 @@ public final class CellConstraints implements Cloneable {
     // Helper Class *********************************************************
     
     /**
-     * A typesafe enumeration for component alignment types as used by
-     * the {@link FormLayout}.
+     * An ordinal-based serializable typesafe enumeration for component 
+     * alignment types as used by the {@link FormLayout}.
      */
-    public static final class Alignment {
+    public static final class Alignment implements Serializable {
         
         private static final int HORIZONTAL = 0;
         private static final int VERTICAL   = 1;
         private static final int BOTH       = 2;
         
-        private final String name;
+        private final transient String name;
         private final int    orientation;
         
         private Alignment(String name, int orientation) { 
@@ -869,6 +881,20 @@ public final class CellConstraints implements Cloneable {
         private boolean isVertical() {
             return orientation != HORIZONTAL;
         }
+
+        // Serialization *********************************************************
+        
+        private static int nextOrdinal = 0;
+        
+        private final int ordinal = nextOrdinal++;
+        
+        private static final Alignment[] VALUES = 
+            { DEFAULT, FILL, LEFT, RIGHT, CENTER, TOP, BOTTOM };
+        
+        private Object readResolve() throws ObjectStreamException {
+            return VALUES[ordinal];  // Canonicalize
+        }
+
 
     }
 
