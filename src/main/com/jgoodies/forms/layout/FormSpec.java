@@ -31,16 +31,22 @@
 package com.jgoodies.forms.layout;
 
 import java.awt.Container;
+import java.io.Serializable;
 import java.util.List;
 import java.util.StringTokenizer;
 
 
 /**
  * Specifies columns and rows in {@link FormLayout} by their default
- * alignment, start size and resizing behavior.
+ * alignment, start size and resizing behavior.<p>
+ * 
+ * TODO: Consider turning this class into an immutable class.
+ * In this case remove the setters and the unmodifyable class version
+ * of its subclasses <code>ColumnSpec</code> and <code>RowSpec</code>.
+ * Since this breaks the API, this should happen in version 1.1. 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @see	FormLayout
  * @see	CellConstraints
  */
@@ -160,7 +166,10 @@ abstract class FormSpec {
     }
     
     /**
-     * Sets the default alignment.
+     * Sets the default alignment.<p>
+     * 
+     * <strong>Note:</strong> This method may be removed from a future
+     * version of the Forms framework.
      * 
      * @param newDefaultAlignment	the new default alignment
      */
@@ -178,7 +187,10 @@ abstract class FormSpec {
     }
     
     /**
-     * Sets the size.
+     * Sets the size.<p>
+     * 
+     * <strong>Note:</strong> This method may be removed from a future
+     * version of the Forms framework.
      *  
      * @param size	the new size
      */
@@ -197,7 +209,10 @@ abstract class FormSpec {
     }
     
     /**
-     * Sets a new resize weight.
+     * Sets a new resize weight.<p>
+     * 
+     * <strong>Note:</strong> This method may be removed from a future
+     * version of the Forms framework.
      * 
      * @param weight	the new resize weight
      */
@@ -470,24 +485,26 @@ abstract class FormSpec {
     
     
     /**
-     * A typesafe enumeration for the column and row default alignment types.
+     * An ordinal-based serializable typesafe enumeration for the 
+     * column and row default alignment types.
      */
-    public static final class DefaultAlignment {
+    public static final class DefaultAlignment implements Serializable {
         
-        private final String name;
+        private final transient String name;
 
         private DefaultAlignment(String name) { 
             this.name = name; 
         }
 
         /**
-         * Answers a DefaultAlignment that corresponds to the specified
+         * Returns a DefaultAlignment that corresponds to the specified
          * string, null if no such aignment exists.
+         * 
          * @param str	the encoded alignment
          * @param isHorizontal   indicates the values orientation
          * @return the corresponding DefaultAlignment or null
          */
-        static DefaultAlignment valueOf(String str, boolean isHorizontal) {
+        private static DefaultAlignment valueOf(String str, boolean isHorizontal) {
             if (str.equals("f") || str.equals("fill"))
                 return FILL_ALIGN;
             else if (str.equals("c") || str.equals("center"))
@@ -512,6 +529,20 @@ abstract class FormSpec {
         public String toString()  { return name; }
 
         public char abbreviation() { return name.charAt(0); }
+
+        
+        // Serialization *****************************************************
+        
+        private static int nextOrdinal = 0;
+        
+        private final int ordinal = nextOrdinal++;
+        
+        private static final DefaultAlignment[] VALUES = 
+            { LEFT_ALIGN, RIGHT_ALIGN, TOP_ALIGN, BOTTOM_ALIGN, CENTER_ALIGN, FILL_ALIGN};
+        
+        private Object readResolve() {
+            return VALUES[ordinal];  // Canonicalize
+        }
 
     }
     
