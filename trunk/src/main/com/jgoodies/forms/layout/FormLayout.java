@@ -133,7 +133,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
@@ -1395,7 +1395,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * An abstract implementation of the <code>Measure</code> interface
      * that caches component sizes.
      */
-    private static abstract class CachingMeasure implements Measure {
+    private static abstract class CachingMeasure implements Measure, Serializable {
         
         protected final ComponentSizeCache cache;
         
@@ -1452,7 +1452,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * A cache for component minimum and preferred sizes.
      * Used to reduce the requests to determine a component's size.
      */ 
-    private static class ComponentSizeCache {
+    private static class ComponentSizeCache implements Serializable {
         
         /** Maps components to their minimum sizes.  */
         private final Map minimumSizes;

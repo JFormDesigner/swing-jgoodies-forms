@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @see     Size
  * @see     UnitConverter
  * @see     DefaultUnitConverter
@@ -104,7 +104,14 @@ public final class Sizes {
      */
     public static final ComponentSize DEFAULT = new ComponentSize("default");
 
-
+    /**
+     * An array of all enumeration values used to canonicalize 
+     * deserialized component sizes.
+     */
+    private static final ComponentSize[] VALUES = 
+        { MINIMUM, PREFERRED, DEFAULT};
+    
+    
     // Singleton State *******************************************************
      
     /**
@@ -353,9 +360,6 @@ public final class Sizes {
         private static int nextOrdinal = 0;
         
         private final int ordinal = nextOrdinal++;
-        
-        private static final ComponentSize[] VALUES = 
-            { MINIMUM, PREFERRED, DEFAULT};
         
         private Object readResolve() {
             return VALUES[ordinal];  // Canonicalize
