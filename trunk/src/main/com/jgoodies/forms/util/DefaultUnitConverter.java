@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <i>defaultDialogFont</i> and <i>averageCharacterWidthTestString</i>. 
  * 
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -131,7 +131,9 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      */
     private DefaultUnitConverter () {
         UIManager.addPropertyChangeListener(new LAFChangeHandler());
+        changeSupport = new PropertyChangeSupport(this);
     }
+    
     
     /**
      * Lazily instantiates and returns the sole instance.
