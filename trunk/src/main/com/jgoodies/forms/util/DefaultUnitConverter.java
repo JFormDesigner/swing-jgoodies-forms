@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <i>defaultDialogFont</i> and <i>averageCharacterWidthTestString</i>. 
  * 
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -254,7 +254,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * In case the component is <code>null</code> the global dialog base units
      * are answered.<p>
      * 
-     * Before we compute the dialog base units, we check wether they
+     * Before we compute the dialog base units we check whether they
      * have been computed and cached before - for the same component
      * <code>FontMetrics</code>.
      * 
