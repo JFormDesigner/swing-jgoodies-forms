@@ -38,7 +38,7 @@ import javax.swing.JLabel;
  * by the {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
  */
@@ -46,7 +46,7 @@ import javax.swing.JLabel;
 public interface ComponentFactory {
     
     /**
-     * Creates and answers a label with an optional mnemonic.
+     * Creates and returns a label with an optional mnemonic.
      * 
      * @param textWithMnemonic  the label's text - may contain a mnemonic 
      * @return an label with optional mnemonic
@@ -55,7 +55,7 @@ public interface ComponentFactory {
   
     
     /**
-     * Creates and answers a label that uses the foreground color
+     * Creates and returns a label that uses the foreground color
      * and font of a <code>TitledBorder</code>.
      * 
      * @param textWithMnemonic  the title's text - may contain a mnemonic
@@ -65,9 +65,9 @@ public interface ComponentFactory {
     
 
     /**
-     * Creates and answers a label with separator on the left hand side. 
-     * Useful to separate paragraphs in a panel. This is often a better choice
-     * than a <code>TitledBorder</code>.
+     * Creates and returns a labeled separator. Useful to separate paragraphs 
+     * in a panel, which is often a better choice than a 
+     * <code>TitledBorder</code>.
      * 
      * @param text        the title's text
      * @param alignment   text alignment: left, center, right 
