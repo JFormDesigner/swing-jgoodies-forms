@@ -130,7 +130,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
@@ -549,14 +549,14 @@ public final class FormLayout implements LayoutManager2 {
      * 
      * @param component	the component to be modified
      * @param constraints	the constraints to be applied
-     * @throws NullPointerException   if the component or constraints 
+     * @throws NullPointerException   if the component or constraints object
      *     is <code>null</code>
      */
     public void setConstraints(Component component, CellConstraints constraints) {
         if (component == null)
-            throw new NullPointerException("Component must not be null.");
+            throw new NullPointerException("The component must not be null.");
         if (constraints == null)
-            throw new NullPointerException("Constraint must not be null.");
+            throw new NullPointerException("The constraints must not be null.");
             
         constraints.ensureValidGridBounds(getColumnCount(), getRowCount());
         constraintMap.put(component, constraints.clone());
@@ -568,16 +568,16 @@ public final class FormLayout implements LayoutManager2 {
      * 
      * @param component				  the component to be queried
      * @return the <code>CellConstraints</code> for the specified component
-     * @throws NullPointerException if component is null or has not been added
-     *     to the Container
+     * @throws NullPointerException if component is <code>null</code> or 
+     *     has not been added to the container
      */
     public CellConstraints getConstraints(Component component) {
         if (component == null)
-            throw new NullPointerException("Component must not be null.");
+            throw new NullPointerException("The component must not be null.");
             
         CellConstraints constraints = (CellConstraints) constraintMap.get(component);
         if (constraints == null) 
-            throw new NullPointerException("Component has not been added to the container.");
+            throw new NullPointerException("The component has not been added to the container.");
             
         return (CellConstraints) constraints.clone();
     }
@@ -756,10 +756,10 @@ public final class FormLayout implements LayoutManager2 {
      * are, therefore, cloned when cached.
      *
      * @param comp         the component to be added
-     * @param constraints  the component's form layout constraints
-     * @throws NullPointerException if <code>constraints</code> is null
+     * @param constraints  the component's cell constraints
+     * @throws NullPointerException if <code>constraints</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>constraints</code> is not a
-     * <code>CellConstraints</code> or a String that can be used to construct
+     * <code>CellConstraints</code> or a String that cannot be used to construct
      * a <code>CellConstraints</code>
      */
     public void addLayoutComponent(Component comp, Object constraints) {
@@ -768,20 +768,20 @@ public final class FormLayout implements LayoutManager2 {
         } else if (constraints instanceof CellConstraints) {
             setConstraints(comp, (CellConstraints) constraints);
         } else if (constraints == null) {
-            throw new NullPointerException("Constraints must not be null.");
+            throw new NullPointerException("The constraints must not be null.");
         } else {
             throw new IllegalArgumentException("Illegal constraint type " + constraints.getClass());
         }
     }
 
     /**
-     * Removes the specified component from this layout.
-     * <p>
+     * Removes the specified component from this layout.<p>
+     * 
      * Most applications do not call this method directly.
      * 
-     * @param    comp   the component to be removed.
-     * @see      java.awt.Container#remove(java.awt.Component)
-     * @see      java.awt.Container#removeAll()
+     * @param comp   the component to be removed.
+     * @see java.awt.Container#remove(java.awt.Component)
+     * @see java.awt.Container#removeAll()
      */
     public void removeLayoutComponent(Component comp) {
         removeConstraints(comp);
@@ -797,8 +797,8 @@ public final class FormLayout implements LayoutManager2 {
      * Most applications do not call this method directly.
      * 
      * @param parent   the container in which to do the layout
-     * @see Container#doLayout()
      * @return the minimum size of the <code>parent</code> container
+     * @see Container#doLayout()
      */
     public Dimension minimumLayoutSize(Container parent) {
         return computeLayoutSize(parent,
