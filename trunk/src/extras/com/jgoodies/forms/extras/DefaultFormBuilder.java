@@ -46,35 +46,35 @@ import com.jgoodies.forms.layout.RowSpec;
  * Provides a means to build form-oriented panels quickly and consistently
  * using the {@link FormLayout}. This builder combines frequently used
  * panel building steps: add a new row, add a label, proceed to the next 
- * data column, then add a component. 
- * <p>
+ * data column, then add a component.<p>
+ * 
  * The extra value lies in the <code>#append</code> methods that 
  * append gap rows and component rows if necessary and then add
  * the given components. They are built upon the superclass behavior 
  * <code>#appendRow</code> and the set of <code>#add</code> methods.
  * A set of component appenders allows to add a textual label and
- * associated component in a single step.
- * <p>
+ * associated component in a single step.<p>
+ * 
  * This builder can map resource keys to internationalized (i15d) texts
  * when creating text labels, titles and titled separators. Therefore
  * you must specify a <code>ResourceBundle</code> in the constructor.
- * The builder methods throw an <code>IllegalStateException</code>
- * if one of the mapping builder methods is invoked and no bundle has been set.
- * <p>
+ * The builder methods throw an <code>IllegalStateException</code> if one 
+ * of the mapping builder methods is invoked and no bundle has been set.<p>
+ * 
  * You can configure the build process by setting a leading column,
  * enabling the row grouping and by modifying the gaps between normal
  * lines and between paragraphs. The leading column will be honored
  * if the cursor proceeds to the next row. All appended components
  * start in the specified lead column, except appended separators that
- * span all columns.
- * <p>
+ * span all columns.<p>
+ * 
  * It is temptive to use the DefaultFormBuilder all the time and 
  * to let it add rows automatically. Use a simpler style if it increases 
  * the code readability. Explicit row specifications and cell constraints 
  * make your layout easier to understand - but harder to maintain.
  * See also the accompanying tutorial sources and the Tips &amp; Tricks
- * that are part of the Forms documentation.
- * <p>
+ * that are part of the Forms documentation.<p>
+ * 
  * Sometimes a form consists of many standardized rows but has a few
  * rows that require a customization. The DefaultFormBuilder can do everything
  * that the superclasses {@link com.jgoodies.forms.builder.AbstractFormBuilder}
@@ -83,14 +83,15 @@ import com.jgoodies.forms.layout.RowSpec;
  * Again, ask yourself if the DefaultFormBuilder is the appropriate builder.
  * As a rule of thumb you should have more components than builder commands.
  * There are different ways to add custom rows. Find below example code
- * that presents and compares the pros and cons of three approaches. 
- * <p>
- * This class is not yet part of the binary Forms library; 
- * it comes with the Forms distributions as an extra.
- * <b>The API is work in progress and may change without notice.</b>
- * If you want to use this class, you may consider copying it into your codebase.
- * <p>
- * <b>Example:</b>
+ * that presents and compares the pros and cons of three approaches.<p>
+ * 
+ * <strong>Note:</strong> This class is not yet part of the binary Forms 
+ * library; it comes with the Forms distributions as an extra.
+ * <strong>The API is work in progress and may change without notice.</strong>
+ * If you want to use this class, you may consider copying it into your 
+ * codebase.<p>
+ * 
+ * <strong>Example:</strong>
  * <pre>
  * public void build() {
  *     FormLayout layout = new FormLayout(
@@ -137,9 +138,9 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  *     builder.append("ds [mm]",    new JTextField());
  * }
- * </pre>
- * <p>
- * <b>Custom Row Example:</b>
+ * </pre><p>
+ * 
+ * <strong>Custom Row Example:</strong>
  * <pre>
  * public JComponent buildPanel() {
  *     initComponents();
@@ -197,10 +198,15 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  *     return builder.getPanel();
  * }
- * </pre>
- *
+ * </pre><p>
+ * 
+ * TODO: Consider adding a method that let's an API user append a
+ * component that spans the remaining columns in the current row.
+ * Method name candidates are <code>#appendFullSpan</code>, and 
+ * <code>#appendRemaining</code>.
+ * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
  * @see	com.jgoodies.forms.factories.FormFactory
  * @see	com.jgoodies.forms.layout.FormLayout
@@ -221,11 +227,18 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     
     /**
      * Holds the offset of the leading column - often 0 or 1.
+     * 
+     * @see #getLeadingColumnOffset()
+     * @see #setLeadingColumnOffset(int)
+     * @see #getLeadingColumn()
      */
     private int leadingColumnOffset = 0;
     
     /**
-     * Determines wether new data rows are being grouped or not. 
+     * Determines whether new data rows are being grouped or not. 
+     * 
+     * @see #isRowGroupingEnabled()
+     * @see #setRowGroupingEnabled(boolean)
      */
     private boolean rowGroupingEnabled = false;
     
