@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <i>defaultDialogFont</i> and <i>averageCharacterWidthTestString</i>. 
  * 
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -369,10 +369,9 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Adds a PropertyChangeListener to the listener list. The listener is
-     * registered for all bound properties of this class. 
-     * <p> 
-     * If listener is null, no exception is thrown and no action is
-     * performed.
+     * registered for all bound properties of this class.<p>
+     *  
+     * If listener is null, no exception is thrown and no action is performed.
      *
      * @param listener      the PropertyChangeListener to be added
      *
@@ -382,12 +381,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      */
     public final synchronized void addPropertyChangeListener(
                                             PropertyChangeListener listener) {
-        if (listener == null) {
-            return;
-        }
-        if (changeSupport == null) {
-            changeSupport = new PropertyChangeSupport(this);
-        }
         changeSupport.addPropertyChangeListener(listener);
     }
     
@@ -395,8 +388,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     /**
      * Removes a PropertyChangeListener from the listener list. This method
      * should be used to remove PropertyChangeListeners that were registered
-     * for all bound properties of this class.
-     * <p>
+     * for all bound properties of this class.<p>
+     * 
      * If listener is null, no exception is thrown and no action is performed.
      *
      * @param listener      the PropertyChangeListener to be removed
@@ -407,20 +400,17 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      */
     public final synchronized void removePropertyChangeListener(
                                         PropertyChangeListener listener) {
-        if (listener == null || changeSupport == null) {
-            return;
-        }
         changeSupport.removePropertyChangeListener(listener);
     }
     
     
     /**
      * Adds a PropertyChangeListener to the listener list for a specific
-     * property. The specified property may be user-defined.
-     * <p>
+     * property. The specified property may be user-defined.<p>
+     * 
      * Note that if this Model is inheriting a bound property, then no event
-     * will be fired in response to a change in the inherited property.
-     * <p>
+     * will be fired in response to a change in the inherited property.<p>
+     * 
      * If listener is null, no exception is thrown and no action is performed.
      *
      * @param propertyName      one of the property names listed above
@@ -432,12 +422,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     public final synchronized void addPropertyChangeListener(
                                         String propertyName,
                                         PropertyChangeListener listener) {
-        if (listener == null) {
-            return;
-        }
-        if (changeSupport == null) {
-            changeSupport = new java.beans.PropertyChangeSupport(this);
-        }
         changeSupport.addPropertyChangeListener(propertyName, listener);
     }
     
@@ -445,8 +429,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     /**
      * Removes a PropertyChangeListener from the listener list for a specific
      * property. This method should be used to remove PropertyChangeListeners
-     * that were registered for a specific bound property.
-     * <p>
+     * that were registered for a specific bound property.<p>
+     * 
      * If listener is null, no exception is thrown and no action is performed.
      *
      * @param propertyName      a valid property name
@@ -458,9 +442,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     public final synchronized void removePropertyChangeListener(
                                         String propertyName,
                                         PropertyChangeListener listener) {
-        if (listener == null || changeSupport == null) {
-            return;
-        }
         changeSupport.removePropertyChangeListener(propertyName, listener);
     }
     
