@@ -31,6 +31,7 @@
 package com.jgoodies.forms.builder;
 
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Container;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -41,8 +42,8 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * An abstract class that minimizes the effort required to implement 
- * non-visual builders that use the {@link FormLayout}.
- * <p>
+ * non-visual builders that use the {@link FormLayout}.<p>
+ * 
  * Builders hide details of the FormLayout and provide convenience behavior 
  * that assists you in constructing a form.
  * This class provides a cell cursor that helps you traverse a form while
@@ -50,12 +51,13 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
+ * 
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
  * @see    PanelBuilder
- * @see    com.jgoodies.forms.extras.I15dPanelBuilder
- * @see    com.jgoodies.forms.extras.DefaultFormBuilder
+ * @see    I15dPanelBuilder
+ * @see    DefaultFormBuilder
  */
 public abstract class AbstractFormBuilder {
 
@@ -79,8 +81,14 @@ public abstract class AbstractFormBuilder {
     
     /**
      * Specifies if we fill the grid from left to right or right to left.
+     * This value is initialized during the construction from the layout 
+     * container's component orientation.
+     * 
+     * @see #isLeftToRight()
+     * @see #setLeftToRight(boolean)
+     * @see ComponentOrientation
      */
-    private boolean leftToRight = true;
+    private boolean leftToRight;
 
 
 
@@ -99,6 +107,9 @@ public abstract class AbstractFormBuilder {
   
         container.setLayout(layout);
         currentCellConstraints = new CellConstraints();
+        ComponentOrientation orientation = container.getComponentOrientation();
+        leftToRight = orientation.isLeftToRight()
+                  || !orientation.isHorizontal();
     }
 
 
@@ -112,6 +123,7 @@ public abstract class AbstractFormBuilder {
     public final Container getContainer() { 
         return container;  
     }
+    
 
     /**
      * Returns the instance of {@link FormLayout} used to build this form.
@@ -122,6 +134,7 @@ public abstract class AbstractFormBuilder {
         return layout; 
     }
     
+    
     /**
      * Returns the number of columns in the form.
      * 
@@ -130,6 +143,7 @@ public abstract class AbstractFormBuilder {
     public final int getColumnCount() {
         return getLayout().getColumnCount();
     }
+    
     
     /**
      * Returns the number of rows in the form.
@@ -145,21 +159,32 @@ public abstract class AbstractFormBuilder {
     
     /**
      * Returns whether this builder fills the form left-to-right
-     * or right-to-left.
+     * or right-to-left. The initial value of this property is set
+     * during the builder construction from the layout container's
+     * <code>componentOrientation</code> property.
      * 
      * @return true indicates left-to-right, false indicates right-to-left
+     * 
+     * @see #setLeftToRight(boolean)
+     * @see ComponentOrientation
      */
     public final boolean isLeftToRight() {
         return leftToRight;
     }
     
+    
     /**
      * Sets the form fill direction to left-to-right or right-to-left.
+     * The initial value of this property is set during the builder construction 
+     * from the layout container's <code>componentOrientation</code> property.
      * 
      * @param b   true indicates left-to-right, false right-to-left
+     * 
+     * @see #isLeftToRight()
+     * @see ComponentOrientation
      */
     public final void setLeftToRight(boolean b) {
-        this.leftToRight = b;
+        leftToRight = b;
     }
     
 
@@ -174,6 +199,7 @@ public abstract class AbstractFormBuilder {
         return currentCellConstraints.gridX;
     }
     
+    
     /**
      * Sets the cursor to the given column.
      * 
@@ -182,6 +208,7 @@ public abstract class AbstractFormBuilder {
     public final void setColumn(int column) {
         currentCellConstraints.gridX = column;
     }
+    
     
     /**
      * Returns the cursor's row.
@@ -192,6 +219,7 @@ public abstract class AbstractFormBuilder {
         return currentCellConstraints.gridY;
     }
     
+    
     /**
      * Sets the cursor to the given row.
      * 
@@ -200,6 +228,7 @@ public abstract class AbstractFormBuilder {
     public final void setRow(int row) {
         currentCellConstraints.gridY = row;
     }
+    
     
     /**
      * Sets the cursor's column span.
@@ -210,6 +239,7 @@ public abstract class AbstractFormBuilder {
         currentCellConstraints.gridWidth = columnSpan;
     }
     
+    
     /**
      * Sets the cursor's row span.
      * 
@@ -218,6 +248,7 @@ public abstract class AbstractFormBuilder {
     public final void setRowSpan(int rowSpan) {
         currentCellConstraints.gridHeight = rowSpan;
     }
+    
     
     /**
      * Sets the cursor's origin to the given column and row.
@@ -230,6 +261,7 @@ public abstract class AbstractFormBuilder {
         setRow(row);
     }
     
+    
     /**
      * Sets the cursor's extent to the given column span and row span.
      * 
@@ -241,12 +273,13 @@ public abstract class AbstractFormBuilder {
         setRowSpan(rowSpan);
     }
     
+    
     /**
      * Sets the cell bounds (location and extent) to the given column, row,
      * column span and row span.
      * 
      * @param column       the new column index (grid x)
-     * @param row          the new row index	  (grid y)
+     * @param row          the new row index	 (grid y)
      * @param columnSpan   the new column span  (grid width)
      * @param rowSpan      the new row span     (grid height)
      */
@@ -257,12 +290,14 @@ public abstract class AbstractFormBuilder {
         setRowSpan(rowSpan);
     }
     
+    
     /**
      * Moves to the next column, does the same as #nextColumn(1).
      */
     public final void nextColumn() {
         nextColumn(1);
     }
+    
 
     /**
      * Moves to the next column.
@@ -273,12 +308,14 @@ public abstract class AbstractFormBuilder {
         currentCellConstraints.gridX += columns * getColumnIncrementSign();
     }
 
+    
     /**
      * Increases the row by one; does the same as #nextRow(1).
      */
     public final void nextRow() {
         nextRow(1);
     }
+    
 
     /**
      * Increases the row by the specified rows.
@@ -289,6 +326,7 @@ public abstract class AbstractFormBuilder {
         currentCellConstraints.gridY += rows;
     }
     
+    
     /**
      * Moves to the next line: increases the row and resets the column; 
      * does the same as #nextLine(1).
@@ -296,6 +334,7 @@ public abstract class AbstractFormBuilder {
     public final void nextLine() {
         nextLine(1);
     }
+    
 
     /**
      * Moves the cursor down several lines: increases the row by the 
@@ -329,6 +368,7 @@ public abstract class AbstractFormBuilder {
         currentCellConstraints.vAlign = alignment;
     }
     
+    
     /**
      * Sets the horizontal and vertical alignment.
      * 
@@ -342,86 +382,158 @@ public abstract class AbstractFormBuilder {
     }
 
     
-    // Adding Columns and Rows **********************************************
+    // Appending Columns ******************************************************
 
     /**
      * Appends the given column specification to the builder's layout.
      * 
-     * @param columnSpec  the column specification to append
+     * @param columnSpec  the column specification object to append
+     * 
+     * @see #appendColumn(String)
      */
     public final void appendColumn(ColumnSpec columnSpec) {
         getLayout().appendColumn(columnSpec);
     }
 
+    
     /**
      * Appends a column specification to the builder's layout 
      * that represents the given string encoding.
      * 
-     * @param encodedColumnSpec  the column specification to append
+     * @param encodedColumnSpec  the column specification to append in encoded form
+     * 
+     * @see #appendColumn(ColumnSpec)
      */
     public final void appendColumn(String encodedColumnSpec) {
         appendColumn(new ColumnSpec(encodedColumnSpec));
     }
+    
 
     /**
      * Appends a glue column.
+     * 
+     * @see #appendLabelComponentsGapColumn()
+     * @see #appendRelatedComponentsGapColumn()
+     * @see #appendUnrelatedComponentsGapColumn()
      */
     public final void appendGlueColumn() {
         appendColumn(FormFactory.GLUE_COLSPEC);
     }
     
+    
+    /**
+     * Appends a column that is the default gap between a label and
+     * its associated component.
+     * 
+     * @since 1.0.3
+     * 
+     * @see #appendGlueColumn()
+     * @see #appendRelatedComponentsGapColumn()
+     * @see #appendUnrelatedComponentsGapColumn()
+     */
+    public final void appendLabelComponentsGapColumn() {
+        appendColumn(FormFactory.LABEL_COMPONENT_GAP_COLSPEC);
+    }
+    
+    
     /**
      * Appends a column that is the default gap for related components.
+     * 
+     * @see #appendGlueColumn()
+     * @see #appendLabelComponentsGapColumn()
+     * @see #appendUnrelatedComponentsGapColumn()
      */
     public final void appendRelatedComponentsGapColumn() {
         appendColumn(FormFactory.RELATED_GAP_COLSPEC);
     }
     
+    
     /**
      * Appends a column that is the default gap for unrelated components.
+     * 
+     * @see #appendGlueColumn()
+     * @see #appendLabelComponentsGapColumn()
+     * @see #appendRelatedComponentsGapColumn()
      */
     public final void appendUnrelatedComponentsGapColumn() {
         appendColumn(FormFactory.UNRELATED_GAP_COLSPEC);
     }
     
+    
+    // Appending Rows ********************************************************
+    
     /**
      * Appends the given row specification to the builder's layout.
      * 
-     * @param rowSpec  the row specification to append
+     * @param rowSpec  the row specification object to append
+     * 
+     * @see #appendRow(String)
      */
     public final void appendRow(RowSpec rowSpec) {
         getLayout().appendRow(rowSpec);
     }
+    
 
     /**
      * Appends a row specification to the builder's layout that represents
      * the given string encoding.
      * 
-     * @param encodedRowSpec  the row specification to append
+     * @param encodedRowSpec  the row specification to append in encoded form
+     * 
+     * @see #appendRow(RowSpec)
      */
     public final void appendRow(String encodedRowSpec) {
         appendRow(new RowSpec(encodedRowSpec));
     }
 
+    
     /**
      * Appends a glue row.
+     * 
+     * @see #appendRelatedComponentsGapRow()
+     * @see #appendUnrelatedComponentsGapRow()
+     * @see #appendParagraphGapRow()
      */
     public final void appendGlueRow() {
         appendRow(FormFactory.GLUE_ROWSPEC);
     }
     
+    
     /**
      * Appends a row that is the default gap for related components.
+     * 
+     * @see #appendGlueRow()
+     * @see #appendUnrelatedComponentsGapRow()
+     * @see #appendParagraphGapRow()
      */
     public final void appendRelatedComponentsGapRow() {
         appendRow(FormFactory.RELATED_GAP_ROWSPEC);
     }
+
     
     /**
      * Appends a row that is the default gap for unrelated components.
+     * 
+     * @see #appendGlueRow()
+     * @see #appendRelatedComponentsGapRow()
+     * @see #appendParagraphGapRow()
      */
     public final void appendUnrelatedComponentsGapRow() {
         appendRow(FormFactory.UNRELATED_GAP_ROWSPEC);
+    }
+    
+
+    /**
+     * Appends a row that is the default gap for paragraphs.
+     * 
+     * @since 1.0.3
+     * 
+     * @see #appendGlueRow()
+     * @see #appendRelatedComponentsGapRow()
+     * @see #appendUnrelatedComponentsGapRow()
+     */
+    public final void appendParagraphGapRow() {
+        appendRow(FormFactory.PARAGRAPH_GAP_ROWSPEC);
     }
     
 
@@ -439,6 +551,7 @@ public abstract class AbstractFormBuilder {
         return component; 
     }
     
+    
     /**
      * Adds a component to the panel using the given encoded cell constraints.
      * 
@@ -450,6 +563,7 @@ public abstract class AbstractFormBuilder {
         container.add(component, new CellConstraints(encodedCellConstraints));
         return component;    
     }
+    
     
     /**
      * Adds a component to the container using the default cell constraints.
@@ -474,6 +588,7 @@ public abstract class AbstractFormBuilder {
         return currentCellConstraints;
     }
     
+    
     /**
      * Returns the leading column.
      * <p>
@@ -485,6 +600,7 @@ public abstract class AbstractFormBuilder {
     protected int getLeadingColumn() {
         return isLeftToRight() ? 1 : getColumnCount();
     }
+    
     
     /**
      * Returns the sign (-1 or 1) used to increment the cursor's column 
