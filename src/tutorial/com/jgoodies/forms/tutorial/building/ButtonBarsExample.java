@@ -31,6 +31,7 @@
 package com.jgoodies.forms.tutorial.building;
 
 import java.awt.Component;
+import java.awt.Insets;
 
 import javax.swing.*;
 
@@ -42,8 +43,9 @@ import com.jgoodies.forms.layout.FormLayout;
 /**
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
- * @version $Revision: 1.9 $
  * @author  Karsten Lentzsch
+ * @version $Revision: 1.10 $
+ * 
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
  */
@@ -70,11 +72,11 @@ public final class ButtonBarsExample {
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 
         tabbedPane.add(buildButtonBar1Panel(),      "No Builder");
-        tabbedPane.add(buildButtonBar2Panel(),      "With Builder");
+        tabbedPane.add(buildButtonBar2Panel(),      "Builder");
         tabbedPane.add(buildButtonBar3Panel(),      "Related");
         tabbedPane.add(buildButtonBar4Panel(),      "Unrelated ");
-        tabbedPane.add(buildButtonMixedBar1Panel(), "Mix 1");
-        tabbedPane.add(buildButtonMixedBar2Panel(), "Mix 2");
+        tabbedPane.add(buildButtonMixedBar1Panel(), "Mix");
+        tabbedPane.add(buildButtonMixedBar2Panel(), "Mix Narrow");
         return tabbedPane;
     }
     
@@ -85,7 +87,7 @@ public final class ButtonBarsExample {
         buttonBar.add(new JButton("No"),  "4, 1");   
         
         return wrap(buttonBar, 
-            "\nThis bar has been built without a ButtonBarBuilder.\n" +            " o the buttons have no minimum widths and\n" +            " o gaps may be inconsistent between team members.");
+            "This bar has been built without a ButtonBarBuilder.\n" +            " o the buttons have no minimum widths and\n" +            " o gaps may be inconsistent between team members.");
     }
 
     private Component buildButtonBar2Panel() {
@@ -96,7 +98,7 @@ public final class ButtonBarsExample {
                 new JButton("No")
                 });  
         return wrap(builder.getPanel(),
-            "\nThis bar has been built with a ButtonBarBuilder.\n" +
+            "This bar has been built with a ButtonBarBuilder.\n" +
             " o The buttons have a minimum widths and\n" +
             " o the button gap is a logical size that follows a style guide.");
     }
@@ -110,7 +112,7 @@ public final class ButtonBarsExample {
                 new JButton("Three")
         	});   
         return wrap(builder.getPanel(),
-            "\nThis bar uses the logical gap for related buttons.\n");    }
+            "This bar uses the logical gap for related buttons.\n");    }
     
     private Component buildButtonBar4Panel() {
         ButtonBarBuilder builder = new ButtonBarBuilder();
@@ -122,7 +124,7 @@ public final class ButtonBarsExample {
         builder.addGridded(new JButton("Three"));   
 
         return wrap(builder.getPanel(),
-            "\nThis bar uses the logical gap for unrelated buttons.\n" +            "It is a little bit wider than the related gap.");
+            "This bar uses the logical gap for unrelated buttons.\n" +            "It is a little bit wider than the related gap.");
     }
     
     private Component buildButtonMixedBar1Panel() {
@@ -152,16 +154,20 @@ public final class ButtonBarsExample {
                 new JButton("Cancel")
         });   
         return wrap(builder.getPanel(),
-            "\nDemonstrates a glue (between Help and the rest),\n" +
+            "Demonstrates a glue (between Help and the rest),\n" +
             "has related and unrelated buttons and an ungridded button\n" +
-            "with a narrow margin (Copy to Clipboard).");
+            "with a narrow margin (Copy to Clipboard).\n\n"+
+			"Note that some look&feels do not support the narrow margin\n" +
+			"feature, and conversely, others have only narrow margins.");
     }
     
     
     // Helper Code ************************************************************
     
     private Component wrap(Component buttonBar, String text) {
-        Component textPane = new JScrollPane(new JTextArea(text));
+    	JTextArea textArea = new JTextArea(text);
+    	textArea.setMargin(new Insets(6, 10, 4, 6));
+        Component textPane = new JScrollPane(textArea);
         
         FormLayout layout = new FormLayout(
                         "fill:default:grow",
