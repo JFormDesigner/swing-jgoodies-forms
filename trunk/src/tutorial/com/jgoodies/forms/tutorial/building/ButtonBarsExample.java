@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  * 
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -87,7 +87,8 @@ public final class ButtonBarsExample {
         buttonBar.add(new JButton("No"),  "4, 1");   
         
         return wrap(buttonBar, 
-            "This bar has been built without a ButtonBarBuilder.\n" +            " o the buttons have no minimum widths and\n" +            " o gaps may be inconsistent between team members.");
+            "This bar has been built without a ButtonBarBuilder:\n" +            " o buttons have no minimum widths,\n" +
+			" o the button order is fixed left-to-right,\n" +            " o gaps may be inconsistent between team members.");
     }
 
     private Component buildButtonBar2Panel() {
@@ -98,9 +99,10 @@ public final class ButtonBarsExample {
                 new JButton("No")
                 });  
         return wrap(builder.getPanel(),
-            "This bar has been built with a ButtonBarBuilder.\n" +
-            " o The buttons have a minimum widths and\n" +
-            " o the button gap is a logical size that follows a style guide.");
+            "This bar has been built with a ButtonBarBuilder:\n" +
+            " o buttons have a minimum widths,\n" +
+			" o the button order honors the platform default,\n" +
+        " o the button gap is a logical size that follows a style guide.");
     }
     
     private Component buildButtonBar3Panel() {
