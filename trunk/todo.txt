@@ -12,6 +12,12 @@ o Add more examples to constructors and frequently used methods.
 o Add tutorial examples that explains how to align labels with text areas.
   Much like the examples "Building - Custom Rows" and "Building - "Custom Areas".
 
+o Add exercise 8 from the JGoodies Training to 
+  the tutorial's pitfalls section.
+  
+o Add an example where the DefaultFormBuilder 
+  is more complex than a PanelBuilder.
+
 o Add custom ComponentFactory example
 
 o Move example title and comment from the Forms Demo
