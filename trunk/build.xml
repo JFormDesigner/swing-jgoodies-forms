@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.5 2003-08-25 19:01:05 karsten Exp $
+   $Id: build.xml,v 1.6 2003-09-02 16:25:56 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -261,12 +261,14 @@
 	
 		<mkdir dir="${dist.dir}" />
 		
-		<!-- Copy the documentation. -->
+		<!-- Compile the documentation. -->
 		<copy todir="${dist.docs.dir}" >
 			<fileset dir="${docs.dir}"  
 			         excludes="**/*.psd, *.sxw"     />
-		    <fileset dir="${build.docs.dir}" />
 		</copy>
+		<move todir="${dist.docs.dir}" >
+		    <fileset dir="${build.docs.dir}" />
+		</move>
 		
 		<!-- Copy the source directories. -->
 		<copy todir="${dist.src.dir}" >
