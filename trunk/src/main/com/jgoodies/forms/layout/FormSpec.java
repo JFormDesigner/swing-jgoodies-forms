@@ -42,7 +42,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  * 
  * @see     ColumnSpec
  * @see     RowSpec
@@ -280,15 +280,15 @@ public abstract class FormSpec implements Serializable {
             if (size2 instanceof Sizes.ComponentSize) {
                 return new BoundedSize(size2, setMax ? null : size1,
                                                setMax ? size1 : null);
-            } else
-                throw new IllegalArgumentException(
+            }
+            throw new IllegalArgumentException(
                                 "Bounded sizes must not be both constants.");
         } else {
             if (size2 instanceof ConstantSize) {
                 return new BoundedSize(size1, setMax ? null : size2,
                                                setMax ? size2 : null);
-            } else
-                throw new IllegalArgumentException(
+            }
+            throw new IllegalArgumentException(
                                 "Bounded sizes must not be both logical.");
         } 
     }
@@ -333,11 +333,10 @@ public abstract class FormSpec implements Serializable {
             int rightParen = token.indexOf(')');
             String substring = token.substring(leftParen + 1, rightParen);
             return Double.parseDouble(substring);
-        } else {        
-            throw new IllegalArgumentException(
+        }        
+        throw new IllegalArgumentException(
                     "The resize argument '" + token + "' is invalid. " +
                     " Must be one of: grow, g, none, n, grow(<double>), g(<double>)");
-        }
     }
     
     

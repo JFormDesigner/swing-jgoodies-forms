@@ -133,7 +133,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -724,9 +724,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 if (usedIndices[colIndex]) {
                     throw new IllegalArgumentException(
                         "Column index " + colIndex + " must not be used in multiple column groups.");
-                } else {
-                    usedIndices[colIndex] = true;
                 }
+                usedIndices[colIndex] = true;
             }
         }
         this.colGroupIndices = deepClone(colGroupIndices);
@@ -795,9 +794,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 if (usedIndices[rowIndex]) {
                     throw new IllegalArgumentException(
                         "Row index " + rowIndex + " must not be used in multiple row groups.");
-                } else {
-                    usedIndices[rowIndex] = true;
                 }
+                usedIndices[rowIndex] = true;
             }
         }
         this.rowGroupIndices = deepClone(rowGroupIndices);
