@@ -31,7 +31,6 @@
 package com.jgoodies.forms.layout;
 
 import junit.framework.TestCase;
-import com.jgoodies.forms.layout.ColumnSpec;
 
 /**
  * A test case for class {@link ColumnSpec}.
