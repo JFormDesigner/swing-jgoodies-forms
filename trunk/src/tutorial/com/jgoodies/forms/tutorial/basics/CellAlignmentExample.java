@@ -41,7 +41,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * alignments to cells, and how to override the defaults.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class CellAlignmentExample {
 
@@ -74,45 +74,46 @@ public final class CellAlignmentExample {
     
     private JComponent buildHorizontalPanel() {
         FormLayout layout = new FormLayout(
-                        "left:pref:g, center:pref:g, right:pref:g, pref:g",
+                        "r:p, 4dlu, left:pref:g, center:pref:g, right:pref:g, pref:g",
                         "pref, 8dlu, pref, pref, pref, pref, pref");
         JPanel panel = new JPanel(layout);
         panel.setBorder(Borders.DIALOG_BORDER);
         
-        panel.add(new JLabel("Left"),       "1, 1, c, c");
-        panel.add(new JLabel("Center"),     "2, 1, c, c");
-        panel.add(new JLabel("Right"),      "3, 1, c, c");
-        panel.add(new JLabel("Default"),    "4, 1, c, c");
+        panel.add(new JLabel("Column Spec: "),          "1, 1, r, c");
+        panel.add(new JLabel(" \"left:pref:grow\" "),   "3, 1, c, c");
+        panel.add(new JLabel(" \"center:pref:grow\" "), "4, 1, c, c");
+        panel.add(new JLabel(" \"right:pref:grow\" "),  "5, 1, c, c");
+        panel.add(new JLabel(" \"pref:grow\" "),        "6, 1, c, c");
         
         int row = 3;
-        addHorizontalButton(panel, 1, row, CellConstraints.DEFAULT);
-        addHorizontalButton(panel, 2, row, CellConstraints.DEFAULT);
         addHorizontalButton(panel, 3, row, CellConstraints.DEFAULT);
         addHorizontalButton(panel, 4, row, CellConstraints.DEFAULT);
+        addHorizontalButton(panel, 5, row, CellConstraints.DEFAULT);
+        addHorizontalButton(panel, 6, row, CellConstraints.DEFAULT);
 
         row++;
-        addHorizontalButton(panel, 1, row, CellConstraints.FILL);
-        addHorizontalButton(panel, 2, row, CellConstraints.FILL);
         addHorizontalButton(panel, 3, row, CellConstraints.FILL);
         addHorizontalButton(panel, 4, row, CellConstraints.FILL);
+        addHorizontalButton(panel, 5, row, CellConstraints.FILL);
+        addHorizontalButton(panel, 6, row, CellConstraints.FILL);
 
         row++;
-        addHorizontalButton(panel, 1, row, CellConstraints.LEFT);
-        addHorizontalButton(panel, 2, row, CellConstraints.LEFT);
         addHorizontalButton(panel, 3, row, CellConstraints.LEFT);
         addHorizontalButton(panel, 4, row, CellConstraints.LEFT);
+        addHorizontalButton(panel, 5, row, CellConstraints.LEFT);
+        addHorizontalButton(panel, 6, row, CellConstraints.LEFT);
 
         row++;
-        addHorizontalButton(panel, 1, row, CellConstraints.CENTER);
-        addHorizontalButton(panel, 2, row, CellConstraints.CENTER);
         addHorizontalButton(panel, 3, row, CellConstraints.CENTER);
         addHorizontalButton(panel, 4, row, CellConstraints.CENTER);
+        addHorizontalButton(panel, 5, row, CellConstraints.CENTER);
+        addHorizontalButton(panel, 6, row, CellConstraints.CENTER);
 
         row++;
-        addHorizontalButton(panel, 1, row, CellConstraints.RIGHT);
-        addHorizontalButton(panel, 2, row, CellConstraints.RIGHT);
         addHorizontalButton(panel, 3, row, CellConstraints.RIGHT);
         addHorizontalButton(panel, 4, row, CellConstraints.RIGHT);
+        addHorizontalButton(panel, 5, row, CellConstraints.RIGHT);
+        addHorizontalButton(panel, 6, row, CellConstraints.RIGHT);
 
         return panel;
     }
@@ -120,45 +121,47 @@ public final class CellAlignmentExample {
     
     private JComponent buildVerticalPanel() {
         FormLayout layout = new FormLayout(
-                        "left:pref, 8dlu, l:p, l:p, l:p, l:p, l:p",
-                        "top:pref:g, center:pref:g, bottom:pref:g, pref:g");
+                        "left:pref, 8dlu, p, c:p, p, p, p",
+                        "p, 4dlu, top:pref:g, center:pref:g, bottom:pref:g, pref:g");
+        layout.setColumnGroups(new int[][] {{3, 5, 6, 7}});
         JPanel panel = new JPanel(layout);
         panel.setBorder(Borders.DIALOG_BORDER);
 
-        panel.add(new JLabel("Top"),        "1, 1, r, c");
-        panel.add(new JLabel("Center"),     "1, 2, r, c");
-        panel.add(new JLabel("Bottom"),     "1, 3, r, c");
-        panel.add(new JLabel("Default"),    "1, 4, r, c");
+        panel.add(new JLabel("Row Spec:"),             "1, 1, r, c");
+        panel.add(new JLabel("\"top:pref:grow\""),     "1, 3, r, c");
+        panel.add(new JLabel("\"center:pref:grow\""), "1, 4, r, c");
+        panel.add(new JLabel("\"bottom:pref:grow\""),  "1, 5, r, c");
+        panel.add(new JLabel("\"pref:grow\""),         "1, 6, r, c");
         
         int col = 3;
-        addVerticalButton(panel, col, 1, CellConstraints.DEFAULT);
-        addVerticalButton(panel, col, 2, CellConstraints.DEFAULT);
         addVerticalButton(panel, col, 3, CellConstraints.DEFAULT);
         addVerticalButton(panel, col, 4, CellConstraints.DEFAULT);
+        addVerticalButton(panel, col, 5, CellConstraints.DEFAULT);
+        addVerticalButton(panel, col, 6, CellConstraints.DEFAULT);
 
         col++;
-        addVerticalButton(panel, col, 1, CellConstraints.FILL);
-        addVerticalButton(panel, col, 2, CellConstraints.FILL);
         addVerticalButton(panel, col, 3, CellConstraints.FILL);
         addVerticalButton(panel, col, 4, CellConstraints.FILL);
+        addVerticalButton(panel, col, 5, CellConstraints.FILL);
+        addVerticalButton(panel, col, 6, CellConstraints.FILL);
 
         col++;
-        addVerticalButton(panel, col, 1, CellConstraints.TOP);
-        addVerticalButton(panel, col, 2, CellConstraints.TOP);
         addVerticalButton(panel, col, 3, CellConstraints.TOP);
         addVerticalButton(panel, col, 4, CellConstraints.TOP);
+        addVerticalButton(panel, col, 5, CellConstraints.TOP);
+        addVerticalButton(panel, col, 6, CellConstraints.TOP);
 
         col++;
-        addVerticalButton(panel, col, 1, CellConstraints.CENTER);
-        addVerticalButton(panel, col, 2, CellConstraints.CENTER);
         addVerticalButton(panel, col, 3, CellConstraints.CENTER);
         addVerticalButton(panel, col, 4, CellConstraints.CENTER);
+        addVerticalButton(panel, col, 5, CellConstraints.CENTER);
+        addVerticalButton(panel, col, 6, CellConstraints.CENTER);
 
         col++;
-        addVerticalButton(panel, col, 1, CellConstraints.BOTTOM);
-        addVerticalButton(panel, col, 2, CellConstraints.BOTTOM);
         addVerticalButton(panel, col, 3, CellConstraints.BOTTOM);
         addVerticalButton(panel, col, 4, CellConstraints.BOTTOM);
+        addVerticalButton(panel, col, 5, CellConstraints.BOTTOM);
+        addVerticalButton(panel, col, 6, CellConstraints.BOTTOM);
 
         return panel;
     }
