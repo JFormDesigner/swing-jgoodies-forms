@@ -1,5 +1,25 @@
 
 
+                    JGoodies Forms, Version 1.0.3
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This release is a maintenance update that ...
+
+
+OTHER CHANGES
+
+    o Docs:     Fixed spelling and grammar errors
+    
+
+-------------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+
+
                     JGoodies Forms, Version 1.0.2
                             Release Notes
                         
