@@ -38,7 +38,7 @@ import java.util.List;
  * that provide lower and upper bounds.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @see	Sizes
  * @see	ConstantSize
  * @see	Sizes.ComponentSize
@@ -172,6 +172,8 @@ final class BoundedSize implements Size {
      * @see     java.util.Hashtable
      */
     public boolean equals(Object object) {
+        if (this == object)
+            return true;
         if (!(object instanceof BoundedSize))
             return false;
         BoundedSize size = (BoundedSize) object;
