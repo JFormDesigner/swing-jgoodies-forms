@@ -11,7 +11,7 @@ INTRODUCTION
     
 NEW FEATURES
 
-    o ...
+    o Added an empty FormLayout constructor.
     
     
 BUGS FIXED
@@ -22,8 +22,9 @@ BUGS FIXED
 OTHER CHANGES
 
     o Code: ...
-    o Tut.: ...
-    o Docs: ...
+    o Tut.: Main methods use the new JGoodies Looks 1.3 package names.
+    o Docs: Added examples to FormLayout constructors.
+    o Docs: Corrected JavaDoc @throws texts in ColumnSpec and RowSpec.
     o Dist: ...
     
     
