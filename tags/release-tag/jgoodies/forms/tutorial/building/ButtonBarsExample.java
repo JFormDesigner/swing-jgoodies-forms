@@ -1,0 +1,160 @@
+/*
+ * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ *
+ * This software is the proprietary information of 
+ * JGoodies Karsten Lentzsch. Use is subject to license terms.
+ *
+ */
+ 
+package com.jgoodies.forms.tutorial.building;
+
+import java.awt.Component;
+
+import javax.swing.*;
+
+import com.jgoodies.forms.builder.ButtonBarBuilder;
+import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+
+/**
+ * Demonstrates the use of Factories as provided by the Forms framework.
+ *
+ * @author	Karsten Lentzsch
+ * @see	ButtonBarFactory
+ * @see	WizardBarFactory
+ */
+public final class ButtonBarsExample {
+    
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.jgoodies.plaf.plastic.PlasticXPLookAndFeel");
+        } catch (Exception e) {}
+        JFrame frame = new JFrame();
+        frame.setTitle("Forms Demo :: Button Bars");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JComponent panel = new ButtonBarsExample().buildPanel();
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.show();
+    }
+
+
+    public JComponent buildPanel() {
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
+
+        tabbedPane.add(buildButtonBar1Panel(),      "No Builder");
+        tabbedPane.add(buildButtonBar2Panel(),      "With Builder");
+        tabbedPane.add(buildButtonBar3Panel(),      "Related");
+        tabbedPane.add(buildButtonBar4Panel(),      "Unrelated ");
+        tabbedPane.add(buildButtonMixedBar1Panel(), "Mix 1");
+        tabbedPane.add(buildButtonMixedBar2Panel(), "Mix 2");
+        return tabbedPane;
+    }
+    
+    private Component buildButtonBar1Panel() {
+        JPanel buttonBar = new JPanel(
+            new FormLayout("0:grow, p, 4px, p", "p"));
+        buttonBar.add(new JButton("Yes"), "2, 1");                      
+        buttonBar.add(new JButton("No"),  "4, 1");   
+        
+        return wrap(buttonBar, 
+            "\nThis bar has been built without a ButtonBarBuilder.\n" +
+            " o the buttons have no minimum widths and\n" +
+            " o gaps may be inconsistent between team members.");
+    }
+
+    private Component buildButtonBar2Panel() {
+        ButtonBarBuilder builder = new ButtonBarBuilder();
+        builder.addGlue();
+        builder.addGridded(new JButton("Yes"));                      
+        builder.addRelatedGap();                   
+        builder.addGridded(new JButton("No"));  
+         
+        return wrap(builder.getPanel(),
+            "\nThis bar has been built with a ButtonBarBuilder.\n" +
+            " o The buttons have a minimum widths and\n" +
+            " o the button gap is a logical size that follows a style guide.");
+    }
+    
+    private Component buildButtonBar3Panel() {
+        ButtonBarBuilder builder = new ButtonBarBuilder();
+        builder.addGlue();
+        builder.addGridded(new JButton("Related"));   
+        builder.addRelatedGap();                   
+        builder.addGridded(new JButton("Related"));   
+        builder.addRelatedGap();                   
+        builder.addGridded(new JButton("Related"));   
+
+        return wrap(builder.getPanel(),
+            "\nThis bar uses the logical gap for related buttons.\n");
+    }
+    
+    private Component buildButtonBar4Panel() {
+        ButtonBarBuilder builder = new ButtonBarBuilder();
+        builder.addGlue();
+        builder.addGridded(new JButton("Unrelated"));   
+        builder.addUnrelatedGap();                   
+        builder.addGridded(new JButton("Unrelated"));   
+        builder.addUnrelatedGap();                   
+        builder.addGridded(new JButton("Unrelated"));   
+
+        return wrap(builder.getPanel(),
+            "\nThis bar uses the logical gap for unrelated buttons.\n" +
+            "It is a little bit wider than the related gap.");
+    }
+    
+    private Component buildButtonMixedBar1Panel() {
+        ButtonBarBuilder builder = new ButtonBarBuilder();
+        builder.addGridded(new JButton("Help"));
+        builder.addGlue();
+        builder.addUnrelatedGap();
+        builder.addFixed(new JButton("Copy to Clipboard"));
+        builder.addUnrelatedGap();
+        builder.addGridded(new JButton("OK"));   
+        builder.addRelatedGap();                   
+        builder.addGridded(new JButton("Cancel"));   
+
+        return wrap(builder.getPanel(),
+            "\nDemonstrates a glue (between Help and the rest),\n" +
+            "has related and unrelated buttons and an ungridded button\n" +
+            "with a default margin (Copy to Clipboard).");
+    }
+    
+    private Component buildButtonMixedBar2Panel() {
+        ButtonBarBuilder builder = new ButtonBarBuilder();
+        builder.addGridded(new JButton("Help"));
+        builder.addGlue();
+        builder.addUnrelatedGap();
+        builder.addFixedNarrow(new JButton("Copy to Clipboard"));
+        builder.addUnrelatedGap();
+        builder.addGridded(new JButton("OK"));   
+        builder.addRelatedGap();                   
+        builder.addGridded(new JButton("Cancel"));   
+
+        return wrap(builder.getPanel(),
+            "\nDemonstrates a glue (between Help and the rest),\n" +
+            "has related and unrelated buttons and an ungridded button\n" +
+            "with a narrow margin (Copy to Clipboard).");
+    }
+    
+    
+    // Helper Code ************************************************************
+    
+    private Component wrap(Component buttonBar, String text) {
+        Component textPane = new JScrollPane(new JTextArea(text));
+        
+        FormLayout layout = new FormLayout(
+                        "fill:default:grow",
+                        "fill:p:grow, 4dlu, p");
+        JPanel panel = new JPanel(layout);
+        CellConstraints cc = new CellConstraints();
+        panel.setBorder(Borders.DIALOG_BORDER);
+        panel.add(textPane,    cc.xy(1, 1));
+        panel.add(buttonBar,   cc.xy(1, 3));                   
+        return panel;
+    }
+    
+}
+
