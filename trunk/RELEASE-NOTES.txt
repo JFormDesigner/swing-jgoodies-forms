@@ -1,23 +1,35 @@
 
 
-                    JGoodies Forms, Version 1.0.4 Snapshot
+                    JGoodies Forms, Version 1.0.4
                             Release Notes
                         
 
 INTRODUCTION
 
-    This maintenance release fixes bugs and aims to simplify the API.
+    This maintenance release fixes bugs, comes with a simpler API,
+    and provides more JavaDoc examples for frequently used methods.
     
     
 API INCOMPATIBILITIES
 
-    o ColumnSpec and RowSpec are now immutable.
+    o ColumnSpec and RowSpec are now immutable. This won't affect
+      the typical Forms usage, but may affect visual builder tools.
     o Removed method ButtonStackBuilder#addGriddedNarrow(JComponent)
+    
+    
+VISUAL INCOMPATIBILITIES
+  
+    o In rare cases the container size may be smaller than before. 
+      Bug #4 has been fixed (see below). In 1.0.4 the container
+      will be expanded only if components span cols/rows that can grow.
+      In 1.0.3 the container could be expanded if *any* col/row grows.
+      So some wrong 1.0.3 container expansions won't happen in 1.0.4.
     
 
 NEW FEATURES
 
-    o CellConstraints#xyw
+    o Added the CellConstraints#xyw method set.
+    o Added FormLayoutUtils to the Extras.
     
     
 BUGS FIXED
@@ -25,21 +37,20 @@ BUGS FIXED
     o DefaultUnitConverter#setDefaultDialogFont throws NPE.
     o DefaultUnitConverter#setAverageCharacterWidthTestString throws NPE.
     o Invalid sample code in PanelBuilder JavaDocs.
+    o (Bug #4) In some cases components that span multiple columns/rows 
+      can expand the container size, although none of the spanned
+      columns/rows are allowed to grow. 
     
     
 OTHER CHANGES
 
     o Extended and corrected JavaDoc class comments.
-    o Added examples to many methods comments.
+    o Added examples to the JavaDocs of frequently used methods.
+    o Refreshed README and FAQ
+    o Refreshed whitepaper to demonstrate CellConstraints#xyw.
+    o Added two HTML pages: Visual Builders and References.
     
     
-KNOWN ISSUES
-
-    o In some cases components that span multiple columns/rows 
-      can expand the container size, although none of the spanned
-      columns/rows are allowed to grow. See the FAQ for details.
-      
- 
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
 
