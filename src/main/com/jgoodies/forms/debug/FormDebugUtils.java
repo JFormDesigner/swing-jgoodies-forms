@@ -58,7 +58,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see FormDebugPanel
  */
@@ -240,7 +240,7 @@ public final class FormDebugUtils {
     }
     
     /**
-     * Computes and answers the layout's grid origins.
+     * Computes and returns the layout's grid origins.
      * 
      * @param container   the layout container to inspect
      * @return an object that comprises the cell origins and extents

@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public final class BasicSizesExample {
 
@@ -138,7 +138,7 @@ public final class BasicSizesExample {
     // Helper Classes *********************************************************
     
     /**
-     * Creates and answers a button that can have predefined minimum 
+     * Creates and returns a button that can have predefined minimum 
      * and preferred sizes. In the constructor you can specify or omit
      * the minimum width, height and preferred width/height.
      */

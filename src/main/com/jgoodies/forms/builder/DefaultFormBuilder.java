@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -800,7 +800,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     }
     
     /**
-     * Looks up and answers the row specification of the current row.
+     * Looks up and returns the row specification of the current row.
      *  
      * @return the row specification of the current row
      */

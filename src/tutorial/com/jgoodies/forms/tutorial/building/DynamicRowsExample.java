@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see	PlainExample
  * @see	RowCounterExample
@@ -110,7 +110,7 @@ public final class DynamicRowsExample {
     }
 
     /**
-     * Creates and answers a combo box for the locations.
+     * Creates and returns a combo box for the locations.
      * 
      * @return a combo box for three locations
      */

@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <i>defaultDialogFont</i> and <i>averageCharacterWidthTestString</i>. 
  * 
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -215,7 +215,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     // Implementing Abstract Superclass Behavior ******************************
     
     /**
-     * Answers the cached or computed horizontal dialog base units. 
+     * Returns the cached or computed horizontal dialog base units. 
      * 
      * @param component     a Component that provides the font and graphics
      * @return the horizontal dialog base units
@@ -225,7 +225,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     }
     
     /**
-     * Answers the cached or computed vertical dialog base units
+     * Returns the cached or computed vertical dialog base units
      * for the given component.  
      * 
      * @param component     a Component that provides the font and graphics
@@ -252,7 +252,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     }
     
     /**
-     * Looks up and answers the dialog base units for the given component.
+     * Looks up and returns the dialog base units for the given component.
      * In case the component is <code>null</code> the global dialog base units
      * are answered.<p>
      * 
@@ -345,7 +345,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * requesting the font metrics will end up using the default toolkit
      * and its deprecated method <code>ToolKit#getFontMetrics()</code>.<p>
      * 
-     * TODO:Consider publishing this method and providing a setter, so that
+     * TODO: Consider publishing this method and providing a setter, so that
      * an API user can set a realized component that has a toolkit assigned.
      *  
      * @return a component used to compute the default font metrics
