@@ -142,7 +142,7 @@ public final class RowCounterExample {
 
         builder.addLabel("Power",         cc.xy  (1, row));
         builder.add(powerField,           cc.xy  (3, row));
-        builder.add(new JLabel("Speed"),  cc.xy  (5, row));
+        builder.addLabel("Speed",         cc.xy  (5, row));
         builder.add(speedField,           cc.xy  (7, row++));
         row++;
 
