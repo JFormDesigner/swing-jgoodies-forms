@@ -32,7 +32,7 @@ package com.jgoodies.forms.tutorial.building;
 
 import javax.swing.*;
 
-import com.jgoodies.forms.extras.DefaultFormBuilder;
+import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
@@ -44,9 +44,12 @@ import com.jgoodies.forms.layout.RowSpec;
  * <li> using a single custom row with label on top,
  * <li> using a separator.
  * </ol>
+ * These differ in the position of the leading 'Feedback" label,
+ * and in turn in the alignment of font baselines between label
+ * and the text area. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
@@ -118,10 +121,9 @@ public final class DefaultFormWithCustomAreasExample {
         DefaultFormBuilder builder = buildPanelHeader();
 
         CellConstraints cc = new CellConstraints();
-        
         builder.append("Feedback");
         builder.appendRow(new RowSpec("0:grow"));
-        builder.add(new JScrollPane(new JTextArea()),
+        builder.add(new JScrollPane(new JTextArea("Feedback - font baselines shall be aligned")),
                     cc.xywh(builder.getColumn(), builder.getRow(), 1, 2, "fill, fill"));
 
         return builder.getPanel();
@@ -138,12 +140,11 @@ public final class DefaultFormWithCustomAreasExample {
         DefaultFormBuilder builder = buildPanelHeader();
 
         CellConstraints cc = new CellConstraints();
-        
         builder.appendRow(builder.getLineGapSpec());
         builder.appendRow(new RowSpec("top:pref:grow"));
         builder.nextLine(2);
         builder.append("Feedback");
-        builder.add(new JScrollPane(new JTextArea()),
+        builder.add(new JScrollPane(new JTextArea("Feedback - likely the baselines are not aligned")),
                     cc.xy(builder.getColumn(), builder.getRow(), "fill, fill"));
 
         return builder.getPanel();
@@ -163,7 +164,7 @@ public final class DefaultFormWithCustomAreasExample {
      */
     private JComponent buildCustomAreaWithSeparatorPanel() {
         DefaultFormBuilder builder = buildPanelHeader();
-
+        
         builder.appendSeparator("Customer Feedback");
         builder.appendRow(builder.getLineGapSpec());
         builder.appendRow(new RowSpec("fill:pref:grow"));
