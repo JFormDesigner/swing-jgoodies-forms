@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre> 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * 
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -195,7 +195,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
      * @param panel  the layout container
      */
     public ButtonBarBuilder(JPanel panel) {
-        super(panel, new FormLayout(COL_SPECS, ROW_SPECS));
+        super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
         leftToRight = LayoutStyle.getCurrent().isLeftToRightButtonOrder();
     }
     

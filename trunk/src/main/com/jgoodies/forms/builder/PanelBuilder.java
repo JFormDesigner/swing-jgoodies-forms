@@ -85,7 +85,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -104,27 +104,42 @@ public class PanelBuilder extends AbstractFormBuilder {
 
     /**
      * Constructs an instance of <code>PanelBuilder</code> for the given
-     * panel and layout.
+     * layout. Uses an instance of <code>JPanel</code> as layout container
+     * with the given layout as layout manager.
      * 
-     * @param panel   the layout container to build on
-     * @param layout  the form layout to use
+     * @param layout  the FormLayout to use
      */
-    public PanelBuilder(JPanel panel, FormLayout layout){        
-        super(panel, layout);
+    public PanelBuilder(FormLayout layout){        
+        this(layout, new JPanel(null));
+    }
+
+    /**
+     * Constructs an instance of <code>PanelBuilder</code> for the given
+     * FormLayout and layout container.
+     * 
+     * @param layout  the FormLayout to use
+     * @param panel   the layout container to build on
+     */
+    public PanelBuilder(FormLayout layout, JPanel panel){        
+        super(layout, panel);
     }
     
 
     /**
      * Constructs an instance of <code>PanelBuilder</code> for the given
-     * layout. Uses an instance of <code>JPanel</code> as layout container
-     * with the given layout as layout manager.
+     * panel and layout.
      * 
+     * @param panel   the layout container to build on
      * @param layout  the form layout to use
+     * 
+     * @deprecated Replaced by {@link #PanelBuilder(FormLayout, JPanel)}.
      */
-    public PanelBuilder(FormLayout layout){        
-        this(new JPanel(null), layout);
+    public PanelBuilder(JPanel panel, FormLayout layout){        
+        super(layout, panel);
     }
+    
 
+    
 
     // Accessors ************************************************************
 

@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -95,13 +95,21 @@ public abstract class AbstractFormBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an instance of <code>AbstractFormBuilder</code> for the given
-     * container and form layout.
+     * Constructs an instance of <code>AbstractFormBuilder</code> 
+     * for the given FormLayout and layout container.
      * 
-     * @param container  the layout container
      * @param layout     the {@link FormLayout} to use
+     * @param container  the layout container
+     * 
+     * @throws NullPointerException if the layout or container is null
      */
-    public AbstractFormBuilder(Container container, FormLayout layout){        
+    public AbstractFormBuilder(FormLayout layout, Container container) {
+        if (layout == null) 
+            throw new NullPointerException("The layout must not be null.");
+        
+        if (container == null) 
+            throw new NullPointerException("The layout container must not be null.");
+        
         this.container = container;
         this.layout    = layout;
   
@@ -113,6 +121,20 @@ public abstract class AbstractFormBuilder {
     }
 
 
+    /**
+     * Constructs an instance of <code>AbstractFormBuilder</code> for the given
+     * container and form layout.
+     * 
+     * @param container  the layout container
+     * @param layout     the {@link FormLayout} to use
+     * 
+     * @deprecated Replaced by {@link #AbstractFormBuilder(FormLayout, Container)}.
+     */
+    public AbstractFormBuilder(Container container, FormLayout layout){        
+        this(layout, container);
+    }
+
+    
     // Accessors ************************************************************
 
     /**
