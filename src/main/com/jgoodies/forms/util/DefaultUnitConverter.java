@@ -33,7 +33,6 @@ package com.jgoodies.forms.util;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -41,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 /**
@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <i>defaultDialogFont</i> and <i>averageCharacterWidthTestString</i>. 
  * 
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -317,14 +317,9 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     private DialogBaseUnits computeGlobalDialogBaseUnits() {
         logInfo("Computing global dialog base units...");
         Font dialogFont = getDefaultDialogFont();
-        FontMetrics metrics = Toolkit.getDefaultToolkit().getFontMetrics(dialogFont);
+        FontMetrics metrics = createDefaultGlobalComponent().getFontMetrics(dialogFont);
         DialogBaseUnits globalDialogBaseUnits = computeDialogBaseUnits(metrics);
         return globalDialogBaseUnits;
-//        boolean isLowResolution =
-//            Toolkit.getDefaultToolkit().getScreenResolution() < 112;
-//        return isLowResolution
-//            ? new DialogBaseUnits(6, 11)
-//            : new DialogBaseUnits(8, 14);
     }
     
     /**
@@ -339,6 +334,22 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         return buttonFont != null
             ? buttonFont
             : new JButton().getFont();
+    }
+    
+    /**
+     * Creates and returns a component that is used to lookup the default 
+     * font metrics. The current implementation creates a <code>JPanel</code>.
+     * Since this panel has no parent, it has no toolkit assigned. And so,
+     * requesting the font metrics will end up using the default toolkit
+     * and its deprecated method <code>ToolKit#getFontMetrics()</code>.<p>
+     * 
+     * TODO:Consider publishing this method and providing a setter, so that
+     * an API user can set a realized component that has a toolkit assigned.
+     *  
+     * @return a component used to compute the default font metrics
+     */
+    private Component createDefaultGlobalComponent() {
+        return new JPanel();
     }
     
     /**
