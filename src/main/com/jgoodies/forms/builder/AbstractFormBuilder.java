@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -567,9 +567,16 @@ public abstract class AbstractFormBuilder {
     
     /**
      * Adds a component to the container using the default cell constraints.
+     * Note that when building from left to right, this method won't adjust 
+     * the cell constraints if the column span is larger than 1. In this case
+     * you should use {@link #add(Component, CellConstraints)} with a cell 
+     * constraints object created by {@link #createLeftAdjustedConstraints(int)}. 
      * 
      * @param component	the component to add
      * @return the added component
+     * 
+     * @see #add(Component, CellConstraints)
+     * @see #createLeftAdjustedConstraints(int)
      */
     public final Component add(Component component) {
         add(component, currentCellConstraints);
@@ -612,5 +619,22 @@ public abstract class AbstractFormBuilder {
         return isLeftToRight() ? 1 : -1;
     }
     
-
+    
+    /**
+     * Creates and returns a <code>CellConstraints</code> object at
+     * the current cursor position that uses the given column span
+     * and is adjusted to the left. Useful when building from right to left. 
+     * 
+     * @param columnSpan   the column span to be set in the constraints
+     * @return CellConstraints adjusted to the left hand side
+     */
+    protected final CellConstraints createLeftAdjustedConstraints(
+                                                                  int columnSpan) {
+        int firstColumn = isLeftToRight() 
+        ? getColumn() 
+        : getColumn() + 1 - columnSpan;
+        return new CellConstraints(firstColumn, getRow(), columnSpan, 1);
+    }
+    
+    
 }

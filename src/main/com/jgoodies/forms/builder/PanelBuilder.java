@@ -79,7 +79,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
@@ -373,8 +373,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @return the added separator
      */
     public final JComponent addSeparator(String text, CellConstraints constraints) {
-        int titleAlignment =
-            getPanel().getComponentOrientation().isLeftToRight()
+        int titleAlignment = isLeftToRight()
                 ? SwingConstants.LEFT
                 : SwingConstants.RIGHT;
         JComponent titledSeparator =
@@ -404,10 +403,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @return the added separator
      */
     public final JComponent addSeparator(String text, int columnSpan) {
-        return addSeparator(text, new CellConstraints(getColumn(),
-                                                       getRow(),
-                                                       columnSpan, 
-                                                       1));
+        return addSeparator(
+                text, 
+                createLeftAdjustedConstraints(columnSpan));
     }
     
      
