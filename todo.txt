@@ -21,7 +21,6 @@ o Improve DefaultFormBuilder's support for dynamically
 o Mac OS X:
   + AquaLayoutStyle
   + TitledSeparator font plain, not bold
-  + TitledSeparator line aligned along the font baseline
   
   
 o Documentation:
@@ -38,7 +37,6 @@ o Discussions:
     so one can specify a preferred range, not just a single value.
   
 o Consider the following extensions/changes:
-  + add a flag to the ButtonBarFactory for bar vs. stack
   + add PanelBuilder.getRemainingColumns()
   + DefaultFormBuilder.appendComponentRow(RowSpec)
   

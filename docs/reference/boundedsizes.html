@@ -121,7 +121,7 @@ boundedSize ::=   MIN(constantSize;componentSize)
 	<h2>Examples</h2><pre>
 new ColumnSpec("max(50dlu;pref)");  // maximum of 50dlu and pref size
 
-new RowSpec("min(pref;100dlu)");    // minimum of pref size and 100dlu
+new RowSpec("min(100dlu;pref)");    // minimum of 100dlu and pref size
 
 new FormLayout("max(50dlu;pref), 4dlu, max(100dlu;min)", 
                "p, 3dlu, p, 3dlu, max(200dlu;p):grow");
