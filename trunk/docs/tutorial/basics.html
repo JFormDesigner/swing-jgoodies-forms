@@ -35,6 +35,7 @@
 	<p>
 	<b>Tutorial</b>
 	<br>::&nbsp;<a class="nav" href="introduction.html">Introduction</a>
+	<br>::&nbsp;<a class="nav" href="quickstart.html">Quick Start</a>
 	<br>::&nbsp;<a class="nav" href="basics.html"><b>Basics</b></a>
 	<br>::&nbsp;<a class="nav" href="building.html">Building</a>
 	<br>::&nbsp;<a class="nav" href="factories.html">Factories</a>
@@ -42,9 +43,11 @@
 	<p>
 	<b>Reference</b>
 	<br>::&nbsp;<a class="nav" href="../reference/alignments.html">Alignments</a>
-	<br>::&nbsp;<a class="nav" href="../reference/sizes.html">Sizes</a>
+	<br>::&nbsp;<a class="nav" href="../reference/constantsizes.html">Constant Sizes</a>
+	<br>::&nbsp;<a class="nav" href="../reference/componentsizes.html">Component Sizes</a>
+	<br>::&nbsp;<a class="nav" href="../reference/boundedsizes.html">Bounded Sizes</a>
 	<br>::&nbsp;<a class="nav" href="../reference/colsandrows.html">Cols &amp; Rows</a>
-	<br>::&nbsp;<a class="nav" href="../reference/cells.html">Cells</a>
+	<br>::&nbsp;<a class="nav" href="../reference/cells.html">Cell Constraints</a>
 	<br>::&nbsp;<a class="nav" href="../reference/groups.html">Groups</a>
 	<p>
 	<a class="nav" href="../api/index.html"><b>API Docs</b></a>
@@ -55,6 +58,7 @@
 	<br>::&nbsp;<a class="nav" href="http://forms.dev.java.net/servlets/ProjectMailingListList">Mailing Lists</a>
 	<br>::&nbsp;<a class="nav" href="http://forms.dev.java.net/servlets/ProjectIssues">Issue Tracking</a>
 	<br>::&nbsp;<a class="nav" href="http://forms.dev.java.net/servlets/ProjectNewsList">News</a>
+	<br>::&nbsp;<a class="nav" href="http://www.jgoodies.com/freeware/">More Examples</a>
         
          <!-- *********** Ende der Seitennavigation ******************************* -->
 
@@ -70,8 +74,61 @@
 	<tr>
 	  <td>
 	<h1>:: Tutorial :: Basics ::</h2>
+	
+	This page introduces basic FormLayout features and 
+	explains how to work with it.
+	
 
+	<h2>First Steps</h2>
+	
+	To layout and implement a panel with the JGoodies Forms, 
+	first create an instance of <tt>FormLayout</tt> and specify
+	the column and row layout in the constructor: 
+	
+<pre>
+FormLayout layout = new FormLayout(
+    "pref, 8px, pref",                                   // columns
+    "pref, 6px, pref, 6px, pref, 6px, pref, 6px, pref"); // rows
+</pre>	
 
+    Secondly, you create a container and set the FormLayout 
+    as its layout manager:
+<pre>
+JPanel panel = new JPanel(layout);
+</pre>	
+	
+    Thirdly, you set a <tt>Border</tt>:
+<pre>
+panel.setBorder(Borders.DIALOG_BORDER);
+</pre>	
+
+	Next, you obtain a <tt>CellConstraints</tt> object that 
+	will be reused in the final step:
+<pre>
+CellConstraints cc = new CellConstraints();
+</pre>	
+
+    And finally, you add components to the container:
+<pre>
+panel.add(new JLabel("Name:"),    cc.xy(1, 1));
+panel.add(new JTextField(20),     cc.xy(3, 1)); 
+
+panel.add(new JLabel("Phone:"),   cc.xy(1, 3));
+panel.add(new JTextField(20),     cc.xy(3, 3)); 
+
+panel.add(new JLabel("Fax:"),     cc.xy(1, 5));
+panel.add(new JTextField(20),     cc.xy(3, 5)); 
+
+panel.add(new JLabel("Email:"),   cc.xy(1, 7));
+panel.add(new JTextField(20),     cc.xy(3, 7)); 
+
+panel.add(new JLabel("Address:"), cc.xy(1, 9));
+panel.add(new JTextField(20),     cc.xy(3, 9)); 
+</pre>
+	
+
+	
+	
 
 
 
