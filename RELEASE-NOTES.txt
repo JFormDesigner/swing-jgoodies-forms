@@ -17,6 +17,7 @@ NEW FEATURES
 BUGS FIXED
 
     o BoundedSize#toString wrong if lower and upper bound exist.
+    o Issue 19: DefaultFormBuilders *I15d methods don't use setLabelFor.
     
     
 OTHER CHANGES

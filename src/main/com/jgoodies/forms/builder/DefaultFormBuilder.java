@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -483,7 +483,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
      * Adds a text label and component to the panel. 
-     * Then proceeds to the next data column.
+     * Then proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the given component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param textWithMnemonic  the label's text - may mark a mnemonic
      * @param component         the component to add
@@ -495,8 +498,30 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
      * Adds a text label and component to the panel; the component will span
-     * the specified number columns. Proceeds to the next data column.
-     * <p>
+     * the specified number columns. Proceeds to the next data column,
+     * and goes to the next line if the boolean flag is set.<p>
+     * 
+     * The created label is labelling the given component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
+     * 
+     * @param textWithMnemonic  the label's text - may mark a mnemonic
+     * @param c                 the component to add
+     * @param nextLine          true forces a next line
+     * @return the added label
+     * @see JLabel#setLabelFor(java.awt.Component)
+     */    
+    public JLabel append(String textWithMnemonic, Component c, boolean nextLine) {
+        JLabel label = append(textWithMnemonic, c);
+        if (nextLine) {
+            nextLine();
+        }
+        return label;
+    }
+
+    /**
+     * Adds a text label and component to the panel; the component will span
+     * the specified number columns. Proceeds to the next data column.<p>
+     * 
      * The created label is labelling the given component; so the component
      * gets the focus if the (optional) label mnemonic is pressed.
      * 
@@ -515,7 +540,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
      * Adds a text label and two components to the panel; each component
-     * will span a single column. Proceeds to the next data column.
+     * will span a single column. Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param textWithMnemonic  the label's text - may mark a mnemonic
      * @param c1    the first component to add
@@ -530,7 +558,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
      * Adds a text label and two components to the panel; each component
-     * will span a single column. Proceeds to the next data column.
+     * will span a single column. Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param textWithMnemonic  the label's text - may mark a mnemonic
      * @param c1      the first component to add
@@ -544,7 +575,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
      * Adds a text label and three components to the panel; each component
-     * will span a single column. Proceeds to the next data column.
+     * will span a single column. Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param textWithMnemonic  the label's text - may mark a mnemonic
      * @param c1    the first component to add
@@ -560,7 +594,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     
     /**
      * Adds a text label and four components to the panel; each component
-     * will span a single column. Proceeds to the next data column.
+     * will span a single column. Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param textWithMnemonic  the label's text - may mark a mnemonic
      * @param c1    the first component to add
@@ -590,37 +627,27 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     }
 
     /**
-     * Adds an internationalized (i15d) text label to the panel using the given resource key; 
-     * then proceeds to the next data column and adds a component with 
-     * the given column span. Proceeds to the next data column.
+     * Adds an internationalized (i15d) text label and component 
+     * to the panel. Then proceeds to the next data column.<p>
      * 
-     * @param resourceKey  the resource key for the text to add
-     * @param c           the component to add
-     * @param columnSpan  number of columns the component shall span
-     * @return the added label
-     */    
-    public JLabel appendI15d(String resourceKey, Component c, int columnSpan) {
-        JLabel label = appendI15d(resourceKey);
-        append(c, columnSpan);
-        return label;
-    }
-
-    /**
-     * Adds an internationalized (i15d) text label and component to the panel. 
-     * Then proceeds to the next data column.
+     * The created label is labelling the given component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param resourceKey  the resource key for the text to add
      * @param component  the component to add
      * @return the added label
      */    
     public JLabel appendI15d(String resourceKey, Component component) {
-        return appendI15d(resourceKey, component, 1);
+        return append(getI15dString(resourceKey), component, 1);
     }
 
     /**
-     * Adds an internationalized (i15d) text label and component to the panel. 
-     * Then proceeds to the next data column.
-     * Goes to the next line if the boolean flag is set.
+     * Adds an internationalized (i15d) text label and component 
+     * to the panel. Then proceeds to the next data column.
+     * Goes to the next line if the boolean flag is set.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param resourceKey  the resource key for the text to add
      * @param component    the component to add
@@ -628,16 +655,34 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */    
     public JLabel appendI15d(String resourceKey, Component component, boolean nextLine) {
-        JLabel label = appendI15d(resourceKey, component, 1);
-        if (nextLine) {
-            nextLine();
-        }
-        return label;
+        return append(getI15dString(resourceKey), component, nextLine);
     }
 
     /**
-     * Adds an internationalized (i15d) text label and two components to the panel; each component
-     * will span a single column. Proceeds to the next data column.
+     * Adds an internationalized (i15d) text label to the panel using 
+     * the given resource key; then proceeds to the next data column 
+     * and adds a component with the given column span. 
+     * Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
+     * 
+     * @param resourceKey  the resource key for the text to add
+     * @param c           the component to add
+     * @param columnSpan  number of columns the component shall span
+     * @return the added label
+     */    
+    public JLabel appendI15d(String resourceKey, Component c, int columnSpan) {
+        return append(getI15dString(resourceKey), c, columnSpan);
+    }
+
+    /**
+     * Adds an internationalized (i15d) text label and two components 
+     * to the panel; each component will span a single column. 
+     * Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param resourceKey  the resource key for the text to add
      * @param c1    the first component to add
@@ -645,14 +690,16 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */    
     public JLabel appendI15d(String resourceKey, Component c1, Component c2) {
-        JLabel label = appendI15d(resourceKey, c1);
-        append(c2);
-        return label;
+        return append(getI15dString(resourceKey), c1, c2);
     }
 
     /**
-     * Adds an internationalized (i15d) text label and two components to the panel; each component
-     * will span a single column. Proceeds to the next data column.
+     * Adds an internationalized (i15d) text label and two components 
+     * to the panel; each component will span a single column. 
+     * Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param resourceKey  the resource key for the text to add
      * @param c1      the first component to add
@@ -661,14 +708,16 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */    
     public JLabel appendI15d(String resourceKey, Component c1, Component c2, int colSpan) {
-        JLabel label = appendI15d(resourceKey, c1);
-        append(c2, colSpan);
-        return label;
+        return append(getI15dString(resourceKey), c1, c2);
     }
 
     /**
-     * Adds an internationalized (i15d) text label and three components to the panel; each component
-     * will span a single column. Proceeds to the next data column.
+     * Adds an internationalized (i15d) text label and three components 
+     * to the panel; each component will span a single column. 
+     * Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param resourceKey  the resource key for the text to add
      * @param c1    the first component to add
@@ -677,14 +726,16 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */    
     public JLabel appendI15d(String resourceKey, Component c1, Component c2, Component c3) {
-        JLabel label = appendI15d(resourceKey, c1, c2);
-        append(c3);
-        return label;
+        return append(getI15dString(resourceKey), c1, c2, c3);
     }
 
     /**
-     * Adds an internationalized (i15d) text label and four components to the panel; 
-     * each component will span a single column. Proceeds to the next data column.
+     * Adds an internationalized (i15d) text label and four components 
+     * to the panel; each component will span a single column. 
+     * Proceeds to the next data column.<p>
+     * 
+     * The created label is labelling the first component; so the component
+     * gets the focus if the (optional) label mnemonic is pressed.
      * 
      * @param resourceKey  the resource key for the text to add
      * @param c1    the first component to add
@@ -694,9 +745,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */    
     public JLabel appendI15d(String resourceKey, Component c1, Component c2, Component c3, Component c4) {
-        JLabel label = appendI15d(resourceKey, c1, c2, c3);
-        append(c4);
-        return label;
+        return append(getI15dString(resourceKey), c1, c2, c3, c4);
     }
 
 
