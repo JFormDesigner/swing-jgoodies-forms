@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -176,6 +176,7 @@ public class DefaultComponentFactory implements ComponentFactory {
             throw new NullPointerException("The label must not be null.");
 
         JPanel panel = new JPanel(new TitledSeparatorLayout(!isLafAqua()));
+        panel.setOpaque(false);
         panel.add(label);
         panel.add(new JSeparator());
         if (label.getHorizontalAlignment() == SwingConstants.CENTER) {
@@ -436,8 +437,10 @@ public class DefaultComponentFactory implements ComponentFactory {
     private static boolean changeHandlerRegistered = false;
     
     private synchronized static void ensureLookAndFeelChangeHandlerRegistered() {
-        if (!changeHandlerRegistered)
+        if (!changeHandlerRegistered) {
             UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
+            changeHandlerRegistered = true;
+        }
     }
     
     /**
