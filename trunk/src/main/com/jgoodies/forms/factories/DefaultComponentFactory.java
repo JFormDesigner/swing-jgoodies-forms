@@ -31,6 +31,7 @@
 package com.jgoodies.forms.factories;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -42,7 +43,7 @@ import javax.swing.*;
  * {@link com.jgoodies.forms.builder.PanelBuilder}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -234,13 +235,12 @@ public class DefaultComponentFactory implements ComponentFactory {
         }
         
         /**
-         * TODO: It seems that the Mac Aqua l&f doesn't set the
-         * TitledBorder settings in the <code>UIDefaults</code> table. 
-         * Consider asking a <code>TitledBorder</code> instance for its 
-         * font and font color use <code>#getTitleFont</code> and 
-         * <code>#getTitleColor</code> instead.<p>
+         * TODO: The Mac Java 1.4.1_01 Aqua l&amp;f uses a title font that is 
+         * a little bit too small and plain. Use a bold label font instead.
          * 
-         * The same problem may appear with the Synth-based looks.
+         * TODO: Consider asking a <code>TitledBorder</code> instance for its 
+         * font and font color use <code>#getTitleFont</code> and 
+         * <code>#getTitleColor</code> for the Synth-based looks.
          */
         public void updateUI() {
             super.updateUI();
@@ -248,7 +248,17 @@ public class DefaultComponentFactory implements ComponentFactory {
                 UIManager.getColor("TitledBorder.titleColor");
             if (foreground != null)
                 setForeground(foreground);
-            setFont(UIManager.getFont("TitledBorder.font"));
+            setFont(getTitleFont());
+        }
+        
+        private Font getTitleFont() {
+            return isLafAqua()
+            	? UIManager.getFont("Label.font").deriveFont(Font.BOLD) 
+                : UIManager.getFont("TitledBorder.font");
+        }
+        
+        private boolean isLafAqua() {
+            return UIManager.getLookAndFeel().getName().startsWith("Mac OS X Aqua");
         }
         
     }

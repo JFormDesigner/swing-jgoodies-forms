@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @see     Size
  * @see     UnitConverter
  * @see     DefaultUnitConverter
@@ -64,7 +64,10 @@ public final class Sizes {
     public static final ConstantSize DLUX2  = dluX( 2);
     public static final ConstantSize DLUX3  = dluX( 3);
     public static final ConstantSize DLUX4  = dluX( 4);
+    public static final ConstantSize DLUX5  = dluX( 5);
+    public static final ConstantSize DLUX6  = dluX( 6);
     public static final ConstantSize DLUX7  = dluX( 7);
+    public static final ConstantSize DLUX8  = dluX( 8);
     public static final ConstantSize DLUX9  = dluX( 9);
     public static final ConstantSize DLUX11 = dluX(11);
     public static final ConstantSize DLUX14 = dluX(14);
@@ -73,8 +76,10 @@ public final class Sizes {
     public static final ConstantSize DLUY2  = dluY( 2);
     public static final ConstantSize DLUY3  = dluY( 3);
     public static final ConstantSize DLUY4  = dluY( 4);
+    public static final ConstantSize DLUY5  = dluY( 5);
     public static final ConstantSize DLUY6  = dluY( 6);
     public static final ConstantSize DLUY7  = dluY( 7);
+    public static final ConstantSize DLUY8  = dluY( 8);
     public static final ConstantSize DLUY9  = dluY( 9);
     public static final ConstantSize DLUY11 = dluY(11);
     public static final ConstantSize DLUY14 = dluY(14);

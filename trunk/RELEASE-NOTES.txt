@@ -22,7 +22,10 @@ NEW FEATURES
                                               Component, CellConstraints)
     o Code:     LayoutStyle#getTabbedDialogMarginX()
     o Code:     LayoutStyle#getTabbedDialogMarginY()
+    o Code:     LayoutStyle#getButtonBarPad()
+    o Code:     LayoutStyle#isLeftToRightButtonOrder()
     o Code:     FormFactory#LABEL_COMPONENT_COLSPEC
+    o Code:     MacLayoutStyle
 
  
 OTHER CHANGES

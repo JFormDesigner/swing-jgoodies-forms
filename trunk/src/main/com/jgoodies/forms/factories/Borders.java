@@ -53,7 +53,8 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
+ * 
  * @see     Border
  * @see     Sizes
  */
@@ -110,13 +111,15 @@ public final class Borders {
 
     
     /**
-     * A standardized Border that describes the gap between a dialog
-     * content and a bottom button bar.<p>
-     * 
-     * TODO: Honor the current {@link com.jgoodies.forms.util.LayoutStyle}.
+     * A standardized Border that describes the gap between a component
+     * and a button bar in its bottom.
      */ 
     public static final Border BUTTON_BAR_GAP_BORDER = 
-        createEmptyBorder(Sizes.DLUY6, Sizes.ZERO, Sizes.ZERO, Sizes.ZERO);
+        createEmptyBorder(
+            LayoutStyle.getCurrent().getButtonBarPad(), 
+            Sizes.ZERO, 
+            Sizes.ZERO, 
+            Sizes.ZERO);
 
     
     /**

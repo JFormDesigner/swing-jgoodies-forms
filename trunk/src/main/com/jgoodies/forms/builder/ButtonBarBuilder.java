@@ -40,6 +40,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.util.LayoutStyle;
 
 /**
  * A non-visual builder that assists you in building consistent button bars
@@ -76,8 +77,10 @@ import com.jgoodies.forms.layout.RowSpec;
  * }
  * </pre> 
  *
- * @version $Revision: 1.4 $
  * @author	Karsten Lentzsch
+ * @version $Revision: 1.5 $
+ * 
+ * @see com.jgoodies.forms.util.LayoutStyle
  */
 public final class ButtonBarBuilder extends PanelBuilder {
     
@@ -87,18 +90,16 @@ public final class ButtonBarBuilder extends PanelBuilder {
     
     private static final String       NARROW_KEY = "jgoodies.isNarrow";
     
+    /**
+     * Describes how sequences of buttons are added to the button bar:
+     * left-to-right or right-to-left.
+     * 
+     * @see #isLeftToRight()
+     * @see #setLeftToRight(boolean)
+     */
+    private boolean leftToRight;
     
     // Instance Creation ****************************************************
-
-    /**
-     * Constructs an instance of <code>ButtonBarBuilder</code> on the given
-     * panel.
-     * 
-     * @param panel  the layout container
-     */
-    public ButtonBarBuilder(JPanel panel) {
-        super(panel, new FormLayout(COL_SPECS, ROW_SPECS));
-    }
 
     /**
      * Constructs an instance of <code>ButtonBarBuilder</code> on a
@@ -109,6 +110,49 @@ public final class ButtonBarBuilder extends PanelBuilder {
     }
 
 
+    /**
+     * Constructs an instance of <code>ButtonBarBuilder</code> on the given
+     * panel.
+     * 
+     * @param panel  the layout container
+     */
+    public ButtonBarBuilder(JPanel panel) {
+        super(panel, new FormLayout(COL_SPECS, ROW_SPECS));
+        leftToRight = LayoutStyle.getCurrent().isLeftToRightButtonOrder();
+    }
+    
+
+    // Accessing Properties *************************************************
+    
+    /**
+     * Returns whether button sequences will be ordered from 
+     * left to right or from right to left. 
+     * 
+     * @return true if button sequences are ordered from left to right
+     * @since 1.0.3
+     * 
+     * @see LayoutStyle#isLeftToRightButtonOrder()
+     */
+    public boolean isLeftToRightButtonOrder() {
+        return leftToRight;
+    }
+    
+
+    /**
+     * Sets the order for button sequences to either left to right,
+     * or right to left. 
+     * 
+     * @param newButtonOrder  true if button sequences shall be ordered 
+     *     from left to right
+     * @since 1.0.3
+     * 
+     * @see LayoutStyle#isLeftToRightButtonOrder()
+     */
+    public void setLeftToRightButtonOrder(boolean newButtonOrder) {
+        leftToRight = newButtonOrder;
+    }
+    
+    
     // Default Borders ******************************************************
     
     /**
@@ -127,36 +171,43 @@ public final class ButtonBarBuilder extends PanelBuilder {
      * @param buttons  an array of buttons to add
      */
     public void addGriddedButtons(JButton[] buttons) {
-        for (int i = 0; i < buttons.length; i++) {
-            addGridded(buttons[i]);
+        int length = buttons.length;
+        for (int i = 0; i < length; i++) {
+            int index = leftToRight ? i : length -1 - i;
+            addGridded(buttons[index]);
             if (i < buttons.length - 1)
                 addRelatedGap();
         }
     }
 
     /**
-     * Adds a sequence of narrow gridded buttons separated by a default gap.
+     * Adds a sequence of narrow gridded buttons 
+     * where each is separated by a default gap.
      * 
      * @param buttons  an array of buttons to add
      * @deprecated #addGriddedButtons already makes the borders narrow
      */
     public void addGriddedNarrowButtons(JButton[] buttons) {
-        for (int i = 0; i < buttons.length; i++) {
-            addGriddedNarrow(buttons[i]);
+        int length = buttons.length;
+        for (int i = 0; i < length; i++) {
+            int index = leftToRight ? i : length -1 - i;
+            addGriddedNarrow(buttons[index]);
             if (i < buttons.length - 1)
                 addRelatedGap();
         }
     }
     
     /**
-     * Adds a sequence of gridded buttons that grow. 
-     * The buttongs are separated by a default gap.
+     * Adds a sequence of gridded buttons that grow
+     * where each is separated by a default gap.
      * 
      * @param buttons  an array of buttons to add
      */
     public void addGriddedGrowingButtons(JButton[] buttons) {
-        for (int i = 0; i < buttons.length; i++) {
-            addGriddedGrowing(buttons[i]);
+        int length = buttons.length;
+        for (int i = 0; i < length; i++) {
+            int index = leftToRight ? i : length -1 - i;
+            addGriddedGrowing(buttons[index]);
             if (i < buttons.length - 1)
                 addRelatedGap();
         }
