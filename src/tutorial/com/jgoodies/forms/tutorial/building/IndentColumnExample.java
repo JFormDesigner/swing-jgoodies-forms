@@ -41,10 +41,16 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Demonstrates how to efficiently build a panel with a leading
- * indent column using the DefaultFormBuilder.
+ * indent column using the DefaultFormBuilder.<p>
+ * 
+ * The default FocusTraversalPolicy will lead to a poor focus traversal, 
+ * where non-editable fields are included in the focus cycle. 
+ * Anyway, this tutorial is about layout, not focus, and so I favor
+ * a lean example over a fully functional.  
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
+ * 
  * @see     DefaultFormBuilder
  */
 
