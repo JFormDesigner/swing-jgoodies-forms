@@ -62,7 +62,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
  */
@@ -85,7 +85,7 @@ public final class FormFactory {
 
     /*
      * The following four constants use logical sizes that change with the
-     * layout style. A future release will likely defined them using 
+     * layout style. A future release will likely define them using 
      * a class <code>LogicalSize</code> or <code>StyledSize</code>.
      */
     public static final ColumnSpec RELATED_GAP_COLSPEC =
