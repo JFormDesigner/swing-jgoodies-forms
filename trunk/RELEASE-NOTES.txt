@@ -36,6 +36,8 @@ OTHER CHANGES
 
     o Main:     Removed the final marker from FormDebugPanel; 
                 see the class comment for details
+    o Main:     Removed FormDebugPanel features that are available 
+                in the FormDebugUtils
     o Main:     Extended JavaDoc for the DefaultUnitConverter
     o Extras:   Extended JavaDoc for the DefaultFormBuilder
     o Tutorial: Corrected frame titles
