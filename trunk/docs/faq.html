@@ -86,7 +86,7 @@
 		<br>&nbsp;<a href="#1.4">1.4 - Where do I get support?</a>
 		<br>&nbsp;<a href="#1.5">1.5 - How can I help improve the Forms?</a>
 		<br>&nbsp;<a href="#1.6">1.6 - Which layout managers complement the FormLayout?</a>
-		<br>&nbsp;<a href="#1.7">1.7 - Are there any visual builders that support FormLayout?</a>
+		<br>&nbsp;<a href="#1.7">1.7 - Are there visual builders that support the FormLayout?</a>
 		<br>&nbsp;<a href="#1.8">1.8 - Can I use FormLayout with the SWT?</a>
 
 
@@ -107,6 +107,7 @@
 		<br>&nbsp;<a href="#3.3">3.3 - Why don't components in growing rows fill the vertical space?</a>
 		<br>&nbsp;<a href="#3.4">3.4 - Why don't components that span multiple columns affect the column widths?</a>
 		<br>&nbsp;<a href="#3.5">3.5 - Why do components that span multiple columns affect the container width?</a>
+		<br>&nbsp;<a href="#3.6">3.6 - Why do some text areas grow but never shrink again?</a>
 
 
 	
@@ -130,38 +131,53 @@
 
 		The latest version is available in the project's 
 		<a href="https://forms.dev.java.net/servlets/ProjectDocumentList">download</a>
-		section, where you can get the library, 
+		section. There you can get the library, 
 		sources, tutorial, documentation, the whitepaper, and the Forms Demo.
 		
 
 		<h2><a name="1.4">1.4 - Where do I get support?</a></h2>
 
-		You can subscribe to the 
+	    <b>Please check this FAQ and do&nbsp;not&nbsp;send personal mail!</b>
+	    <p>
+
+		You may subscribe to the 
 		<a href="https://forms.dev.java.net/servlets/ProjectMailingListList">users mailing list</a> 
 		and  
 		<a href="https://forms.dev.java.net/servlets/SummarizeList?listName=users&by=subject">browse</a>
 		or
 		<a href="https://forms.dev.java.net/servlets/SearchList?listName=users&by=subject">search</a>
 		the list's archive.
-		In case of a new problem, you can direct questions to 
+		And you can direct new questions to 
 		<a href="mailto:users@forms.dev.java.net">users@forms.dev.java.net</a>.
+		Please 
+		<a href="https://forms.dev.java.net/servlets/ProjectMailingListList">register</a> 
+        with this list before you post; otherwise I need to manually accept your messages.
 	    
-	    Also, you can use the 
-	    <a href="https://forms.dev.java.net/servlets/ProjectIssues">issue tracker</a>
-	    to find and enter issues around the Forms.
+        Also, you can use the 
+        <a href="https://forms.dev.java.net/servlets/ProjectIssues">issue tracker</a>
+        to find issues regarding the Forms. As a project observer you can log defects, 
+        request features and suggest enhancements.
 	
-	    <b>Do&nbsp;not&nbsp;send personal mail!</b>
-		
 		<p>
 		Priority support is available for commercial licensees of the 
-		<a href="http://www.jgoodies.com/products/swingsuite.html">JGoodies Swing Suite</a>. 
+		<a href="http://www.jgoodies.com/products/index.html">JGoodies Swing Suite</a>. 
 		These can contact us by phone or direct questions to support@JGoodies.com.
 		
 
 		<h2><a name="1.5">1.5 - How can I help improve the Forms?</a></h2>
 
-		I'd appreciate your feedback and suggestions regarding the
-		FormLayout API, builder classes and all related issues.		
+		You can send feedback and suggestions regarding the
+		Forms API, builder classes and all related issues to the 
+		<a href="https://forms.dev.java.net/servlets/ProjectMailingListList">users mailing list</a>.
+	    
+		And you can report bugs and enter feature requests in the
+		<a href="https://forms.dev.java.net/servlets/ProjectIssues">issue tracker</a>.
+		 
+		<p>
+		Professional users that save time and money using the Forms
+		can help me finance my Java desktop activities
+		by licensing the commercial
+		<a href="http://www.jgoodies.com/products/index.html">JGoodies Swing Suite</a>.	
 		
 		
 		<h2><a name="1.6">1.6 - Which layout managers complement the FormLayout?</a></h2>
@@ -181,13 +197,11 @@
 		layout manager like FormLayout.
 		
 		
-		<h2><a name="1.7">1.7 - Are there any visual builders that support FormLayout?</a></h2>
+		<h2><a name="1.7">1.7 - Are there visual builders that support the FormLayout?</a></h2>
 
-		There are some projects working on visual builders that support FormLayout.
-		Some just work with the FormLayout, others support the whole Forms framework,
-		including the factories and builders. 
-		Find a list of tools under
-		<a href="visualbuilders.html">Visual Builders</a>.	
+		There are a couple of <a href="visualbuilders.html">visual builders</a> 
+		that support the JGoodies FormLayout and/or the whole Forms framework 
+		including the factories and non-visual builders.
 			
 		
 		<h2><a name="1.8">1.8 - Can I use the FormLayout with the SWT?</a></h2>
@@ -315,6 +329,7 @@
 		I've found that the bulk of form-oriented panels requires components to be
 		filled horizontally and centered vertically. These settings are 
 		the defaults for the column and row alignments. 
+		
 		<p>
 		If you want a component fill the vertical space, you can configure
 		the row or the component's cell constraints. If you want all components
@@ -323,6 +338,9 @@
 		If you want a component fill the space, use an extended
 		cell constraint specification: <tt>cc.xy(3, 1, "fill, fill")</tt>
 		where the second <tt>fill</tt> is responsible for filling the vertical space.
+		
+		<p>
+		See also class <tt>VerticalGrowthExample</tt> in the Forms tutorial sources.
 		
 
 		<h2><a name="3.4">3.4 - Why don't components that span multiple columns affect the column widths?</a></h2>
@@ -350,6 +368,84 @@
 		This way it is guaranteed that such components are fully contained
 		if you pack the container.
 		
+
+		<h2><a name="3.6">3.6 - Why do some text areas grow but never shrink again?</a></h2>
+		
+		In some configurations the JTextArea shows an unexpected sizing behavior.
+		It then computes its minimum and preferred sizes based on 
+		the size previously set by the layout manager or application code.
+		Find below information what happens, which configurations are affected,
+		and how to setup the text area and layout properly. Some of the
+		combinations mentioned below are demonstrated in the pitfalls section
+		of the Forms tutorial, see class <tt>GrowingTextAreaExample</tt>.
+		
+		<p>
+		An example of such an ever-growing area is a JTextArea with line wrap enabled, 
+		put into a growing FormLayout column ('fill:pref:grow') of a resizable panel. 
+		If the panel is layed out the layout manager computes the position
+		and size for each component. Every component has then a size set.
+		Lets say the area has an initial size of (100,&nbsp;32).
+		Now if you make the panel wider, the growing column will assign
+		a large width to the area, let's say (150,&nbsp;32). Since then the
+		column won't shrink below 150 pixel. Why? The area's preferred size
+		is now (150,&nbsp;32), more generally in this configuration the area's 
+		minimum and preferred sizes is the size set previously.
+		Since the preferred width is 150, the FormLayout will use a minimum
+		of 150 for the area's column - still allowing it to grow.
+		If you make the panel even wider, the FormLayout will set an even
+		larger size to the text area, let's say (200,&nbsp;32). 
+		The area's column then won't shrink below 200, because the area's 
+		preferred width now increased to 200.
+		
+		<p>
+		To handle this situation you can a) change the layout specification,
+		b) change the JTextArea configuration, or c) use a different JTextArea
+		preferred size computation.
+		
+		<p>
+		A) A simple way to avoid this resize problem is to use a constant
+		column or row size, for example '150dlu' or for growing columns/rows
+		'fill:150dlu:grow', where 150dlu is the initial size that can grow.
+		Since the dialog units are based on the dialog font this is an 
+		appropriate sizing unit and layout specification. It works with
+		all JTextArea configuration, regardless wether the area is wrapped
+		by a JScrollPane or not.
+		
+		<p>
+		B) Some JTextArea configurations do not compute the minimum and
+		preferred size based on the size set previously. For example 
+		if you have hand-wrapped text (using '\n') and disable the
+		line wrap feature, the minimum and preferred sizes are constant.
+		You can put such areas in columns and row specified with 'pref'.
+		Another alternative is to give the text area a custom minimum size
+		and specify the column or row as 'default' or 'fill:default:grow'.
+		Since the 'default' size can shrink a column/row down to its
+		minimum width/height, this approach avoids the ever-growing case too.
+		However, the minimum size must be specified in pixel and 
+		typically in screen design you should favor non-pixel sizes.
+		
+		<p>
+		C) If you put a JTextArea in a JScrollPane the preferred size
+		used for the scrollable view can be based on the area's #columns 
+		and #rows properties. For example if you use <tt>area.setColumns(40)</tt>
+		the scrollpane will have a width of about 40 characters. 
+		Another approach is to implement a JTextArea subclass
+		or a custom TextAreaUI to compute the preferred size independent
+		of the area's size.
+		
+		<p>
+		Why doesn't this happen with the BorderLayout?
+		Layout managers have two tasks: they must layout components in a 
+		container and must compute the container's minimum, preferred 
+		and maximum size.
+		BorderLayout honors the content's preferred size when computing
+		the container's preferred size. But it ignores the component's
+		preferred size when it lays out the container. If you put
+		a JTextArea in a BorderLayout center, the whole container has 
+		the same preferred size as the text area. If you shrink the container,
+		the BorderLayout ignores the text area's preferred size and
+		it ignores even its minimum size. Hence it will shrink down 
+		the container even below the area's minimum size.
 
 
 
