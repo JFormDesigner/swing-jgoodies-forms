@@ -9,8 +9,18 @@ INTRODUCTION
     This release is a maintenance update that ...
 
 
+NEW FEATURES
+    
+    o Added new method in class I15dPanelBuilder:
+      #addI15dLabel(String, CellConstraints, Component, CellConstraints)
+
+
+ 
 OTHER CHANGES
 
+    o Code:     Added safety check for invalid constraints in PanelBuilder
+                #add(JLabel, CellConstraints, Component, CellConstraints)
+                #add(String, CellConstraints, Component, CellConstraints)
     o Docs:     Fixed spelling and grammar errors
     o JavaDocs: Extended and corrected 
     
