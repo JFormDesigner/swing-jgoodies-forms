@@ -76,29 +76,39 @@
 	  
 	<h1>:: Frequently Asked Questions ::</h1>
 
+	<h2>General</h2>
     <p>
-		    ::&nbsp;<a href="#1">What are the main benefits of the Forms?</a>
-		<br>::&nbsp;<a href="#2">Can I use the Forms in a commercial product?</a>
-		<br>::&nbsp;<a href="#3">Where do I get the latest version?</a>
-		<br>::&nbsp;<a href="#4">Where do I get support?</a>
-		<br>::&nbsp;<a href="#5">How can I help improve the Forms?</a>
+		    ::&nbsp;<a href="#G.1">What are the main benefits of the Forms?</a>
+		<br>::&nbsp;<a href="#G.2">Can I use the Forms in a commercial product?</a>
+		<br>::&nbsp;<a href="#G.3">Where do I get the latest version?</a>
+		<br>::&nbsp;<a href="#G.4">Where do I get support?</a>
+		<br>::&nbsp;<a href="#G.5">How can I help improve the Forms?</a>
+
+	<h2>Layout</h2>
+    <p>
+		    ::&nbsp;<a href="#L.1">Why don't components in growing rows fill the vertical space?</a>
+		<br>::&nbsp;<a href="#L.2">Why don't components that span multiple columns affect the column widths?</a>
+		<br>::&nbsp;<a href="#L.3">Why do components that span multiple columns affect the container width?</a>
 
 
-		<h2><a name="1">What are the main benefits of the Forms?</a></h2>
+	
+	<h1>:: General Questions ::</h2>
+	
+		<h2><a name="G.1">What are the main benefits of the Forms?</a></h2>
 
 		Forms aims to make the layout process faster, better and easier. 
 		It makes simple things easy, and the 
 		hard stuff possible, good design easy and the bad difficult.
 
 
-		<h2><a name="2">Can I use the Forms in a commercial product?</a></h2>
+		<h2><a name="G.2">Can I use the Forms in a commercial product?</a></h2>
 
 		You can use and redistribute the Forms in source and binary form
 		- even for commercial use - if you comply with the terms of the 
 		<a href="../LICENSE.txt">BSD open source license</a>.
 
 
-		<h2><a name="3">Where do I get the latest version?</a></h2>
+		<h2><a name="G.3">Where do I get the latest version?</a></h2>
 
 		The latest version is available in the project's 
 		<a href="https://forms.dev.java.net/servlets/ProjectDocumentList">file 
@@ -106,7 +116,7 @@
 		sources, tutorial, documentation and a whitepaper.
 		
 
-		<h2><a name="4">Where do I get support?</a></h2>
+		<h2><a name="G.4">Where do I get support?</a></h2>
 
 		Forms is unofficially supported at JavaDesktop.org,
 		see <a href="http://forms.dev.java.net/">http://forms.dev.java.net</a>.
@@ -122,12 +132,62 @@
 		mailing list or directly to support@JGoodies.com.
 		
 
-		<h2><a name="5">How can I help improve the Forms?</a></h2>
+		<h2><a name="G.5">How can I help improve the Forms?</a></h2>
 
 		I'd appreciate your feedback and suggestions regarding the
 		FormLayout API, column and row specifications, builder classes
 		and all related issues.		
 		
+		
+		
+
+	<p>&nbsp;<br>
+	
+	<h1>:: Layout Questions ::</h2>
+	
+		<h2><a name="L.1">Why don't components in growing rows fill the vertical space?</a></h2>
+
+		Forms has been designed to reduce the layout code for frequently used layouts.
+		I've found that the bulk of form-oriented panels requires components to be
+		filled horizontally and centered vertically. These settings are 
+		the defaults for the column and row alignments. 
+		<p>
+		If you want a component fill the vertical space, you can configure
+		the row or the component's cell constraints. If you want all components
+		in a row fill the space, use a <i>fill</i> alignment: 
+		<tt>fill:&lt;size&gt;:&lt;growing&gt;</tt>. 
+		If you want a component fill the space, use an extended
+		cell constraint specification: <tt>cc.xy(3, 1, "fill, fill")</tt>
+		where the second <tt>fill</tt> is responsible for filling the vertical space.
+		
+
+		<h2><a name="L.2">Why don't components that span multiple columns affect the column widths?</a></h2>
+
+		Components that span multipe columns/rows are excluded from 
+		the computation of the column widths and row heights respectively.
+		I couldn't find an appropriate algorithm how to expand the columns/rows 
+		if a large component spans them; either the algorithm leads to good layout 
+		but is difficult to understand, or it's easy to understand but 
+		leads to poor layout.
+		<p>
+		If a component must expand the columns or rows it must be in 
+		a single column. If necessary, you can move the columns/rows
+		it spans to a sublayout. 
+		
+		<p>
+		If you want such components affect the spanned columns/rows, 
+		specify that they shall grow. See also the next question.
+		
+
+		<h2><a name="L.3">Why do components that span multiple columns affect the container width?</a></h2>
+		
+		Unlike the column expansion mentioned in the previous question,
+		it is quite easy to let components that span multipe columns/rows
+		grow the container width or height respectively. 
+		This way it is guaranteed that such components are fully contained
+		if you pack the container.
+		
+
 
 
 	</td>
