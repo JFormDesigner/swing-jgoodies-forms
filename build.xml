@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.1 2003-07-19 06:00:32 karsten Exp $
+   $Id: build.xml,v 1.2 2003-07-25 22:57:14 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -17,7 +17,8 @@
      package        builds a distribution tree: docs, sources, jar
      package-zip    builds a zipped distribution
      
-   To run the unit tests you MUST set the junit.jar property. 
+   To run the unit tests you MUST set the junit.jar property,
+   for example in your user build.properties file. 
 
 -->
 
@@ -241,7 +242,7 @@
                     <attribute name ="Specification-Vendor"
                                value="${vendor}" />
              		<attribute name ="Implementation-Title"
-                               value="com.jgoodies.forms" />
+                               value="${implmentation.title}" />
              		<attribute name ="Implementation-Version"
                                value="${impl.version} ${DATE}" />
                     <attribute name ="Implementation-Vendor"
@@ -274,7 +275,8 @@
 		<!-- Copy the distribution files. -->
 		<copy todir="${dist.dir}" >
 			<fileset dir="${top.dir}" 
-				     includes="*.txt, *.xml, *.properties" />
+				     includes="*.txt, *.xml, *.properties" 
+				     excludes="todo.txt" />
 		</copy>
 
 		<!-- Copy the jar files. -->
