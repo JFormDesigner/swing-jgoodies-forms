@@ -33,8 +33,8 @@ package com.jgoodies.forms.layout;
 import java.util.StringTokenizer;
 
 /**
- * Specifies rows in in {@link FormLayout} by their default orientation, start
- * size and resizing behavior.<p>
+ * Specifies rows in FormLayout by their default orientation, 
+ * start size and resizing behavior.<p>
  * 
  * <strong>Examples:</strong><br>
  * The following examples specify a centered row with a size of 14&nbsp;dlu 
@@ -49,10 +49,10 @@ import java.util.StringTokenizer;
  * </pre><p>
  * 
  * The {@link com.jgoodies.forms.factories.FormFactory} provides
- * predefined frequently used <code>RowSpec</code> instances.
+ * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -91,15 +91,17 @@ public final class RowSpec extends FormSpec {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs a <code>RowSpec</code> from the given default orientation,
-     * size, and resize weight.
-     * <p> 
+     * Constructs a RowSpec from the given default orientation,
+     * size, and resize weight.<p> 
+     * 
      * The resize weight must be a non-negative double; you can use
      * <code>NO_FILL</code> as a convenience value for no resize.
      * 
      * @param defaultAlignment  the row's default alignment
-     * @param size              the row's size as value with unit
-     * @param resizeWeight      the row's resize weight
+     * @param size              constant size, component size, or bounded size
+     * @param resizeWeight      the row's non-negative resize weight
+     * @throws IllegalArgumentException if the size is invalid or 
+     *      the resize weight is negative
      */
     public RowSpec(DefaultAlignment defaultAlignment,
                     Size size, 
@@ -108,19 +110,18 @@ public final class RowSpec extends FormSpec {
     }
 
     /**
-     * Constructs a <code>RowSpec</code> for the given size using the
+     * Constructs a RowSpec for the given size using the
      * default alignment, and no resizing.
      * 
      * @param size             constant size, component size, or bounded size
-     * @throws IllegalArgumentException if the pixel size is invalid or the
-     * resize weight is negative
+     * @throws IllegalArgumentException if the size is invalid
      */
     public RowSpec(Size size) {
         super(DEFAULT, size, NO_GROW);
     }
     
     /**
-     * Constructs a <code>RowSpec</code> from the specified encoded
+     * Constructs a RowSpec from the specified encoded
      * description. The description will be parsed to set initial values.
      * 
      * @param encodedDescription	the encoded description
@@ -146,7 +147,7 @@ public final class RowSpec extends FormSpec {
     
     /**
      * Parses and splits encoded row specifications and returns 
-     * an array of <code>RowSpec</code> objects.
+     * an array of RowSpec objects.
      * 
      * @param encodedRowSpecs     comma separated encoded row specifications
      * @return an array of decoded row specifications
@@ -157,7 +158,7 @@ public final class RowSpec extends FormSpec {
      */
     public static RowSpec[] decodeSpecs(String encodedRowSpecs) {
         if (encodedRowSpecs == null) 
-            throw new NullPointerException("The row description must not be null.");
+            throw new NullPointerException("The row specification must not be null.");
         
         StringTokenizer tokenizer = new StringTokenizer(encodedRowSpecs, ", ");
         int rowCount = tokenizer.countTokens();

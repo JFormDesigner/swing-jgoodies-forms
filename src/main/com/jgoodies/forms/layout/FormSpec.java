@@ -37,17 +37,17 @@ import java.util.StringTokenizer;
 
 
 /**
- * An abstract class that specifies columns and rows in {@link FormLayout} 
+ * An abstract class that specifies columns and rows in FormLayout 
  * by their default alignment, start size and resizing behavior.
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  * 
  * @see     ColumnSpec
  * @see     RowSpec
- * @see	FormLayout
- * @see	CellConstraints
+ * @see     FormLayout
+ * @see     CellConstraints
  */
 public abstract class FormSpec implements Serializable {
     

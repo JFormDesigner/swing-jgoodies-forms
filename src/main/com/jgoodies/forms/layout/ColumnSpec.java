@@ -34,8 +34,8 @@ import java.util.StringTokenizer;
 
 
 /**
- * Specifies columns in {@link FormLayout} by their default orientation, start
- * size and resizing behavior.<p>
+ * Specifies columns in FormLayout by their default orientation, 
+ * start size and resizing behavior.<p>
  * 
  * <strong>Examples:</strong><br>
  * The following examples specify a column with FILL alignment, a size of 
@@ -50,10 +50,10 @@ import java.util.StringTokenizer;
  * </pre><p>
  * 
  * The {@link com.jgoodies.forms.factories.FormFactory} provides
- * predefined frequently used <code>ColumnSpec</code> instances.
+ * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -97,16 +97,17 @@ public final class ColumnSpec extends FormSpec {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs a <code>ColumnSpec</code> for the given default alignment,
-     * size and resize weight.
-     * <p> 
+     * Constructs a ColumnSpec for the given default alignment,
+     * size and resize weight.<p>
+     * 
      * The resize weight must be a non-negative double; you can use
      * <code>NO_GROW</code> as a convenience value for no resize.
      * 
-     * @param defaultAlignment the spec's default alignment
+     * @param defaultAlignment the column's default alignment
      * @param size             constant, component size or bounded size
-     * @param resizeWeight     the spec resize weight      
-     * @throws IllegalArgumentException if the resize weight is negative
+     * @param resizeWeight     the column's non-negative resize weight      
+     * @throws IllegalArgumentException if the size is invalid or 
+     *      the resize weight is negative
      */
     public ColumnSpec(DefaultAlignment defaultAlignment, 
                         Size size, 
@@ -116,12 +117,11 @@ public final class ColumnSpec extends FormSpec {
 	
 	
     /**
-     * Constructs a <code>ColumnSpec</code> for the given size using the
+     * Constructs a ColumnSpec for the given size using the
      * default alignment, and no resizing.
      * 
      * @param size             constant size, component size, or bounded size
-     * @throws IllegalArgumentException if the pixel size is invalid or the
-     * resize weight is negative
+     * @throws IllegalArgumentException if the size is invalid
      */
     public ColumnSpec(Size size) {
         super(DEFAULT, size, NO_GROW);
@@ -129,8 +129,8 @@ public final class ColumnSpec extends FormSpec {
     
     
     /**
-     * Constructs a <code>ColumnSpec</code> from the specified encoded
-     * description. The description will be parsed to set initial values.
+     * Constructs a ColumnSpec from the specified encoded description. 
+     * The description will be parsed to set initial values.
      * 
      * @param encodedDescription	the encoded description
      */
@@ -157,7 +157,7 @@ public final class ColumnSpec extends FormSpec {
     
     /**
      * Parses and splits encoded column specifications and returns 
-     * an array of <code>ColumnSpec</code> objects.
+     * an array of ColumnSpec objects.
      * 
      * @param encodedColumnSpecs  comma separated encoded column specifications
      * @return an array of decoded column specifications
@@ -168,7 +168,7 @@ public final class ColumnSpec extends FormSpec {
      */
     public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs) {
         if (encodedColumnSpecs == null) 
-            throw new NullPointerException("The column description must not be null.");
+            throw new NullPointerException("The column specification must not be null.");
         
         StringTokenizer tokenizer = new StringTokenizer(encodedColumnSpecs, ", ");
         int columnCount = tokenizer.countTokens();
