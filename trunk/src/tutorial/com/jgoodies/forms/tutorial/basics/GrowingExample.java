@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the FormLayout growing options: none, default, weighted.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class GrowingExample {
 
@@ -65,17 +65,17 @@ public final class GrowingExample {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 
-        tabbedPane.add("Horizontal 1", buildHorizontalGrowing1Panel());
-        tabbedPane.add("Horizontal 2", buildHorizontalGrowing2Panel());
-        tabbedPane.add("Horizontal 3", buildHorizontalGrowing3Panel());
-        tabbedPane.add("Horizontal 4", buildHorizontalGrowing4Panel());
-        tabbedPane.add("Vertical 1",   buildVerticalGrowing1Panel());
-        tabbedPane.add("Vertical 2",   buildVerticalGrowing2Panel());
+        tabbedPane.add("All",        buildHorizontalAllExtraSpacePanel());
+        tabbedPane.add("Half",       buildHorizontalHalfAndHalfPanel());
+        tabbedPane.add("Percent",    buildHorizontalPercentMixedPanel());
+        tabbedPane.add("Percent 2",  buildHorizontalPercentPanel());
+        tabbedPane.add("Vertical 1", buildVerticalGrowing1Panel());
+        tabbedPane.add("Vertical 2", buildVerticalGrowing2Panel());
         return tabbedPane;
     }
     
     
-    private JComponent buildHorizontalGrowing1Panel() {
+    private JComponent buildHorizontalAllExtraSpacePanel() {
         FormLayout layout = new FormLayout(
             "pref, 6px, pref:grow",   
             "pref, 12px, pref"); 
@@ -94,7 +94,7 @@ public final class GrowingExample {
     }
     
     
-    private JComponent buildHorizontalGrowing2Panel() {
+    private JComponent buildHorizontalHalfAndHalfPanel() {
         FormLayout layout = new FormLayout(
             "pref, 6px, 0:grow, 6px, 0:grow",   
             "pref, 12px, pref"); 
@@ -115,7 +115,7 @@ public final class GrowingExample {
     }
     
     
-    private JComponent buildHorizontalGrowing3Panel() {
+    private JComponent buildHorizontalPercentMixedPanel() {
         FormLayout layout = new FormLayout(
             "pref, 6px, 0:grow(0.25), 6px, 0:grow(0.75)",   
             "pref, 12px, pref"); 
@@ -136,7 +136,7 @@ public final class GrowingExample {
     }
     
     
-    private JComponent buildHorizontalGrowing4Panel() {
+    private JComponent buildHorizontalPercentPanel() {
         FormLayout layout = new FormLayout(
             "pref:grow(0.33), 6px, pref:grow(0.67)",   
             "pref, 12px, pref"); 

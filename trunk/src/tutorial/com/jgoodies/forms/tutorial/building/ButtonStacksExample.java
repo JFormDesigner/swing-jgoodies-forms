@@ -31,6 +31,7 @@
 package com.jgoodies.forms.tutorial.building;
 
 import java.awt.Component;
+import java.awt.Insets;
 
 import javax.swing.*;
 
@@ -43,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @see     ButtonStackBuilder
  */
 public final class ButtonStacksExample {
@@ -69,10 +70,10 @@ public final class ButtonStacksExample {
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 
         tabbedPane.add(buildButtonStackNoBuilder(),    "No Builder");
-        tabbedPane.add(buildButtonStackWithBuilder(),  "With Builder");
+        tabbedPane.add(buildButtonStackWithBuilder(),  "Builder");
         tabbedPane.add(buildButtonStackRelated(),      "Related");
         tabbedPane.add(buildButtonStackUnrelated(),    "Unrelated ");
-        tabbedPane.add(buildButtonStackMixedDefault(), "Mix Default");
+        tabbedPane.add(buildButtonStackMixedDefault(), "Mix");
         tabbedPane.add(buildButtonStackMixedNarrow(),  "Mix Narrow");
         return tabbedPane;
     }
@@ -84,7 +85,7 @@ public final class ButtonStacksExample {
         buttonStack.add(new JButton("No"),  "1, 3");   
         
         return wrap(buttonStack, 
-            "\nThis stack has been built without a ButtonStackBuilder.\n" +
+            "This stack has been built without a ButtonStackBuilder.\n" +
             " o The buttons have no minimum width and\n" +
             " o The gaps use pixel sizes and do not scale with the font\n" +            " o The gaps may become inconsisten in a team.");
     }
@@ -95,9 +96,9 @@ public final class ButtonStacksExample {
         builder.addRelatedGap();                   
         builder.addGridded(new JButton("No"));   
         return wrap(builder.getPanel(),
-            "\nThis stack has been built with a ButtonStackBuilder.\n" +
+            "This stack has been built with a ButtonStackBuilder.\n" +
             " o The buttons have a minimum width and\n" +
-            " o The button gap is a logical size that follows a style guide.");
+            " o The gap uses a logical size that follows a style guide.");
     }
     
     private Component buildButtonStackRelated() {
@@ -109,7 +110,7 @@ public final class ButtonStacksExample {
         builder.addGridded(new JButton("Related"));   
 
         return wrap(builder.getPanel(),
-            "\nThis stack uses the logical gap for related buttons.\n");
+            "This stack uses the logical gap for related buttons.\n");
     }
     
     private Component buildButtonStackUnrelated() {
@@ -121,7 +122,7 @@ public final class ButtonStacksExample {
         builder.addGridded(new JButton("Unrelated"));   
 
         return wrap(builder.getPanel(),
-            "\nThis stack uses the logical gap for unrelated buttons.\n");
+            "This stack uses the logical gap for unrelated buttons.\n");
     }
     
     private Component buildButtonStackMixedDefault() {
@@ -136,7 +137,7 @@ public final class ButtonStacksExample {
         builder.addFixed(new JButton("Copy to Clipboard"));
 
         return wrap(builder.getPanel(),
-            "\nDemonstrates a glue (between Help and Copy),\n" +
+            "Demonstrates a glue (between Help and Copy),\n" +
             "has related and unrelated buttons and\n" +            "a button with long label with the default margin.");
     }
     
@@ -152,17 +153,22 @@ public final class ButtonStacksExample {
         builder.addGriddedNarrow(new JButton("Copy to Clipboard"));
 
         return wrap(builder.getPanel(),
-            "\nDemonstrates a glue (between Help and Copy),\n" +
+            "Demonstrates a glue (between Help and Copy),\n" +
             "has related and unrelated buttons and\n" +
-            "a button with long label with a narrow margin.");
+            "a button with long label with a narrow margin.\n\n"+
+			"Note that some look&feels do not support\n" +
+			"the narrow margin feature, and conversely,\n" +
+			"others have only narrow margins.");
     }
     
     
     // Helper Code ************************************************************
     
     private Component wrap(Component buttonStack, String text) {
-        Component textPane = new JScrollPane(new JTextArea(text));
-        
+    	JTextArea textArea = new JTextArea(text);
+    	textArea.setMargin(new Insets(6, 10, 4, 6));
+    	Component textPane = new JScrollPane(textArea);
+    	
         FormLayout layout = new FormLayout(
                         "fill:p:grow, 6dlu, p",
                         "fill:p:grow");

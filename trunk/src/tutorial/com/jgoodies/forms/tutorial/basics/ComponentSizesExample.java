@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.tutorial.basics;
 
+import java.awt.Insets;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -45,7 +47,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class ComponentSizesExample {
 
@@ -129,6 +131,7 @@ public final class ComponentSizesExample {
     private JComponent buildTextPanel() {
         JTextArea textArea = new JTextArea(5, 20);
         textArea.setEditable(false);
+        textArea.setMargin(new Insets(6, 10, 4, 6));
         textArea.setText("The text field used in the example on the left\n" +
         "has a narrow minimum width and a wider preferred width.\n\n" +
         "If you move the split divider to the left and right\n" +

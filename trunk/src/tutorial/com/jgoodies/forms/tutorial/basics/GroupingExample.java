@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how columns and rows can be grouped in FormLayout.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class GroupingExample {
     
@@ -84,7 +84,7 @@ public final class GroupingExample {
         CellConstraints cc = new CellConstraints();
 
         panel.add(createNarrowButton("Hilfe"),      cc.xy(1, 1));
-        panel.add(createNarrowButton("< Zurück"),   cc.xy(3, 1));
+        panel.add(createNarrowButton("< Zur\u00FCck"),   cc.xy(3, 1));
         panel.add(createNarrowButton("Vor >"),      cc.xy(4, 1));
         panel.add(createNarrowButton("Beenden"),    cc.xy(6, 1));
         panel.add(createNarrowButton("Abbrechen"),  cc.xy(8, 1));
