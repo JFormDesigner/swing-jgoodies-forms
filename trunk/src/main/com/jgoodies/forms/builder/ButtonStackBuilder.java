@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2004 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -63,7 +63,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public final class ButtonStackBuilder extends PanelBuilder {
     
@@ -134,22 +134,6 @@ public final class ButtonStackBuilder extends PanelBuilder {
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         add(component);
         nextRow();
-    }
-
-    /**
-     * Adds a gridded narrow component.<p>
-     * 
-     * Since version 1.0.3 all buttons in button stacks get a narrow hint. 
-     * And so this method is obsolete and has been marked as deprecated.
-     * <strong>This method will be removed for version 1.0.4!</strong>.<p>
-     * 
-     * TODO: Remove for 1.0.4
-     * 
-     * @param component  the component to add
-     * @deprecated Replaced by {@link #addGridded(JComponent)}.
-     */
-    public void addGriddedNarrow(JComponent component) {
-        addGridded(component);
     }
 
     /**
