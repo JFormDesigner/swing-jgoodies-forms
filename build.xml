@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.12 2004-09-14 12:18:17 karsten Exp $
+   $Id: build.xml,v 1.13 2004-10-06 09:35:43 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -22,7 +22,7 @@
 
 -->
 
-<project default="jar" basedir=".">
+<project default="jar" basedir="." name="JGoodies Forms" >
 
     <!-- ***************************************************************** -->
     <!-- Give users a chance to override build properties.                 -->
