@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 
 public class DefaultComponentFactory implements ComponentFactory {
@@ -327,6 +327,7 @@ public class DefaultComponentFactory implements ComponentFactory {
          * to <code>#preferredLayoutSize</code>.
          * 
          * @param parent the component to be laid out
+         * @return the container's minimum size.
          * @see #preferredLayoutSize(Container)
          */
         public Dimension minimumLayoutSize(Container parent) {
@@ -339,6 +340,7 @@ public class DefaultComponentFactory implements ComponentFactory {
          * preferred size.
          * 
          * @param parent the component to be laid out
+         * @return the container's preferred size.
          * @see #minimumLayoutSize(Container)
          */
         public Dimension preferredLayoutSize(Container parent) {
