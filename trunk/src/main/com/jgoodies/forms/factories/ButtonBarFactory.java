@@ -44,7 +44,7 @@ import com.jgoodies.forms.builder.ButtonBarBuilder;
  * The button bars returned by this builder comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * 
  * @see com.jgoodies.forms.builder.ButtonBarBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
@@ -842,8 +842,8 @@ public final class ButtonBarFactory {
     // Wizard Bars **********************************************************
     
     /**
-     * Builds and returns a wizard button bar with 
-     * Back, Next, Finish, Cancel
+     * Builds and returns a wizard button bar with:
+     * Back, Next, Finish, Cancel.
      *
      * @param back		the Back button
      * @param next		the Next button
@@ -858,8 +858,8 @@ public final class ButtonBarFactory {
     
     
     /**
-     * Builds and returns a wizard button bar with 
-     * Help and Back, Next, Finish, Cancel
+     * Builds and returns a wizard button bar with: 
+     * Help and Back, Next, Finish, Cancel.
      * 
      * @param help		the Help button
      * @param back      the Back button

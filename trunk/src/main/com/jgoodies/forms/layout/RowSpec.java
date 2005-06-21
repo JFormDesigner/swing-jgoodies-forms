@@ -52,7 +52,7 @@ import java.util.StringTokenizer;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -140,7 +140,7 @@ public final class RowSpec extends FormSpec {
      * 
      * @return true for horizontal, false for vertical
      */
-    protected final boolean isHorizontal() { return false; }
+    protected boolean isHorizontal() { return false; }
 
 
     // Parsing and Decoding of Row Descriptions *****************************

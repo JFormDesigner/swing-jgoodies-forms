@@ -39,7 +39,7 @@ import java.awt.Component;
  * delegates all size conversions to an implementation of this interface. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @see    com.jgoodies.forms.layout.Sizes
  * @see    com.jgoodies.forms.layout.ConstantSize
  * @see    AbstractUnitConverter
@@ -55,7 +55,7 @@ public interface UnitConverter {
      * @param component  the component that provides the graphics object
      * @return the given Inches as pixels
      */
-    public int inchAsPixel(double in, Component component);
+    int inchAsPixel(double in, Component component);
     
 
     /**
@@ -66,7 +66,7 @@ public interface UnitConverter {
      * @param component  the component that provides the graphics object
      * @return the given Millimeters as pixels
      */
-    public int millimeterAsPixel(double mm, Component component);
+    int millimeterAsPixel(double mm, Component component);
 
 
     /**
@@ -77,7 +77,7 @@ public interface UnitConverter {
      * @param component  the component that provides the graphics object
      * @return the given Centimeters as pixels
      */
-    public int centimeterAsPixel(double cm, Component component);
+    int centimeterAsPixel(double cm, Component component);
     
 
     /**
@@ -88,7 +88,7 @@ public interface UnitConverter {
      * @param component   the component that provides the graphics object
      * @return the given Points as pixels
      */
-    public int pointAsPixel(int pt, Component component);
+    int pointAsPixel(int pt, Component component);
     
     
     /**
@@ -99,7 +99,7 @@ public interface UnitConverter {
      * @param component  a component that provides the font and graphics
      * @return the given horizontal dialog units as pixels
      */
-    public int dialogUnitXAsPixel(int dluX, Component component);
+    int dialogUnitXAsPixel(int dluX, Component component);
             
                     
     /**
@@ -110,7 +110,7 @@ public interface UnitConverter {
      * @param component  a component that provides the font and graphics
      * @return the given vertical dialog units as pixels
      */
-    public int dialogUnitYAsPixel(int dluY, Component component);
+    int dialogUnitYAsPixel(int dluY, Component component);
     
     
 }

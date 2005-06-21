@@ -132,7 +132,7 @@ import java.util.*;
  * </pre>
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -593,7 +593,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private void shiftComponentsHorizontally(int columnIndex, boolean remove) {
         final int offset = remove ? -1 : 1;
-        for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
+        for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
             CellConstraints constraints = (CellConstraints) entry.getValue();
             int x1 = constraints.gridX;
@@ -622,7 +622,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private void shiftComponentsVertically(int rowIndex, boolean remove) {
         final int offset = remove ? -1 : 1;
-        for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
+        for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
             CellConstraints constraints = (CellConstraints) entry.getValue();
             int y1 = constraints.gridY;
@@ -1243,9 +1243,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */    
     private int[] computeOrigins(int[] sizes, int offset) {
         int count = sizes.length;
-        int origins[] = new int[count + 1];
+        int[] origins = new int[count + 1];
         origins[0] = offset;
-        for (int i=1; i <= count; i++) {
+        for (int i = 1; i <= count; i++) {
             origins[i] = origins[i-1] + sizes[i-1];
         }
         return origins;
@@ -1268,7 +1268,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private void layoutComponents(int[] x, int[] y) {
         Rectangle cellBounds = new Rectangle();
-        for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
+        for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
             Component       component   = (Component)       entry.getKey();
             CellConstraints constraints = (CellConstraints) entry.getValue();
@@ -1317,7 +1317,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                 Measure defaultMeasure) {
         FormSpec formSpec;
         int size = formSpecs.size();
-        int result[] = new int[size];
+        int[] result = new int[size];
         for (int i = 0; i < size; i++) {
             formSpec = (FormSpec) formSpecs.get(i);
             result[i] = formSpec.maximumSize(container,
@@ -1481,7 +1481,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private int sum(int[] sizes) {
         int sum = 0;
-        for (int i = sizes.length - 1; i >=0; i--) {
+        for (int i = sizes.length - 1; i >= 0; i--) {
             sum += sizes[i];
         }
         return sum;
@@ -1505,6 +1505,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * 
      * "p, 4dlu, p, 2dlu, 0:grow" ->
      * [4, 3,    2, 1,    0]
+     * </pre>
      * 
      * @param formSpecs  the column specs or row specs
      * @return a table that maps a spec index to the maximum span for 
@@ -1550,7 +1551,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * An abstract implementation of the <code>Measure</code> interface
      * that caches component sizes.
      */
-    private static abstract class CachingMeasure implements Measure, Serializable {
+    private abstract static class CachingMeasure implements Measure, Serializable {
         
         /**
          * Holds previously requested component sizes. 
@@ -1564,8 +1565,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
         
     }
     
-    // Measures a component by computing its minimum width.
-    private static class MinimumWidthMeasure extends CachingMeasure {
+    
+    /**
+     * Measures a component by computing its minimum width.
+     */
+    private static final class MinimumWidthMeasure extends CachingMeasure {
         private MinimumWidthMeasure(ComponentSizeCache cache) {
             super(cache);
         }
@@ -1574,8 +1578,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
     }
 
-    // Measures a component by computing its minimum height.
-    private static class MinimumHeightMeasure extends CachingMeasure {
+    
+    /**
+     * Measures a component by computing its minimum height.
+     */
+    private static final class MinimumHeightMeasure extends CachingMeasure {
         private MinimumHeightMeasure(ComponentSizeCache cache) {
             super(cache);
         }
@@ -1584,8 +1591,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
     }
 
-    // Measures a component by computing its preferred width.
-    private static class PreferredWidthMeasure extends CachingMeasure {
+    
+    /**
+     * Measures a component by computing its preferred width.
+     */
+    private static final class PreferredWidthMeasure extends CachingMeasure {
         private PreferredWidthMeasure(ComponentSizeCache cache) {
             super(cache);
         }
@@ -1594,8 +1604,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
     }
 
-    // Measures a component by computing its preferred height.
-    private static class PreferredHeightMeasure extends CachingMeasure {
+    
+    /**
+     * Measures a component by computing its preferred height.
+     */
+    private static final class PreferredHeightMeasure extends CachingMeasure {
         private PreferredHeightMeasure(ComponentSizeCache cache) {
             super(cache);
         }
@@ -1607,11 +1620,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
     // Caching Component Sizes **********************************************
     
-    /*
+    /**
      * A cache for component minimum and preferred sizes.
      * Used to reduce the requests to determine a component's size.
      */ 
-    private static class ComponentSizeCache implements Serializable {
+    private static final class ComponentSizeCache implements Serializable {
         
         /** Maps components to their minimum sizes.  */
         private final Map minimumSizes;
@@ -1620,7 +1633,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
         private final Map preferredSizes; 
         
         /**
-         * Constructs a <code>ComponentSizeCache</code>
+         * Constructs a <code>ComponentSizeCache</code>.
+         * 
          * @param initialCapacity	the initial cache capacity
          */
         private ComponentSizeCache(int initialCapacity) {

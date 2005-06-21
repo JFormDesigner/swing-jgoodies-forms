@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -123,7 +123,7 @@ public abstract class LayoutStyle {
     
     
     /**
-     * Set a new <code>LayoutStyle</code>
+     * Set a new <code>LayoutStyle</code>.
      * 
      * @param newLayoutStyle   the style to be set
      */
@@ -141,7 +141,7 @@ public abstract class LayoutStyle {
      * 
      * @see #getDefaultButtonHeight()
      */
-    abstract public Size getDefaultButtonWidth();
+    public abstract Size getDefaultButtonWidth();
 
     
     /**
@@ -151,7 +151,7 @@ public abstract class LayoutStyle {
      * 
      * @see #getDefaultButtonWidth()
      */
-    abstract public Size getDefaultButtonHeight();
+    public abstract Size getDefaultButtonHeight();
 
     
     /**
@@ -162,7 +162,7 @@ public abstract class LayoutStyle {
      * @see #getDialogMarginY()
      * @see #getTabbedDialogMarginX()
      */
-    abstract public ConstantSize getDialogMarginX();
+    public abstract ConstantSize getDialogMarginX();
 
     
     /**
@@ -173,7 +173,7 @@ public abstract class LayoutStyle {
      * @see #getDialogMarginX()
      * @see #getTabbedDialogMarginY()
      */
-    abstract public ConstantSize getDialogMarginY();
+    public abstract ConstantSize getDialogMarginY();
 
     
     /**
@@ -186,7 +186,7 @@ public abstract class LayoutStyle {
      * @see #getTabbedDialogMarginY()
      * @see #getDialogMarginX()
      */
-    abstract public ConstantSize getTabbedDialogMarginX();
+    public abstract ConstantSize getTabbedDialogMarginX();
 
     
     /**
@@ -199,7 +199,7 @@ public abstract class LayoutStyle {
      * @see #getTabbedDialogMarginX()
      * @see #getDialogMarginY()
      */
-    abstract public ConstantSize getTabbedDialogMarginY();
+    public abstract ConstantSize getTabbedDialogMarginY();
 
     
     /**
@@ -210,7 +210,7 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadX()
      * @see #getUnrelatedComponentsPadX()
      */
-    abstract public ConstantSize getLabelComponentPadX();
+    public abstract ConstantSize getLabelComponentPadX();
 
     
     /**
@@ -222,7 +222,7 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadX()
      */
-    abstract public ConstantSize getRelatedComponentsPadX();
+    public abstract ConstantSize getRelatedComponentsPadX();
 
     
     /**
@@ -233,7 +233,7 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadX()
      * @see #getUnrelatedComponentsPadY()
      */
-    abstract public ConstantSize getRelatedComponentsPadY();
+    public abstract ConstantSize getRelatedComponentsPadY();
 
     
     /**
@@ -245,7 +245,7 @@ public abstract class LayoutStyle {
      * @see #getUnrelatedComponentsPadY()
      * @see #getRelatedComponentsPadX()
      */
-    abstract public ConstantSize getUnrelatedComponentsPadX();
+    public abstract ConstantSize getUnrelatedComponentsPadX();
 
     
     /**
@@ -256,7 +256,7 @@ public abstract class LayoutStyle {
      * @see #getUnrelatedComponentsPadX()
      * @see #getRelatedComponentsPadY()
      */
-    abstract public ConstantSize getUnrelatedComponentsPadY();
+    public abstract ConstantSize getUnrelatedComponentsPadY();
 
     
     /**
@@ -267,7 +267,7 @@ public abstract class LayoutStyle {
      * @see #getLinePad()
      * @see #getParagraphPad()
      */
-    abstract public ConstantSize getNarrowLinePad();
+    public abstract ConstantSize getNarrowLinePad();
 
     
     /**
@@ -278,7 +278,7 @@ public abstract class LayoutStyle {
      * @see #getNarrowLinePad()
      * @see #getParagraphPad()
      */
-    abstract public ConstantSize getLinePad();
+    public abstract ConstantSize getLinePad();
 
     
     /**
@@ -289,7 +289,7 @@ public abstract class LayoutStyle {
      * @see #getNarrowLinePad()
      * @see #getLinePad()
      */
-    abstract public ConstantSize getParagraphPad();
+    public abstract ConstantSize getParagraphPad();
 
 
     /**
@@ -301,7 +301,7 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadY()
      */
-    abstract public ConstantSize getButtonBarPad();
+    public abstract ConstantSize getButtonBarPad();
 
     
     /**
@@ -324,7 +324,7 @@ public abstract class LayoutStyle {
      * @see com.jgoodies.forms.builder.ButtonBarBuilder
      * @see com.jgoodies.forms.factories.ButtonBarFactory
      */
-    abstract public boolean isLeftToRightButtonOrder();
+    public abstract boolean isLeftToRightButtonOrder();
 
     
 }

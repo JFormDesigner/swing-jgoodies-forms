@@ -42,7 +42,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  * 
  * @see     ColumnSpec
  * @see     RowSpec
@@ -259,7 +259,7 @@ public abstract class FormSpec implements Serializable {
     /**
      * Parses an encoded compound size and sets the size fields.
      * The compound size has format: 
-     * max(<atomic size>;<atomic size2>) | min(<atomic size1>;<atomic size2>)
+     * max(&lt;atomic size&gt;;&lt;atomic size2&gt;) | min(&lt;atomic size1&gt;;&lt;atomic size2&gt;)
      * One of the two atomic sizes must be a logical size, the other must
      * be a size constant.
      * 

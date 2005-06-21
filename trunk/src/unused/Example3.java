@@ -65,7 +65,7 @@ public final class Example3 extends JPanel {
     
     
     /**
-     *  Creates and configures the UI components;
+     *  Creates and configures the UI components.
      */
     private void initComponents() {
         idField = createReadOnlyTextFieldFor("id");

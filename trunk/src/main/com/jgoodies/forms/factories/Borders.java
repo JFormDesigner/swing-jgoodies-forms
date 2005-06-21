@@ -53,14 +53,18 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see     Border
  * @see     Sizes
  */
 public final class Borders {
 
-
+    private Borders() {
+        // Overrides default constructor; prevents instantiation.
+    }
+    
+    
     // Constant Borders *****************************************************
 
     /**

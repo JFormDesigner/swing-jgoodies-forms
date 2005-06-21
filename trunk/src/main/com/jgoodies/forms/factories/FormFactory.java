@@ -62,13 +62,17 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  * 
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
  */
 public final class FormFactory {
 
+    private FormFactory() {
+        // Suppresses default constructor, ensuring non-instantiability.
+    }
+    
 
     // Frequently used Column Specifications ********************************
 

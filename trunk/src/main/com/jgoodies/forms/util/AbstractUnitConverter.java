@@ -39,13 +39,13 @@ import java.awt.Toolkit;
  * minimizes the effort required to convert font-dependent sizes to pixels. 
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see    DefaultUnitConverter
  * @see    com.jgoodies.forms.layout.Size
  * @see    com.jgoodies.forms.layout.Sizes
  */
-abstract public class AbstractUnitConverter implements UnitConverter {
+public abstract class AbstractUnitConverter implements UnitConverter {
 
     private static final int DTP_RESOLUTION = 72;
     
@@ -138,7 +138,7 @@ abstract public class AbstractUnitConverter implements UnitConverter {
      * @param component   a Component that provides the font and graphics
      * @return the horizontal dialog base units
      */
-    abstract protected double getDialogBaseUnitsX(Component component);
+    protected abstract double getDialogBaseUnitsX(Component component);
     
     
     /**
@@ -149,7 +149,7 @@ abstract public class AbstractUnitConverter implements UnitConverter {
      * @param component   a Component that provides the font and graphics
      * @return the vertical dialog base units
      */
-    abstract protected double getDialogBaseUnitsY(Component component);
+    protected abstract double getDialogBaseUnitsY(Component component);
     
     
     // Convenience Methods ***************************************************

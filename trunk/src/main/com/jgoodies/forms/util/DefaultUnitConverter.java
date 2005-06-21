@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <em>defaultDialogFont</em> and <em>averageCharacterWidthTestString</em>. 
  * 
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -126,10 +126,10 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     // Instance Creation and Access *******************************************
     
     /**
-     * Constructs a <code>DefaultFontUnitConverter</code> and registers
+     * Constructs a DefaultUnitConverter and registers
      * a listener that handles changes in the look&amp;feel.
      */
-    private DefaultUnitConverter () {
+    private DefaultUnitConverter() {
         UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
         changeSupport = new PropertyChangeSupport(this);
     }
@@ -381,7 +381,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @see #removePropertyChangeListener(String, PropertyChangeListener)
      * @see #addPropertyChangeListener(String, PropertyChangeListener)
      */
-    public final synchronized void addPropertyChangeListener(
+    public synchronized void addPropertyChangeListener(
                                             PropertyChangeListener listener) {
         changeSupport.addPropertyChangeListener(listener);
     }
@@ -400,7 +400,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @see #addPropertyChangeListener(String, PropertyChangeListener)
      * @see #removePropertyChangeListener(String, PropertyChangeListener)
      */
-    public final synchronized void removePropertyChangeListener(
+    public synchronized void removePropertyChangeListener(
                                         PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
@@ -421,7 +421,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @see #removePropertyChangeListener(java.lang.String, java.beans.PropertyChangeListener)
      * @see #addPropertyChangeListener(java.lang.String, java.beans.PropertyChangeListener)
      */
-    public final synchronized void addPropertyChangeListener(
+    public synchronized void addPropertyChangeListener(
                                         String propertyName,
                                         PropertyChangeListener listener) {
         changeSupport.addPropertyChangeListener(propertyName, listener);
@@ -441,7 +441,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @see #addPropertyChangeListener(java.lang.String, java.beans.PropertyChangeListener)
      * @see #removePropertyChangeListener(java.beans.PropertyChangeListener)
      */
-    public final synchronized void removePropertyChangeListener(
+    public synchronized void removePropertyChangeListener(
                                         String propertyName,
                                         PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(propertyName, listener);

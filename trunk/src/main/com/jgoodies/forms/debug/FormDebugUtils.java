@@ -58,11 +58,16 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see FormDebugPanel
  */
 public final class FormDebugUtils {
+    
+    private FormDebugUtils() {
+        // Overrides default constructor; prevents instantiation.
+    }
+    
     
     // Console Dump *********************************************************
     
