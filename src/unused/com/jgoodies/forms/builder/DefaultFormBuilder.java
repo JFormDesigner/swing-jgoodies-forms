@@ -35,7 +35,6 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
@@ -45,8 +44,8 @@ import com.jgoodies.forms.workinprogress.LabelStyle;
 
 /**
  * Provides a means to build consistent form-oriented panels using the
- * {@link FormLayout}.
- * <p>
+ * {@link FormLayout}.<p>
+ * 
  * This class is work in progress and in the early stages of development; 
  * the API may change without notice.
  *

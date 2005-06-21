@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  * 
  * @see     Size
  * @see     UnitConverter
@@ -245,7 +245,7 @@ public final class Sizes {
     public static int pointAsPixel(int pt, Component component) {
         return pt == 0
             ? 0
-            :getUnitConverter().pointAsPixel(pt, component);
+            : getUnitConverter().pointAsPixel(pt, component);
     }
     
     /**

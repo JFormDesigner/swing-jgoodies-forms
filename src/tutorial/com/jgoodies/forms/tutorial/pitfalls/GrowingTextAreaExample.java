@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class GrowingTextAreaExample {
     
@@ -222,8 +222,10 @@ public final class GrowingTextAreaExample {
     }
     
     
-    // Listens to area size changes and writes the formatted sizes to the given labels.
-    private static class SizeChangeHandler extends ComponentAdapter {
+    /**
+     * Listens to area size changes and writes the formatted sizes to the given labels.
+     */
+    private static final class SizeChangeHandler extends ComponentAdapter {
         
         private final JTextArea area;
         private final JLabel    sizeLabel;

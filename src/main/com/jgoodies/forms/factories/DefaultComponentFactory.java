@@ -51,10 +51,10 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 
-public class DefaultComponentFactory implements ComponentFactory {
+public final class DefaultComponentFactory implements ComponentFactory {
     
     /**
      * Holds the single instance of this class.
@@ -262,8 +262,11 @@ public class DefaultComponentFactory implements ComponentFactory {
         }
     }
 
-    // A label that uses the TitleBorder font and color
-    private static class TitleLabel extends JLabel {
+    
+    /**
+     * A label that uses the TitleBorder font and color.
+     */
+    private static final class TitleLabel extends JLabel {
         
         private TitleLabel() {
             // Just invoke the super constructor.
@@ -306,8 +309,10 @@ public class DefaultComponentFactory implements ComponentFactory {
     }
     
     
-    // A layout for the title label and separator(s) in titled separators.
-    private static class TitledSeparatorLayout implements LayoutManager {
+    /**
+     * A layout for the title label and separator(s) in titled separators.
+     */
+    private static final class TitledSeparatorLayout implements LayoutManager {
         
         private final boolean centerSeparators;
         
@@ -462,7 +467,7 @@ public class DefaultComponentFactory implements ComponentFactory {
      */
     private static boolean changeHandlerRegistered = false;
     
-    private synchronized static void ensureLookAndFeelChangeHandlerRegistered() {
+    private static synchronized void ensureLookAndFeelChangeHandlerRegistered() {
         if (!changeHandlerRegistered) {
             UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
             changeHandlerRegistered = true;

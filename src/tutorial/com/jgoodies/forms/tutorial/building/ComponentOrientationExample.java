@@ -66,7 +66,7 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.  
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * 
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
@@ -144,7 +144,11 @@ public final class ComponentOrientationExample {
      * specifications, arrays of column specifications and encoded
      * column specs.
      */
-    private static class OrientationUtils {
+    private static final class OrientationUtils {
+        
+        private OrientationUtils() {
+            // Overrides default constructor; prevents instantiation.
+        }
     
         /**
          * Flips the default alignment of the given column specification 
