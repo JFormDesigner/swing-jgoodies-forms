@@ -30,6 +30,8 @@ OTHER CHANGES
             in ComponentFactory, DefaultComponentFactory, PanelBuilder.
     o Docs: Refreshed the list of visual builder tools.
     o Dist: Fixed broken package information in the JAR manifest.
+    o Build:Set 'build.compile.source' and 'build.compile.target' to '1.4'
+            in the default.properties; build.xml honors the source setting.
     o Tut.: Main methods use the new JGoodies Looks 1.3 package names.
     
     
