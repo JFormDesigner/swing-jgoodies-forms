@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.15 2005-05-30 12:56:58 karsten Exp $
+   $Id: build.xml,v 1.16 2005-07-08 15:10:37 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -111,6 +111,7 @@
 			deprecation  ="${build.compile.deprecation}"
 			nowarn       ="${build.compile.nowarn}" 
 			optimize     ="${build.compile.optimize}"
+            source       ="${build.compile.source}"
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}" />
@@ -130,6 +131,7 @@
 			deprecation  ="${build.compile.deprecation}"
 			nowarn       ="${build.compile.nowarn}" 
 			optimize     ="${build.compile.optimize}"
+            source       ="${build.compile.source}"
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
@@ -150,6 +152,7 @@
 			deprecation  ="${build.compile.deprecation}"
 			nowarn       ="${build.compile.nowarn}" 
 			optimize     ="${build.compile.optimize}"
+            source       ="${build.compile.source}"
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
@@ -171,6 +174,7 @@
 			deprecation  ="${build.compile.deprecation}"
 			nowarn       ="${build.compile.nowarn}" 
 			optimize     ="${build.compile.optimize}"
+            source       ="${build.compile.source}"
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
