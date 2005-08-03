@@ -76,10 +76,21 @@ import java.util.StringTokenizer;
  * And describe that these offsets are not taken into account when
  * FormLayout computes the column and row sizes.<p>
  *
- * TODO: Rename the inset to offsets.
+ * TODO: Rename the inset to offsets.<p>
+ * 
+ * TODO: In the Forms 1.0.x invisible components are not taken into account
+ * when the FormLayout lays out the container. Add an optional setting for
+ * this on both the container-level and component-level. So one can specify
+ * that invisible components shall be taken into account, but may exclude
+ * individual components. Or the other way round, exclude invisible components,
+ * and include individual components. The API of both the FormLayout and
+ * CellConstraints classes shall be extended to support this option.
+ * This feature is planned for the Forms version 1.1 and is described in 
+ * <a href="https://forms.dev.java.net/issues/show_bug.cgi?id=28">issue #28</a> 
+ * of the Forms' issue tracker where you can track the progress.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
