@@ -129,10 +129,21 @@ import java.util.*;
  * builder.append("Label3", new JTextField());
  * builder.append(new JButton("/u2026"));
  * return builder.getPanel();
- * </pre>
+ * </pre><p>
+ * 
+ * TODO: In the Forms 1.0.x invisible components are not taken into account
+ * when the FormLayout lays out the container. Add an optional setting for
+ * this on both the container-level and component-level. So one can specify
+ * that invisible components shall be taken into account, but may exclude
+ * individual components. Or the other way round, exclude invisible components,
+ * and include individual components. The API of both the FormLayout and
+ * CellConstraints classes shall be extended to support this option.
+ * This feature is planned for the Forms version 1.1 and is described in 
+ * <a href="https://forms.dev.java.net/issues/show_bug.cgi?id=28">issue #28</a> 
+ * of the Forms' issue tracker where you can track the progress.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -645,8 +656,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * Adjusts group indices. Shifts the given groups to left, right, up,
      * down according to the specified remove or add flag.
      * 
-     * @param allGroupIndices	the groups to be adjusted
-     * @param modifiedIndex	the modified column or row index
+     * @param allGroupIndices   the groups to be adjusted
+     * @param modifiedIndex     the modified column or row index
      * @param remove			true for remove, false for add
      * @throws IllegalStateException if we remove and the index is grouped
      */
@@ -694,8 +705,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Sets the constraints for the specified component in this layout.
      * 
-     * @param component	the component to be modified
-     * @param constraints	the constraints to be applied
+     * @param component     the component to be modified
+     * @param constraints   the constraints to be applied
      * @throws NullPointerException   if the component or constraints object
      *     is <code>null</code>
      */
@@ -1069,7 +1080,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * 
      * Iterates over all components and their associated constraints; 
      * every component that has a column span or row span of 1 
-     * is put into the column's or row's component list.
+     * is put into the column's or row's component list.<p>
+     * 
+     * As of the Forms version 1.0.x invisible components are not taken
+     * into account when the container is layed out. See the TODO in the
+     * JavaDoc class commment for details on this issue.
      */
     private void initializeColAndRowComponentLists() {
         colComponents = new LinkedList[getColumnCount()];
@@ -1189,8 +1204,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Computes and returns the grid's origins.
      * 
-     * @param container        the layout container
-     * @param totalSize		the total size to assign
+     * @param container         the layout container
+     * @param totalSize         the total size to assign
      * @param offset     		the offset from left or top margin
      * @param formSpecs     	the column or row specs, resp.
      * @param componentLists	the components list for each col/row
@@ -1237,8 +1252,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Computes origins from sizes taking the specified offset into account.
      * 
-     * @param sizes	the array of sizes
-     * @param offset	an offset for the first origin
+     * @param sizes     the array of sizes
+     * @param offset    an offset for the first origin
      * @return an array of origins
      */    
     private int[] computeOrigins(int[] sizes, int offset) {
@@ -1263,8 +1278,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * could map JComponent classes to visual layout bounds that may
      * lead to a slightly different bounds.
      * 
-     * @param x	an int array of the horizontal origins 
-     * @param y	an int array of the vertical origins
+     * @param x     an int array of the horizontal origins 
+     * @param y     an int array of the vertical origins
      */
     private void layoutComponents(int[] x, int[] y) {
         Rectangle cellBounds = new Rectangle();
@@ -1301,12 +1316,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * Computes and returns the sizes for the given form specs, component
      * lists and measures fot minimum, preferred, and default size.
      * 
-     * @param container        the layout container
-     * @param formSpecs		the column or row specs, resp.
-     * @param componentLists	the components list for each col/row
-     * @param minMeasure		the measure used to determin min sizes
-     * @param prefMeasure		the measure used to determin pre sizes
-     * @param defaultMeasure	the measure used to determin default sizes
+     * @param container         the layout container
+     * @param formSpecs         the column or row specs, resp.
+     * @param componentLists    the components list for each col/row
+     * @param minMeasure        the measure used to determin min sizes
+     * @param prefMeasure       the measure used to determin pre sizes
+     * @param defaultMeasure    the measure used to determin default sizes
      * @return the column or row sizes
      */
     private int[] maximumSizes(Container container,
@@ -1339,12 +1354,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * affected. You can specify a column and row as compressable by
      * giving it the component size <tt>default</tt>.
      * 
-     * @param formSpecs	the column or row specs to use
-     * @param totalSize	the total available size
-     * @param totalMinSize	the sum of all minimum sizes
-     * @param totalPrefSize the sum of all preferred sizes
-     * @param minSizes		an int array of column/row minimum sizes
-     * @param prefSizes	an int array of column/row preferred sizes
+     * @param formSpecs      the column or row specs to use
+     * @param totalSize      the total available size
+     * @param totalMinSize   the sum of all minimum sizes
+     * @param totalPrefSize  the sum of all preferred sizes
+     * @param minSizes       an int array of column/row minimum sizes
+     * @param prefSizes      an int array of column/row preferred sizes
      * @return an int array of compressed column/row sizes
      */
     private int[] compressedSizes(List formSpecs, 
@@ -1424,10 +1439,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * Distributes free space over columns and rows and 
      * returns the sizes after this distribution process.
      * 
-     * @param formSpecs	  the column/row specifications to work with
-     * @param totalSize	  the total available size
-     * @param totalPrefSize the sum of all preferred sizes 
-     * @param inputSizes	 the input sizes
+     * @param formSpecs      the column/row specifications to work with
+     * @param totalSize      the total available size
+     * @param totalPrefSize  the sum of all preferred sizes 
+     * @param inputSizes     the input sizes
      * @return the distributed sizes
      */   
     private int[] distributedSizes(List formSpecs, 
@@ -1476,7 +1491,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Computes and returns the sum of integers in the given array of ints.
      * 
-     * @param sizes	an array of ints to sum up
+     * @param sizes	   an array of ints to sum up
      * @return the sum of ints in the array
      */
     private int sum(int[] sizes) {
