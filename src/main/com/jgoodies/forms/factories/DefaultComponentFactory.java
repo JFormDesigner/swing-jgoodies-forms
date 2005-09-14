@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 
 public final class DefaultComponentFactory implements ComponentFactory {
@@ -187,14 +187,17 @@ public final class DefaultComponentFactory implements ComponentFactory {
      * 
      * The label's position is determined by the label's horizontal alignment.<p>
      * 
-     * TODO: Turn this into a public method. Extend the JavaDoc comment
-     * to precisely describe the semantic of the method.
+     * TODO: Since this method has been marked public in version 1.0.6,
+     * we nned to precisely describe the semantic of this method.<p>
+     * 
+     * TODO: Check if we need to switch separator and label if the
+     * label's horizontal alignment is "right" instead of "left".
      * 
      * @param label       the title label component
      * @return a separator with title label
      * @throws NullPointerException if the label is <code>null</code> 
      */
-    private JComponent createSeparator(JLabel label) {
+    public JComponent createSeparator(JLabel label) {
         if (label == null)
             throw new NullPointerException("The label must not be null.");
 
