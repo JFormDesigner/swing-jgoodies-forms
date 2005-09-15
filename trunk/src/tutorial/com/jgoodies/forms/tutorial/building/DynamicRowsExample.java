@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see	PlainExample
  * @see	RowCounterExample
@@ -146,57 +146,57 @@ public final class DynamicRowsExample {
         builder.addSeparator("Segment");
         builder.nextLine(2);
 
-        builder.addLabel("Identifier");         builder.nextColumn(2);
+        builder.addLabel("Identifier");       builder.nextColumn(2);
         builder.add(identifierField);
         builder.nextLine(2);
 
-        builder.addLabel("PTI [kW]");           builder.nextColumn(2);
-        builder.add(ptiField);                  builder.nextColumn(2);
-        builder.addLabel("Power [kW]");         builder.nextColumn(2);
+        builder.addLabel("PTI/kW");           builder.nextColumn(2);
+        builder.add(ptiField);                builder.nextColumn(2);
+        builder.addLabel("Power/kW");         builder.nextColumn(2);
         builder.add(powerField);
         builder.nextLine(2);
 
-        builder.addLabel("len [mm]");           builder.nextColumn(2);
+        builder.addLabel("len/mm");           builder.nextColumn(2);
         builder.add(lenField);
         builder.nextLine(2);
 
         builder.addSeparator("Diameters");
         builder.nextLine(2);
 
-        builder.addLabel("da [mm]");            builder.nextColumn(2);
-        builder.add(daField);                   builder.nextColumn(2);
-        builder.addLabel("di [mm]");            builder.nextColumn(2);
+        builder.addLabel("da/mm");            builder.nextColumn(2);
+        builder.add(daField);                 builder.nextColumn(2);
+        builder.addLabel("di/mm");            builder.nextColumn(2);
         builder.add(diField);
         builder.nextLine(2);
 
-        builder.addLabel("da2 [mm]");           builder.nextColumn(2);
-        builder.add(da2Field);                  builder.nextColumn(2);
-        builder.addLabel("di2 [mm]");           builder.nextColumn(2);
+        builder.addLabel("da2/mm");           builder.nextColumn(2);
+        builder.add(da2Field);                builder.nextColumn(2);
+        builder.addLabel("di2/mm");           builder.nextColumn(2);
         builder.add(di2Field);
 
         builder.nextLine(2);
-        builder.addLabel("R [mm]");             builder.nextColumn(2);
-        builder.add(rField);                    builder.nextColumn(2);
-        builder.addLabel("D [mm]");             builder.nextColumn(2);
+        builder.addLabel("R/mm");             builder.nextColumn(2);
+        builder.add(rField);                  builder.nextColumn(2);
+        builder.addLabel("D/mm");             builder.nextColumn(2);
         builder.add(dField);
         builder.nextLine(2);
 
         builder.addSeparator("Criteria");
         builder.nextLine(2);
 
-        builder.addLabel("Location");           builder.nextColumn(2);
-        builder.add(locationCombo);             builder.nextColumn(2);
-        builder.addLabel("k-factor");           builder.nextColumn(2);
+        builder.addLabel("Location");         builder.nextColumn(2);
+        builder.add(locationCombo);           builder.nextColumn(2);
+        builder.addLabel("k-factor");         builder.nextColumn(2);
         builder.add(kFactorField);
         builder.nextLine(2);
 
-        builder.addLabel("Holes");              builder.nextColumn(2);
+        builder.addLabel("Holes");            builder.nextColumn(2);
         builder.setColumnSpan(5);
         builder.add(holesCheckBox);
         builder.setColumnSpan(1);
         builder.nextLine(2);
 
-        builder.addLabel("Slots");              builder.nextColumn(2);
+        builder.addLabel("Slots");            builder.nextColumn(2);
         builder.setColumnSpan(5);
         builder.add(slotsCheckBox);
         builder.setColumnSpan(1);

@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  * 
  * @see	com.jgoodies.forms.factories.ButtonBarFactory
  */
@@ -91,7 +91,7 @@ public final class FormFactoryExample {
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.setDefaultDialogBorder();
         builder.setLeadingColumnOffset(1);
-
+        
         buildParagraph(builder, 4, majorCols, minorCols, "Propeller Shaft");
         buildParagraph(builder, 3, majorCols, minorCols, "Intermediate Shaft");
 
@@ -139,10 +139,10 @@ public final class FormFactoryExample {
     }
     
     private static final String[] LABELS = {
-        "da [mm]", "ds [mm]", "kl [cm]", "Weight [Kg]", "Size [mm]",
-        "da2 [mm]", "ds2 [mm]", "cv [cm]", "pl [cm]", "mt [mm]",
-        "ep [mm]", "cvn [mm]", "nz [cm]", "Power [kW]", "Length [cm]",
-        "R [cm]", "D [mm]", "PTI [kW]"
+        "da/mm", "ds/mm", "kl/cm", "Weight/Kg", "Size/mm",
+        "da2/mm", "ds2/mm", "cv/cm", "pl/cm", "mt/mm",
+        "ep/mm", "cvn/mm", "nz/cm", "Power/kW", "Length/cm",
+        "R/cm", "D/mm", "PTI/kW"
     };
 
 }

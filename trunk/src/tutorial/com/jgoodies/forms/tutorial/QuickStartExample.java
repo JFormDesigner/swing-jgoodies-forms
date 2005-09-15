@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * by <code>#buildPanel()</code>. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
 public final class QuickStartExample {
@@ -136,13 +136,13 @@ public final class QuickStartExample {
         builder.add(contactField,         cc.xyw(3,  5, 5));
 
         builder.addSeparator("Propeller", cc.xyw(1,  7, 7));
-        builder.addLabel("PTI [kW]",      cc.xy (1,  9));
+        builder.addLabel("PTI/kW",        cc.xy (1,  9));
         builder.add(ptiField,             cc.xy (3,  9));
-        builder.addLabel("Power [kW]",    cc.xy (5,  9));
+        builder.addLabel("Power/kW",      cc.xy (5,  9));
         builder.add(powerField,           cc.xy (7,  9));
-        builder.addLabel("R [mm]",        cc.xy (1, 11));
+        builder.addLabel("R/mm",          cc.xy (1, 11));
         builder.add(radiusField,          cc.xy (3, 11));
-        builder.addLabel("D [mm]",        cc.xy (5, 11));
+        builder.addLabel("D/mm",          cc.xy (5, 11));
         builder.add(diameterField,        cc.xy (7, 11));
         
         // The builder holds the layout container that we now return.
