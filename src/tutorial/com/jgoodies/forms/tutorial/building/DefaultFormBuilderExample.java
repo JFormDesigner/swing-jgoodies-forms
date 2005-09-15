@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * rows before the panel is filled with components. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see     DefaultFormBuilder
  * @see     PlainExample
@@ -150,23 +150,23 @@ public final class DefaultFormBuilderExample {
         builder.append("&Identifier", identifierField);
         builder.nextLine();
 
-        builder.append("PTI [kW]",   ptiField);          
-        builder.append("Power [kW]", powerField);
+        builder.append("PTI/kW",   ptiField);          
+        builder.append("Power/kW", powerField);
 
-        builder.append("s [mm]",     sField);
+        builder.append("s/mm",     sField);
         builder.nextLine();
 
 
         builder.appendSeparator("Diameters");
 
-        builder.append("&da [mm]",   daField);          
-        builder.append("di [mm]",    diField);
+        builder.append("&da/mm",   daField);          
+        builder.append("di/mm",    diField);
 
-        builder.append("da2 [mm]",   da2Field);          
-        builder.append("di2 [mm]",   di2Field);
+        builder.append("da2/mm",   da2Field);          
+        builder.append("di2/mm",   di2Field);
 
-        builder.append("R [mm]",     rField);          
-        builder.append("D [mm]",     dField);
+        builder.append("R/mm",     rField);          
+        builder.append("D/mm",     dField);
 
 
         builder.appendSeparator("Criteria");
