@@ -23,6 +23,9 @@ o Add an example where the DefaultFormBuilder
 
 o Add custom ComponentFactory example
 
+o Consider replacing FormLayout#insertColumn by #addColumn
+  with a column range of [1, columnCount].
+
 o Move example title and comment from the Forms Demo
   to the examples.
   
