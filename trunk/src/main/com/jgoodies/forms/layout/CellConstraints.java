@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2005 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -90,7 +90,7 @@ import java.util.StringTokenizer;
  * of the Forms' issue tracker where you can track the progress.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     

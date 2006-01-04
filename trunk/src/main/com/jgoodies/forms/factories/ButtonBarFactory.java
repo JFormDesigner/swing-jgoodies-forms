@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2005 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -44,7 +44,7 @@ import com.jgoodies.forms.builder.ButtonBarBuilder;
  * The button bars returned by this builder comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see com.jgoodies.forms.builder.ButtonBarBuilder
  * @see com.jgoodies.forms.util.LayoutStyle

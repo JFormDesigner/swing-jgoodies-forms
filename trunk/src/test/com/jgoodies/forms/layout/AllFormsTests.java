@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2005 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -37,7 +37,7 @@ import junit.framework.TestSuite;
  * A test suite for all tests related to the JGoodies Forms framework.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public final class AllFormsTests {
 
