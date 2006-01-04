@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2005 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 
 public final class DefaultComponentFactory implements ComponentFactory {
