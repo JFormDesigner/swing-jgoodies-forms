@@ -6,7 +6,8 @@
 
 INTRODUCTION
 
-    This maintenance release ...
+    This maintenance release is primarily a documentation update.
+    It also contains a few minor bug fixes.
     
     
 NEW FEATURES
@@ -18,21 +19,23 @@ BUGS FIXED
 
     o BoundedSize#toString wrong if lower and upper bound exist.
     o Issue 19: DefaultFormBuilders *I15d methods don't use setLabelFor.
+    o Issue 33: DefaultComponentFactory may set wrong mnemonic index.
     
     
 OTHER CHANGES
 
-    o Code: ...
     o Docs: Removed several JavaDoc <code> tags to improve readability.
     o Docs: Added examples to FormLayout constructors.
     o Docs: Corrected JavaDoc @throws texts in ColumnSpec and RowSpec.
     o Docs: Corrected and extended JavaDocs regarding the mnemonic marker
             in ComponentFactory, DefaultComponentFactory, PanelBuilder.
     o Docs: Refreshed the list of visual builder tools.
+    o Docs: Added a bunch of TODOs for future versions.
     o Dist: Fixed broken package information in the JAR manifest.
     o Build:Set 'build.compile.source' and 'build.compile.target' to '1.4'
             in the default.properties; build.xml honors the source setting.
     o Tut.: Main methods use the new JGoodies Looks 1.3 package names.
+    o Test: Added tests for the DefaultComponentFactory.
     
     
 ---------------------------------------------------------------------------
