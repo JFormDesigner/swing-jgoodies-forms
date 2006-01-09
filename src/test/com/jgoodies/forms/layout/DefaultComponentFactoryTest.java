@@ -40,13 +40,10 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  * A test case for class {@link DefaultComponentFactory}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public final class DefaultComponentFactoryTest extends TestCase {
     
-    /**
-     * Checks a proper mnemonic and mnemonic index.
-     */
     public void testLabelWithoutMnemonic() {
         testMnemonic("",      "",      0, -1);
         testMnemonic(" ",     " ",     0, -1);
@@ -107,7 +104,7 @@ public final class DefaultComponentFactoryTest extends TestCase {
         testMnemonic("Xabc&x &x", "Xabcx x", 'X', 4);
     }
     
-    public void testLabelWithQuoteMnemonicMarkerBeforeMnemonicMarker() {
+    public void testLabelWithQuotedMarkerBeforeMnemonic() {
         testMnemonic("L&&F &choice", "L&F choice", 'C', 4);
         testMnemonic("&&&x",      "&x",      'X', 1);
         testMnemonic("&&a&x",     "&ax",     'X', 2);
@@ -126,7 +123,7 @@ public final class DefaultComponentFactoryTest extends TestCase {
         testMnemonic("X&&abc&x ", "X&abcx ", 'X', 5);
     }
     
-    public void testLabelWithQuoteMnemonicMarkerAfterMnemonicMarker() {
+    public void testLabelWithQuotedMarkerAfterMnemonic() {
         testMnemonic("&Look&&Feel choice", "Look&Feel choice", 'L', 0);
         testMnemonic("&x&&",      "x&",      'X', 0);
         testMnemonic("a&x&&",     "ax&",     'X', 1);
@@ -139,6 +136,11 @@ public final class DefaultComponentFactoryTest extends TestCase {
         testMnemonic("a&xb&&c",   "axb&c",   'X', 1);
     }
     
+    public void testLabelWithQuotedMarkersBeforeAndAfterMnemonic() {
+        testMnemonic("a&&b&&c&&d&x&&e&&f&&",  "a&b&c&dx&e&f&",  'X', 7);
+        testMnemonic("a&&b&&c&&d&x&&e&&f&&g", "a&b&c&dx&e&f&g", 'X', 7);
+    }
+    
     
     // Test Helper Code *******************************************************
     
@@ -147,7 +149,6 @@ public final class DefaultComponentFactoryTest extends TestCase {
             int expectedMnemonic, 
             int expectedMnemonicIndex) {
         JLabel label = DefaultComponentFactory.getInstance().createLabel(textWithMnemonic);
-        System.out.println(label.getText());
         assertEquals("Text", 
                 expectedText,
                 label.getText());
@@ -158,8 +159,6 @@ public final class DefaultComponentFactoryTest extends TestCase {
                 expectedMnemonicIndex,
                 label.getDisplayedMnemonicIndex());
     }
-    
-    
+      
 	
 }
-
