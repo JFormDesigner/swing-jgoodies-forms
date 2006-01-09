@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.23 $
+ * @version $Revision: 1.24 $
  */
 
 public final class DefaultComponentFactory implements ComponentFactory {
@@ -238,16 +238,19 @@ public final class DefaultComponentFactory implements ComponentFactory {
         int begin = 0;
         int end;
         int length = textWithMnemonic.length();
+        int quotedMarkers = 0;
         StringBuffer buffer = new StringBuffer();
         do {
             // Check whether the next index has a mnemonic marker, too
-            if (markerIndex + 1 < length 
-                && textWithMnemonic.charAt(markerIndex + 1) == MNEMONIC_MARKER) {
+            if (   (markerIndex + 1 < length) 
+                && (textWithMnemonic.charAt(markerIndex + 1) == MNEMONIC_MARKER)) {
                 end = markerIndex + 1;
+                quotedMarkers++;
             } else {
                 end = markerIndex;
-                if (mnemonicIndex == -1)
-                    mnemonicIndex = markerIndex;
+                if (mnemonicIndex == -1) {
+                    mnemonicIndex = markerIndex - quotedMarkers;
+                }
             }
             buffer.append(textWithMnemonic.substring(begin, end));
             begin = end + 1;
@@ -257,10 +260,11 @@ public final class DefaultComponentFactory implements ComponentFactory {
         } while (markerIndex != -1);
         buffer.append(textWithMnemonic.substring(begin));
 
-        label.setText(buffer.toString());
-        if ((mnemonicIndex != -1) && (mnemonicIndex + 1 < length)) {
+        String text = buffer.toString();
+        label.setText(text);
+        if ((mnemonicIndex != -1) && (mnemonicIndex < text.length())) {
             label.setDisplayedMnemonic(
-                textWithMnemonic.charAt(mnemonicIndex + 1));
+                text.charAt(mnemonicIndex));
             label.setDisplayedMnemonicIndex(mnemonicIndex);
         }
     }
