@@ -4,6 +4,10 @@ JGoodies Forms(tm) To-Do
 
 o Add a reference to the explicit-tablelayout project;
   update the whitepaper to mention this layout system.
+  
+o Check the visual builder tools for an active project state,
+  especially Gerald Rosenberg's JFormComposer and the
+  SwingEmpire FormBuilder.
 
 o Integrate Karl Tauber's customization code
 
