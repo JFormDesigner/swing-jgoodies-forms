@@ -87,7 +87,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -566,7 +566,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * 
      * @see #setComponentFactory(ComponentFactory)
      */
-    protected final ComponentFactory getComponentFactory() {
+    public final ComponentFactory getComponentFactory() {
         if (componentFactory == null) {
             componentFactory = DefaultComponentFactory.getInstance();
         }
