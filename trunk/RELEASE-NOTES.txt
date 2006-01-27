@@ -7,12 +7,22 @@
 INTRODUCTION
 
     This maintenance release is primarily a documentation update.
-    It also contains a few minor bug fixes.
+    It also contains minor bug fixes that do not affect the layout.
+    Hence, this version is binary and visually compatible with
+    the previous version.
+    
+    Further API changes and bug fixes that may affect the layout 
+    have been rescheduled for the upcoming version 1.1. The work 
+    on 1.1 shall begin in March 2006. Authors of visual builders
+    that support the Forms may register with the low-traffic 
+    Forms development mailing list to discuss planned changes.
     
     
 NEW FEATURES
 
     o Added an empty FormLayout constructor.
+    o PanelBuilder#getComponentFactory is public.
+    o DefaultFormFactory#createSeparator(JLabel) is public.
     
     
 BUGS FIXED
