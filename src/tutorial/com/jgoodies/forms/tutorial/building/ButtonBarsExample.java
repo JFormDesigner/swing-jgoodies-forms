@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  * 
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -169,6 +169,9 @@ public final class ButtonBarsExample {
     private static Component wrap(Component buttonBar, String text) {
     	JTextArea textArea = new JTextArea(text);
     	textArea.setMargin(new Insets(6, 10, 4, 6));
+        // Non-editable but shall use the editable background.
+        textArea.setEditable(false);
+        textArea.putClientProperty("JTextArea.infoBackground", Boolean.TRUE);
         Component textPane = new JScrollPane(textArea);
         
         FormLayout layout = new FormLayout(
