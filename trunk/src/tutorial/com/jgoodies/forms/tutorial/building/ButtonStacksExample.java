@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  * 
  * @see     ButtonStackBuilder
  */
@@ -168,6 +168,9 @@ public final class ButtonStacksExample {
     private static Component wrap(Component buttonStack, String text) {
     	JTextArea textArea = new JTextArea(text);
     	textArea.setMargin(new Insets(6, 10, 4, 6));
+        // Non-editable but shall use the editable background.
+        textArea.setEditable(false);
+        textArea.putClientProperty("JTextArea.infoBackground", Boolean.TRUE);
     	Component textPane = new JScrollPane(textArea);
     	
         FormLayout layout = new FormLayout(
