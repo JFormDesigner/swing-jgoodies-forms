@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.16 2005-07-08 15:10:37 karsten Exp $
+   $Id: build.xml,v 1.17 2006-02-11 21:20:52 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -36,23 +36,29 @@
     <!-- ***************************************************************** -->
     <!-- P A T H S                                                         -->
     <!-- ***************************************************************** -->
-    <path id="classpath.main">
-        <pathelement location="${build.main.dir}" 	/> 
+    <path id="classpath.core">
+        <pathelement location="${build.core.dir}" 	/> 
     </path>
     
     <path id="classpath.extras">
-        <pathelement location="${build.main.dir}" 	/> 
+        <pathelement location="${build.core.dir}" 	/> 
         <pathelement location="${build.extras.dir}" /> 
     </path>
     
     <path id="classpath.tests">
-        <pathelement location="${build.main.dir}" 	/> 
+        <pathelement location="${build.core.dir}" 	/> 
         <pathelement location="${build.extras.dir}" /> 
         <pathelement location="${build.test.dir}" 	/> 
         <pathelement location="${junit.jar}" 		/> 
     </path>
   
-  
+    <path id="classpath.tutorial">
+        <pathelement location="${build.core.dir}"   /> 
+        <pathelement location="${build.extras.dir}" /> 
+    </path>
+
+ 
+    
     <!-- ***************************************************************** -->
     <!-- C L E A N                                                         -->
     <!-- ***************************************************************** -->
@@ -74,7 +80,7 @@
            <format property="DATE" pattern="yyyy-MM-dd hh:mm:ss" />
         </tstamp>
         
-		<mkdir dir="${build.main.dir}"		/>
+		<mkdir dir="${build.core.dir}"		/>
 		<mkdir dir="${build.extras.dir}"	/>
 		<mkdir dir="${build.tutorial.dir}"	/>
 
@@ -86,7 +92,6 @@
             property="junit.jar.present"
             file="${junit.jar}"
         />
-
 	</target>
 	
 	
@@ -94,15 +99,15 @@
     <!-- C O M P I L A T I O N                                             -->
     <!-- ***************************************************************** -->
 	<target name="compile" 
-	        depends="compile-main, compile-extras, compile-tutorial, compile-tests" 
-	        description="Compiles the framework, extras, tutorial and tests." />
+	        depends="compile-core, compile-extras, compile-tests, compile-tutorial" 
+	        description="Compiles the framework, extras, tests and tutorial." />
 	        
     <!-- ***************************************************************** -->
-	<target name="compile-main" depends="prepare"
-	        description="Compiles the main sources." >
+	<target name="compile-core" depends="prepare"
+	        description="Compiles the core sources." >
 		<javac 
-			srcdir       ="${src.main.dir}" 
-			destdir      ="${build.main.dir}"
+			srcdir       ="${src.core.dir}" 
+			destdir      ="${build.core.dir}"
         	encoding     ="${build.encoding}"
         	executable   ="${build.compile.executable}"
         	fork         ="${build.compile.fork}"
@@ -118,7 +123,7 @@
 	</target>
 	
     <!-- ***************************************************************** -->
-	<target name="compile-extras" depends="compile-main"
+	<target name="compile-extras" depends="compile-core"
 	        description="Compiles the extra sources." >
 		<javac 
 			srcdir       ="${src.extras.dir}" 
@@ -135,9 +140,31 @@
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.main" />
+			classpathref ="classpath.core" />
 	</target>
 	
+    <!-- ***************************************************************** -->
+    <target name="compile-tests" depends="compile-extras" if="junit.jar.present"
+            description="Compiles the unit tests." >
+        <mkdir dir="${build.test.dir}"/>
+        <javac 
+            srcdir       ="${src.test.dir}" 
+            destdir      ="${build.test.dir}"
+            encoding     ="${build.encoding}"
+            executable   ="${build.compile.executable}"
+            fork         ="${build.compile.fork}"
+            debug        ="${build.compile.debug}"
+            depend       ="${build.compile.depend}"
+            deprecation  ="${build.compile.deprecation}"
+            nowarn       ="${build.compile.nowarn}" 
+            optimize     ="${build.compile.optimize}"
+            source       ="${build.compile.source}"
+            target       ="${build.compile.target}"
+            verbose      ="${build.compile.verbose}"
+            bootclasspath="${build.boot.classpath}"
+            classpathref ="classpath.tests" />
+    </target>   
+    
     <!-- ***************************************************************** -->
 	<target name="compile-tutorial" depends="compile-extras"
 	        description="Compiles the tutorial." >
@@ -156,31 +183,9 @@
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.extras" />
+			classpathref ="classpath.tutorial" />
 	</target>
 
-    <!-- ***************************************************************** -->
-	<target name="compile-tests" depends="compile-extras" if="junit.jar.present"
-	        description="Compiles the unit tests." >
-        <mkdir dir="${build.test.dir}"/>
-		<javac 
-			srcdir       ="${src.test.dir}" 
-			destdir      ="${build.test.dir}"
-        	encoding     ="${build.encoding}"
-        	executable   ="${build.compile.executable}"
-        	fork         ="${build.compile.fork}"
-			debug        ="${build.compile.debug}"
-			depend       ="${build.compile.depend}"
-			deprecation  ="${build.compile.deprecation}"
-			nowarn       ="${build.compile.nowarn}" 
-			optimize     ="${build.compile.optimize}"
-            source       ="${build.compile.source}"
-			target       ="${build.compile.target}"
-			verbose      ="${build.compile.verbose}"
-			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.tests" />
-	</target>	
-	
 	
     <!-- ***************************************************************** -->
     <!-- J A V A D O C                                                     -->
@@ -189,7 +194,7 @@
             description="Creates the API documentation using JavaDoc." >
 		<mkdir dir="${build.javadocs.dir}"	/>
         <javadoc 
-        	sourcepath="${src.main.dir}:${src.extras.dir}"
+        	sourcepath="${src.core.dir}:${src.extras.dir}"
             packagenames="${javadoc.packages}"
         	destdir="${build.javadocs.dir}"
         	encoding="${build.encoding}"
@@ -211,11 +216,6 @@
     <!-- ***************************************************************** -->
 	<target name="test" depends="compile-tests" if="junit.task.present"
 	        description="Compiles and runs the unit tests." >
-        <!-- Import JUnit task -->
-        <taskdef
-            name="junit"
-            classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"
-        />
         <mkdir dir="${build.reports.dir}"/>
         <junit printsummary="yes" haltonfailure="no" >
             <classpath refid="classpath.tests"/>
@@ -230,26 +230,26 @@
     <!-- ***************************************************************** -->
     <!-- J A R                                       				       -->
     <!-- ***************************************************************** -->
-	<target name="jar" depends="compile-main"
+	<target name="jar" depends="compile-core"
 	        description="Creates the library jar." >
 		<jar 
-			destfile="${build.main.jar}" >
-			<fileset dir="${build.main.dir}" />
+			destfile="${build.core.jar}" >
+			<fileset dir="${build.core.dir}" />
             <manifest>
                 <attribute name ="Built-By" 
                            value="${user.name}"/>
                 <attribute name ="Specification-Title"
                            value="${spec.title}" />
-                <attribute name ="Specification-Version"
-                           value="${spec.version}" />
                 <attribute name ="Specification-Vendor"
                            value="${spec.vendor}" />
+                <attribute name ="Specification-Version"
+                           value="${spec.version}" />
          		<attribute name ="Implementation-Title"
                            value="${impl.title}" />
-         		<attribute name ="Implementation-Version"
-                           value="${impl.version} ${DATE}" />
                 <attribute name ="Implementation-Vendor"
                            value="${impl.vendor}" />
+                <attribute name ="Implementation-Version"
+                           value="${impl.version} ${DATE}" />
            </manifest>
 		</jar>
 	</target>
@@ -270,14 +270,13 @@
 		</copy>
         <move todir="${dist.docs.dir}" file="${build.javadocs.dir}" />
 		
-		<!-- Copy the source directories. -->
-		<copy todir="${dist.src.dir}" >
-		    <fileset dir="${src.dir}" 
-		             includes="extras/**/*,
-		                       test/**/*, 
-		             		   tutorial/**/*" />
-		</copy>
-		
+        <!-- Copy the source directories. -->
+        <copy todir="${dist.src.dir}" >
+            <fileset dir="${src.dir}" 
+                     excludes="unused,
+                               unused/**/*"      />
+        </copy>
+        
 		<!-- Copy the distribution files. -->
 		<copy todir="${dist.dir}" >
 			<fileset dir="${top.dir}" 
@@ -286,14 +285,8 @@
 		</copy>
 
 		<!-- Copy the library jar file. -->
-		<copy tofile="${dist.main.jar}" file="${build.main.jar}" />
-		
-		<!-- Create a source zip for the libary jar. -->
-	    <zip 
-	    	destfile="${dist.main.src.zip}">
-			<fileset dir="${src.main.dir}"      />
-	    </zip>    
-	    
+		<copy tofile="${dist.core.jar}" file="${build.core.jar}" />
+	  
 	</target>
 
     <!-- ***************************************************************** -->

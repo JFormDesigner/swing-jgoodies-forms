@@ -30,108 +30,53 @@
 
 package com.jgoodies.forms.util;
 
-import java.util.logging.Logger;
-
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.Size;
+import com.jgoodies.forms.layout.Sizes;
 
 /**
- * An abstract class that describes a layout and design style guide.
- * It provides constants used to lay out panels consistently.<p>
- * 
- * This class is work in progress and the API may change without notice.
- * Therefore it is recommended to not write custom subclasses 
- * for production code.
- * A future version of this class will likely collaborate with a class
- * <code>LogicalSize</code> or <code>StyledSize</code>.
+ * A {@link LayoutStyle} that aims to provide layout constants as defined by
+ * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
- * 
- * @see com.jgoodies.forms.util.MacLayoutStyle
- * @see com.jgoodies.forms.util.WindowsLayoutStyle
- * @see com.jgoodies.forms.factories.FormFactory
- * @see com.jgoodies.forms.factories.Borders
+ * @version $Revision: 1.1 $
  */
 
-public abstract class LayoutStyle {
+final class MacLayoutStyle extends LayoutStyle {
     
-    /**
-     * Holds the current layout style.
-     */
-    private static LayoutStyle current = initialLayoutStyle();
+    static final MacLayoutStyle INSTANCE = new MacLayoutStyle();
     
-    
-    // Computing the initial layout style *************************************
-    
-    /**
-     * Computes and returns the initial <code>LayoutStyle</code>.
-     * Checks the OS name and returns <code>MacLayoutStyle</code> 
-     * on Mac OS X and <code>WindowLayoutStyle</code> on all other platforms.
-     * 
-     * @return MacLayoutStyle on Mac, WindowsLayoutStyle on all other platforms
-     */
-    private static LayoutStyle initialLayoutStyle() {
-        if (isOSMac())
-        	return MacLayoutStyle.INSTANCE;
-        else
-            return WindowsLayoutStyle.INSTANCE;
+    private MacLayoutStyle() {
+        // Suppresses default constructor, ensuring non-instantiability.
     }
     
-    
-    /**
-     * Checks and answers whether Java runs on a Mac by requesting
-     * the system property <em>os.name</em>.
-     * 
-     * @return true on Mac, false on all other Platforms
-     */
-    private static boolean isOSMac() {
-        return getSystemProperty("os.name").startsWith("Mac");
-    }
-    
-    
-    /**
-     * Tries to look up the System property for the given key.
-     * In untrusted environments this may throw a SecurityException.
-     * In this case we catch the exception and answer <code>null</code>. 
-     * 
-     * @param key   the name of the system property
-     * @return the system property's String value, or a blank string 
-     *     if there's no such value, or a SecurityException has been catched
-     */
-    private static String getSystemProperty(String key) {
-        try {
-            return System.getProperty(key);
-        } catch (SecurityException e) {
-            Logger.getLogger(LayoutStyle.class.getName()).warning(
-                    "Can't read the System property " + key + ".");
-            return "";
-        }
-    }
 
+    // Component Sizes ******************************************************
+
+    private static final Size         BUTTON_WIDTH              = Sizes.dluX(39);
+    private static final Size         BUTTON_HEIGHT             = Sizes.dluY(14);
     
-    // Accessing the current style ******************************************
+
+    // Gaps ******************************************************************
+
+    private static final ConstantSize DIALOG_MARGIN_X           = Sizes.DLUX9;
+    private static final ConstantSize DIALOG_MARGIN_Y           = Sizes.DLUY9;
     
-    /**
-     * Returns the current <code>LayoutStyle</code>.
-     * 
-     * @return the current <code>LayoutStyle</code>
-     */
-    public static LayoutStyle getCurrent() {
-        return current;
-    }
+    private static final ConstantSize TABBED_DIALOG_MARGIN_X    = Sizes.DLUX4;
+    private static final ConstantSize TABBED_DIALOG_MARGIN_Y    = Sizes.DLUY4;
     
+    private static final ConstantSize LABEL_COMPONENT_PADX      = Sizes.DLUX3;
+    private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX4;
+    private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX8;
     
-    /**
-     * Set a new <code>LayoutStyle</code>.
-     * 
-     * @param newLayoutStyle   the style to be set
-     */
-    public static void setCurrent(LayoutStyle newLayoutStyle) {
-        current = newLayoutStyle;
-    }
+    private static final ConstantSize RELATED_COMPONENTS_PADY   = Sizes.DLUY3;
+    private static final ConstantSize UNRELATED_COMPONENTS_PADY = Sizes.DLUY6;
+    private static final ConstantSize NARROW_LINE_PAD           = Sizes.DLUY2;
+    private static final ConstantSize LINE_PAD                  = Sizes.DLUY3;
+    private static final ConstantSize PARAGRAPH_PAD             = Sizes.DLUY9;
+    private static final ConstantSize BUTTON_BAR_PAD            = Sizes.DLUY4;
     
-    
+
     // Layout Sizes *********************************************************
 
     /**
@@ -141,7 +86,9 @@ public abstract class LayoutStyle {
      * 
      * @see #getDefaultButtonHeight()
      */
-    public abstract Size getDefaultButtonWidth();
+    public Size getDefaultButtonWidth() {
+        return BUTTON_WIDTH;
+    }
 
     
     /**
@@ -151,7 +98,9 @@ public abstract class LayoutStyle {
      * 
      * @see #getDefaultButtonWidth()
      */
-    public abstract Size getDefaultButtonHeight();
+    public Size getDefaultButtonHeight() {
+        return BUTTON_HEIGHT;
+    }
 
     
     /**
@@ -162,9 +111,11 @@ public abstract class LayoutStyle {
      * @see #getDialogMarginY()
      * @see #getTabbedDialogMarginX()
      */
-    public abstract ConstantSize getDialogMarginX();
-
+    public ConstantSize getDialogMarginX() {
+        return DIALOG_MARGIN_X;
+    }
     
+
     /**
      * Returns this style's vertical margin for general dialogs.
      * 
@@ -173,7 +124,9 @@ public abstract class LayoutStyle {
      * @see #getDialogMarginX()
      * @see #getTabbedDialogMarginY()
      */
-    public abstract ConstantSize getDialogMarginY();
+    public ConstantSize getDialogMarginY() {
+        return DIALOG_MARGIN_Y;
+    }
 
     
     /**
@@ -186,7 +139,9 @@ public abstract class LayoutStyle {
      * @see #getTabbedDialogMarginY()
      * @see #getDialogMarginX()
      */
-    public abstract ConstantSize getTabbedDialogMarginX();
+    public ConstantSize getTabbedDialogMarginX() {
+        return TABBED_DIALOG_MARGIN_X;
+    }
 
     
     /**
@@ -199,7 +154,9 @@ public abstract class LayoutStyle {
      * @see #getTabbedDialogMarginX()
      * @see #getDialogMarginY()
      */
-    public abstract ConstantSize getTabbedDialogMarginY();
+    public ConstantSize getTabbedDialogMarginY() {
+        return TABBED_DIALOG_MARGIN_Y;
+    }
 
     
     /**
@@ -210,7 +167,9 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadX()
      * @see #getUnrelatedComponentsPadX()
      */
-    public abstract ConstantSize getLabelComponentPadX();
+    public ConstantSize getLabelComponentPadX() {
+        return LABEL_COMPONENT_PADX;
+    }
 
     
     /**
@@ -222,7 +181,9 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadX()
      */
-    public abstract ConstantSize getRelatedComponentsPadX();
+    public ConstantSize getRelatedComponentsPadX() {
+        return RELATED_COMPONENTS_PADX;
+    }
 
     
     /**
@@ -233,7 +194,9 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadX()
      * @see #getUnrelatedComponentsPadY()
      */
-    public abstract ConstantSize getRelatedComponentsPadY();
+    public ConstantSize getRelatedComponentsPadY() {
+        return RELATED_COMPONENTS_PADY;
+    }
 
     
     /**
@@ -245,7 +208,9 @@ public abstract class LayoutStyle {
      * @see #getUnrelatedComponentsPadY()
      * @see #getRelatedComponentsPadX()
      */
-    public abstract ConstantSize getUnrelatedComponentsPadX();
+    public ConstantSize getUnrelatedComponentsPadX() {
+        return UNRELATED_COMPONENTS_PADX;
+    }
 
     
     /**
@@ -256,7 +221,9 @@ public abstract class LayoutStyle {
      * @see #getUnrelatedComponentsPadX()
      * @see #getRelatedComponentsPadY()
      */
-    public abstract ConstantSize getUnrelatedComponentsPadY();
+    public ConstantSize getUnrelatedComponentsPadY() {
+        return UNRELATED_COMPONENTS_PADY;
+    }
 
     
     /**
@@ -267,7 +234,9 @@ public abstract class LayoutStyle {
      * @see #getLinePad()
      * @see #getParagraphPad()
      */
-    public abstract ConstantSize getNarrowLinePad();
+    public ConstantSize getNarrowLinePad() {
+        return NARROW_LINE_PAD;
+    }
 
     
     /**
@@ -278,7 +247,9 @@ public abstract class LayoutStyle {
      * @see #getNarrowLinePad()
      * @see #getParagraphPad()
      */
-    public abstract ConstantSize getLinePad();
+    public ConstantSize getLinePad() {
+        return LINE_PAD;
+    }
 
     
     /**
@@ -289,9 +260,11 @@ public abstract class LayoutStyle {
      * @see #getNarrowLinePad()
      * @see #getLinePad()
      */
-    public abstract ConstantSize getParagraphPad();
-
-
+    public ConstantSize getParagraphPad() {
+        return PARAGRAPH_PAD;
+    }
+    
+    
     /**
      * Returns a pad used to separate a button bar from a component.
      * 
@@ -301,7 +274,9 @@ public abstract class LayoutStyle {
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadY()
      */
-    public abstract ConstantSize getButtonBarPad();
+    public ConstantSize getButtonBarPad() {
+        return BUTTON_BAR_PAD;
+    }
 
     
     /**
@@ -324,7 +299,9 @@ public abstract class LayoutStyle {
      * @see com.jgoodies.forms.builder.ButtonBarBuilder
      * @see com.jgoodies.forms.factories.ButtonBarFactory
      */
-    public abstract boolean isLeftToRightButtonOrder();
-
+    public boolean isLeftToRightButtonOrder() {
+        return false;
+    }
     
+
 }

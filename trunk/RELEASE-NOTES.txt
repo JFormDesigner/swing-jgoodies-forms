@@ -1,5 +1,66 @@
 
 
+                           JGoodies Forms
+                         Version 1.1 Preview (Feb-08-2006)
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This is an early preview of the upcoming Forms version 1.1.
+    It ...
+    
+    NOTE: THE CODE IS MUCH MORE "RAW" THAN OTHER RELEASES
+    THAT YOU MAY HAVE DOWNLOADED FROM JGOODIES IN THE PAST!
+    It is an engineering build that has seen minimal testing; 
+    it may lack functions and may contain known bugs in some areas. 
+    
+    The topics for the 1.1 release are:
+    1) Bug fixing and API clarification.
+    2) New distribution layout. 
+    3) Move stable extra sources to the library core.
+    4) Remove rarely used classes.  
+    5) Extend the tutorial.
+    6) ... 
+    
+    
+CHANGES THAT AFFECT THE COMPATIBILITY
+
+    o ...
+      
+      
+NEW FEATURES
+
+    o ...
+    
+    
+BUGS FIXED
+
+    o ...
+    
+    
+DISTRIBUTION CHANGES
+
+    The sources now ship in the directory structure used by the CVS. 
+    This makes it easier to build the distribution using ANT.     
+    If you want to attach the library sources in an IDE, 
+    point to folder 'src/core'.
+    
+    
+OTHER CHANGES
+
+    o Docs:  ...
+    o Dist:  ...
+    o Build: ...
+    o Tut.:  ...
+    o Test:  ...
+    
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+
                     JGoodies Forms, Version 1.0.6
                             Release Notes
                         
@@ -50,7 +111,6 @@ OTHER CHANGES
     
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
-
 
 
 

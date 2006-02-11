@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.1 $
  * 
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder

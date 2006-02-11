@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.1 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder

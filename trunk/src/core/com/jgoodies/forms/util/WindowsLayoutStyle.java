@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
 
 final class WindowsLayoutStyle extends LayoutStyle {

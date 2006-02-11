@@ -58,7 +58,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  * 
  * @see FormDebugPanel
  */
