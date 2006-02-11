@@ -72,7 +72,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.1 $
  * 
  * @see ButtonBarBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory

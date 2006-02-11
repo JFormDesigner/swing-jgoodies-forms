@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2005 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -58,7 +58,7 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <em>defaultDialogFont</em> and <em>averageCharacterWidthTestString</em>. 
  * 
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -297,13 +297,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         double averageCharWidth =
             computeAverageCharWidth(metrics, averageCharWidthTestString);
         int    ascent = metrics.getAscent();
-        logInfo("metrics charWidth('m')=" + metrics.charWidth('m'));
-        logInfo("metrics stringWidth('X')=" + metrics.stringWidth("X"));
-        logInfo("metrics ascent=" + metrics.getAscent());
-        logInfo("metrics descent=" + metrics.getDescent());
-        logInfo("metrics leading=" + metrics.getLeading());
-        logInfo("metrics height=" + metrics.getHeight());
-        logInfo("font size=" + metrics.getFont().getSize());
         double height = ascent > 14 ? ascent : ascent + (15 - ascent) / 3;
         DialogBaseUnits dialogBaseUnits =
             new DialogBaseUnits(averageCharWidth, height);
@@ -462,7 +455,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @param message    the message to log
      */
     private void logInfo(String message) {
-        System.out.println("INFO (DefaultUnitConverter) " + message);
+//        System.out.println("INFO (DefaultUnitConverter) " + message);
     }
     
     

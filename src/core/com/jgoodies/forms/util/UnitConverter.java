@@ -39,7 +39,7 @@ import java.awt.Component;
  * delegates all size conversions to an implementation of this interface. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.1 $
  * @see    com.jgoodies.forms.layout.Sizes
  * @see    com.jgoodies.forms.layout.ConstantSize
  * @see    AbstractUnitConverter

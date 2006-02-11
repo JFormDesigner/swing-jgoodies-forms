@@ -87,7 +87,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.1 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
