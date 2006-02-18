@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -567,10 +567,12 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @param c1      the first component to add
      * @param c2      the second component to add
      * @param colSpan the column span for the second component
+     * @return the created label
      */    
-    public void append(String textWithMnemonic, Component c1, Component c2, int colSpan) {
-        append(textWithMnemonic, c1);
+    public JLabel append(String textWithMnemonic, Component c1, Component c2, int colSpan) {
+        JLabel label = append(textWithMnemonic, c1);
         append(c2, colSpan);
+        return label;
     }
 
     /**
@@ -708,7 +710,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */    
     public JLabel appendI15d(String resourceKey, Component c1, Component c2, int colSpan) {
-        return append(getI15dString(resourceKey), c1, c2);
+        return append(getI15dString(resourceKey), c1, c2, colSpan);
     }
 
     /**
@@ -811,9 +813,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * the given resource key that spans all columns.
      * 
      * @param resourceKey   the resource key for the separator title's text
+     * @return the added titled separator 
      */
-    public void appendI15dSeparator(String resourceKey) {
-        appendSeparator(getI15dString(resourceKey));
+    public JComponent appendI15dSeparator(String resourceKey) {
+        return appendSeparator(getI15dString(resourceKey));
     }
     
 
