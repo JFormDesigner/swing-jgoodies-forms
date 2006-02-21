@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
 public final class DefaultComponentFactory implements ComponentFactory {
@@ -185,17 +185,23 @@ public final class DefaultComponentFactory implements ComponentFactory {
      * paragraphs in a panel, which is often a better choice than a 
      * <code>TitledBorder</code>.<p>
      * 
-     * The label's position is determined by the label's horizontal alignment.<p>
+     * The label's position is determined by the label's horizontal alignment,
+     * which must be one of: 
+     * <code>SwingConstants.LEFT</code>,
+     * <code>SwingConstants.CENTER</code>, 
+     * <code>SwingConstants.RIGHT</code>.<p>
      * 
      * TODO: Since this method has been marked public in version 1.0.6,
-     * we nned to precisely describe the semantic of this method.<p>
+     * we need to precisely describe the semantic of this method.<p>
      * 
-     * TODO: Check if we need to switch separator and label if the
-     * label's horizontal alignment is "right" instead of "left".
+     * TODO: Check if we can relax the constraint for the label alignment
+     * and also accept LEADING and TRAILING.
      * 
      * @param label       the title label component
      * @return a separator with title label
      * @throws NullPointerException if the label is <code>null</code> 
+     * 
+     * @since 1.0.6
      */
     public JComponent createSeparator(JLabel label) {
         if (label == null)
