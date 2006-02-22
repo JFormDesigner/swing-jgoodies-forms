@@ -31,12 +31,11 @@
 package com.jgoodies.forms.factories;
 
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
 
 import com.jgoodies.forms.layout.Sizes;
+import com.jgoodies.forms.util.Utilities;
 
 /**
  * A singleton implementaton of the {@link ComponentFactory} interface
@@ -51,7 +50,7 @@ import com.jgoodies.forms.layout.Sizes;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
 public final class DefaultComponentFactory implements ComponentFactory {
@@ -207,7 +206,7 @@ public final class DefaultComponentFactory implements ComponentFactory {
         if (label == null)
             throw new NullPointerException("The label must not be null.");
 
-        JPanel panel = new JPanel(new TitledSeparatorLayout(!isLafAqua()));
+        JPanel panel = new JPanel(new TitledSeparatorLayout(!Utilities.isLafAqua()));
         panel.setOpaque(false);
         panel.add(label);
         panel.add(new JSeparator());
@@ -314,7 +313,7 @@ public final class DefaultComponentFactory implements ComponentFactory {
          * @return the font used for title labels
          */
         private Font getTitleFont() {
-            return isLafAqua()
+            return Utilities.isLafAqua()
             	? UIManager.getFont("Label.font").deriveFont(Font.BOLD) 
                 : UIManager.getFont("TitledBorder.font");
         }
@@ -460,67 +459,5 @@ public final class DefaultComponentFactory implements ComponentFactory {
         
     }
     
-    
-    // TODO: Move the code below this line to a new class 
-    // com.jgoodies.forms.util.Utilities 
-
-    // Caching and Lazily Computing the Laf State *****************************
-    
-    /**
-     * Holds the cached result of the Aqua l&amp;f check.
-     * Is invalidated by the <code>LookAndFeelChangeHandler</code>
-     * if the look&amp;feel changes.
-     */
-    private static Boolean cachedIsLafAqua;
-    
-    /**
-     * Describes whether the <code>LookAndFeelChangeHandler</code>
-     * has been registered with the <code>UIManager</code> or not.
-     * It is registered lazily when the first cached l&amp;f state is computed.
-     */
-    private static boolean changeHandlerRegistered = false;
-    
-    private static synchronized void ensureLookAndFeelChangeHandlerRegistered() {
-        if (!changeHandlerRegistered) {
-            UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
-            changeHandlerRegistered = true;
-        }
-    }
-    
-    /**
-     * Lazily checks and answers whether the Aqua look&amp;feel is active.
-     * 
-     * @return true if the current look&amp;feel is Aqua
-     */
-    private static boolean isLafAqua() {
-        if (cachedIsLafAqua == null) {
-            cachedIsLafAqua = Boolean.valueOf(computeIsLafAqua());
-            ensureLookAndFeelChangeHandlerRegistered();
-        }
-        return cachedIsLafAqua.booleanValue();
-    }
-    
-    /**
-     * Computes and answers whether the Aqua look&amp;feel is active.
-     * 
-     * @return true if the current look&amp;feel is Aqua
-     */
-    private static boolean computeIsLafAqua() {
-        LookAndFeel laf = UIManager.getLookAndFeel();
-        return laf.getName().startsWith("Mac OS X Aqua");
-    }
-
-    // Listens to changes of the Look and Feel and invalidates the cache
-    private static class LookAndFeelChangeHandler implements PropertyChangeListener {
-        
-        /**
-         * Invalidates the cached laf states if the look&amp;feel changes.
-         * 
-         * @param evt  describes the property change
-         */
-        public void propertyChange(PropertyChangeEvent evt) {
-            cachedIsLafAqua = null;
-        }
-    }
-    
+       
 }
