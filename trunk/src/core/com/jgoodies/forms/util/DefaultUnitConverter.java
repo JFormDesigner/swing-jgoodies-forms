@@ -38,6 +38,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -56,9 +57,14 @@ import javax.swing.UIManager;
  * The DefaultUnitConverter computes dialog base units using a default font 
  * and a test string for the average character width. You can configure
  * the font and the test string via the bound Bean properties
- * <em>defaultDialogFont</em> and <em>averageCharacterWidthTestString</em>. 
+ * <em>defaultDialogFont</em> and <em>averageCharacterWidthTestString</em>.
+ * See also Microsoft's suggestion for a custom computation 
+ * <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnwue/html/ch14e.asp">here</a>.<p>
  * 
- * @version $Revision: 1.2 $
+ * Since the Forms 1.1 this converter logs font information at
+ * the <code>CONFIG</code> level.
+ * 
+ * @version $Revision: 1.3 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -71,6 +77,10 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 //
 //    public static final String LOWERCASE_ALPHABET =
 //        "abcdefghijklmnopqrstuvwxyz";
+    
+    private final static Logger LOGGER = 
+        Logger.getLogger(DefaultUnitConverter.class.getName());
+    
 
     /**
      * Holds the sole instance that will be lazily instantiated.
@@ -265,7 +275,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      */
     private DialogBaseUnits getDialogBaseUnits(Component c) {
         if (c == null) { // || (font = c.getFont()) == null) {
-            logInfo("Missing font metrics: " + c);
+            // logInfo("Missing font metrics: " + c);
             return getGlobalDialogBaseUnits();
         }
         FontMetrics fm = c.getFontMetrics(getDefaultDialogFont());
@@ -286,7 +296,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * Therefore this method adds a correction value that seems to work
      * well with the vast majority of desktops.<p>
      * 
-     * TODO: revise the computation of vertical base untis, as soon as 
+     * TODO: Revise the computation of vertical base units as soon as 
      * there are more information about the original computation 
      * in Microsoft environments.
      * 
@@ -300,7 +310,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         double height = ascent > 14 ? ascent : ascent + (15 - ascent) / 3;
         DialogBaseUnits dialogBaseUnits =
             new DialogBaseUnits(averageCharWidth, height);
-        logInfo(
+        LOGGER.config(
             "Computed dialog base units "
                 + dialogBaseUnits
                 + " for: "
@@ -319,7 +329,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @return a DialogBaseUnits object used globally if no container is available 
      */
     private DialogBaseUnits computeGlobalDialogBaseUnits() {
-        logInfo("Computing global dialog base units...");
+        LOGGER.config("Computing global dialog base units...");
         Font dialogFont = getDefaultDialogFont();
         FontMetrics metrics = createDefaultGlobalComponent().getFontMetrics(dialogFont);
         DialogBaseUnits globalDialogBaseUnits = computeDialogBaseUnits(metrics);
@@ -327,9 +337,9 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     }
     
     /**
-     * Looks up and returns the font used by buttons. First, tries
-     * to request the button font from the UIManager; if this fails
-     * a JButton is created and asked for its font.
+     * Looks up and returns the font used by buttons. 
+     * First, tries to request the button font from the UIManager; 
+     * if this fails a JButton is created and asked for its font.
      * 
      * @return the font used for a standard button
      */
@@ -451,16 +461,9 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     // Helper Code ************************************************************
     
     /**
-     * Logs an info message to the console.
-     * @param message    the message to log
+     * Describes horizontal and vertical dialog base units.
      */
-    private void logInfo(String message) {
-//        System.out.println("INFO (DefaultUnitConverter) " + message);
-    }
-    
-    
-    // Describes horizontal and vertical dialog base units.
-    private static class DialogBaseUnits {
+    private static final class DialogBaseUnits {
         
         final double x;
         final double y;
@@ -475,8 +478,11 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         }
     }
     
-    // Listens to changes of the Look and Feel and invalidates the cache
-    private class LookAndFeelChangeHandler implements PropertyChangeListener {
+    
+    /**
+     * Listens to changes of the Look and Feel and invalidates the cache.
+     */
+    private final class LookAndFeelChangeHandler implements PropertyChangeListener {
         public void propertyChange(PropertyChangeEvent evt) {
             invalidateCaches();
         }
