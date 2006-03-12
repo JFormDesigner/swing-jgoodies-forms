@@ -42,7 +42,7 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not. * 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public final class Utilities {
     
@@ -82,14 +82,15 @@ public final class Utilities {
      * has been registered with the <code>UIManager</code> or not.
      * It is registered lazily when the first cached l&amp;f state is computed.
      */
-    private static boolean changeHandlerRegistered = false;
+    private static boolean lafChangeHandlerRegistered = false;
     
     private static synchronized void ensureLookAndFeelChangeHandlerRegistered() {
-        if (!changeHandlerRegistered) {
+        if (!lafChangeHandlerRegistered) {
             UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
-            changeHandlerRegistered = true;
+            lafChangeHandlerRegistered = true;
         }
     }
+    
     
     /**
      * Computes and answers whether the Aqua look&amp;feel is active.
@@ -101,16 +102,28 @@ public final class Utilities {
         return laf.getName().startsWith("Mac OS X Aqua");
     }
 
-    // Listens to changes of the Look and Feel and invalidates the cache
-    private static class LookAndFeelChangeHandler implements PropertyChangeListener {
+    
+    /**
+     * Listens to changes of the Look and Feel and invalidates the cache.
+     */
+    private static final class LookAndFeelChangeHandler implements PropertyChangeListener {
         
         /**
-         * Invalidates the cached laf states if the look&amp;feel changes.
+         * Invalidates the cached laf states, if the UIManager has fired 
+         * any property change event. Since we need to handle look&amp;feel 
+         * changes only, we check the event's property name to be 
+         * "lookAndFeel" or <code>null</code>. The check for null is necessary
+         * to handle the special event where property name, old and new value
+         * are all <code>null</code> to indicate that multiple properties
+         * have changed.
          * 
          * @param evt  describes the property change
          */
         public void propertyChange(PropertyChangeEvent evt) {
-            cachedIsLafAqua = null;
+            String propertyName = evt.getPropertyName();
+            if ((propertyName == null) || propertyName.equals("lookAndFeel")) {
+                cachedIsLafAqua = null;
+            }
         }
     }
     
