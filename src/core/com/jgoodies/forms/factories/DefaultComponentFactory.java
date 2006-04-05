@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.Utilities;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public final class DefaultComponentFactory implements ComponentFactory {
@@ -149,6 +149,7 @@ public final class DefaultComponentFactory implements ComponentFactory {
     public JComponent createSeparator(String textWithMnemonic) {
         return createSeparator(textWithMnemonic, SwingConstants.LEFT);
     }
+    
     
     /**
      * Creates and returns a labeled separator. Useful to separate 
@@ -284,22 +285,22 @@ public final class DefaultComponentFactory implements ComponentFactory {
             // Just invoke the super constructor.
         }
         
-        private TitleLabel(String text) {
-            super(text);
-        }
-        
         /**
-         * TODO: Consider asking a <code>TitledBorder</code> instance for its 
-         * font and font color use <code>#getTitleFont</code> and 
-         * <code>#getTitleColor</code> for the Synth-based looks.
+         * TODO: For the Synth-based L&amp;f we should consider asking 
+         * a <code>TitledBorder</code> instance for its font and color using 
+         * <code>#getTitleFont</code> and <code>#getTitleColor</code> resp.
          */
         public void updateUI() {
             super.updateUI();
-            Color foreground =
-                UIManager.getColor("TitledBorder.titleColor");
-            if (foreground != null)
+            Color foreground = getTitleColor();
+            if (foreground != null) {
                 setForeground(foreground);
+            }
             setFont(getTitleFont());
+        }
+        
+        private Color getTitleColor() {
+            return UIManager.getColor("TitledBorder.titleColor");
         }
         
         /**
