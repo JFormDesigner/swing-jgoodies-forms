@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public final class RowSpecTest extends TestCase {
     
@@ -181,7 +181,6 @@ public final class RowSpecTest extends TestCase {
             assertRejects("karsten");
             assertRejects("d:a:b:");
             assertRejects("right:default:grow"); // invalid alignment 
-            assertRejects("F\u0130LL:P:G");      // \u0130 is the dotted I and is invalid
             assertRejects("left:20dlu");
         } finally {
             Locale.setDefault(oldDefault);

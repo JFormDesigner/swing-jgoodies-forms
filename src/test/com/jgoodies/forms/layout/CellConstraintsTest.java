@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link CellConstraints}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public final class CellConstraintsTest extends TestCase {
     
@@ -170,7 +170,7 @@ public final class CellConstraintsTest extends TestCase {
             assertRejects("1, 1, 3, 4, f");        // Syntax error
             assertRejects("1, 1, top, center");    // Illegal column alignment
             assertRejects("1, 1, fill, left");     // Illegal row alignment
-            assertRejects("1, 1, F\u0130LL, TOP"); // Illegal Turkish char
+            assertRejects("1, 1, F\u0131LL, TOP"); // Illegal Turkish char
             assertRejects("1, 1, 2, 3, t, c");     // Illegal column alignment
             assertRejects("1, 1, 2, 3, f, l");     // Illegal row alignment
         } finally {
