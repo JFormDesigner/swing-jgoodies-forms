@@ -33,6 +33,7 @@ package com.jgoodies.forms.layout;
 import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 
@@ -42,7 +43,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see     ColumnSpec
  * @see     RowSpec
@@ -156,7 +157,7 @@ public abstract class FormSpec implements Serializable {
      */
     protected FormSpec(DefaultAlignment defaultAlignment, String encodedDescription) {
         this(defaultAlignment, Sizes.DEFAULT, NO_GROW);
-        parseAndInitValues(encodedDescription.toLowerCase());
+        parseAndInitValues(encodedDescription.toLowerCase(Locale.ENGLISH));
     }
     
 

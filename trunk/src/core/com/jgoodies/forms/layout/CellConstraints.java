@@ -34,6 +34,7 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 /**
@@ -90,7 +91,7 @@ import java.util.StringTokenizer;
  * of the Forms' issue tracker where you can track the progress.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -1027,7 +1028,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         }
         
         static Alignment valueOf(String nameOrAbbreviation) {
-            String str = nameOrAbbreviation.toLowerCase();
+            String str = nameOrAbbreviation.toLowerCase(Locale.ENGLISH);
             if (str.equals("d") || str.equals("default"))
                 return DEFAULT;
             else if (str.equals("f") || str.equals("fill"))
