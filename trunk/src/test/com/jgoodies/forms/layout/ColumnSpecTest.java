@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public final class ColumnSpecTest extends TestCase {
     
@@ -171,6 +171,9 @@ public final class ColumnSpecTest extends TestCase {
             assertEquals(spec, new ColumnSpec("f:d:grow(0.75)"));
             assertEquals(spec, new ColumnSpec("fill:default:grow(0.75)"));
             assertEquals(spec, new ColumnSpec("FILL:DEFAULT:GROW(0.75)"));
+            
+            spec = new ColumnSpec("fill:10in");
+            assertEquals(spec, new ColumnSpec("FILL:10IN"));
         } finally {
             Locale.setDefault(oldDefault);
         }
@@ -190,7 +193,6 @@ public final class ColumnSpecTest extends TestCase {
             assertRejects("d:a:b:");
             assertRejects("top:default:grow");
             assertRejects("bottom:10px");
-            assertRejects("F\u0130LL:P:G"); // \u0130 is the dotted I and is invalid
         } finally {
             Locale.setDefault(oldDefault);
         }
