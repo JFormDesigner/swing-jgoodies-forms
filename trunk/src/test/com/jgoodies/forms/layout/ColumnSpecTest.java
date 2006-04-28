@@ -30,15 +30,18 @@
 
 package com.jgoodies.forms.layout;
 
+import java.util.Locale;
+
 import junit.framework.TestCase;
 
 /**
  * A test case for class {@link ColumnSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public final class ColumnSpecTest extends TestCase {
+    
     
     /**
      * Checks that the constructor rejects negative resize weights.
@@ -54,6 +57,7 @@ public final class ColumnSpecTest extends TestCase {
         }
     }
     
+    
     /**
      * Checks that the constructor rejects negative resize weights.
      */
@@ -68,79 +72,128 @@ public final class ColumnSpecTest extends TestCase {
         }
     }
 
+    
     /**
-     * Tests the ColumnSpec parser on valid encodings.
+     * Tests the ColumnSpec parser on valid encodings with different Locales.
      */
     public void testValidColumnSpecEncodings() {
-        ColumnSpec spec;
-        spec = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, FormSpec.NO_GROW);
-        assertEquals(spec, new ColumnSpec("l:p"));
-        assertEquals(spec, new ColumnSpec("left:p"));
-        assertEquals(spec, new ColumnSpec("l:pref"));
-        assertEquals(spec, new ColumnSpec("left:pref"));
-        
-        spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
-        assertEquals(spec, new ColumnSpec("min"));
-        assertEquals(spec, new ColumnSpec("f:min"));
-        assertEquals(spec, new ColumnSpec("fill:min"));
-        assertEquals(spec, new ColumnSpec("f:min:nogrow"));
-        assertEquals(spec, new ColumnSpec("fill:min:grow(0)"));
-        
-        spec = new ColumnSpec(ColumnSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
-        assertEquals(spec, new ColumnSpec("d"));
-        assertEquals(spec, new ColumnSpec("default"));
-        assertEquals(spec, new ColumnSpec("f:default"));
-        assertEquals(spec, new ColumnSpec("fill:default"));
-        assertEquals(spec, new ColumnSpec("f:default:nogrow"));
-        assertEquals(spec, new ColumnSpec("fill:default:grow(0)"));
-        
-        spec = new ColumnSpec(ColumnSpec.RIGHT, Sizes.pixel(10), FormSpec.NO_GROW);
-        assertEquals(spec, new ColumnSpec("r:10px"));
-        assertEquals(spec, new ColumnSpec("right:10px"));
-        assertEquals(spec, new ColumnSpec("right:10px:nogrow"));
-        assertEquals(spec, new ColumnSpec("right:10px:grow(0)"));
-        assertEquals(spec, new ColumnSpec("right:10px:g(0)"));
-        
-        Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
-        spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
-        assertEquals(spec, new ColumnSpec("right:max(10px;pref)"));
-        assertEquals(spec, new ColumnSpec("right:max(pref;10px)"));
-        
-        size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
-        spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
-        assertEquals(spec, new ColumnSpec("right:min(10px;pref)"));
-        assertEquals(spec, new ColumnSpec("right:min(pref;10px)"));
+        testValidColumnSpecEncodings(Locale.ENGLISH);
+        testValidColumnSpecEncodings(AllFormsTests.TURKISH);
+    }
 
-        size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
-        spec = new ColumnSpec(ColumnSpec.DEFAULT, size, FormSpec.NO_GROW);
-        assertEquals(spec, new ColumnSpec("min(10px;default)"));
-        assertEquals(spec, new ColumnSpec("min(10px;d)"));
-        assertEquals(spec, new ColumnSpec("min(default;10px)"));
-        assertEquals(spec, new ColumnSpec("min(d;10px)"));
+    
+    /**
+     * Tests with different Locales that the ColumnSpec parser 
+     * rejects invalid encodings. 
+     */
+    public void testRejectInvalidColumnSpecEncodings() {
+        testRejectInvalidColumnSpecEncodings(Locale.ENGLISH);
+        testRejectInvalidColumnSpecEncodings(AllFormsTests.TURKISH);
+    }
+    
         
-        spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
-        assertEquals(spec, new ColumnSpec("d:grow"));
-        assertEquals(spec, new ColumnSpec("default:grow(1)"));
-        assertEquals(spec, new ColumnSpec("f:d:g"));
-        assertEquals(spec, new ColumnSpec("f:d:grow(1.0)"));
-        assertEquals(spec, new ColumnSpec("f:d:g(1.0)"));
-        
-        spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, 0.75);
-        assertEquals(spec, new ColumnSpec("d:grow(0.75)"));
-        assertEquals(spec, new ColumnSpec("default:grow(0.75)"));
-        assertEquals(spec, new ColumnSpec("f:d:grow(0.75)"));
-        assertEquals(spec, new ColumnSpec("fill:default:grow(0.75)"));
+    /**
+     * Tests the ColumnSpec parser on valid encodings for a given Locale.
+     * 
+     * @param locale    the Locale used while parsing the strings
+     */
+    private void testValidColumnSpecEncodings(Locale locale) {
+        Locale oldDefault = Locale.getDefault();
+        Locale.setDefault(locale);
+        try {
+            ColumnSpec spec;
+            spec = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, FormSpec.NO_GROW);
+            assertEquals(spec, new ColumnSpec("l:p"));
+            assertEquals(spec, new ColumnSpec("L:P"));
+            assertEquals(spec, new ColumnSpec("left:p"));
+            assertEquals(spec, new ColumnSpec("LEFT:P"));
+            assertEquals(spec, new ColumnSpec("l:pref"));
+            assertEquals(spec, new ColumnSpec("L:PREF"));
+            assertEquals(spec, new ColumnSpec("left:pref"));
+            assertEquals(spec, new ColumnSpec("LEFT:PREF"));
+            
+            spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
+            assertEquals(spec, new ColumnSpec("min"));
+            assertEquals(spec, new ColumnSpec("MIN"));
+            assertEquals(spec, new ColumnSpec("f:min"));
+            assertEquals(spec, new ColumnSpec("fill:min"));
+            assertEquals(spec, new ColumnSpec("FILL:MIN"));
+            assertEquals(spec, new ColumnSpec("f:min:nogrow"));
+            assertEquals(spec, new ColumnSpec("F:MIN:NOGROW"));
+            assertEquals(spec, new ColumnSpec("fill:min:grow(0)"));
+            
+            spec = new ColumnSpec(ColumnSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
+            assertEquals(spec, new ColumnSpec("d"));
+            assertEquals(spec, new ColumnSpec("default"));
+            assertEquals(spec, new ColumnSpec("DEFAULT"));
+            assertEquals(spec, new ColumnSpec("f:default"));
+            assertEquals(spec, new ColumnSpec("fill:default"));
+            assertEquals(spec, new ColumnSpec("f:default:nogrow"));
+            assertEquals(spec, new ColumnSpec("fill:default:grow(0)"));
+            assertEquals(spec, new ColumnSpec("FILL:DEFAULT:GROW(0)"));
+            
+            spec = new ColumnSpec(ColumnSpec.RIGHT, Sizes.pixel(10), FormSpec.NO_GROW);
+            assertEquals(spec, new ColumnSpec("r:10px"));
+            assertEquals(spec, new ColumnSpec("right:10px"));
+            assertEquals(spec, new ColumnSpec("right:10px:nogrow"));
+            assertEquals(spec, new ColumnSpec("RIGHT:10PX:NOGROW"));
+            assertEquals(spec, new ColumnSpec("right:10px:grow(0)"));
+            assertEquals(spec, new ColumnSpec("right:10px:g(0)"));
+            
+            Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
+            spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
+            assertEquals(spec, new ColumnSpec("right:max(10px;pref)"));
+            assertEquals(spec, new ColumnSpec("right:max(pref;10px)"));
+            
+            size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
+            spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
+            assertEquals(spec, new ColumnSpec("right:min(10px;pref)"));
+            assertEquals(spec, new ColumnSpec("right:min(pref;10px)"));
+    
+            size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
+            spec = new ColumnSpec(ColumnSpec.DEFAULT, size, FormSpec.NO_GROW);
+            assertEquals(spec, new ColumnSpec("min(10px;default)"));
+            assertEquals(spec, new ColumnSpec("MIN(10PX;DEFAULT)"));
+            assertEquals(spec, new ColumnSpec("min(10px;d)"));
+            assertEquals(spec, new ColumnSpec("min(default;10px)"));
+            assertEquals(spec, new ColumnSpec("min(d;10px)"));
+            
+            spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
+            assertEquals(spec, new ColumnSpec("d:grow"));
+            assertEquals(spec, new ColumnSpec("default:grow(1)"));
+            assertEquals(spec, new ColumnSpec("f:d:g"));
+            assertEquals(spec, new ColumnSpec("f:d:grow(1.0)"));
+            assertEquals(spec, new ColumnSpec("f:d:g(1.0)"));
+            
+            spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, 0.75);
+            assertEquals(spec, new ColumnSpec("d:grow(0.75)"));
+            assertEquals(spec, new ColumnSpec("default:grow(0.75)"));
+            assertEquals(spec, new ColumnSpec("f:d:grow(0.75)"));
+            assertEquals(spec, new ColumnSpec("fill:default:grow(0.75)"));
+            assertEquals(spec, new ColumnSpec("FILL:DEFAULT:GROW(0.75)"));
+        } finally {
+            Locale.setDefault(oldDefault);
+        }
     }
     
     
     /**
-     * Tests that the ColumnSpec parser rejects invalid encodings.
+     * Tests that the ColumnSpec parser rejects invalid encodings for a given Locale.
+     * 
+     * @param locale    the Locale used while parsing the strings
      */
-    public void testRejectInvalidColumnSpecEncodings() {
-        assertRejects("karsten");
-        assertRejects("d:a:b:");
-        assertRejects("top:default:grow");
-        assertRejects("bottom:10px");
+    private void testRejectInvalidColumnSpecEncodings(Locale locale) {
+        Locale oldDefault = Locale.getDefault();
+        Locale.setDefault(locale);
+        try {
+            assertRejects("karsten");
+            assertRejects("d:a:b:");
+            assertRejects("top:default:grow");
+            assertRejects("bottom:10px");
+            assertRejects("F\u0130LL:P:G"); // \u0130 is the dotted I and is invalid
+        } finally {
+            Locale.setDefault(oldDefault);
+        }
     }
 
 
@@ -164,6 +217,7 @@ public final class ColumnSpecTest extends TestCase {
             fail("Resize weight mismatch: spec1=" + spec1 + "; spec2=" + spec2);
         }
     }
+    
     
     /**
      * Asserts that the specified column spec encoding is rejected.

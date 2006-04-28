@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.layout;
 
+import java.util.Locale;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -37,9 +39,12 @@ import junit.framework.TestSuite;
  * A test suite for all tests related to the JGoodies Forms framework.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public final class AllFormsTests {
+    
+    /** A constant for the Turkish locale. */
+    public static final Locale TURKISH = new Locale("tr");
 
     public static void main(String[] args) {
         junit.textui.TestRunner.run(AllFormsTests.class);
