@@ -1,7 +1,7 @@
 
 
                            JGoodies Forms
-                         Version 1.1 Preview (Feb-08-2006)
+                         Version 1.1 Preview (Apr-28-2006)
                             Release Notes
                         
 
@@ -36,7 +36,7 @@ NEW FEATURES
     
 BUGS FIXED
 
-    o ...
+    o Issue 37: String encodings parser fails in Turkish locale.
     
     
 DISTRIBUTION CHANGES
