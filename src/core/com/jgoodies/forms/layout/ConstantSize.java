@@ -34,6 +34,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * An implementation of the {@link Size} interface that represents constant
@@ -66,7 +67,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * 
  * @see	Size
  * @see	Sizes
@@ -332,7 +333,7 @@ public final class ConstantSize implements Size, Serializable {
          * @throws IllegalArgumentException if no Unit exists for the string
          */
         static Unit valueOf(String str, boolean horizontal) {
-            String lowerCase = str.toLowerCase();
+            String lowerCase = str.toLowerCase(Locale.ENGLISH);
             if (lowerCase.equals("px") || lowerCase.length() == 0)
                 return PIXEL;
             else if (lowerCase.equals("dlu")) 
