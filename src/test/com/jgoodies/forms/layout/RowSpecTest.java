@@ -30,15 +30,18 @@
 
 package com.jgoodies.forms.layout;
 
+import java.util.Locale;
+
 import junit.framework.TestCase;
 
 /**
  * A test case for class {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public final class RowSpecTest extends TestCase {
+    
     
     /**
      * Checks that the constructor rejects negative resize weights.
@@ -54,6 +57,7 @@ public final class RowSpecTest extends TestCase {
         }
     }
     
+    
     /**
      * Checks that the constructor rejects negative resize weights.
      */
@@ -67,78 +71,121 @@ public final class RowSpecTest extends TestCase {
             fail("The RowSpec constructor has thrown an unexpected exception.");
         }
     }
-
+    
+    
     /**
-     * Tests the RowSpec parser on valid encodings.
+     * Tests the RowSpec parser on valid encodings with different locales.
      */
     public void testValidRowSpecEncodings() {
-        RowSpec spec;
-        spec = new RowSpec(RowSpec.TOP, Sizes.PREFERRED, FormSpec.NO_GROW);
-        assertEquals(spec, new RowSpec("t:p"));
-        assertEquals(spec, new RowSpec("top:p"));
-        assertEquals(spec, new RowSpec("t:pref"));
-        assertEquals(spec, new RowSpec("top:pref"));
-        
-        spec = new RowSpec(RowSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
-        assertEquals(spec, new RowSpec("min"));
-        assertEquals(spec, new RowSpec("c:min"));
-        assertEquals(spec, new RowSpec("center:min"));
-        assertEquals(spec, new RowSpec("c:min:none"));
-        assertEquals(spec, new RowSpec("center:min:grow(0)"));
-        
-        spec = new RowSpec(RowSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
-        assertEquals(spec, new RowSpec("f:default"));
-        assertEquals(spec, new RowSpec("fill:default"));
-        assertEquals(spec, new RowSpec("f:default:none"));
-        assertEquals(spec, new RowSpec("fill:default:grow(0)"));
-        
-        spec = new RowSpec(RowSpec.BOTTOM, Sizes.pixel(10), FormSpec.NO_GROW);
-        assertEquals(spec, new RowSpec("b:10px"));
-        assertEquals(spec, new RowSpec("bottom:10px"));
-        assertEquals(spec, new RowSpec("bottom:10px:none"));
-        assertEquals(spec, new RowSpec("bottom:10px:grow(0)"));
-        assertEquals(spec, new RowSpec("bottom:10px:g(0)"));
-        
-        Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
-        spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
-        assertEquals(spec, new RowSpec("bottom:max(10px;pref)"));
-        assertEquals(spec, new RowSpec("bottom:max(pref;10px)"));
-        
-        size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
-        spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
-        assertEquals(spec, new RowSpec("bottom:min(10px;pref)"));
-        assertEquals(spec, new RowSpec("bottom:min(pref;10px)"));
-
-        size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
-        spec = new RowSpec(RowSpec.DEFAULT, size, FormSpec.NO_GROW);
-        assertEquals(spec, new RowSpec("min(10px;default)"));
-        assertEquals(spec, new RowSpec("min(10px;d)"));
-        assertEquals(spec, new RowSpec("min(default;10px)"));
-        assertEquals(spec, new RowSpec("min(d;10px)"));
-        
-        spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
-        assertEquals(spec, new RowSpec("d:grow"));
-        assertEquals(spec, new RowSpec("default:grow(1)"));
-        assertEquals(spec, new RowSpec("c:d:g"));
-        assertEquals(spec, new RowSpec("c:d:grow(1.0)"));
-        assertEquals(spec, new RowSpec("c:d:g(1.0)"));
-        
-        spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, 0.75);
-        assertEquals(spec, new RowSpec("d:grow(0.75)"));
-        assertEquals(spec, new RowSpec("default:grow(0.75)"));
-        assertEquals(spec, new RowSpec("c:d:grow(0.75)"));
-        assertEquals(spec, new RowSpec("center:default:grow(0.75)"));
+        testValidRowSpecEncodings(Locale.ENGLISH);
+        testValidRowSpecEncodings(AllFormsTests.TURKISH);
     }
     
     
     /**
-     * Tests that the RowSpec parser rejects invalid encodings.
+     * Tests that the RowSpec parser rejects invalid encodings for a given Locale.
+     * 
+     * @param locale    the Locale used while parsing the strings
      */
     public void testRejectInvalidRowSpecEncodings() {
-        assertRejects("karsten");
-        assertRejects("d:a:b:");
-        assertRejects("right:default:grow");
-        assertRejects("left:20dlu");
+        testRejectInvalidRowSpecEncodings(Locale.ENGLISH);
+        testRejectInvalidRowSpecEncodings(AllFormsTests.TURKISH);
+    }
+
+    
+    /**
+     * Tests the RowSpec parser on valid encodings for a given locale.
+     * 
+     * @param locale    the Locale used while parsing the strings
+     */
+    private void testValidRowSpecEncodings(Locale locale) {
+        Locale oldDefault = Locale.getDefault();
+        Locale.setDefault(locale);
+        try {
+            RowSpec spec;
+            spec = new RowSpec(RowSpec.TOP, Sizes.PREFERRED, FormSpec.NO_GROW);
+            assertEquals(spec, new RowSpec("t:p"));
+            assertEquals(spec, new RowSpec("top:p"));
+            assertEquals(spec, new RowSpec("t:pref"));
+            assertEquals(spec, new RowSpec("top:pref"));
+            
+            spec = new RowSpec(RowSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
+            assertEquals(spec, new RowSpec("min"));
+            assertEquals(spec, new RowSpec("c:min"));
+            assertEquals(spec, new RowSpec("center:min"));
+            assertEquals(spec, new RowSpec("c:min:none"));
+            assertEquals(spec, new RowSpec("center:min:grow(0)"));
+            
+            spec = new RowSpec(RowSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
+            assertEquals(spec, new RowSpec("f:default"));
+            assertEquals(spec, new RowSpec("fill:default"));
+            assertEquals(spec, new RowSpec("FILL:DEFAULT"));
+            assertEquals(spec, new RowSpec("f:default:none"));
+            assertEquals(spec, new RowSpec("F:DEFAULT:NONE"));
+            assertEquals(spec, new RowSpec("fill:default:grow(0)"));
+            assertEquals(spec, new RowSpec("FILL:DEFAULT:GROW(0)"));
+            
+            spec = new RowSpec(RowSpec.BOTTOM, Sizes.pixel(10), FormSpec.NO_GROW);
+            assertEquals(spec, new RowSpec("b:10px"));
+            assertEquals(spec, new RowSpec("bottom:10px"));
+            assertEquals(spec, new RowSpec("BOTTOM:10PX"));
+            assertEquals(spec, new RowSpec("bottom:10px:none"));
+            assertEquals(spec, new RowSpec("bottom:10px:grow(0)"));
+            assertEquals(spec, new RowSpec("bottom:10px:g(0)"));
+            
+            Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
+            spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
+            assertEquals(spec, new RowSpec("bottom:max(10px;pref)"));
+            assertEquals(spec, new RowSpec("bottom:max(pref;10px)"));
+            
+            size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
+            spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
+            assertEquals(spec, new RowSpec("bottom:min(10px;pref)"));
+            assertEquals(spec, new RowSpec("BOTTOM:MIN(10PX;PREF)"));
+            assertEquals(spec, new RowSpec("bottom:min(pref;10px)"));
+    
+            size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
+            spec = new RowSpec(RowSpec.DEFAULT, size, FormSpec.NO_GROW);
+            assertEquals(spec, new RowSpec("min(10px;default)"));
+            assertEquals(spec, new RowSpec("min(10px;d)"));
+            assertEquals(spec, new RowSpec("min(default;10px)"));
+            assertEquals(spec, new RowSpec("min(d;10px)"));
+            
+            spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
+            assertEquals(spec, new RowSpec("d:grow"));
+            assertEquals(spec, new RowSpec("default:grow(1)"));
+            assertEquals(spec, new RowSpec("c:d:g"));
+            assertEquals(spec, new RowSpec("c:d:grow(1.0)"));
+            assertEquals(spec, new RowSpec("c:d:g(1.0)"));
+            
+            spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, 0.75);
+            assertEquals(spec, new RowSpec("d:grow(0.75)"));
+            assertEquals(spec, new RowSpec("default:grow(0.75)"));
+            assertEquals(spec, new RowSpec("c:d:grow(0.75)"));
+            assertEquals(spec, new RowSpec("center:default:grow(0.75)"));
+        } finally {
+            Locale.setDefault(oldDefault);
+        }
+    }
+    
+    
+    /**
+     * Tests that the RowSpec parser rejects invalid encodings for a given Locale.
+     * 
+     * @param locale    the Locale used while parsing the strings
+     */
+    private void testRejectInvalidRowSpecEncodings(Locale locale) {
+        Locale oldDefault = Locale.getDefault();
+        Locale.setDefault(locale);
+        try {
+            assertRejects("karsten");
+            assertRejects("d:a:b:");
+            assertRejects("right:default:grow"); // invalid alignment 
+            assertRejects("F\u0130LL:P:G");      // \u0130 is the dotted I and is invalid
+            assertRejects("left:20dlu");
+        } finally {
+            Locale.setDefault(oldDefault);
+        }
     }
 
 
@@ -162,6 +209,7 @@ public final class RowSpecTest extends TestCase {
             fail("Resize weight mismatch: spec1=" + spec1 + "; spec2=" + spec2);
         }
     }
+    
     
     /**
      * Asserts that the specified column spec encoding is rejected.
