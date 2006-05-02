@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link RowSpec}.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public final class RowSpecTest extends TestCase {
     
@@ -84,8 +84,6 @@ public final class RowSpecTest extends TestCase {
     
     /**
      * Tests that the RowSpec parser rejects invalid encodings for a given Locale.
-     * 
-     * @param locale    the Locale used while parsing the strings
      */
     public void testRejectInvalidRowSpecEncodings() {
         testRejectInvalidRowSpecEncodings(Locale.ENGLISH);
