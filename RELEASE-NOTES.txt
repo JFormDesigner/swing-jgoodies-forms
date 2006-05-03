@@ -1,6 +1,55 @@
 
 
                            JGoodies Forms
+                         Version 1.1 Preview (May-04-2006)
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This is an early preview of the upcoming Forms version 1.1.
+    It ...
+    
+    NOTE: THE CODE IS MUCH MORE "RAW" THAN OTHER RELEASES
+    THAT YOU MAY HAVE DOWNLOADED FROM JGOODIES IN THE PAST!
+    It is an engineering build that has seen minimal testing; 
+    it may lack functions and may contain known bugs in some areas. 
+    
+    The topics for the 1.1 release are:
+    1) Bug fixing and API clarification.
+    2) New distribution layout. 
+    3) Move stable extra sources to the library core.
+    4) Remove rarely used classes.  
+    5) Extend the tutorial.
+    6) ... 
+    
+    
+CHANGES THAT AFFECT THE COMPATIBILITY
+
+    o ...
+      
+      
+NEW FEATURES
+
+    o ...
+    
+    
+BUGS FIXED
+
+    o ...
+    
+    
+OTHER CHANGES
+
+    o ...
+    
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+
+                           JGoodies Forms
                             Version 1.0.7
                             Release Notes
                         
@@ -8,9 +57,8 @@
 INTRODUCTION
 
     This maintenance release fixes a bug in Turkish environments.
-    The fix and all other changes that do not affect the layout.
-    Hence, this version is binary and visually compatible with
-    the previous version.
+    The fix and other changes do not affect the layout. Hence, this 
+    version is binary and visually compatible with previous versions.
     
     Further API changes and bug fixes that may affect the layout 
     have been rescheduled for the upcoming version 1.1. The work 
@@ -41,6 +89,8 @@ OTHER CHANGES
 
     o Issue 36: Some DefaultFormBuilder methods lack return value.
     o Source style improvements.
+    o The FAQ is now online.
+    o Added references to the Explicit Table Builder, Matisse, Packer.
     
     
 ---------------------------------------------------------------------------
