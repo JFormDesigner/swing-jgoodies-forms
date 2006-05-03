@@ -40,7 +40,7 @@ import junit.framework.TestCase;
  * Tests the FormLayout's layout algorithm. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public final class FormLayoutTest extends TestCase {
@@ -346,6 +346,115 @@ public final class FormLayoutTest extends TestCase {
         assertEquals("Minimum layout width",   45, minimumLayoutWidth);
         assertEquals("Preferred layout width", 70, preferredLayoutWidth);
     }
+    
+
+    /**
+     * Tests the layout size, column and row sizes for a default specs.
+     */
+    public void testDefaultSize() {
+        TestComponent c1 = new TestComponent(10, 10, 50, 50);
+        FormLayout layout = new FormLayout(
+                "default", 
+                "default");
+        
+        JPanel panel = new JPanel(layout);
+        panel.add(c1, cc.xy(1, 1));
+        
+        Dimension minimumLayoutSize    = layout.minimumLayoutSize(panel);
+        Dimension preferredLayoutSize  = layout.preferredLayoutSize(panel);
+        assertEquals("Minimum layout width", 10, minimumLayoutSize.width);
+        assertEquals("Minimum layout height", 10, minimumLayoutSize.height);
+        assertEquals("Preferred layout width",  50, preferredLayoutSize.width);
+        assertEquals("Preferred layout height", 50, preferredLayoutSize.height);
+        
+        panel.setSize(minimumLayoutSize);
+        panel.doLayout();
+        int columnWidth = c1.getWidth();
+        int rowHeight = c1.getHeight();
+        assertEquals("Column width (container min)", 10, columnWidth);
+        assertEquals("Row height (container min)", 10, rowHeight);
+
+        panel.setSize(preferredLayoutSize);
+        panel.doLayout();
+        columnWidth = c1.getWidth();
+        rowHeight = c1.getHeight();
+        assertEquals("Column width (container pref)", 50, columnWidth);
+        assertEquals("Row height (container pref)", 50, rowHeight);
+    }
+    
+
+//    /**
+//     * Tests the combination of a default size spec with a lower bound
+//     * that shall ensure a minimum size.
+//     */
+//    public void testDefaultWithLowerBound() {
+//        TestComponent c1 = new TestComponent(10, 10, 50, 50);
+//        FormLayout layout = new FormLayout(
+//                "max(20px;default)", 
+//                "max(20px;default)");
+//        
+//        JPanel panel = new JPanel(layout);
+//        panel.add(c1, cc.xy(1, 1));
+//        
+//        Dimension minimumLayoutSize    = layout.minimumLayoutSize(panel);
+//        Dimension preferredLayoutSize  = layout.preferredLayoutSize(panel);
+//        
+//        assertEquals("Minimum layout width", 20, minimumLayoutSize.width);
+//        assertEquals("Minimum layout height", 20, minimumLayoutSize.height);
+//        assertEquals("Preferred layout width",  50, preferredLayoutSize.width);
+//        assertEquals("Preferred layout height", 50, preferredLayoutSize.height);
+//        
+//        panel.setSize(minimumLayoutSize);
+//        panel.doLayout();
+//        int columnWidth = c1.getWidth();
+//        int rowHeight = c1.getHeight();
+//        assertEquals("Column width (container min)", 20, columnWidth);
+//        assertEquals("Row height (container min)", 20, rowHeight);
+//
+//        panel.setSize(preferredLayoutSize);
+//        panel.doLayout();
+//        columnWidth = c1.getWidth();
+//        rowHeight = c1.getHeight();
+//        assertEquals("Column width (container pref)", 50, columnWidth);
+//        assertEquals("Row height (container pref)", 50, rowHeight);
+//    }
+//    
+//
+//    /**
+//     * Tests the combination of a default size spec with an upper bound
+//     * that shall ensure a maximum size.
+//     */
+//    public void testDefaultWithUpperBound() {
+//        TestComponent c1 = new TestComponent(10, 10, 50, 50);
+//        FormLayout layout = new FormLayout(
+//                "min(20px;default)", 
+//                "min(20px;default)");
+//        
+//        JPanel panel = new JPanel(layout);
+//        panel.add(c1, cc.xy(1, 1));
+//        
+//        Dimension minimumLayoutSize    = layout.minimumLayoutSize(panel);
+//        Dimension preferredLayoutSize  = layout.preferredLayoutSize(panel);
+//        
+//        assertEquals("Minimum layout width", 10, minimumLayoutSize.width);
+//        assertEquals("Minimum layout height", 10, minimumLayoutSize.height);
+//        assertEquals("Preferred layout width",  20, preferredLayoutSize.width);
+//        assertEquals("Preferred layout height", 20, preferredLayoutSize.height);
+//        
+//        panel.setSize(minimumLayoutSize);
+//        panel.doLayout();
+//        int columnWidth = c1.getWidth();
+//        int rowHeight = c1.getHeight();
+//        assertEquals("Column width (container min)", 10, columnWidth);
+//        assertEquals("Row height (container min)", 10, rowHeight);
+//
+//        panel.setSize(preferredLayoutSize);
+//        panel.doLayout();
+//        columnWidth = c1.getWidth();
+//        rowHeight = c1.getHeight();
+//        assertEquals("Column width (container pref)", 20, columnWidth);
+//        assertEquals("Row height (container pref)", 20, rowHeight);
+//    }
     
 
 }
