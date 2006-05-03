@@ -82,7 +82,7 @@
 
 
 
-	<h2>Layout Managers</h2>
+	<h2>Layout Systems</h2>
 	
     <a href="http://www.zookitec.com/explicitlayout.html">ExplicitLayout</a>
     complements the FormLayout when it comes to non-rectangular layouts
@@ -96,10 +96,29 @@
 	styles, external UI specification and layout reuse. 
 	ExplicitLayout is licensed under the GNU LGPL and ships with a 
 	user guide and well choosen examples. 
+	
+	<p>
+	The <a href="https://explicit-tablelayout.dev.java.net/">Explicit Table Builder</a>
+	adds a few things that the pure ExplicitLayout is missing
+	such as builders, layout styles, support for Dialog Units (dlu), 
+	and a nice debug panel.
 
 	<p>
+	The Matisse visual builder (integrated with Netbeans) 
+	makes it easy for many people to get layouts done quickly.
+	It seems that Matisse has been designed for visual building,
+	but the underlying GroupLayout can be used without Matisse.
+
+	<p>
+	Although the FormLayout is intended to replace the GridBagLayout,
+	the latter is still a resonable choice, if you cannot add a third party
+	layout manager like the FormLayout to your project. 
+	The <a href="https://packer.dev.java.net/">Packer</a> simplifies 
+	the use of GridBagLayout.
+	
+	<p>
 	<a href="http://ffxml.net/swtforms/">SwtForms</a> is an SWT port
-	of the FormLayout and some Forms builder done by Florian Fankhauser.
+	of the JGoodies FormLayout and some Forms builder done by Florian Fankhauser.
 	
 	
   
