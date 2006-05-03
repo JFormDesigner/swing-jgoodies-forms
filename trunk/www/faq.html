@@ -28,9 +28,33 @@
 		<br>&nbsp;<a href="#Where_do_I_get_support">Where do I get support?</a>
 		<br>&nbsp;<a href="#How_to_report_a_problem">How to report a problem?</a>
 		<br>&nbsp;<a href="#How_can_I_help">How can I help?</a>
+		<br>&nbsp;<a href="#Which_layout_managers_complement">Which layout managers complement the FormLayout?</a>
+		<br>&nbsp;<a href="#Are_there_visual_builders">Are there visual builders that support the FormLayout?</a>
+		<br>&nbsp;<a href="#Can_I_use_FormLayout_with_the_SWT">Can I use FormLayout with the SWT?</a>
+	</p>
+
+
+	<h3>Working With Layout</h3>
+    <p>
+		    &nbsp;<a href="#2.1">How to give columns a percentage of the available space?</a>
+		<br>&nbsp;<a href="#2.2">How to assign the same width to two or more columns?</a>
+		<br>&nbsp;<a href="#2.3">How can I append a custom row using the DefaultFormBuilder?</a>
+		<br>&nbsp;<a href="#2.4">How can I append a custom area using the DefaultFormBuilder?</a>
+		<br>&nbsp;<a href="#2.5">How can I identify and understand layout problems?</a>
+		<br>&nbsp;<a href="#2.6">How can I remove a component from the layout?</a>
+	</p>
+
+	<h3>Understanding FormLayout</h3>
+    <p>
+		    &nbsp;<a href="#3.1">What does the 'fill' alignment do?</a>
+		<br>&nbsp;<a href="#3.2">When is it recommended to use the 'pref' size instead of 'default'?</a>
+		<br>&nbsp;<a href="#3.3">Why don't components in growing rows fill the vertical space?</a>
+		<br>&nbsp;<a href="#3.4">Why don't components that span multiple columns affect the column widths?</a>
+		<br>&nbsp;<a href="#3.5">Why do components that span multiple columns affect the container width?</a>
+		<br>&nbsp;<a href="#3.6">Why do some text areas grow but never shrink again?</a>
 	</p>
 	
-
+	
 	
 	<h4><a name="Benefits">What are the main benefits of the JGoodies Forms?</a></h4>
 
@@ -172,13 +196,368 @@
 		
 	
 	<h4><a name="How_can_I_help">How can I help?</a></h4>
+
 	<p>
-	If you are a professional user, satisfied with the JGoodies Forms, 
+	You can send feedback and suggestions regarding the
+	Forms API, builder classes and all related issues to the 
+	<a href="https://forms.dev.java.net/servlets/ProjectMailingListList">users mailing list</a>.
+	    
+	And you can report bugs and enter feature requests in the
+	<a href="https://forms.dev.java.net/servlets/ProjectIssues">issue tracker</a>.
+	</p>
+
+	<p>
+	If you are a professional user and satisfied with the JGoodies Forms, 
 	you may help me finance my&nbsp;Java desktop activities by licensing 
 	the commercial 
 	<a href="http://www.jgoodies.com/products/index.html">JGoodies Swing Suite</a>.
 	</p>
 	
+
+	<h4><a name="Which_layout_managers_complement">Which layout managers complement the FormLayout?</a></h4>
+
+	<p>
+	<a href="http://www.zookitec.com/explicitlayout.html">ExplicitLayout</a>
+	complements the FormLayout when it comes to non-rectangular layouts, 
+	for example if you want to position components along a curve.
+	The <a href="https://explicit-tablelayout.dev.java.net/">Explicit Table Builder</a>
+	adds a few things that the pure ExplicitLayout is missing
+	such as builders, layout styles, support for Dialog Units (dlu), 
+	and a nice debug panel.
+	</p>
+	
+	<p>
+	The Matisse visual builder (integrated with Netbeans) 
+	makes it easy for many people to get layouts done quickly.
+	It seems that Matisse has been designed for visual building,
+	but the underlying GroupLayout can be used without Matisse.
+	</p>
+		
+	<p>
+	The highly extensible SpringLayout can implement a huge class of layouts,
+	but it is quite difficult to understand.
+	You may consider using it in the rare case where 
+	neither FormLayout nor ExplicitLayout do a good job,
+	or if you want to implement a non-grid-based layout with a layout manager
+	that ships with the JDK.
+	</p>
+		
+	<p>
+	Although the FormLayout is intended to replace the GridBagLayout,
+	the latter is still a resonable choice, if you cannot add a third party
+	layout manager like the FormLayout to your project. 
+	The <a href="https://packer.dev.java.net/">Packer</a> simplifies 
+	the use of GridBagLayout.
+	</p>	
+		
+		
+		
+	<h4><a name="Are_there_visual_builders">Are there visual builders that support the FormLayout?</a></h4>
+
+	<p>
+	There are a couple of visual builders that support the JGoodies FormLayout 
+	and/or the whole Forms framework  including the factories and 
+	non-visual builders. Among others: Abeille Forms Designer, 
+	JAXFront, JBeaver, JFormDesigner, Jigloo, FormBuilder, Form Layout Maker,
+	JFormComposer, Mogwai FormMaker, and the WindowBuilder Pro.
+	See the <em>visual builders</em> section in the Forms README.html.
+	</p>
+			
+		
+		
+	<h4><a name="Can_I_use_FormLayout_with_the_SWT">Can I use the FormLayout with the SWT?</a></h4>
+
+	<p>
+	Florian Fankhauser has ported the FormLayout and parts
+	of the Forms builders to the SWT,
+	see <a href="http://ffxml.net/swtforms/">SwtForms</a>.
+	</p>
+
+
+
+	<h4><a name="2.1">How to give columns a percentage of the available space?</a></h4>
+
+	<p>
+	If all components have an initial size of 0 pixel, then the resize
+	weight can be used as percentage of the available space. 
+	For example <tt>&quot;0:g(0.25), 0:g(0.75)&quot;</tt> gives the first column
+	25% of the available space and the second column 75%.
+	</p>
+	
+	<p>
+	More generally, the resize weights distribute the available
+	extra space of the growing columns/rows. The extra space is
+	<i>container space - insets -  fixed space</i>.
+	</p>
+
+		
+	
+	<h4><a name="2.2">How to assign the same width to two or more columns?</a></h4>
+
+	<p>
+	You can either use the same constant size for all columns,
+	or you can group the columns using <tt>FormLayout#setColumnGroups(int[][])</tt>.
+	The latter mechanism gives columns in a group the same width
+	after their normal width has been computed.
+	</p>
+		
+	<p>
+	The distribution of extra space is the last step; it happens
+	after the group elements have been equalized. To make columns
+	equal wide, ensure that they have the same growing weight assigned
+	(the default is <tt>1.0</tt>).
+	</p>	
+		
+	
+	
+	<h4><a name="2.3">How can I append a custom row using the DefaultFormBuilder?</a></h4>
+	
+	<p>
+	You can append a custom row using <tt>DefaultFormBuilder#appendRow(RowSpec)</tt>.
+	However, you may consider using a combination of standard rows 
+	to achieve a more regular layout grid and regular layout row heights
+	and row alignments.
+	</p>
+	
+	<p>	
+	The Forms tutorial contains the <tt>DefaultFormWithCustomRowsExample</tt> class
+	that demonstrates three approaches for appending a custom row.
+	These differ in the position of the leading label, the alignment 
+	of font baselines and the height of the custom row.
+	</p>
+
+		
+		
+	<h4><a name="2.4">How to assign the same width to two or more columns?</a></h4>
+
+	<p>
+	You can append a custom area using <tt>DefaultFormBuilder#appendRow(RowSpec)</tt>.
+	However, you may consider using a standard row to better align the
+	leading label. Another alternative is to separate the custom area
+	with a titled separator.
+	</p>
+		
+	<p>
+	The Forms tutorial contains the <tt>DefaultFormWithCustomAreasExample</tt>
+	that demonstrates three approaches for appending a custom area at the bottom
+	of a form.
+	These differ in the position of the leading label, the alignment 
+	of font baselines and the way the area is separated from the rest.
+	</p>
+
+
+
+	<h4><a name="2.5">How can I identify and understand layout problems?</a></h4>
+
+	<p>
+	Forms ships with two classes that help you debug layouts:
+	<tt>FormDebugPanel</tt> paints the layout grid and helps you understand
+	how you have specified the layout grid and positioned the components
+	in the grid.
+	Class <tt>FormDebugUtils</tt> dumps detailed information about the
+	grid, groups, component cell positions, component cell constraints, 
+	component positions, and container size.
+	</p>
+		
+	<p>
+	The Forms tutorial contains the <tt>FormDebugExample</tt> that demonstrates
+	how to use these two classes.
+	</p>	
+		
+		
+		
+	<h4><a name="2.6">How can I remove a component from the layout?</a></h4>
+
+	<p>
+	You don't remove a component from layout but from the layout container.
+	The container holds a list of layout components. Often the container
+	is a <tt>JPanel</tt> or a JPanel subclass.
+	To remove a component from the container invoke <tt>Container#remove</tt>.
+	You can remove all components using <tt>Container#removeAll</tt>.
+	</p>	
+		
+	
+
+	<h4><a name="3.1">What does the 'fill' alignment do?</a></h4>
+
+	<p>
+	The horizontal and vertical fill alignments let a component consume 
+	all the space in its display area, where the display area is the
+	set of cells a component spans. For example a horizontal fill 
+	positions the component's left-hand side at the left side of 
+	the display area and the component's right-hand side at the right-hand
+	side of the display area. 
+	</p>
+
+	
+	
+	<h4><a name="3.2">When is it recommended to use the 'pref' size instead of 'default'?</a></h4>
+
+	<p>
+	First off, 'pref' and 'default' differ only if a panel can be resized. 
+	As long as there's enough space in the container to give all components 
+	their desired preferred sizes, the 'default' size is equal to the 
+	'pref' size. This is the case for all packed panels.
+	If the panel is then shrinked, the 'pref' size would cut off some
+	components, where the 'default' size shrinks them down until
+	the minimum size is reached.
+	</p>
+		
+	<p>
+	To make a layout easier to understand favor 'pref' over 'default' 
+	if 'default' adds no value, for example if the panel cannot be resized.
+	Otherwise a rule of thumb is to favor 'default' over 'pref' for 
+	columns and 'pref' over 'default' for rows. 
+	</p>
+
+		
+		
+	<h4><a name="3.3">Why don't components in growing rows fill the vertical space?</a></h4>
+
+	<p>
+	Forms has been designed to reduce the layout code for frequently used layouts.
+	I've found that the bulk of form-oriented panels requires components to be
+	filled horizontally and centered vertically. These settings are 
+	the defaults for the column and row alignments. 
+	</p>	
+	
+	<p>
+	If you want a component fill the vertical space, you can configure
+	the row or the component's cell constraints. If you want all components
+	in a row fill the space, use a <i>fill</i> alignment: 
+	<tt>fill:&lt;size&gt;:&lt;growing&gt;</tt>. 
+	If you want a component fill the space, use an extended
+	cell constraint specification: <tt>cc.xy(3, 1, "fill, fill")</tt>
+	where the second <tt>fill</tt> is responsible for filling the vertical space.
+	</p>
+	
+	<p>
+	See also class <tt>VerticalGrowthExample</tt> in the Forms tutorial sources.
+	</p>
+	
+	
+
+	<h4><a name="3.4">Why don't components that span multiple columns affect the column widths?</a></h4>
+
+	<p>
+	Components that span multipe columns/rows are excluded from 
+	the computation of the column widths and row heights respectively.
+	I couldn't find an appropriate algorithm how to expand the columns/rows 
+	if a large component spans them; either the algorithm leads to good layout 
+	but is difficult to understand, or it's easy to understand but 
+	leads to poor layout.
+	</p>
+		
+	<p>
+	If a component must expand the columns or rows it must be in 
+	a single column. If necessary, you can move the columns/rows
+	it spans to a sublayout.
+	</p>
+
+	<p>		
+	If you want such components affect the spanned columns/rows, 
+	specify that they shall grow. See also the next question.
+	</p>
+
+
+
+	<h4><a name="3.5">Why do components that span multiple columns affect the container width?</a></h4>
+		
+	<p>
+	Unlike the column expansion mentioned in the previous question,
+	it is quite easy to let components that span multipe columns/rows
+	grow the container width or height respectively. 
+	This way it is guaranteed that such components are fully contained
+	if you pack the container.
+	</p>
+		
+		
+
+	<h4><a name="3.6">Why do some text areas grow but never shrink again?</a></h4>
+		
+	<p>
+	In some configurations the JTextArea shows an unexpected sizing behavior.
+	It then computes its minimum and preferred sizes based on 
+	the size previously set by the layout manager or application code.
+	Find below information what happens, which configurations are affected,
+	and how to setup the text area and layout properly. Some of the
+	combinations mentioned below are demonstrated in the pitfalls section
+	of the Forms tutorial, see class <tt>GrowingTextAreaExample</tt>.
+	</p>
+		
+	<p>
+	An example of such an ever-growing area is a JTextArea with line wrap enabled, 
+	put into a growing FormLayout column ('fill:pref:grow') of a resizable panel. 
+	If the panel is layed out the layout manager computes the position
+	and size for each component. Every component has then a size set.
+	Lets say the area has an initial size of (100,&nbsp;32).
+	Now if you make the panel wider, the growing column will assign
+	a large width to the area, let's say (150,&nbsp;32). Since then the
+	column won't shrink below 150 pixel. Why? The area's preferred size
+	is now (150,&nbsp;32), more generally in this configuration the area's 
+	minimum and preferred sizes is the size set previously.
+	Since the preferred width is 150, the FormLayout will use a minimum
+	of 150 for the area's column - still allowing it to grow.
+	If you make the panel even wider, the FormLayout will set an even
+	larger size to the text area, let's say (200,&nbsp;32). 
+	The area's column then won't shrink below 200, because the area's 
+	preferred width now increased to 200.
+	</p>
+		
+	<p>
+	To handle this situation you can a) change the layout specification,
+	b) change the JTextArea configuration, or c) use a different JTextArea
+	preferred size computation.
+	</p>
+		
+	<p>
+	A) A simple way to avoid this resize problem is to use a constant
+	column or row size, for example '150dlu' or for growing columns/rows
+	'fill:150dlu:grow', where 150dlu is the initial size that can grow.
+	Since the dialog units are based on the dialog font this is an 
+	appropriate sizing unit and layout specification. It works with
+	all JTextArea configurations, regardless whether the area is wrapped
+	by a JScrollPane or not.
+	</p>
+		
+	<p>
+	B) Some JTextArea configurations do not compute the minimum and
+	preferred size based on the size set previously. For example 
+	if you have hand-wrapped text (using '\n') and disable the
+	line wrap feature, the minimum and preferred sizes are constant.
+	You can put such areas in columns and row specified with 'pref'.
+	Another alternative is to give the text area a custom minimum size
+	and specify the column or row as 'default' or 'fill:default:grow'.
+	Since the 'default' size can shrink a column/row down to its
+	minimum width/height, this approach avoids the ever-growing case too.
+	However, the minimum size must be specified in pixel and 
+	typically in screen design you should favor non-pixel sizes.
+	</p>
+		
+	<p>
+	C) If you put a JTextArea in a JScrollPane the preferred size
+	used for the scrollable view can be based on the area's #columns 
+	and #rows properties. For example if you use <tt>area.setColumns(40)</tt>
+	the scrollpane will have a width of about 40 characters. 
+	Another approach is to implement a JTextArea subclass
+	or a custom TextAreaUI to compute the preferred size independent
+	of the area's size.
+	</p>
+		
+	<p>
+	Why doesn't this happen with the BorderLayout?
+	Layout managers have two tasks: they must layout components in a 
+	container and must compute the container's minimum, preferred 
+	and maximum size.
+	BorderLayout honors the content's preferred size when computing
+	the container's preferred size. But it ignores the component's
+	preferred size when it lays out the container. If you put
+	a JTextArea in a BorderLayout center, the whole container has 
+	the same preferred size as the text area. If you shrink the container,
+	the BorderLayout ignores the text area's preferred size and
+	it ignores even its minimum size. Hence it will shrink down 
+	the container even below the area's minimum size.
+	</p>
 
 
 		
