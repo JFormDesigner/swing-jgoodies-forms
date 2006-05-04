@@ -41,7 +41,7 @@ import com.jgoodies.forms.layout.Sizes.ComponentSize;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see	Sizes
  * @see	ConstantSize
@@ -69,14 +69,20 @@ public final class BoundedSize implements Size, Serializable {
     
     /**
      * Constructs a BoundedSize for the given basis using the
-     * specified lower and upper bounds.
+     * specified lower and upper bounds.<p>
+     * 
+     * TODO: Consider throwing an IllegalArgumentException,
+     * if the lower bound and upper bound are both <code>null</code>.
      * 
      * @param basis  the base size
      * @param lowerBound  the lower bound size
      * @param upperBound  the upper bound size
+     * 
      * @throws NullPointerException if the basis is null
+     * 
+     * @since 1.1
      */
-    BoundedSize(Size basis, Size lowerBound, Size upperBound) {
+    public BoundedSize(Size basis, Size lowerBound, Size upperBound) {
         if (basis == null) 
             throw new NullPointerException("The basis of a bounded size must not be null.");
         this.basis = basis;

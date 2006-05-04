@@ -67,7 +67,7 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see	Size
  * @see	Sizes
@@ -110,8 +110,10 @@ public final class ConstantSize implements Size, Serializable {
      * 
      * @param value     the size value interpreted in the given units
      * @param unit		the size's unit
+     * 
+     * @since 1.1
      */
-    ConstantSize(int value, Unit unit) {
+    public ConstantSize(int value, Unit unit) {
         this.value = value;
         this.unit  = unit;
     }
@@ -122,8 +124,10 @@ public final class ConstantSize implements Size, Serializable {
      * 
      * @param value     the size value interpreted in the given units
      * @param unit      the size's unit
+     * 
+     * @since 1.1
      */
-    ConstantSize(double value, Unit unit) {
+    public ConstantSize(double value, Unit unit) {
         this.value = value;
         this.unit  = unit;
     }
