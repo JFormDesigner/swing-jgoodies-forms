@@ -41,7 +41,7 @@ import com.jgoodies.forms.layout.Sizes.ComponentSize;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see	Sizes
  * @see	ConstantSize
@@ -161,6 +161,20 @@ public final class BoundedSize implements Size, Serializable {
                                      defaultMeasure));
         }
         return size;
+    }
+    
+    
+    /**
+     * Describes if this Size can be compressed, if container space gets scarce.
+     * Used by the FormLayout size computations in <code>#compressedSizes</code>
+     * to check whether a column or row can be compressed or not.<p>
+     * 
+     * BoundedSizes are compressible if the base Size is compressible.
+     * 
+     * @return <code>true</code> if and only if the basis is compressible
+     */
+    public boolean compressible() {
+        return getBasis().compressible();
     }
 
 

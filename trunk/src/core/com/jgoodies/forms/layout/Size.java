@@ -39,23 +39,22 @@ import java.util.List;
  * and bounded sizes that provide lower and upper bounds for a size.<p>
  * 
  * You can find a motivation for the different <code>Size</code> types in
- * the Forms article that is part of the product documentation and that is
+ * the Forms whitepaper that is part of the product documentation and that is
  * available online too, see
  * <a href="http://www.jgoodies.com/articles/forms.pdf" >
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * 
  * @see	Sizes
  * @see	ConstantSize
  */
-
 public interface Size {
     
     /**
-     * Computes and returns my maximum size applied to the given list of
-     * components using the specified measures.<p>
+     * Computes and returns this Size's maximum pixel size applied to 
+     * the given list of components using the specified measures.<p>
      * 
      * Invoked by {@link com.jgoodies.forms.layout.FormSpec} to determine 
      * the size of a column or row. This method is not intended to be called 
@@ -73,5 +72,19 @@ public interface Size {
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
                     FormLayout.Measure defaultMeasure);
+    
+    
+    /**
+     * Describes if this Size can be compressed, if container space gets scarce.
+     * Used by the FormLayout size computations in <code>#compressedSizes</code>
+     * to check whether a column or row can be compressed or not.<p>
+     * 
+     * The ComponentSize <em>default</em> is compressible, as well as 
+     * BoundedSizes that are based on the <em>default</em> size.
+     * 
+     * @return <code>true</code> for compressible Sizes 
+     */
+    boolean compressible();
+
     
 }

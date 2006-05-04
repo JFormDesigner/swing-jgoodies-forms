@@ -67,7 +67,7 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see	Size
  * @see	Sizes
@@ -254,6 +254,20 @@ public final class ConstantSize implements Size, Serializable {
     }
     
     
+    /**
+     * Describes if this Size can be compressed, if container space gets scarce.
+     * Used by the FormLayout size computations in <code>#compressedSizes</code>
+     * to check whether a column or row can be compressed or not.<p>
+     * 
+     * ConstantSizes are incompressible.
+     * 
+     * @return <code>false</code>
+     */
+    public boolean compressible() {
+        return false;
+    }
+
+
     // Overriding Object Behavior *******************************************
     
     /**
