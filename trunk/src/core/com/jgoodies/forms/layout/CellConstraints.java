@@ -73,6 +73,12 @@ import java.util.StringTokenizer;
  * </pre>
  * See also the examples in the {@link FormLayout} class comment.<p>
  * 
+ * <strong>Note:</strong> The new method sets <code>#rc</code>,
+ * <code>#rcw</code>, and <code>#rchw</code> are experimental and
+ * maybe removed from the 1.1 final.<p>
+ * 
+ * TODO: Remove the above comment in the 1.1 final.<p>
+ * 
  * TODO: Explain in the JavaDocs that the insets are actually offsets.
  * And describe that these offsets are not taken into account when
  * FormLayout computes the column and row sizes.<p>
@@ -91,7 +97,7 @@ import java.util.StringTokenizer;
  * of the Forms' issue tracker where you can track the progress.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
     
@@ -348,10 +354,10 @@ public final class CellConstraints implements Cloneable, Serializable {
     }        
 	
 
-    // Setters **************************************************************
+    // Setters with Column-Row Order ******************************************
 
     /**
-     * Sets row and column origins; sets width and height to 1; 
+     * Sets column and row origins; sets width and height to 1; 
      * uses the default alignments.<p>
      * 
      * <strong>Examples:</strong><pre>
@@ -369,7 +375,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
 	
     /**
-     * Sets row and column origins; sets width and height to 1; 
+     * Sets column and row origins; sets width and height to 1; 
      * decodes horizontal and vertical alignments from the given string.<p>
      * 
      * <strong>Examples:</strong><pre>
@@ -383,6 +389,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param row                the new row index
      * @param encodedAlignments  describes the horizontal and vertical alignments
      * @return this
+     * 
      * @throws IllegalArgumentException if an alignment orientation is invalid
      */
     public CellConstraints xy(int col, int row, String encodedAlignments) {
@@ -390,7 +397,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the row and column origins; sets width and height to 1;
+     * Sets the column and row origins; sets width and height to 1;
      * set horizontal and vertical alignment using the specified objects.<p>
      * 
      * <strong>Examples:</strong><pre>
@@ -411,7 +418,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
 
     /**
-     * Sets the row, column, width, and height; uses a height (row span) of 1 
+     * Sets the column, row, width, and height; uses a height (row span) of 1 
      * and the horizontal and vertical default alignments.<p>
      * 
      * <strong>Examples:</strong><pre>
@@ -430,7 +437,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 	
 
     /**
-     * Sets the row, column, width, and height; 
+     * Sets the column, row, width, and height; 
      * decodes the horizontal and vertical alignments from the given string.
      * The row span (height) is set to 1.<p>
      * 
@@ -455,7 +462,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
     
     /**
-     * Sets the row, column, width, and height; sets the horizontal 
+     * Sets the column, row, width, and height; sets the horizontal 
      * and vertical aligment using the specified alignment objects.
      * The row span (height) is set to 1.<p>
      * 
@@ -479,7 +486,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
 
     /**
-     * Sets the row, column, width, and height; uses default alignments.<p>
+     * Sets the column, row, width, and height; uses default alignments.<p>
      * 
      * <strong>Examples:</strong><pre>
      * cc.xywh(1, 3, 2, 1);
@@ -498,7 +505,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     
 
     /**
-     * Sets the row, column, width, and height; 
+     * Sets the column, row, width, and height; 
      * decodes the horizontal and vertical alignments from the given string.<p>
      * 
      * <strong>Examples:</strong><pre>
@@ -519,13 +526,13 @@ public final class CellConstraints implements Cloneable, Serializable {
     public CellConstraints xywh(int col, int row, int colSpan, int rowSpan, 
                                  String encodedAlignments) {
         CellConstraints result = xywh(col, row, colSpan, rowSpan);
-        result.setAlignments(encodedAlignments);
+        result.setAlignments(encodedAlignments, true);
         return result;
     }
 
     
     /**
-     * Sets the row, column, width, and height; sets the horizontal 
+     * Sets the column, row, width, and height; sets the horizontal 
      * and vertical aligment using the specified alignment objects.<p>
      * 
      * <strong>Examples:</strong><pre>
@@ -555,6 +562,229 @@ public final class CellConstraints implements Cloneable, Serializable {
     }
     
 
+    // Setters with Row-Column Order ******************************************
+
+    /**
+     * Sets row and column origins; sets height and width to 1; 
+     * uses the default alignments.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rc(1, 1);
+     * cc.rc(3, 1);
+     * </pre>
+     * 
+     * @param row     the new row index
+     * @param col     the new column index
+     * @return this
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rc(int row, int col) {
+        return rchw(row, col, 1, 1);
+    }
+    
+    
+    /**
+     * Sets row and column origins; sets height and width to 1; 
+     * decodes vertical and horizontal alignments from the given string.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rc(3, 1, "bottom, left");
+     * cc.rc(3, 1, "b, l");
+     * cc.rc(3, 1, "fill, center");
+     * cc.rc(3, 1, "f, c");
+     * </pre>
+     * 
+     * @param row                the new row index
+     * @param col                the new column index
+     * @param encodedAlignments  describes the vertical and horizontal alignments
+     * @return this
+     * 
+     * @throws IllegalArgumentException if an alignment orientation is invalid
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rc(int row, int col, String encodedAlignments) {
+        return rchw(row, col, 1, 1, encodedAlignments);
+    }
+    
+
+    /**
+     * Sets the row and column origins; sets width and height to 1;
+     * set horizontal and vertical alignment using the specified objects.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rc(3, 1, CellConstraints.BOTTOM, CellConstraints.LEFT);
+     * cc.rc(3, 1, CellConstraints.FILL,   CellConstraints.CENTER);
+     * </pre>
+     *
+     * @param row       the new row index
+     * @param col       the new column index
+     * @param rowAlign  vertical component alignment     
+     * @param colAlign  horizontal component alignment
+     * @return this
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rc(int row, int col, 
+                              Alignment rowAlign, Alignment colAlign) {
+        return rchw(row, col, 1, 1, rowAlign, colAlign);
+    }
+    
+
+    /**
+     * Sets the row, column, height, and width; uses a height (row span) of 1 
+     * and the vertical and horizontal default alignments.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rcw(3, 1, 7);
+     * cc.rcw(3, 1, 2);
+     * </pre>
+     * 
+     * @param row      the new row index
+     * @param col      the new column index
+     * @param colSpan  the column span or grid width
+     * @return this
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rcw(int row, int col, int colSpan) {
+        return rchw(row, col, 1, colSpan, DEFAULT, DEFAULT);
+    }
+    
+
+    /**
+     * Sets the row, column, height, and width; 
+     * decodes the vertical and horizontal alignments from the given string.
+     * The row span (height) is set to 1.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rcw(3, 1, 7, "bottom, left");
+     * cc.rcw(3, 1, 7, "b, l");
+     * cc.rcw(3, 1, 2, "fill, center");
+     * cc.rcw(3, 1, 2, "f, c");
+     * </pre>
+     *  
+     * @param row                the new row index
+     * @param col                the new column index
+     * @param colSpan            the column span or grid width
+     * @param encodedAlignments  describes the vertical and horizontal alignments
+     * @return this
+     * 
+     * @throws IllegalArgumentException if an alignment orientation is invalid
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rcw(int row, int col, int colSpan,  
+                                 String encodedAlignments) {
+        return rchw(row, col, 1, colSpan, encodedAlignments);
+    }
+
+    
+    /**
+     * Sets the row, column, height, and width; sets the vertical
+     * and horizontalaligment using the specified alignment objects.
+     * The row span (height) is set to 1.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rcw(3, 1, 2, CellConstraints.BOTTOM, CellConstraints.LEFT);
+     * cc.rcw(3, 1, 7, CellConstraints.FILL,   CellConstraints.CENTER);
+     * </pre>
+     *
+     * @param row       the new row index
+     * @param col       the new column index
+     * @param colSpan   the column span or grid width
+     * @param rowAlign  vertical component alignment     
+     * @param colAlign  horizontal component alignment
+     * @return this
+     * 
+     * @throws IllegalArgumentException if an alignment orientation is invalid
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rcw(int row, int col, int colSpan, 
+                                 Alignment rowAlign, Alignment colAlign) {
+        return rchw(row, col, 1, colSpan, rowAlign, colAlign);
+    }
+    
+
+    /**
+     * Sets the row, column, height, and width; uses default alignments.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rchw(1, 3, 2, 1);
+     * cc.rchw(1, 3, 7, 3);
+     * </pre>
+     * 
+     * @param row      the new row index
+     * @param col      the new column index
+     * @param rowSpan  the row span or grid height
+     * @param colSpan  the column span or grid width
+     * @return this
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rchw(int row, int col, int rowSpan, int colSpan) {
+        return rchw(row, col, rowSpan, colSpan, DEFAULT, DEFAULT);
+    }
+    
+
+    /**
+     * Sets the row, column, height, and width; 
+     * decodes the vertical and horizontal alignments from the given string.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rchw(3, 1, 1, 2, "bottom, left");
+     * cc.rchw(3, 1, 1, 2, "b, l");
+     * cc.rchw(3, 1, 3, 7, "fill, center");
+     * cc.rchw(3, 1, 3, 7, "f, c");
+     * </pre>
+     *  
+     * @param row                the new row index
+     * @param col                the new column index
+     * @param rowSpan            the row span or grid height
+     * @param colSpan            the column span or grid width
+     * @param encodedAlignments  describes the vertical and horizontal alignments
+     * @return this
+     * @throws IllegalArgumentException if an alignment orientation is invalid
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rchw(int row, int col, int rowSpan, int colSpan, 
+                                 String encodedAlignments) {
+        CellConstraints result = rchw(row, col, rowSpan, colSpan);
+        result.setAlignments(encodedAlignments, false);
+        return result;
+    }
+
+    
+    /**
+     * Sets the row, column, height, and width; sets the vertical and 
+     * horizontal aligment using the specified alignment objects.<p>
+     * 
+     * <strong>Examples:</strong><pre>
+     * cc.rchw(3, 1, 1, 2, CellConstraints.BOTTOM, CellConstraints.LEFT);
+     * cc.rchw(3, 1, 3, 7, CellConstraints.FILL,   CellConstraints.CENTER);
+     * </pre>
+     *
+     * @param row       the new row index
+     * @param col       the new column index
+     * @param rowSpan   the row span or grid height
+     * @param colSpan   the column span or grid width
+     * @param rowAlign  vertical component alignment     
+     * @param colAlign  horizontal component alignment
+     * @return this
+     * 
+     * @throws IllegalArgumentException if an alignment orientation is invalid
+     * 
+     * @since 1.1
+     */
+    public CellConstraints rchw(int row, int col, int rowSpan, int colSpan, 
+                                 Alignment rowAlign, Alignment colAlign) {
+        return xywh(col, row, colSpan, rowSpan, colAlign, rowAlign);
+    }
+    
+
     // Parsing and Decoding String Descriptions *****************************
     
     /**
@@ -569,6 +799,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * </pre> 
      * 
      * @param encodedConstraints represents horizontal and vertical alignment
+     * 
      * @throws IllegalArgumentException if the encoded constraints do not
      *     follow the constraint syntax
      */
@@ -632,7 +863,10 @@ public final class CellConstraints implements Cloneable, Serializable {
     
     /**
      * Decodes a string description for the horizontal and vertical alignment 
-     * and sets this CellConstraints' alignment values.<p>
+     * and sets this CellConstraints' alignment values. If the boolean is
+     * <code>true</code> the horizontal alignment is the first token,
+     * and the vertical alignment is the second token. if the boolean is
+     * <code>false</code> the vertical alignment comes first. <p>
      * 
      * Valid horizontal aligmnents are: left, middle, right, default, and fill.
      * Valid vertical alignments are: top, center, bottom, default, and fill.
@@ -647,10 +881,12 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param encodedAlignments represents horizontal and vertical alignment
      * @throws IllegalArgumentException if an alignment orientation is invalid
      */
-    private void setAlignments(String encodedAlignments) {
+    private void setAlignments(String encodedAlignments, boolean horizontalThenVertical) {
         StringTokenizer tokenizer = new StringTokenizer(encodedAlignments, " ,");
-        hAlign = decodeAlignment(tokenizer.nextToken());
-        vAlign = decodeAlignment(tokenizer.nextToken());
+        Alignment first  = decodeAlignment(tokenizer.nextToken());
+        Alignment second = decodeAlignment(tokenizer.nextToken());
+        hAlign = horizontalThenVertical ? first : second;
+        vAlign = horizontalThenVertical ? second : first;
         ensureValidOrientations(hAlign, vAlign);
     }
     
