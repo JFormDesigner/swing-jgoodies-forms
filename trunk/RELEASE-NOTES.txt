@@ -16,12 +16,13 @@ INTRODUCTION
     it may lack functions and may contain known bugs in some areas. 
     
     The topics for the 1.1 release are:
-    1) Bug fixing and API clarification.
-    2) New distribution layout. 
-    3) Move stable extra sources to the library core.
-    4) Remove rarely used classes.  
-    5) Extend the tutorial.
-    6) ... 
+    1) Bug fixing - even if the fix affects the layout.
+    2) API clarification and API extensions.
+    3) Improved support for visual builders. 
+    4) Move stable extra sources to the library core.
+    5) Remove rarely used classes.  
+    6) Extend the tutorial.
+    7) ... 
     
     
 CHANGES THAT AFFECT THE COMPATIBILITY
@@ -31,7 +32,9 @@ CHANGES THAT AFFECT THE COMPATIBILITY
       
 NEW FEATURES
 
-    o ...
+    o BoundedSize is public.
+    o Added BoundedSize#getBasis, #getLowerBound, #getUpperBound.
+    o Added ConstantSize#getValue, #getUnit
     
     
 BUGS FIXED
@@ -59,12 +62,6 @@ INTRODUCTION
     This maintenance release fixes a bug in Turkish environments.
     The fix and other changes do not affect the layout. Hence, this 
     version is binary and visually compatible with previous versions.
-    
-    Further API changes and bug fixes that may affect the layout 
-    have been rescheduled for the upcoming version 1.1. The work 
-    on 1.1 shall begin in May 2006. Authors of visual builders
-    that support the Forms may register with the low-traffic 
-    Forms development mailing list to discuss planned changes.
     
     
 BUGS FIXED
