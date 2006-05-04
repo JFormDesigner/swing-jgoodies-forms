@@ -143,7 +143,7 @@ import java.util.*;
  * of the Forms' issue tracker where you can track the progress.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -1366,10 +1366,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                  int totalSize, int totalMinSize, int totalPrefSize,  
                                  int[] minSizes, int[] prefSizes) {
         
-        // If we have less space than the total min size answer the min sizes.                            
+        // If we have less space than the total min size, answer the min sizes.                            
         if (totalSize < totalMinSize)
             return minSizes;
-        // If we have more space than the total pref size answer the pref sizes.                            
+        // If we have more space than the total pref size, answer the pref sizes.                            
         if (totalSize >= totalPrefSize)
             return prefSizes;
             
@@ -1387,7 +1387,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         for (int i=0; i < count; i++) {
             FormSpec formSpec = (FormSpec) formSpecs.get(i);
             sizes[i] = prefSizes[i];
-            if (formSpec.getSize() == Sizes.DEFAULT) {
+            if (formSpec.getSize().compressible()) {
                 sizes[i] -= (int) Math.round((prefSizes[i] - minSizes[i]) 
                                                  * compressionFactor); 
             }
