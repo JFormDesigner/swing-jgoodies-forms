@@ -143,7 +143,7 @@ import java.util.*;
  * of the Forms' issue tracker where you can track the progress.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -1549,8 +1549,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * An interface that describes how to measure a <code>Component</code>.
      * Used to abstract from horizontal and vertical dimensions as well as
      * minimum and preferred sizes.
+     * 
+     * @since 1.1
      */
-    static interface Measure {
+    public static interface Measure {
         
         /**
          * Computes and returns the size of the given <code>Component</code>.
