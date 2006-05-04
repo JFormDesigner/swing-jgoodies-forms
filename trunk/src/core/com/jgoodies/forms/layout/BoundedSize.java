@@ -41,7 +41,7 @@ import com.jgoodies.forms.layout.Sizes.ComponentSize;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see	Sizes
  * @see	ConstantSize
@@ -91,6 +91,8 @@ public final class BoundedSize implements Size, Serializable {
      * Returns the base size, which is not-<code>null</code>.
      * 
      * @return the base size
+     * 
+     * @since 1.1
      */
     public Size getBasis() {
         return basis;
@@ -101,6 +103,8 @@ public final class BoundedSize implements Size, Serializable {
      * Returns the optional lower bound.
      * 
      * @return the optional lower bound
+     * 
+     * @since 1.1
      */
     public Size getLowerBound() {
         return lowerBound;
@@ -111,6 +115,8 @@ public final class BoundedSize implements Size, Serializable {
      * Returns the optional upper bound.
      * 
      * @return the optional upper bound
+     * 
+     * @since 1.1
      */
     public Size getUpperBound() {
         return upperBound;
@@ -172,6 +178,8 @@ public final class BoundedSize implements Size, Serializable {
      * BoundedSizes are compressible if the base Size is compressible.
      * 
      * @return <code>true</code> if and only if the basis is compressible
+     * 
+     * @since 1.1
      */
     public boolean compressible() {
         return getBasis().compressible();

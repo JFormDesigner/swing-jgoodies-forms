@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see     Size
  * @see     UnitConverter
@@ -375,6 +375,8 @@ public final class Sizes {
          * 
          * @return <code>true</code> for the DEFAULT size, 
          *      <code>false</code> otherwise
+         * 
+         * @since 1.1
          */
         public boolean compressible() {
             return this == DEFAULT;

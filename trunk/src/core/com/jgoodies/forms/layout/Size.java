@@ -45,7 +45,7 @@ import java.util.List;
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see	Sizes
  * @see	ConstantSize
@@ -83,6 +83,8 @@ public interface Size {
      * BoundedSizes that are based on the <em>default</em> size.
      * 
      * @return <code>true</code> for compressible Sizes 
+     * 
+     * @since 1.1
      */
     boolean compressible();
 
