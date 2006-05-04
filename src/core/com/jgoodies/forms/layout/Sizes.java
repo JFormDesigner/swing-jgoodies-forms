@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see     Size
  * @see     UnitConverter
@@ -364,6 +364,22 @@ public final class Sizes {
             }
             return maximum;
         }
+
+        /**
+         * Describes if this Size can be compressed, if container space gets scarce.
+         * Used by the FormLayout size computations in <code>#compressedSizes</code>
+         * to check whether a column or row can be compressed or not.<p>
+         * 
+         * The DEFAULT ComponentSize is compressible, MINIMUM and PREFERRED
+         * are incompressible.
+         * 
+         * @return <code>true</code> for the DEFAULT size, 
+         *      <code>false</code> otherwise
+         */
+        public boolean compressible() {
+            return this == DEFAULT;
+        }
+
 
         public String toString()  { return name.substring(0, 1); }
 
