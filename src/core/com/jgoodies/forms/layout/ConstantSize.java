@@ -67,7 +67,7 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see	Size
  * @see	Sizes
@@ -185,6 +185,8 @@ public final class ConstantSize implements Size, Serializable {
      * Returns this size's value.
      * 
      * @return the size value
+     * 
+     * @since 1.1
      */
     public double getValue() {
         return value;
@@ -195,6 +197,8 @@ public final class ConstantSize implements Size, Serializable {
      * Returns this size's unit.
      * 
      * @return the size unit
+     * 
+     * @since 1.1
      */
     public Unit getUnit() {
         return unit;
@@ -262,6 +266,8 @@ public final class ConstantSize implements Size, Serializable {
      * ConstantSizes are incompressible.
      * 
      * @return <code>false</code>
+     * 
+     * @since 1.1
      */
     public boolean compressible() {
         return false;
