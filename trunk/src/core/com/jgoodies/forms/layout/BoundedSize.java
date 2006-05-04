@@ -34,19 +34,20 @@ import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
 
+import com.jgoodies.forms.layout.Sizes.ComponentSize;
+
 /**
  * Describes sizes that provide lower and upper bounds 
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see	Sizes
  * @see	ConstantSize
- * @see	Sizes.ComponentSize
+ * @see	ComponentSize
  */
-
-final class BoundedSize implements Size, Serializable {
+public final class BoundedSize implements Size, Serializable {
     
     /**
      * Holds the base size.
@@ -81,6 +82,38 @@ final class BoundedSize implements Size, Serializable {
         this.basis = basis;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
+    }
+    
+    
+    // Accessors ************************************************************
+    
+    /**
+     * Returns the base size, which is not-<code>null</code>.
+     * 
+     * @return the base size
+     */
+    public Size getBasis() {
+        return basis;
+    }
+    
+    
+    /**
+     * Returns the optional lower bound.
+     * 
+     * @return the optional lower bound
+     */
+    public Size getLowerBound() {
+        return lowerBound;
+    }
+    
+    
+    /**
+     * Returns the optional upper bound.
+     * 
+     * @return the optional upper bound
+     */
+    public Size getUpperBound() {
+        return upperBound;
     }
     
     

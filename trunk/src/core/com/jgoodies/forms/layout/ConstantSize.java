@@ -67,12 +67,11 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see	Size
  * @see	Sizes
  */
-
 public final class ConstantSize implements Size, Serializable {
     
     // Public Units *********************************************************
@@ -107,10 +106,9 @@ public final class ConstantSize implements Size, Serializable {
     // Instance Creation ****************************************************
     
     /**
-     * Constructs an instance of <code>ConstantSize</code> from the given
-     * encoded size and unit description.
+     * Constructs a ConstantSize for the given size and unit.
      * 
-     * @param value	the size value interpreted in the given units
+     * @param value     the size value interpreted in the given units
      * @param unit		the size's unit
      */
     ConstantSize(int value, Unit unit) {
@@ -118,9 +116,9 @@ public final class ConstantSize implements Size, Serializable {
         this.unit  = unit;
     }
     
+    
     /**
-     * Constructs an instance of <code>ConstantSize</code> from the given
-     * encoded size and unit description.
+     * Constructs a ConstantSize for the given size and unit.
      * 
      * @param value     the size value interpreted in the given units
      * @param unit      the size's unit
@@ -130,13 +128,15 @@ public final class ConstantSize implements Size, Serializable {
         this.unit  = unit;
     }
     
+    
     /**
-     * Constructs an instance of <code>ConstantSize</code> from the given
-     * encoded size and unit description.
+     * Creates and returns a ConstantSize from the given encoded size 
+     * and unit description.
      * 
      * @param encodedValueAndUnit  the size's value and unit as string
-     * @param horizontal			true for horizontal, false for vertical
+     * @param horizontal		   true for horizontal, false for vertical
      * @return a constant size for the given encoding and unit description
+     * 
      * @throws IllegalArgumentException   if the unit requires integer
      *    but the value is not an integer
      */
@@ -154,8 +154,9 @@ public final class ConstantSize implements Size, Serializable {
         return new ConstantSize(value, unit);
     }
     
+    
     /**
-     * Returns an instance of <code>Size</code> for the specified value
+     * Creates and returns a ConstantSize for the specified size value
      * in horizontal dialog units.
      * 
      * @param value	size value in horizontal dialog units	
@@ -165,8 +166,9 @@ public final class ConstantSize implements Size, Serializable {
         return new ConstantSize(value, DLUX);
     }
     
+    
     /**
-     * Returns an instance of <code>Size</code> for the specified value
+     * Creates and returns a ConstantSize for the specified size value
      * in vertical dialog units.
      * 
      * @param value    size value in vertical dialog units   
@@ -174,6 +176,28 @@ public final class ConstantSize implements Size, Serializable {
      */
     static ConstantSize dluY(int value) {
         return new ConstantSize(value, DLUY);
+    }
+    
+    
+    // Accessors ************************************************************
+    
+    /**
+     * Returns this size's value.
+     * 
+     * @return the size value
+     */
+    public double getValue() {
+        return value;
+    }
+    
+    
+    /**
+     * Returns this size's unit.
+     * 
+     * @return the size unit
+     */
+    public Unit getUnit() {
+        return unit;
     }
     
 
@@ -229,6 +253,7 @@ public final class ConstantSize implements Size, Serializable {
         return getPixelSize(container);
     }
     
+    
     // Overriding Object Behavior *******************************************
     
     /**
@@ -236,7 +261,8 @@ public final class ConstantSize implements Size, Serializable {
      *
      * @param o   the Object with which to compare
      * @return <code>true</code> if this object is the same as the obj
-     * argument; <code>false</code> otherwise.
+     *     argument; <code>false</code> otherwise.
+     * 
      * @see     java.lang.Object#hashCode()
      * @see     java.util.Hashtable
      */
@@ -250,18 +276,21 @@ public final class ConstantSize implements Size, Serializable {
              && this.unit  == size.unit;
     }
     
+    
     /**
      * Returns a hash code value for the object. This method is 
      * supported for the benefit of hashtables such as those provided by 
      * <code>java.util.Hashtable</code>. 
      * 
      * @return  a hash code value for this object.
+     * 
      * @see     java.lang.Object#equals(java.lang.Object)
      * @see     java.util.Hashtable
      */
     public int hashCode() {
         return new Double(value).hashCode() + 37 * unit.hashCode();
     }
+    
     
     /**
      * Returns a string representation of this size object.
@@ -305,6 +334,7 @@ public final class ConstantSize implements Size, Serializable {
         return result;
     }
 
+    
     // Helper Class *********************************************************
     
     /**
@@ -324,8 +354,7 @@ public final class ConstantSize implements Size, Serializable {
         }
 
         /**
-         * Returns an instance of <code>Unit</code> that corresponds to the
-         * specified string.
+         * Returns a Unit that corresponds to the specified string.
          * 
          * @param str   the encoded unit
          * @param horizontal  true for a horizontal unit, false for vertical
