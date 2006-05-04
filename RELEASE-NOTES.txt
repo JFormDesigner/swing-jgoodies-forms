@@ -39,8 +39,8 @@ NEW FEATURES
     
 BUGS FIXED
 
-    o ...
-    
+    o Issue 38: Layout ignores default size if it is bounded.
+        
     
 OTHER CHANGES
 
