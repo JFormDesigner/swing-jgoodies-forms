@@ -1,0 +1,31 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jgoodies</groupId>
+	<artifactId>forms</artifactId>
+	<version>@impl.version</version>
+	<packaging>jar</packaging>
+	<name>JGoodies Forms</name>
+	<url>https://forms.dev.java.net/</url>
+	<description>The JGoodies Forms framework helps you lay out and implement 
+    elegant Swing panels quickly and consistently. 
+    It makes simple things easy and the hard stuff possible,
+    the good design easy and the bad difficult.</description>
+	<licenses>
+		<license>
+			<name>The BSD License</name>
+			<url>http://www.opensource.org/licenses/bsd-license.html</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>Karsten</id>
+			<name>Karsten Lentzsch</name>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:cvs:pserver:guest@cvs.dev.java.net:/cvs:forms</connection>
+		<tag>head</tag>
+		<url>https://forms.dev.java.net/source/browse/forms/</url>
+	</scm>
+</project>
