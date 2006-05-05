@@ -64,7 +64,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  * 
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -96,9 +96,10 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     
     
     /**
-     * Holds the font that is used to compute the global dialog base units.
-     * By default it is lazily created in method #getDefaultDialogFont,
-     * which in turn looks up a font in method #lookupDefaultDialogFont.
+     * Holds a custom font that is used to compute the global dialog base units.
+     * If not set, a fallback font is is lazily created in method 
+     * #getCachedDefaultDialogFont, which in turn looks up a font 
+     * in method #lookupDefaultDialogFont.
      */
     private Font defaultDialogFont;
     
@@ -131,6 +132,15 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * for a <code>FontMetrics</code> object.
      */ 
     private Map cachedDialogBaseUnits = new HashMap();
+    
+    /**
+     * Holds a cached default dialog font that is used as fallback,
+     * if no default dialog font has been set.
+     * 
+     * @see #getDefaultDialogFont()
+     * @see #setDefaultDialogFont(Font)
+     */
+    private Font cachedDefaultDialogFont = null;
 
 
     // Instance Creation and Access *******************************************
@@ -198,16 +208,17 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     
 
     /**
-     * Lazily creates and returns the dialog font used to compute 
-     * the dialog base units.
+     * Returns the dialog font that is used to compute the dialog base units.
+     * If a default dialog font has been set using 
+     * {@link #setDefaultDialogFont(Font)}, this font will be returned.
+     * Otherwise a cached fallback will be lazily created.  
      * 
      * @return the font used to compute the dialog base units
      */
     public Font getDefaultDialogFont() {
-        if (defaultDialogFont == null) {
-            defaultDialogFont = lookupDefaultDialogFont();
-        }
-        return defaultDialogFont;
+        return defaultDialogFont != null
+            ? defaultDialogFont
+            : getCachedDefaultDialogFont();
     }
     
     /**
@@ -337,6 +348,20 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     }
     
     /**
+     * Lazily creates and returns a fallback for the dialog font 
+     * that is used to compute the dialog base units.
+     * This fallback font is cached and will be reset if the L&amp;F changes.
+     * 
+     * @return the cached fallback font used to compute the dialog base units
+     */
+    private Font getCachedDefaultDialogFont() {
+        if (cachedDefaultDialogFont == null) {
+            cachedDefaultDialogFont = lookupDefaultDialogFont();
+        }
+        return cachedDefaultDialogFont;
+    }
+    
+    /**
      * Looks up and returns the font used by buttons. 
      * First, tries to request the button font from the UIManager; 
      * if this fails a JButton is created and asked for its font.
@@ -367,13 +392,15 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     }
     
     /**
-     * Invalidates the caches. Resets the global dialog base units
-     * and clears the Map from <code>FontMetrics</code> to dialog base units.
+     * Invalidates the caches. Resets the global dialog base units,
+     * clears the Map from <code>FontMetrics</code> to dialog base units,
+     * and resets the fallback for the default dialog font.
      * This is invoked after a change of the look&amp;feel.
      */
     private void invalidateCaches() {
         cachedGlobalDialogBaseUnits = null;
         cachedDialogBaseUnits.clear();
+        cachedDefaultDialogFont = null;
     }
     
     
