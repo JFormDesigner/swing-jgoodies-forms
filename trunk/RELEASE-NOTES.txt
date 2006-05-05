@@ -32,9 +32,12 @@ CHANGES THAT AFFECT THE COMPATIBILITY
       
 NEW FEATURES
 
-    o BoundedSize is public.
+    o BoundedSize is public, as well as its sole constructor.
     o Added BoundedSize#getBasis, #getLowerBound, #getUpperBound.
-    o Added ConstantSize#getValue, #getUnit
+    o Added ConstantSize#getValue, #getUnit.
+    o Public ConstantSize(double, Unit) and ConstantSize(int, Unit).
+    o FormLayout.Measure is public.
+    o Added CellConstraints#rc, #rcw, #rchw
     
     
 BUGS FIXED
@@ -44,7 +47,7 @@ BUGS FIXED
     
 OTHER CHANGES
 
-    o ...
+    o ANT build creates a Maven bundle.
     
     
 ---------------------------------------------------------------------------
