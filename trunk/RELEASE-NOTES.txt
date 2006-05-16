@@ -49,6 +49,7 @@ BUGS FIXED
 OTHER CHANGES
 
     o ANT build creates a Maven bundle.
+    o Improved DefaultComponentFactory#createSeparator(JLabel) docs.
     
     
 ---------------------------------------------------------------------------
