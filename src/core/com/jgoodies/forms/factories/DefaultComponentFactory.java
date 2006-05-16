@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.Utilities;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public final class DefaultComponentFactory implements ComponentFactory {
@@ -199,19 +199,30 @@ public final class DefaultComponentFactory implements ComponentFactory {
      * 
      * @param label       the title label component
      * @return a separator with title label
-     * @throws NullPointerException if the label is <code>null</code> 
+     * 
+     * @throws NullPointerException       if the label is <code>null</code> 
+     * @throws IllegalArgumentException   if the label's horizontal alignment
+     *      is not one of: <code>SwingConstants.LEFT</code>,
+     *      <code>SwingConstants.CENTER</code>, 
+     *      <code>SwingConstants.RIGHT</code>.
      * 
      * @since 1.0.6
      */
     public JComponent createSeparator(JLabel label) {
         if (label == null)
             throw new NullPointerException("The label must not be null.");
+        int horizontalAlignment = label.getHorizontalAlignment();
+        if (   (horizontalAlignment != SwingConstants.LEFT)
+            && (horizontalAlignment != SwingConstants.CENTER)
+            && (horizontalAlignment != SwingConstants.RIGHT)) 
+            throw new IllegalArgumentException("The label's horizontal alignment" 
+                    + " must be one of: LEFT, CENTER, RIGHT.");
 
         JPanel panel = new JPanel(new TitledSeparatorLayout(!Utilities.isLafAqua()));
         panel.setOpaque(false);
         panel.add(label);
         panel.add(new JSeparator());
-        if (label.getHorizontalAlignment() == SwingConstants.CENTER) {
+        if (horizontalAlignment == SwingConstants.CENTER) {
             panel.add(new JSeparator());
         }
         return panel;
