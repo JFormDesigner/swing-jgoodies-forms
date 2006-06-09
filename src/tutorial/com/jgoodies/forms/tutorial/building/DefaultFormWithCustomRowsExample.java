@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * of font baselines and the height of the custom row. 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see    DefaultFormBuilder
  * @see    DefaultFormWithCustomAreasExample
@@ -109,9 +109,8 @@ public final class DefaultFormWithCustomRowsExample {
     public JComponent buildPanel() {
         initComponents();
 
-        FormLayout layout = new FormLayout(
-                "right:pref, 3dlu, min:grow", 
-                "");
+        // Column specs only, rows will be added dynamically.
+        FormLayout layout = new FormLayout("right:pref, 3dlu, min:grow");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.setDefaultDialogBorder();
         builder.setRowGroupingEnabled(true);
