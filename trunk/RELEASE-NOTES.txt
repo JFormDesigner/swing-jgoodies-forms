@@ -27,8 +27,13 @@ INTRODUCTION
     
 CHANGES THAT AFFECT THE COMPATIBILITY
 
-    o ...
-      
+    o Removed deprecated builder constructors:
+          AbstractFormBuilder(Container, FormLayout)
+          PanelBuilder(JPanel, FormLayout)
+          I15dPanelBuilder(JPanel, FormLayout, ResourceBundle)
+          DefaultFormBuilder(JPanel, FormLayout)
+          DefaultFormBuilder(JPanel, FormLayout, ResourceBundle)
+          
       
 NEW FEATURES
 
@@ -50,6 +55,7 @@ OTHER CHANGES
 
     o ANT build creates a Maven bundle.
     o Improved DefaultComponentFactory#createSeparator(JLabel) docs.
+    o Slightly improved the DefaultFormBuilder tutorial examples.
     
     
 ---------------------------------------------------------------------------
