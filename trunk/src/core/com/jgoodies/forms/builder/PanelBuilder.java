@@ -87,7 +87,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -105,7 +105,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an instance of <code>PanelBuilder</code> for the given
+     * Constructs a <code>PanelBuilder</code> for the given
      * layout. Uses an instance of <code>JPanel</code> as layout container
      * with the given layout as layout manager.
      * 
@@ -116,7 +116,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
     /**
-     * Constructs an instance of <code>PanelBuilder</code> for the given
+     * Constructs a <code>PanelBuilder</code> for the given
      * FormLayout and layout container.
      * 
      * @param layout  the FormLayout to use
@@ -125,22 +125,6 @@ public class PanelBuilder extends AbstractFormBuilder {
     public PanelBuilder(FormLayout layout, JPanel panel){        
         super(layout, panel);
     }
-    
-
-    /**
-     * Constructs an instance of <code>PanelBuilder</code> for the given
-     * panel and layout.
-     * 
-     * @param panel   the layout container to build on
-     * @param layout  the form layout to use
-     * 
-     * @deprecated Replaced by {@link #PanelBuilder(FormLayout, JPanel)}.
-     */
-    public PanelBuilder(JPanel panel, FormLayout layout){        
-        super(layout, panel);
-    }
-    
-
     
 
     // Accessors ************************************************************

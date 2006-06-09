@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @since 1.0.3
  * 
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -250,28 +250,30 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
+     * Constructs a <code>DefaultFormBuilder</code> for the given
      * layout.
      * 
      * @param layout	the <code>FormLayout</code> to be used
      */    
     public DefaultFormBuilder(FormLayout layout) {
-        this(new JPanel(null), layout);
+        this(layout, new JPanel(null));
     }
     
+    
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
-     * panel and layout.
+     * Constructs a <code>DefaultFormBuilder</code> for the given
+     * layout and panel.
      * 
      * @param layout    the <code>FormLayout</code> to be used
      * @param panel     the layout container
      */    
     public DefaultFormBuilder(FormLayout layout, JPanel panel) {
-        this(panel, layout, null);
+        this(layout, null, panel);
     }
     
+    
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
+     * Constructs a <code>DefaultFormBuilder</code> for the given
      * layout and resource bundle.
      * 
      * @param layout    the <code>FormLayout</code> to be used
@@ -279,51 +281,23 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * strings
      */    
     public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle) {
-        this(new JPanel(null), layout, bundle);
+        this(layout, bundle, new JPanel(null));
     }
     
+    
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
-     * panel, layout and resource bundle.
+     * Constructs a <code>DefaultFormBuilder</code> for the given
+     * layout, resource bundle, and panel.
      * 
      * @param layout    the <code>FormLayout</code> to be used
      * @param panel     the layout container
      * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
-     * strings
+     *     strings
      */    
     public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle, JPanel panel) {
         super(layout, bundle, panel);
     }
 
-    
-    /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
-     * panel and layout.
-     * 
-     * @param panel     the layout container
-     * @param layout    the <code>FormLayout</code> to be used
-     * 
-     * @deprecated Replaced by {@link #DefaultFormBuilder(FormLayout, JPanel)}.
-     */    
-    public DefaultFormBuilder(JPanel panel, FormLayout layout) {
-        this(layout, null, panel);
-    }
-    
-    /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
-     * panel, layout and resource bundle.
-     * 
-     * @param panel     the layout container
-     * @param layout    the <code>FormLayout</code> to be used
-     * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
-     * strings
-     * 
-     * @deprecated Replaced by {@link #DefaultFormBuilder(FormLayout, ResourceBundle, JPanel)}.
-     */    
-    public DefaultFormBuilder(JPanel panel, FormLayout layout, ResourceBundle bundle) {
-        super(layout, bundle, panel);
-    }
-    
     
     // Settings Gap Sizes ***************************************************
 
