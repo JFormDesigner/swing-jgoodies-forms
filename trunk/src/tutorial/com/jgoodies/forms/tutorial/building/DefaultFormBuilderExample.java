@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * rows before the panel is filled with components. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  * 
  * @see     DefaultFormBuilder
  * @see     PlainExample
@@ -137,10 +137,10 @@ public final class DefaultFormBuilderExample {
     public JComponent buildPanel() {
         initComponents();
 
+        // Column specs only, rows will be added dynamically.
         FormLayout layout = new FormLayout(
                 "right:max(40dlu;pref), 3dlu, 70dlu, 7dlu, "
-              + "right:max(40dlu;pref), 3dlu, 70dlu",
-                "");
+              + "right:max(40dlu;pref), 3dlu, 70dlu"); 
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.setDefaultDialogBorder();
 

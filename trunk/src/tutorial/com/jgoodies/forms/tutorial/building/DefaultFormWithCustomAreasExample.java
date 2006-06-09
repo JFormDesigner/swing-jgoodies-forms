@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and the text area. 
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  * 
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
@@ -90,9 +90,8 @@ public final class DefaultFormWithCustomAreasExample {
     
     
     private DefaultFormBuilder buildPanelHeader() {
-        FormLayout layout = new FormLayout(
-                "right:pref, 3dlu, min:grow", 
-                "");
+        // Column specs only, rows will be added dynamically.
+        FormLayout layout = new FormLayout("right:pref, 3dlu, min:grow");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.setDefaultDialogBorder();
         builder.setRowGroupingEnabled(true);
