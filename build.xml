@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.18 2006-05-05 12:10:10 karsten Exp $
+   $Id: build.xml,v 1.19 2006-06-16 19:57:04 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -9,11 +9,11 @@
      ant <target>
    with one of the following targets:
    
-     clean          removes temporary files and directories
-     compile        compiles the framework, extras, tutorial and tests
-     javadoc        creates the API documentation
-     test           compiles and runs the unit tests
-     jar            creates a library jar
+     clean               removes temporary files and directories
+     compile             compiles the core, extras, tutorial and tests
+     javadoc             creates the API documentation
+     test                compiles and runs the unit tests
+     jar                 creates a library jar
      create-dist-dir     creates a distribution tree: docs, sources, jar
      create-dist-zip     creates a zipped distribution
      create-maven-bundle creates a Maven bundle
