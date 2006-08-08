@@ -143,7 +143,7 @@ import java.util.*;
  * of the Forms' issue tracker where you can track the progress.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -321,6 +321,21 @@ public final class FormLayout implements LayoutManager2, Serializable {
     }
        
     
+    /**
+     * Constructs a FormLayout using the given column specifications.
+     * The constructed layout has no rows; these must be added 
+     * before components can be added to the layout container.
+     * 
+     * @param colSpecs  an array of column specifications.
+     * @throws NullPointerException if colSpecs is null
+     * 
+     * @since 1.1
+     */
+    public FormLayout(ColumnSpec[] colSpecs) {
+        this(colSpecs, new RowSpec[]{});
+    }
+    
+        
     /**
      * Constructs a FormLayout using the given column and row specifications.
      * 
