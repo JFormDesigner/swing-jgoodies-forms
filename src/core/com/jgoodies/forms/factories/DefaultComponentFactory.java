@@ -50,10 +50,9 @@ import com.jgoodies.forms.util.Utilities;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
-
-public final class DefaultComponentFactory implements ComponentFactory {
+public class DefaultComponentFactory implements ComponentFactory {
     
     /**
      * Holds the single instance of this class.
@@ -70,10 +69,6 @@ public final class DefaultComponentFactory implements ComponentFactory {
         
     // Instance *************************************************************
         
-    private DefaultComponentFactory() {
-        // Suppresses default constructor, ensuring non-instantiability.
-    }
-    
     /**
      * Returns the sole instance of this factory class. 
      * 
