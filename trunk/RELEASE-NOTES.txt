@@ -43,6 +43,8 @@ NEW FEATURES
     o Public ConstantSize(double, Unit) and ConstantSize(int, Unit).
     o FormLayout.Measure is public.
     o Added CellConstraints#rc, #rcw, #rchw
+    o DefaultComponentFactory is non-final.
+    o Add the constructor FormLayout(ColumnSpec[])
     
     
 BUGS FIXED
