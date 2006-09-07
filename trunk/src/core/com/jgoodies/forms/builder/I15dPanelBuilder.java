@@ -56,7 +56,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @since 1.0.3
  * 
  * @see	ResourceBundle
@@ -218,7 +218,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      * @param encodedConstraints  a string representation for the constraints
      * @return the added title label
      */
-    public final JLabel add15dTitle(String resourceKey, String encodedConstraints) {
+    public final JLabel addI15dTitle(String resourceKey, String encodedConstraints) {
         return addI15dTitle(resourceKey, new CellConstraints(encodedConstraints));
     }
     
