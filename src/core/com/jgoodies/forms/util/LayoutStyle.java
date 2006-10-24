@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -96,7 +96,7 @@ public abstract class LayoutStyle {
      * 
      * @param key   the name of the system property
      * @return the system property's String value, or a blank string 
-     *     if there's no such value, or a SecurityException has been catched
+     *     if there's no such value, or a SecurityException has been caught
      */
     private static String getSystemProperty(String key) {
         try {
