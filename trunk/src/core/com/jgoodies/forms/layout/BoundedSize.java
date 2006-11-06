@@ -34,14 +34,12 @@ import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
 
-import com.jgoodies.forms.layout.Sizes.ComponentSize;
-
 /**
  * Describes sizes that provide lower and upper bounds 
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * 
  * @see	Sizes
  * @see	ConstantSize
