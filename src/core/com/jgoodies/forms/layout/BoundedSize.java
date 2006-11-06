@@ -41,11 +41,10 @@ import com.jgoodies.forms.layout.Sizes.ComponentSize;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * 
  * @see	Sizes
  * @see	ConstantSize
- * @see	ComponentSize
  */
 public final class BoundedSize implements Size, Serializable {
     
