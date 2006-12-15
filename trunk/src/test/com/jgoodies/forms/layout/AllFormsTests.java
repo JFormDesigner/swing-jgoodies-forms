@@ -39,7 +39,7 @@ import junit.framework.TestSuite;
  * A test suite for all tests related to the JGoodies Forms framework.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public final class AllFormsTests {
     
@@ -51,17 +51,16 @@ public final class AllFormsTests {
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite("Test for com.jgoodies.forms.layout");
-        //$JUnit-BEGIN$
-        suite.addTest(new TestSuite(CellConstraintsTest.class));
-        suite.addTest(new TestSuite(ColumnSpecTest.class));
-        suite.addTest(new TestSuite(DefaultComponentFactoryTest.class));
-        suite.addTest(new TestSuite(FormLayoutTest.class));
-        suite.addTest(new TestSuite(FormLayoutGroupsTest.class));
-        suite.addTest(new TestSuite(RowSpecTest.class));
-        suite.addTest(new TestSuite(SerializationTest.class));
-        suite.addTest(new TestSuite(UnitConversionTest.class));
-        //$JUnit-END$
-        return suite;
+        return new TestSuite(new Class[]{
+                CellConstraintsTest.class,
+                ColumnSpecTest.class,
+                DefaultComponentFactoryTest.class,
+                FormLayoutTest.class,
+                FormLayoutGroupsTest.class,
+                RowSpecTest.class,
+                SerializationTest.class,
+                UnitConversionTest.class
+            }, 
+            "Tests for com.jgoodies.forms.layout");
     }
 }
