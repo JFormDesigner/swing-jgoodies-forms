@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -66,7 +66,7 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.  
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * 
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
