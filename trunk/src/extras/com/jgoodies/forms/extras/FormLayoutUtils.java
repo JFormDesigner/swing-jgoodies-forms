@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2006 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * your codebase.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public final class FormLayoutUtils {
@@ -175,7 +175,7 @@ public final class FormLayoutUtils {
      * otherwise the behavior of this iterator is unspecified and unsafe. 
      * 
      * @author Karsten
-     * @version $Revision: 1.4 $
+     * @version $Revision: 1.5 $
      * 
      * @see FormLayout
      * @see CellConstraints
