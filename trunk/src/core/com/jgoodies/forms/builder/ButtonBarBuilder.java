@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre> 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -167,7 +167,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
      * the current {@link LayoutStyle}'s button order. It is honored
      * only by builder methods that build sequences of button, for example
      * {@link #addGriddedButtons(JButton[])}, and ignored if you add
-     * individual button, for example using {@link #addGridded(JButton)}.
+     * individual button, for example using {@link #addGridded(JComponent)}.
      * 
      * @see #isLeftToRight()
      * @see #setLeftToRight(boolean)
