@@ -1,7 +1,7 @@
 
 
                            JGoodies Forms
-                         Version 1.1 Preview (May-04-2006)
+                         Version 1.1 Preview (Feb 5, 2007)
                             Release Notes
                         
 
@@ -49,9 +49,10 @@ NEW FEATURES
     
 BUGS FIXED
 
-    o Issue 38: Layout ignores default size if it is bounded.
+    o Issue 38: Layout ignores default size if it is bounded
     o Issue 46: DLU size not updated on look&feel changes
-    O Added a missing 'I' in I15dPanelBuilder#add15dTitle(String, String)
+    o Issue 54: Utilities#computeIsLafAqua uses name not id
+    o Added a missing 'I' in I15dPanelBuilder#add15dTitle(String, String)
         
     
 OTHER CHANGES
