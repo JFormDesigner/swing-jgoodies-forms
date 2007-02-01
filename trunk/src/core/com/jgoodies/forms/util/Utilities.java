@@ -33,7 +33,6 @@ package com.jgoodies.forms.util;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 /**
@@ -42,7 +41,7 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not. * 
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public final class Utilities {
     
@@ -93,13 +92,14 @@ public final class Utilities {
     
     
     /**
-     * Computes and answers whether the Aqua look&amp;feel is active.
+     * Computes and answers whether an Aqua look&amp;feel is active.
+     * This may be Apple's Aqua L&amp;f, or a sub-L&amp;f that
+     * uses the same ID, because it doesn't substantially change the look.
      * 
      * @return true if the current look&amp;feel is Aqua
      */
     private static boolean computeIsLafAqua() {
-        LookAndFeel laf = UIManager.getLookAndFeel();
-        return laf.getName().startsWith("Mac OS X Aqua");
+        return UIManager.getLookAndFeel().getID().equals("Aqua");
     }
 
     
