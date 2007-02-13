@@ -45,6 +45,7 @@ NEW FEATURES
     o Added CellConstraints#rc, #rcw, #rchw
     o DefaultComponentFactory is non-final.
     o Add the constructor FormLayout(ColumnSpec[])
+    o Added PanelBuilder#setBackground, #setOpaque.
     
     
 BUGS FIXED
