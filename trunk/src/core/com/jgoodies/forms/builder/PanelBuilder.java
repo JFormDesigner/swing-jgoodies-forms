@@ -30,6 +30,7 @@
 
 package com.jgoodies.forms.builder;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JComponent;
@@ -87,7 +88,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -139,12 +140,26 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
 
-    // Borders **************************************************************
+    // Frequently Used Panel Properties ***************************************
+    
+    /**
+     * Sets the panel's background color.
+     * 
+     * @param background  the color to set as new background
+     * 
+     * @see JComponent#setBackground(Color)
+     */
+    public final void setBackground(Color background) {
+        getPanel().setBackground(background);
+    }
+    
     
     /**
      * Sets the panel's border.
      * 
      * @param border	the border to set
+     * 
+     * @see JComponent#setBorder(Border)
      */
     public final void setBorder(Border border) {
         getPanel().setBorder(border);
@@ -158,6 +173,18 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public final void setDefaultDialogBorder() {
         setBorder(Borders.DIALOG_BORDER);
+    }
+    
+    
+    /**
+     * Sets the panel's opaque state.
+     * 
+     * @param b   true for opaque, false for non-opaque
+     * 
+     * @see JComponent#setOpaque(boolean)
+     */
+    public final void setOpaque(boolean b) {
+        getPanel().setOpaque(b);
     }
     
 
