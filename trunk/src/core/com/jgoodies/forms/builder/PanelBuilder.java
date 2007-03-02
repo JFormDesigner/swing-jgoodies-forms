@@ -88,7 +88,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  * 
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * 
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -148,6 +148,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param background  the color to set as new background
      * 
      * @see JComponent#setBackground(Color)
+     * 
+     * @since 1.1
      */
     public final void setBackground(Color background) {
         getPanel().setBackground(background);
@@ -182,6 +184,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param b   true for opaque, false for non-opaque
      * 
      * @see JComponent#setOpaque(boolean)
+     * 
+     * @since 1.1
      */
     public final void setOpaque(boolean b) {
         getPanel().setOpaque(b);
