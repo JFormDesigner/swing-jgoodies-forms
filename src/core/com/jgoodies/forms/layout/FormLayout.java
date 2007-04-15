@@ -143,7 +143,7 @@ import java.util.*;
  * of the Forms' issue tracker where you can track the progress.
  * 
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * 
  * @see	ColumnSpec
  * @see	RowSpec
@@ -1365,7 +1365,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * and rows iff the available space is less than the total preferred size
      * but more than the total minimum size.<p>
      * 
-     * Only columns and row that are specified to be compressable will be
+     * Only columns and rows that are specified to be compressable will be
      * affected. You can specify a column and row as compressable by
      * giving it the component size <tt>default</tt>.
      * 
@@ -1470,7 +1470,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
             
         // Compute the total weight.
         int count = formSpecs.size();
-        double totalWeight   = 0.0;
+        double totalWeight = 0.0;
         for (int i=0; i < count; i++) {
             FormSpec formSpec = (FormSpec) formSpecs.get(i);
             totalWeight += formSpec.getResizeWeight();
@@ -1483,7 +1483,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         int[] sizes = new int[count];
         
         double restSpace = totalFreeSpace;
-        int    roundedRestSpace = (int) totalFreeSpace;
+        int roundedRestSpace = (int) totalFreeSpace;
         for (int i=0; i < count; i++) {
             FormSpec formSpec = (FormSpec) formSpecs.get(i);
             double weight = formSpec.getResizeWeight();
