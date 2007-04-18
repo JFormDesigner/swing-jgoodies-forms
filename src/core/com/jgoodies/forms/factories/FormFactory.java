@@ -32,7 +32,6 @@ package com.jgoodies.forms.factories;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
-import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.LayoutStyle;
@@ -62,7 +61,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -320,138 +319,6 @@ public final class FormFactory {
     
     // Factory Methods ******************************************************
 
-    /**
-     * Creates and returns an instance of <code>FormLayout</code>
-     * to build forms with the specified number of major and minor columns.<p>
-     * 
-     * The layout will use default values for all gaps.<p>
-     * 
-     * <strong>This method will be removed from version 1.2.</strong>
-     *
-     * @param majorColumns     the number of used major columns
-     * @param minorColumns     the number of used minor columns
-     * @param labelColumnSpec  specifies the label columns
-     * @return a prepared <code>FormLayout</code>
-     * 
-     * @deprecated This method will be removed from the Forms 1.2
-     */
-    public static FormLayout createColumnLayout(
-            int majorColumns,
-            int minorColumns,
-            ColumnSpec labelColumnSpec) {
-        return createColumnLayout(
-            majorColumns,
-            minorColumns,
-            labelColumnSpec,
-            Sizes.DLUX14,
-            Sizes.DLUX2);
-    }
-
-    /**
-     * Creates and returns an instance of <code>FormLayout</code>
-     * to build forms with the given number of major columns. 
-     * Major columns consists of a label and a component section, where each 
-     * component section is divided into the given number of minor columns.<p>
-     * 
-     * The layout will use the specified gaps to separate major columns, 
-     * and the label and component section.<p>
-     * 
-     * <strong>This method will be removed from version 1.2.</strong>
-     * 
-     * @param majorColumns         the number of major columns
-     * @param minorColumns         the number of minor columns
-     * @param labelColumnSpec      specifies the label columns
-     * @param indent               an optional <code>ConstantSize</code> 
-     * that describes the width of the leading indent column
-     * @param minorColumnGap       a <code>ConstantSize</code> that describes
-     * the gap between minor columns
-     * @return a prepared <code>FormLayout</code>
-     * 
-     * @deprecated This method will be removed from the Forms 1.2
-     */
-    public static FormLayout createColumnLayout(
-            int majorColumns,
-            int minorColumns,
-            ColumnSpec labelColumnSpec,
-            ConstantSize indent,
-            ConstantSize minorColumnGap) {
-        return createColumnLayout(
-            majorColumns, 
-            minorColumns, 
-            labelColumnSpec, 
-            PREF_COLSPEC, 
-            indent, 
-            Sizes.DLUX14, 
-            minorColumnGap);
-    }
-                
-    /**
-     * Creates and returns an instance of <code>FormLayout</code>
-     * to build forms with the given number of major columns. 
-     * Major columns consists of a label and a component section, where each 
-     * component section is divided into the given number of minor columns.<p>
-     * 
-     * The layout will use the specified gaps to separate major columns, 
-     * minor columns, and the label and component section.<p>
-     * 
-     * <strong>This method will be removed from version 1.2.</strong>
-     *
-     * @param majorColumns         the number of major columns
-     * @param minorColumns         the number of minor columns
-     * @param labelColumnSpec      specifies the label columns
-     * @param componentColumnSpec  specifies the label columns
-     * @param indent               an optional <code>ConstantSize</code> 
-     * that describes the width of the leading indent column
-     * @param majorColumnGap       a <code>ConstantSize</code> that describes
-     * the gap between major columns
-     * @param minorColumnGap       a <code>ConstantSize</code> that describes
-     * the gap between minor columns
-     * @return a prepared <code>FormLayout</code>
-     * 
-     * @deprecated This method will be removed from the Forms 1.2
-     */
-    public static FormLayout createColumnLayout(
-            int majorColumns,
-            int minorColumns,
-            ColumnSpec labelColumnSpec,
-            ColumnSpec componentColumnSpec,
-            ConstantSize indent,
-            ConstantSize majorColumnGap,
-            ConstantSize minorColumnGap) {
-                
-        ColumnSpec majorGapColSpec = createGapColumnSpec(majorColumnGap);
-        ColumnSpec minorGapColSpec = createGapColumnSpec(minorColumnGap);
-        FormLayout layout = new FormLayout(new ColumnSpec[]{}, new RowSpec[]{});
-
-        // Add the optional leading indent.
-        if (indent != null) { 
-            layout.appendColumn(createGapColumnSpec(indent));
-        }
-        for (int i = 0; i < majorColumns; i++) {
-            // Add the optional label column with gap.
-            if (labelColumnSpec != null) {
-                layout.appendColumn(labelColumnSpec);
-                layout.appendColumn(RELATED_GAP_COLSPEC);
-            }
-            // Add the minor columns with separating gaps.
-            for (int j = 0; j < minorColumns; j++) {
-                layout.appendColumn(componentColumnSpec);
-                layout.addGroupedColumn(layout.getColumnCount());
-                if (j < minorColumns - 1) {
-                    layout.appendColumn(minorGapColSpec);
-                }
-            }
-            // Add a gap between major columns.
-            if (i < majorColumns - 1) { 
-                layout.appendColumn(majorGapColSpec); 
-            }
-        }
-        return layout;
-    }
-
-    
-    // Helper Code **********************************************************
-    
     /**
      * Creates and returns a {@link ColumnSpec} that represents a gap with the
      * specified {@link ConstantSize}.
