@@ -1,28 +1,30 @@
 
 
                            JGoodies Forms
-                         Version 1.1 Preview (Feb 5, 2007)
+                           Version 1.1.0 RC
                             Release Notes
                         
 
 INTRODUCTION
 
-    This is an early preview of the upcoming Forms version 1.1.
-    It ...
+    This update fixes minor bugs and comes with a few API changes.
+    It is binary incompatible with previous versions of the Forms,
+    however the API changes won't affect typical application code.
     
-    NOTE: THE CODE IS MUCH MORE "RAW" THAN OTHER RELEASES
-    THAT YOU MAY HAVE DOWNLOADED FROM JGOODIES IN THE PAST!
-    It is an engineering build that has seen minimal testing; 
-    it may lack functions and may contain known bugs in some areas. 
+    This version is primarily intended to deliver the API changes
+    and tiny improvements that have been made since version 1.0.7.
+    I've decided to make smaller steps, and to release updates more 
+    frequently. On the other hand, some changes planned for 1.1 
+    have been deferred to future versions.
     
-    The topics for the 1.1 release are:
-    1) Bug fixing - even if the fix affects the layout.
-    2) API clarification and API extensions.
-    3) Improved support for visual builders. 
-    4) Move stable extra sources to the library core.
-    5) Remove rarely used classes.  
-    6) Extend the tutorial.
-    7) ... 
+    The topics for the next releases are:
+    1) API clarification and API extensions.
+    2) Improved support for visual builders. 
+    3) Move stable extra sources to the library core.
+    4) Remove rarely used classes.  
+    5) Extend the tutorial.
+    6) Bug fixing - even if the fix affects the layout.
+    7) Move to Java 5.
     
     
 CHANGES THAT AFFECT THE COMPATIBILITY
@@ -37,15 +39,19 @@ CHANGES THAT AFFECT THE COMPATIBILITY
       
 NEW FEATURES
 
+    o Added PanelBuilder#setBackground and #setOpaque.
+    o Added AbstractI15dPanelBuilder to reduce the effort required
+      to build internationalized builders for ResourceMaps.
+    o Added a debug feature for broken localizations, 
+      see the class comment in AbstractI15dPanelBuilder.
+    o Added CellConstraints#rc, #rcw, #rchw
+    o Added the constructor FormLayout(ColumnSpec[])
+    o DefaultComponentFactory is non-final.
     o BoundedSize is public, as well as its sole constructor.
     o Added BoundedSize#getBasis, #getLowerBound, #getUpperBound.
     o Added ConstantSize#getValue, #getUnit.
     o Public ConstantSize(double, Unit) and ConstantSize(int, Unit).
     o FormLayout.Measure is public.
-    o Added CellConstraints#rc, #rcw, #rchw
-    o DefaultComponentFactory is non-final.
-    o Add the constructor FormLayout(ColumnSpec[])
-    o Added PanelBuilder#setBackground, #setOpaque.
     
     
 BUGS FIXED
@@ -61,6 +67,10 @@ OTHER CHANGES
     o ANT build creates a Maven bundle.
     o Improved DefaultComponentFactory#createSeparator(JLabel) docs.
     o Slightly improved the DefaultFormBuilder tutorial examples.
+    o Source code improvements.
+    o Marked the FormFactory#createColumnLayout methods as deprecated.
+      These will be removed from version 1.2:
+      
     
     
 ---------------------------------------------------------------------------
@@ -83,11 +93,6 @@ INTRODUCTION
 BUGS FIXED
 
     o Issue 37: String encodings parser fails in Turkish locale.
-    
-    
-KNOWN LAYOUT BUGS
-
-    o Issue 38: Layout ignores default size if it is bounded.
     
     
 DISTRIBUTION CHANGES
