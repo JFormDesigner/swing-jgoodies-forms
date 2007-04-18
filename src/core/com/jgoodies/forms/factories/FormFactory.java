@@ -62,7 +62,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * 
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -326,12 +326,14 @@ public final class FormFactory {
      * 
      * The layout will use default values for all gaps.<p>
      * 
-     * <strong>This method may be removed from a future version.</strong>
+     * <strong>This method will be removed from version 1.2.</strong>
      *
      * @param majorColumns     the number of used major columns
      * @param minorColumns     the number of used minor columns
      * @param labelColumnSpec  specifies the label columns
      * @return a prepared <code>FormLayout</code>
+     * 
+     * @deprecated This method will be removed from the Forms 1.2
      */
     public static FormLayout createColumnLayout(
             int majorColumns,
@@ -354,7 +356,7 @@ public final class FormFactory {
      * The layout will use the specified gaps to separate major columns, 
      * and the label and component section.<p>
      * 
-     * <strong>This method may be removed from a future version.</strong>
+     * <strong>This method will be removed from version 1.2.</strong>
      * 
      * @param majorColumns         the number of major columns
      * @param minorColumns         the number of minor columns
@@ -364,6 +366,8 @@ public final class FormFactory {
      * @param minorColumnGap       a <code>ConstantSize</code> that describes
      * the gap between minor columns
      * @return a prepared <code>FormLayout</code>
+     * 
+     * @deprecated This method will be removed from the Forms 1.2
      */
     public static FormLayout createColumnLayout(
             int majorColumns,
@@ -390,7 +394,7 @@ public final class FormFactory {
      * The layout will use the specified gaps to separate major columns, 
      * minor columns, and the label and component section.<p>
      * 
-     * <strong>This method may be removed from a future version.</strong>
+     * <strong>This method will be removed from version 1.2.</strong>
      *
      * @param majorColumns         the number of major columns
      * @param minorColumns         the number of minor columns
@@ -403,6 +407,8 @@ public final class FormFactory {
      * @param minorColumnGap       a <code>ConstantSize</code> that describes
      * the gap between minor columns
      * @return a prepared <code>FormLayout</code>
+     * 
+     * @deprecated This method will be removed from the Forms 1.2
      */
     public static FormLayout createColumnLayout(
             int majorColumns,
