@@ -30,15 +30,11 @@
 
 package com.jgoodies.forms.builder;
 
-import java.awt.Component;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -56,12 +52,12 @@ import com.jgoodies.forms.layout.FormLayout;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  * 
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @since 1.0.3
  * 
  * @see	ResourceBundle
  */
-public class I15dPanelBuilder extends PanelBuilder {
+public class I15dPanelBuilder extends AbstractI15dPanelBuilder {
     
     /** 
      * Holds the <code>ResourceBundle</code> used to lookup internationalized
@@ -73,7 +69,7 @@ public class I15dPanelBuilder extends PanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs a<code>I15dPanelBuilder</code> for the given
+     * Constructs an <code>I15dPanelBuilder</code> for the given
      * layout and resource bundle. Uses an instance of <code>JPanel</code> 
      * as layout container.
      * 
@@ -86,7 +82,7 @@ public class I15dPanelBuilder extends PanelBuilder {
 
     
     /**
-     * Constructs a<code>I15dPanelBuilder</code> 
+     * Constructs an <code>I15dPanelBuilder</code> 
      * for the given FormLayout, resource bundle, and layout container.
      * 
      * @param layout  the <code>FormLayout</code> used to layout the container
@@ -99,131 +95,7 @@ public class I15dPanelBuilder extends PanelBuilder {
     }
 
 
-    // Adding Labels and Separators *****************************************
-    
-    /**
-     * Adds an internationalized (i15d) textual label to the form using the
-     * specified constraints.
-     * 
-     * @param resourceKey	the resource key for the label's text 
-     * @param constraints	the label's cell constraints
-     * @return the added label
-     */
-    public final JLabel addI15dLabel(String resourceKey, CellConstraints constraints) {
-        return addLabel(getI15dString(resourceKey), constraints);
-    }
-
-    /**
-     * Adds an internationalized (i15d) textual label to the form using the
-     * specified constraints.
-     * 
-     * @param resourceKey         the resource key for the label's text
-     * @param encodedConstraints  a string representation for the constraints
-     * @return the added label
-     */
-    public final JLabel addI15dLabel(String resourceKey, String encodedConstraints) {
-        return addI15dLabel(resourceKey, new CellConstraints(encodedConstraints));
-    }
-    
-    /**
-     * Adds an internationalized (i15d) label and component to the panel using 
-     * the given cell constraints. Sets the label as <i>the</i> component label 
-     * using {@link JLabel#setLabelFor(java.awt.Component)}.<p>
-     * 
-     * <strong>Note:</strong> The {@link CellConstraints} objects for the label 
-     * and the component must be different. Cell constraints are implicitly 
-     * cloned by the <code>FormLayout</code> when added to the container. 
-     * However, in this case you may be tempted to reuse a 
-     * <code>CellConstraints</code> object in the same way as with many other 
-     * builder methods that require a single <code>CellConstraints</code> 
-     * parameter. 
-     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code> 
-     * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy***(...)</code> overrides
-     * the settings performed in the first invocation before the object
-     * is cloned by the <code>FormLayout</code>.<p>
-     * 
-     * <strong>Wrong:</strong><pre>
-     * builder.add("name.key", 
-     *             cc.xy(1, 7),         // will be modified by the code below
-     *             nameField, 
-     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
-     *            );
-     * </pre>
-     * <strong>Correct:</strong><pre>
-     * builder.add("name.key", 
-     *             cc.xy(1, 7).clone(), // cloned before the next modification 
-     *             nameField, 
-     *             cc.xy(3, 7)          // sets this instance to (3, 7)
-     *            );
-     * </pre>
-     * 
-     * @param resourceKey           the resource key for the label
-     * @param labelConstraints      the label's cell constraints
-     * @param component             the component to add
-     * @param componentConstraints  the component's cell constraints
-     * @return the added label
-     * @throws IllegalArgumentException if the same cell constraints instance
-     *     is used for the label and the component
-     * @see JLabel#setLabelFor(java.awt.Component)
-     */
-    public final JLabel addI15dLabel(
-            String resourceKey,   CellConstraints labelConstraints,
-			Component component,  CellConstraints componentConstraints) {
-        
-        return addLabel(getI15dString(resourceKey), labelConstraints,
-                        component, componentConstraints);
-    }
-    
-
-    /**
-     * Adds an internationalized (i15d) titled separator to the form using the
-     * specified constraints.
-     * 
-     * @param resourceKey  the resource key for the separator title
-     * @param constraints  the separator's cell constraints
-     * @return the added titled separator
-     */
-    public final JComponent addI15dSeparator(String resourceKey, CellConstraints constraints) {
-        return addSeparator(getI15dString(resourceKey), constraints);
-    }
-    
-    /**
-     * Adds an internationalized (i15d)  titled separator to the form using
-     * the specified constraints.
-     * 
-     * @param resourceKey         the resource key for the separator titel
-     * @param encodedConstraints  a string representation for the constraints
-     * @return the added titled separator
-     */
-    public final JComponent addI15dSeparator(String resourceKey, String encodedConstraints) {
-        return addI15dSeparator(resourceKey, new CellConstraints(encodedConstraints));
-    }
-     
-    /**
-     * Adds a title to the form using the specified constraints.
-     * 
-     * @param resourceKey  the resource key for  the separator title
-     * @param constraints  the separator's cell constraints
-     * @return the added title label
-     */
-    public final JLabel addI15dTitle(String resourceKey, CellConstraints constraints) {
-        return addTitle(getI15dString(resourceKey), constraints);
-    }
-    
-    /**
-     * Adds a title to the form using the specified constraints.
-     * 
-     * @param resourceKey         the resource key for the separator titel
-     * @param encodedConstraints  a string representation for the constraints
-     * @return the added title label
-     */
-    public final JLabel addI15dTitle(String resourceKey, String encodedConstraints) {
-        return addI15dTitle(resourceKey, new CellConstraints(encodedConstraints));
-    }
-    
-    
-    // Helper Code **********************************************************
+    // Implementing Abstract Behavior *****************************************
     
     /**
      * Looks up and returns the internationalized (i15d) string for the given
