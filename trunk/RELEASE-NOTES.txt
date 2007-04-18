@@ -1,7 +1,7 @@
 
 
                            JGoodies Forms
-                           Version 1.1.0 RC
+                            Version 1.1.0
                             Release Notes
                         
 
@@ -69,7 +69,7 @@ OTHER CHANGES
     o Slightly improved the DefaultFormBuilder tutorial examples.
     o Source code improvements.
     o Marked the FormFactory#createColumnLayout methods as deprecated.
-      These will be removed from version 1.2:
+      These will be removed from version 1.2.
       
     
     
