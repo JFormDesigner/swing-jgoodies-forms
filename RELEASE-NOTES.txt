@@ -1,6 +1,60 @@
 
 
                            JGoodies Forms
+                          Version 1.2 Alpha
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This is an early preview of the upcoming JGoodies Forms 1.2.
+    It is binary incompatible with previous versions of the Forms,
+    however the API changes won't affect typical application code.
+    
+    NOTE: THE CODE IS MUCH MORE "RAW" THAN OTHER RELEASES
+    THAT YOU MAY HAVE DOWNLOADED FROM JGOODIES IN THE PAST!
+    It is an engineering build that has seen minimal testing; 
+    it lacks functions and documentation and may contain known bugs 
+    in some areas. 
+    
+    The topics for the this release are:
+    1) API clarification and API extensions.
+    2) Improved support for visual builders. 
+    3) Move stable extra sources to the library core.
+    4) Remove rarely used code.
+    
+    Topics for future release are:  
+    5) Extend the tutorial.
+    6) Bug fixing - even if the fix affects the layout.
+    7) Move to Java 5.
+    
+    
+CHANGES THAT AFFECT THE COMPATIBILITY
+
+    o Removed the deprecated FormFactory#createColumnLayout methods.
+          
+      
+NEW FEATURES
+
+    o ...
+    
+    
+BUGS FIXED
+
+    o ...
+        
+    
+OTHER CHANGES
+
+    o ...
+      
+    
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+                           JGoodies Forms
                             Version 1.1.0
                             Release Notes
                         
