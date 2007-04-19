@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre> 
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * 
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -250,7 +250,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
      * Sets a default border that has a gap in the bar's north.
      */
     public void setDefaultButtonBarGapBorder() {
-        getPanel().setBorder(Borders.BUTTON_BAR_GAP_BORDER);
+        setBorder(Borders.BUTTON_BAR_GAP_BORDER);
     }
     
     
