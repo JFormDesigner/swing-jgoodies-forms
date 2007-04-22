@@ -28,4 +28,7 @@
 		<tag>head</tag>
 		<url>https://forms.dev.java.net/source/browse/forms/</url>
 	</scm>
+	<dependencies>
+	<!-- This library doesn't depend on any other library. -->
+	<dependencies>
 </project>
