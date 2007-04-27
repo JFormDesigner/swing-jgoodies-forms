@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of JGoodies Karsten Lentzsch nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of JGoodies Karsten Lentzsch nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package com.jgoodies.forms.tutorial.basics;
@@ -40,11 +40,11 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the different FormLayout alignments.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public final class AlignmentExample {
 
-    
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
@@ -69,19 +69,19 @@ public final class AlignmentExample {
         tabbedPane.add("Vertical",   buildVerticalButtons());
         return tabbedPane;
     }
-    
-    
+
+
     private JComponent buildHorizontalButtons() {
         FormLayout layout = new FormLayout(
-            "left:pref, 15px, center:pref, 15px, right:pref, 15px, fill:pref, 15px, pref",   
-            "pref, 12px, pref, 4px, pref, 4px, pref, 4px, pref, 4px, pref"); 
-            
+            "left:pref, 15px, center:pref, 15px, right:pref, 15px, fill:pref, 15px, pref",
+            "pref, 12px, pref, 4px, pref, 4px, pref, 4px, pref, 4px, pref");
+
         // Create a panel that uses the layout.
         JPanel panel = new JPanel(layout);
 
         // Set a default border.
         panel.setBorder(Borders.DIALOG_BORDER);
-        
+
         // Create a reusable CellConstraints instance.
         CellConstraints cc = new CellConstraints();
 
@@ -123,19 +123,19 @@ public final class AlignmentExample {
 
         return panel;
     }
-    
-    
+
+
     private JComponent buildVerticalButtons() {
         FormLayout layout = new FormLayout(
-            "pref, 8dlu, pref, 4dlu, pref",   
-            "top:pref, 9dlu, center:pref, 9dlu, bottom:pref, 9dlu, fill:pref, 9dlu, pref"); 
-            
+            "pref, 8dlu, pref, 4dlu, pref",
+            "top:pref, 9dlu, center:pref, 9dlu, bottom:pref, 9dlu, fill:pref, 9dlu, pref");
+
         // Create a panel that uses the layout.
         JPanel panel = new JPanel(layout);
 
         // Set a default border.
         panel.setBorder(Borders.DIALOG_BORDER);
-        
+
         // Create a reusable CellConstraints instance.
         CellConstraints cc = new CellConstraints();
 
@@ -162,15 +162,15 @@ public final class AlignmentExample {
 
         return panel;
     }
-    
+
     private JButton createSmallButton() {
         return new JButton("<html>One</html>");
     }
-    
+
     private JButton createMediumButton() {
         return new JButton("<html>One<br>Two</html>");
     }
-    
-    
+
+
 }
 

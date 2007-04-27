@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of JGoodies Karsten Lentzsch nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of JGoodies Karsten Lentzsch nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package com.jgoodies.forms.tutorial.pitfalls;
@@ -50,10 +50,10 @@ import com.jgoodies.forms.layout.FormLayout;
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public final class GrowingTextAreaExample {
-    
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
@@ -68,34 +68,34 @@ public final class GrowingTextAreaExample {
         frame.pack();
         frame.setVisible(true);
     }
-    
-    
+
+
     public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
-        
-        String example1Text = 
+
+        String example1Text =
             "Here the layout uses a fixed initial size of 200 dlu. "
           + "The area's minimum and preferred sizes will be ignored. "
           + "And so, the area will grow and shrink.";
-      
-        tabbedPane.add("1", 
+
+        tabbedPane.add("1",
               buildTab("Fixed Size (Good)",
-                       "fill:200dlu:grow", 
+                       "fill:200dlu:grow",
                        createArea(example1Text, true, 0, null)));
-      
+
         String example2Text =
             "This text area has line wrapping disabled\n"
           + "and uses a hand-wrapped text (using '\\n').\n\n"
           + "Its minimum and preferred sizes are constant and so,\n"
           + "the area will grow but shrink down to its minimum size.";
-      
-        tabbedPane.add("2", 
+
+        tabbedPane.add("2",
               buildTab("Pref Size, Line Wrap Disabled (Good)",
-                       "fill:pref:grow", 
+                       "fill:pref:grow",
                        createArea(example2Text, false, 0, null)));
-      
-        String example3Text = 
+
+        String example3Text =
                   "This text area grows horizontally and will never shrink again. "
                 + "Since line wrapping is enabled, "
                 + "the area's preferred size is defined by its size. "
@@ -106,12 +106,12 @@ public final class GrowingTextAreaExample {
                 + "the new column width, and so the area won't shrink again.\n\n"
                 + "Even if you use a 'default' width the column won't shrink.";
 
-        tabbedPane.add("3", 
+        tabbedPane.add("3",
                 buildTab("Pref Size, Line Wrap Enabled (Never Shrinks)",
-                         "fill:pref:grow", 
+                         "fill:pref:grow",
                          createArea(example3Text, true, 0, null)));
-        
-        String example4Text = 
+
+        String example4Text =
             "This text area grows but never shrinks. "
             + "Since line wrapping is enabled, the area's "
             + "minimum and preferred sizes are defined by its size.\n\n"
@@ -122,23 +122,23 @@ public final class GrowingTextAreaExample {
             + "But the minimum size is like the preferred size determined "
             + "by the size previously set, and so, the column won't shrink.\n\n"
             + "A solution to this problem is to set a custom minimum size.";
-        
-        tabbedPane.add("4", 
+
+        tabbedPane.add("4",
                 buildTab("Default Size, Line Wrap Enabled (Never Shrinks)",
-                         "fill:default:grow", 
+                         "fill:default:grow",
                          createArea(example4Text, true, 0, null)));
-        
-        String example5Text = 
+
+        String example5Text =
             "This text area has uses a column width of 30 characters. "
             + "But that just affects the initial preferred and minimum size."
             + "The area grows and won't shrink again - just as in tabs 3 and 4.";
-        
-        tabbedPane.add("5", 
+
+        tabbedPane.add("5",
                 buildTab("Default Size, Line Wrap Enabled, Columns Set (Never Shrinks)",
-                         "fill:default:grow", 
+                         "fill:default:grow",
                          createArea(example5Text, true, 30, null)));
-        
-        String example6Text = 
+
+        String example6Text =
             "This text area grows and shrinks. "
             + "Since line wrapping is enabled, "
             + "the area's preferred size is defined by its size. "
@@ -148,19 +148,19 @@ public final class GrowingTextAreaExample {
             + "However, if the layout container shrinks, the layout can "
             + "shrink the column down to the area's minimum width, which is 100; "
             + "the minimum size is independent from the size previously set.";
-        
-        tabbedPane.add("6", 
+
+        tabbedPane.add("6",
                 buildTab("Default Size, Line Wrap Enabled, Min Size Set (Good)",
-                         "fill:default:grow", 
+                         "fill:default:grow",
                          createArea(example6Text, true, 0, new Dimension(100, 32))));
-        
+
         return tabbedPane;
     }
-    
-    
+
+
     private JTextArea createArea(
             String text,
-            boolean lineWrap, 
+            boolean lineWrap,
             int columns,
             Dimension minimumSize) {
         JTextArea area  = new JTextArea(text);
@@ -179,9 +179,9 @@ public final class GrowingTextAreaExample {
     private JComponent buildTab(String title, String columnSpec, JTextArea area) {
         JLabel columnSpecLabel = new JLabel(columnSpec);
         columnSpecLabel.setHorizontalAlignment(JLabel.CENTER);
-        
+
         FormLayout layout = new FormLayout(
-                columnSpec, 
+                columnSpec,
                 "pref, 9dlu, pref, 3dlu, fill:default:grow, 9dlu, pref");
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
@@ -193,16 +193,16 @@ public final class GrowingTextAreaExample {
 
         return builder.getPanel();
     }
-    
-    
+
+
     private JComponent buildInfoPanel(JTextArea area) {
         JLabel sizeLabel      = new JLabel();
         JLabel minSizeLabel   = new JLabel();
         JLabel prefSizeLabel  = new JLabel();
         JLabel lineWrapLabel  = new JLabel(area.getLineWrap() ? "enabled" : "disabled");
         JLabel customMinLabel = new JLabel(area.isMinimumSizeSet() ? "set" : "computed");
-        JLabel columnsLabel   = new JLabel(area.getColumns() == 0 
-                                            ? "not specified" 
+        JLabel columnsLabel   = new JLabel(area.getColumns() == 0
+                                            ? "not specified"
                                             : String.valueOf(area.getColumns()));
 
         area.addComponentListener(new SizeChangeHandler(
@@ -212,26 +212,26 @@ public final class GrowingTextAreaExample {
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.append("Size:",      sizeLabel);
         builder.append("Line wrap:", lineWrapLabel);
-        
+
         builder.append("Min size:",  minSizeLabel);
         builder.append("Min size:", customMinLabel);
-        
+
         builder.append("Pref size:", prefSizeLabel);
         builder.append("Columns:",   columnsLabel);
         return builder.getPanel();
     }
-    
-    
+
+
     /**
      * Listens to area size changes and writes the formatted sizes to the given labels.
      */
     private static final class SizeChangeHandler extends ComponentAdapter {
-        
+
         private final JTextArea area;
         private final JLabel    sizeLabel;
         private final JLabel    minSizeLabel;
         private final JLabel    prefSizeLabel;
-        
+
         private SizeChangeHandler(
                 JTextArea area,
                 JLabel sizeLabel,
@@ -242,20 +242,20 @@ public final class GrowingTextAreaExample {
             this.minSizeLabel = minSizeLabel;
             this.prefSizeLabel = prefSizeLabel;
         }
-        
+
         public void componentResized(ComponentEvent evt) {
             sizeLabel.setText(format(area.getSize()));
             minSizeLabel.setText(format(area.getMinimumSize()));
             prefSizeLabel.setText(format(area.getPreferredSize()));
         }
-        
+
         private String format(Dimension d) {
             return String.valueOf(d.width) + ", " + d.height;
         }
-        
+
     }
 
-    
-    
+
+
 }
 

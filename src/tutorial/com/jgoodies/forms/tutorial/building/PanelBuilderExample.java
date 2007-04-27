@@ -1,41 +1,36 @@
 /*
  * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
- *  o Neither the name of JGoodies Karsten Lentzsch nor the names of 
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ *  o Neither the name of JGoodies Karsten Lentzsch nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package com.jgoodies.forms.tutorial.building;
 
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -45,18 +40,18 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates a typical use of the FormLayout.
  * Columns and rows are specified before the panel is filled with
  * components, and the panel is filled with a PanelBuilder.<p>
- * 
+ *
  * Unlike the PlainExample, this implementation can delegate
  * the component creation for text labels and titled separators
  * to the builder.<p>
- * 
+ *
  * This panel building style is recommended for panels with
- * a medium number of rows and components. If the panel has more rows, 
+ * a medium number of rows and components. If the panel has more rows,
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
- * 
+ * @version $Revision: 1.14 $
+ *
  * @see     PanelBuilder
  * @see	RowCounterExample
  * @see	DynamicRowsExample
@@ -76,7 +71,7 @@ public final class PanelBuilderExample {
     private JTextField hullNumbersField;
     private JComboBox  projectTypeComboBox;
 
- 
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
@@ -91,7 +86,7 @@ public final class PanelBuilderExample {
         frame.pack();
         frame.setVisible(true);
     }
-    
+
 
     // Component Creation and Initialization **********************************
 
@@ -113,7 +108,7 @@ public final class PanelBuilderExample {
 
     /**
      * Creates and returns a combo box for the approval states.
-     * 
+     *
      * @return a combo box for the approval status
      */
     private JComboBox createApprovalStatusComboBox() {
@@ -123,7 +118,7 @@ public final class PanelBuilderExample {
 
     /**
      * Creates and returns a combo box for the project types.
-     * 
+     *
      * @return a combo box for the project type
      */
     private JComboBox createProjectTypeComboBox() {
@@ -136,7 +131,7 @@ public final class PanelBuilderExample {
 
     /**
      * Builds the pane.
-     * 
+     *
      * @return the built panel
      */
     public JComponent buildPanel() {
@@ -148,7 +143,7 @@ public final class PanelBuilderExample {
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, " +
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, " +
                 "p, 3dlu, p, 3dlu, p, 3dlu, p");
-                
+
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
 
@@ -169,7 +164,7 @@ public final class PanelBuilderExample {
         builder.add(referenceNoField,        cc.xy (3, 13));
         builder.addLabel("Status",           cc.xy (1, 15));
         builder.add(approvalStatusComboBox,  cc.xy (3, 15));
-        
+
         builder.addSeparator("Ship",         cc.xyw(1, 17, 7));
         builder.addLabel("Shipyard",         cc.xy (1, 19));
         builder.add(shipYardField,           cc.xyw(3, 19, 5));
@@ -179,8 +174,8 @@ public final class PanelBuilderExample {
         builder.add(hullNumbersField,        cc.xy (7, 21));
         builder.addLabel("Project Type",     cc.xy (1, 23));
         builder.add(projectTypeComboBox,     cc.xy (3, 23));
-        
+
         return builder.getPanel();
     }
-    
+
 }
