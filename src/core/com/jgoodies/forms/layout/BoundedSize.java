@@ -39,7 +39,7 @@ import java.util.List;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -54,12 +54,12 @@ public final class BoundedSize implements Size, Serializable {
     /**
      * Holds an optional lower bound.
      */
-    private Size lowerBound;
+    private final Size lowerBound;
 
     /**
      * Holds an optional upper bound.
      */
-    private Size upperBound;
+    private final Size upperBound;
 
 
     // Instance Creation ****************************************************

@@ -64,7 +64,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -114,7 +114,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @see #removePropertyChangeListener(PropertyChangeListener)
      * @see #removePropertyChangeListener(String, PropertyChangeListener)
      */
-    private PropertyChangeSupport changeSupport;
+    private final PropertyChangeSupport changeSupport;
 
 
     // Cached *****************************************************************
@@ -131,7 +131,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * This is a second-level cache, that stores dialog base units
      * for a <code>FontMetrics</code> object.
      */
-    private Map cachedDialogBaseUnits = new HashMap();
+    private final Map cachedDialogBaseUnits = new HashMap();
 
     /**
      * Holds a cached default dialog font that is used as fallback,

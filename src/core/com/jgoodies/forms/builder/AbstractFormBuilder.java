@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -77,7 +77,7 @@ public abstract class AbstractFormBuilder {
      * specify the location, extent and alignments of the component to be
      * added next.
      */
-    private CellConstraints currentCellConstraints;
+    private final CellConstraints currentCellConstraints;
 
     /**
      * Specifies if we fill the grid from left to right or right to left.
