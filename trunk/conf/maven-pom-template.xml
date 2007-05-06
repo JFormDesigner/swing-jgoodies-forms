@@ -30,5 +30,5 @@
 	</scm>
 	<dependencies>
 	<!-- This library doesn't depend on any other library. -->
-	<dependencies>
+	</dependencies>
 </project>
