@@ -2,6 +2,13 @@
 JGoodies Forms(tm) To-Do
 ========================
 
+o SpecMap maps names to row and column specification;
+  has a parent SpecMap. Is used per FormLayout instance.
+  There's a global default SpecMap that is used as default,
+  if a FormLayout is constructed without an individual SpecMap.
+  SpecMap#getRowSpec(String), #getColumnSpec(String)
+  may honor the Locale, platform, and custom settings.
+
 o Add a reference to the explicit-tablelayout project;
   update the whitepaper to mention this layout system.
   
