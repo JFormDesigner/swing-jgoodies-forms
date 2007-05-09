@@ -43,9 +43,8 @@ import junit.framework.TestCase;
  * Tests the unit conversion used by the Forms layout system.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
-
 public final class UnitConversionTest extends TestCase {
 
     /**

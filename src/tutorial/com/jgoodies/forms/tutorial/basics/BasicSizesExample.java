@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public final class BasicSizesExample {
 
@@ -182,4 +182,3 @@ public final class BasicSizesExample {
 
 
 }
-

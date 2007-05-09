@@ -139,7 +139,7 @@ import java.util.List;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -995,7 +995,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * the component would like to be aligned relative to other
      * components.  The value should be a number between 0 and 1
      * where 0 represents alignment along the origin, 1 is aligned
-     * the furthest away from the origin, 0.5 is centered, etc.
+     * the farthest away from the origin, 0.5 is centered, etc.
      *
      * @param parent   the parent container
      * @return the value <code>0.5f</code> to indicate center alignment
@@ -1009,7 +1009,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * the component would like to be aligned relative to other
      * components.  The value should be a number between 0 and 1
      * where 0 represents alignment along the origin, 1 is aligned
-     * the furthest away from the origin, 0.5 is centered, etc.
+     * the farthest away from the origin, 0.5 is centered, etc.
      *
      * @param parent  the parent container
      * @return the value <code>0.5f</code> to indicate center alignment
@@ -1032,8 +1032,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
     /**
      * Lays out the specified container using this form layout.  This method
-     * reshapes components in the specified container in order to satisfy the
-     * contraints of this <code>FormLayout</code> object.<p>
+     * reshapes components in the specified container in order to satisfy
+     * the constraints of this <code>FormLayout</code> object.<p>
      *
      * Most applications do not call this method directly.<p>
      *
@@ -1094,8 +1094,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * is put into the column's or row's component list.<p>
      *
      * As of the Forms version 1.0.x invisible components are not taken
-     * into account when the container is layed out. See the TODO in the
-     * JavaDoc class commment for details on this issue.
+     * into account when the container is laid out. See the TODO in the
+     * JavaDoc class comment for details on this issue.
      */
     private void initializeColAndRowComponentLists() {
         colComponents = new LinkedList[getColumnCount()];
@@ -1220,8 +1220,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param offset     		the offset from left or top margin
      * @param formSpecs     	the column or row specs, resp.
      * @param componentLists	the components list for each col/row
-     * @param minMeasure		the measure used to determin min sizes
-     * @param prefMeasure		the measure used to determin pre sizes
+     * @param minMeasure		the measure used to determine min sizes
+     * @param prefMeasure		the measure used to determine pre sizes
      * @param groupIndices		the group specification
      * @return an int array with the origins
      */
@@ -1325,14 +1325,14 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
     /**
      * Computes and returns the sizes for the given form specs, component
-     * lists and measures fot minimum, preferred, and default size.
+     * lists and measures for minimum, preferred, and default size.
      *
      * @param container         the layout container
      * @param formSpecs         the column or row specs, resp.
      * @param componentLists    the components list for each col/row
-     * @param minMeasure        the measure used to determin min sizes
-     * @param prefMeasure       the measure used to determin pre sizes
-     * @param defaultMeasure    the measure used to determin default sizes
+     * @param minMeasure        the measure used to determine min sizes
+     * @param prefMeasure       the measure used to determine pre sizes
+     * @param defaultMeasure    the measure used to determine default sizes
      * @return the column or row sizes
      */
     private int[] maximumSizes(Container container,
@@ -1361,8 +1361,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * and rows iff the available space is less than the total preferred size
      * but more than the total minimum size.<p>
      *
-     * Only columns and rows that are specified to be compressable will be
-     * affected. You can specify a column and row as compressable by
+     * Only columns and rows that are specified to be compressible will be
+     * affected. You can specify a column and row as compressible by
      * giving it the component size <tt>default</tt>.
      *
      * @param formSpecs      the column or row specs to use

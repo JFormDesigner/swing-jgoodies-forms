@@ -58,7 +58,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see FormDebugPanel
  */
@@ -92,6 +92,7 @@ public final class FormDebugUtils {
         dumpConstraints(container);
         dumpGridBounds(container);
     }
+    
 
     /**
      * Dumps the layout's column specifications to the console.
@@ -244,6 +245,7 @@ public final class FormDebugUtils {
         System.out.println("}");
     }
 
+    
     /**
      * Computes and returns the layout's grid origins.
      *
@@ -259,4 +261,5 @@ public final class FormDebugUtils {
         return layout.getLayoutInfo(container);
     }
 
+    
 }

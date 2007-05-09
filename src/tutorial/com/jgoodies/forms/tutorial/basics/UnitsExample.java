@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public final class UnitsExample {
 
@@ -192,7 +192,6 @@ public final class UnitsExample {
     }
 
 
-
     // Component Creation *****************************************************
 
     private JComponent createTextArea(int rows, int cols) {
@@ -203,6 +202,7 @@ public final class UnitsExample {
                     ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
+    
     // Helper Code ************************************************************
 
     private JComponent buildHorizontalPanel(String width) {

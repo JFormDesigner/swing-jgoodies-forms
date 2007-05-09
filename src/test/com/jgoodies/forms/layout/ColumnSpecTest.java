@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -234,5 +234,6 @@ public final class ColumnSpecTest extends TestCase {
             // The expected behavior
         }
     }
+    
 
 }

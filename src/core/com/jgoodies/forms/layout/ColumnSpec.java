@@ -53,7 +53,7 @@ import java.util.StringTokenizer;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -180,4 +180,3 @@ public final class ColumnSpec extends FormSpec {
     }
 
 }
-

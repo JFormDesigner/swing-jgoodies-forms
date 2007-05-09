@@ -72,7 +72,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see ButtonBarBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -141,6 +141,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
         }
     }
 
+    
     /**
      * Adds a fixed size component.
      *
@@ -152,6 +153,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
         nextRow();
     }
 
+    
     /**
      * Adds a gridded component.
      *
@@ -165,6 +167,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
         nextRow();
     }
 
+    
     /**
      * Adds a glue that will be given the extra space,
      * if this box is larger than its preferred size.
@@ -174,6 +177,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
         nextRow();
     }
 
+    
     /**
      * Adds the standard gap for related components.
      */
@@ -182,6 +186,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
         nextRow();
     }
 
+    
     /**
      * Adds the standard gap for unrelated components.
      */
@@ -190,6 +195,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
         nextRow();
     }
 
+    
     /**
      * Adds a strut of a specified size.
      *

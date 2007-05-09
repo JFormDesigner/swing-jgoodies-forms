@@ -52,11 +52,10 @@ import java.util.StringTokenizer;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
-
 public final class RowSpec extends FormSpec {
 
 
@@ -171,4 +170,3 @@ public final class RowSpec extends FormSpec {
 
 
 }
-

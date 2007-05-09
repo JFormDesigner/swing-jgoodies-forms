@@ -39,15 +39,14 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
-
 final class WindowsLayoutStyle extends LayoutStyle {
 
     static final WindowsLayoutStyle INSTANCE = new WindowsLayoutStyle();
 
     private WindowsLayoutStyle() {
-        // Suppresses default constructor, ensuring non-instantiability.
+        // Suppresses default constructor, prevents instantiation.
     }
 
 
@@ -134,10 +133,11 @@ final class WindowsLayoutStyle extends LayoutStyle {
      * a tabbed pane.
      *
      * @return the horizontal margin for dialogs that consist of a tabbed pane
-     * @since 1.0.3
      *
      * @see #getTabbedDialogMarginY()
      * @see #getDialogMarginX()
+     * 
+     * @since 1.0.3
      */
     public ConstantSize getTabbedDialogMarginX() {
         return TABBED_DIALOG_MARGIN_X;
@@ -149,10 +149,11 @@ final class WindowsLayoutStyle extends LayoutStyle {
      * a tabbed pane.
      *
      * @return the vertical margin for dialogs that consist of a tabbed pane
-     * @since 1.0.3
      *
      * @see #getTabbedDialogMarginX()
      * @see #getDialogMarginY()
+     * 
+     * @since 1.0.3
      */
     public ConstantSize getTabbedDialogMarginY() {
         return TABBED_DIALOG_MARGIN_Y;
@@ -269,10 +270,11 @@ final class WindowsLayoutStyle extends LayoutStyle {
      * Returns a pad used to separate a button bar from a component.
      *
      * @return a vertical pad used to separate paragraphs
-     * @since 1.0.3
      *
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadY()
+     * 
+     * @since 1.0.3
      */
     public ConstantSize getButtonBarPad() {
         return BUTTON_BAR_PAD;
@@ -294,10 +296,11 @@ final class WindowsLayoutStyle extends LayoutStyle {
      * <em>Back, Next</em> or <em>Move Left, Move Right</em>.<p>
      *
      * @return true if buttons are typically ordered from left to right
-     * @since 1.0.3
      *
      * @see com.jgoodies.forms.builder.ButtonBarBuilder
      * @see com.jgoodies.forms.factories.ButtonBarFactory
+     * 
+     * @since 1.0.3
      */
     public boolean isLeftToRightButtonOrder() {
         return true;

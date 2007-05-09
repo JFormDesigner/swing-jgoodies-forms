@@ -45,7 +45,7 @@ import java.util.List;
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see	Sizes
  * @see	ConstantSize

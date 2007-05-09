@@ -39,7 +39,7 @@ import java.util.List;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see	Sizes
  * @see	ConstantSize

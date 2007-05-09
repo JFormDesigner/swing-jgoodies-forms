@@ -41,7 +41,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * form layouts. It makes form creation easier and more consistent.<p>
  *
  * <strong>I consider removing the <code>FormLayout</code> factory methods.
- * These seem to be less usefull and may lead to poor layout readability.
+ * These seem to be less useful and may lead to poor layout readability.
  * If you want to use these methods, you may consider copying them
  * to your codebase.</strong><p>
  *
@@ -61,7 +61,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * into 1, 2, 3 or 4 minor columns.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -69,14 +69,14 @@ import com.jgoodies.forms.util.LayoutStyle;
 public final class FormFactory {
 
     private FormFactory() {
-        // Suppresses default constructor, ensuring non-instantiability.
+        // Suppresses default constructor, prevents instantiation.
     }
 
 
     // Frequently used Column Specifications ********************************
 
     /**
-     * An unmodifyable <code>ColumnSpec</code> that determines its width by
+     * An unmodifiable <code>ColumnSpec</code> that determines its width by
      * computing the maximum of all column component minimum widths.
      *
      * @see #PREF_COLSPEC
@@ -87,7 +87,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifyable <code>ColumnSpec</code> that determines its width by
+     * An unmodifiable <code>ColumnSpec</code> that determines its width by
      * computing the maximum of all column component preferred widths.
      *
      * @see #MIN_COLSPEC
@@ -98,7 +98,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifyable <code>ColumnSpec</code> that determines its preferred
+     * An unmodifiable <code>ColumnSpec</code> that determines its preferred
      * width by computing the maximum of all column component preferred widths
      * and its minimum width by computing all column component minimum widths.<p>
      *
@@ -113,7 +113,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifyable <code>ColumnSpec</code> that has an initial width
+     * An unmodifiable <code>ColumnSpec</code> that has an initial width
      * of 0 pixels and that grows. Useful to describe <em>glue</em> columns
      * that fill the space between other columns.
      *
@@ -198,7 +198,7 @@ public final class FormFactory {
     // Frequently used Row Specifications ***********************************
 
     /**
-     * An unmodifyable <code>RowSpec</code> that determines its height by
+     * An unmodifiable <code>RowSpec</code> that determines its height by
      * computing the maximum of all column component minimum heights.
      *
      * @see #PREF_ROWSPEC
@@ -209,7 +209,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifyable <code>RowSpec</code> that determines its height by
+     * An unmodifiable <code>RowSpec</code> that determines its height by
      * computing the maximum of all column component preferred heights.
      *
      * @see #MIN_ROWSPEC
@@ -220,7 +220,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifyable <code>RowSpec</code> that determines its preferred
+     * An unmodifiable <code>RowSpec</code> that determines its preferred
      * height by computing the maximum of all column component preferred heights
      * and its minimum height by computing all column component minimum heights.<p>
      *
@@ -235,7 +235,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifyable <code>RowSpec</code> that has an initial height
+     * An unmodifiable <code>RowSpec</code> that has an initial height
      * of 0 pixels and that grows. Useful to describe <em>glue</em> rows
      * that fill the space between other rows.
      *
@@ -248,7 +248,7 @@ public final class FormFactory {
     // Layout Style Dependent Row Specs *************************************
 
     /**
-     * Describes a logical vertzical gap between two related components.
+     * Describes a logical vertical gap between two related components.
      * For example the <em>OK</em> and <em>Cancel</em> buttons are considered
      * related.<p>
      *

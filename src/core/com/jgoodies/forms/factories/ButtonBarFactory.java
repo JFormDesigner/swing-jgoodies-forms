@@ -44,12 +44,11 @@ import com.jgoodies.forms.builder.ButtonBarBuilder;
  * The button bars returned by this builder comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see com.jgoodies.forms.builder.ButtonBarBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
  */
-
 public final class ButtonBarFactory {
 
 
@@ -924,7 +923,7 @@ public final class ButtonBarFactory {
      *     positioned in the bar's left hand side
      * @param back                the mandatory back button
      * @param next                the mandatory next button
-     * @param overlayedFinish     the optional overlayed finish button
+     * @param overlaidFinish      the optional overlaid finish button
      * @param rightAlignedButtons an optional array of buttons that will be
      *     located in the bar's right hand side
      * @return a wizard button bar with back, next and a bunch of buttons
@@ -932,7 +931,7 @@ public final class ButtonBarFactory {
     public static JPanel buildWizardBar(JButton[] leftAlignedButtons,
                                          JButton back,
                                          JButton next,
-                                         JButton overlayedFinish,
+                                         JButton overlaidFinish,
                                          JButton[] rightAlignedButtons) {
 
         ButtonBarBuilder builder = new ButtonBarBuilder();
@@ -945,9 +944,9 @@ public final class ButtonBarFactory {
         builder.addGridded(next);
 
         // Optionally overlay the finish and next button.
-        if (overlayedFinish != null) {
+        if (overlaidFinish != null) {
             builder.nextColumn(-1);
-            builder.add(overlayedFinish);
+            builder.add(overlaidFinish);
             builder.nextColumn();
         }
 

@@ -46,14 +46,13 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
  * @see com.jgoodies.forms.factories.FormFactory
  * @see com.jgoodies.forms.factories.Borders
  */
-
 public abstract class LayoutStyle {
 
     /**
@@ -180,10 +179,11 @@ public abstract class LayoutStyle {
      * a tabbed pane.
      *
      * @return the horizontal margin for dialogs that consist of a tabbed pane
-     * @since 1.0.3
      *
      * @see #getTabbedDialogMarginY()
      * @see #getDialogMarginX()
+     * 
+     * @since 1.0.3
      */
     public abstract ConstantSize getTabbedDialogMarginX();
 
@@ -193,10 +193,11 @@ public abstract class LayoutStyle {
      * a tabbed pane.
      *
      * @return the vertical margin for dialogs that consist of a tabbed pane
-     * @since 1.0.3
      *
      * @see #getTabbedDialogMarginX()
      * @see #getDialogMarginY()
+     * 
+     * @since 1.0.3
      */
     public abstract ConstantSize getTabbedDialogMarginY();
 
@@ -295,10 +296,11 @@ public abstract class LayoutStyle {
      * Returns a pad used to separate a button bar from a component.
      *
      * @return a vertical pad used to separate paragraphs
-     * @since 1.0.3
      *
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadY()
+     * 
+     * @since 1.0.3
      */
     public abstract ConstantSize getButtonBarPad();
 
@@ -318,10 +320,11 @@ public abstract class LayoutStyle {
      * <em>Back, Next</em> or <em>Move Left, Move Right</em>.<p>
      *
      * @return true if buttons are typically ordered from left to right
-     * @since 1.0.3
      *
      * @see com.jgoodies.forms.builder.ButtonBarBuilder
      * @see com.jgoodies.forms.factories.ButtonBarFactory
+     * 
+     * @since 1.0.3
      */
     public abstract boolean isLeftToRightButtonOrder();
 
