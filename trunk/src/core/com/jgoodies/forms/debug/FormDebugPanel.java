@@ -53,7 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * <code>#paintComponent</code> or <code>#updateUI</code>.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see     FormDebugUtils
  */

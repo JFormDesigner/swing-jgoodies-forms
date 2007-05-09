@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 
 /**
- * Constists only of static methods that provide convenience behavior
+ * Consists only of static methods that provide convenience behavior
  * for working with the <code>FormLayout</code>.<p>
  *
  * <strong>Note:</strong> This class is not part of the binary Form library.
@@ -50,9 +50,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * your codebase.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
-
 public final class FormLayoutUtils {
 
     private FormLayoutUtils() {
@@ -174,13 +173,10 @@ public final class FormLayoutUtils {
      * constraints collection must not be changed during the iteration;
      * otherwise the behavior of this iterator is unspecified and unsafe.
      *
-     * @author Karsten
-     * @version $Revision: 1.6 $
-     *
      * @see FormLayout
      * @see CellConstraints
      */
-    public static class ConstraintIterator {
+    public static final class ConstraintIterator {
 
         /**
          * Refers to the FormLayout instance used to look up constraints.

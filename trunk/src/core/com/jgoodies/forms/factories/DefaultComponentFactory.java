@@ -38,7 +38,7 @@ import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.Utilities;
 
 /**
- * A singleton implementaton of the {@link ComponentFactory} interface
+ * A singleton implementation of the {@link ComponentFactory} interface
  * that creates UI components as required by the
  * {@link com.jgoodies.forms.builder.PanelBuilder}.<p>
  *
@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.Utilities;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class DefaultComponentFactory implements ComponentFactory {
 

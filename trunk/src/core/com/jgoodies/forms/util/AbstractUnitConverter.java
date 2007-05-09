@@ -39,7 +39,7 @@ import java.awt.Toolkit;
  * minimizes the effort required to convert font-dependent sizes to pixels.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see    DefaultUnitConverter
  * @see    com.jgoodies.forms.layout.Size
@@ -279,7 +279,6 @@ public abstract class AbstractUnitConverter implements UnitConverter {
         }
         return defaultScreenResolution;
     }
-
 
 
 }

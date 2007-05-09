@@ -40,9 +40,8 @@ import junit.framework.TestCase;
  * Tests the FormLayout's layout algorithm.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
-
 public final class FormLayoutTest extends TestCase {
 
     private final CellConstraints cc = new CellConstraints();

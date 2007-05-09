@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -67,8 +67,8 @@ public abstract class AbstractFormBuilder {
     private final Container  container;
 
     /**
-     * Holds the instance of <code>FormLayout</code> that is used to
-     * specifiy, fill and layout this form.
+     * Holds the instance of <code>FormLayout</code> that is used
+     * to specify, fill and layout this form.
      */
     private final FormLayout layout;
 

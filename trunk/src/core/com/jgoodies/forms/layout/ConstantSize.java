@@ -67,7 +67,7 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see	Size
  * @see	Sizes

@@ -67,7 +67,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * construction, and requests strings from that bundle.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  *
  * @since 1.1
  */
@@ -242,7 +242,7 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      * Adds an internationalized (i15d)  titled separator to the form using
      * the specified constraints.
      *
-     * @param resourceKey         the resource key for the separator titel
+     * @param resourceKey         the resource key for the separator title
      * @param encodedConstraints  a string representation for the constraints
      * @return the added titled separator
      */
@@ -268,7 +268,7 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
     /**
      * Adds a title to the form using the specified constraints.
      *
-     * @param resourceKey         the resource key for the separator titel
+     * @param resourceKey         the resource key for the separator title
      * @param encodedConstraints  a string representation for the constraints
      * @return the added title label
      */

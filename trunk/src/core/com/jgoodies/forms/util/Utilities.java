@@ -41,7 +41,7 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not. *
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public final class Utilities {
 
@@ -49,7 +49,7 @@ public final class Utilities {
     // Instance *************************************************************
 
     private Utilities() {
-        // Suppresses default constructor, ensuring non-instantiability.
+        // Suppresses default constructor, prevents instantiation.
     }
 
 

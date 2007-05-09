@@ -43,7 +43,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -527,4 +527,3 @@ public abstract class FormSpec implements Serializable {
 
 
 }
-

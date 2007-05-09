@@ -43,11 +43,10 @@ import junit.framework.TestCase;
  * <code>FormLayout</code> and <code>JPanel</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see java.io.Serializable
  */
-
 public final class SerializationTest extends TestCase {
 
 
@@ -77,7 +76,7 @@ public final class SerializationTest extends TestCase {
 
 
     /**
-     * Tests the serialization of a panel that is layed out using
+     * Tests the serialization of a panel that is laid out using
      * a FormLayout. The panel consists some sample components that in turn
      * uses some sample <code>CellConstraints</code>.
      */
@@ -120,7 +119,7 @@ public final class SerializationTest extends TestCase {
 
 
     /**
-     * Tests the deserialization of a panel that is layed out using
+     * Tests the deserialization of a panel that is laid out using
      * a FormLayout. The panel consists some sample components that in turn
      * uses some sample <code>CellConstraints</code>.
      */
@@ -151,7 +150,7 @@ public final class SerializationTest extends TestCase {
 
 
     /**
-     * Tests that the a panel can be layed out with a deserialized
+     * Tests that the a panel can be laid out with a deserialized
      * FormLayout.
      */
     public void testLayoutDeserializedPanel() {
@@ -207,7 +206,7 @@ public final class SerializationTest extends TestCase {
      * and returns the layout info object.
      *
      * @param layout    the FormLayout used to lay out
-     * @return the layout info after the container has been layed out
+     * @return the layout info after the container has been laid out
      */
     private FormLayout.LayoutInfo doLayout(FormLayout layout) {
         JPanel panel = new JPanel(layout);

@@ -36,9 +36,8 @@ import junit.framework.TestCase;
  * Tests column and row groups of the FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
-
 public final class FormLayoutGroupsTest extends TestCase {
 
     private FormLayout layout;

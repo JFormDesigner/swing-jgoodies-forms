@@ -64,7 +64,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size

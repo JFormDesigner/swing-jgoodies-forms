@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how components can span multiple columns and rows.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class SpanExample {
 
@@ -152,4 +152,3 @@ public final class SpanExample {
 
 
 }
-
