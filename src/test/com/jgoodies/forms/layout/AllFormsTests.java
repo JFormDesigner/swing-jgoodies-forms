@@ -39,7 +39,7 @@ import junit.framework.TestSuite;
  * A test suite for all tests related to the JGoodies Forms framework.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public final class AllFormsTests {
 
@@ -63,5 +63,5 @@ public final class AllFormsTests {
             },
             "Tests for com.jgoodies.forms.layout");
     }
-    
+
 }
