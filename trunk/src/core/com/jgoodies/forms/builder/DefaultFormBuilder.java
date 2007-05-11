@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @since 1.0.3
  *
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -310,7 +310,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return lineGapSpec;
     }
 
-    
+
     /**
      * Sets the size of gaps between component lines using the given
      * constant size.<p>
@@ -358,7 +358,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return leadingColumnOffset;
     }
 
-    
+
     /**
      * Sets the offset of the leading column, often 0 or 1.
      *
@@ -378,7 +378,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return rowGroupingEnabled;
     }
 
-    
+
     /**
      * Enables or disables the grouping of new data rows.
      *
@@ -401,7 +401,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         append(component, 1);
     }
 
-    
+
     /**
      * Adds a component to the panel using the default constraints with
      * the given columnSpan. Proceeds to the next data column.
@@ -418,7 +418,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         nextColumn(columnSpan + 1);
     }
 
-    
+
     /**
      * Adds two components to the panel; each component will span a single
      * data column. Proceeds to the next data column.
@@ -431,7 +431,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         append(c2);
     }
 
-    
+
     /**
      * Adds three components to the panel; each component will span a single
      * data column. Proceeds to the next data column.
@@ -461,7 +461,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return label;
     }
 
-    
+
     /**
      * Adds a text label and component to the panel.
      * Then proceeds to the next data column.<p>
@@ -477,7 +477,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(textWithMnemonic, component, 1);
     }
 
-    
+
     /**
      * Adds a text label and component to the panel; the component will span
      * the specified number columns. Proceeds to the next data column,
@@ -500,7 +500,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return label;
     }
 
-    
+
     /**
      * Adds a text label and component to the panel; the component will span
      * the specified number columns. Proceeds to the next data column.<p>
@@ -521,7 +521,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return label;
     }
 
-    
+
     /**
      * Adds a text label and two components to the panel; each component
      * will span a single column. Proceeds to the next data column.<p>
@@ -540,7 +540,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return label;
     }
 
-    
+
     /**
      * Adds a text label and two components to the panel; each component
      * will span a single column. Proceeds to the next data column.<p>
@@ -560,7 +560,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return label;
     }
 
-    
+
     /**
      * Adds a text label and three components to the panel; each component
      * will span a single column. Proceeds to the next data column.<p>
@@ -580,7 +580,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return label;
     }
 
-    
+
     /**
      * Adds a text label and four components to the panel; each component
      * will span a single column. Proceeds to the next data column.<p>
@@ -615,7 +615,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(getI15dString(resourceKey));
     }
 
-    
+
     /**
      * Adds an internationalized (i15d) text label and component
      * to the panel. Then proceeds to the next data column.<p>
@@ -631,7 +631,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(getI15dString(resourceKey), component, 1);
     }
 
-    
+
     /**
      * Adds an internationalized (i15d) text label and component
      * to the panel. Then proceeds to the next data column.
@@ -649,7 +649,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(getI15dString(resourceKey), component, nextLine);
     }
 
-    
+
     /**
      * Adds an internationalized (i15d) text label to the panel using
      * the given resource key; then proceeds to the next data column
@@ -668,7 +668,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(getI15dString(resourceKey), c, columnSpan);
     }
 
-    
+
     /**
      * Adds an internationalized (i15d) text label and two components
      * to the panel; each component will span a single column.
@@ -686,7 +686,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(getI15dString(resourceKey), c1, c2);
     }
 
-    
+
     /**
      * Adds an internationalized (i15d) text label and two components
      * to the panel; each component will span a single column.
@@ -705,7 +705,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(getI15dString(resourceKey), c1, c2, colSpan);
     }
 
-    
+
     /**
      * Adds an internationalized (i15d) text label and three components
      * to the panel; each component will span a single column.
@@ -724,7 +724,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return append(getI15dString(resourceKey), c1, c2, c3);
     }
 
-    
+
     /**
      * Adds an internationalized (i15d) text label and four components
      * to the panel; each component will span a single column.
@@ -759,7 +759,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return titleLabel;
     }
 
-    
+
     /**
      * Adds an internationalized title label to the panel and
      * proceeds to the next column.
@@ -783,7 +783,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         return appendSeparator("");
     }
 
-    
+
     /**
      * Adds a separator with the given text that spans all columns.
      *
@@ -803,7 +803,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         nextColumn(columnSpan);
         return titledSeparator;
     }
-    
+
 
     /**
      * Appends an internationalized titled separator for
@@ -845,7 +845,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         }
     }
 
-    
+
     /**
      * Ensures that we have a gap row before the next component row.
      * Checks if the current row is the given <code>RowSpec</code>
@@ -866,7 +866,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         nextLine();
     }
 
-    
+
     /**
      * Ensures that the form has a component row. Adds a component row
      * if the cursor is beyond the form's bottom.
@@ -879,7 +879,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         }
     }
 
-    
+
     /**
      * Looks up and returns the row specification of the current row.
      *

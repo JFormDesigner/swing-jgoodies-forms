@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -222,7 +222,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
      * @return true if button sequences are ordered from left to right
      *
      * @see LayoutStyle#isLeftToRightButtonOrder()
-     * 
+     *
      * @since 1.0.3
      */
     public boolean isLeftToRightButtonOrder() {
@@ -238,7 +238,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
      *     from left to right
      *
      * @see LayoutStyle#isLeftToRightButtonOrder()
-     * 
+     *
      * @since 1.0.3
      */
     public void setLeftToRightButtonOrder(boolean newButtonOrder) {

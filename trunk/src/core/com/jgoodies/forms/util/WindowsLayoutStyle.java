@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 final class WindowsLayoutStyle extends LayoutStyle {
 
@@ -136,7 +136,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
      *
      * @see #getTabbedDialogMarginY()
      * @see #getDialogMarginX()
-     * 
+     *
      * @since 1.0.3
      */
     public ConstantSize getTabbedDialogMarginX() {
@@ -152,7 +152,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
      *
      * @see #getTabbedDialogMarginX()
      * @see #getDialogMarginY()
-     * 
+     *
      * @since 1.0.3
      */
     public ConstantSize getTabbedDialogMarginY() {
@@ -273,7 +273,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
      *
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadY()
-     * 
+     *
      * @since 1.0.3
      */
     public ConstantSize getButtonBarPad() {
@@ -299,7 +299,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
      *
      * @see com.jgoodies.forms.builder.ButtonBarBuilder
      * @see com.jgoodies.forms.factories.ButtonBarFactory
-     * 
+     *
      * @since 1.0.3
      */
     public boolean isLeftToRightButtonOrder() {

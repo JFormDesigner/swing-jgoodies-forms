@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -182,7 +182,7 @@ public abstract class LayoutStyle {
      *
      * @see #getTabbedDialogMarginY()
      * @see #getDialogMarginX()
-     * 
+     *
      * @since 1.0.3
      */
     public abstract ConstantSize getTabbedDialogMarginX();
@@ -196,7 +196,7 @@ public abstract class LayoutStyle {
      *
      * @see #getTabbedDialogMarginX()
      * @see #getDialogMarginY()
-     * 
+     *
      * @since 1.0.3
      */
     public abstract ConstantSize getTabbedDialogMarginY();
@@ -299,7 +299,7 @@ public abstract class LayoutStyle {
      *
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadY()
-     * 
+     *
      * @since 1.0.3
      */
     public abstract ConstantSize getButtonBarPad();
@@ -323,7 +323,7 @@ public abstract class LayoutStyle {
      *
      * @see com.jgoodies.forms.builder.ButtonBarBuilder
      * @see com.jgoodies.forms.factories.ButtonBarFactory
-     * 
+     *
      * @since 1.0.3
      */
     public abstract boolean isLeftToRightButtonOrder();
