@@ -31,10 +31,10 @@
 package com.jgoodies.forms.factories;
 
 import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.Insets;
 import java.util.StringTokenizer;
 
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.layout.ConstantSize;
@@ -53,7 +53,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see     Border
  * @see     Sizes
@@ -203,9 +203,9 @@ public final class Borders {
 
     /**
      * An empty border that uses 4 instances of {@link ConstantSize}
-     * to define the gaps on all sides.
+     * to define the top, left, bottom and right gap.
      */
-    public static final class EmptyBorder implements Border {
+    public static final class EmptyBorder extends AbstractBorder {
 
         private final ConstantSize top;
         private final ConstantSize left;
@@ -223,55 +223,18 @@ public final class Borders {
         }
 
         /**
-         * Returns this border's top size.
+         * Returns the insets of the border.
          *
-         * @return this border's top size
+         * @param c      the component for which this border insets value applies
+         * @param insets the insets to be reinitialized
+         * @return the <code>insets</code> object
          */
-        public ConstantSize top() {
-            return top;
-        }
-
-        /**
-         * Returns this border's left size.
-         *
-         * @return this border's left size
-         */
-        public ConstantSize left() {
-            return left;
-        }
-
-        /**
-         * Returns this border's bottom size.
-         *
-         * @return this border's bottom size
-         */
-        public ConstantSize bottom() {
-            return bottom;
-        }
-
-        /**
-         * Returns this border's right size.
-         *
-         * @return this border's right size
-         */
-        public ConstantSize right() {
-            return right;
-        }
-
-        /**
-         * Paints the border for the specified component with the specified
-         * position and size.
-         *
-         * @param c the component for which this border is being painted
-         * @param g the paint graphics
-         * @param x the x position of the painted border
-         * @param y the y position of the painted border
-         * @param width the width of the painted border
-         * @param height the height of the painted border
-         */
-        public void paintBorder(Component c, Graphics g,
-                                int x, int y, int width, int height) {
-            // An empty border doesn't paint.
+        public Insets getBorderInsets(Component c, Insets insets) {
+            insets.top    = top.getPixelSize(c);
+            insets.left   = left.getPixelSize(c);
+            insets.bottom = bottom.getPixelSize(c);
+            insets.right  = right.getPixelSize(c);
+            return insets;
         }
 
         /**
@@ -281,21 +244,7 @@ public final class Borders {
          * @return the border's Insets
          */
         public Insets getBorderInsets(Component c) {
-            return new Insets(top.getPixelSize(c),
-                               left.getPixelSize(c),
-                               bottom.getPixelSize(c),
-                               right.getPixelSize(c));
-        }
-
-        /**
-         * Returns whether or not the border is opaque.  If the border
-         * is opaque, it is responsible for filling in it's own
-         * background when painting.
-         *
-         * @return false - because the empty border is not opaque
-         */
-        public boolean isBorderOpaque() {
-            return false;
+            return getBorderInsets(c, new Insets(0, 0, 0, 0));
         }
 
     }

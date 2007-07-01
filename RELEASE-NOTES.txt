@@ -32,6 +32,7 @@ INTRODUCTION
 CHANGES THAT AFFECT THE COMPATIBILITY
 
     o Removed the deprecated FormFactory#createColumnLayout methods.
+    o Removed Borders.EmptyBorder#top, #left, #bottom, #right.
           
       
 NEW FEATURES
@@ -46,7 +47,8 @@ BUGS FIXED
     
 OTHER CHANGES
 
-    o ...
+    o Borders#createEmptyBorder returns a Border that benefits
+      from the optimization in JComponent#getInsets(Insets).
       
     
     
