@@ -59,12 +59,16 @@ import javax.swing.UIManager;
  * the font and the test string via the bound Bean properties
  * <em>defaultDialogFont</em> and <em>averageCharacterWidthTestString</em>.
  * See also Microsoft's suggestion for a custom computation
- * <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnwue/html/ch14e.asp">here</a>.<p>
+ * <a href="http://support.microsoft.com/default.aspx?scid=kb;EN-US;125681">custom computation</a>.
+ * More information how to use dialog units in screen design can be found
+ * in Microsoft's 
+ * <a href="http://msdn2.microsoft.com/en-us/library/ms997619">Design 
+ * Specifications and Guidelines</a>.<p>
  *
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
