@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  * This builder sets a hint for narrow  margin for the gridded buttons.
  * This can reduce the button stack's width if some buttons have long texts.
- * For example, a stack with 'OK', 'Cancel', 'Configure...' will likely
+ * For example, a stack with 'OK', 'Cancel', 'Configure&hellip;' will likely
  * exceed the minimum button width. The narrow margins help getting narrow
  * stacks.
  * Note that some look&amp;feels do not support the narrow margin feature,
@@ -72,7 +72,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see ButtonBarBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
