@@ -61,14 +61,14 @@ import javax.swing.UIManager;
  * See also Microsoft's suggestion for a custom computation
  * <a href="http://support.microsoft.com/default.aspx?scid=kb;EN-US;125681">custom computation</a>.
  * More information how to use dialog units in screen design can be found
- * in Microsoft's 
- * <a href="http://msdn2.microsoft.com/en-us/library/ms997619">Design 
+ * in Microsoft's
+ * <a href="http://msdn2.microsoft.com/en-us/library/ms997619">Design
  * Specifications and Guidelines</a>.<p>
  *
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
