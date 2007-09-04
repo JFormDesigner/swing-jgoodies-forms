@@ -37,31 +37,11 @@ import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.LayoutStyle;
 
 /**
- * A factory that creates instances of FormLayout for frequently used
- * form layouts. It makes form creation easier and more consistent.<p>
- *
- * <strong>I consider removing the <code>FormLayout</code> factory methods.
- * These seem to be less useful and may lead to poor layout readability.
- * If you want to use these methods, you may consider copying them
- * to your codebase.</strong><p>
- *
- * The forms are described by major and minor columns. Major columns
- * consist of a leading label and a set of related components, for example: a
- * label plus textfield, or label plus textfield plus button. The component
- * part of a major column is divided into minor columns as shown in this
- * layout:
- * <pre>
- * <-    major column 1        ->  <-     major column 2       ->
- * label1 textfield1a textfield1b  label2 textfield2a textfield2b
- * label3 textfield3a textfield3b  label4 textfield4
- * label5 textfield5               label6 textfield6
- * </pre><p>
- *
- * Many forms use 1, 2, 3 or 4 major columns, which in turn are often split
- * into 1, 2, 3 or 4 minor columns.
+ * Provides frequently used column and row specifications
+ * and two factory methods for
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -136,7 +116,7 @@ public final class FormFactory {
      * @since 1.0.3
      */
     public static final ColumnSpec LABEL_COMPONENT_GAP_COLSPEC =
-        createGapColumnSpec(LayoutStyle.getCurrent().getLabelComponentPadX());
+        ColumnSpec.createGap(LayoutStyle.getCurrent().getLabelComponentPadX());
 
 
     /**
@@ -150,7 +130,7 @@ public final class FormFactory {
      * @see #UNRELATED_GAP_COLSPEC
      */
     public static final ColumnSpec RELATED_GAP_COLSPEC =
-        createGapColumnSpec(LayoutStyle.getCurrent().getRelatedComponentsPadX());
+        ColumnSpec.createGap(LayoutStyle.getCurrent().getRelatedComponentsPadX());
 
 
     /**
@@ -162,7 +142,7 @@ public final class FormFactory {
      * @see #RELATED_GAP_COLSPEC
      */
     public static final ColumnSpec UNRELATED_GAP_COLSPEC =
-        createGapColumnSpec(LayoutStyle.getCurrent().getUnrelatedComponentsPadX());
+        ColumnSpec.createGap(LayoutStyle.getCurrent().getUnrelatedComponentsPadX());
 
 
     /**
@@ -258,7 +238,7 @@ public final class FormFactory {
      * @see #UNRELATED_GAP_ROWSPEC
      */
     public static final RowSpec RELATED_GAP_ROWSPEC =
-        createGapRowSpec(LayoutStyle.getCurrent().getRelatedComponentsPadY());
+        RowSpec.createGap(LayoutStyle.getCurrent().getRelatedComponentsPadY());
 
 
     /**
@@ -270,7 +250,7 @@ public final class FormFactory {
      * @see #RELATED_GAP_ROWSPEC
      */
     public static final RowSpec UNRELATED_GAP_ROWSPEC =
-        createGapRowSpec(LayoutStyle.getCurrent().getUnrelatedComponentsPadY());
+        RowSpec.createGap(LayoutStyle.getCurrent().getUnrelatedComponentsPadY());
 
 
     /**
@@ -285,7 +265,7 @@ public final class FormFactory {
      * @see #PARAGRAPH_GAP_ROWSPEC
      */
     public static final RowSpec NARROW_LINE_GAP_ROWSPEC =
-        createGapRowSpec(LayoutStyle.getCurrent().getNarrowLinePad());
+        RowSpec.createGap(LayoutStyle.getCurrent().getNarrowLinePad());
 
 
     /**
@@ -299,7 +279,7 @@ public final class FormFactory {
      * @see #PARAGRAPH_GAP_ROWSPEC
      */
     public static final RowSpec LINE_GAP_ROWSPEC =
-        createGapRowSpec(LayoutStyle.getCurrent().getLinePad());
+        RowSpec.createGap(LayoutStyle.getCurrent().getLinePad());
 
 
     /**
@@ -313,7 +293,7 @@ public final class FormFactory {
      * @see #LINE_GAP_ROWSPEC
      */
     public static final RowSpec PARAGRAPH_GAP_ROWSPEC =
-        createGapRowSpec(LayoutStyle.getCurrent().getParagraphPad());
+        RowSpec.createGap(LayoutStyle.getCurrent().getParagraphPad());
 
 
 
@@ -323,22 +303,27 @@ public final class FormFactory {
      * Creates and returns a {@link ColumnSpec} that represents a gap with the
      * specified {@link ConstantSize}.
      *
-     * @param gapSize	a <code>ConstantSize</code> that specifies the gap
+     * @param gapWidth	a <code>ConstantSize</code> that specifies the gap
      * @return a <code>ColumnSpec</code> that describes a horizontal gap
+     *
+     * @deprecated Replaced by {@link ColumnSpec#createGap(ConstantSize)}
      */
-    public static ColumnSpec createGapColumnSpec(ConstantSize gapSize) {
-        return new ColumnSpec(ColumnSpec.LEFT, gapSize, ColumnSpec.NO_GROW);
+    public static ColumnSpec createGapColumnSpec(ConstantSize gapWidth) {
+        return ColumnSpec.createGap(gapWidth);
     }
+
 
     /**
      * Creates and returns a {@link RowSpec} that represents a gap with the
      * specified {@link ConstantSize}.
      *
-     * @param gapSize   a <code>ConstantSize</code> that specifies the gap
+     * @param gapHeight   a <code>ConstantSize</code> that specifies the gap
      * @return a <code>RowSpec</code> that describes a vertical gap
+     *
+     * @deprecated Replaced by {@link RowSpec#createGap(ConstantSize)}
      */
-    public static RowSpec createGapRowSpec(ConstantSize gapSize) {
-        return new RowSpec(RowSpec.TOP, gapSize, RowSpec.NO_GROW);
+    public static RowSpec createGapRowSpec(ConstantSize gapHeight) {
+        return RowSpec.createGap(gapHeight);
     }
 
 
