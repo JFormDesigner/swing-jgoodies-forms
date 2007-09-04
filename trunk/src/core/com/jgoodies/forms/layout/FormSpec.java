@@ -34,7 +34,7 @@ import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 
 
 /**
@@ -43,7 +43,7 @@ import java.util.StringTokenizer;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -104,6 +104,18 @@ public abstract class FormSpec implements Serializable {
      * The default resize weight.
      */
     public static final double DEFAULT_GROW = 1.0d;
+
+
+    // Parser Patterns ******************************************************
+
+    protected static final Pattern SPEC_SEPARATOR_PATTERN =
+        Pattern.compile(",\\s*");
+
+    private static final Pattern TOKEN_SEPARATOR_PATTERN =
+        Pattern.compile(":");
+
+    private static final Pattern BOUNDS_SEPARATOR_PATTERN =
+        Pattern.compile(";");
 
 
     // Fields ***************************************************************
@@ -213,28 +225,29 @@ public abstract class FormSpec implements Serializable {
      * or is otherwise invalid
      */
     private void parseAndInitValues(String encodedDescription) {
-        StringTokenizer tokenizer = new StringTokenizer(encodedDescription, ":");
-        if (!tokenizer.hasMoreTokens()) {
+        String token[] = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
+        if (token.length == 0) {
             throw new IllegalArgumentException(
                                     "The form spec must not be empty.");
         }
-        String token = tokenizer.nextToken();
+        int nextIndex = 0;
+        String next = token[nextIndex++];
 
         // Check if the first token is an orientation.
-        DefaultAlignment alignment = DefaultAlignment.valueOf(token, isHorizontal());
+        DefaultAlignment alignment = DefaultAlignment.valueOf(next, isHorizontal());
         if (alignment != null) {
             defaultAlignment = alignment;
-            if (!tokenizer.hasMoreTokens()) {
+            if (token.length == 1) {
                 throw new IllegalArgumentException(
                                     "The form spec must provide a size.");
             }
-            token = tokenizer.nextToken();
+            next = token[nextIndex++];
         }
 
-        parseAndInitSize(token);
+        parseAndInitSize(next);
 
-        if (tokenizer.hasMoreTokens()) {
-           resizeWeight = decodeResize(tokenizer.nextToken());
+        if (nextIndex < token.length) {
+           resizeWeight = decodeResize(token[nextIndex]);
         }
     }
 
@@ -245,6 +258,10 @@ public abstract class FormSpec implements Serializable {
      * @param token    a token that represents a size, either bounded or plain
      */
     private void parseAndInitSize(String token) {
+        if (token.startsWith("[") && token.endsWith("]")) {
+            size = parseAndInitNewBoundedSize(token);
+            return;
+        }
         if (token.startsWith("max(") && token.endsWith(")")) {
             size = parseAndInitBoundedSize(token, false);
             return;
@@ -254,6 +271,67 @@ public abstract class FormSpec implements Serializable {
             return;
         }
         size = decodeAtomicSize(token);
+    }
+
+
+    private Size parseAndInitNewBoundedSize(String token) {
+        String content = token.substring(1, token.length()-1);
+        String[] subtoken = BOUNDS_SEPARATOR_PATTERN.split(content);
+        if (subtoken.length == 2) {
+            Size boundedSize = parseAndInitBoundedSize(subtoken[0], subtoken[1]);
+            if (boundedSize != null) {
+                return boundedSize;
+            }
+        } else if (subtoken.length == 3) {
+            Size boundedSize = parseAndInitBoundedSize(subtoken[0], subtoken[1], subtoken[2]);
+            if (boundedSize != null) {
+                return boundedSize;
+            }
+        }
+        throw new IllegalArgumentException(
+                "Illegal bounded size '" + token + "'. Must be one of:"
+              + "\n[<constant size>;<logical size>]                 // lower bound"
+              + "\n[<logical size>;<constant size>]                 // upper bound"
+              + "\n[<constant size>;<logical size>;<constant size>] // lower and upper bound."
+              + "\nExamples:"
+              + "\n[50dlu;pref]                                     // lower bound"
+              + "\n[pref;200dlu]                                    // upper bound"
+              + "\n[50dlu;pref;200dlu]                              // lower and upper bound."
+              );
+    }
+
+
+    private Size parseAndInitBoundedSize(String sizeToken1, String sizeToken2) {
+        Size size1 = decodeAtomicSize(sizeToken1);
+        Size size2 = decodeAtomicSize(sizeToken2);
+
+        // Check valid combinations and set min or max.
+        if (size1 instanceof ConstantSize) {
+            if (size2 instanceof Sizes.ComponentSize) {
+                return new BoundedSize(size2, size1, null);
+            }
+            return null;
+        }
+        if (size2 instanceof ConstantSize) {
+            return new BoundedSize(size1, null, size2);
+        }
+        return null;
+    }
+
+
+    private Size parseAndInitBoundedSize(
+            String lowerBoundStr,
+            String basisStr,
+            String upperBoundStr) {
+        Size lowerBound  = decodeAtomicSize(lowerBoundStr);
+        Size basis       = decodeAtomicSize(basisStr);
+        Size upperBound  = decodeAtomicSize(upperBoundStr);
+        if (   (lowerBound instanceof ConstantSize)
+            && (basis instanceof Sizes.ComponentSize)
+            && (upperBound instanceof ConstantSize)) {
+            return new BoundedSize(basis, lowerBound, upperBound);
+        }
+        return null;
     }
 
 

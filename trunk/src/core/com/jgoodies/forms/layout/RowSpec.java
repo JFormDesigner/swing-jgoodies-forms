@@ -30,7 +30,6 @@
 
 package com.jgoodies.forms.layout;
 
-import java.util.StringTokenizer;
 
 /**
  * Specifies rows in FormLayout by their default orientation,
@@ -52,7 +51,7 @@ import java.util.StringTokenizer;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -159,11 +158,12 @@ public final class RowSpec extends FormSpec {
         if (encodedRowSpecs == null)
             throw new NullPointerException("The row specification must not be null.");
 
-        StringTokenizer tokenizer = new StringTokenizer(encodedRowSpecs, ", ");
-        int rowCount = tokenizer.countTokens();
+        String[] splittedSpecs =
+            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedRowSpecs);
+        int rowCount = splittedSpecs.length;
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {
-            rowSpecs[i] = new RowSpec(tokenizer.nextToken());
+            rowSpecs[i] = new RowSpec(splittedSpecs[i]);
         }
         return rowSpecs;
     }
