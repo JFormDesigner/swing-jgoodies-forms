@@ -32,13 +32,15 @@ package com.jgoodies.forms.layout;
 
 import java.util.Locale;
 
+import com.jgoodies.forms.factories.FormFactory;
+
 import junit.framework.TestCase;
 
 /**
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -88,6 +90,58 @@ public final class RowSpecTest extends TestCase {
     public void testRejectInvalidRowSpecEncodings() {
         testRejectInvalidRowSpecEncodings(Locale.ENGLISH);
         testRejectInvalidRowSpecEncodings(AllFormsTests.TURKISH);
+    }
+
+
+    public void testDefaultVariables() {
+        assertEquals(
+                FormFactory.RELATED_GAP_ROWSPEC,
+                new RowSpec("@rgap"));
+        assertEquals(
+                FormFactory.UNRELATED_GAP_ROWSPEC,
+                new RowSpec("@ugap"));
+        assertEquals(
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                new RowSpec("@ngap"));
+        assertEquals(
+                FormFactory.LINE_GAP_ROWSPEC,
+                new RowSpec("@lgap"));
+        assertEquals(
+                FormFactory.PARAGRAPH_GAP_ROWSPEC,
+                new RowSpec("@pgap"));
+    }
+
+
+    public void testCustomVariable() {
+        ConstantSize gapHeight = Sizes.DLUY21;
+        RowSpec largeGap = RowSpec.createGap(gapHeight);
+        LayoutMap layoutMap = new LayoutMap(null);
+        layoutMap.putRowGapSpec("large", gapHeight);
+        assertEquals(
+                largeGap,
+                new RowSpec("@large", layoutMap));
+    }
+
+
+    public void testOverrideDefaultVariable() {
+        ConstantSize gapHeight = Sizes.DLUY1;
+        RowSpec lineSpec = RowSpec.createGap(gapHeight);
+        LayoutMap layoutMap = new LayoutMap(LayoutMap.getDefault());
+        layoutMap.putRowGapSpec("lgap", gapHeight);
+        assertEquals(
+                lineSpec,
+                new RowSpec("@lgap", layoutMap));
+    }
+
+
+    public void testMissingColumnSpecVariable() {
+        String variable = "@rumpelstilzchen";
+        try {
+            new RowSpec(variable);
+            fail("The parser should reject the missing variable:" + variable);
+        } catch (Exception e) {
+            // The expected behavior
+        }
     }
 
 
@@ -168,6 +222,13 @@ public final class RowSpecTest extends TestCase {
             assertEquals(spec, new RowSpec("default:grow(0.75)"));
             assertEquals(spec, new RowSpec("c:d:grow(0.75)"));
             assertEquals(spec, new RowSpec("center:default:grow(0.75)"));
+
+            RowSpec spec1 = new RowSpec(RowSpec.TOP, Sizes.PREFERRED, FormSpec.NO_GROW);
+            RowSpec spec2 = new RowSpec(RowSpec.BOTTOM, Sizes.DEFAULT, 1.0);
+            RowSpec[] specs = RowSpec.decodeSpecs("top:pref:none , bottom:default:grow");
+            assertEquals(2, specs.length);
+            assertEquals(spec1, specs[0]);
+            assertEquals(spec2, specs[1]);
         } finally {
             Locale.setDefault(oldDefault);
         }

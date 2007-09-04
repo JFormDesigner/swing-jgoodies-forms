@@ -52,7 +52,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -105,8 +105,10 @@ public final class ColumnSpec extends FormSpec {
      * @param defaultAlignment the column's default alignment
      * @param size             constant, component size or bounded size
      * @param resizeWeight     the column's non-negative resize weight
+     *
+     * @throws NullPointerException if the {@code size} is {@code null}
      * @throws IllegalArgumentException if the size is invalid or
-     *      the resize weight is negative
+     *      the {@code resizeWeight} is negative
      */
     public ColumnSpec(DefaultAlignment defaultAlignment,
                         Size size,
@@ -128,14 +130,96 @@ public final class ColumnSpec extends FormSpec {
 
 
     /**
-     * Constructs a ColumnSpec from the specified encoded description.
+     * Constructs a ColumnSpec from the specified encoded description
+     * using the default {@link LayoutMap}.
      * The description will be parsed to set initial values.
      *
      * @param encodedDescription	the encoded description
      */
 	public ColumnSpec(String encodedDescription) {
-        super(DEFAULT, encodedDescription);
+        this(encodedDescription, null);
 	}
+
+
+    /**
+     * Constructs a ColumnSpec from the specified encoded description
+     * using the given {@link LayoutMap}.
+     * The description will be parsed to set initial values.
+     *
+     * @param encodedDescription    the encoded description
+     * @param layoutMap             maps layout variables to ColumnSpecs,
+     *      may be {@code null}
+     *
+     * @since 1.2
+     */
+    public ColumnSpec(String encodedDescription, LayoutMap layoutMap) {
+        super(DEFAULT, encodedDescription, layoutMap);
+    }
+
+
+    // Factory Methods ********************************************************
+
+    /**
+     * Creates and returns a {@link ColumnSpec} that represents a gap with the
+     * specified {@link ConstantSize}.
+     *
+     * @param gapWidth   specifies the gap width
+     * @return a ColumnSpec that describes a horizontal gap
+     *
+     * @throws NullPointerException if {@code gapWidth} is {@code null}
+     *
+     * @since 1.2
+     */
+    public static ColumnSpec createGap(ConstantSize gapWidth) {
+        return new ColumnSpec(ColumnSpec.LEFT, gapWidth, ColumnSpec.NO_GROW);
+    }
+
+
+    /**
+     * Parses and splits encoded column specifications using the default
+     * {@link LayoutMap} and returns an array of ColumnSpec objects.
+     *
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @return an array of decoded column specifications
+     * @throws NullPointerException if the encoded column specifications string
+     *     is {@code null}
+     *
+     * @see ColumnSpec#ColumnSpec(String)
+     * @see LayoutMap#getDefault()
+     */
+    public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs) {
+       return decodeSpecs(encodedColumnSpecs, null);
+    }
+
+
+    /**
+     * Parses and splits encoded column specifications using the given
+     * {@link LayoutMap} and returns an array of ColumnSpec objects.
+     *
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @param layoutMap           maps layout variables to ColumnSpecs,
+     *                            may be {@code null}
+     * @return an array of decoded column specifications
+     * @throws NullPointerException if the encoded column specifications string
+     *     is {@code null}
+     *
+     * @see #decodeSpecs(String)
+     *
+     * @since 1.2
+     */
+    public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs, LayoutMap layoutMap) {
+        if (encodedColumnSpecs == null)
+            throw new NullPointerException("The column specification must not be null.");
+
+        String[] splittedSpecs =
+            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedColumnSpecs);
+        int columnCount = splittedSpecs.length;
+        ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
+        for (int i = 0; i < columnCount; i++) {
+            columnSpecs[i] = new ColumnSpec(splittedSpecs[i], layoutMap);
+        }
+        return columnSpecs;
+    }
 
 
     // Implementing Abstract Behavior ***************************************
@@ -151,32 +235,5 @@ public final class ColumnSpec extends FormSpec {
         return true;
     }
 
-
-    // Parsing and Decoding of Column Descriptions **************************
-
-    /**
-     * Parses and splits encoded column specifications and returns
-     * an array of ColumnSpec objects.
-     *
-     * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @return an array of decoded column specifications
-     * @throws NullPointerException if the encoded column specifications string
-     *     is <code>null</code>
-     *
-     * @see ColumnSpec#ColumnSpec(String)
-     */
-    public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs) {
-        if (encodedColumnSpecs == null)
-            throw new NullPointerException("The column specification must not be null.");
-
-        String[] splittedSpecs =
-            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedColumnSpecs);
-        int columnCount = splittedSpecs.length;
-        ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
-        for (int i = 0; i < columnCount; i++) {
-            columnSpecs[i] = new ColumnSpec(splittedSpecs[i]);
-        }
-        return columnSpecs;
-    }
 
 }
