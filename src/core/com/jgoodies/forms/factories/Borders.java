@@ -53,7 +53,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see     Border
  * @see     Sizes
@@ -112,6 +112,16 @@ public final class Borders {
                           Sizes.DLUX14,
                           Sizes.DLUY14,
                           Sizes.DLUX14);
+
+
+    /**
+     * A prepared Border with 21dlu on all sides.
+     */
+    public static final Border DLU21_BORDER =
+        createEmptyBorder(Sizes.DLUY21,
+                          Sizes.DLUX21,
+                          Sizes.DLUY21,
+                          Sizes.DLUX21);
 
 
     /**
