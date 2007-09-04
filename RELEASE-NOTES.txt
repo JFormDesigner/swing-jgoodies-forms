@@ -39,12 +39,49 @@ CHANGES THAT AFFECT THE COMPATIBILITY
       
 NEW FEATURES
 
-    o Borders#DLU21_BORDER, Sizes#DLUX21, Sizes#DLUY21.
-    o New syntax for bounded sizes: 
+    o New syntax for encoded column and row specification:
+      - layout variables, see the LayoutMap class comment for details.
+      - bounded sizes
           [<constant size>;<logical size>]   // lower bound
           [<logical size>;<constant size>]   // upper bound
           [<constant>;<logical>;<constant>]  // lower and upper bound
+      - accepts string encodings with whitespace before a comma,
+        for example "pref , pref"
+    o Sizes#setDefaultUnit(Unit) allows to set the unit that is used
+      for constant sizes without explicit unit, e.g. "21".
+      As of the Forms 1.2 the default is still ConstantSize.PIXEL.
+      Sizes.setDefaultUnit(null) sets it to Dialog Units (DLU).
+    o Borders#DLU21_BORDER, Sizes#DLUX21, Sizes#DLUY21.
+    o ColumnSpec#createGap(ConstantSize), RowSpec#createGap(ConstantSize).
+
+
+LAYOUT VARIABLES
     
+    Layout variables are intended to improve the layout consistency
+    in GUIs with many views. And they can improve the readability.
+    Variables are used in the encoded column and row specifications.
+    They start with the '@' character, for example you can write:
+    new FormLayout("pref, @lcgap, pref, @rgap, pref",
+                   "p, @lgap, p, @myGap1")
+    where @lcgap, @rgap, @lgap are default variables and @myGap1 is 
+    a custom variable.
+    
+    The mapping from variable names to ColumnSpec/RowSpec values
+    is specified by a chain of LayoutMaps. LayoutMap#getDefault()
+    returns the default root LayoutMap. You can add and remove
+    associations (including the defaults) to the default LayoutMap; 
+    these will be used for all FormLayouts. Or you can replace
+    the default LayoutMap using LayoutMap#setDefault(LayoutMap).
+    
+    LayoutMaps have an optional parent map; hence they build a chain.
+    The variable lookup starts with a given LayoutMap and continues
+    with the parent if the child has no association for a given key.
+    Associations in child maps shadow the associations in the parent
+    map, or more generally in the chain of parents. For example
+       LayoutMap customMap = new LayoutMap(LayoutMap.getDefault())  
+    builds a custom map that has the default map as its parent.
+    
+
     
 BUGS FIXED
 
