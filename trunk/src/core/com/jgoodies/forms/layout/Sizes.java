@@ -36,6 +36,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
+import com.jgoodies.forms.layout.ConstantSize.Unit;
 import com.jgoodies.forms.util.DefaultUnitConverter;
 import com.jgoodies.forms.util.UnitConverter;
 
@@ -48,7 +49,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see     Size
  * @see     UnitConverter
@@ -72,6 +73,10 @@ public final class Sizes {
     public static final ConstantSize DLUX9  = dluX( 9);
     public static final ConstantSize DLUX11 = dluX(11);
     public static final ConstantSize DLUX14 = dluX(14);
+    /**
+     * 21 horizontal dialog units
+     * @since 1.2
+     */
     public static final ConstantSize DLUX21 = dluX(21);
 
     public static final ConstantSize DLUY1  = dluY( 1);
@@ -85,6 +90,10 @@ public final class Sizes {
     public static final ConstantSize DLUY9  = dluY( 9);
     public static final ConstantSize DLUY11 = dluY(11);
     public static final ConstantSize DLUY14 = dluY(14);
+    /**
+     * 21 vertical dialog units
+     * @since 1.2
+     */
     public static final ConstantSize DLUY21 = dluY(21);
 
 
@@ -119,8 +128,19 @@ public final class Sizes {
 
     /**
      * Holds the current converter that maps non-pixel sizes to pixels.
+     *
+     * @see #setUnitConverter(UnitConverter)
      */
     private static UnitConverter unitConverter;
+
+
+    /**
+     * Holds the Unit that is used if no Unit is provided in encoded
+     * ConstantSizes.
+     *
+     * @see #setDefaultUnit(Unit)
+     */
+    private static Unit defaultUnit = ConstantSize.PIXEL;
 
 
     // Instance Creation ******************************************************
@@ -302,6 +322,34 @@ public final class Sizes {
      */
     public static void setUnitConverter(UnitConverter newUnitConverter) {
         unitConverter = newUnitConverter;
+    }
+
+
+    // Default Unit ***********************************************************
+
+    /**
+     * Returns the Unit that is used if an encoded ConstantSize contains
+     * no unit string.
+     *
+     * @return the Unit if no unit string is provided
+     *
+     * @since 1.2
+     */
+    public static Unit getDefaultUnit() {
+        return defaultUnit;
+    }
+
+
+    /**
+     * Sets the Unit that shall be used if an encoded ConstantSize
+     * provides no unit string.
+     *
+     * @param unit    the new default Unit
+     *
+     * @since 1.2
+     */
+    public static void setDefaultUnit(Unit unit) {
+        defaultUnit = unit;
     }
 
 
