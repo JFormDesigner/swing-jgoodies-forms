@@ -30,7 +30,6 @@
 
 package com.jgoodies.forms.layout;
 
-import java.util.StringTokenizer;
 
 
 /**
@@ -53,7 +52,7 @@ import java.util.StringTokenizer;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -170,11 +169,12 @@ public final class ColumnSpec extends FormSpec {
         if (encodedColumnSpecs == null)
             throw new NullPointerException("The column specification must not be null.");
 
-        StringTokenizer tokenizer = new StringTokenizer(encodedColumnSpecs, ", ");
-        int columnCount = tokenizer.countTokens();
+        String[] splittedSpecs =
+            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedColumnSpecs);
+        int columnCount = splittedSpecs.length;
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
-            columnSpecs[i] = new ColumnSpec(tokenizer.nextToken());
+            columnSpecs[i] = new ColumnSpec(splittedSpecs[i]);
         }
         return columnSpecs;
     }

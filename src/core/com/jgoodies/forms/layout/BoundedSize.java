@@ -39,7 +39,7 @@ import java.util.List;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -66,22 +66,24 @@ public final class BoundedSize implements Size, Serializable {
 
     /**
      * Constructs a BoundedSize for the given basis using the
-     * specified lower and upper bounds.<p>
-     *
-     * TODO: Consider throwing an IllegalArgumentException,
-     * if the lower bound and upper bound are both <code>null</code>.
+     * specified lower and upper bounds.
      *
      * @param basis  the base size
      * @param lowerBound  the lower bound size
      * @param upperBound  the upper bound size
      *
-     * @throws NullPointerException if the basis is null
+     * @throws NullPointerException if the basis is {@code null}
+     *
+     * @throws IllegalArgumentException of {@code lowerBound} and
+     *     {@code upperBound} is {@code null}
      *
      * @since 1.1
      */
     public BoundedSize(Size basis, Size lowerBound, Size upperBound) {
         if (basis == null)
             throw new NullPointerException("The basis of a bounded size must not be null.");
+        if ((lowerBound == null) && (upperBound == null))
+            throw new IllegalArgumentException("A bounded size must have a non-null lower or upper bound.");
         this.basis = basis;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -234,7 +236,7 @@ public final class BoundedSize implements Size, Serializable {
     }
 
     /**
-     * Returns a string representation of this size object.
+     * Returns a string representation of this size object.<p>
      *
      * <strong>Note:</strong> The string representation may change
      * at any time. It is strongly recommended to not use this string
@@ -243,15 +245,18 @@ public final class BoundedSize implements Size, Serializable {
      * @return  a string representation of the constant size
      */
     public String toString() {
+        StringBuilder builder = new StringBuilder("[");
         if (lowerBound != null) {
-            return upperBound == null
-                ? "max(" + basis + ';' + lowerBound + ')'
-                : "max(" + lowerBound + ';' + "min(" + basis + ';' + upperBound + "))";
-        } else if (upperBound != null) {
-            return "min(" + basis + ';' + upperBound + ')';
-        } else {
-            return "bounded(" +  basis + ')';
+            builder.append(lowerBound);
+            builder.append(';');
         }
+        builder.append(basis);
+        if (upperBound != null) {
+            builder.append(';');
+            builder.append(upperBound);
+        }
+        builder.append(']');
+        return builder.toString();
     }
 
 

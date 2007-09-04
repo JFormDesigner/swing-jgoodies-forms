@@ -33,11 +33,17 @@ CHANGES THAT AFFECT THE COMPATIBILITY
 
     o Removed the deprecated FormFactory#createColumnLayout methods.
     o Removed Borders.EmptyBorder#top, #left, #bottom, #right.
+    o BoundedSize constructor throws IllegalArgumentException 
+      if both the lower and upper bound are null.
           
       
 NEW FEATURES
 
-    o ...
+    o Borders#DLU21_BORDER, Sizes#DLUX21, Sizes#DLUY21.
+    o New syntax for bounded sizes: 
+          [<constant size>;<logical size>]   // lower bound
+          [<logical size>;<constant size>]   // upper bound
+          [<constant>;<logical>;<constant>]  // lower and upper bound
     
     
 BUGS FIXED
