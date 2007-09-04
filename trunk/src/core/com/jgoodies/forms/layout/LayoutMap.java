@@ -33,22 +33,78 @@ package com.jgoodies.forms.layout;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jgoodies.forms.factories.FormFactory;
+
 
 /**
  * Provides a hierarchical map from names to column and row specifications.
- * Useful to improve layout consistency and style guide compliance.<p>
+ * Useful to improve layout consistency, style guide compliance, and
+ * the layout readability.<p>
+ *
+ * Layout variables are used in the encoded column and row specifications.
+ * They start with the '@' character, for example you can write:
+ * {@code
+ * new FormLayout("pref, @lcgap, pref, @rgap, pref",
+ *                "p, @lgap, p, @myGap1");
+ * }
+ * In this example {@code @lcgap}, {@code @rgap}, {@code @lgap}
+ * are default variables, and {@code @myGap1} is a custom variable.<p>
+ *
+ * The mapping from variable names to ColumnSpec/RowSpec values
+ * is specified by a chain of LayoutMaps. {@link LayoutMap#getDefault()}
+ * returns the default root LayoutMap. You can add and remove
+ * associations (including the defaults) to the default LayoutMap;
+ * these will be used for all FormLayouts. Or you can replace
+ * the default LayoutMap using {@link LayoutMap#setDefault(LayoutMap)}.<p>
+ *
+ * LayoutMaps have an optional parent map; hence they build a chain.
+ * The variable lookup starts with a given LayoutMap and continues
+ * with the parent if the child has no association for a given key.
+ * Associations in child maps shadow the associations in the parent
+ * map, or more generally in the chain of parents. For example
+ * {@code LayoutMap customMap = new LayoutMap(LayoutMap.getDefault());}
+ * builds a custom map that has the default map as its parent.<p>
+ *
+ * The default LayoutMap provides the following default associations:
+ * <table border="1">
+ * <tr><td><b>Variable Name</b></td><td><b>Value</b></td></tr>
+ * <tr><td>l lc lcgap</td><td>label component gap</td></tr>
+ * <tr><td>r rgap rel related/td><td>related gap</td></tr>
+ * <tr><td>u ugap unrel unrelated</td><td>unrelated gap</td></tr>
+ * <tr><td>l lgap line</td><td>line gap</td></tr>
+ * <tr><td>n ngap narrow</td><td>narrow line gap</td></tr>
+ * <tr><td>p pgap paragraph</td><td>paragraph gap</td></tr>
+ * </table>
  *
  * LayoutMap holds two Maps that associate Strings with ColumnSpecs and
  * RowSpec respectively. Null values are not allowed.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
  * @see     RowSpec
+ *
+ * @since 1.2
  */
 public final class LayoutMap {
+
+    /**
+     * The character used to mark a layout variable.
+     * Used by the FormSpec string decoder.
+     */
+    static final char VARIABLE_PREFIX_CHAR = '@';
+
+
+    /**
+     * Holds the default LayoutMap that is used by the parsers
+     * if no individual LayoutMap is provided.
+     *
+     * @see #setDefault(LayoutMap)
+     */
+    private static LayoutMap defaultMap;
+
 
     /**
      * Refers to the parent map that is used to look up values
@@ -71,6 +127,30 @@ public final class LayoutMap {
         this.parent = parent;
         columnMap = new HashMap/*<String, ColumnSpec>*/();
         rowMap    = new HashMap/*<String, RowSpec>   */();
+    }
+
+
+    // Default ****************************************************************
+
+    /**
+     * Lazily initializes and returns the LayoutMap that is used by the
+     * ColumnSpec and RowSpec parsers, if no custom LayoutMap is provided.
+     *
+     * @return the LayoutMap that is used to decode encoded column and row
+     *    specification, if no custom LayoutMap is provided
+     *
+     * @since 1.2
+     */
+    public static LayoutMap getDefault() {
+        if (defaultMap == null) {
+            defaultMap = createDefault();
+        }
+        return defaultMap;
+    }
+
+
+    public static void setDefault(LayoutMap newDefault) {
+        defaultMap = newDefault;
     }
 
 
@@ -146,6 +226,29 @@ public final class LayoutMap {
             throw new NullPointerException("The column spec value must not be null.");
         }
         return (ColumnSpec) columnMap.put(key, value);
+    }
+
+
+    /**
+     * Associates a gap ColumnSpec with the given {@code gapWidth}
+     * with the specified key in this map.
+     * If the map previously contained a mapping for this key, the old value
+     * is replaced by the specified value. The ColumnSpec set in this map
+     * overrides an association - if any - in the chain of parent LayoutMaps.
+     *
+     * @param key key with which the specified value is to be associated.
+     * @param gapWidth specifies the gap with.
+     * @return previous ColumnSpec associated with specified key,
+     *         or {@code null} if there was no mapping for key.
+     *
+     * @throws NullPointerException if the {@code key} or {@code gapSize}
+     *         is {@code null}.
+     *
+     * @see #putColumnSpec(String, ColumnSpec)
+     * @see ColumnSpec#createGap(ConstantSize)
+     */
+    public ColumnSpec putColumnGapSpec(String key, ConstantSize gapWidth) {
+        return putColumnSpec(key, ColumnSpec.createGap(gapWidth));
     }
 
 
@@ -248,6 +351,29 @@ public final class LayoutMap {
 
 
     /**
+     * Associates a gap RowSpec with the given {@code gapHeight}
+     * with the specified key in this map.
+     * If the map previously contained a mapping for this key, the old value
+     * is replaced by the specified value. The ColumnSpec set in this map
+     * overrides an association - if any - in the chain of parent LayoutMaps.
+     *
+     * @param key key with which the specified value is to be associated.
+     * @param gapHeight specifies the gap height.
+     * @return previous RowSpec associated with specified key,
+     *         or {@code null} if there was no mapping for key.
+     *
+     * @throws NullPointerException if the {@code key} or {@code gapHeight}
+     *         is {@code null}.
+     *
+     * @see #putRowSpec(String, RowSpec)
+     * @see RowSpec#createGap(ConstantSize)
+     */
+    public RowSpec putRowGapSpec(String key, ConstantSize gapHeight) {
+        return putRowSpec(key, RowSpec.createGap(gapHeight));
+    }
+
+
+    /**
      * Removes the RowSpec mapping for this key from this map if it is
      * present.<p>
      *
@@ -275,6 +401,55 @@ public final class LayoutMap {
     private void ensureValidKey(String key) {
         if (key == null) {
             throw new NullPointerException("The key must not be null.");
+        }
+    }
+
+
+    private static LayoutMap createDefault() {
+        LayoutMap map = new LayoutMap(null);
+
+        // Column variables
+        map.putColumnSpec(
+                new String[]{"lc", "lcgap", "label-component-gap"},
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC);
+        map.putColumnSpec(
+                new String[]{"r", "rgap", "rel", "related"},
+                FormFactory.RELATED_GAP_COLSPEC);
+        map.putColumnSpec(
+                new String[]{"u", "ugap", "unrel", "unrelated"},
+                FormFactory.UNRELATED_GAP_COLSPEC);
+
+        // Row variables
+        map.putRowSpec(
+                new String[]{"r", "rgap", "rel", "related"},
+                FormFactory.RELATED_GAP_ROWSPEC);
+        map.putRowSpec(
+                new String[]{"u", "ugap", "unrel", "unrelated"},
+                FormFactory.UNRELATED_GAP_ROWSPEC);
+        map.putRowSpec(
+                new String[]{"n", "ngap", "narrow", "narrow_line"},
+                FormFactory.NARROW_LINE_GAP_ROWSPEC);
+        map.putRowSpec(
+                new String[]{"l", "lgap", "line"},
+                FormFactory.LINE_GAP_ROWSPEC);
+        map.putRowSpec(
+                new String[]{"p", "pgap", "para", "paragraph"},
+                FormFactory.PARAGRAPH_GAP_ROWSPEC);
+
+        return map;
+    }
+
+
+    private void putColumnSpec(String[] keys, ColumnSpec value) {
+        for (int i=0; i < keys.length; i++) {
+            putColumnSpec(keys[i], value);
+        }
+    }
+
+
+    private void putRowSpec(String[] keys, RowSpec value) {
+        for (int i=0; i < keys.length; i++) {
+            putRowSpec(keys[i], value);
         }
     }
 
