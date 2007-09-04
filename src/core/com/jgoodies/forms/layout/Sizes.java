@@ -49,7 +49,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see     Size
  * @see     UnitConverter
@@ -206,7 +206,8 @@ public final class Sizes {
      * @param lowerBound  	the lower bound size
      * @param upperBound  	the upper bound size
      * @return a <code>BoundedSize</code> for the given basis and bounds
-     * @throws NullPointerException if basis is null
+     * @throws NullPointerException if {@code basis} is {@code null},
+     *    or if both {@code lowerBound} and {@code upperBound} are {@code null}.
      */
     public static Size bounded(Size basis, Size lowerBound, Size upperBound) {
         return new BoundedSize(basis, lowerBound, upperBound);
@@ -344,11 +345,19 @@ public final class Sizes {
      * Sets the Unit that shall be used if an encoded ConstantSize
      * provides no unit string.
      *
-     * @param unit    the new default Unit
+     * @param unit    the new default Unit, {@code null} for dialog units
+     *
+     * @throws IllegalArgumentException if {@code unit} is
+     *    {@link ConstantSize#DLUX} or {@link ConstantSize#DLUY}.
      *
      * @since 1.2
      */
     public static void setDefaultUnit(Unit unit) {
+        if ((unit == ConstantSize.DLUX) || (unit == ConstantSize.DLUY)) {
+            throw new IllegalArgumentException(
+                    "The unit must not be DLUX or DLUY. "
+                  + "To use DLU as default unit, invoke this method with null.");
+        }
         defaultUnit = unit;
     }
 
