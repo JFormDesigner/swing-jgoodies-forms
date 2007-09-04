@@ -67,7 +67,7 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see	Size
  * @see	Sizes
@@ -388,7 +388,11 @@ public final class ConstantSize implements Size, Serializable {
         static Unit valueOf(String str, boolean horizontal) {
             String lowerCase = str.toLowerCase(Locale.ENGLISH);
             if (lowerCase.length() == 0) {
-                return Sizes.getDefaultUnit();
+                Unit defaultUnit = Sizes.getDefaultUnit();
+                if (defaultUnit != null) {
+                    return defaultUnit;
+                }
+                return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
             } else if (lowerCase.equals("px"))
                 return PIXEL;
             else if (lowerCase.equals("dlu"))
