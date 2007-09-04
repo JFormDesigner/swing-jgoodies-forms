@@ -51,7 +51,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -125,8 +125,90 @@ public final class RowSpec extends FormSpec {
      * @param encodedDescription	the encoded description
      */
 	public RowSpec(String encodedDescription) {
-        super(DEFAULT, encodedDescription);
+        this(encodedDescription, null);
 	}
+
+
+    /**
+     * Constructs a RowSpec from the specified encoded description
+     * using the given {@link LayoutMap}.
+     * The description will be parsed to set initial values.
+     *
+     * @param encodedDescription    the encoded description
+     * @param layoutMap             maps layout variables to RowSpecs,
+     *      may be {@code null}
+     *
+     * @since 1.2
+     */
+    public RowSpec(String encodedDescription, LayoutMap layoutMap) {
+        super(DEFAULT, encodedDescription, layoutMap);
+    }
+
+
+    // Factory Methods ********************************************************
+
+    /**
+     * Creates and returns a {@link RowSpec} that represents a gap with the
+     * specified {@link ConstantSize}.
+     *
+     * @param gapHeight   specifies the gap height
+     * @return a RowSpec that describes a vertical gap with the given height
+     *
+     * @throws NullPointerException if {@code gapHeight} is {@code null}
+     *
+     * @since 1.2
+     */
+    public static RowSpec createGap(ConstantSize gapHeight) {
+        return new RowSpec(RowSpec.TOP, gapHeight, RowSpec.NO_GROW);
+    }
+
+
+    /**
+     * Parses and splits encoded row specifications using the default
+     * {@link LayoutMap} and returns an array of RowSpec objects.
+     *
+     * @param encodedRowSpecs     comma separated encoded row specifications
+     * @return an array of decoded row specifications
+     * @throws NullPointerException if the encoded row specifications string
+     *     is <code>null</code>
+     *
+     * @see RowSpec#RowSpec(String)
+     * @see LayoutMap#getDefault()
+     */
+    public static RowSpec[] decodeSpecs(String encodedRowSpecs) {
+        return decodeSpecs(encodedRowSpecs, null);
+    }
+
+
+    /**
+     * Parses and splits encoded row specifications using the given
+     * {@link LayoutMap} and returns an array of RowSpec objects.
+     *
+     * @param encodedRowSpecs     comma separated encoded row specifications
+     * @param layoutMap           maps layout variables to RowSpecs,
+     *                            may be {@code null}
+     * @return an array of decoded row specifications
+     *
+     * @throws NullPointerException if the encoded row specifications string
+     *     is <code>null</code>
+     *
+     * @see RowSpec#RowSpec(String)
+     *
+     * @since 1.2
+     */
+    public static RowSpec[] decodeSpecs(String encodedRowSpecs, LayoutMap layoutMap) {
+        if (encodedRowSpecs == null)
+            throw new NullPointerException("The row specification must not be null.");
+
+        String[] splittedSpecs =
+            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedRowSpecs);
+        int rowCount = splittedSpecs.length;
+        RowSpec[] rowSpecs = new RowSpec[rowCount];
+        for (int i = 0; i < rowCount; i++) {
+            rowSpecs[i] = new RowSpec(splittedSpecs[i], layoutMap);
+        }
+        return rowSpecs;
+    }
 
 
     // Implementing Abstract Behavior ***************************************
@@ -139,34 +221,6 @@ public final class RowSpec extends FormSpec {
      * @return true for horizontal, false for vertical
      */
     protected boolean isHorizontal() { return false; }
-
-
-    // Parsing and Decoding of Row Descriptions *****************************
-
-    /**
-     * Parses and splits encoded row specifications and returns
-     * an array of RowSpec objects.
-     *
-     * @param encodedRowSpecs     comma separated encoded row specifications
-     * @return an array of decoded row specifications
-     * @throws NullPointerException if the encoded row specifications string
-     *     is <code>null</code>
-     *
-     * @see RowSpec#RowSpec(String)
-     */
-    public static RowSpec[] decodeSpecs(String encodedRowSpecs) {
-        if (encodedRowSpecs == null)
-            throw new NullPointerException("The row specification must not be null.");
-
-        String[] splittedSpecs =
-            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedRowSpecs);
-        int rowCount = splittedSpecs.length;
-        RowSpec[] rowSpecs = new RowSpec[rowCount];
-        for (int i = 0; i < rowCount; i++) {
-            rowSpecs[i] = new RowSpec(splittedSpecs[i]);
-        }
-        return rowSpecs;
-    }
 
 
 }

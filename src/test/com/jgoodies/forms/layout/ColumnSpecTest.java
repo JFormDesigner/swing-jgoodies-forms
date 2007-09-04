@@ -32,13 +32,15 @@ package com.jgoodies.forms.layout;
 
 import java.util.Locale;
 
+import com.jgoodies.forms.factories.FormFactory;
+
 import junit.framework.TestCase;
 
 /**
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -89,6 +91,51 @@ public final class ColumnSpecTest extends TestCase {
     public void testRejectInvalidColumnSpecEncodings() {
         testRejectInvalidColumnSpecEncodings(Locale.ENGLISH);
         testRejectInvalidColumnSpecEncodings(AllFormsTests.TURKISH);
+    }
+
+
+    public void testDefaultVariables() {
+        assertEquals(
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                new ColumnSpec("@lcgap"));
+        assertEquals(
+                FormFactory.RELATED_GAP_COLSPEC,
+                new ColumnSpec("@rgap"));
+        assertEquals(
+                FormFactory.UNRELATED_GAP_COLSPEC,
+                new ColumnSpec("@ugap"));
+    }
+
+
+    public void testCustomVariable() {
+        ColumnSpec labelColumnSpec = new ColumnSpec("left:[80dlu;pref]");
+        LayoutMap layoutMap = new LayoutMap(null);
+        layoutMap.putColumnSpec("label", labelColumnSpec);
+        assertEquals(
+                labelColumnSpec,
+                new ColumnSpec("@label", layoutMap));
+    }
+
+
+    public void testOverrideDefaultVariable() {
+        ConstantSize gapWidth = Sizes.DLUX1;
+        ColumnSpec labelComponentColumnSpec = ColumnSpec.createGap(gapWidth);
+        LayoutMap layoutMap = new LayoutMap(LayoutMap.getDefault());
+        layoutMap.putColumnGapSpec("lcgap", gapWidth);
+        assertEquals(
+                labelComponentColumnSpec,
+                new ColumnSpec("@lcgap", layoutMap));
+    }
+
+
+    public void testMissingVariable() {
+        String variable = "@rumpelstilzchen";
+        try {
+            new ColumnSpec(variable);
+            fail("The parser should reject the missing variable:" + variable);
+        } catch (Exception e) {
+            // The expected behavior
+        }
     }
 
 
@@ -181,6 +228,13 @@ public final class ColumnSpecTest extends TestCase {
 
             spec = new ColumnSpec("fill:10in");
             assertEquals(spec, new ColumnSpec("FILL:10IN"));
+
+            ColumnSpec spec1 = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, FormSpec.NO_GROW);
+            ColumnSpec spec2 = new ColumnSpec(ColumnSpec.RIGHT, Sizes.DEFAULT, 1.0);
+            ColumnSpec[] specs = ColumnSpec.decodeSpecs("left:pref:none , right:default:grow");
+            assertEquals(2, specs.length);
+            assertEquals(spec1, specs[0]);
+            assertEquals(spec2, specs[1]);
         } finally {
             Locale.setDefault(oldDefault);
         }

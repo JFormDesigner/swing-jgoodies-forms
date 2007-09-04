@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
  * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -109,7 +109,7 @@ public abstract class FormSpec implements Serializable {
     // Parser Patterns ******************************************************
 
     protected static final Pattern SPEC_SEPARATOR_PATTERN =
-        Pattern.compile(",\\s*");
+        Pattern.compile("\\s*,\\s*");
 
     private static final Pattern TOKEN_SEPARATOR_PATTERN =
         Pattern.compile(":");
@@ -148,11 +148,15 @@ public abstract class FormSpec implements Serializable {
      * @param defaultAlignment the spec's default alignment
      * @param size             a constant, component or bounded size
      * @param resizeWeight     the spec resize weight
-     * @throws IllegalArgumentException if the resize weight is negative
+     *
+     * @throws NullPointerException  if the {@code size} is {@code null}
+     * @throws IllegalArgumentException if the {@code resizeWeight} is negative
      */
     protected FormSpec(DefaultAlignment defaultAlignment,
                         Size size,
                         double resizeWeight) {
+        if (size == null)
+            throw new NullPointerException("The size must not be null.");
     	this.defaultAlignment = defaultAlignment;
         this.size             = size;
         this.resizeWeight     = resizeWeight;
@@ -163,13 +167,22 @@ public abstract class FormSpec implements Serializable {
     /**
      * Constructs a <code>FormSpec</code> from the specified encoded
      * description. The description will be parsed to set initial values.
+     * If {@code layoutMap} is {@code null}, the default {@link LayoutMap}
+     * will be used.
      *
-     * @param defaultAlignment 	the default alignment
+     * @param defaultAlignment 	    the default alignment
      * @param encodedDescription	the encoded description
+     * @param layoutMap             maps strings to FormSpecs
      */
-    protected FormSpec(DefaultAlignment defaultAlignment, String encodedDescription) {
+    protected FormSpec(
+            DefaultAlignment defaultAlignment,
+            String encodedDescription,
+            LayoutMap layoutMap) {
         this(defaultAlignment, Sizes.DEFAULT, NO_GROW);
-        parseAndInitValues(encodedDescription.toLowerCase(Locale.ENGLISH));
+        LayoutMap map = layoutMap != null
+            ? layoutMap
+            : LayoutMap.getDefault();
+        parseAndInitValues(encodedDescription.toLowerCase(Locale.ENGLISH), map);
     }
 
 
@@ -221,10 +234,26 @@ public abstract class FormSpec implements Serializable {
      * The encoded description must be in lower case.
      *
      * @param encodedDescription   the FormSpec in an encoded format
+     * @param layoutMap            maps variables to FormSpecs
      * @throws IllegalArgumentException if the string is empty, has no size,
-     * or is otherwise invalid
+     *     or is otherwise invalid
      */
-    private void parseAndInitValues(String encodedDescription) {
+    private void parseAndInitValues(String encodedDescription, LayoutMap layoutMap) {
+        if (encodedDescription.length() == 0)
+            throw new IllegalArgumentException("The encoded form spec must not be empty.");
+        if (encodedDescription.charAt(0) == LayoutMap.VARIABLE_PREFIX_CHAR) {
+            String key = encodedDescription.substring(1);
+            FormSpec spec = isHorizontal()
+                ? (FormSpec) layoutMap.getColumnSpec(key)
+                : (FormSpec) layoutMap.getRowSpec(key);
+                if (spec != null) {
+                    defaultAlignment = spec.getDefaultAlignment();
+                    size = spec.getSize();
+                    resizeWeight = spec.getResizeWeight();
+                    return;
+                }
+                throw new IllegalArgumentException("Unmapped layout variable:" + encodedDescription);
+        }
         String token[] = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
         if (token.length == 0) {
             throw new IllegalArgumentException(
