@@ -17,16 +17,10 @@ INTRODUCTION
     it lacks functions and documentation and may contain known bugs 
     in some areas. 
     
-    The topics for the this release are:
-    1) API clarification and API extensions.
-    2) Improved support for visual builders. 
-    3) Move stable extra sources to the library core.
-    4) Remove rarely used code.
-    
-    Topics for future release are:  
-    5) Extend the tutorial.
-    6) Bug fixing - even if the fix affects the layout.
-    7) Move to Java 5.
+    The topics for this release are:
+    1) Syntax extensions
+    2) Layout variables
+    3) Remove rarely used code
     
     
 CHANGES THAT AFFECT THE COMPATIBILITY
@@ -94,6 +88,19 @@ OTHER CHANGES
       from the optimization in JComponent#getInsets(Insets).
       
     
+ROADMAP
+
+    Forms 1.3 
+    o API clarification and API extensions.
+    o Bug fixing - even if the fix affects the layout.
+    o Change default unit to DLU.
+    o Change default unit conversion algorithm.
+    
+    Forms 2.0 
+    o Extend the tutorial.
+    o Bug fixing - even if the fix affects the layout.
+    o Move to Java 5.
+    
     
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
@@ -115,15 +122,6 @@ INTRODUCTION
     I've decided to make smaller steps, and to release updates more 
     frequently. On the other hand, some changes planned for 1.1 
     have been deferred to future versions.
-    
-    The topics for the next releases are:
-    1) API clarification and API extensions.
-    2) Improved support for visual builders. 
-    3) Move stable extra sources to the library core.
-    4) Remove rarely used classes.  
-    5) Extend the tutorial.
-    6) Bug fixing - even if the fix affects the layout.
-    7) Move to Java 5.
     
     
 CHANGES THAT AFFECT THE COMPATIBILITY
