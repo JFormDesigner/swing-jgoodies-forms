@@ -139,7 +139,7 @@ import java.util.List;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -254,7 +254,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Constructs a FormLayout using the given encoded column specifications.
      * The constructed layout has no rows; these must be added
-     * before components can be added to the layout container.<p>
+     * before components can be added to the layout container.
+     * The string decoding uses the default LayoutMap.<p>
      *
      * This constructor is intended to be used with builder classes that
      * add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
@@ -274,16 +275,60 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * </pre> See the class comment for more examples.
      *
      * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @throws NullPointerException  if encodedColumnSpecs is <code>null</code>
+     *
+     * @throws NullPointerException  if encodedColumnSpecs is {@code null}
+     *
+     * @see LayoutMap#getDefault()
      */
     public FormLayout(String encodedColumnSpecs) {
-        this(ColumnSpec.decodeSpecs(encodedColumnSpecs), new RowSpec[0]);
+        this(encodedColumnSpecs, (LayoutMap) null);
+    }
+
+
+    /**
+     * Constructs a FormLayout using the given encoded column specifications.
+     * The constructed layout has no rows; these must be added
+     * before components can be added to the layout container.<p>
+     *
+     * This constructor is intended to be used with builder classes that
+     * add rows dynamically, such as the <code>DefaultFormBuilder</code>.
+     * The strind decoding uses the given LayoutMap.<p>
+     *
+     * <strong>Examples:</strong><pre>
+     * // Label, gap, component
+     * FormLayout layout = new FormLayout(
+     *      "pref, 4dlu, pref",
+     *      myLayoutMap);
+     *
+     * // Right-aligned label, gap, component, gap, component
+     * FormLayout layout = new FormLayout(
+     *      "right:pref, &#x0040;lcgap, 50dlu, 4dlu, 50dlu",
+     *      myLayoutMap);
+     *
+     * // Left-aligned labels, gap, components, gap, components
+     * FormLayout layout = new FormLayout(
+     *      "left:pref, &#x0040;lcgap, pref, &#x0040;myGap, pref",
+     *      myLayoutMap);
+     * </pre> See the class comment for more examples.
+     *
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @param layoutMap           maps variables to column and row specifications
+     *                            may be {@code null}
+     *
+     * @throws NullPointerException  if encodedColumnSpecs is {@code null}
+     *
+     * @see LayoutMap#getDefault()
+     *
+     * @since 1.2
+     */
+    public FormLayout(String encodedColumnSpecs, LayoutMap layoutMap) {
+        this(ColumnSpec.decodeSpecs(encodedColumnSpecs, layoutMap), new RowSpec[0]);
     }
 
 
     /**
      * Constructs a FormLayout using the given
-     * encoded column and row specifications.<p>
+     * encoded column and row specifications and the default LayoutMap.<p>
      *
      * This constructor is recommended for most hand-coded layouts.<p>
      *
@@ -307,12 +352,61 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @param encodedColumnSpecs  comma separated encoded column specifications
      * @param encodedRowSpecs     comma separated encoded row specifications
+     *
      * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs
-     *     is <code>null</code>
+     *     is {@code null}
+     *
+     * @see LayoutMap#getDefault()
      */
     public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
-        this(ColumnSpec.decodeSpecs(encodedColumnSpecs),
-             RowSpec.   decodeSpecs(encodedRowSpecs));
+        this(encodedColumnSpecs, encodedRowSpecs, null);
+    }
+
+
+    /**
+     * Constructs a FormLayout using the given
+     * encoded column and row specifications and the given LayoutMap.<p>
+     *
+     * This constructor is recommended for most hand-coded layouts.<p>
+     *
+     * <strong>Examples:</strong><pre>
+     * FormLayout layout = new FormLayout(
+     *      "pref, 4dlu, pref",               // columns
+     *      "p, 3dlu, p",                     // rows
+     *      myLayoutMap);                     // custom LayoutMap
+     *
+     * FormLayout layout = new FormLayout(
+     *      "right:pref, 4dlu, pref",         // columns
+     *      "p, &#x0040;lgap, p, &#x0040;lgap, fill:p:grow",// rows
+     *      myLayoutMap);                     // custom LayoutMap
+     *
+     * FormLayout layout = new FormLayout(
+     *      "left:pref, 4dlu, 50dlu",         // columns
+     *      "p, 2px, p, 3dlu, p, 9dlu, p",    // rows
+     *      myLayoutMap);                     // custom LayoutMap
+     *
+     * FormLayout layout = new FormLayout(
+     *      "max(75dlu;pref), 4dlu, default", // columns
+     *      "p, 3dlu, p, 3dlu, p, 3dlu, p",   // rows
+     *      myLayoutMap);                     // custom LayoutMap
+     * </pre> See the class comment for more examples.
+     *
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @param encodedRowSpecs     comma separated encoded row specifications
+     * @param layoutMap           maps variables to column and row specifications
+     *                            may be {@code null}
+     *
+     * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs
+     *     is {@code null}
+     *
+     * @since 1.2
+     */
+    public FormLayout(
+            String encodedColumnSpecs,
+            String encodedRowSpecs,
+            LayoutMap layoutMap) {
+        this(ColumnSpec.decodeSpecs(encodedColumnSpecs, layoutMap),
+             RowSpec.   decodeSpecs(encodedRowSpecs,    layoutMap));
     }
 
 
