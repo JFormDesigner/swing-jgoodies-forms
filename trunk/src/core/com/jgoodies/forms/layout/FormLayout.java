@@ -127,19 +127,19 @@ import java.util.List;
  * return builder.getPanel();
  * </pre><p>
  *
- * TODO: In the Forms 1.0.x invisible components are not taken into account
+ * TODO: In the Forms 1.1 invisible components are not taken into account
  * when the FormLayout lays out the container. Add an optional setting for
  * this on both the container-level and component-level. So one can specify
  * that invisible components shall be taken into account, but may exclude
  * individual components. Or the other way round, exclude invisible components,
  * and include individual components. The API of both the FormLayout and
  * CellConstraints classes shall be extended to support this option.
- * This feature is planned for the Forms version 1.1 and is described in
+ * This feature is planned for the Forms version 1.2 and is described in
  * <a href="https://forms.dev.java.net/issues/show_bug.cgi?id=28">issue #28</a>
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -151,7 +151,6 @@ import java.util.List;
  * @see	Size
  * @see	Sizes
  */
-
 public final class FormLayout implements LayoutManager2, Serializable {
 
     /**
@@ -257,8 +256,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * The constructed layout has no rows; these must be added
      * before components can be added to the layout container.<p>
      *
-     * This constructor is primarily intended to be used with builder classes
-     * that add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
+     * This constructor is intended to be used with builder classes that
+     * add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
      *
      * <strong>Examples:</strong><pre>
      * // Label, gap, component
