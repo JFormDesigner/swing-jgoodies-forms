@@ -51,7 +51,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -197,11 +197,7 @@ public final class RowSpec extends FormSpec {
      * @since 1.2
      */
     public static RowSpec[] decodeSpecs(String encodedRowSpecs, LayoutMap layoutMap) {
-        if (encodedRowSpecs == null)
-            throw new NullPointerException("The row specification must not be null.");
-
-        String[] splittedSpecs =
-            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedRowSpecs);
+        String[] splittedSpecs = splitSpecs(encodedRowSpecs);
         int rowCount = splittedSpecs.length;
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {

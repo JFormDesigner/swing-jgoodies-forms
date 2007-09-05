@@ -40,10 +40,16 @@ import java.util.regex.Pattern;
 /**
  * An abstract class that specifies columns and rows in FormLayout
  * by their default alignment, start size and resizing behavior.
- * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.
+ * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.<p>
+ *
+ * Also implements the parser for encoded column and row specifications
+ * and provides parser convenience behavior for its subclasses ColumnSpec
+ * and RowSpec.<p>
+ *
+ * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -108,7 +114,13 @@ public abstract class FormSpec implements Serializable {
 
     // Parser Patterns ******************************************************
 
-    protected static final Pattern SPEC_SEPARATOR_PATTERN =
+//    private static final Pattern EXPANSION_PREFIX_PATTERN =
+//        Pattern.compile("\\d+[x\\*]\\(");
+//
+//    private static final Pattern EXPANSION_REST_PATTERN =
+//        Pattern.compile(".*?\\)");
+
+    private static final Pattern SPEC_SEPARATOR_PATTERN =
         Pattern.compile("\\s*,\\s*");
 
     private static final Pattern TOKEN_SEPARATOR_PATTERN =
@@ -229,8 +241,16 @@ public abstract class FormSpec implements Serializable {
 
     // Parsing **************************************************************
 
+    protected static String[] splitSpecs(String encodedCommaSeparatedSpec) {
+        if (encodedCommaSeparatedSpec == null)
+            throw new NullPointerException("The encoded specification must not be null.");
+
+        return FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedCommaSeparatedSpec);
+    }
+
+
     /**
-     * Parses an encoded form spec and initializes all required fields.
+     * Parses an encoded form specification and initializes all required fields.
      * The encoded description must be in lower case.
      *
      * @param encodedDescription   the FormSpec in an encoded format

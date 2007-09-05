@@ -52,7 +52,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -193,7 +193,7 @@ public final class ColumnSpec extends FormSpec {
 
 
     /**
-     * Parses and splits encoded column specifications using the given
+     * Splits and parses the encoded column specifications using the given
      * {@link LayoutMap} and returns an array of ColumnSpec objects.
      *
      * @param encodedColumnSpecs  comma separated encoded column specifications
@@ -208,11 +208,7 @@ public final class ColumnSpec extends FormSpec {
      * @since 1.2
      */
     public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs, LayoutMap layoutMap) {
-        if (encodedColumnSpecs == null)
-            throw new NullPointerException("The column specification must not be null.");
-
-        String[] splittedSpecs =
-            FormSpec.SPEC_SEPARATOR_PATTERN.split(encodedColumnSpecs);
+        String[] splittedSpecs = splitSpecs(encodedColumnSpecs);
         int columnCount = splittedSpecs.length;
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
