@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @since 1.0.3
  *
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -325,7 +325,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      *     the size of the gaps between component lines
      */
     public void setLineGapSize(ConstantSize lineGapSize) {
-        RowSpec rowSpec = FormFactory.createGapRowSpec(lineGapSize);
+        RowSpec rowSpec = RowSpec.createGap(lineGapSize);
         this.lineGapSpec = rowSpec;
     }
 
@@ -344,7 +344,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      *     the size of the gaps between paragraphs
      */
     public void setParagraphGapSize(ConstantSize paragraphGapSize) {
-        RowSpec rowSpec = FormFactory.createGapRowSpec(paragraphGapSize);
+        RowSpec rowSpec = RowSpec.createGap(paragraphGapSize);
         this.paragraphGapSpec = rowSpec;
     }
 
