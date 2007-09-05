@@ -4,12 +4,15 @@ JGoodies Forms(tm) To-Do
 
 o Sanity check: no negative sizes, e.g. no "-7dlu".
 
-o SpecMap maps names to row and column specification;
-  has a parent SpecMap. Is used per FormLayout instance.
-  There's a global default SpecMap that is used as default,
-  if a FormLayout is constructed without an individual SpecMap.
-  SpecMap#getRowSpec(String), #getColumnSpec(String)
-  may honor the Locale, platform, and custom settings.
+o Add ButtonBarBuilder2 that has an non-opaque background
+  and simpler methods for adding buttons with a minimum width.
+  
+
+o Forms 2.0:
+  - change default unit to DLU
+  - change ButtonBarBuilder opaque default to false
+  - repace DLUX and DLUY by DLY and change the Sizes API
+    to hand over the orientation
 
 o Add a reference to the explicit-tablelayout project;
   update the whitepaper to mention this layout system.
