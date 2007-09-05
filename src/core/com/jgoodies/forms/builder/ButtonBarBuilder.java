@@ -55,7 +55,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * the default minimum button width as specified by the current
  * {@link com.jgoodies.forms.util.LayoutStyle}.<p>
  *
- * You can set an optional hint for narrow  margin for the fixed width buttons.
+ * You can set an optional hint for narrow margin for the fixed width buttons.
  * This is useful if you want to lay out a button bar that includes a button
  * with a long text. For example, in a bar with
  * 'Copy to Clipboard', 'OK', 'Cancel' you may declare the clipboard button
@@ -72,7 +72,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * on the Mac OS X. Builder methods that create sequences of buttons
  * (e.g. {@link #addGriddedButtons(JButton[])} honor the button order.
  * If you want to ignore the default button order, you can either
- * add add individual buttons, or create a ButtonBarBuilder instance
+ * add individual buttons, or create a ButtonBarBuilder instance
  * with the order set to left-to-right. For the latter see
  * {@link #createLeftToRightBuilder()}. Also see the button order
  * example below.<p>
@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -366,7 +366,9 @@ public final class ButtonBarBuilder extends PanelBuilder {
 
 
     /**
-     * Adds the standard gap for related components.
+     * Adds the standard horizontal gap for related components.
+     *
+     * @see LayoutStyle#getRelatedComponentsPadX()
      */
     public void addRelatedGap() {
         appendRelatedComponentsGapColumn();
@@ -375,7 +377,9 @@ public final class ButtonBarBuilder extends PanelBuilder {
 
 
     /**
-     * Adds the standard gap for unrelated components.
+     * Adds the standard horizontal gap for unrelated components.
+     *
+     * @see LayoutStyle#getUnrelatedComponentsPadX()
      */
     public void addUnrelatedGap() {
         appendUnrelatedComponentsGapColumn();
@@ -384,14 +388,16 @@ public final class ButtonBarBuilder extends PanelBuilder {
 
 
     /**
-     * Adds a strut of a specified size.
+     * Adds a horizontal strut of the specified width.
+     * For related and unrelated components use {@link #addRelatedGap()}
+     * and {@link #addUnrelatedGap()} respectively.
      *
-     * @param size  a <code>ConstantSize</code> that describes the gap's size
+     * @param width  describes the gap width
+     *
+     * @see ColumnSpec#createGap(ConstantSize)
      */
-    public void addStrut(ConstantSize size) {
-        getLayout().appendColumn(new ColumnSpec(ColumnSpec.LEFT,
-                                                size,
-                                                ColumnSpec.NO_GROW));
+    public void addStrut(ConstantSize width) {
+        getLayout().appendColumn(ColumnSpec.createGap(width));
         nextColumn();
     }
 
