@@ -117,7 +117,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * It is initialized with the current LayoutStyle's button order,
  * which in turn is left-to-right on most platforms and right-to-left
  * on the Mac OS X. Builder methods that create sequences of buttons
- * (e.g. {@link #addGriddedButtons(JButton[])} honor the button order.
+ * (e.g. {@link #addButton(JComponent[])} honor the button order.
  * If you want to ignore the default button order, you can either
  * add individual buttons, or create a ButtonBarBuilder instance
  * with the order set to left-to-right. For the latter see
@@ -175,7 +175,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -213,13 +213,12 @@ public final class ButtonBarBuilder2 extends PanelBuilder {
      * left-to-right or right-to-left. This setting is initialized using
      * the current {@link LayoutStyle}'s button order. It is honored
      * only by builder methods that build sequences of button, for example
-     * {@link #addGriddedButtons(JButton[])}, and ignored if you add
-     * individual button, for example using {@link #addGridded(JComponent)}.
+     * {@link #addButton(JComponent[])}, and ignored if you add
+     * individual button, for example using {@link #addButton(JComponent)}.
      *
      * @see #isLeftToRight()
      * @see #setLeftToRight(boolean)
-     * @see #addButton(JButton[])
-     * @see #addGrowing(JButton[])
+     * @see #addGrowing(JComponent[])
      */
     private boolean leftToRight;
 
