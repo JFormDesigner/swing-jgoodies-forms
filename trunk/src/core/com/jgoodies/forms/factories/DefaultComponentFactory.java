@@ -35,7 +35,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import com.jgoodies.forms.layout.Sizes;
-import com.jgoodies.forms.util.Utilities;
+import com.jgoodies.forms.util.FormUtils;
 
 /**
  * A singleton implementation of the {@link ComponentFactory} interface
@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.Utilities;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class DefaultComponentFactory implements ComponentFactory {
 
@@ -213,7 +213,7 @@ public class DefaultComponentFactory implements ComponentFactory {
             throw new IllegalArgumentException("The label's horizontal alignment"
                     + " must be one of: LEFT, CENTER, RIGHT.");
 
-        JPanel panel = new JPanel(new TitledSeparatorLayout(!Utilities.isLafAqua()));
+        JPanel panel = new JPanel(new TitledSeparatorLayout(!FormUtils.isLafAqua()));
         panel.setOpaque(false);
         panel.add(label);
         panel.add(new JSeparator());
@@ -320,7 +320,7 @@ public class DefaultComponentFactory implements ComponentFactory {
          * @return the font used for title labels
          */
         private Font getTitleFont() {
-            return Utilities.isLafAqua()
+            return FormUtils.isLafAqua()
             	? UIManager.getFont("Label.font").deriveFont(Font.BOLD)
                 : UIManager.getFont("TitledBorder.font");
         }
