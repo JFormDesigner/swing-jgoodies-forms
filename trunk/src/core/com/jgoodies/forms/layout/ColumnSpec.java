@@ -52,7 +52,7 @@ package com.jgoodies.forms.layout;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -208,13 +208,7 @@ public final class ColumnSpec extends FormSpec {
      * @since 1.2
      */
     public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs, LayoutMap layoutMap) {
-        String[] splittedSpecs = splitSpecs(encodedColumnSpecs);
-        int columnCount = splittedSpecs.length;
-        ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
-        for (int i = 0; i < columnCount; i++) {
-            columnSpecs[i] = new ColumnSpec(splittedSpecs[i], layoutMap);
-        }
-        return columnSpecs;
+        return FormSpecParser.parseColumnSpecs(encodedColumnSpecs, layoutMap);
     }
 
 
