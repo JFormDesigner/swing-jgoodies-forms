@@ -27,8 +27,6 @@ CHANGES THAT AFFECT THE COMPATIBILITY
 
     o Removed the deprecated FormFactory#createColumnLayout methods.
     o Removed Borders.EmptyBorder#top, #left, #bottom, #right.
-    o BoundedSize constructor throws IllegalArgumentException 
-      if both the lower and upper bound are null.
           
       
 NEW FEATURES
@@ -36,9 +34,10 @@ NEW FEATURES
     o New syntax for encoded column and row specification:
       - layout variables, see the LayoutMap class comment for details.
       - bounded sizes
-          [<constant size>;<logical size>]   // lower bound
-          [<logical size>;<constant size>]   // upper bound
-          [<constant>;<logical>;<constant>]  // lower and upper bound
+          [<constant size>,<logical size>]   // lower bound
+          [<logical size>,<constant size>]   // upper bound
+          [<constant>,<logical>,<constant>]  // lower and upper bound
+      - multiplier, for example "p, 9dlu, 5x(p, 3dlu), p"
       - accepts string encodings with whitespace before a comma,
         for example "pref , pref"
     o Sizes#setDefaultUnit(Unit) allows to set the unit that is used
@@ -75,11 +74,10 @@ LAYOUT VARIABLES
        LayoutMap customMap = new LayoutMap(LayoutMap.getDefault())  
     builds a custom map that has the default map as its parent.
     
-
     
 BUGS FIXED
 
-    o ...
+    o BoundedSize constructor accepts null lower and upper bound.
         
     
 OTHER CHANGES
