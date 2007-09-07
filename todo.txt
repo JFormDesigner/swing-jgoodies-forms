@@ -7,6 +7,9 @@ o Sanity check: no negative sizes, e.g. no "-7dlu".
 o Add ButtonBarBuilder2 that has an non-opaque background
   and simpler methods for adding buttons with a minimum width.
   
+o Add tests for the existing syntax parser checks
+
+o Add tests for the new multiplier feature
 
 o Forms 2.0:
   - change default unit to DLU
