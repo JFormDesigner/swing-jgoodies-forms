@@ -106,25 +106,22 @@
 	bounds at the same time, which is needed rarely. 
 	
 <pre>
-boundedSize ::=   MIN(constantSize;componentSize)
-                | MAX(constantSize;componentSize)
+boundedSize ::=   [constantSize,componentSize]               // lower bound
+                | [componentSize,constantSize]               // upper bound
+                | [constantSize,componentSize,constantSize]  // lower and upper
+                
+                | MAX(constantSize;componentSize)            // lower bound (old)
+                | MIN(constantSize;componentSize)            // upper bound (old)
 </pre>
-
-    <b>Note:</b> The string representation uses <i>max</i>
-    to specify a minimum size, and <i>min</i> to specify a maximum size.
-    Think of this as a function - like <tt>Math.max</tt> and <tt>Math.min</tt>.
-    The max function provides a lower bound, the min function an upper bound.
-    
-    
 
 
 	<h2>Examples</h2><pre>
-new ColumnSpec("max(50dlu;pref)");  // maximum of 50dlu and pref size
+new ColumnSpec("[50dlu,pref]");     //  pref size with lower bound 50dlu
 
-new RowSpec("min(100dlu;pref)");    // minimum of 100dlu and pref size
+new RowSpec("[pref,80dlu]");        //  pref size with upper bound 80dlu
 
-new FormLayout("max(50dlu;pref), 4dlu, max(100dlu;min)", 
-               "p, 3dlu, p, 3dlu, max(200dlu;p):grow");
+new FormLayout("[50dlu,pref], 4dlu, [100dlu,min]", 
+               "p, 3dlu, p, 3dlu, [200dlu,p]:grow");
 </pre>	
 
 

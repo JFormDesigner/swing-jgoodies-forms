@@ -47,7 +47,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public final class ComponentSizesExample {
 
@@ -103,7 +103,7 @@ public final class ComponentSizesExample {
 
     private JComponent buildMinimumSizePanel() {
         FormLayout layout = new FormLayout(
-                "right:max(25dlu;pref), 3dlu, min",
+                "right:[25dlu,pref], 3dlu, min",
                 "pref");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.append("Min", new JTextField(15));
@@ -112,7 +112,7 @@ public final class ComponentSizesExample {
 
     private JComponent buildDefaultSizePanel() {
         FormLayout layout = new FormLayout(
-                "right:max(25dlu;pref), 3dlu, default",
+                "right:[25dlu,pref], 3dlu, default",
                 "pref");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.append("Default", new JTextField(15));
@@ -121,7 +121,7 @@ public final class ComponentSizesExample {
 
     private JComponent buildPreferredSizePanel() {
         FormLayout layout = new FormLayout(
-                "right:max(25dlu;pref), 3dlu, pref",
+                "right:[25dlu,pref], 3dlu, pref",
                 "pref");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.append("Pref", new JTextField(15));
@@ -147,4 +147,3 @@ public final class ComponentSizesExample {
 
 
 }
-

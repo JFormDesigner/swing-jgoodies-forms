@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see	ButtonBarFactory
  */
@@ -176,14 +176,14 @@ public final class ButtonBarFactoryExample {
         builder.add(new JScrollPane(new JTextArea()));
         builder.nextRow(2);
         builder.add(ButtonBarFactory.buildAddRemovePropertiesLeftBar(
-            new JButton("Add..."), new JButton("Remove"), new JButton("Properties...")
+            new JButton("Add/u2026"), new JButton("Remove"), new JButton("Properties/u2026")
         ));
         builder.nextRow(2);
 
         builder.add(new JScrollPane(new JTextArea()));
         builder.nextRow(2);
         builder.add(ButtonBarFactory.buildAddRemovePropertiesRightBar(
-            new JButton("Add..."), new JButton("Remove"), new JButton("Properties...")
+            new JButton("Add/u2026"), new JButton("Remove"), new JButton("Properties/u2026")
         ));
         return builder.getContainer();
     }
@@ -199,11 +199,11 @@ public final class ButtonBarFactoryExample {
 
         builder.add(new JScrollPane(new JTextArea()),      cc.xy(1, 1));
         builder.add(ButtonBarFactory.buildAddRemoveLeftBar(
-            new JButton("Add..."), new JButton("Remove")), cc.xy(1, 3));
+            new JButton("Add/u2026"), new JButton("Remove")), cc.xy(1, 3));
 
         builder.add(new JScrollPane(new JTextArea()),      cc.xy(3, 1));
         builder.add(ButtonBarFactory.buildAddRemoveRightBar(
-            new JButton("Add..."), new JButton("Remove")), cc.xy(3, 3));
+            new JButton("Add/u2026"), new JButton("Remove")), cc.xy(3, 3));
         return builder.getContainer();
     }
 
