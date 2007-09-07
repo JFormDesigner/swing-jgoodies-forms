@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see     PanelBuilder
  * @see	RowCounterExample
@@ -138,8 +138,8 @@ public final class PanelBuilderExample {
         initComponents();
 
         FormLayout layout = new FormLayout(
-                "right:max(40dlu;pref), 3dlu, 70dlu, 7dlu, "
-              + "right:max(40dlu;pref), 3dlu, 70dlu",
+                "right:[40dlu,pref], 3dlu, 70dlu, 7dlu, "
+              + "right:[40dlu,pref], 3dlu, 70dlu",
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, " +
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, " +
                 "p, 3dlu, p, 3dlu, p, 3dlu, p");

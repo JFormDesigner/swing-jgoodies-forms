@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public final class BoundedSizesExample {
 
@@ -75,34 +75,34 @@ public final class BoundedSizesExample {
 
     private JComponent buildJumping1Panel() {
         FormLayout layout = new FormLayout(
-                "right:pref, 4dlu, max(35dlu;min), 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "right:pref, 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorGeneralPanel(layout);
     }
 
     private JComponent buildJumping2Panel() {
         FormLayout layout = new FormLayout(
-                "right:pref, 4dlu, max(35dlu;min), 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "right:pref, 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorTransportPanel(layout);
     }
 
     private JComponent buildStable1Panel() {
         FormLayout layout = new FormLayout(
-                "right:max(50dlu;pref), 4dlu, max(35dlu;min), 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "right:[50dlu,pref], 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorGeneralPanel(layout);
     }
 
     private JComponent buildStable2Panel() {
         FormLayout layout = new FormLayout(
-                "right:max(50dlu;pref), 4dlu, max(35dlu;min), 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "right:[50dlu,pref], 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorTransportPanel(layout);
     }
 
     private static final String EDITOR_ROW_SPEC =
-        "p, 3dlu, p, 3dlu, p, 3dlu, p";
+        "3x(p, 3dlu), p";
 
 
     /**
@@ -118,14 +118,14 @@ public final class BoundedSizesExample {
         builder.setDefaultDialogBorder();
         CellConstraints cc = new CellConstraints();
 
-        builder.addLabel("File number:",        cc.xy (1,  1));
-        builder.add(new JTextField(),           cc.xyw(3,  1, 7));
-        builder.addLabel("RFQ number:",         cc.xy (1,  3));
-        builder.add(new JTextField(),           cc.xyw(3,  3, 7));
-        builder.addLabel("Entry date:",         cc.xy (1,  5));
-        builder.add(new JTextField(),           cc.xy (3,  5));
-        builder.addLabel("Sales Person:",       cc.xy (1,  7));
-        builder.add(new JTextField(),           cc.xyw(3,  7, 7));
+        builder.addLabel("File number:",  cc.xy (1,  1));
+        builder.add(new JTextField(),     cc.xyw(3,  1, 7));
+        builder.addLabel("RFQ number:",   cc.xy (1,  3));
+        builder.add(new JTextField(),     cc.xyw(3,  3, 7));
+        builder.addLabel("Entry date:",   cc.xy (1,  5));
+        builder.add(new JTextField(),     cc.xy (3,  5));
+        builder.addLabel("Sales Person:", cc.xy (1,  7));
+        builder.add(new JTextField(),     cc.xyw(3,  7, 7));
 
         return builder.getPanel();
     }

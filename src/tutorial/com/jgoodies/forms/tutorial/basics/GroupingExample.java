@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how columns and rows can be grouped in FormLayout.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public final class GroupingExample {
 
@@ -83,11 +83,11 @@ public final class GroupingExample {
         panel.setBorder(Borders.DIALOG_BORDER);
         CellConstraints cc = new CellConstraints();
 
-        panel.add(createNarrowButton("Hilfe"),      cc.xy(1, 1));
-        panel.add(createNarrowButton("< Zur\u00FCck"),   cc.xy(3, 1));
-        panel.add(createNarrowButton("Vor >"),      cc.xy(4, 1));
-        panel.add(createNarrowButton("Beenden"),    cc.xy(6, 1));
-        panel.add(createNarrowButton("Abbrechen"),  cc.xy(8, 1));
+        panel.add(new JButton("Hilfe"),         cc.xy(1, 1));
+        panel.add(new JButton("< Zur\u00FCck"), cc.xy(3, 1));
+        panel.add(new JButton("Vor >"),         cc.xy(4, 1));
+        panel.add(new JButton("Beenden"),       cc.xy(6, 1));
+        panel.add(new JButton("Abbrechen"),     cc.xy(8, 1));
 
         return panel;
     }
@@ -96,7 +96,7 @@ public final class GroupingExample {
     private JComponent buildEditorPanel(boolean grouped) {
         FormLayout layout = new FormLayout(
                 "pref, 4dlu, 35dlu, 2dlu, 35dlu, 2dlu, 35dlu, 2dlu, 35dlu",
-                "p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p, 2dlu, p");
+                "8x(p, 2dlu), p");
         if (grouped) {
             layout.setRowGroups(new int[][] { { 1, 3, 5, 7, 9, 11, 13, 15, 17 } });
         }
@@ -120,22 +120,13 @@ public final class GroupingExample {
         panel.add(new JTextField(),                 cc.xyw(3, 11, 7));
         panel.add(new JLabel("Customer:"),          cc.xy (1, 13));
         panel.add(new JTextField(),                 cc.xyw(3, 13, 5));
-        panel.add(new JButton("..."),               cc.xy (9, 13));
+        panel.add(new JButton("/u2026"),            cc.xy (9, 13));
         panel.add(new JLabel("Port of loading:"),   cc.xy (1, 15));
         panel.add(new JTextField(),                 cc.xyw(3, 15, 7));
         panel.add(new JLabel("Destination:"),       cc.xy (1, 17));
         panel.add(new JTextField(),                 cc.xyw(3, 17, 7));
 
         return panel;
-    }
-
-
-    // Component Creation *****************************************************
-
-    private JButton createNarrowButton(String text) {
-        JButton button = new JButton(text);
-        button.putClientProperty("jgoodies.isNarrow", Boolean.TRUE);
-        return button;
     }
 
 

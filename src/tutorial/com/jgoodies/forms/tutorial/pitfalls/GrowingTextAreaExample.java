@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public final class GrowingTextAreaExample {
 
@@ -258,4 +258,3 @@ public final class GrowingTextAreaExample {
 
 
 }
-

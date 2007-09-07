@@ -40,7 +40,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -108,7 +108,7 @@ public final class ColumnSpecTest extends TestCase {
 
 
     public void testCustomVariable() {
-        ColumnSpec labelColumnSpec = new ColumnSpec("left:[80dlu;pref]");
+        ColumnSpec labelColumnSpec = new ColumnSpec("left:[80dlu,pref]");
         LayoutMap layoutMap = new LayoutMap(null);
         layoutMap.putColumnSpec("label", labelColumnSpec);
         assertEquals(
@@ -191,13 +191,13 @@ public final class ColumnSpecTest extends TestCase {
             spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
             assertEquals(spec, new ColumnSpec("right:max(10px;pref)"));
             assertEquals(spec, new ColumnSpec("right:max(pref;10px)"));
-            assertEquals(spec, new ColumnSpec("right:[10px;pref]"));
+            assertEquals(spec, new ColumnSpec("right:[10px,pref]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
             spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
             assertEquals(spec, new ColumnSpec("right:min(10px;pref)"));
             assertEquals(spec, new ColumnSpec("right:min(pref;10px)"));
-            assertEquals(spec, new ColumnSpec("right:[pref;10px]"));
+            assertEquals(spec, new ColumnSpec("right:[pref,10px]"));
 
             size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
             spec = new ColumnSpec(ColumnSpec.DEFAULT, size, FormSpec.NO_GROW);
@@ -206,11 +206,11 @@ public final class ColumnSpecTest extends TestCase {
             assertEquals(spec, new ColumnSpec("min(10px;d)"));
             assertEquals(spec, new ColumnSpec("min(default;10px)"));
             assertEquals(spec, new ColumnSpec("min(d;10px)"));
-            assertEquals(spec, new ColumnSpec("[d;10px]"));
+            assertEquals(spec, new ColumnSpec("[d,10px]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(50), Sizes.pixel(200));
             spec = new ColumnSpec(ColumnSpec.DEFAULT, size, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("[50px;pref;200px]"));
+            assertEquals(spec, new ColumnSpec("[50px,pref,200px]"));
 
             spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
             assertEquals(spec, new ColumnSpec("d:grow"));
@@ -256,13 +256,13 @@ public final class ColumnSpecTest extends TestCase {
             assertRejects("bottom:10px");
             assertRejects("max(10px;20px)");
             assertRejects("min(10px;20px)");
-            assertRejects("[10px;20px]");
+            assertRejects("[10px,20px]");
             assertRejects("max(pref;pref)");
             assertRejects("min(pref;pref)");
-            assertRejects("[pref;pref]");
-            assertRejects("[pref;pref;200px]");  // lower bound must be constant
-            assertRejects("[10px;50px;200px]");  // basis must be logical
-            assertRejects("[10px;pref;pref]");   // upper bound must be constant
+            assertRejects("[pref,pref]");
+            assertRejects("[pref,pref,200px]");  // lower bound must be constant
+            assertRejects("[10px,50px,200px]");  // basis must be logical
+            assertRejects("[10px,pref,pref]");   // upper bound must be constant
         } finally {
             Locale.setDefault(oldDefault);
         }

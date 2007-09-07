@@ -40,7 +40,7 @@ import junit.framework.TestCase;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -189,14 +189,14 @@ public final class RowSpecTest extends TestCase {
             spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
             assertEquals(spec, new RowSpec("bottom:max(10px;pref)"));
             assertEquals(spec, new RowSpec("bottom:max(pref;10px)"));
-            assertEquals(spec, new RowSpec("bottom:[10px;pref]"));
+            assertEquals(spec, new RowSpec("bottom:[10px,pref]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
             spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
             assertEquals(spec, new RowSpec("bottom:min(10px;pref)"));
             assertEquals(spec, new RowSpec("BOTTOM:MIN(10PX;PREF)"));
             assertEquals(spec, new RowSpec("bottom:min(pref;10px)"));
-            assertEquals(spec, new RowSpec("bottom:[pref;10px]"));
+            assertEquals(spec, new RowSpec("bottom:[pref,10px]"));
 
             size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
             spec = new RowSpec(RowSpec.DEFAULT, size, FormSpec.NO_GROW);
@@ -204,11 +204,11 @@ public final class RowSpecTest extends TestCase {
             assertEquals(spec, new RowSpec("min(10px;d)"));
             assertEquals(spec, new RowSpec("min(default;10px)"));
             assertEquals(spec, new RowSpec("min(d;10px)"));
-            assertEquals(spec, new RowSpec("[d;10px]"));
+            assertEquals(spec, new RowSpec("[d,10px]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(50), Sizes.pixel(200));
             spec = new RowSpec(RowSpec.DEFAULT, size, FormSpec.NO_GROW);
-            assertEquals(spec, new RowSpec("[50px;pref;200px]"));
+            assertEquals(spec, new RowSpec("[50px,pref,200px]"));
 
             spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
             assertEquals(spec, new RowSpec("d:grow"));
@@ -250,13 +250,13 @@ public final class RowSpecTest extends TestCase {
             assertRejects("left:20dlu");
             assertRejects("max(10px;20px)");
             assertRejects("min(10px;20px)");
-            assertRejects("[10px;20px]");
+            assertRejects("[10px,20px]");
             assertRejects("max(pref;pref)");
             assertRejects("min(pref;pref)");
-            assertRejects("[pref;pref]");
-            assertRejects("[pref;pref;200px]");  // lower bound must be constant
-            assertRejects("[10px;50px;200px]");  // basis must be logical
-            assertRejects("[10px;pref;pref]");   // upper bound must be constant
+            assertRejects("[pref,pref]");
+            assertRejects("[pref,pref,200px]");  // lower bound must be constant
+            assertRejects("[10px,50px,200px]");  // basis must be logical
+            assertRejects("[10px,pref,pref]");   // upper bound must be constant
         } finally {
             Locale.setDefault(oldDefault);
         }

@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see	PlainExample
  * @see	DynamicRowsExample
@@ -131,8 +131,8 @@ public final class RowCounterExample {
         Component inspectionPane = new JScrollPane(inspectionCommentArea);
 
         FormLayout layout = new FormLayout(
-                "right:max(40dlu;pref), 3dlu, 70dlu, 7dlu, "
-              + "right:max(40dlu;pref), 3dlu, 70dlu",
+                "right:[40dlu,pref], 3dlu, 70dlu, 7dlu, "
+              + "right:[40dlu,pref], 3dlu, 70dlu",
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, "
               + "p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p");
         layout.setRowGroups(new int[][] { { 3, 13, 15, 17 } });

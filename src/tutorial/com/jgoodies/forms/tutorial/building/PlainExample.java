@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to create text labels and separators.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see     PanelBuilderExample
  * @see	RowCounterExample
@@ -139,8 +139,8 @@ public final class PlainExample {
         initComponents();
 
         FormLayout layout = new FormLayout(
-                "right:max(40dlu;pref), 3dlu, 70dlu, 7dlu, "
-              + "right:max(40dlu;pref), 3dlu, 70dlu",
+                "right:[40dlu,pref], 3dlu, 70dlu, 7dlu, "
+              + "right:[40dlu,pref], 3dlu, 70dlu",
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, " +
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, " +
                 "p, 3dlu, p, 3dlu, p, 3dlu, p");

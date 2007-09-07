@@ -45,9 +45,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * by <code>#buildPanel()</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
-
 public final class QuickStartExample {
 
     private JTextField companyField;
