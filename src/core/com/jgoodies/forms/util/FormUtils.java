@@ -41,7 +41,9 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
+ * 
+ * @since 1.2
  */
 public final class FormUtils {
 
