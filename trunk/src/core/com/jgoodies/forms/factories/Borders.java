@@ -32,7 +32,6 @@ package com.jgoodies.forms.factories;
 
 import java.awt.Component;
 import java.awt.Insets;
-import java.util.StringTokenizer;
 
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
@@ -53,7 +52,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see     Border
  * @see     Sizes
@@ -180,6 +179,8 @@ public final class Borders {
      * @param right	the right-hand side gap
      * @return an <code>EmptyBorder</code> with the specified gaps
      *
+     * @throws NullPointerException if top, left, bottom, or right is {@code null}
+     *
      * @see #createEmptyBorder(String)
      */
     public static Border createEmptyBorder(ConstantSize top,   ConstantSize left,
@@ -198,17 +199,17 @@ public final class Borders {
      * @see #createEmptyBorder(ConstantSize, ConstantSize, ConstantSize, ConstantSize)
      */
     public static Border createEmptyBorder(String encodedSizes) {
-        StringTokenizer tokenizer = new StringTokenizer(encodedSizes, ", ");
-        int tokenCount = tokenizer.countTokens();
-        if (tokenCount != 4) {
+        String[] token = encodedSizes.split("\\s*,\\s*");
+        int tokenCount = token.length;
+        if (token.length != 4) {
             throw new IllegalArgumentException(
-                "The border requires 4 sizes, but '" + encodedSizes +
-                "' has " + tokenCount + ".");
+                "The border requires 4 sizes, but \"" + encodedSizes +
+                "\" has " + tokenCount + ".");
         }
-        ConstantSize top    = Sizes.constant(tokenizer.nextToken(), false);
-        ConstantSize left   = Sizes.constant(tokenizer.nextToken(), true);
-        ConstantSize bottom = Sizes.constant(tokenizer.nextToken(), false);
-        ConstantSize right  = Sizes.constant(tokenizer.nextToken(), true);
+        ConstantSize top    = Sizes.constant(token[0], false);
+        ConstantSize left   = Sizes.constant(token[1], true);
+        ConstantSize bottom = Sizes.constant(token[2], false);
+        ConstantSize right  = Sizes.constant(token[3], true);
         return createEmptyBorder(top, left, bottom, right);
     }
 
@@ -224,10 +225,17 @@ public final class Borders {
         private final ConstantSize bottom;
         private final ConstantSize right;
 
-        private EmptyBorder(ConstantSize top,
-                    ConstantSize left,
-                    ConstantSize bottom,
-                    ConstantSize right) {
+        private EmptyBorder(
+                ConstantSize top,
+                ConstantSize left,
+                ConstantSize bottom,
+                ConstantSize right) {
+            if (   (top == null)
+                || (left == null)
+                || (bottom == null)
+                || (right == null)) {
+                throw new NullPointerException("The top, left, bottom, and right must not be null.");
+            }
             this.top    = top;
             this.left   = left;
             this.bottom = bottom;
@@ -257,6 +265,95 @@ public final class Borders {
          */
         public Insets getBorderInsets(Component c) {
             return getBorderInsets(c, new Insets(0, 0, 0, 0));
+        }
+
+        /**
+         * Returns this border's top size.
+         *
+         * @return this border's top size
+         */
+        public ConstantSize top() {
+            return top;
+        }
+
+        /**
+         * Returns this border's left size.
+         *
+         * @return this border's left size
+         */
+        public ConstantSize left() {
+            return left;
+        }
+
+        /**
+         * Returns this border's bottom size.
+         *
+         * @return this border's bottom size
+         */
+        public ConstantSize bottom() {
+            return bottom;
+        }
+
+        /**
+         * Returns this border's right size.
+         *
+         * @return this border's right size
+         */
+        public ConstantSize right() {
+            return right;
+        }
+
+        // Comparison and Hashing *************************************************
+
+        /**
+         * Compares the specified object with this EmtpyBorder for equality.
+         * Returns {@code true} if and only if the specified object is also
+         * an EmptyBorder, and all sides have equals sizes. In other words,
+         * two EmptyBorders are defined to be equal if and only if they
+         * describe the same empty border.<p>
+         *
+         * This implementation first checks if the specified object is this
+         * EmptyBorder. If so, it returns {@code true};
+         * if not, it checks if the specified object is an EmptyBorder.
+         * If not, it returns {@code false}; if so, it checks and returns
+         * if the top, left, bottom, and right sizes are equal.
+         *
+         * @param o the object to be compared for equality with this EmptyBorder.
+         *
+         * @return {@code true} if the specified object is equal
+         *     to this EmptyBorder.
+         *
+         * @see Object#equals(java.lang.Object)
+         */
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof EmptyBorder)) {
+                return false;
+            }
+            EmptyBorder b = (EmptyBorder) o;
+            return     top.equals(b.top())
+                    && left.equals(b.left())
+                    && bottom.equals(b.bottom())
+                    && right.equals(b.right());
+        }
+
+
+        /**
+         * Returns the hash code value for this EmptyBorder. This
+         * implementation returns the hash from the List of messages.
+         *
+         * @return the hash code value for this validation result.
+         *
+         * @see Object#hashCode()
+         */
+        public int hashCode() {
+            int hashValue = top.hashCode();
+            hashValue = hashValue * 37 + left.hashCode();
+            hashValue = hashValue * 37 + bottom.hashCode();
+            hashValue = hashValue * 37 + right.hashCode();
+            return hashValue;
         }
 
     }
