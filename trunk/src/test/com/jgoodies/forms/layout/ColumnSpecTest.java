@@ -40,7 +40,7 @@ import junit.framework.TestCase;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -192,6 +192,9 @@ public final class ColumnSpecTest extends TestCase {
             assertEquals(spec, new ColumnSpec("right:max(10px;pref)"));
             assertEquals(spec, new ColumnSpec("right:max(pref;10px)"));
             assertEquals(spec, new ColumnSpec("right:[10px,pref]"));
+            assertEquals(spec, new ColumnSpec("right:[10px, pref]"));
+            assertEquals(spec, new ColumnSpec("right:[10px ,pref]"));
+            assertEquals(spec, new ColumnSpec("right:[ 10px , pref ]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
             spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
