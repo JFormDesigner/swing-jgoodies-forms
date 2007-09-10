@@ -30,39 +30,33 @@
 
 package com.jgoodies.forms.layout;
 
-import java.util.Locale;
+import junit.framework.TestCase;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import com.jgoodies.forms.factories.Borders;
 
 /**
- * A test suite for all tests related to the JGoodies Forms framework.
+ * A test case for class {@link Borders}.
  *
- * @author Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @author	Karsten Lentzsch
+ * @version $Revision: 1.1 $
  */
-public final class AllFormsTests {
+public final class BordersTest extends TestCase {
 
-    /** A constant for the Turkish locale. */
-    public static final Locale TURKISH = new Locale("tr");
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(AllFormsTests.class);
+    /**
+     * Checks that the constructor rejects negative resize weights.
+     */
+    public void testValidEncodings() {
+        assertEquals(
+                Borders.DLU14_BORDER,
+                Borders.createEmptyBorder("14dlu, 14dlu, 14dlu, 14dlu"));
+        assertEquals(
+                Borders.DLU14_BORDER,
+                Borders.createEmptyBorder("   14dlu , 14dlu , 14dlu , 14dlu "));
+        assertEquals(
+                Borders.createEmptyBorder(Sizes.DLUY1, Sizes.DLUX2, Sizes.DLUY3, Sizes.DLUX4),
+                Borders.createEmptyBorder("   1dlu , 2dlu , 3dlu , 4dlu "));
     }
 
-    public static Test suite() {
-        return new TestSuite(new Class[]{
-                BordersTest.class,
-                CellConstraintsTest.class,
-                ColumnSpecTest.class,
-                DefaultComponentFactoryTest.class,
-                FormLayoutTest.class,
-                FormLayoutGroupsTest.class,
-                RowSpecTest.class,
-                SerializationTest.class,
-                UnitConversionTest.class
-            },
-            "Tests for com.jgoodies.forms.layout");
-    }
 
 }
