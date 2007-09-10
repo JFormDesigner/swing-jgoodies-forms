@@ -67,7 +67,7 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see	Size
  * @see	Sizes
@@ -346,15 +346,16 @@ public final class ConstantSize implements Size, Serializable {
      * @return the first element is size, the second is unit
      */
     static String[] splitValueAndUnit(String encodedValueAndUnit) {
+        String trimmed = encodedValueAndUnit.trim();
         String[] result = new String[2];
-        int len = encodedValueAndUnit.length();
+        int len = trimmed.length();
         int firstLetterIndex = len;
         while (firstLetterIndex > 0
-                && Character.isLetter(encodedValueAndUnit.charAt(firstLetterIndex-1))) {
+                && Character.isLetter(trimmed.charAt(firstLetterIndex-1))) {
                 firstLetterIndex--;
         }
-        result[0] = encodedValueAndUnit.substring(0, firstLetterIndex);
-        result[1] = encodedValueAndUnit.substring(firstLetterIndex);
+        result[0] = trimmed.substring(0, firstLetterIndex);
+        result[1] = trimmed.substring(firstLetterIndex);
         return result;
     }
 
