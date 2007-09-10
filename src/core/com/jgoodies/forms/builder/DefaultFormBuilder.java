@@ -208,7 +208,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @since 1.0.3
  *
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -218,14 +218,26 @@ import com.jgoodies.forms.layout.RowSpec;
 public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
+     * Holds the row specification that is reused to describe rows
+     * that are intended for labels and components.
+     *
+     * @see #setDefaultRowSpec(RowSpec)
+     */
+    private RowSpec defaultRowSpec = FormFactory.PREF_ROWSPEC;
+
+    /**
      * Holds the row specification that is reused to describe
      * the constant gaps between component lines.
+     *
+     * @see #setLineGapSize(ConstantSize)
      */
     private RowSpec lineGapSpec = FormFactory.LINE_GAP_ROWSPEC;
 
     /**
      * Holds the row specification that describes the constant gaps
      * between paragraphs.
+     *
+     * @see #setParagraphGapSize(ConstantSize)
      */
     private RowSpec paragraphGapSpec = FormFactory.PARAGRAPH_GAP_ROWSPEC;
 
@@ -299,12 +311,37 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     }
 
 
-    // Settings Gap Sizes ***************************************************
+    // Configuration **********************************************************
 
     /**
-     * Returns the row specification that is used to separate component lines.
+     * Returns the row specification that is used for component rows.
      *
-     * @return the <code>RowSpec</code> that is used to separate lines
+     * @return the {@code RowSpec} used for component rows
+     *
+     * @since 1.2
+     */
+    public RowSpec getDefaultRowSpec() {
+        return defaultRowSpec;
+    }
+
+
+    /**
+     * Sets the row specification that shall be used for component rows.
+     * It is {@link FormFactory#PREF_ROWSPEC} by default.
+     *
+     * @param defaultRowSpec   the RowSpec to be used for component rows
+     *
+     * @since 1.2
+     */
+    public void setDefaultRowSpec(RowSpec defaultRowSpec) {
+        this.defaultRowSpec = defaultRowSpec;
+    }
+
+
+    /**
+     * Returns the row specification that is used to separate component row.
+     *
+     * @return the <code>RowSpec</code> that is used to separate component rows
      */
     public RowSpec getLineGapSpec() {
         return lineGapSpec;
@@ -873,7 +910,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      */
     private void ensureHasComponentLine() {
         if (getRow() <= getRowCount()) return;
-        appendRow(FormFactory.PREF_ROWSPEC);
+        appendRow(getDefaultRowSpec());
         if (isRowGroupingEnabled()) {
             getLayout().addGroupedRow(getRow());
         }
