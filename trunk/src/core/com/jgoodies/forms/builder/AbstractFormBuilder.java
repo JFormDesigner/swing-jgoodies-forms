@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -413,7 +413,7 @@ public abstract class AbstractFormBuilder {
      * @see #appendColumn(ColumnSpec)
      */
     public final void appendColumn(String encodedColumnSpec) {
-        appendColumn(new ColumnSpec(encodedColumnSpec));
+        appendColumn(ColumnSpec.parse(encodedColumnSpec));
     }
 
 
@@ -491,7 +491,7 @@ public abstract class AbstractFormBuilder {
      * @see #appendRow(RowSpec)
      */
     public final void appendRow(String encodedRowSpec) {
-        appendRow(new RowSpec(encodedRowSpec));
+        appendRow(RowSpec.parse(encodedRowSpec));
     }
 
 

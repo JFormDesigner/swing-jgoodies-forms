@@ -35,7 +35,6 @@ import javax.swing.*;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * Shows three approaches how to add custom rows to a form that is built
@@ -48,7 +47,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * of font baselines and the height of the custom row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see    DefaultFormBuilder
  * @see    DefaultFormWithCustomAreasExample
@@ -125,7 +124,7 @@ public final class DefaultFormWithCustomRowsExample {
         builder.appendSeparator("Single Custom Row");
         builder.append("Name", name1Field);
         builder.appendRow(builder.getLineGapSpec());
-        builder.appendRow(new RowSpec("top:31dlu")); // Assumes line is 14, gap is 3
+        builder.appendRow("top:31dlu"); // Assumes line is 14, gap is 3
         builder.nextLine(2);
         builder.append("Comment");
         builder.add(new JScrollPane(comment1Area),
@@ -140,7 +139,7 @@ public final class DefaultFormWithCustomRowsExample {
         builder.appendSeparator("Standard + Custom Row");
         builder.append("Name", name2Field);
         builder.append("Comment");
-        builder.appendRow(new RowSpec("17dlu")); // Assumes line is 14, gap is 3
+        builder.appendRow("17dlu"); // Assumes line is 14, gap is 3
         builder.add(new JScrollPane(comment2Area),
                     cc.xywh(builder.getColumn(), builder.getRow(), 1, 2));
         builder.nextLine(2);

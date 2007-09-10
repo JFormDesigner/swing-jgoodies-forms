@@ -32,15 +32,15 @@ package com.jgoodies.forms.layout;
 
 import java.util.Locale;
 
-import com.jgoodies.forms.factories.FormFactory;
-
 import junit.framework.TestCase;
+
+import com.jgoodies.forms.factories.FormFactory;
 
 /**
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -65,7 +65,7 @@ public final class ColumnSpecTest extends TestCase {
      */
     public void testRejectParsedNegativeResizeWeight() {
         try {
-            new ColumnSpec("right:default:-1");
+            ColumnSpec.parse("right:default:-1");
             fail("The ColumnSpec parser constructor should reject negative resize weights.");
         } catch (IllegalArgumentException e) {
             // The expected behavior
@@ -97,23 +97,23 @@ public final class ColumnSpecTest extends TestCase {
     public void testDefaultVariables() {
         assertEquals(
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                new ColumnSpec("@lcgap"));
+                ColumnSpec.parse("@lcgap"));
         assertEquals(
                 FormFactory.RELATED_GAP_COLSPEC,
-                new ColumnSpec("@rgap"));
+                ColumnSpec.parse("@rgap"));
         assertEquals(
                 FormFactory.UNRELATED_GAP_COLSPEC,
-                new ColumnSpec("@ugap"));
+                ColumnSpec.parse("@ugap"));
     }
 
 
     public void testCustomVariable() {
-        ColumnSpec labelColumnSpec = new ColumnSpec("left:[80dlu,pref]");
+        ColumnSpec labelColumnSpec = ColumnSpec.parse("left:[80dlu,pref]");
         LayoutMap layoutMap = new LayoutMap(null);
         layoutMap.putColumnSpec("label", labelColumnSpec);
         assertEquals(
                 labelColumnSpec,
-                new ColumnSpec("@label", layoutMap));
+                ColumnSpec.parse("@label", layoutMap));
     }
 
 
@@ -124,14 +124,14 @@ public final class ColumnSpecTest extends TestCase {
         layoutMap.putColumnGapSpec("lcgap", gapWidth);
         assertEquals(
                 labelComponentColumnSpec,
-                new ColumnSpec("@lcgap", layoutMap));
+                ColumnSpec.parse("@lcgap", layoutMap));
     }
 
 
     public void testMissingVariable() {
         String variable = "@rumpelstilzchen";
         try {
-            new ColumnSpec(variable);
+            ColumnSpec.parse(variable);
             fail("The parser should reject the missing variable:" + variable);
         } catch (Exception e) {
             // The expected behavior
@@ -150,91 +150,93 @@ public final class ColumnSpecTest extends TestCase {
         try {
             ColumnSpec spec;
             spec = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("l:p"));
-            assertEquals(spec, new ColumnSpec("L:P"));
-            assertEquals(spec, new ColumnSpec("left:p"));
-            assertEquals(spec, new ColumnSpec("LEFT:P"));
-            assertEquals(spec, new ColumnSpec("l:pref"));
-            assertEquals(spec, new ColumnSpec("L:PREF"));
-            assertEquals(spec, new ColumnSpec("left:pref"));
-            assertEquals(spec, new ColumnSpec("LEFT:PREF"));
+            assertEquals(spec, ColumnSpec.parse("l:p"));
+            assertEquals(spec, ColumnSpec.parse("L:P"));
+            assertEquals(spec, ColumnSpec.parse("left:p"));
+            assertEquals(spec, ColumnSpec.parse("LEFT:P"));
+            assertEquals(spec, ColumnSpec.parse("l:pref"));
+            assertEquals(spec, ColumnSpec.parse("L:PREF"));
+            assertEquals(spec, ColumnSpec.parse("left:pref"));
+            assertEquals(spec, ColumnSpec.parse("LEFT:PREF"));
 
             spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("min"));
-            assertEquals(spec, new ColumnSpec("MIN"));
-            assertEquals(spec, new ColumnSpec("f:min"));
-            assertEquals(spec, new ColumnSpec("fill:min"));
-            assertEquals(spec, new ColumnSpec("FILL:MIN"));
-            assertEquals(spec, new ColumnSpec("f:min:nogrow"));
-            assertEquals(spec, new ColumnSpec("F:MIN:NOGROW"));
-            assertEquals(spec, new ColumnSpec("fill:min:grow(0)"));
+            assertEquals(spec, ColumnSpec.parse("min"));
+            assertEquals(spec, ColumnSpec.parse("MIN"));
+            assertEquals(spec, ColumnSpec.parse("f:min"));
+            assertEquals(spec, ColumnSpec.parse("fill:min"));
+            assertEquals(spec, ColumnSpec.parse("FILL:MIN"));
+            assertEquals(spec, ColumnSpec.parse("f:min:nogrow"));
+            assertEquals(spec, ColumnSpec.parse("F:MIN:NOGROW"));
+            assertEquals(spec, ColumnSpec.parse("fill:min:grow(0)"));
 
             spec = new ColumnSpec(ColumnSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("d"));
-            assertEquals(spec, new ColumnSpec("default"));
-            assertEquals(spec, new ColumnSpec("DEFAULT"));
-            assertEquals(spec, new ColumnSpec("f:default"));
-            assertEquals(spec, new ColumnSpec("fill:default"));
-            assertEquals(spec, new ColumnSpec("f:default:nogrow"));
-            assertEquals(spec, new ColumnSpec("fill:default:grow(0)"));
-            assertEquals(spec, new ColumnSpec("FILL:DEFAULT:GROW(0)"));
+            assertEquals(spec, ColumnSpec.parse("d"));
+            assertEquals(spec, ColumnSpec.parse("default"));
+            assertEquals(spec, ColumnSpec.parse("DEFAULT"));
+            assertEquals(spec, ColumnSpec.parse("f:default"));
+            assertEquals(spec, ColumnSpec.parse("fill:default"));
+            assertEquals(spec, ColumnSpec.parse("f:default:nogrow"));
+            assertEquals(spec, ColumnSpec.parse("fill:default:grow(0)"));
+            assertEquals(spec, ColumnSpec.parse("FILL:DEFAULT:GROW(0)"));
 
             spec = new ColumnSpec(ColumnSpec.RIGHT, Sizes.pixel(10), FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("r:10px"));
-            assertEquals(spec, new ColumnSpec("right:10px"));
-            assertEquals(spec, new ColumnSpec("right:10px:nogrow"));
-            assertEquals(spec, new ColumnSpec("RIGHT:10PX:NOGROW"));
-            assertEquals(spec, new ColumnSpec("right:10px:grow(0)"));
-            assertEquals(spec, new ColumnSpec("right:10px:g(0)"));
+            assertEquals(spec, ColumnSpec.parse("r:10px"));
+            assertEquals(spec, ColumnSpec.parse("right:10px"));
+            assertEquals(spec, ColumnSpec.parse("right:10px:nogrow"));
+            assertEquals(spec, ColumnSpec.parse("RIGHT:10PX:NOGROW"));
+            assertEquals(spec, ColumnSpec.parse("right:10px:grow(0)"));
+            assertEquals(spec, ColumnSpec.parse("right:10px:g(0)"));
 
             Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
             spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("right:max(10px;pref)"));
-            assertEquals(spec, new ColumnSpec("right:max(pref;10px)"));
-            assertEquals(spec, new ColumnSpec("right:[10px,pref]"));
-            assertEquals(spec, new ColumnSpec("right:[10px, pref]"));
-            assertEquals(spec, new ColumnSpec("right:[10px ,pref]"));
-            assertEquals(spec, new ColumnSpec("right:[ 10px , pref ]"));
+            assertEquals(spec, ColumnSpec.parse("right:max(10px;pref)"));
+            assertEquals(spec, ColumnSpec.parse("right:max(pref;10px)"));
+            assertEquals(spec, ColumnSpec.parse("right:[10px,pref]"));
+            assertEquals(spec, ColumnSpec.parse("right:[10px, pref]"));
+            assertEquals(spec, ColumnSpec.parse("right:[10px ,pref]"));
+            assertEquals(spec, ColumnSpec.parse("right:[ 10px , pref ]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
             spec = new ColumnSpec(ColumnSpec.RIGHT, size, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("right:min(10px;pref)"));
-            assertEquals(spec, new ColumnSpec("right:min(pref;10px)"));
-            assertEquals(spec, new ColumnSpec("right:[pref,10px]"));
+            assertEquals(spec, ColumnSpec.parse("right:min(10px;pref)"));
+            assertEquals(spec, ColumnSpec.parse("right:min(pref;10px)"));
+            assertEquals(spec, ColumnSpec.parse("right:[pref,10px]"));
 
             size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
             spec = new ColumnSpec(ColumnSpec.DEFAULT, size, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("min(10px;default)"));
-            assertEquals(spec, new ColumnSpec("MIN(10PX;DEFAULT)"));
-            assertEquals(spec, new ColumnSpec("min(10px;d)"));
-            assertEquals(spec, new ColumnSpec("min(default;10px)"));
-            assertEquals(spec, new ColumnSpec("min(d;10px)"));
-            assertEquals(spec, new ColumnSpec("[d,10px]"));
+            assertEquals(spec, ColumnSpec.parse("min(10px;default)"));
+            assertEquals(spec, ColumnSpec.parse("MIN(10PX;DEFAULT)"));
+            assertEquals(spec, ColumnSpec.parse("min(10px;d)"));
+            assertEquals(spec, ColumnSpec.parse("min(default;10px)"));
+            assertEquals(spec, ColumnSpec.parse("min(d;10px)"));
+            assertEquals(spec, ColumnSpec.parse("[d,10px]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(50), Sizes.pixel(200));
             spec = new ColumnSpec(ColumnSpec.DEFAULT, size, FormSpec.NO_GROW);
-            assertEquals(spec, new ColumnSpec("[50px,pref,200px]"));
+            assertEquals(spec, ColumnSpec.parse("[50px,pref,200px]"));
 
             spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
-            assertEquals(spec, new ColumnSpec("d:grow"));
-            assertEquals(spec, new ColumnSpec("default:grow(1)"));
-            assertEquals(spec, new ColumnSpec("f:d:g"));
-            assertEquals(spec, new ColumnSpec("f:d:grow(1.0)"));
-            assertEquals(spec, new ColumnSpec("f:d:g(1.0)"));
+            assertEquals(spec, ColumnSpec.parse("d:grow"));
+            assertEquals(spec, ColumnSpec.parse("default:grow(1)"));
+            assertEquals(spec, ColumnSpec.parse("f:d:g"));
+            assertEquals(spec, ColumnSpec.parse("f:d:grow(1.0)"));
+            assertEquals(spec, ColumnSpec.parse("f:d:g(1.0)"));
 
             spec = new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, 0.75);
-            assertEquals(spec, new ColumnSpec("d:grow(0.75)"));
-            assertEquals(spec, new ColumnSpec("default:grow(0.75)"));
-            assertEquals(spec, new ColumnSpec("f:d:grow(0.75)"));
-            assertEquals(spec, new ColumnSpec("fill:default:grow(0.75)"));
-            assertEquals(spec, new ColumnSpec("FILL:DEFAULT:GROW(0.75)"));
+            assertEquals(spec, ColumnSpec.parse("d:grow(0.75)"));
+            assertEquals(spec, ColumnSpec.parse("default:grow(0.75)"));
+            assertEquals(spec, ColumnSpec.parse("f:d:grow(0.75)"));
+            assertEquals(spec, ColumnSpec.parse("fill:default:grow(0.75)"));
+            assertEquals(spec, ColumnSpec.parse("FILL:DEFAULT:GROW(0.75)"));
 
-            spec = new ColumnSpec("fill:10in");
-            assertEquals(spec, new ColumnSpec("FILL:10IN"));
+            spec = ColumnSpec.parse("fill:10in");
+            assertEquals(spec, ColumnSpec.parse("FILL:10IN"));
 
             ColumnSpec spec1 = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, FormSpec.NO_GROW);
             ColumnSpec spec2 = new ColumnSpec(ColumnSpec.RIGHT, Sizes.DEFAULT, 1.0);
-            ColumnSpec[] specs = ColumnSpec.decodeSpecs("left:pref:none , right:default:grow");
+            ColumnSpec[] specs = ColumnSpec.parseAll(
+                    "left:pref:none , right:default:grow",
+                    null);
             assertEquals(2, specs.length);
             assertEquals(spec1, specs[0]);
             assertEquals(spec2, specs[1]);
@@ -301,7 +303,7 @@ public final class ColumnSpecTest extends TestCase {
      */
     private void assertRejects(String invalidEncoding) {
         try {
-            new ColumnSpec(invalidEncoding);
+            ColumnSpec.parse(invalidEncoding);
             fail("The parser should reject the invalid encoding:" + invalidEncoding);
         } catch (Exception e) {
             // The expected behavior
