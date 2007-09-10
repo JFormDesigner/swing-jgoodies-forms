@@ -46,21 +46,16 @@ import com.jgoodies.forms.util.FormUtils;
  * new RowSpec(Sizes.dluX(14));
  * new RowSpec(RowSpec.CENTER, Sizes.dluX(14), 0.0);
  * new RowSpec(rowSpec.CENTER, Sizes.dluX(14), RowSpec.NO_GROW);
- * new RowSpec("14dlu");
- * new RowSpec("14dlu:0");
- * new RowSpec("center:14dlu:0");
+ * RowSpec.parse("14dlu");
+ * RowSpec.parse("14dlu:0");
+ * RowSpec.parse("center:14dlu:0");
  * </pre><p>
  *
  * The {@link com.jgoodies.forms.factories.FormFactory} provides
- * predefined frequently used RowSpec instances.<p>
- *
- * TODO: Consider adding static factory methods for encoded specs,
- * for example {@code #valueOf(String)} or {@code #parseSpec}.
- * These would delegate to the constructors if necessary, and could
- * reuse instances if mapped in the LayoutMap.
+ * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
