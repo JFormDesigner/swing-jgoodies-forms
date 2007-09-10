@@ -139,7 +139,7 @@ import java.util.List;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -322,7 +322,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @since 1.2
      */
     public FormLayout(String encodedColumnSpecs, LayoutMap layoutMap) {
-        this(ColumnSpec.decodeSpecs(encodedColumnSpecs, layoutMap), new RowSpec[0]);
+        this(ColumnSpec.parseAll(encodedColumnSpecs, layoutMap), new RowSpec[0]);
     }
 
 
@@ -405,8 +405,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
             String encodedColumnSpecs,
             String encodedRowSpecs,
             LayoutMap layoutMap) {
-        this(ColumnSpec.decodeSpecs(encodedColumnSpecs, layoutMap),
-             RowSpec.   decodeSpecs(encodedRowSpecs,    layoutMap));
+        this(ColumnSpec.parseAll(encodedColumnSpecs, layoutMap),
+             RowSpec.   parseAll(encodedRowSpecs,    layoutMap));
     }
 
 

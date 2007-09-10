@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -170,24 +170,15 @@ public abstract class FormSpec implements Serializable {
     }
 
     /**
-     * Constructs a <code>FormSpec</code> from the specified encoded
-     * description. The description will be parsed to set initial values.
-     * If {@code layoutMap} is {@code null}, the default {@link LayoutMap}
-     * will be used.
+     * Constructs a FormSpec from the specified encoded description.
+     * The description will be parsed to set initial values.
      *
      * @param defaultAlignment 	    the default alignment
      * @param encodedDescription	the encoded description
-     * @param layoutMap             maps strings to FormSpecs
      */
-    protected FormSpec(
-            DefaultAlignment defaultAlignment,
-            String encodedDescription,
-            LayoutMap layoutMap) {
+    protected FormSpec(DefaultAlignment defaultAlignment, String encodedDescription) {
         this(defaultAlignment, Sizes.DEFAULT, NO_GROW);
-        LayoutMap map = layoutMap != null
-            ? layoutMap
-            : LayoutMap.getDefault();
-        parseAndInitValues(encodedDescription.toLowerCase(Locale.ENGLISH), map);
+        parseAndInitValues(encodedDescription.toLowerCase(Locale.ENGLISH));
     }
 
 
@@ -245,13 +236,6 @@ public abstract class FormSpec implements Serializable {
 
     // Setting Values *********************************************************
 
-    void setFrom(FormSpec spec) {
-        this.defaultAlignment = spec.getDefaultAlignment();
-        this.size = spec.getSize();
-        this.resizeWeight = spec.getResizeWeight();
-    }
-
-
     void setDefaultAlignment(DefaultAlignment defaultAlignment) {
         this.defaultAlignment = defaultAlignment;
     }
@@ -274,25 +258,13 @@ public abstract class FormSpec implements Serializable {
      * The encoded description must be in lower case.
      *
      * @param encodedDescription   the FormSpec in an encoded format
-     * @param layoutMap            maps variables to FormSpecs
      *
      * @throws NullPointerException  if the string is {@code null}
      * @throws IllegalArgumentException if the string is empty, has no size,
      *     or is otherwise invalid
      */
-    private void parseAndInitValues(String encodedDescription, LayoutMap layoutMap) {
+    private void parseAndInitValues(String encodedDescription) {
         FormUtils.assertNotBlank(encodedDescription, "encoded form specification");
-        if (encodedDescription.charAt(0) == LayoutMap.VARIABLE_PREFIX_CHAR) {
-            String key = encodedDescription.substring(1);
-            FormSpec spec = isHorizontal()
-                ? (FormSpec) layoutMap.getColumnSpec(key)
-                : (FormSpec) layoutMap.getRowSpec(key);
-            if (spec != null) {
-                setFrom(spec);
-                return;
-            }
-            throw new IllegalArgumentException("Unknown layout variable \"" + encodedDescription + "\"");
-        }
         String token[] = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
         if (token.length == 0) {
             throw new IllegalArgumentException(

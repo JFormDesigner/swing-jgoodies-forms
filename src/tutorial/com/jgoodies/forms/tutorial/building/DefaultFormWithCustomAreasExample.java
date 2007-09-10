@@ -35,7 +35,6 @@ import javax.swing.*;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * Compares approaches how to append a custom area at the end of
@@ -49,7 +48,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and the text area.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
@@ -121,7 +120,7 @@ public final class DefaultFormWithCustomAreasExample {
 
         CellConstraints cc = new CellConstraints();
         builder.append("Feedback");
-        builder.appendRow(new RowSpec("0:grow"));
+        builder.appendRow("0:grow");
         builder.add(new JScrollPane(new JTextArea("Feedback - font baselines shall be aligned")),
                     cc.xywh(builder.getColumn(), builder.getRow(), 1, 2, "fill, fill"));
 
@@ -140,7 +139,7 @@ public final class DefaultFormWithCustomAreasExample {
 
         CellConstraints cc = new CellConstraints();
         builder.appendRow(builder.getLineGapSpec());
-        builder.appendRow(new RowSpec("top:28dlu:grow"));
+        builder.appendRow("top:28dlu:grow");
         builder.nextLine(2);
         builder.append("Feedback");
         builder.add(new JScrollPane(new JTextArea("Feedback - likely the baselines are not aligned")),
@@ -166,7 +165,7 @@ public final class DefaultFormWithCustomAreasExample {
 
         builder.appendSeparator("Customer Feedback");
         builder.appendRow(builder.getLineGapSpec());
-        builder.appendRow(new RowSpec("fill:28dlu:grow"));
+        builder.appendRow("fill:28dlu:grow");
         builder.nextLine(2);
         builder.append("", new JScrollPane(new JTextArea()));
 

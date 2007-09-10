@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -123,7 +123,7 @@ public final class FormSpecParser {
         int columnCount = encodedColumnSpecs.size();
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
-            columnSpecs[i] = new ColumnSpec(
+            columnSpecs[i] = ColumnSpec.parse(
                     (String) encodedColumnSpecs.get(i),
                     layoutMap);
         }
@@ -136,7 +136,7 @@ public final class FormSpecParser {
         int rowCount = encodedRowSpecs.size();
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {
-            rowSpecs[i] = new RowSpec(
+            rowSpecs[i] = RowSpec.parse(
                     (String) encodedRowSpecs.get(i),
                     layoutMap);
         }

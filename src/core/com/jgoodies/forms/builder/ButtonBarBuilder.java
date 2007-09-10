@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -146,7 +146,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
      * Specifies the FormLayout's the single button bar row.
      */
     private static final RowSpec[] ROW_SPECS  =
-        new RowSpec[]{ new RowSpec("center:pref") };
+        new RowSpec[]{ RowSpec.parse("center:pref") };
 
 
     /**

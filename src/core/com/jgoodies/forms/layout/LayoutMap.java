@@ -81,7 +81,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * RowSpec respectively. Null values are not allowed.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -171,7 +171,7 @@ public final class LayoutMap {
      */
     public boolean containsColumnKey(String key) {
         ensureValidKey(key);
-        return  (rowMap.containsKey(key))
+        return  (columnMap.containsKey(key))
             || ((parent != null) && (parent.containsColumnKey(key)));
     }
 
