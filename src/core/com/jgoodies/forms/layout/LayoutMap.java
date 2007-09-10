@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.util.LayoutStyle;
 
 
 /**
@@ -80,7 +81,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * RowSpec respectively. Null values are not allowed.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -418,6 +419,21 @@ public final class LayoutMap {
         map.putColumnSpec(
                 new String[]{"u", "ugap", "unrel", "unrelated"},
                 FormFactory.UNRELATED_GAP_COLSPEC);
+        map.putColumnSpec(
+                new String[]{"b", "button"},
+                FormFactory.BUTTON_COLSPEC);
+        map.putColumnSpec(
+                new String[]{"gb", "growbutton"},
+                FormFactory.GROWING_BUTTON_COLSPEC);
+        map.putColumnSpec(
+                new String[]{"dg", "dlggap", "dialog-gap"},
+                ColumnSpec.createGap(LayoutStyle.getCurrent().getDialogMarginX()));
+        map.putColumnSpec(
+                new String[]{"tdg", "tbddlggap", "tabbed-dialog-gap"},
+                ColumnSpec.createGap(LayoutStyle.getCurrent().getTabbedDialogMarginX()));
+        map.putColumnSpec(
+                "glue",
+                FormFactory.GLUE_COLSPEC);
 
         // Row variables
         map.putRowSpec(
@@ -435,6 +451,18 @@ public final class LayoutMap {
         map.putRowSpec(
                 new String[]{"p", "pgap", "para", "paragraph"},
                 FormFactory.PARAGRAPH_GAP_ROWSPEC);
+        map.putRowSpec(
+                new String[]{"dg", "dlggap", "dialog-margin-gap"},
+                RowSpec.createGap(LayoutStyle.getCurrent().getDialogMarginY()));
+        map.putRowSpec(
+                new String[]{"tdg", "tbddlggap", "tabbed-dialog-margin-gap"},
+                RowSpec.createGap(LayoutStyle.getCurrent().getTabbedDialogMarginY()));
+        map.putRowSpec(
+                new String[]{"b", "but", "button"},
+                FormFactory.BUTTON_ROWSPEC);
+        map.putRowSpec(
+                "glue",
+                FormFactory.GLUE_ROWSPEC);
 
         return map;
     }
