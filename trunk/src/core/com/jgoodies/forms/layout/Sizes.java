@@ -35,6 +35,7 @@ import java.awt.Container;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import com.jgoodies.forms.layout.ConstantSize.Unit;
 import com.jgoodies.forms.util.DefaultUnitConverter;
@@ -49,7 +50,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see     Size
  * @see     UnitConverter
@@ -162,7 +163,9 @@ public final class Sizes {
      */
     public static ConstantSize constant(String encodedValueAndUnit,
                                          boolean horizontal) {
-        return ConstantSize.valueOf(encodedValueAndUnit, horizontal);
+        String lowerCase = encodedValueAndUnit.toLowerCase(Locale.ENGLISH);
+        String trimmed = lowerCase.trim();
+        return ConstantSize.valueOf(trimmed, horizontal);
     }
 
     /**
