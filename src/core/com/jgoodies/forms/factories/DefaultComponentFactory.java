@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class DefaultComponentFactory implements ComponentFactory {
 
@@ -236,8 +236,10 @@ public class DefaultComponentFactory implements ComponentFactory {
      *
      * @param label             the label that gets a mnemonic
      * @param textWithMnemonic  the text with optional mnemonic marker
+     *
+     * @since 1.2
      */
-    private static void setTextAndMnemonic(
+    public static void setTextAndMnemonic(
         JLabel label,
         String textWithMnemonic) {
         int markerIndex = textWithMnemonic.indexOf(MNEMONIC_MARKER);
