@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -120,7 +120,7 @@ public abstract class FormSpec implements Serializable {
         Pattern.compile(":");
 
     private static final Pattern BOUNDS_SEPARATOR_PATTERN =
-        Pattern.compile(",");
+        Pattern.compile("\\s*,\\s*");
 
 
     // Fields ***************************************************************
@@ -422,10 +422,11 @@ public abstract class FormSpec implements Serializable {
      * @return the decoded size either a constant or component size
      */
     private Size parseAtomicSize(String token) {
-        Sizes.ComponentSize componentSize = Sizes.ComponentSize.valueOf(token);
+        String trimmedToken = token.trim();
+        Sizes.ComponentSize componentSize = Sizes.ComponentSize.valueOf(trimmedToken);
         if (componentSize != null)
             return componentSize;
-        return ConstantSize.valueOf(token, isHorizontal());
+        return ConstantSize.valueOf(trimmedToken, isHorizontal());
     }
 
 
