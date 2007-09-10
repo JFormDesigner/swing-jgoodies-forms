@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -58,7 +58,6 @@ public final class FormSpecParser {
 
     private final String source;
     private final LayoutMap layoutMap;
-    private final boolean horizontal;
 
 
     // Instance Creation ******************************************************
@@ -88,7 +87,6 @@ public final class FormSpecParser {
         this.layoutMap = layoutMap != null
             ? layoutMap
             : LayoutMap.getDefault();
-        this.horizontal = horizontal;
     }
 
 
@@ -121,24 +119,26 @@ public final class FormSpecParser {
     // Parser Implementation **************************************************
 
     private ColumnSpec[] parseColumnSpecs() {
-        List tokenList = tokenize(source, 0);
-        int columnCount = tokenList.size();
+        List encodedColumnSpecs = split(source, 0);
+        int columnCount = encodedColumnSpecs.size();
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
-            String token = (String) tokenList.get(i);
-            columnSpecs[i] = new ColumnSpec(token, layoutMap);
+            columnSpecs[i] = new ColumnSpec(
+                    (String) encodedColumnSpecs.get(i),
+                    layoutMap);
         }
         return columnSpecs;
     }
 
 
     private RowSpec[] parseRowSpecs() {
-        List tokenList = tokenize(source, 0);
-        int rowCount = tokenList.size();
+        List encodedRowSpecs = split(source, 0);
+        int rowCount = encodedRowSpecs.size();
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {
-            String token = (String) tokenList.get(i);
-            rowSpecs[i] = new RowSpec(token, layoutMap);
+            rowSpecs[i] = new RowSpec(
+                    (String) encodedRowSpecs.get(i),
+                    layoutMap);
         }
         return rowSpecs;
     }
@@ -146,38 +146,37 @@ public final class FormSpecParser {
 
     // Parser Implementation **************************************************
 
-    private List tokenize(String expression, int offset) {
-        List tokenList = new ArrayList();
-        int braceLevel = 0;
-        int bracketLevel = 0;
+    private List split(String expression, int offset) {
+        List encodedSpecs = new ArrayList();
+        int parenthesisLevel = 0;  // number of open '('
+        int bracketLevel = 0;      // number of open '['
         int length = expression.length();
-        int tokenStart = 0;
+        int specStart = 0;
         char c;
         boolean lead = true;
         for (int i = 0; i < length; i++) {
             c = expression.charAt(i);
             if (lead && Character.isWhitespace(c)) {
-                tokenStart++;
+                specStart++;
                 continue;
-            } else {
-                lead = false;
             }
-            if ((c == ',') && (braceLevel == 0) && (bracketLevel == 0)) {
-                String token = expression.substring(tokenStart, i);
-                addToken(tokenList, token, offset + tokenStart);
-                tokenStart = i + 1;
+            lead = false;
+            if ((c == ',') && (parenthesisLevel == 0) && (bracketLevel == 0)) {
+                String token = expression.substring(specStart, i);
+                addSpec(encodedSpecs, token, offset + specStart);
+                specStart = i + 1;
                 lead = true;
             } else if (c == '(') {
                 if (bracketLevel > 0) {
-                    fail(offset + i, "illegal '(' in [..]");
+                    fail(offset + i, "illegal '(' in [...]");
                 }
-                braceLevel++;
+                parenthesisLevel++;
             } else if (c == ')') {
                 if (bracketLevel > 0) {
                     fail(offset + i, "illegal ')' in [...]");
                 }
-                braceLevel--;
-                if (braceLevel < 0) {
+                parenthesisLevel--;
+                if (parenthesisLevel < 0) {
                     fail(offset + i, "missing '('");
                 }
             } else if (c == '[') {
@@ -192,30 +191,30 @@ public final class FormSpecParser {
                 }
             }
         }
-        if (braceLevel > 0) {
+        if (parenthesisLevel > 0) {
             fail(offset + length, "missing ')'");
         }
         if (bracketLevel > 0) {
             fail(offset + length, "missing ']");
         }
-        if (tokenStart < length) {
-            String token = expression.substring(tokenStart);
-            addToken(tokenList, token, offset + tokenStart);
+        if (specStart < length) {
+            String token = expression.substring(specStart);
+            addSpec(encodedSpecs, token, offset + specStart);
         }
-        return tokenList;
+        return encodedSpecs;
     }
 
 
-    private void addToken(List tokenList, String expression, int offset) {
+    private void addSpec(List encodedSpecs, String expression, int offset) {
         String trimmedExpression = expression.trim();
         Multiplier multiplier = multiplier(trimmedExpression, offset);
         if (multiplier == null) {
-            tokenList.add(trimmedExpression);
+            encodedSpecs.add(trimmedExpression);
             return;
         }
-        List subTokenList = tokenize(multiplier.expression, offset + multiplier.offset);
+        List subTokenList = split(multiplier.expression, offset + multiplier.offset);
         for (int i=0; i < multiplier.multiplier; i++) {
-            tokenList.addAll(subTokenList);
+            encodedSpecs.addAll(subTokenList);
         }
     }
 
@@ -276,6 +275,9 @@ public final class FormSpecParser {
     }
 
 
+    /**
+     * Used by the parser for encoded column and row specifications.
+     */
     public static final class FormLayoutParseException extends RuntimeException {
 
         FormLayoutParseException(String message) {
@@ -291,6 +293,10 @@ public final class FormSpecParser {
 
     // Helper Class ***********************************************************
 
+    /**
+     * Internal helper class that is returned by
+     * {@link FormSpecParser#multiplier(String, int)}.
+     */
     static final class Multiplier {
 
         final int multiplier;
@@ -302,6 +308,7 @@ public final class FormSpecParser {
             this.expression = expression;
             this.offset = offset;
         }
+
     }
 
 
