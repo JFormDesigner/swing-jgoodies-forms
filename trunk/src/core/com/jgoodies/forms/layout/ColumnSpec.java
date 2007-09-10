@@ -47,25 +47,19 @@ import com.jgoodies.forms.util.FormUtils;
  * new ColumnSpec(Sizes.dluX(10));
  * new ColumnSpec(ColumnSpec.FILL, Sizes.dluX(10), 0.0);
  * new ColumnSpec(ColumnSpec.FILL, Sizes.dluX(10), ColumnSpec.NO_GROW);
- * new ColumnSpec("10dlu");
- * new ColumnSpec("10dlu:0");
- * new ColumnSpec("fill:10dlu:0");
+ * ColumnSpec.parse("10dlu");
+ * ColumnSpec.parse("10dlu:0");
+ * ColumnSpec.parse("fill:10dlu:0");
  * </pre><p>
  *
  * The {@link com.jgoodies.forms.factories.FormFactory} provides
- * predefined frequently used ColumnSpec instances.<p>
- *
- * TODO: Consider adding static factory methods for encoded specs,
- * for example {@code #valueOf(String)} or {@code #parseSpec}.
- * These would delegate to the constructors if necessary, and could
- * reuse instances if mapped in the LayoutMap.
+ * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
-
 public final class ColumnSpec extends FormSpec {
 
 
@@ -145,7 +139,7 @@ public final class ColumnSpec extends FormSpec {
      *
      * @param encodedDescription	the encoded description
      *
-     * @deprecated Replaced by {@link #parse(String, LayoutMap)}
+     * @deprecated Replaced by {@link #parse(String)}
      */
 	public ColumnSpec(String encodedDescription) {
 	    super(DEFAULT, encodedDescription);
