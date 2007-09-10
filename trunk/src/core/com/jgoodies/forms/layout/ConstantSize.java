@@ -34,7 +34,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * An implementation of the {@link Size} interface that represents constant
@@ -67,7 +66,7 @@ import java.util.Locale;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see	Size
  * @see	Sizes
@@ -76,17 +75,20 @@ public final class ConstantSize implements Size, Serializable {
 
     // Public Units *********************************************************
 
-    public static final Unit PIXEL          = new Unit("Pixel", "px", true);
-    public static final Unit POINT          = new Unit("Point", "pt", true);
+    public static final Unit PIXEL          = new Unit("Pixel",          "px",   true);
+    public static final Unit POINT          = new Unit("Point",          "pt",   true);
     public static final Unit DIALOG_UNITS_X = new Unit("Dialog units X", "dluX", true);
-    public static final Unit DLUX           = DIALOG_UNITS_X;
     public static final Unit DIALOG_UNITS_Y = new Unit("Dialog units Y", "dluY", true);
+    public static final Unit MILLIMETER     = new Unit("Millimeter",     "mm",   false);
+    public static final Unit CENTIMETER     = new Unit("Centimeter",     "cm",   false);
+    public static final Unit INCH           = new Unit("Inch",           "in",   false);
+
+    public static final Unit PX             = PIXEL;
+    public static final Unit PT             = POINT;
+    public static final Unit DLUX           = DIALOG_UNITS_X;
     public static final Unit DLUY           = DIALOG_UNITS_Y;
-    public static final Unit MILLIMETER     = new Unit("Millimeter", "mm", false);
     public static final Unit MM             = MILLIMETER;
-    public static final Unit CENTIMETER     = new Unit("Centimeter", "cm", false);
     public static final Unit CM             = CENTIMETER;
-    public static final Unit INCH           = new Unit("Inch", "in", false);
     public static final Unit IN             = INCH;
 
     /**
@@ -137,7 +139,8 @@ public final class ConstantSize implements Size, Serializable {
      * Creates and returns a ConstantSize from the given encoded size
      * and unit description.
      *
-     * @param encodedValueAndUnit  the size's value and unit as string
+     * @param encodedValueAndUnit  the size's value and unit as string,
+     *                             trimmed and in lower case
      * @param horizontal		   true for horizontal, false for vertical
      * @return a constant size for the given encoding and unit description
      *
@@ -338,24 +341,25 @@ public final class ConstantSize implements Size, Serializable {
         return (int) Math.round(value);
     }
 
+
     /**
      * Splits a string that encodes size with unit into the size and unit
      * substrings. Returns an array of two strings.
      *
-     * @param encodedValueAndUnit  a strings that represents a size with unit
+     * @param encodedValueAndUnit  a strings that represents a size with unit,
+     *                             trimmed and in lower case
      * @return the first element is size, the second is unit
      */
-    static String[] splitValueAndUnit(String encodedValueAndUnit) {
-        String trimmed = encodedValueAndUnit.trim();
+    private static String[] splitValueAndUnit(String encodedValueAndUnit) {
         String[] result = new String[2];
-        int len = trimmed.length();
+        int len = encodedValueAndUnit.length();
         int firstLetterIndex = len;
         while (firstLetterIndex > 0
-                && Character.isLetter(trimmed.charAt(firstLetterIndex-1))) {
+                && Character.isLetter(encodedValueAndUnit.charAt(firstLetterIndex-1))) {
                 firstLetterIndex--;
         }
-        result[0] = trimmed.substring(0, firstLetterIndex);
-        result[1] = trimmed.substring(firstLetterIndex);
+        result[0] = encodedValueAndUnit.substring(0, firstLetterIndex);
+        result[1] = encodedValueAndUnit.substring(firstLetterIndex);
         return result;
     }
 
@@ -381,34 +385,33 @@ public final class ConstantSize implements Size, Serializable {
         /**
          * Returns a Unit that corresponds to the specified string.
          *
-         * @param str   the encoded unit
+         * @param name   the encoded unit, trimmed and in lower case
          * @param horizontal  true for a horizontal unit, false for vertical
          * @return the corresponding Unit
          * @throws IllegalArgumentException if no Unit exists for the string
          */
-        static Unit valueOf(String str, boolean horizontal) {
-            String lowerCase = str.toLowerCase(Locale.ENGLISH);
-            if (lowerCase.length() == 0) {
+        static Unit valueOf(String name, boolean horizontal) {
+            if (name.length() == 0) {
                 Unit defaultUnit = Sizes.getDefaultUnit();
                 if (defaultUnit != null) {
                     return defaultUnit;
                 }
                 return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            } else if (lowerCase.equals("px"))
+            } else if (name.equals("px"))
                 return PIXEL;
-            else if (lowerCase.equals("dlu"))
+            else if (name.equals("dlu"))
                 return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            else if (lowerCase.equals("pt"))
+            else if (name.equals("pt"))
                 return POINT;
-            else if (lowerCase.equals("in"))
+            else if (name.equals("in"))
                 return INCH;
-            else if (lowerCase.equals("mm"))
+            else if (name.equals("mm"))
                 return MILLIMETER;
-            else if (lowerCase.equals("cm"))
+            else if (name.equals("cm"))
                 return CENTIMETER;
             else
                 throw new IllegalArgumentException(
-                    "Invalid unit name '" + str + "'. Must be one of: " +
+                    "Invalid unit name '" + name + "'. Must be one of: " +
                     "px, dlu, pt, mm, cm, in");
         }
 
