@@ -41,7 +41,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * and two factory methods for
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -294,6 +294,21 @@ public final class FormFactory {
      */
     public static final RowSpec PARAGRAPH_GAP_ROWSPEC =
         RowSpec.createGap(LayoutStyle.getCurrent().getParagraphPad());
+
+
+    /**
+     * Describes a logical row for a fixed size button. This spec
+     * honors the current layout style's default button minimum height.<p>
+     *
+     * <strong>Note:</strong> In a future version this constant will likely
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     *
+     * @since 1.2
+     */
+    public static final RowSpec BUTTON_ROWSPEC =
+        new RowSpec(Sizes.bounded(Sizes.PREFERRED,
+                                  LayoutStyle.getCurrent().getDefaultButtonHeight(),
+                                  null));
 
 
 
