@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -341,16 +341,28 @@ public abstract class FormSpec implements Serializable {
     private Size parseBoundedSize(String token) {
         String content = token.substring(1, token.length()-1);
         String[] subtoken = BOUNDS_SEPARATOR_PATTERN.split(content);
+        Size basis = null;
+        Size lower = null;
+        Size upper = null;
         if (subtoken.length == 2) {
-            Size boundedSize = parseBoundedSize(subtoken[0], subtoken[1]);
-            if (boundedSize != null) {
-                return boundedSize;
+            Size size1 = parseAtomicSize(subtoken[0]);
+            Size size2 = parseAtomicSize(subtoken[1]);
+            if (size1 instanceof ConstantSize) {
+                lower = size1;
+                basis = size2;
+            } else {
+                basis = size1;
+                upper = size2;
             }
         } else if (subtoken.length == 3) {
-            Size boundedSize = parseBoundedSize(subtoken[0], subtoken[1], subtoken[2]);
-            if (boundedSize != null) {
-                return boundedSize;
-            }
+            lower = parseAtomicSize(subtoken[0]);
+            basis = parseAtomicSize(subtoken[1]);
+            upper = parseAtomicSize(subtoken[2]);
+        }
+        if (   (basis instanceof Sizes.ComponentSize)
+            && ((lower == null) || (lower instanceof ConstantSize))
+            && ((upper == null) || (upper instanceof ConstantSize)))  {
+            return new BoundedSize(basis, lower, upper);
         }
         throw new IllegalArgumentException(
                 "Illegal bounded size '" + token + "'. Must be one of:"
@@ -362,40 +374,6 @@ public abstract class FormSpec implements Serializable {
               + "\n[pref,200dlu]                                    // upper bound"
               + "\n[50dlu,pref,200dlu]                              // lower and upper bound."
               );
-    }
-
-
-    private Size parseBoundedSize(String sizeToken1, String sizeToken2) {
-        Size size1 = parseAtomicSize(sizeToken1);
-        Size size2 = parseAtomicSize(sizeToken2);
-
-        // Check valid combinations and set min or max.
-        if (size1 instanceof ConstantSize) {
-            if (size2 instanceof Sizes.ComponentSize) {
-                return new BoundedSize(size2, size1, null);
-            }
-            return null;
-        }
-        if (size2 instanceof ConstantSize) {
-            return new BoundedSize(size1, null, size2);
-        }
-        return null;
-    }
-
-
-    private Size parseBoundedSize(
-            String lowerBoundStr,
-            String basisStr,
-            String upperBoundStr) {
-        Size lowerBound  = parseAtomicSize(lowerBoundStr);
-        Size basis       = parseAtomicSize(basisStr);
-        Size upperBound  = parseAtomicSize(upperBoundStr);
-        if (   (lowerBound instanceof ConstantSize)
-            && (basis instanceof Sizes.ComponentSize)
-            && (upperBound instanceof ConstantSize)) {
-            return new BoundedSize(basis, lowerBound, upperBound);
-        }
-        return null;
     }
 
 
