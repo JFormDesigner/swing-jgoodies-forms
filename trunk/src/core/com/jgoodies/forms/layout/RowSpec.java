@@ -48,10 +48,15 @@ package com.jgoodies.forms.layout;
  * </pre><p>
  *
  * The {@link com.jgoodies.forms.factories.FormFactory} provides
- * predefined frequently used RowSpec instances.
+ * predefined frequently used RowSpec instances.<p>
+ *
+ * TODO: Consider adding static factory methods for encoded specs,
+ * for example {@code #valueOf(String)} or {@code #parseSpec}.
+ * These would delegate to the constructors if necessary, and could
+ * reuse instances if mapped in the LayoutMap.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
