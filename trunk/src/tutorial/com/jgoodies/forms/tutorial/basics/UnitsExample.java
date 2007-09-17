@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class UnitsExample {
 
@@ -112,7 +112,7 @@ public final class UnitsExample {
 
     private JComponent buildVerticalUnitsPanel() {
         FormLayout layout = new FormLayout(
-            "6x(c:p, 4dlu), c:p",
+            "6*(c:p, 4dlu), c:p",
             "pref, 6dlu, top:pref");
 
         JPanel panel = new JPanel(layout);
@@ -145,7 +145,7 @@ public final class UnitsExample {
 
     private JComponent buildVerticalDluPanel() {
         FormLayout layout = new FormLayout(
-            "6x(c:p, 4dlu), c:p",
+            "6*(c:p, 4dlu), c:p",
             "pref, 6dlu, top:pref, 25dlu, pref, 6dlu, top:pref");
 
         JPanel panel = new JPanel(layout);

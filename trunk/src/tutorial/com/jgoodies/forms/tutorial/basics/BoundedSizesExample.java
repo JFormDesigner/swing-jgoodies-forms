@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class BoundedSizesExample {
 
@@ -102,7 +102,7 @@ public final class BoundedSizesExample {
     }
 
     private static final String EDITOR_ROW_SPEC =
-        "3x(p, 3dlu), p";
+        "3*(p, 3dlu), p";
 
 
     /**

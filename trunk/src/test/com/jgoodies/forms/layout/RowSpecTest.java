@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -65,7 +65,7 @@ public final class RowSpecTest extends TestCase {
      */
     public void testRejectParsedNegativeResizeWeight() {
         try {
-            RowSpec.parse("right:default:-1");
+            RowSpec.decode("right:default:-1");
             fail("The RowSpec parser constructor should reject negative resize weights.");
         } catch (IllegalArgumentException e) {
             // The expected behavior
@@ -96,19 +96,19 @@ public final class RowSpecTest extends TestCase {
     public void testDefaultVariables() {
         assertEquals(
                 FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.parse("$rgap"));
+                RowSpec.decode("$rgap"));
         assertEquals(
                 FormFactory.UNRELATED_GAP_ROWSPEC,
-                RowSpec.parse("$ugap"));
+                RowSpec.decode("$ugap"));
         assertEquals(
                 FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.parse("$ngap"));
+                RowSpec.decode("$ngap"));
         assertEquals(
                 FormFactory.LINE_GAP_ROWSPEC,
-                RowSpec.parse("$lgap"));
+                RowSpec.decode("$lgap"));
         assertEquals(
                 FormFactory.PARAGRAPH_GAP_ROWSPEC,
-                RowSpec.parse("$pgap"));
+                RowSpec.decode("$pgap"));
     }
 
 
@@ -119,7 +119,7 @@ public final class RowSpecTest extends TestCase {
         layoutMap.rowPut("large", largeGap);
         assertEquals(
                 largeGap,
-                RowSpec.parse("$large", layoutMap));
+                RowSpec.decode("$large", layoutMap));
     }
 
 
@@ -130,7 +130,7 @@ public final class RowSpecTest extends TestCase {
         layoutMap.rowPut("lgap", lineSpec);
         assertEquals(
                 lineSpec,
-                RowSpec.parse("$lgap", layoutMap));
+                RowSpec.decode("$lgap", layoutMap));
     }
 
 
@@ -141,10 +141,10 @@ public final class RowSpecTest extends TestCase {
         LayoutMap layoutMap = new LayoutMap();
         layoutMap.rowPut("var1", "top:p, 3dlu, p");
         layoutMap.rowPut("var2", "$var1, 3dlu, $var1");
-        RowSpec[] specs = RowSpec.parseAll("$var1, 3dlu, $var1", layoutMap);
+        RowSpec[] specs = RowSpec.decodeSpecs("$var1, 3dlu, $var1", layoutMap);
         RowSpec[] expected = new RowSpec[]{spec0, spec1, spec2, spec1, spec0, spec1, spec2};
         assertEquals(expected, specs);
-        specs = RowSpec.parseAll("$var2", layoutMap);
+        specs = RowSpec.decodeSpecs("$var2", layoutMap);
         assertEquals(expected, specs);
     }
 
@@ -152,7 +152,7 @@ public final class RowSpecTest extends TestCase {
     public void testMissingColumnSpecVariable() {
         String variable = "$rumpelstilzchen";
         try {
-            RowSpec.parse(variable);
+            RowSpec.decode(variable);
             fail("The parser should reject the missing variable:" + variable);
         } catch (Exception e) {
             // The expected behavior
@@ -171,77 +171,77 @@ public final class RowSpecTest extends TestCase {
         try {
             RowSpec spec;
             spec = new RowSpec(RowSpec.TOP, Sizes.PREFERRED, FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("t:p"));
-            assertEquals(spec, RowSpec.parse("top:p"));
-            assertEquals(spec, RowSpec.parse("t:pref"));
-            assertEquals(spec, RowSpec.parse("top:pref"));
+            assertEquals(spec, RowSpec.decode("t:p"));
+            assertEquals(spec, RowSpec.decode("top:p"));
+            assertEquals(spec, RowSpec.decode("t:pref"));
+            assertEquals(spec, RowSpec.decode("top:pref"));
 
             spec = new RowSpec(RowSpec.DEFAULT, Sizes.MINIMUM, FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("min"));
-            assertEquals(spec, RowSpec.parse("c:min"));
-            assertEquals(spec, RowSpec.parse("center:min"));
-            assertEquals(spec, RowSpec.parse("c:min:none"));
-            assertEquals(spec, RowSpec.parse("center:min:grow(0)"));
+            assertEquals(spec, RowSpec.decode("min"));
+            assertEquals(spec, RowSpec.decode("c:min"));
+            assertEquals(spec, RowSpec.decode("center:min"));
+            assertEquals(spec, RowSpec.decode("c:min:none"));
+            assertEquals(spec, RowSpec.decode("center:min:grow(0)"));
 
             spec = new RowSpec(RowSpec.FILL, Sizes.DEFAULT, FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("f:default"));
-            assertEquals(spec, RowSpec.parse("fill:default"));
-            assertEquals(spec, RowSpec.parse("FILL:DEFAULT"));
-            assertEquals(spec, RowSpec.parse("f:default:none"));
-            assertEquals(spec, RowSpec.parse("F:DEFAULT:NONE"));
-            assertEquals(spec, RowSpec.parse("fill:default:grow(0)"));
-            assertEquals(spec, RowSpec.parse("FILL:DEFAULT:GROW(0)"));
+            assertEquals(spec, RowSpec.decode("f:default"));
+            assertEquals(spec, RowSpec.decode("fill:default"));
+            assertEquals(spec, RowSpec.decode("FILL:DEFAULT"));
+            assertEquals(spec, RowSpec.decode("f:default:none"));
+            assertEquals(spec, RowSpec.decode("F:DEFAULT:NONE"));
+            assertEquals(spec, RowSpec.decode("fill:default:grow(0)"));
+            assertEquals(spec, RowSpec.decode("FILL:DEFAULT:GROW(0)"));
 
             spec = new RowSpec(RowSpec.BOTTOM, Sizes.pixel(10), FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("b:10px"));
-            assertEquals(spec, RowSpec.parse("bottom:10px"));
-            assertEquals(spec, RowSpec.parse("BOTTOM:10PX"));
-            assertEquals(spec, RowSpec.parse("bottom:10px:none"));
-            assertEquals(spec, RowSpec.parse("bottom:10px:grow(0)"));
-            assertEquals(spec, RowSpec.parse("bottom:10px:g(0)"));
+            assertEquals(spec, RowSpec.decode("b:10px"));
+            assertEquals(spec, RowSpec.decode("bottom:10px"));
+            assertEquals(spec, RowSpec.decode("BOTTOM:10PX"));
+            assertEquals(spec, RowSpec.decode("bottom:10px:none"));
+            assertEquals(spec, RowSpec.decode("bottom:10px:grow(0)"));
+            assertEquals(spec, RowSpec.decode("bottom:10px:g(0)"));
 
             Size size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(10), null);
             spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("bottom:max(10px;pref)"));
-            assertEquals(spec, RowSpec.parse("bottom:max(pref;10px)"));
-            assertEquals(spec, RowSpec.parse("bottom:[10px,pref]"));
+            assertEquals(spec, RowSpec.decode("bottom:max(10px;pref)"));
+            assertEquals(spec, RowSpec.decode("bottom:max(pref;10px)"));
+            assertEquals(spec, RowSpec.decode("bottom:[10px,pref]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, null, Sizes.pixel(10));
             spec = new RowSpec(RowSpec.BOTTOM, size, FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("bottom:min(10px;pref)"));
-            assertEquals(spec, RowSpec.parse("BOTTOM:MIN(10PX;PREF)"));
-            assertEquals(spec, RowSpec.parse("bottom:min(pref;10px)"));
-            assertEquals(spec, RowSpec.parse("bottom:[pref,10px]"));
+            assertEquals(spec, RowSpec.decode("bottom:min(10px;pref)"));
+            assertEquals(spec, RowSpec.decode("BOTTOM:MIN(10PX;PREF)"));
+            assertEquals(spec, RowSpec.decode("bottom:min(pref;10px)"));
+            assertEquals(spec, RowSpec.decode("bottom:[pref,10px]"));
 
             size = Sizes.bounded(Sizes.DEFAULT, null, Sizes.pixel(10));
             spec = new RowSpec(RowSpec.DEFAULT, size, FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("min(10px;default)"));
-            assertEquals(spec, RowSpec.parse("min(10px;d)"));
-            assertEquals(spec, RowSpec.parse("min(default;10px)"));
-            assertEquals(spec, RowSpec.parse("min(d;10px)"));
-            assertEquals(spec, RowSpec.parse("[d,10px]"));
+            assertEquals(spec, RowSpec.decode("min(10px;default)"));
+            assertEquals(spec, RowSpec.decode("min(10px;d)"));
+            assertEquals(spec, RowSpec.decode("min(default;10px)"));
+            assertEquals(spec, RowSpec.decode("min(d;10px)"));
+            assertEquals(spec, RowSpec.decode("[d,10px]"));
 
             size = Sizes.bounded(Sizes.PREFERRED, Sizes.pixel(50), Sizes.pixel(200));
             spec = new RowSpec(RowSpec.DEFAULT, size, FormSpec.NO_GROW);
-            assertEquals(spec, RowSpec.parse("[50px,pref,200px]"));
+            assertEquals(spec, RowSpec.decode("[50px,pref,200px]"));
 
             spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, FormSpec.DEFAULT_GROW);
-            assertEquals(spec, RowSpec.parse("d:grow"));
-            assertEquals(spec, RowSpec.parse("default:grow(1)"));
-            assertEquals(spec, RowSpec.parse("c:d:g"));
-            assertEquals(spec, RowSpec.parse("c:d:grow(1.0)"));
-            assertEquals(spec, RowSpec.parse("c:d:g(1.0)"));
+            assertEquals(spec, RowSpec.decode("d:grow"));
+            assertEquals(spec, RowSpec.decode("default:grow(1)"));
+            assertEquals(spec, RowSpec.decode("c:d:g"));
+            assertEquals(spec, RowSpec.decode("c:d:grow(1.0)"));
+            assertEquals(spec, RowSpec.decode("c:d:g(1.0)"));
 
             spec = new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, 0.75);
-            assertEquals(spec, RowSpec.parse("d:grow(0.75)"));
-            assertEquals(spec, RowSpec.parse("default:grow(0.75)"));
-            assertEquals(spec, RowSpec.parse("c:d:grow(0.75)"));
-            assertEquals(spec, RowSpec.parse("center:default:grow(0.75)"));
+            assertEquals(spec, RowSpec.decode("d:grow(0.75)"));
+            assertEquals(spec, RowSpec.decode("default:grow(0.75)"));
+            assertEquals(spec, RowSpec.decode("c:d:grow(0.75)"));
+            assertEquals(spec, RowSpec.decode("center:default:grow(0.75)"));
 
             RowSpec spec1 = new RowSpec(RowSpec.TOP, Sizes.PREFERRED, FormSpec.NO_GROW);
             RowSpec spec2 = new RowSpec(RowSpec.BOTTOM, Sizes.DEFAULT, 1.0);
-            RowSpec[] specs = RowSpec.parseAll(
-                    "top:pref:none , bottom:default:grow", null);
+            RowSpec[] specs = RowSpec.decodeSpecs(
+                    "top:pref:none , bottom:default:grow");
             assertEquals(2, specs.length);
             assertEquals(spec1, specs[0]);
             assertEquals(spec2, specs[1]);
@@ -317,7 +317,7 @@ public final class RowSpecTest extends TestCase {
      */
     private void assertRejects(String encodedRowSpec) {
         try {
-            RowSpec.parse(encodedRowSpec);
+            RowSpec.decode(encodedRowSpec);
             fail("The parser should reject encoding:" + encodedRowSpec);
         } catch (Exception e) {
             // The expected behavior

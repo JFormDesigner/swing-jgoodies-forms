@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how columns and rows can be grouped in FormLayout.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public final class GroupingExample {
 
@@ -96,7 +96,7 @@ public final class GroupingExample {
     private JComponent buildEditorPanel(boolean grouped) {
         FormLayout layout = new FormLayout(
                 "pref, 4dlu, 35dlu, 2dlu, 35dlu, 2dlu, 35dlu, 2dlu, 35dlu",
-                "8x(p, 2dlu), p");
+                "8*(p, 2dlu), p");
         if (grouped) {
             layout.setRowGroups(new int[][] { { 1, 3, 5, 7, 9, 11, 13, 15, 17 } });
         }

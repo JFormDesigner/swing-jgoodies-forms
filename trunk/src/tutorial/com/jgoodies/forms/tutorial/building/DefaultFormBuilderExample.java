@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * rows before the panel is filled with components.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     DefaultFormBuilder
  * @see     PlainExample

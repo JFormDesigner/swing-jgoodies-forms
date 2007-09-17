@@ -62,7 +62,7 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
@@ -189,7 +189,7 @@ public final class ComponentOrientationExample {
          * @return an array of flipped column specs in reversed order
          */
         static ColumnSpec[] flipped(String encodedColumnSpecs) {
-            return flipped(ColumnSpec.parseAll(encodedColumnSpecs, null));
+            return flipped(ColumnSpec.decodeSpecs(encodedColumnSpecs));
         }
 
         /**
