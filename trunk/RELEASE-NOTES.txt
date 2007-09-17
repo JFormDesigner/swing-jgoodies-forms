@@ -1,13 +1,13 @@
 
 
                            JGoodies Forms
-                          Version 1.2 Alpha
+                          Version 1.2 Beta1
                             Release Notes
                         
 
 INTRODUCTION
 
-    This is an early preview of the upcoming JGoodies Forms 1.2.
+    This is a preview of the upcoming JGoodies Forms 1.2.
     It is binary incompatible with previous versions of the Forms,
     however the API changes won't affect typical application code.
     
@@ -39,7 +39,7 @@ NEW FEATURES
           [<constant size>,<logical size>]   // lower bound
           [<logical size>,<constant size>]   // upper bound
           [<constant>,<logical>,<constant>]  // lower and upper bound
-      - multiplier, for example "p, 9dlu, 5x(p, 3dlu), p"
+      - multiplier, for example "5*(p, 3dlu), p"
       - accepts string encodings with whitespace before a comma,
         for example "pref , pref"
     o Sizes#setDefaultUnit(Unit) allows to set the unit that is used
@@ -64,20 +64,12 @@ LAYOUT VARIABLES
     where $lcgap, $rgap, $lgap are default variables, and $myGap1 
     and ${my gap} are custom variables.
     
-    The mapping from variable names to ColumnSpec/RowSpec values
-    is specified by a chain of LayoutMaps. LayoutMap#getDefault()
-    returns the default root LayoutMap. You can add and remove
-    associations (including the defaults) to the default LayoutMap; 
-    these will be used for all FormLayouts. Or you can replace
-    the default LayoutMap using LayoutMap#setDefault(LayoutMap).
-    
-    LayoutMaps have an optional parent map; hence they build a chain.
-    The variable lookup starts with a given LayoutMap and continues
-    with the parent if the child has no association for a given key.
-    Associations in child maps shadow the associations in the parent
-    map, or more generally in the chain of parents. For example
-       LayoutMap customMap = new LayoutMap(LayoutMap.getDefault())  
-    builds a custom map that has the default map as its parent.
+    LayoutMaps build a chain; each LayoutMap has an optional parent map.
+    The root is defined by LayoutMap#getRoot(). Application-wide variables 
+    should be defined in the root LayoutMap. If you want to override
+    application-wide variables locally, obtain a LayoutMap using 
+    new LayoutMap(), configure it, and provide it as argument to the
+    FormLayout, ColumnSpec, and RowSpec constructors/factory methods.
     
     
 BUGS FIXED
