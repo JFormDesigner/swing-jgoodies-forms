@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -126,7 +126,7 @@ public final class RowSpecTest extends TestCase {
     public void testOverrideDefaultVariable() {
         ConstantSize gapHeight = Sizes.DLUY1;
         RowSpec lineSpec = RowSpec.createGap(gapHeight);
-        LayoutMap layoutMap = new LayoutMap(LayoutMap.getRoot());
+        LayoutMap layoutMap = new LayoutMap();
         layoutMap.rowPut("lgap", lineSpec);
         assertEquals(
                 lineSpec,
@@ -138,18 +138,14 @@ public final class RowSpecTest extends TestCase {
         RowSpec spec0 = new RowSpec(RowSpec.TOP_ALIGN, Sizes.PREFERRED, RowSpec.NO_GROW);
         RowSpec spec1 = RowSpec.createGap(Sizes.DLUY3);
         RowSpec spec2 = new RowSpec(Sizes.PREFERRED);
-        LayoutMap layoutMap = new LayoutMap(LayoutMap.getRoot());
-        layoutMap.rowPut("test name", "t:p, 3dlu, p");
-        RowSpec[] specs = RowSpec.parseAll("${test name}, 3dlu, ${test Name}", layoutMap);
-        assertEquals(spec0, specs[0]);
-        assertEquals(spec1, specs[1]);
-        assertEquals(spec2, specs[2]);
-
-        assertEquals(spec1, specs[3]);
-
-        assertEquals(spec0, specs[4]);
-        assertEquals(spec1, specs[5]);
-        assertEquals(spec2, specs[6]);
+        LayoutMap layoutMap = new LayoutMap();
+        layoutMap.rowPut("var1", "top:p, 3dlu, p");
+        layoutMap.rowPut("var2", "$var1, 3dlu, $var1");
+        RowSpec[] specs = RowSpec.parseAll("$var1, 3dlu, $var1", layoutMap);
+        RowSpec[] expected = new RowSpec[]{spec0, spec1, spec2, spec1, spec0, spec1, spec2};
+        assertEquals(expected, specs);
+        specs = RowSpec.parseAll("$var2", layoutMap);
+        assertEquals(expected, specs);
     }
 
 
@@ -301,6 +297,15 @@ public final class RowSpecTest extends TestCase {
         }
         if (!(spec1.getResizeWeight() == spec2.getResizeWeight())) {
             fail("Resize weight mismatch: spec1=" + spec1 + "; spec2=" + spec2);
+        }
+    }
+
+    private void assertEquals(RowSpec[] specs1, RowSpec[] specs2) {
+        if (specs1.length != specs2.length) {
+            fail("Array size mismatch. specs1.length" + specs1.length + "; specs2.length=" + specs2.length);
+        }
+        for (int i = 0; i < specs1.length; i++) {
+            assertEquals(specs1[i], specs2[i]);
         }
     }
 

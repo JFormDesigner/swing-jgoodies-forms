@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -125,6 +125,21 @@ public final class ColumnSpecTest extends TestCase {
         assertEquals(
                 labelComponentColumnSpec,
                 ColumnSpec.parse("$lcgap", layoutMap));
+    }
+
+
+    public void testVariableExpression() {
+        ColumnSpec spec0 = new ColumnSpec(ColumnSpec.LEFT_ALIGN, Sizes.PREFERRED, ColumnSpec.NO_GROW);
+        ColumnSpec spec1 = ColumnSpec.createGap(Sizes.DLUX3);
+        ColumnSpec spec2 = new ColumnSpec(Sizes.PREFERRED);
+        LayoutMap layoutMap = new LayoutMap();
+        layoutMap.columnPut("var1", "left:p, 3dlu, p");
+        layoutMap.columnPut("var2", "$var1, 3dlu, $var1");
+        ColumnSpec[] specs = ColumnSpec.parseAll("$var1, 3dlu, $var1", layoutMap);
+        ColumnSpec[] expected = new ColumnSpec[]{spec0, spec1, spec2, spec1, spec0, spec1, spec2};
+        assertEquals(expected, specs);
+        specs = ColumnSpec.parseAll("$var2", layoutMap);
+        assertEquals(expected, specs);
     }
 
 
@@ -292,6 +307,16 @@ public final class ColumnSpecTest extends TestCase {
         }
         if (!(spec1.getResizeWeight() == spec2.getResizeWeight())) {
             fail("Resize weight mismatch: spec1=" + spec1 + "; spec2=" + spec2);
+        }
+    }
+
+
+    private void assertEquals(ColumnSpec[] specs1, ColumnSpec[] specs2) {
+        if (specs1.length != specs2.length) {
+            fail("Array size mismatch. specs1.length" + specs1.length + "; specs2.length=" + specs2.length);
+        }
+        for (int i = 0; i < specs1.length; i++) {
+            assertEquals(specs1[i], specs2[i]);
         }
     }
 
