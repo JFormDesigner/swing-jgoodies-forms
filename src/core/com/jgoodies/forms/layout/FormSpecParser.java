@@ -35,13 +35,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jgoodies.forms.util.FormUtils;
+
 /**
  * Parses encoded column and row specifications.
  * Returns ColumnSpec or RowSpec arrays if successful,
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -51,7 +53,7 @@ public final class FormSpecParser {
     // Parser Patterns ******************************************************
 
     private static final Pattern MULTIPLIER_PREFIX_PATTERN =
-        Pattern.compile("\\d+[x\\*]\\(");
+        Pattern.compile("\\d+\\*\\(");
 
 
     // Instance Fields ********************************************************
@@ -80,12 +82,9 @@ public final class FormSpecParser {
             String description,
             LayoutMap layoutMap,
             boolean horizontal) {
-        if (source == null) {
-            throw new NullPointerException("The " + description + " must not be null.");
-        }
-        this.layoutMap = layoutMap != null
-            ? layoutMap
-            : LayoutMap.getRoot();
+        FormUtils.assertNotNull(source, description);
+        FormUtils.assertNotNull(layoutMap, "LayoutMap");
+        this.layoutMap = layoutMap;
         this.source = this.layoutMap.expand(source, horizontal);
     }
 
@@ -123,7 +122,7 @@ public final class FormSpecParser {
         int columnCount = encodedColumnSpecs.size();
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
-            columnSpecs[i] = ColumnSpec.parse0((String) encodedColumnSpecs.get(i));
+            columnSpecs[i] = ColumnSpec.decodeExpanded((String) encodedColumnSpecs.get(i));
         }
         return columnSpecs;
     }
@@ -134,7 +133,7 @@ public final class FormSpecParser {
         int rowCount = encodedRowSpecs.size();
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {
-            rowSpecs[i] = RowSpec.parse0((String) encodedRowSpecs.get(i));
+            rowSpecs[i] = RowSpec.decodeExpanded((String) encodedRowSpecs.get(i));
         }
         return rowSpecs;
     }

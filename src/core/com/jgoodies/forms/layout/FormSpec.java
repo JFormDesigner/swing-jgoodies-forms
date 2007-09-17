@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -265,7 +265,7 @@ public abstract class FormSpec implements Serializable {
      */
     private void parseAndInitValues(String encodedDescription) {
         FormUtils.assertNotBlank(encodedDescription, "encoded form specification");
-        String token[] = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
+        String[] token = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
         if (token.length == 0) {
             throw new IllegalArgumentException(
                                     "The form spec must not be empty.");
@@ -440,13 +440,12 @@ public abstract class FormSpec implements Serializable {
      * a colon (<tt>":"</tt>), first the alignment, second the size,
      * and third the resize spec.<p>
      *
-     * This method does <em>not</em> return a decoded version
+     * This method does <em>not</em> return an encoded version
      * of this object; the contrary is the case. Many instances
      * will return a string that cannot be parsed.<p>
      *
-     * <strong>Note:</strong> The string representation may change
-     * at any time. It is strongly recommended to not use this string
-     * for parsing purposes.
+     * <strong>Note:</strong> The string representation may change at any time.
+     * For parsing use {@link #encode()} instead.
      *
      * @return	a string representation of the form specification.
      */
@@ -476,13 +475,12 @@ public abstract class FormSpec implements Serializable {
      * a colon (<tt>":"</tt>), first the alignment, second the size,
      * and third the resize spec.<p>
      *
-     * This method does <em>not</em> return a decoded version
+     * This method does <em>not</em> return an encoded version
      * of this object; the contrary is the case. Many instances
      * will return a string that cannot be parsed.<p>
      *
-     * <strong>Note:</strong> The string representation may change
-     * at any time. It is strongly recommended to not use this string
-     * for parsing purposes.
+     * <strong>Note:</strong> The string representation may change at any time.
+     * For parsing use {@link #encode()} instead.
      *
      * @return  a string representation of the form specification.
      */
@@ -514,8 +512,10 @@ public abstract class FormSpec implements Serializable {
      * @return  a string representation of the form specification.
      *
      * @see #toShortString() for a more verbose string representation
+     *
+     * @since 1.2
      */
-    public final String toParseString() {
+    public final String encode() {
         StringBuffer buffer = new StringBuffer();
         DefaultAlignment alignmentDefault = isHorizontal()
             ? ColumnSpec.DEFAULT
@@ -524,7 +524,7 @@ public abstract class FormSpec implements Serializable {
             buffer.append(defaultAlignment.abbreviation());
             buffer.append(":");
         }
-        buffer.append(size.toParseString());
+        buffer.append(size.encode());
         if (resizeWeight == NO_GROW) {
             // Omit the resize part
         } else if (resizeWeight == DEFAULT_GROW) {
