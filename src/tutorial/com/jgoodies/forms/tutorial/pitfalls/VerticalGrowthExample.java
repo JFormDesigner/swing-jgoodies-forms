@@ -45,7 +45,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * the available vertical space.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
 public final class VerticalGrowthExample {

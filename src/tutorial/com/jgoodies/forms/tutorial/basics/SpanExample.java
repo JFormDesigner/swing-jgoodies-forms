@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how components can span multiple columns and rows.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 public final class SpanExample {
 
@@ -125,7 +125,7 @@ public final class SpanExample {
     private JComponent buildRowSpanExample() {
         FormLayout layout = new FormLayout(
             "200px, 25px, 200px",
-            "2x(pref, 2px, pref, 9px), pref, 2px, pref");
+            "2*(pref, 2px, pref, 9px), pref, 2px, pref");
 
         JPanel panel = new JPanel(layout);
         panel.setBorder(Borders.DIALOG_BORDER);
