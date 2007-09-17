@@ -30,7 +30,9 @@
 
 package com.jgoodies.forms.layout;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import com.jgoodies.forms.util.FormUtils;
 
@@ -56,7 +58,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -94,6 +96,15 @@ public final class ColumnSpec extends FormSpec {
      * Unless overridden the default alignment for a column is FILL.
      */
     public static final DefaultAlignment DEFAULT = FILL;
+
+
+    // Cache ******************************************************************
+
+    /**
+     * Maps encoded column specifications to ColumnSpec instances.
+     */
+    private static final Map/*<String, ColumnSpec>*/ cache =
+        new HashMap();
 
 
     // Instance Creation ****************************************************
@@ -160,7 +171,7 @@ public final class ColumnSpec extends FormSpec {
      * @since 1.2
      */
     public static ColumnSpec createGap(ConstantSize gapWidth) {
-        return new ColumnSpec(ColumnSpec.LEFT, gapWidth, ColumnSpec.NO_GROW);
+        return new ColumnSpec(DEFAULT, gapWidth, ColumnSpec.NO_GROW);
     }
 
 
@@ -174,7 +185,7 @@ public final class ColumnSpec extends FormSpec {
      *     is {@code null}
      *
      * @see ColumnSpec#ColumnSpec(String)
-     * @see LayoutMap#getDefault()
+     * @see LayoutMap#getRoot()
      *
      * @deprecated Replaced by {@link #parseAll(String, LayoutMap)}
      */
@@ -194,7 +205,7 @@ public final class ColumnSpec extends FormSpec {
      * @throws NullPointerException if {@code encodedColumnSpec} is {@code null}
      *
      * @see #parse(String, LayoutMap)
-     * @see LayoutMap#getDefault()
+     * @see LayoutMap#getRoot()
      *
      * @since 1.2
      */
@@ -222,18 +233,22 @@ public final class ColumnSpec extends FormSpec {
     public static ColumnSpec parse(String encodedColumnSpec, LayoutMap layoutMap) {
         String trimmed = encodedColumnSpec.trim();
         FormUtils.assertNotBlank(trimmed, "encoded column specification");
-        if (trimmed.charAt(0) == LayoutMap.VARIABLE_PREFIX_CHAR) {
-            String key = trimmed.substring(1);
-            LayoutMap map = layoutMap != null
-                ? layoutMap
-                : LayoutMap.getDefault();
-            ColumnSpec value = map.getColumnSpec(key.toLowerCase(Locale.ENGLISH));
-            if (value != null) {
-                return value;
-            }
-            throw new IllegalArgumentException("Unknown layout variable \"" + trimmed + "\"");
+        String lower = trimmed.toLowerCase(Locale.ENGLISH);
+        LayoutMap map = layoutMap != null
+            ? layoutMap
+            : LayoutMap.getRoot();
+        return parse0(map.expand(lower, true));
+    }
+
+
+    static ColumnSpec parse0(String expandedLowerCaseSpec) {
+        ColumnSpec spec = (ColumnSpec) cache.get(expandedLowerCaseSpec);
+        if (spec != null) {
+            return spec;
         }
-        return new ColumnSpec(trimmed);
+        spec = new ColumnSpec(expandedLowerCaseSpec);
+        cache.put(expandedLowerCaseSpec, spec);
+        return spec;
     }
 
 

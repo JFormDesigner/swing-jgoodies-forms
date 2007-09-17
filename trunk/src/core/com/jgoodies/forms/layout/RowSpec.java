@@ -30,7 +30,9 @@
 
 package com.jgoodies.forms.layout;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import com.jgoodies.forms.util.FormUtils;
 
@@ -55,7 +57,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -88,6 +90,15 @@ public final class RowSpec extends FormSpec {
      * Unless overridden the default alignment for a row is CENTER.
      */
     public static final DefaultAlignment DEFAULT = CENTER;
+
+
+    // Cache ******************************************************************
+
+    /**
+     * Maps encoded row specifications to RowSpec instances.
+     */
+    private static final Map/*<String, RowSpec>*/ cache =
+        new HashMap();
 
 
     // Instance Creation ****************************************************
@@ -150,7 +161,7 @@ public final class RowSpec extends FormSpec {
      * @since 1.2
      */
     public static RowSpec createGap(ConstantSize gapHeight) {
-        return new RowSpec(RowSpec.TOP, gapHeight, RowSpec.NO_GROW);
+        return new RowSpec(RowSpec.DEFAULT, gapHeight, RowSpec.NO_GROW);
     }
 
 
@@ -164,7 +175,7 @@ public final class RowSpec extends FormSpec {
      *     is <code>null</code>
      *
      * @see RowSpec#RowSpec(String)
-     * @see LayoutMap#getDefault()
+     * @see LayoutMap#getRoot()
      *
      * @deprecated Replaced by {@link #parseAll(String, LayoutMap)}
      */
@@ -184,7 +195,7 @@ public final class RowSpec extends FormSpec {
      * @throws NullPointerException if {@code encodedRowSpec} is {@code null}
      *
      * @see #parse(String, LayoutMap)
-     * @see LayoutMap#getDefault()
+     * @see LayoutMap#getRoot()
      *
      * @since 1.2
      */
@@ -212,18 +223,22 @@ public final class RowSpec extends FormSpec {
     public static RowSpec parse(String encodedRowSpec, LayoutMap layoutMap) {
         String trimmed = encodedRowSpec.trim();
         FormUtils.assertNotBlank(trimmed, "encoded row specification");
-        if (trimmed.charAt(0) == LayoutMap.VARIABLE_PREFIX_CHAR) {
-            String key = trimmed.substring(1);
-            LayoutMap map = layoutMap != null
-                ? layoutMap
-                : LayoutMap.getDefault();
-            RowSpec value = map.getRowSpec(key.toLowerCase(Locale.ENGLISH));
-            if (value != null) {
-                return value;
-            }
-            throw new IllegalArgumentException("Unknown layout variable \"" + trimmed + "\"");
+        String lower = trimmed.toLowerCase(Locale.ENGLISH);
+        LayoutMap map = layoutMap != null
+            ? layoutMap
+            : LayoutMap.getRoot();
+        return parse0(map.expand(lower, false));
+    }
+
+
+    static RowSpec parse0(String expandedLowerCaseSpec) {
+        RowSpec spec = (RowSpec) cache.get(expandedLowerCaseSpec);
+        if (spec != null) {
+            return spec;
         }
-        return new RowSpec(trimmed);
+        spec = new RowSpec(expandedLowerCaseSpec);
+        cache.put(expandedLowerCaseSpec, spec);
+        return spec;
     }
 
 
@@ -259,5 +274,11 @@ public final class RowSpec extends FormSpec {
      */
     protected boolean isHorizontal() { return false; }
 
+
+    // Cache ******************************************************************
+
+    static void clearCache() {
+        cache.clear();
+    }
 
 }

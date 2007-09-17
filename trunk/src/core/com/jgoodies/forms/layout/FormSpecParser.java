@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -50,7 +50,7 @@ public final class FormSpecParser {
 
     // Parser Patterns ******************************************************
 
-    private static final Pattern EXPANSION_PREFIX_PATTERN =
+    private static final Pattern MULTIPLIER_PREFIX_PATTERN =
         Pattern.compile("\\d+[x\\*]\\(");
 
 
@@ -83,10 +83,10 @@ public final class FormSpecParser {
         if (source == null) {
             throw new NullPointerException("The " + description + " must not be null.");
         }
-        this.source = source;
         this.layoutMap = layoutMap != null
             ? layoutMap
-            : LayoutMap.getDefault();
+            : LayoutMap.getRoot();
+        this.source = this.layoutMap.expand(source, horizontal);
     }
 
 
@@ -123,9 +123,7 @@ public final class FormSpecParser {
         int columnCount = encodedColumnSpecs.size();
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
-            columnSpecs[i] = ColumnSpec.parse(
-                    (String) encodedColumnSpecs.get(i),
-                    layoutMap);
+            columnSpecs[i] = ColumnSpec.parse0((String) encodedColumnSpecs.get(i));
         }
         return columnSpecs;
     }
@@ -136,9 +134,7 @@ public final class FormSpecParser {
         int rowCount = encodedRowSpecs.size();
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {
-            rowSpecs[i] = RowSpec.parse(
-                    (String) encodedRowSpecs.get(i),
-                    layoutMap);
+            rowSpecs[i] = RowSpec.parse0((String) encodedRowSpecs.get(i));
         }
         return rowSpecs;
     }
@@ -220,7 +216,7 @@ public final class FormSpecParser {
 
 
     private Multiplier multiplier(String expression, int offset) {
-        Matcher matcher = EXPANSION_PREFIX_PATTERN.matcher(expression);
+        Matcher matcher = MULTIPLIER_PREFIX_PATTERN.matcher(expression);
         if (!matcher.find()) {
             return null;
         }
@@ -247,20 +243,25 @@ public final class FormSpecParser {
 
     // Exceptions *************************************************************
 
+    public static void fail(String source, int index, String description) {
+        throw new FormLayoutParseException(message(source, index, description));
+    }
+
+
     private void fail(int index, String description) {
         throw new FormLayoutParseException(
-                message(index, description));
+                message(source, index, description));
     }
 
 
     private void fail(int index, NumberFormatException cause) {
         throw new FormLayoutParseException(
-                message(index, "Invalid multiplier"),
+                message(source, index, "Invalid multiplier"),
                 cause);
     }
 
 
-    private String message(int index, String description) {
+    private static String message(String source, int index, String description) {
         StringBuffer buffer = new StringBuffer('\n');
         buffer.append('\n');
         buffer.append(source);

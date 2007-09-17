@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -97,39 +97,39 @@ public final class ColumnSpecTest extends TestCase {
     public void testDefaultVariables() {
         assertEquals(
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.parse("@lcgap"));
+                ColumnSpec.parse("$lcgap"));
         assertEquals(
                 FormFactory.RELATED_GAP_COLSPEC,
-                ColumnSpec.parse("@rgap"));
+                ColumnSpec.parse("$rgap"));
         assertEquals(
                 FormFactory.UNRELATED_GAP_COLSPEC,
-                ColumnSpec.parse("@ugap"));
+                ColumnSpec.parse("$ugap"));
     }
 
 
     public void testCustomVariable() {
         ColumnSpec labelColumnSpec = ColumnSpec.parse("left:[80dlu,pref]");
         LayoutMap layoutMap = new LayoutMap(null);
-        layoutMap.putColumnSpec("label", labelColumnSpec);
+        layoutMap.columnPut("label", labelColumnSpec);
         assertEquals(
                 labelColumnSpec,
-                ColumnSpec.parse("@label", layoutMap));
+                ColumnSpec.parse("$label", layoutMap));
     }
 
 
     public void testOverrideDefaultVariable() {
         ConstantSize gapWidth = Sizes.DLUX1;
         ColumnSpec labelComponentColumnSpec = ColumnSpec.createGap(gapWidth);
-        LayoutMap layoutMap = new LayoutMap(LayoutMap.getDefault());
-        layoutMap.putColumnGapSpec("lcgap", gapWidth);
+        LayoutMap layoutMap = new LayoutMap(LayoutMap.getRoot());
+        layoutMap.columnPut("lcgap", labelComponentColumnSpec);
         assertEquals(
                 labelComponentColumnSpec,
-                ColumnSpec.parse("@lcgap", layoutMap));
+                ColumnSpec.parse("$lcgap", layoutMap));
     }
 
 
     public void testMissingVariable() {
-        String variable = "@rumpelstilzchen";
+        String variable = "$rumpelstilzchen";
         try {
             ColumnSpec.parse(variable);
             fail("The parser should reject the missing variable:" + variable);

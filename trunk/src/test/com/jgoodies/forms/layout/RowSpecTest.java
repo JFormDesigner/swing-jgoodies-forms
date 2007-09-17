@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -96,19 +96,19 @@ public final class RowSpecTest extends TestCase {
     public void testDefaultVariables() {
         assertEquals(
                 FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.parse("@rgap"));
+                RowSpec.parse("$rgap"));
         assertEquals(
                 FormFactory.UNRELATED_GAP_ROWSPEC,
-                RowSpec.parse("@ugap"));
+                RowSpec.parse("$ugap"));
         assertEquals(
                 FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.parse("@ngap"));
+                RowSpec.parse("$ngap"));
         assertEquals(
                 FormFactory.LINE_GAP_ROWSPEC,
-                RowSpec.parse("@lgap"));
+                RowSpec.parse("$lgap"));
         assertEquals(
                 FormFactory.PARAGRAPH_GAP_ROWSPEC,
-                RowSpec.parse("@pgap"));
+                RowSpec.parse("$pgap"));
     }
 
 
@@ -116,26 +116,45 @@ public final class RowSpecTest extends TestCase {
         ConstantSize gapHeight = Sizes.DLUY21;
         RowSpec largeGap = RowSpec.createGap(gapHeight);
         LayoutMap layoutMap = new LayoutMap(null);
-        layoutMap.putRowGapSpec("large", gapHeight);
+        layoutMap.rowPut("large", largeGap);
         assertEquals(
                 largeGap,
-                RowSpec.parse("@large", layoutMap));
+                RowSpec.parse("$large", layoutMap));
     }
 
 
     public void testOverrideDefaultVariable() {
         ConstantSize gapHeight = Sizes.DLUY1;
         RowSpec lineSpec = RowSpec.createGap(gapHeight);
-        LayoutMap layoutMap = new LayoutMap(LayoutMap.getDefault());
-        layoutMap.putRowGapSpec("lgap", gapHeight);
+        LayoutMap layoutMap = new LayoutMap(LayoutMap.getRoot());
+        layoutMap.rowPut("lgap", lineSpec);
         assertEquals(
                 lineSpec,
-                RowSpec.parse("@lgap", layoutMap));
+                RowSpec.parse("$lgap", layoutMap));
+    }
+
+
+    public void testVariableExpression() {
+        RowSpec spec0 = new RowSpec(RowSpec.TOP_ALIGN, Sizes.PREFERRED, RowSpec.NO_GROW);
+        RowSpec spec1 = RowSpec.createGap(Sizes.DLUY3);
+        RowSpec spec2 = new RowSpec(Sizes.PREFERRED);
+        LayoutMap layoutMap = new LayoutMap(LayoutMap.getRoot());
+        layoutMap.rowPut("test name", "t:p, 3dlu, p");
+        RowSpec[] specs = RowSpec.parseAll("${test name}, 3dlu, ${test Name}", layoutMap);
+        assertEquals(spec0, specs[0]);
+        assertEquals(spec1, specs[1]);
+        assertEquals(spec2, specs[2]);
+
+        assertEquals(spec1, specs[3]);
+
+        assertEquals(spec0, specs[4]);
+        assertEquals(spec1, specs[5]);
+        assertEquals(spec2, specs[6]);
     }
 
 
     public void testMissingColumnSpecVariable() {
-        String variable = "@rumpelstilzchen";
+        String variable = "$rumpelstilzchen";
         try {
             RowSpec.parse(variable);
             fail("The parser should reject the missing variable:" + variable);
