@@ -58,8 +58,8 @@ import com.jgoodies.forms.util.LayoutStyle;
  * The root is defined by {@link LayoutMap#getRoot()}. Application-wide
  * variables should be defined in the root LayoutMap. If you want to override
  * application-wide variables locally, obtain a LayoutMap using {@code
- * new LayoutMap()}, configure it, and provide it ask argument to the
- * FormLayout, ColumnSpec, and RowSpec constructor/factory methods.<p>
+ * new LayoutMap()}, configure it, and provide it as argument to the
+ * FormLayout, ColumnSpec, and RowSpec constructors/factory methods.<p>
  *
  * By default the root LayoutMap provides the following associations:
  * <table border="1">
@@ -74,10 +74,12 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * <strong>Examples:</strong>
  * <pre>
+ * // Predefined variables
  * new FormLayout(
- *     "pref, $lcgap, pref, $rgap, pref",   // standard variables
+ *     "pref, $lcgap, pref, $rgap, pref",
  *     "p, $line, p, $line, p");
  *
+ * // Custom variables
  * LayoutMap.getDefault().columnPut("half", "39dlu");
  * LayoutMap.getDefault().columnPut("full", "80dlu");
  * LayoutMap.getDefault().rowPut("table", "fill:0:grow");
@@ -89,14 +91,28 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     "pref, $lcgap, $full",
  *     "p, $lcgap, $table50");
  *
+ * // Nested variables
+ * LayoutMap.getDefault().columnPut("c-gap-c", "$half, 2dlu, $half");
+ * new FormLayout(
+ *     "pref, $lcgap, ${c-gap-c}", // -> "pref, $lcgap, $half, 2dlu, $half",
+ *     "p, $lcgap, $table");
  * </pre>
  *
- *
  * LayoutMap holds two internal Maps that associate key Strings with expression
- * Strings for the columns and rows respectively. Null values are not allowed.
+ * Strings for the columns and rows respectively. Null values are not allowed.<p>
+ *
+ * <strong>Tips:</strong><ul>
+ * <li>You should carefully override predefined variables,
+ *     because variable users may expect that these don't change.
+ * <li>If you modify a predefined variable, take care that you override
+ *     the variable definition, not an alias. For example "related-gap" may
+ *     be changed, "rgap" should not be changed as it points to "$related-gap".
+ * <li>Set custom variables in the root LayoutMap.
+ * <li>Avoid aliases for custom variables.
+ * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -126,8 +142,30 @@ public final class LayoutMap {
      * The parent maps can build chains.
      */
     private final LayoutMap parent;
-    private final Map/*<String, ColumnSpec>*/ columnMap;
-    private final Map/*<String, RowSpec>   */ rowMap;
+
+    /**
+     * Holds the raw associations from variable names to expressions.
+     * The expression may contain variables that are not expanded.
+     */
+    private final Map/*<String, String>*/ columnMap;
+
+    /**
+     * Holds the cached associations from variable names to expressions.
+     * The expression are fully expanded and contain no variables.
+     */
+    private final Map/*<String, String>*/ columnMapCache;
+
+    /**
+     * Holds the raw associations from variable names to expressions.
+     * The expression may contain variables that are not expanded.
+     */
+    private final Map/*<String, String>   */ rowMap;
+
+    /**
+     * Holds the cached associations from variable names to expressions.
+     * The expression are fully expanded and contain no variables.
+     */
+    private final Map/*<String, String>*/ rowMapCache;
 
 
     // Instance Creation ******************************************************
@@ -147,8 +185,10 @@ public final class LayoutMap {
      */
     public LayoutMap(LayoutMap parent) {
         this.parent = parent;
-        columnMap = new HashMap/*<String, ColumnSpec>*/();
-        rowMap    = new HashMap/*<String, RowSpec>   */();
+        columnMap = new HashMap/*<String, String>*/();
+        rowMap    = new HashMap/*<String, String>*/();
+        columnMapCache = new HashMap/*<String, String>*/();
+        rowMapCache    = new HashMap/*<String, String>*/();
     }
 
 
@@ -163,8 +203,6 @@ public final class LayoutMap {
      * contexts uses different defaults.
      *
      * @return the LayoutMap that is used, if no custom LayoutMap is provided
-     *
-     * @since 1.2
      */
     public static LayoutMap getRoot() {
         LayoutMap root = (LayoutMap) UIManager.get(LAYOUT_MAP_KEY);
@@ -231,19 +269,20 @@ public final class LayoutMap {
      */
     public String columnGet(String key) {
         ensureValidKey(key);
-        Object value = columnMap.get(key);
-        if (value instanceof Alias) {
-            Alias alias = (Alias) value;
-            return columnGet(alias.key);
+        String cachedValue = (String) columnMapCache.get(key);
+        if (cachedValue != null) {
+            return cachedValue;
         }
-        if (value != null) {
-            // TODO: expand the value - if necessary.
-            // TODO: cache the expanded value
-            return (String) value;
+        String value = (String) columnMap.get(key);
+        if ((value == null) && (parent != null)) {
+            value = parent.columnGet(key);
         }
-        return parent != null
-            ? parent.columnGet(key)
-            : null;
+        if (value == null) {
+            return null;
+        }
+        String expandedString = expand(value, true);
+        columnMapCache.put(key, expandedString);
+        return expandedString;
     }
 
 
@@ -272,11 +311,7 @@ public final class LayoutMap {
         if (value == null) {
             throw new NullPointerException("The column expression value must not be null.");
         }
-        Object oldValue = columnMap.get(key);
-        if (oldValue instanceof Alias) {
-            Alias alias = (Alias) oldValue;
-            return columnPut(alias.key, value);
-        }
+        columnMapCache.clear();
         return (String) columnMap.put(
                 key.toLowerCase(Locale.ENGLISH),
                 value.toLowerCase(Locale.ENGLISH));
@@ -322,27 +357,6 @@ public final class LayoutMap {
     }
 
 
-    public void columnAddAlias(String key, String alias) {
-        ensureValidKey(key);
-        ensureValidKey(alias);
-        if (!columnContainsKey(key)) {
-            throw new IllegalArgumentException(
-                    "Cannot set column alias \"" + alias
-                  + "\" for the unknown key \"" + key + "\".");
-        }
-        Object value = columnMap.get(alias);
-        if (value instanceof Alias) {
-            throw new IllegalArgumentException(
-                    "Column alias \"" + alias + "\" already set.");
-        }
-        if (columnContainsKey(alias)) {
-            throw new IllegalArgumentException(
-                    "Cannot set \"" + alias + "\" as column alias, because it's mapped as ordinary value.");
-        }
-        columnMap.put(alias, new Alias(key));
-    }
-
-
     // Row Mapping ************************************************************
 
     /**
@@ -380,19 +394,20 @@ public final class LayoutMap {
      */
     public String rowGet(String key) {
         ensureValidKey(key);
-        Object value = rowMap.get(key);
-        if (value instanceof Alias) {
-            Alias alias = (Alias) value;
-            return rowGet(alias.key);
+        String cachedValue = (String) rowMapCache.get(key);
+        if (cachedValue != null) {
+            return cachedValue;
         }
-        if (value != null) {
-            // TODO: expand the value - if necessary.
-            // TODO: cache the expanded value
-            return (String) value;
+        String value = (String) rowMap.get(key);
+        if ((value == null) && (parent != null)) {
+            value = parent.rowGet(key);
         }
-        return parent != null
-            ? parent.rowGet(key)
-            : null;
+        if (value == null) {
+            return null;
+        }
+        String expandedString = expand(value, false);
+        rowMapCache.put(key, expandedString);
+        return expandedString;
     }
 
 
@@ -401,11 +416,7 @@ public final class LayoutMap {
         if (value == null) {
             throw new NullPointerException("The row expression value must not be null.");
         }
-        Object oldValue = rowMap.get(key);
-        if (oldValue instanceof Alias) {
-            Alias alias = (Alias) oldValue;
-            return rowPut(alias.key, value);
-        }
+        rowMapCache.clear();
         return (String) rowMap.put(
                 key.toLowerCase(Locale.ENGLISH),
                 value.toLowerCase(Locale.ENGLISH));
@@ -467,27 +478,6 @@ public final class LayoutMap {
     public RowSpec rowRemove(String key) {
         ensureValidKey(key);
         return (RowSpec) rowMap.remove(key);
-    }
-
-
-    public void rowAddAlias(String key, String alias) {
-        ensureValidKey(key);
-        ensureValidKey(alias);
-        if (!rowContainsKey(key)) {
-            throw new IllegalArgumentException(
-                    "Cannot set row alias \"" + alias
-                  + "\" for the unknown key \"" + key + "\".");
-        }
-        Object value = rowMap.get(alias);
-        if (value instanceof Alias) {
-            throw new IllegalArgumentException(
-                    "Row alias \"" + alias + "\" already set.");
-        }
-        if (rowContainsKey(alias)) {
-            throw new IllegalArgumentException(
-                    "Cannot set \"" + alias + "\" as row alias, because it's mapped as ordinary value.");
-        }
-        rowMap.put(alias, new Alias(key));
     }
 
 
@@ -636,7 +626,7 @@ public final class LayoutMap {
     private void columnPut(String key, String[] aliases, ColumnSpec value) {
         columnPut(key, value);
         for (int i=0; i < aliases.length; i++) {
-            columnAddAlias(key, aliases[i]);
+            columnPut(aliases[i], "${" + key + '}');
         }
     }
 
@@ -644,7 +634,7 @@ public final class LayoutMap {
     private void rowPut(String key, String[] aliases, RowSpec value) {
         rowPut(key, value);
         for (int i=0; i < aliases.length; i++) {
-            rowAddAlias(key, aliases[i]);
+            rowPut(aliases[i], "${" + key + '}');
         }
     }
 
@@ -668,22 +658,6 @@ public final class LayoutMap {
             buffer.append(name.getValue());
         }
         return buffer.toString();
-    }
-
-
-    // Helper Class ***********************************************************
-
-    static final class Alias {
-
-        final String key;
-
-        Alias(String key) {
-            this.key = key;
-        }
-
-        public String toString() {
-            return "${" + key + "}";
-        }
     }
 
 
