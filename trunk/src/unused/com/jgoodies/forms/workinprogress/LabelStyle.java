@@ -151,6 +151,5 @@ public final class LabelStyle {
             return RIGHT_NO_COLON;
     }
 
-
-        
+       
 }

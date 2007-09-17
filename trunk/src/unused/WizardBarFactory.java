@@ -513,4 +513,5 @@ public final class WizardBarFactory {
         return builder.getPanel();
     }
 
+    
 }
