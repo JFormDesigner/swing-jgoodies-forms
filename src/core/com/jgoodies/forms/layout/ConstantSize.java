@@ -66,7 +66,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see	Size
  * @see	Sizes
@@ -75,13 +75,13 @@ public final class ConstantSize implements Size, Serializable {
 
     // Public Units *********************************************************
 
-    public static final Unit PIXEL          = new Unit("Pixel",          "px",   true);
-    public static final Unit POINT          = new Unit("Point",          "pt",   true);
-    public static final Unit DIALOG_UNITS_X = new Unit("Dialog units X", "dluX", true);
-    public static final Unit DIALOG_UNITS_Y = new Unit("Dialog units Y", "dluY", true);
-    public static final Unit MILLIMETER     = new Unit("Millimeter",     "mm",   false);
-    public static final Unit CENTIMETER     = new Unit("Centimeter",     "cm",   false);
-    public static final Unit INCH           = new Unit("Inch",           "in",   false);
+    public static final Unit PIXEL          = new Unit("Pixel",          "px",   null,  true);
+    public static final Unit POINT          = new Unit("Point",          "pt",   null,  true);
+    public static final Unit DIALOG_UNITS_X = new Unit("Dialog units X", "dluX", "dlu", true);
+    public static final Unit DIALOG_UNITS_Y = new Unit("Dialog units Y", "dluY", "dlu", true);
+    public static final Unit MILLIMETER     = new Unit("Millimeter",     "mm",   null,  false);
+    public static final Unit CENTIMETER     = new Unit("Centimeter",     "cm",   null,  false);
+    public static final Unit INCH           = new Unit("Inch",           "in",   null,  false);
 
     public static final Unit PX             = PIXEL;
     public static final Unit PT             = POINT;
@@ -322,9 +322,9 @@ public final class ConstantSize implements Size, Serializable {
     /**
      * Returns a string representation of this size object.
      *
-     * <strong>Note:</strong> The string representation may change
-     * at any time. It is strongly recommended to not use this string
-     * for parsing purposes.
+     * <strong>Note:</strong> This string representation may change
+     * at any time. It is intended for debugging purposes. For parsing,
+     * use {@link #toParseString} instead.
      *
      * @return  a string representation of the constant size
      */
@@ -332,6 +332,18 @@ public final class ConstantSize implements Size, Serializable {
         return (value == intValue())
             ? Integer.toString(intValue()) + unit.abbreviation()
             : Double.toString(value) + unit.abbreviation();
+    }
+
+
+    /**
+     * Returns a parseable string representation of this bounded size.
+     *
+     * @return a String that can be parsed by the Forms parser
+     */
+    public String toParseString() {
+        return (value == intValue())
+            ? Integer.toString(intValue()) + unit.toParseString()
+            : Double.toString(value) + unit.toParseString();
     }
 
 
@@ -374,13 +386,16 @@ public final class ConstantSize implements Size, Serializable {
 
         private final transient String name;
         private final transient String abbreviation;
-                 final transient boolean requiresIntegers;
+        private final transient String parseAbbreviation;
+                final transient boolean requiresIntegers;
 
-        private Unit(String name, String abbreviation, boolean requiresIntegers) {
+        private Unit(String name, String abbreviation, String parseAbbreviation, boolean requiresIntegers) {
             this.name = name;
             this.abbreviation = abbreviation;
+            this.parseAbbreviation = parseAbbreviation;
             this.requiresIntegers = requiresIntegers;
         }
+
 
         /**
          * Returns a Unit that corresponds to the specified string.
@@ -415,9 +430,32 @@ public final class ConstantSize implements Size, Serializable {
                     "px, dlu, pt, mm, cm, in");
         }
 
+
+        /**
+         * Returns a string representation of this unit object.
+         *
+         * <strong>Note:</strong> This implementation may change at any time.
+         * It is intended for debugging purposes. For parsing, use
+         * {@link #toParseString} instead.
+         *
+         * @return  a string representation of the constant size
+         */
         public String toString() {
             return name;
         }
+
+
+        /**
+         * Returns a parseable string representation of this unit.
+         *
+         * @return a String that can be parsed by the Forms parser
+         */
+        public String toParseString() {
+            return parseAbbreviation != null
+                ? parseAbbreviation
+                : abbreviation;
+        }
+
 
         /**
          * Returns the first character of this Unit's name.
