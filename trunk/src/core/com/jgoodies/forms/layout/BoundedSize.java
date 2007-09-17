@@ -39,7 +39,7 @@ import java.util.List;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -240,12 +240,12 @@ public final class BoundedSize implements Size, Serializable {
      *
      * <strong>Note:</strong> This string representation may change
      * at any time. It is intended for debugging purposes. For parsing,
-     * use {@link #toParseString} instead.
+     * use {@link #encode()} instead.
      *
      * @return  a string representation of this bounded size
      */
     public String toString() {
-        return toParseString();
+        return encode();
     }
 
 
@@ -253,17 +253,19 @@ public final class BoundedSize implements Size, Serializable {
      * Returns a parseable string representation of this bounded size.
      *
      * @return a String that can be parsed by the Forms parser
+     *
+     * @since 1.2
      */
-    public String toParseString() {
+    public String encode() {
         StringBuffer buffer = new StringBuffer("[");
         if (lowerBound != null) {
-            buffer.append(lowerBound.toParseString());
+            buffer.append(lowerBound.encode());
             buffer.append(',');
         }
-        buffer.append(basis.toParseString());
+        buffer.append(basis.encode());
         if (upperBound != null) {
             buffer.append(',');
-            buffer.append(upperBound.toParseString());
+            buffer.append(upperBound.encode());
         }
         buffer.append(']');
         return buffer.toString();

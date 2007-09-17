@@ -112,7 +112,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -322,7 +322,7 @@ public final class LayoutMap {
         if (value == null) {
             throw new NullPointerException("The column spec value must not be null.");
         }
-        return columnPut(key, value.toParseString());
+        return columnPut(key, value.encode());
     }
 
 
@@ -330,7 +330,7 @@ public final class LayoutMap {
         if (value == null) {
             throw new NullPointerException("The column size value must not be null.");
         }
-        return columnPut(key, value.toParseString());
+        return columnPut(key, value.encode());
     }
 
 
@@ -446,7 +446,7 @@ public final class LayoutMap {
         if (value == null) {
             throw new NullPointerException("The row spec value must not be null.");
         }
-        return rowPut(key, value.toParseString());
+        return rowPut(key, value.encode());
     }
 
 
@@ -454,7 +454,7 @@ public final class LayoutMap {
         if (value == null) {
             throw new NullPointerException("The row size value must not be null.");
         }
-        return rowPut(key, value.toParseString());
+        return rowPut(key, value.encode());
     }
 
 
@@ -483,7 +483,7 @@ public final class LayoutMap {
 
     // String Expansion *******************************************************
 
-    public String expand(String expression, boolean horizontal) {
+    String expand(String expression, boolean horizontal) {
         int cursor = 0;
         int start = expression.indexOf(LayoutMap.VARIABLE_PREFIX_CHAR, cursor);
         if (start == -1) { // No variables

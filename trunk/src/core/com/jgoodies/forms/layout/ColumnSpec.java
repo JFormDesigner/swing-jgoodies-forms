@@ -58,7 +58,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -103,7 +103,7 @@ public final class ColumnSpec extends FormSpec {
     /**
      * Maps encoded column specifications to ColumnSpec instances.
      */
-    private static final Map/*<String, ColumnSpec>*/ cache =
+    private static final Map/*<String, ColumnSpec>*/ CACHE =
         new HashMap();
 
 
@@ -146,11 +146,14 @@ public final class ColumnSpec extends FormSpec {
     /**
      * Constructs a ColumnSpec from the specified encoded description.
      * The description will be parsed to set initial values.
-     * Layout variables will not be mapped.
+     * Layout variables will not be mapped.<p>
+     *
+     * <strong>Note:</strong> This constructor will become private
+     * in the Forms 2.0.
      *
      * @param encodedDescription	the encoded description
      *
-     * @deprecated Replaced by {@link #parse(String)}
+     * @deprecated Replaced by {@link #decode(String)}
      */
 	public ColumnSpec(String encodedDescription) {
 	    super(DEFAULT, encodedDescription);
@@ -176,25 +179,6 @@ public final class ColumnSpec extends FormSpec {
 
 
     /**
-     * Parses and splits encoded column specifications using the default
-     * {@link LayoutMap} and returns an array of ColumnSpec objects.
-     *
-     * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @return an array of decoded column specifications
-     * @throws NullPointerException if the encoded column specifications string
-     *     is {@code null}
-     *
-     * @see ColumnSpec#ColumnSpec(String)
-     * @see LayoutMap#getRoot()
-     *
-     * @deprecated Replaced by {@link #parseAll(String, LayoutMap)}
-     */
-    public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs) {
-       return parseAll(encodedColumnSpecs, null);
-    }
-
-
-    /**
      * Parses the encoded column specification and returns a ColumnSpec object
      * that represents the string. Layout variables are mapped using the
      * default LayoutMap.
@@ -204,13 +188,13 @@ public final class ColumnSpec extends FormSpec {
      * @return a ColumnSpec instance for the given specification
      * @throws NullPointerException if {@code encodedColumnSpec} is {@code null}
      *
-     * @see #parse(String, LayoutMap)
+     * @see #decode(String, LayoutMap)
      * @see LayoutMap#getRoot()
      *
      * @since 1.2
      */
-    public static ColumnSpec parse(String encodedColumnSpec) {
-        return parse(encodedColumnSpec, null);
+    public static ColumnSpec decode(String encodedColumnSpec) {
+        return decode(encodedColumnSpec, LayoutMap.getRoot());
     }
 
 
@@ -220,35 +204,48 @@ public final class ColumnSpec extends FormSpec {
      * LayoutMap. If {@code null}, the default LayoutMap will be used instead.
      *
      * @param encodedColumnSpec    the encoded column specification
-     * @param layoutMap            maps layout variables to ColumnSpecs,
-     *                             may be {@code null}
+     * @param layoutMap            expands layout column variables
      *
      * @return a ColumnSpec instance for the given specification
-     * @throws NullPointerException if {@code encodedColumnSpec} is {@code null}
+     * @throws NullPointerException if {@code encodedColumnSpec} or
+     *     {@code layoutMap} is {@code null}
      *
-     * @see #parseAll(String, LayoutMap)
+     * @see #decodeSpecs(String, LayoutMap)
      *
      * @since 1.2
      */
-    public static ColumnSpec parse(String encodedColumnSpec, LayoutMap layoutMap) {
+    public static ColumnSpec decode(String encodedColumnSpec, LayoutMap layoutMap) {
+        FormUtils.assertNotNull(layoutMap, "LayoutMap");
         String trimmed = encodedColumnSpec.trim();
         FormUtils.assertNotBlank(trimmed, "encoded column specification");
         String lower = trimmed.toLowerCase(Locale.ENGLISH);
-        LayoutMap map = layoutMap != null
-            ? layoutMap
-            : LayoutMap.getRoot();
-        return parse0(map.expand(lower, true));
+        return decodeExpanded(layoutMap.expand(lower, true));
     }
 
 
-    static ColumnSpec parse0(String expandedLowerCaseSpec) {
-        ColumnSpec spec = (ColumnSpec) cache.get(expandedLowerCaseSpec);
-        if (spec != null) {
-            return spec;
+    static ColumnSpec decodeExpanded(String expandedLowerCaseSpec) {
+        ColumnSpec spec = (ColumnSpec) CACHE.get(expandedLowerCaseSpec);
+        if (spec == null) {
+            spec = new ColumnSpec(expandedLowerCaseSpec);
+            CACHE.put(expandedLowerCaseSpec, spec);
         }
-        spec = new ColumnSpec(expandedLowerCaseSpec);
-        cache.put(expandedLowerCaseSpec, spec);
         return spec;
+    }
+
+
+    /**
+     * Parses and splits encoded column specifications using the default
+     * {@link LayoutMap} and returns an array of ColumnSpec objects.
+     *
+     * @param encodedColumnSpecs  comma separated encoded column specifications
+     * @return an array of decoded column specifications
+     * @throws NullPointerException if {@code encodedColumnSpecs} is {@code null}
+     *
+     * @see ColumnSpec#ColumnSpec(String)
+     * @see LayoutMap#getRoot()
+     */
+    public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs) {
+       return decodeSpecs(encodedColumnSpecs, LayoutMap.getRoot());
     }
 
 
@@ -257,17 +254,16 @@ public final class ColumnSpec extends FormSpec {
      * {@link LayoutMap} and returns an array of ColumnSpec objects.
      *
      * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @param layoutMap           maps layout variables to ColumnSpecs,
-     *                            may be {@code null}
+     * @param layoutMap           expands layout column variables
      * @return an array of decoded column specifications
-     * @throws NullPointerException if the encoded column specifications string
-     *     is {@code null}
+     * @throws NullPointerException if {@code encodedColumnSpecs} or
+     *     {@code layoutMap} is {@code null}
      *
      * @see #decodeSpecs(String)
      *
      * @since 1.2
      */
-    public static ColumnSpec[] parseAll(String encodedColumnSpecs, LayoutMap layoutMap) {
+    public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs, LayoutMap layoutMap) {
         return FormSpecParser.parseColumnSpecs(encodedColumnSpecs, layoutMap);
     }
 
@@ -279,9 +275,9 @@ public final class ColumnSpec extends FormSpec {
      * Used to distinct between horizontal and vertical dialog units,
      * which have different conversion factors.
      *
-     * @return  always true (for horizontal)
+     * @return  always {@code true} (for horizontal)
      */
-    protected final boolean isHorizontal() {
+    protected boolean isHorizontal() {
         return true;
     }
 

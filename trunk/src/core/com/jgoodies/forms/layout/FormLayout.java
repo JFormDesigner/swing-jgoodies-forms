@@ -139,7 +139,7 @@ import java.util.List;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -281,18 +281,17 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see LayoutMap#getRoot()
      */
     public FormLayout(String encodedColumnSpecs) {
-        this(encodedColumnSpecs, (LayoutMap) null);
+        this(encodedColumnSpecs, LayoutMap.getRoot());
     }
 
 
     /**
-     * Constructs a FormLayout using the given encoded column specifications.
-     * The constructed layout has no rows; these must be added
+     * Constructs a FormLayout using the given encoded column specifications
+     * and LayoutMap. The constructed layout has no rows; these must be added
      * before components can be added to the layout container.<p>
      *
      * This constructor is intended to be used with builder classes that
-     * add rows dynamically, such as the <code>DefaultFormBuilder</code>.
-     * The strind decoding uses the given LayoutMap.<p>
+     * add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
      *
      * <strong>Examples:</strong><pre>
      * // Label, gap, component
@@ -312,17 +311,17 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * </pre> See the class comment for more examples.
      *
      * @param encodedColumnSpecs  comma separated encoded column specifications
-     * @param layoutMap           maps variables to column and row specifications
-     *                            may be {@code null}
+     * @param layoutMap           expands layout column and row variables
      *
-     * @throws NullPointerException  if encodedColumnSpecs is {@code null}
+     * @throws NullPointerException  if {@code encodedColumnSpecs} or
+     *     {@code layoutMap} is {@code null}
      *
      * @see LayoutMap#getRoot()
      *
      * @since 1.2
      */
     public FormLayout(String encodedColumnSpecs, LayoutMap layoutMap) {
-        this(ColumnSpec.parseAll(encodedColumnSpecs, layoutMap), new RowSpec[0]);
+        this(ColumnSpec.decodeSpecs(encodedColumnSpecs, layoutMap), new RowSpec[0]);
     }
 
 
@@ -359,15 +358,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see LayoutMap#getRoot()
      */
     public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
-        this(encodedColumnSpecs, encodedRowSpecs, null);
+        this(encodedColumnSpecs, encodedRowSpecs, LayoutMap.getRoot());
     }
 
 
     /**
      * Constructs a FormLayout using the given
      * encoded column and row specifications and the given LayoutMap.<p>
-     *
-     * This constructor is recommended for most hand-coded layouts.<p>
      *
      * <strong>Examples:</strong><pre>
      * FormLayout layout = new FormLayout(
@@ -393,11 +390,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @param encodedColumnSpecs  comma separated encoded column specifications
      * @param encodedRowSpecs     comma separated encoded row specifications
-     * @param layoutMap           maps variables to column and row specifications
-     *                            may be {@code null}
+     * @param layoutMap           expands layout column and row variables
      *
-     * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs
-     *     is {@code null}
+     * @throws NullPointerException  if {@code encodedColumnSpecs},
+     *     {@code encodedRowSpecs}, or {@code layoutMap} is {@code null}
      *
      * @since 1.2
      */
@@ -405,8 +401,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
             String encodedColumnSpecs,
             String encodedRowSpecs,
             LayoutMap layoutMap) {
-        this(ColumnSpec.parseAll(encodedColumnSpecs, layoutMap),
-             RowSpec.   parseAll(encodedRowSpecs,    layoutMap));
+        this(ColumnSpec.decodeSpecs(encodedColumnSpecs, layoutMap),
+             RowSpec.   decodeSpecs(encodedRowSpecs,    layoutMap));
     }
 
 
@@ -416,7 +412,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * before components can be added to the layout container.
      *
      * @param colSpecs  an array of column specifications.
-     * @throws NullPointerException if colSpecs is null
+     * @throws NullPointerException if {@code colSpecs} is {@code null}
      *
      * @since 1.1
      */
@@ -430,7 +426,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
 	 * @param colSpecs	an array of column specifications.
      * @param rowSpecs	an array of row specifications.
-     * @throws NullPointerException if colSpecs or rowSpecs is null
+     * @throws NullPointerException if colSpecs or rowSpecs is {@code null}
      */
     public FormLayout(ColumnSpec[] colSpecs, RowSpec[] rowSpecs) {
         if (colSpecs == null)

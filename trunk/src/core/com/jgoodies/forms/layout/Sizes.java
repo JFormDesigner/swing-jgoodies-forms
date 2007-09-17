@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see     Size
  * @see     UnitConverter
@@ -75,7 +75,7 @@ public final class Sizes {
     public static final ConstantSize DLUX11 = dluX(11);
     public static final ConstantSize DLUX14 = dluX(14);
     /**
-     * 21 horizontal dialog units
+     * 21 horizontal dialog units.
      * @since 1.2
      */
     public static final ConstantSize DLUX21 = dluX(21);
@@ -92,7 +92,7 @@ public final class Sizes {
     public static final ConstantSize DLUY11 = dluY(11);
     public static final ConstantSize DLUY14 = dluY(14);
     /**
-     * 21 vertical dialog units
+     * 21 vertical dialog units.
      * @since 1.2
      */
     public static final ConstantSize DLUY21 = dluY(21);
@@ -446,11 +446,18 @@ public final class Sizes {
 
 
         public String toString() {
-            return toParseString();
+            return encode();
         }
 
 
-        public String toParseString() {
+        /**
+         * Returns a parseable string representation of this ComponentSize.
+         *
+         * @return a String that can be parsed by the Forms parser
+         *
+         * @since 1.2
+         */
+        public String encode() {
             return name.substring(0, 1);
         }
 

@@ -66,7 +66,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see	Size
  * @see	Sizes
@@ -148,7 +148,7 @@ public final class ConstantSize implements Size, Serializable {
      *    but the value is not an integer
      */
     static ConstantSize valueOf(String encodedValueAndUnit, boolean horizontal) {
-        String split[] = ConstantSize.splitValueAndUnit(encodedValueAndUnit);
+        String[] split = ConstantSize.splitValueAndUnit(encodedValueAndUnit);
         String encodedValue = split[0];
         String encodedUnit  = split[1];
         Unit unit = Unit.valueOf(encodedUnit, horizontal);
@@ -324,7 +324,7 @@ public final class ConstantSize implements Size, Serializable {
      *
      * <strong>Note:</strong> This string representation may change
      * at any time. It is intended for debugging purposes. For parsing,
-     * use {@link #toParseString} instead.
+     * use {@link #encode()} instead.
      *
      * @return  a string representation of the constant size
      */
@@ -339,11 +339,13 @@ public final class ConstantSize implements Size, Serializable {
      * Returns a parseable string representation of this bounded size.
      *
      * @return a String that can be parsed by the Forms parser
+     *
+     * @since 1.2
      */
-    public String toParseString() {
+    public String encode() {
         return (value == intValue())
-            ? Integer.toString(intValue()) + unit.toParseString()
-            : Double.toString(value) + unit.toParseString();
+            ? Integer.toString(intValue()) + unit.encode()
+            : Double.toString(value) + unit.encode();
     }
 
 
@@ -436,7 +438,7 @@ public final class ConstantSize implements Size, Serializable {
          *
          * <strong>Note:</strong> This implementation may change at any time.
          * It is intended for debugging purposes. For parsing, use
-         * {@link #toParseString} instead.
+         * {@link #encode()} instead.
          *
          * @return  a string representation of the constant size
          */
@@ -449,8 +451,10 @@ public final class ConstantSize implements Size, Serializable {
          * Returns a parseable string representation of this unit.
          *
          * @return a String that can be parsed by the Forms parser
+         *
+         * @since 1.2
          */
-        public String toParseString() {
+        public String encode() {
             return parseAbbreviation != null
                 ? parseAbbreviation
                 : abbreviation;
