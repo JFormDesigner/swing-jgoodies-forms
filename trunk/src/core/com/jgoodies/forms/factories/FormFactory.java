@@ -37,11 +37,10 @@ import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.LayoutStyle;
 
 /**
- * Provides frequently used column and row specifications
- * and two factory methods for
+ * Provides frequently used column and row specifications.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
