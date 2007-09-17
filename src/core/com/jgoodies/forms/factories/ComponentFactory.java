@@ -47,7 +47,7 @@ import javax.swing.JLabel;
  * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
@@ -69,7 +69,7 @@ public interface ComponentFactory {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an label with optional mnemonic
      */
-    public JLabel createLabel(String textWithMnemonic);
+    JLabel createLabel(String textWithMnemonic);
 
 
     /**
@@ -87,7 +87,7 @@ public interface ComponentFactory {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an emphasized title label
      */
-    public JLabel createTitle(String textWithMnemonic);
+    JLabel createTitle(String textWithMnemonic);
 
 
     /**
@@ -109,7 +109,7 @@ public interface ComponentFactory {
      *     <code>SwingConstants.CENTER</code>, <code>SwingConstants.RIGHT</code>
      * @return a title label with separator on the side
      */
-    public JComponent createSeparator(String textWithMnemonic, int alignment);
+    JComponent createSeparator(String textWithMnemonic, int alignment);
 
 
 }
