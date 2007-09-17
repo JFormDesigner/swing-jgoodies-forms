@@ -139,7 +139,7 @@ import java.util.List;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -278,7 +278,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @throws NullPointerException  if encodedColumnSpecs is {@code null}
      *
-     * @see LayoutMap#getDefault()
+     * @see LayoutMap#getRoot()
      */
     public FormLayout(String encodedColumnSpecs) {
         this(encodedColumnSpecs, (LayoutMap) null);
@@ -317,7 +317,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @throws NullPointerException  if encodedColumnSpecs is {@code null}
      *
-     * @see LayoutMap#getDefault()
+     * @see LayoutMap#getRoot()
      *
      * @since 1.2
      */
@@ -356,7 +356,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @throws NullPointerException  if encodedColumnSpecs or encodedRowSpecs
      *     is {@code null}
      *
-     * @see LayoutMap#getDefault()
+     * @see LayoutMap#getRoot()
      */
     public FormLayout(String encodedColumnSpecs, String encodedRowSpecs) {
         this(encodedColumnSpecs, encodedRowSpecs, null);

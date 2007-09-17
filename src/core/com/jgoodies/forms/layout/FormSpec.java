@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -469,6 +469,7 @@ public abstract class FormSpec implements Serializable {
         return buffer.toString();
     }
 
+
     /**
      * Returns a string representation of this form specification.
      * The string representation consists of three elements separated by
@@ -497,6 +498,40 @@ public abstract class FormSpec implements Serializable {
         } else if (resizeWeight == DEFAULT_GROW) {
             buffer.append("g");
         } else {
+            buffer.append("g(");
+            buffer.append(resizeWeight);
+            buffer.append(')');
+        }
+        return buffer.toString();
+    }
+
+
+    /**
+     * Returns a short and parseable string representation of this
+     * form specification. The string will omit the alignment and resize
+     * specifications if these are the default values.<p>
+     *
+     * @return  a string representation of the form specification.
+     *
+     * @see #toShortString() for a more verbose string representation
+     */
+    public final String toParseString() {
+        StringBuffer buffer = new StringBuffer();
+        DefaultAlignment alignmentDefault = isHorizontal()
+            ? ColumnSpec.DEFAULT
+            : RowSpec.DEFAULT;
+        if (!alignmentDefault.equals(defaultAlignment)) {
+            buffer.append(defaultAlignment.abbreviation());
+            buffer.append(":");
+        }
+        buffer.append(size.toParseString());
+        if (resizeWeight == NO_GROW) {
+            // Omit the resize part
+        } else if (resizeWeight == DEFAULT_GROW) {
+            buffer.append(':');
+            buffer.append("g");
+        } else {
+            buffer.append(':');
             buffer.append("g(");
             buffer.append(resizeWeight);
             buffer.append(')');

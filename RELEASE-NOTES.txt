@@ -58,11 +58,11 @@ LAYOUT VARIABLES
     Layout variables are intended to improve the layout consistency
     in GUIs with many views. And they can improve the readability.
     Variables are used in the encoded column and row specifications.
-    They start with the '@' character, for example you can write:
-    new FormLayout("pref, @lcgap, pref, @rgap, pref",
-                   "p, @lgap, p, @myGap1")
-    where @lcgap, @rgap, @lgap are default variables and @myGap1 is 
-    a custom variable.
+    They start with the '$' character, for example you can write:
+    new FormLayout("pref, $lcgap, pref, $rgap, pref",
+                   "p, $lgap, p, $myGap1, p, ${my gap}")
+    where $lcgap, $rgap, $lgap are default variables, and $myGap1 
+    and ${my gap} are custom variables.
     
     The mapping from variable names to ColumnSpec/RowSpec values
     is specified by a chain of LayoutMaps. LayoutMap#getDefault()
