@@ -45,7 +45,7 @@ import java.util.List;
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -87,6 +87,17 @@ public interface Size {
      * @since 1.1
      */
     boolean compressible();
+
+
+    /**
+     * Returns a String respresentation of this Size object that can
+     * be parsed by the Forms parser.<p>
+     *
+     * Implementors should return a non-verbose string.
+     *
+     * @return a parseable String representation of this object.
+     */
+    String toParseString();
 
 
 }
