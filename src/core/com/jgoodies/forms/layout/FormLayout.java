@@ -139,7 +139,7 @@ import java.util.List;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -1187,12 +1187,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * JavaDoc class comment for details on this issue.
      */
     private void initializeColAndRowComponentLists() {
-        colComponents = new LinkedList[getColumnCount()];
+        colComponents = new List[getColumnCount()];
         for (int i=0; i < getColumnCount(); i++) {
             colComponents[i] = new ArrayList();
         }
 
-        rowComponents = new LinkedList[getRowCount()];
+        rowComponents = new List[getRowCount()];
         for (int i=0; i < getRowCount(); i++) {
             rowComponents[i] = new ArrayList();
         }
