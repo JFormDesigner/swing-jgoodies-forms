@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -319,7 +319,7 @@ public abstract class FormSpec implements Serializable {
         if (subtoken.length == 2) {
             Size size1 = parseAtomicSize(subtoken[0]);
             Size size2 = parseAtomicSize(subtoken[1]);
-            if (size1 instanceof ConstantSize) {
+            if (isConstant(size1)) {
                 lower = size1;
                 basis = size2;
             } else {
@@ -332,8 +332,8 @@ public abstract class FormSpec implements Serializable {
             upper = parseAtomicSize(subtoken[2]);
         }
         if (   (basis instanceof Sizes.ComponentSize)
-            && ((lower == null) || (lower instanceof ConstantSize))
-            && ((upper == null) || (upper instanceof ConstantSize)))  {
+            && ((lower == null) || (isConstant(lower)))
+            && ((upper == null) || (isConstant(upper))))  {
             return new BoundedSize(basis, lower, upper);
         }
         throw new IllegalArgumentException(
@@ -369,7 +369,7 @@ public abstract class FormSpec implements Serializable {
         Size size2 = parseAtomicSize(sizeToken2);
 
         // Check valid combinations and set min or max.
-        if (size1 instanceof ConstantSize) {
+        if (isConstant(size1)) {
             if (size2 instanceof Sizes.ComponentSize) {
                 return new BoundedSize(size2, setMax ? null : size1,
                                                setMax ? size1 : null);
@@ -377,7 +377,7 @@ public abstract class FormSpec implements Serializable {
             throw new IllegalArgumentException(
                                 "Bounded sizes must not be both constants.");
         }
-        if (size2 instanceof ConstantSize) {
+        if (isConstant(size2)) {
             return new BoundedSize(size1, setMax ? null : size2,
                                            setMax ? size2 : null);
         }
@@ -436,6 +436,12 @@ public abstract class FormSpec implements Serializable {
         throw new IllegalArgumentException(
                     "The resize argument '" + token + "' is invalid. " +
                     " Must be one of: grow, g, none, n, grow(<double>), g(<double>)");
+    }
+    
+    
+    private static boolean isConstant(Size aSize) {
+        return  (aSize instanceof ConstantSize) 
+             || (aSize instanceof PrototypeSize);
     }
 
 
