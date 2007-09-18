@@ -66,7 +66,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see	Size
  * @see	Sizes
@@ -336,7 +336,7 @@ public final class ConstantSize implements Size, Serializable {
 
 
     /**
-     * Returns a parseable string representation of this bounded size.
+     * Returns a parseable string representation of this constant size.
      *
      * @return a String that can be parsed by the Forms parser
      *
