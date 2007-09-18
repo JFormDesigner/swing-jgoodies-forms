@@ -29,6 +29,7 @@ INTRODUCTION
 CHANGES THAT AFFECT THE COMPATIBILITY
 
     o Removed the deprecated FormFactory#createColumnLayout methods.
+    o Added #encode() to the Size interface.
           
       
 NEW FEATURES
@@ -39,7 +40,8 @@ NEW FEATURES
           [<constant size>,<logical size>]   // lower bound
           [<logical size>,<constant size>]   // upper bound
           [<constant>,<logical>,<constant>]  // lower and upper bound
-      - multiplier, for example "5*(p, 3dlu), p"
+      - multiplier "5*(p, 3dlu), p"
+      - prototype strings "p, '123-456-789', p"
       - accepts string encodings with whitespace before a comma,
         for example "pref , pref"
     o Sizes#setDefaultUnit(Unit) allows to set the unit that is used
@@ -50,6 +52,8 @@ NEW FEATURES
     o ColumnSpec#createGap(ConstantSize), RowSpec#createGap(ConstantSize).
     o Added DefaultFormBuilder#setDefaultRowSpec.
     o DefaultComponentFactory#setTextAndMnemonic is public.
+    o ColumnSpec#encode, RowSpec#encode, and Size#encode return
+      a parseable encoded string specification.
     o ButtonBarBuilder2 (draft).
 
 

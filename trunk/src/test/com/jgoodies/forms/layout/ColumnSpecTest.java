@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -140,6 +140,15 @@ public final class ColumnSpecTest extends TestCase {
         assertEquals(expected, specs);
         specs = ColumnSpec.decodeSpecs("$var2", layoutMap);
         assertEquals(expected, specs);
+    }
+
+
+    public void testPrototypeVariable() {
+        Size size = new PrototypeSize("123-456-789");
+        ColumnSpec spec = new ColumnSpec(size);
+        LayoutMap layoutMap = new LayoutMap();
+        layoutMap.columnPut("prototype", "'123-456-789'");
+        assertEquals(spec, ColumnSpec.decode("$prototype", layoutMap));
     }
 
 
@@ -246,6 +255,12 @@ public final class ColumnSpecTest extends TestCase {
 
             spec = ColumnSpec.decode("fill:10in");
             assertEquals(spec, ColumnSpec.decode("FILL:10IN"));
+
+            spec = new ColumnSpec(new PrototypeSize("prototype"));
+            assertEquals(spec, ColumnSpec.decode("'prototype'"));
+
+            spec = new ColumnSpec(new PrototypeSize("prototype string"));
+            assertEquals(spec, ColumnSpec.decode("'prototype string'"));
 
             ColumnSpec spec1 = new ColumnSpec(ColumnSpec.LEFT, Sizes.PREFERRED, FormSpec.NO_GROW);
             ColumnSpec spec2 = new ColumnSpec(ColumnSpec.RIGHT, Sizes.DEFAULT, 1.0);
