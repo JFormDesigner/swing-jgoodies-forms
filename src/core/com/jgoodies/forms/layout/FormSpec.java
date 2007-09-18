@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -395,6 +395,13 @@ public abstract class FormSpec implements Serializable {
      */
     private Size parseAtomicSize(String token) {
         String trimmedToken = token.trim();
+        if (   trimmedToken.startsWith("'") && trimmedToken.endsWith("'")) {
+            int length = trimmedToken.length();
+            if (length < 2) {
+                throw new IllegalArgumentException("Missing closing \"'\" for prototype.");
+            }
+            return new PrototypeSize(trimmedToken.substring(1, length - 1));
+        }
         Sizes.ComponentSize componentSize = Sizes.ComponentSize.valueOf(trimmedToken);
         if (componentSize != null)
             return componentSize;
