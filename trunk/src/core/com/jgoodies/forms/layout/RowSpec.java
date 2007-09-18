@@ -57,7 +57,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -134,9 +134,14 @@ public final class RowSpec extends FormSpec {
     }
 
     /**
-     * Constructs a RowSpec from the specified encoded
-     * description. The description will be parsed to set initial values.
-     * Layout variables will not be mapped.
+     * Constructs a RowSpec from the specified encoded description.
+     * The description will be parsed to set initial values.<p>
+     *
+     * Unlike the factory method {@link #decode(String)}, this constructor
+     * does not expand layout variables, and it cannot vend cached objects..<p>
+     *
+     * <strong>Note:</strong> This constructor will become private
+     * in the Forms 2.0.
      *
      * @param encodedDescription	the encoded description
      *
@@ -167,8 +172,8 @@ public final class RowSpec extends FormSpec {
 
     /**
      * Parses the encoded row specification and returns a RowSpec object
-     * that represents the string. Layout variables are mapped using the
-     * default LayoutMap.
+     * that represents the string. Variables are expanded using the default
+     * LayoutMap.
      *
      * @param encodedRowSpec    the encoded row specification
      *
@@ -187,8 +192,8 @@ public final class RowSpec extends FormSpec {
 
     /**
      * Parses the encoded row specifications and returns a RowSpec object
-     * that represents the string. Layout variables are mapped using the given
-     * LayoutMap. If {@code null}, the default LayoutMap will be used instead.
+     * that represents the string. Variables are expanded using the given
+     * LayoutMap.
      *
      * @param encodedRowSpec    the encoded column specification
      * @param layoutMap         expands layout row variables
@@ -202,19 +207,28 @@ public final class RowSpec extends FormSpec {
      * @since 1.2
      */
     public static RowSpec decode(String encodedRowSpec, LayoutMap layoutMap) {
+        FormUtils.assertNotBlank(encodedRowSpec, "encoded row specification");
         FormUtils.assertNotNull(layoutMap, "LayoutMap");
         String trimmed = encodedRowSpec.trim();
-        FormUtils.assertNotBlank(trimmed, "encoded row specification");
         String lower = trimmed.toLowerCase(Locale.ENGLISH);
         return decodeExpanded(layoutMap.expand(lower, false));
     }
 
 
-    static RowSpec decodeExpanded(String expandedLowerCaseSpec) {
-        RowSpec spec = (RowSpec) CACHE.get(expandedLowerCaseSpec);
+    /**
+     * Decodes an expanded, trimmed, lower case row spec.
+     * Called by the public RowSpec factory methods.
+     * Looks up and returns the RowSpec object from the cache - if any,
+     * or constructs and returns a new RowSpec instance.
+     *
+     * @param expandedTrimmedLowerCaseSpec  the encoded column specification
+     * @return a RowSpec for the given encoded row spec
+     */
+    static RowSpec decodeExpanded(String expandedTrimmedLowerCaseSpec) {
+        RowSpec spec = (RowSpec) CACHE.get(expandedTrimmedLowerCaseSpec);
         if (spec == null) {
-            spec = new RowSpec(expandedLowerCaseSpec);
-            CACHE.put(expandedLowerCaseSpec, spec);
+            spec = new RowSpec(expandedTrimmedLowerCaseSpec);
+            CACHE.put(expandedTrimmedLowerCaseSpec, spec);
         }
         return spec;
     }
@@ -228,7 +242,8 @@ public final class RowSpec extends FormSpec {
      * @return an array of decoded row specifications
      * @throws NullPointerException if {@code encodedRowSpecs} is {@code null}
      *
-     * @see RowSpec#RowSpec(String)
+     * @see #decodeSpecs(String, LayoutMap)
+     * @see #decode(String)
      * @see LayoutMap#getRoot()
      */
     public static RowSpec[] decodeSpecs(String encodedRowSpecs) {
