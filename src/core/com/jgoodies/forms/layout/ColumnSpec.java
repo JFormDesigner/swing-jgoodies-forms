@@ -58,7 +58,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -145,8 +145,10 @@ public final class ColumnSpec extends FormSpec {
 
     /**
      * Constructs a ColumnSpec from the specified encoded description.
-     * The description will be parsed to set initial values.
-     * Layout variables will not be mapped.<p>
+     * The description will be parsed to set initial values.<p>
+     *
+     * Unlike the factory method {@link #decode(String)}, this constructor
+     * does not expand layout variables, and it cannot vend cached objects.<p>
      *
      * <strong>Note:</strong> This constructor will become private
      * in the Forms 2.0.
@@ -180,8 +182,8 @@ public final class ColumnSpec extends FormSpec {
 
     /**
      * Parses the encoded column specification and returns a ColumnSpec object
-     * that represents the string. Layout variables are mapped using the
-     * default LayoutMap.
+     * that represents the string. Variables are expanded using the default
+     * LayoutMap.
      *
      * @param encodedColumnSpec    the encoded column specification
      *
@@ -200,8 +202,8 @@ public final class ColumnSpec extends FormSpec {
 
     /**
      * Parses the encoded column specifications and returns a ColumnSpec object
-     * that represents the string. Layout variables are mapped using the given
-     * LayoutMap. If {@code null}, the default LayoutMap will be used instead.
+     * that represents the string. Variables are expanded using the given
+     * LayoutMap.
      *
      * @param encodedColumnSpec    the encoded column specification
      * @param layoutMap            expands layout column variables
@@ -215,19 +217,28 @@ public final class ColumnSpec extends FormSpec {
      * @since 1.2
      */
     public static ColumnSpec decode(String encodedColumnSpec, LayoutMap layoutMap) {
+        FormUtils.assertNotBlank(encodedColumnSpec, "encoded column specification");
         FormUtils.assertNotNull(layoutMap, "LayoutMap");
         String trimmed = encodedColumnSpec.trim();
-        FormUtils.assertNotBlank(trimmed, "encoded column specification");
         String lower = trimmed.toLowerCase(Locale.ENGLISH);
         return decodeExpanded(layoutMap.expand(lower, true));
     }
 
 
-    static ColumnSpec decodeExpanded(String expandedLowerCaseSpec) {
-        ColumnSpec spec = (ColumnSpec) CACHE.get(expandedLowerCaseSpec);
+    /**
+     * Decodes an expanded, trimmed, lower case column spec.
+     * Called by the public ColumnSpec factory methods.
+     * Looks up and returns the ColumnSpec object from the cache - if any,
+     * or constructs and returns a new ColumnSpec instance.
+     *
+     * @param expandedTrimmedLowerCaseSpec  the encoded column specification
+     * @return a ColumnSpec for the given encoded column spec
+     */
+    static ColumnSpec decodeExpanded(String expandedTrimmedLowerCaseSpec) {
+        ColumnSpec spec = (ColumnSpec) CACHE.get(expandedTrimmedLowerCaseSpec);
         if (spec == null) {
-            spec = new ColumnSpec(expandedLowerCaseSpec);
-            CACHE.put(expandedLowerCaseSpec, spec);
+            spec = new ColumnSpec(expandedTrimmedLowerCaseSpec);
+            CACHE.put(expandedTrimmedLowerCaseSpec, spec);
         }
         return spec;
     }
@@ -241,7 +252,8 @@ public final class ColumnSpec extends FormSpec {
      * @return an array of decoded column specifications
      * @throws NullPointerException if {@code encodedColumnSpecs} is {@code null}
      *
-     * @see ColumnSpec#ColumnSpec(String)
+     * @see #decodeSpecs(String, LayoutMap)
+     * @see #decode(String)
      * @see LayoutMap#getRoot()
      */
     public static ColumnSpec[] decodeSpecs(String encodedColumnSpecs) {
@@ -260,6 +272,7 @@ public final class ColumnSpec extends FormSpec {
      *     {@code layoutMap} is {@code null}
      *
      * @see #decodeSpecs(String)
+     * @see #decode(String, LayoutMap)
      *
      * @since 1.2
      */
