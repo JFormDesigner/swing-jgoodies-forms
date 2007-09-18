@@ -51,8 +51,8 @@ import com.jgoodies.forms.util.LayoutStyle;
  * specification is parsed and converted into ColumnSpec and RowSpec values.
  * Variables start with the '$' character. The variable name can be wrapped
  * by braces ('{' and '}'). For example, you can write:
- * <code>new FormLayout("pref, $lcgap, pref",)</code> or
- * <code>new FormLayout("pref, ${lcgap}, pref")</code>.<p>
+ * <code>new FormLayout("pref, $lcg, pref",)</code> or
+ * <code>new FormLayout("pref, ${lcg}, pref")</code>.<p>
  *
  * LayoutMaps build a chain; each LayoutMap has an optional parent map.
  * The root is defined by {@link LayoutMap#getRoot()}. Application-wide
@@ -63,21 +63,21 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * By default the root LayoutMap provides the following associations:
  * <table border="1">
- * <tr><td><b>Variable Name</b></td><td><b>Value</b></td></tr>
- * <tr><td>l lc lcgap</td><td>label component gap</td></tr>
- * <tr><td>r rgap rel related</td><td>related gap</td></tr>
- * <tr><td>u ugap unrel unrelated</td><td>unrelated gap</td></tr>
- * <tr><td>l lgap line</td><td>line gap</td></tr>
- * <tr><td>n ngap narrow</td><td>narrow line gap</td></tr>
- * <tr><td>p pgap paragraph</td><td>paragraph gap</td></tr>
+ * <tr><td><b>Variable Name</b><td><b>Abbreviations</b></td><td><b>Value</b></td></tr>
+ * <tr><td>label-component-gap</td><td>lcg, lcgap</td><td>gap between a label and its component</td></tr>
+ * <tr><td>related-gap</td><td>rg, rgap</td><td>gap between two related components</td></tr>
+ * <tr><td>unrelated-gap</td><td>ug, ugap</td><td>gap between two unrelated components</td></tr>
+ * <tr><td>line-gap</td><td>lg, lgap</td><td>gap between two lines</td></tr>
+ * <tr><td>narrow-line-gap</td><td>nlg, nlgap</td><td>narrow gap between two lines</td></tr>
+ * <tr><td>paragraph</td><td>pg, pgap</td><td>gap between two paragraphs/sections</td></tr>
  * </table><p>
  *
  * <strong>Examples:</strong>
  * <pre>
  * // Predefined variables
  * new FormLayout(
- *     "pref, $lcgap, pref, $rgap, pref",
- *     "p, $line, p, $line, p");
+ *     "pref, $lcg, pref, $rg, pref",
+ *     "p, $lg, p, $lg, p");
  *
  * // Custom variables
  * LayoutMap.getDefault().columnPut("half", "39dlu");
@@ -85,17 +85,17 @@ import com.jgoodies.forms.util.LayoutStyle;
  * LayoutMap.getDefault().rowPut("table", "fill:0:grow");
  * LayoutMap.getDefault().rowPut("table50", "fill:50dlu:grow");
  * new FormLayout(
- *     "pref, $lcgap, $half, 2dlu, $half",
- *     "p, $lcgap, $table50");
+ *     "pref, $lcg, $half, 2dlu, $half",
+ *     "p, $lcg, $table50");
  * new FormLayout(
- *     "pref, $lcgap, $full",
- *     "p, $lcgap, $table50");
+ *     "pref, $lcg, $full",
+ *     "p, $lcg, $table50");
  *
  * // Nested variables
  * LayoutMap.getDefault().columnPut("c-gap-c", "$half, 2dlu, $half");
  * new FormLayout(
- *     "pref, $lcgap, ${c-gap-c}", // -> "pref, $lcgap, $half, 2dlu, $half",
- *     "p, $lcgap, $table");
+ *     "pref, $lcg, ${c-gap-c}", // -> "pref, $lcg, $half, 2dlu, $half",
+ *     "p, $lcg, $table");
  * </pre>
  *
  * LayoutMap holds two internal Maps that associate key Strings with expression
@@ -112,7 +112,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -479,6 +479,36 @@ public final class LayoutMap {
         ensureValidKey(key);
         return (RowSpec) rowMap.remove(key);
     }
+    
+    
+    // Overriding Object Behavior *********************************************
+
+    /**
+     * Returns a string representation of this LayoutMap that lists
+     * the column and row associations.
+     * 
+     * @return a string representation 
+     */
+    public String toString() {
+        StringBuffer buffer = new StringBuffer("LayoutMap");
+        buffer.append("\n  Column associations:");
+        for (Iterator iterator = columnMap.entrySet().iterator(); iterator.hasNext();) {
+            Entry name = (Entry) iterator.next();
+            buffer.append("\n    ");
+            buffer.append(name.getKey());
+            buffer.append("->");
+            buffer.append(name.getValue());
+        }
+        buffer.append("\n  Row associations:");
+        for (Iterator iterator = rowMap.entrySet().iterator(); iterator.hasNext();) {
+            Entry name = (Entry) iterator.next();
+            buffer.append("\n    ");
+            buffer.append(name.getKey());
+            buffer.append("->");
+            buffer.append(name.getValue());
+        }
+        return buffer.toString();
+    }
 
 
     // String Expansion *******************************************************
@@ -552,15 +582,15 @@ public final class LayoutMap {
         // Column variables
         root.columnPut(
                 "label-component-gap",
-                new String[]{"lc", "lcgap"},
+                new String[]{"lcg", "lcgap"},
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC);
         root.columnPut(
                 "related-gap",
-                new String[]{"r", "rgap", "rel"},
+                new String[]{"r", "rgap"},
                 FormFactory.RELATED_GAP_COLSPEC);
         root.columnPut(
                 "unrelated-gap",
-                new String[]{"u", "ugap", "unrel"},
+                new String[]{"ug", "ugap"},
                 FormFactory.UNRELATED_GAP_COLSPEC);
         root.columnPut(
                 "button",
@@ -571,12 +601,12 @@ public final class LayoutMap {
                 new String[]{"gb"},
                 FormFactory.GROWING_BUTTON_COLSPEC);
         root.columnPut(
-                "dialog-gap",
-                new String[]{"dg", "dlggap"},
+                "dialog-margin",
+                new String[]{"dm", "dmargin"},
                 ColumnSpec.createGap(LayoutStyle.getCurrent().getDialogMarginX()));
         root.columnPut(
-                "tabbed-dialog-gap",
-                new String[]{"tdg", "tbddlggap"},
+                "tabbed-dialog-margin",
+                new String[]{"tdm", "tdmargin"},
                 ColumnSpec.createGap(LayoutStyle.getCurrent().getTabbedDialogMarginX()));
         root.columnPut(
                 "glue",
@@ -585,35 +615,35 @@ public final class LayoutMap {
         // Row variables
         root.rowPut(
                 "related",
-                new String[]{"r", "rgap", "rel"},
+                new String[]{"rg", "rgap"},
                 FormFactory.RELATED_GAP_ROWSPEC);
         root.rowPut(
                 "unrelated",
-                new String[]{"u", "ugap", "unrel"},
+                new String[]{"ug", "ugap"},
                 FormFactory.UNRELATED_GAP_ROWSPEC);
         root.rowPut(
-                "narrow_line",
-                new String[]{"n", "ngap", "narrow"},
+                "narrow-line-gap",
+                new String[]{"nlg", "nlgap"},
                 FormFactory.NARROW_LINE_GAP_ROWSPEC);
         root.rowPut(
-                "line",
-                new String[]{"l", "lgap"},
+                "line-gap",
+                new String[]{"lg", "lgap"},
                 FormFactory.LINE_GAP_ROWSPEC);
         root.rowPut(
-                "paragraph",
-                new String[]{"p", "pgap", "para"},
+                "paragraph-gap",
+                new String[]{"pg", "pgap"},
                 FormFactory.PARAGRAPH_GAP_ROWSPEC);
         root.rowPut(
-                "dialog-margin-gap",
-                new String[]{"dg", "dlggap"},
+                "dialog-margin",
+                new String[]{"dm", "dmargin"},
                 RowSpec.createGap(LayoutStyle.getCurrent().getDialogMarginY()));
         root.rowPut(
-                "tabbed-dialog-margin-gap",
-                new String[]{"tdg", "tbddlggap"},
+                "tabbed-dialog-margin",
+                new String[]{"tdm", "tdmargin"},
                 RowSpec.createGap(LayoutStyle.getCurrent().getTabbedDialogMarginY()));
         root.rowPut(
                 "button",
-                new String[]{"b", "but"},
+                new String[]{"b"},
                 FormFactory.BUTTON_ROWSPEC);
         root.rowPut(
                 "glue",
@@ -636,28 +666,6 @@ public final class LayoutMap {
         for (int i=0; i < aliases.length; i++) {
             rowPut(aliases[i], "${" + key + '}');
         }
-    }
-
-
-    public String toString() {
-        StringBuffer buffer = new StringBuffer("LayoutMap");
-        buffer.append("\n  Column associations:");
-        for (Iterator iterator = columnMap.entrySet().iterator(); iterator.hasNext();) {
-            Entry name = (Entry) iterator.next();
-            buffer.append("\n    ");
-            buffer.append(name.getKey());
-            buffer.append("->");
-            buffer.append(name.getValue());
-        }
-        buffer.append("\n  Row associations:");
-        for (Iterator iterator = rowMap.entrySet().iterator(); iterator.hasNext();) {
-            Entry name = (Entry) iterator.next();
-            buffer.append("\n    ");
-            buffer.append(name.getKey());
-            buffer.append("->");
-            buffer.append(name.getValue());
-        }
-        return buffer.toString();
     }
 
 

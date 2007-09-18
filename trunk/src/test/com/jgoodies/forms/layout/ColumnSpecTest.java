@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.25 $
+ * @version $Revision: 1.26 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -97,13 +97,13 @@ public final class ColumnSpecTest extends TestCase {
     public void testDefaultVariables() {
         assertEquals(
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("$lcgap"));
+                ColumnSpec.decode("$lcg"));
         assertEquals(
                 FormFactory.RELATED_GAP_COLSPEC,
-                ColumnSpec.decode("$rgap"));
+                ColumnSpec.decode("$rg"));
         assertEquals(
                 FormFactory.UNRELATED_GAP_COLSPEC,
-                ColumnSpec.decode("$ugap"));
+                ColumnSpec.decode("$ug"));
     }
 
 
