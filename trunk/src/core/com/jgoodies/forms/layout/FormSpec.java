@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -437,10 +437,10 @@ public abstract class FormSpec implements Serializable {
                     "The resize argument '" + token + "' is invalid. " +
                     " Must be one of: grow, g, none, n, grow(<double>), g(<double>)");
     }
-    
-    
+
+
     private static boolean isConstant(Size aSize) {
-        return  (aSize instanceof ConstantSize) 
+        return  (aSize instanceof ConstantSize)
              || (aSize instanceof PrototypeSize);
     }
 
