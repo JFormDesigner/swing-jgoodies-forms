@@ -35,15 +35,15 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 
-import com.jgoodies.forms.util.DefaultUnitConverter;
-
 import junit.framework.TestCase;
+
+import com.jgoodies.forms.util.DefaultUnitConverter;
 
 /**
  * Tests the unit conversion used by the Forms layout system.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public final class UnitConversionTest extends TestCase {
 
