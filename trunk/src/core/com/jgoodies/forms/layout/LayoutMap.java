@@ -30,10 +30,7 @@
 
 package com.jgoodies.forms.layout;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.swing.UIManager;
@@ -112,7 +109,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -236,7 +233,7 @@ public final class LayoutMap {
 
     /**
      * Returns {@code true} if this map or a parent map - if any - contains
-     * a ColumnSpec mapping for the specified key.
+     * a mapping for the specified key.
      *
      * @param key key whose presence in this LayoutMap chain is to be tested.
      * @return {@code true} if this map contains a column mapping
@@ -248,18 +245,19 @@ public final class LayoutMap {
      */
     public boolean columnContainsKey(String key) {
         ensureValidKey(key);
-        return  (columnMap.containsKey(key))
-            || ((parent != null) && (parent.columnContainsKey(key)));
+        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
+        return  (columnMap.containsKey(lowerCaseKey))
+            || ((parent != null) && (parent.columnContainsKey(lowerCaseKey)));
     }
 
 
     /**
-     * Looks up and returns the ColumnSpec associated with the given key.
+     * Looks up and returns the String associated with the given key.
      * First looks for an association in this LayoutMap. If there's no
      * association, the lookup continues with the parent map - if any.
      *
      * @param key key whose associated value is to be returned.
-     * @return the column specification associated with the {@code key},
+     * @return the column String associated with the {@code key},
      *         or {@code null} if no LayoutMap in the parent chain
      *         contains an association.
      *
@@ -269,19 +267,20 @@ public final class LayoutMap {
      */
     public String columnGet(String key) {
         ensureValidKey(key);
-        String cachedValue = (String) columnMapCache.get(key);
+        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
+        String cachedValue = (String) columnMapCache.get(lowerCaseKey);
         if (cachedValue != null) {
             return cachedValue;
         }
-        String value = (String) columnMap.get(key);
+        String value = (String) columnMap.get(lowerCaseKey);
         if ((value == null) && (parent != null)) {
-            value = parent.columnGet(key);
+            value = parent.columnGet(lowerCaseKey);
         }
         if (value == null) {
             return null;
         }
         String expandedString = expand(value, true);
-        columnMapCache.put(key, expandedString);
+        columnMapCache.put(lowerCaseKey, expandedString);
         return expandedString;
     }
 
@@ -307,7 +306,7 @@ public final class LayoutMap {
      * @see Map#put(Object, Object)
      */
     public String columnPut(String key, String value) {
-        ensureValidKey(key);
+        ensureValidColumnKey(key);
         if (value == null) {
             throw new NullPointerException("The column expression value must not be null.");
         }
@@ -352,8 +351,9 @@ public final class LayoutMap {
      * @see Map#remove(Object)
      */
     public String columnRemove(String key) {
-        ensureValidKey(key);
-        return (String) columnMap.remove(key);
+        ensureValidColumnKey(key);
+        columnMapCache.clear();
+        return (String) columnMap.remove(key.toLowerCase(Locale.ENGLISH));
     }
 
 
@@ -364,7 +364,7 @@ public final class LayoutMap {
      * a RowSpec mapping for the specified key.
      *
      * @param key key whose presence in this LayoutMap chain is to be tested.
-     * @return {@code true} if this map contains a row spec mapping
+     * @return {@code true} if this map contains a row mapping
      *         for the specified key.
      *
      * @throws NullPointerException if the key is {@code null}.
@@ -373,8 +373,9 @@ public final class LayoutMap {
      */
     public boolean rowContainsKey(String key) {
         ensureValidKey(key);
-        return  (rowMap.containsKey(key))
-            || ((parent != null) && (parent.rowContainsKey(key)));
+        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
+        return  (rowMap.containsKey(lowerCaseKey))
+            || ((parent != null) && (parent.rowContainsKey(lowerCaseKey)));
     }
 
 
@@ -394,25 +395,26 @@ public final class LayoutMap {
      */
     public String rowGet(String key) {
         ensureValidKey(key);
-        String cachedValue = (String) rowMapCache.get(key);
+        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
+        String cachedValue = (String) rowMapCache.get(lowerCaseKey);
         if (cachedValue != null) {
             return cachedValue;
         }
-        String value = (String) rowMap.get(key);
+        String value = (String) rowMap.get(lowerCaseKey);
         if ((value == null) && (parent != null)) {
-            value = parent.rowGet(key);
+            value = parent.rowGet(lowerCaseKey);
         }
         if (value == null) {
             return null;
         }
         String expandedString = expand(value, false);
-        rowMapCache.put(key, expandedString);
+        rowMapCache.put(lowerCaseKey, expandedString);
         return expandedString;
     }
 
 
     public String rowPut(String key, String value) {
-        ensureValidKey(key);
+        ensureValidRowKey(key);
         if (value == null) {
             throw new NullPointerException("The row expression value must not be null.");
         }
@@ -459,12 +461,12 @@ public final class LayoutMap {
 
 
     /**
-     * Removes the RowSpec mapping for this key from this map if it is
+     * Removes the row value mapping for this key from this map if it is
      * present.<p>
      *
      * Returns the value to which the map previously associated the key,
      * or {@code null} if the map contained no mapping for this key.
-     * The map will not contain a RowSpec mapping for the specified key
+     * The map will not contain a String mapping for the specified key
      * once the call returns.
      *
      * @param key key whose mapping is to be removed from the map.
@@ -475,19 +477,20 @@ public final class LayoutMap {
      *
      * @see Map#remove(Object)
      */
-    public RowSpec rowRemove(String key) {
-        ensureValidKey(key);
-        return (RowSpec) rowMap.remove(key);
+    public String rowRemove(String key) {
+        ensureValidRowKey(key);
+        rowMapCache.clear();
+        return (String) rowMap.remove(key.toLowerCase(Locale.ENGLISH));
     }
-    
-    
+
+
     // Overriding Object Behavior *********************************************
 
     /**
      * Returns a string representation of this LayoutMap that lists
      * the column and row associations.
-     * 
-     * @return a string representation 
+     *
+     * @return a string representation
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer("LayoutMap");
@@ -554,16 +557,20 @@ public final class LayoutMap {
 
 
     private String expansion(String variableName, boolean horizontal) {
-        String caseSensitiveKey = variableName.charAt(0) == '{'
-            ? variableName.substring(1, variableName.length() - 1)
-            : variableName;
-        String key = caseSensitiveKey.toLowerCase(Locale.ENGLISH);
+        String key = stripBraces(variableName);
         String expansion = horizontal ? columnGet(key) : rowGet(key);
         if (expansion == null) {
             String orientation = horizontal ? "column" : "row";
             throw new IllegalArgumentException("Unknown " + orientation + " layout variable \"" + key + "\"");
         }
         return expansion;
+    }
+
+
+    private static String stripBraces(String variableName) {
+        return variableName.charAt(0) == '{'
+            ? variableName.substring(1, variableName.length() - 1)
+            : variableName;
     }
 
 
@@ -574,6 +581,45 @@ public final class LayoutMap {
             throw new NullPointerException("The key must not be null.");
         }
     }
+
+    private void ensureValidColumnKey(String key) {
+        if (key == null) {
+            throw new NullPointerException("The key must not be null.");
+        }
+        String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
+        for (Iterator iterator = COLUMN_ALIASES.iterator(); iterator.hasNext();) {
+            String alias = (String) iterator.next();
+            if (lowercaseKey.equals(alias)) {
+                String resolvedAlias = stripBraces(
+                        ((String) columnMap.get(alias)).substring(1));
+                throw new IllegalArgumentException("You must not use "
+                        + "the predefined column alias \"" + key + "\"; "
+                        + "use \"" + resolvedAlias + "\" instead.");
+            }
+        }
+    }
+
+
+    private void ensureValidRowKey(String key) {
+        if (key == null) {
+            throw new NullPointerException("The key must not be null.");
+        }
+        String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
+        for (Iterator iterator = ROW_ALIASES.iterator(); iterator.hasNext();) {
+            String alias = (String) iterator.next();
+            if (lowercaseKey.equals(alias)) {
+                String resolvedAlias = stripBraces(
+                        ((String) rowMap.get(alias)).substring(1));
+                throw new IllegalArgumentException("You must not use "
+                        + "the predefined row alias \"" + key + "\"; "
+                        + "use \"" + resolvedAlias + "\" instead.");
+            }
+        }
+    }
+
+
+    private static final List COLUMN_ALIASES = new ArrayList();
+    private static final List ROW_ALIASES = new ArrayList();
 
 
     private static LayoutMap createRoot() {
@@ -586,7 +632,7 @@ public final class LayoutMap {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC);
         root.columnPut(
                 "related-gap",
-                new String[]{"r", "rgap"},
+                new String[]{"rg", "rgap"},
                 FormFactory.RELATED_GAP_COLSPEC);
         root.columnPut(
                 "unrelated-gap",
@@ -657,6 +703,7 @@ public final class LayoutMap {
         columnPut(key, value);
         for (int i=0; i < aliases.length; i++) {
             columnPut(aliases[i], "${" + key + '}');
+            COLUMN_ALIASES.add(aliases[i]);
         }
     }
 
@@ -665,6 +712,7 @@ public final class LayoutMap {
         rowPut(key, value);
         for (int i=0; i < aliases.length; i++) {
             rowPut(aliases[i], "${" + key + '}');
+            ROW_ALIASES.add(aliases[i]);
         }
     }
 
