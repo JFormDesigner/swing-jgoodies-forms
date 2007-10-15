@@ -73,26 +73,26 @@ import com.jgoodies.forms.util.LayoutStyle;
  * <pre>
  * // Predefined variables
  * new FormLayout(
- *     "pref, $lcg, pref, $rg, pref",
- *     "p, $lg, p, $lg, p");
+ *     "pref, $lcgap, pref, $rgap, pref",
+ *     "p, $lgap, p, $lgap, p");
  *
  * // Custom variables
- * LayoutMap.getDefault().columnPut("half", "39dlu");
- * LayoutMap.getDefault().columnPut("full", "80dlu");
- * LayoutMap.getDefault().rowPut("table", "fill:0:grow");
- * LayoutMap.getDefault().rowPut("table50", "fill:50dlu:grow");
+ * LayoutMap.getRoot().columnPut("half", "39dlu");
+ * LayoutMap.getRoot().columnPut("full", "80dlu");
+ * LayoutMap.getRoot().rowPut("table", "fill:0:grow");
+ * LayoutMap.getRoot().rowPut("table50", "fill:50dlu:grow");
  * new FormLayout(
- *     "pref, $lcg, $half, 2dlu, $half",
- *     "p, $lcg, $table50");
+ *     "pref, $lcgap, $half, 2dlu, $half",
+ *     "p, $lcgap, $table50");
  * new FormLayout(
- *     "pref, $lcg, $full",
- *     "p, $lcg, $table50");
+ *     "pref, $lcgap, $full",
+ *     "p, $lcgap, $table50");
  *
  * // Nested variables
- * LayoutMap.getDefault().columnPut("c-gap-c", "$half, 2dlu, $half");
+ * LayoutMap.getRoot().columnPut("c-gap-c", "$half, 2dlu, $half");
  * new FormLayout(
- *     "pref, $lcg, ${c-gap-c}", // -> "pref, $lcg, $half, 2dlu, $half",
- *     "p, $lcg, $table");
+ *     "pref, $lcgap, ${c-gap-c}", // -> "pref, $lcgap, $half, 2dlu, $half",
+ *     "p, $lcgap, $table");
  * </pre>
  *
  * LayoutMap holds two internal Maps that associate key Strings with expression
@@ -101,15 +101,12 @@ import com.jgoodies.forms.util.LayoutStyle;
  * <strong>Tips:</strong><ul>
  * <li>You should carefully override predefined variables,
  *     because variable users may expect that these don't change.
- * <li>If you modify a predefined variable, take care that you override
- *     the variable definition, not an alias. For example "related-gap" may
- *     be changed, "rgap" should not be changed as it points to "$related-gap".
  * <li>Set custom variables in the root LayoutMap.
  * <li>Avoid aliases for custom variables.
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -643,7 +640,7 @@ public final class LayoutMap {
                 new String[]{"b"},
                 FormFactory.BUTTON_COLSPEC);
         root.columnPut(
-                "growbutton",
+                "growing-button",
                 new String[]{"gb"},
                 FormFactory.GROWING_BUTTON_COLSPEC);
         root.columnPut(
@@ -660,11 +657,11 @@ public final class LayoutMap {
 
         // Row variables
         root.rowPut(
-                "related",
+                "related-gap",
                 new String[]{"rg", "rgap"},
                 FormFactory.RELATED_GAP_ROWSPEC);
         root.rowPut(
-                "unrelated",
+                "unrelated-gap",
                 new String[]{"ug", "ugap"},
                 FormFactory.UNRELATED_GAP_ROWSPEC);
         root.rowPut(
