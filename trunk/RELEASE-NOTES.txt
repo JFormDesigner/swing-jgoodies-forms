@@ -1,24 +1,20 @@
 
 
                            JGoodies Forms
-                          Version 1.2 Beta1
+                          Version 1.2 Beta2
                             Release Notes
                         
 
 INTRODUCTION
 
-    This is a preview of the upcoming JGoodies Forms 1.2.
+    This is a stable preview of the upcoming JGoodies Forms 1.2.
     It is binary incompatible with previous versions of the Forms,
     however the API changes won't affect typical application code.
     
     Version 1.2 is visually compatible with previous versions.
     Layouts specified with 1.0.7 or 1.1 are the same in 1.2. 
     
-    NOTE: THE CODE IS MUCH MORE "RAW" THAN OTHER RELEASES
-    THAT YOU MAY HAVE DOWNLOADED FROM JGOODIES IN THE PAST!
-    It is an engineering build that has seen minimal testing; 
-    it lacks functions and documentation and may contain known bugs 
-    in some areas. 
+    NOTE: This build lacks documentation and the API may still change.
     
     The topics for this release are:
     1) Syntax extensions
