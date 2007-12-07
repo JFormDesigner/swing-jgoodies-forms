@@ -48,10 +48,12 @@ import com.jgoodies.forms.util.DefaultUnitConverter;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  * @see	Size
  * @see	Sizes
+ *
+ * @since 1.2
  */
 public final class PrototypeSize implements Size, Serializable {
 
