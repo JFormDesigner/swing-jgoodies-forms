@@ -106,7 +106,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -119,7 +119,7 @@ public final class LayoutMap {
     /**
      * Marks a layout variable; used by the Forms parsers.
      */
-    static final char VARIABLE_PREFIX_CHAR = '$';
+    private static final char VARIABLE_PREFIX_CHAR = '$';
 
 
     /**
