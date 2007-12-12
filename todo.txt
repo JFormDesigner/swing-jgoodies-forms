@@ -6,6 +6,7 @@ o Sanity check: no negative sizes, e.g. no "-7dlu".
 
 o Add ButtonBarBuilder2 that has an non-opaque background
   and simpler methods for adding buttons with a minimum width.
+o ButtonBarBuilder2 soll nicht PanelBuilder erweitern.
   
 o Add tests for the existing syntax parser checks
 
