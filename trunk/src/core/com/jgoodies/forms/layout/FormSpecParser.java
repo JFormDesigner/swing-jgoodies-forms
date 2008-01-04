@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2008 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -43,7 +43,7 @@ import com.jgoodies.forms.util.FormUtils;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see     ColumnSpec
  * @see     RowSpec

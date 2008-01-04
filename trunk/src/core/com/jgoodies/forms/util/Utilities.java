@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2008 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -35,7 +35,7 @@ package com.jgoodies.forms.util;
  * Consists only of static utility methods.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @deprecated Replaced by {@link FormUtils}. Will be removed from the Forms 2.0.
  */
