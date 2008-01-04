@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2007 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2008 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how columns and rows can be grouped in FormLayout.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class GroupingExample {
 
