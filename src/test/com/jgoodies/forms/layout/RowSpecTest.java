@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.23 $
+ * @version $Revision: 1.24 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -102,7 +102,7 @@ public final class RowSpecTest extends TestCase {
                 RowSpec.decode("$ugap"));
         assertEquals(
                 FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("$ngap"));
+                RowSpec.decode("$nlgap"));
         assertEquals(
                 FormFactory.LINE_GAP_ROWSPEC,
                 RowSpec.decode("$lgap"));
