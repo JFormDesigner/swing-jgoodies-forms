@@ -175,13 +175,13 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
  * @see com.jgoodies.forms.util.LayoutStyle
  */
-public final class ButtonBarBuilder2 extends PanelBuilder {
+public final class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
 
     /**
      * Specifies the columns of the initial FormLayout used in constructors.
@@ -267,8 +267,6 @@ public final class ButtonBarBuilder2 extends PanelBuilder {
      * @return true if button sequences are ordered from left to right
      *
      * @see LayoutStyle#isLeftToRightButtonOrder()
-     *
-     * @since 1.0.3
      */
     public boolean isLeftToRightButtonOrder() {
         return leftToRight;
@@ -283,8 +281,6 @@ public final class ButtonBarBuilder2 extends PanelBuilder {
      *     from left to right
      *
      * @see LayoutStyle#isLeftToRightButtonOrder()
-     *
-     * @since 1.0.3
      */
     public void setLeftToRightButtonOrder(boolean newButtonOrder) {
         leftToRight = newButtonOrder;
@@ -666,9 +662,7 @@ public final class ButtonBarBuilder2 extends PanelBuilder {
     /**
      * Adds a button or other component that grows if the container grows.
      * The component's initial size (before it grows) is specified
-     * by the {@link LayoutStyle#getDefaultButtonWidth()}.<p>
-     *
-     *
+     * by the {@link LayoutStyle#getDefaultButtonWidth()}.
      *
      * @param component  the component to add
      */
@@ -681,8 +675,7 @@ public final class ButtonBarBuilder2 extends PanelBuilder {
 
 
     /**
-     * Adds a sequence of related growing buttons.
-     *  that grow
+     * Adds a sequence of related growing buttons
      * where each is separated by a default gap.
      * Honors this builder's button order. If you
      * want to use a fixed left to right order,
