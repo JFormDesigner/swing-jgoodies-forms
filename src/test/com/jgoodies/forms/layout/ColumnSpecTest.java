@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.27 $
+ * @version $Revision: 1.28 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -120,7 +120,7 @@ public final class ColumnSpecTest extends TestCase {
     public void testOverrideDefaultVariable() {
         ConstantSize gapWidth = Sizes.DLUX1;
         ColumnSpec labelComponentColumnSpec = ColumnSpec.createGap(gapWidth);
-        LayoutMap layoutMap = new LayoutMap(LayoutMap.getRoot());
+        LayoutMap layoutMap = new LayoutMap();
         layoutMap.columnPut("lcgap", labelComponentColumnSpec);
         assertEquals(
                 labelComponentColumnSpec,
