@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -127,7 +127,10 @@ public final class RowSpecTest extends TestCase {
         ConstantSize gapHeight = Sizes.DLUY1;
         RowSpec lineSpec = RowSpec.createGap(gapHeight);
         LayoutMap layoutMap = new LayoutMap();
-        layoutMap.rowPut("lgap", lineSpec);
+        layoutMap.rowPut("line-gap", lineSpec);
+        assertEquals(
+                lineSpec,
+                RowSpec.decode("${line-gap}", layoutMap));
         assertEquals(
                 lineSpec,
                 RowSpec.decode("$lgap", layoutMap));
@@ -285,18 +288,18 @@ public final class RowSpecTest extends TestCase {
      * Checks if the given RowSpec instances are equal and throws a failure
      * if not.
      *
-     * @param spec1    the first row spec object to be compared
-     * @param spec2    the second row spec object to be compared
+     * @param expected  the expected row spec object to be compared
+     * @param actual    the actual row spec object to be compared
      */
-    private void assertEquals(RowSpec spec1, RowSpec spec2) {
-        if (!spec1.getDefaultAlignment().equals(spec2.getDefaultAlignment())) {
-            fail("Alignment mismatch: spec1=" + spec1 + "; spec2=" + spec2);
+    private void assertEquals(RowSpec expected, RowSpec actual) {
+        if (!expected.getDefaultAlignment().equals(actual.getDefaultAlignment())) {
+            fail("Alignment mismatch: expected=" + expected + "; actual=" + actual);
         }
-        if (!spec1.getSize().equals(spec2.getSize())) {
-            fail("Size mismatch: spec1=" + spec1 + "; spec2=" + spec2);
+        if (!expected.getSize().equals(actual.getSize())) {
+            fail("Size mismatch: expected=" + expected + "; actual=" + actual);
         }
-        if (!(spec1.getResizeWeight() == spec2.getResizeWeight())) {
-            fail("Resize weight mismatch: spec1=" + spec1 + "; spec2=" + spec2);
+        if (!(expected.getResizeWeight() == actual.getResizeWeight())) {
+            fail("Resize weight mismatch: expected=" + expected + "; actual=" + actual);
         }
     }
 

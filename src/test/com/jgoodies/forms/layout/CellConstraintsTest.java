@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link CellConstraints}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public final class CellConstraintsTest extends TestCase {
 
@@ -229,22 +229,22 @@ public final class CellConstraintsTest extends TestCase {
      * Checks if the given RowSpec instances are equal and throws a failure
      * if not.
      *
-     * @param cc1   the first constraints object to be compared
-     * @param cc2   the second constraints object to be compared
+     * @param expected the expected constraints object to be compared
+     * @param actual   the actual constraints object to be compared
      */
-    private void assertEquals(CellConstraints cc1, CellConstraints cc2) {
-        if (   cc1.gridX != cc2.gridX
-            || cc1.gridY != cc2.gridY
-            || cc1.gridWidth != cc2.gridWidth
-            || cc1.gridHeight != cc2.gridHeight) {
-            fail("Bounds mismatch: cc1=" + cc1 + "; cc2=" + cc2);
+    private void assertEquals(CellConstraints expected, CellConstraints actual) {
+        if (   expected.gridX != actual.gridX
+            || expected.gridY != actual.gridY
+            || expected.gridWidth != actual.gridWidth
+            || expected.gridHeight != actual.gridHeight) {
+            fail("Bounds mismatch: expected=" + expected + "; actual=" + actual);
         }
-        if (   cc1.hAlign != cc2.hAlign
-            || cc1.vAlign != cc2.vAlign) {
-            fail("Alignment mismatch: cc1=" + cc1 + "; cc2=" + cc2);
+        if (   expected.hAlign != actual.hAlign
+            || expected.vAlign != actual.vAlign) {
+            fail("Alignment mismatch: expected=" + expected + "; actual=" + actual);
         }
-        if (!cc1.insets.equals(cc2.insets)) {
-            fail("Insets mismatch: cc1=" + cc1 + "; cc2=" + cc2);
+        if (!expected.insets.equals(actual.insets)) {
+            fail("Insets mismatch: expected=" + expected + "; actual=" + actual);
         }
     }
 
