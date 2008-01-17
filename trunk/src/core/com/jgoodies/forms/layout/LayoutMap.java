@@ -106,7 +106,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -588,7 +588,7 @@ public final class LayoutMap {
             String alias = (String) iterator.next();
             if (lowercaseKey.equals(alias)) {
                 String resolvedAlias = stripBraces(
-                        ((String) columnMap.get(alias)).substring(1));
+                        ((String) getRoot().columnMap.get(alias)).substring(1));
                 throw new IllegalArgumentException("You must not use "
                         + "the predefined column alias \"" + key + "\"; "
                         + "use \"" + resolvedAlias + "\" instead.");
@@ -606,7 +606,7 @@ public final class LayoutMap {
             String alias = (String) iterator.next();
             if (lowercaseKey.equals(alias)) {
                 String resolvedAlias = stripBraces(
-                        ((String) rowMap.get(alias)).substring(1));
+                        ((String) getRoot().rowMap.get(alias)).substring(1));
                 throw new IllegalArgumentException("You must not use "
                         + "the predefined row alias \"" + key + "\"; "
                         + "use \"" + resolvedAlias + "\" instead.");
