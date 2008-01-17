@@ -7,7 +7,7 @@
 
 INTRODUCTION
 
-    This is a stable preview of the upcoming JGoodies Forms 1.2.
+    This is a stable beta of the upcoming JGoodies Forms 1.2.
     It is binary incompatible with previous versions of the Forms,
     however the API changes won't affect typical application code.
     
