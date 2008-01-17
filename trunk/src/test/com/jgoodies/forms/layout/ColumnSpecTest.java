@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.29 $
+ * @version $Revision: 1.30 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -97,10 +97,33 @@ public final class ColumnSpecTest extends TestCase {
     public void testDefaultVariables() {
         assertEquals(
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("${label-component-gap}"));
+        assertEquals(
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("${LABEL-COMPONENT-GAP}"));
+        assertEquals(
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("$lcgap"));
+        assertEquals(
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("$lcg"));
+
+        assertEquals(
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("${related-gap}"));
+        assertEquals(
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("$rgap"));
         assertEquals(
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("$rg"));
+
+        assertEquals(
+                FormFactory.UNRELATED_GAP_COLSPEC,
+                ColumnSpec.decode("${unrelated-gap}"));
+        assertEquals(
+                FormFactory.UNRELATED_GAP_COLSPEC,
+                ColumnSpec.decode("$ugap"));
         assertEquals(
                 FormFactory.UNRELATED_GAP_COLSPEC,
                 ColumnSpec.decode("$ug"));
@@ -117,11 +140,25 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testOverrideDefaultVariable() {
+    public void testOverrideDefaultVariableWithDefaultName() {
         ConstantSize gapWidth = Sizes.DLUX1;
         ColumnSpec labelComponentColumnSpec = ColumnSpec.createGap(gapWidth);
         LayoutMap layoutMap = new LayoutMap();
         layoutMap.columnPut("label-component-gap", labelComponentColumnSpec);
+        assertEquals(
+                labelComponentColumnSpec,
+                ColumnSpec.decode("${label-component-gap}", layoutMap));
+        assertEquals(
+                labelComponentColumnSpec,
+                ColumnSpec.decode("$lcgap", layoutMap));
+    }
+
+
+    public void testOverrideDefaultVariableWithAlias() {
+        ConstantSize gapWidth = Sizes.DLUX1;
+        ColumnSpec labelComponentColumnSpec = ColumnSpec.createGap(gapWidth);
+        LayoutMap layoutMap = new LayoutMap();
+        layoutMap.columnPut("lcgap", labelComponentColumnSpec);
         assertEquals(
                 labelComponentColumnSpec,
                 ColumnSpec.decode("${label-component-gap}", layoutMap));
