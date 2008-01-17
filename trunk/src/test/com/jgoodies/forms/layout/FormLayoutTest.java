@@ -40,7 +40,7 @@ import junit.framework.TestCase;
  * Tests the FormLayout's layout algorithm.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public final class FormLayoutTest extends TestCase {
 
@@ -152,10 +152,10 @@ public final class FormLayoutTest extends TestCase {
         TestComponent c7 = new TestComponent( 2, 7,  4, 9);
         TestComponent c8 = new TestComponent(20, 7, 40, 9);
         FormLayout layout = new FormLayout(
-            "max(10px;min),  max(10px;min),  " +
-            "max(10px;pref), max(10px;pref), " +
-            "min(10px;min),  min(10px;min),  " +
-            "min(10px;pref), min(10px;pref)",
+            "[10px,min],  [10px,min],  " +
+            "[10px,pref], [10px,pref], " +
+            "[min,10px],  [min,10px],  " +
+            "[pref,10px], [pref,10px]",
             "pref");
 
         JPanel panel = new JPanel(layout);
@@ -194,10 +194,10 @@ public final class FormLayoutTest extends TestCase {
         TestComponent c8 = new TestComponent(7, 20, 9, 40);
         FormLayout layout = new FormLayout(
             "pref",
-            "f:max(10px;min),  f:max(10px;min),  " +
-            "f:max(10px;pref), f:max(10px;pref), " +
-            "f:min(10px;min),  f:min(10px;min),  " +
-            "f:min(10px;pref), f:min(10px;pref)");
+            "f:[10px,min],  f:[10px,min],  " +
+            "f:[10px,pref], f:[10px,pref], " +
+            "f:[min,10px],  f:[min,10px],  " +
+            "f:[pref,10px], f:[pref,10px]");
 
         JPanel panel = new JPanel(layout);
         panel.add(c1, cc.xy(1, 1));
@@ -211,14 +211,14 @@ public final class FormLayoutTest extends TestCase {
 
         panel.doLayout();
 
-        assertEquals("max(10px;c1_min).height",   10, c1.getHeight());
-        assertEquals("max(10px;c2_min).height",   20, c2.getHeight());
-        assertEquals("max(10px;c3_pref).height",  10, c3.getHeight());
-        assertEquals("max(10px;c4_pref).height",  40, c4.getHeight());
-        assertEquals("min(10px;c5_min).height",    2, c5.getHeight());
-        assertEquals("min(10px;c6_min).height",   10, c6.getHeight());
-        assertEquals("min(10px;c7_pref).height",   4, c7.getHeight());
-        assertEquals("min(10px;c8_pref).height",  10, c8.getHeight());
+        assertEquals("[10px, c1_min].height",  10, c1.getHeight());
+        assertEquals("[10px, c2_min].height",  20, c2.getHeight());
+        assertEquals("[10px,c3_pref].height",  10, c3.getHeight());
+        assertEquals("[10px,c4_pref].height",  40, c4.getHeight());
+        assertEquals("[c5_min, 10px].height",   2, c5.getHeight());
+        assertEquals("[c6_min, 10px].height",  10, c6.getHeight());
+        assertEquals("[c7_pref,10px].height",   4, c7.getHeight());
+        assertEquals("[c8_pref,10px].height",  10, c8.getHeight());
     }
 
 
@@ -389,8 +389,8 @@ public final class FormLayoutTest extends TestCase {
     public void testDefaultWithLowerBound() {
         TestComponent c1 = new TestComponent(10, 10, 50, 50);
         FormLayout layout = new FormLayout(
-                "max(20px;default)",
-                "max(20px;default)");
+                "[20px,default]",
+                "[20px,default]");
 
         JPanel panel = new JPanel(layout);
         panel.add(c1, cc.xy(1, 1));
@@ -426,8 +426,8 @@ public final class FormLayoutTest extends TestCase {
     public void testDefaultWithUpperBound() {
         TestComponent c1 = new TestComponent(10, 10, 50, 50);
         FormLayout layout = new FormLayout(
-                "min(20px;default)",
-                "min(20px;default)");
+                "[default,20px]",
+                "[default,20px]");
 
         JPanel panel = new JPanel(layout);
         panel.add(c1, cc.xy(1, 1));
@@ -456,4 +456,59 @@ public final class FormLayoutTest extends TestCase {
     }
 
 
+    // Visibility *************************************************************
+
+    /**
+     * Checks whether components are taken into account according
+     * to their visibility, the container wide FormLayout setting,
+     * and the cell setting.
+     */
+    public void testVisibility() {
+        testVisibility(true);
+        testVisibility(false);
+    }
+
+
+    public void testVisibility(boolean containerHonorsVisibility) {
+        TestComponent visible   = new TestComponent(10, 10, 10, 10);
+        TestComponent invisible = new TestComponent(10, 10, 10, 10);
+        invisible.setVisible(false);
+        TestComponent invisibleHonorsVisibility = new TestComponent(10, 10, 10, 10);
+        invisibleHonorsVisibility.setVisible(false);
+        TestComponent invisibleIgnoresVisibility = new TestComponent(10, 10, 10, 10);
+        invisibleIgnoresVisibility.setVisible(false);
+        FormLayout layout = new FormLayout(
+            "pref, pref, pref, pref",
+            "pref, pref, pref, pref");
+        layout.setHonorsVisibility(containerHonorsVisibility);
+
+        JPanel panel = new JPanel(layout);
+        panel.add(visible,                    cc.xy(1, 1));
+        panel.add(invisible,                  cc.xy(2, 2));
+        panel.add(invisibleHonorsVisibility,  cc.xy(3, 3));
+        panel.add(invisibleIgnoresVisibility, cc.xy(4, 4));
+        layout.setHonorsVisibility(invisibleHonorsVisibility, Boolean.TRUE);
+        layout.setHonorsVisibility(invisibleIgnoresVisibility, Boolean.FALSE);
+
+        panel.doLayout();
+        FormLayout.LayoutInfo info = layout.getLayoutInfo(panel);
+        int size1 = 10;
+        int size2 = containerHonorsVisibility ? 0 : 10;
+        int size3 = 0;
+        int size4 = 10;
+        int origin1 = size1;
+        int origin2 = origin1 + size2;
+        int origin3 = origin2 + size3;
+        int origin4 = origin3 + size4;
+        assertEquals("Column 0",  0,       info.columnOrigins[0]);
+        assertEquals("Column 1",  origin1, info.columnOrigins[1]);
+        assertEquals("Column 2",  origin2, info.columnOrigins[2]);
+        assertEquals("Column 3",  origin3, info.columnOrigins[3]);
+        assertEquals("Column 4",  origin4, info.columnOrigins[4]);
+        assertEquals("Row 0",     0,       info.rowOrigins[0]);
+        assertEquals("Row 1",     origin1, info.rowOrigins[1]);
+        assertEquals("Row 2",     origin2, info.rowOrigins[2]);
+        assertEquals("Row 3",     origin3, info.rowOrigins[3]);
+        assertEquals("Row 4",     origin4, info.rowOrigins[4]);
+    }
 }
