@@ -61,11 +61,11 @@ import java.util.List;
  *
  * FormLayout has been designed to work with non-visual builders that help you
  * specify the layout and fill the grid. For example, the
- * {@link com.jgoodies.forms.builder.ButtonBarBuilder} assists you in building button
+ * {@link com.jgoodies.forms.builder.ButtonBarBuilder2} assists you in building button
  * bars; it creates a standardized FormLayout and provides a minimal API that
- * specializes in adding buttons. Other builders can create frequently used
- * panel design, for example a form that consists of rows of label-component
- * pairs.<p>
+ * specializes in adding buttons and Actions. Other builders can create
+ * frequently used panel design, for example a form that consists of rows of
+ * label-component pairs.<p>
  *
  * FormLayout has been prepared to work with different types of sizes as
  * defined by the {@link Size} interface.<p>
@@ -134,12 +134,11 @@ import java.util.List;
  * individual components. Or the other way round, exclude invisible components,
  * and include individual components. The API of both the FormLayout and
  * CellConstraints classes shall be extended to support this option.
- * This feature is planned for the Forms version 1.2 and is described in
- * <a href="https://forms.dev.java.net/issues/show_bug.cgi?id=28">issue #28</a>
- * of the Forms' issue tracker where you can track the progress.
+ * This feature is planned for the Forms 1.2; you can track the progress here: and is described in
+ * <a href="https://forms.dev.java.net/issues/show_bug.cgi?id=28">issue #28</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -152,6 +151,8 @@ import java.util.List;
  * @see	Sizes
  */
 public final class FormLayout implements LayoutManager2, Serializable {
+
+    // Instance Fields ********************************************************
 
     /**
      * Holds the column specifications.
@@ -203,8 +204,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see #setConstraints(Component, CellConstraints)
      */
     private final Map constraintMap;
-    
-    
+
+
     private boolean honorsVisibility = true;
 
 
@@ -794,6 +795,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     has not been added to the container
      */
     public CellConstraints getConstraints(Component component) {
+        return (CellConstraints) getConstraints0(component).clone();
+    }
+
+
+    private CellConstraints getConstraints0(Component component) {
         if (component == null)
             throw new NullPointerException("The component must not be null.");
 
@@ -801,7 +807,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         if (constraints == null)
             throw new NullPointerException("The component has not been added to the container.");
 
-        return (CellConstraints) constraints.clone();
+        return constraints;
     }
 
 
@@ -977,17 +983,30 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
         setRowGroups(newRowGroups);
     }
-    
-    
+
+
     // Other Accessors ********************************************************
-    
+
     public boolean getHonorsVisibility() {
         return honorsVisibility;
     }
-    
-    
-    public void setHonorsVisiblity(boolean b) {
+
+
+    public void setHonorsVisibility(boolean b) {
+//        boolean oldHonorsVisibility = getHonorsVisibility();
+//        if (oldHonorsVisibility == b)
+//            return;
         honorsVisibility = b;
+        // TODO: consider to invalidate the container
+    }
+
+
+    public void setHonorsVisibility(Component component, Boolean b) {
+        CellConstraints constraints = getConstraints0(component);
+//        if (FormUtils.equals(b, constraints.honorsVisibility))
+//            return;
+        constraints.honorsVisibility = b;
+        // TODO: consider to invalidate the container
     }
 
 
@@ -1215,19 +1234,33 @@ public final class FormLayout implements LayoutManager2, Serializable {
             if (takeIntoAccount(component, constraints)) {
                 if (constraints.gridWidth == 1)
                     colComponents[constraints.gridX-1].add(component);
-    
+
                 if (constraints.gridHeight == 1)
                     rowComponents[constraints.gridY-1].add(component);
             }
         }
     }
-    
-    
-    private boolean takeIntoAccount(Component c, CellConstraints cc) {
-        return c.isVisible() || !getHonorsVisibility();
+
+
+    /**
+     * Components are taken into account, if
+     * a) they are visible, or
+     * b) they have no individual setting and the container-wide settings
+     *    ignores the visibility, or
+     * c) the individual component ignores the visibility.
+     *
+     * @param component
+     * @param cc
+     * @return <code>true</code> if the component shall be taken into account,
+     *     <code>false</code> otherwise
+     */
+    private boolean takeIntoAccount(Component component, CellConstraints cc) {
+        return   component.isVisible()
+              || ((cc.honorsVisibility == null) && !getHonorsVisibility())
+              || Boolean.FALSE.equals(cc.honorsVisibility);
     }
-    
-    
+
+
     /**
      * Computes and returns the layout size of the given <code>parent</code>
      * container using the specified measures.
@@ -1276,8 +1309,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 Map.Entry entry = (Map.Entry) i.next();
                 Component component = (Component) entry.getKey();
                 CellConstraints constraints = (CellConstraints) entry.getValue();
-                if (   takeIntoAccount(component, constraints)
-                    && (constraints.gridWidth > 1) 
+                if (!takeIntoAccount(component, constraints))
+                    continue;
+
+                if (   (constraints.gridWidth > 1)
                     && (constraints.gridWidth > maxFixedSizeColsTable[constraints.gridX-1])) {
                     //int compWidth = minimumWidthMeasure.sizeOf(component);
                     int compWidth = defaultWidthMeasure.sizeOf(component);
@@ -1292,8 +1327,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                     }
                 }
 
-                if ((constraints.gridHeight > 1) &&
-                    (constraints.gridHeight > maxFixedSizeRowsTable[constraints.gridY-1])) {
+                if (   (constraints.gridHeight > 1)
+                    && (constraints.gridHeight > maxFixedSizeRowsTable[constraints.gridY-1])) {
                     //int compHeight = minimumHeightMeasure.sizeOf(component);
                     int compHeight = defaultHeightMeasure.sizeOf(component);
                     //int compHeight = preferredHeightMeasure.sizeOf(component);
