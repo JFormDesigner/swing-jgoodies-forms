@@ -139,7 +139,7 @@ import java.util.List;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -203,9 +203,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see #setConstraints(Component, CellConstraints)
      */
     private final Map constraintMap;
+    
+    
+    private boolean honorsVisibility = true;
 
 
-    // Fields used by the Layout Algorithm **********************************
+    // Fields used by the Layout Algorithm ************************************
 
     /**
      * Holds the components that occupy exactly one column.
@@ -974,6 +977,18 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
         setRowGroups(newRowGroups);
     }
+    
+    
+    // Other Accessors ********************************************************
+    
+    public boolean getHonorsVisibility() {
+        return honorsVisibility;
+    }
+    
+    
+    public void setHonorsVisiblity(boolean b) {
+        honorsVisibility = b;
+    }
 
 
     // Implementing the LayoutManager and LayoutManager2 Interfaces *********
@@ -1180,11 +1195,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * Iterates over all components and their associated constraints;
      * every component that has a column span or row span of 1
-     * is put into the column's or row's component list.<p>
-     *
-     * As of the Forms version 1.0.x invisible components are not taken
-     * into account when the container is laid out. See the TODO in the
-     * JavaDoc class comment for details on this issue.
+     * is put into the column's or row's component list.
      */
     private void initializeColAndRowComponentLists() {
         colComponents = new List[getColumnCount()];
@@ -1200,19 +1211,23 @@ public final class FormLayout implements LayoutManager2, Serializable {
         for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
             Component component = (Component) entry.getKey();
-            if (!component.isVisible())
-                continue;
-
             CellConstraints constraints = (CellConstraints) entry.getValue();
-            if (constraints.gridWidth == 1)
-                colComponents[constraints.gridX-1].add(component);
-
-            if (constraints.gridHeight == 1)
-                rowComponents[constraints.gridY-1].add(component);
+            if (takeIntoAccount(component, constraints)) {
+                if (constraints.gridWidth == 1)
+                    colComponents[constraints.gridX-1].add(component);
+    
+                if (constraints.gridHeight == 1)
+                    rowComponents[constraints.gridY-1].add(component);
+            }
         }
     }
-
-
+    
+    
+    private boolean takeIntoAccount(Component c, CellConstraints cc) {
+        return c.isVisible() || !getHonorsVisibility();
+    }
+    
+    
     /**
      * Computes and returns the layout size of the given <code>parent</code>
      * container using the specified measures.
@@ -1260,12 +1275,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
             for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
                 Map.Entry entry = (Map.Entry) i.next();
                 Component component = (Component) entry.getKey();
-                if (!component.isVisible())
-                    continue;
-
                 CellConstraints constraints = (CellConstraints) entry.getValue();
-                if ((constraints.gridWidth > 1) &&
-                    (constraints.gridWidth > maxFixedSizeColsTable[constraints.gridX-1])) {
+                if (   takeIntoAccount(component, constraints)
+                    && (constraints.gridWidth > 1) 
+                    && (constraints.gridWidth > maxFixedSizeColsTable[constraints.gridX-1])) {
                     //int compWidth = minimumWidthMeasure.sizeOf(component);
                     int compWidth = defaultWidthMeasure.sizeOf(component);
                     //int compWidth = preferredWidthMeasure.sizeOf(component);
