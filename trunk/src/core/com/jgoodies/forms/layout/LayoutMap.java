@@ -30,7 +30,10 @@
 
 package com.jgoodies.forms.layout;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.UIManager;
@@ -106,7 +109,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -129,6 +132,24 @@ public final class LayoutMap {
      */
     private static final String LAYOUT_MAP_KEY = "JGoodiesFormsDefaultLayoutMap";
 
+
+    /**
+     * Maps column aliases to their default name, for example
+     * {@code "rgap"} -> {@code "related-gap"}.
+     */
+    private static final Map/*<String, String>*/ COLUMN_ALIASES =
+        new HashMap/*<String, String>*/();
+
+
+    /**
+     * Maps row aliases to their default name, for example
+     * {@code "rgap"} -> {@code "related-gap"}.
+     */
+    private static final Map/*<String, String>*/ ROW_ALIASES
+        = new HashMap/*<String, String>*/();
+
+
+    // Instance Fields ********************************************************
 
     /**
      * Refers to the parent map that is used to look up values
@@ -241,10 +262,9 @@ public final class LayoutMap {
      * @see Map#containsKey(Object)
      */
     public boolean columnContainsKey(String key) {
-        ensureValidKey(key);
-        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
-        return  (columnMap.containsKey(lowerCaseKey))
-            || ((parent != null) && (parent.columnContainsKey(lowerCaseKey)));
+        String resolvedKey = resolveColumnKey(key);
+        return  (columnMap.containsKey(resolvedKey))
+            || ((parent != null) && (parent.columnContainsKey(resolvedKey)));
     }
 
 
@@ -263,21 +283,20 @@ public final class LayoutMap {
      * @see Map#get(Object)
      */
     public String columnGet(String key) {
-        ensureValidKey(key);
-        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
-        String cachedValue = (String) columnMapCache.get(lowerCaseKey);
+        String resolvedKey = resolveColumnKey(key);
+        String cachedValue = (String) columnMapCache.get(resolvedKey);
         if (cachedValue != null) {
             return cachedValue;
         }
-        String value = (String) columnMap.get(lowerCaseKey);
+        String value = (String) columnMap.get(resolvedKey);
         if ((value == null) && (parent != null)) {
-            value = parent.columnGet(lowerCaseKey);
+            value = parent.columnGet(resolvedKey);
         }
         if (value == null) {
             return null;
         }
         String expandedString = expand(value, true);
-        columnMapCache.put(lowerCaseKey, expandedString);
+        columnMapCache.put(resolvedKey, expandedString);
         return expandedString;
     }
 
@@ -303,29 +322,23 @@ public final class LayoutMap {
      * @see Map#put(Object, Object)
      */
     public String columnPut(String key, String value) {
-        ensureValidColumnKey(key);
+        String resolvedKey = resolveColumnKey(key);
         if (value == null) {
             throw new NullPointerException("The column expression value must not be null.");
         }
         columnMapCache.clear();
         return (String) columnMap.put(
-                key.toLowerCase(Locale.ENGLISH),
+                resolvedKey,
                 value.toLowerCase(Locale.ENGLISH));
     }
 
 
     public String columnPut(String key, ColumnSpec value) {
-        if (value == null) {
-            throw new NullPointerException("The column spec value must not be null.");
-        }
         return columnPut(key, value.encode());
     }
 
 
     public String columnPut(String key, Size value) {
-        if (value == null) {
-            throw new NullPointerException("The column size value must not be null.");
-        }
         return columnPut(key, value.encode());
     }
 
@@ -348,9 +361,9 @@ public final class LayoutMap {
      * @see Map#remove(Object)
      */
     public String columnRemove(String key) {
-        ensureValidColumnKey(key);
+        String resolvedKey = resolveColumnKey(key);
         columnMapCache.clear();
-        return (String) columnMap.remove(key.toLowerCase(Locale.ENGLISH));
+        return (String) columnMap.remove(resolvedKey);
     }
 
 
@@ -369,10 +382,9 @@ public final class LayoutMap {
      * @see Map#containsKey(Object)
      */
     public boolean rowContainsKey(String key) {
-        ensureValidKey(key);
-        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
-        return  (rowMap.containsKey(lowerCaseKey))
-            || ((parent != null) && (parent.rowContainsKey(lowerCaseKey)));
+        String resolvedKey = resolveRowKey(key);
+        return  (rowMap.containsKey(resolvedKey))
+            || ((parent != null) && (parent.rowContainsKey(resolvedKey)));
     }
 
 
@@ -391,33 +403,32 @@ public final class LayoutMap {
      * @see Map#get(Object)
      */
     public String rowGet(String key) {
-        ensureValidKey(key);
-        String lowerCaseKey = key.toLowerCase(Locale.ENGLISH);
-        String cachedValue = (String) rowMapCache.get(lowerCaseKey);
+        String resolvedKey = resolveRowKey(key);
+        String cachedValue = (String) rowMapCache.get(resolvedKey);
         if (cachedValue != null) {
             return cachedValue;
         }
-        String value = (String) rowMap.get(lowerCaseKey);
+        String value = (String) rowMap.get(resolvedKey);
         if ((value == null) && (parent != null)) {
-            value = parent.rowGet(lowerCaseKey);
+            value = parent.rowGet(resolvedKey);
         }
         if (value == null) {
             return null;
         }
         String expandedString = expand(value, false);
-        rowMapCache.put(lowerCaseKey, expandedString);
+        rowMapCache.put(resolvedKey, expandedString);
         return expandedString;
     }
 
 
     public String rowPut(String key, String value) {
-        ensureValidRowKey(key);
+        String resolvedKey = resolveRowKey(key);
         if (value == null) {
             throw new NullPointerException("The row expression value must not be null.");
         }
         rowMapCache.clear();
         return (String) rowMap.put(
-                key.toLowerCase(Locale.ENGLISH),
+                resolvedKey,
                 value.toLowerCase(Locale.ENGLISH));
     }
 
@@ -442,17 +453,11 @@ public final class LayoutMap {
      * @see Map#put(Object, Object)
      */
     public String rowPut(String key, RowSpec value) {
-        if (value == null) {
-            throw new NullPointerException("The row spec value must not be null.");
-        }
         return rowPut(key, value.encode());
     }
 
 
     public String rowPut(String key, Size value) {
-        if (value == null) {
-            throw new NullPointerException("The row size value must not be null.");
-        }
         return rowPut(key, value.encode());
     }
 
@@ -475,9 +480,9 @@ public final class LayoutMap {
      * @see Map#remove(Object)
      */
     public String rowRemove(String key) {
-        ensureValidRowKey(key);
+        String resolvedKey = resolveRowKey(key);
         rowMapCache.clear();
-        return (String) rowMap.remove(key.toLowerCase(Locale.ENGLISH));
+        return (String) rowMap.remove(resolvedKey);
     }
 
 
@@ -573,50 +578,24 @@ public final class LayoutMap {
 
     // Helper Code ************************************************************
 
-    private void ensureValidKey(String key) {
-        if (key == null) {
-            throw new NullPointerException("The key must not be null.");
-        }
-    }
-
-    private void ensureValidColumnKey(String key) {
+    private String resolveColumnKey(String key) {
         if (key == null) {
             throw new NullPointerException("The key must not be null.");
         }
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
-        for (Iterator iterator = COLUMN_ALIASES.iterator(); iterator.hasNext();) {
-            String alias = (String) iterator.next();
-            if (lowercaseKey.equals(alias)) {
-                String resolvedAlias = stripBraces(
-                        ((String) getRoot().columnMap.get(alias)).substring(1));
-                throw new IllegalArgumentException("You must not use "
-                        + "the predefined column alias \"" + key + "\"; "
-                        + "use \"" + resolvedAlias + "\" instead.");
-            }
-        }
+        String defaultKey = (String) COLUMN_ALIASES.get(lowercaseKey);
+        return defaultKey == null ? lowercaseKey : defaultKey;
     }
 
 
-    private void ensureValidRowKey(String key) {
+    private String resolveRowKey(String key) {
         if (key == null) {
             throw new NullPointerException("The key must not be null.");
         }
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
-        for (Iterator iterator = ROW_ALIASES.iterator(); iterator.hasNext();) {
-            String alias = (String) iterator.next();
-            if (lowercaseKey.equals(alias)) {
-                String resolvedAlias = stripBraces(
-                        ((String) getRoot().rowMap.get(alias)).substring(1));
-                throw new IllegalArgumentException("You must not use "
-                        + "the predefined row alias \"" + key + "\"; "
-                        + "use \"" + resolvedAlias + "\" instead.");
-            }
-        }
+        String defaultKey = (String) ROW_ALIASES.get(lowercaseKey);
+        return defaultKey == null ? lowercaseKey : defaultKey;
     }
-
-
-    private static final List COLUMN_ALIASES = new ArrayList();
-    private static final List ROW_ALIASES = new ArrayList();
 
 
     private static LayoutMap createRoot() {
@@ -697,19 +676,30 @@ public final class LayoutMap {
 
 
     private void columnPut(String key, String[] aliases, ColumnSpec value) {
+        ensureLowerCase(key);
         columnPut(key, value);
         for (int i=0; i < aliases.length; i++) {
-            columnPut(aliases[i], "${" + key + '}');
-            COLUMN_ALIASES.add(aliases[i]);
+            ensureLowerCase(aliases[i]);
+            COLUMN_ALIASES.put(aliases[i], key);
         }
     }
 
 
     private void rowPut(String key, String[] aliases, RowSpec value) {
+        ensureLowerCase(key);
         rowPut(key, value);
         for (int i=0; i < aliases.length; i++) {
-            rowPut(aliases[i], "${" + key + '}');
-            ROW_ALIASES.add(aliases[i]);
+            ensureLowerCase(aliases[i]);
+            ROW_ALIASES.put(aliases[i], key);
+        }
+    }
+
+
+    private void ensureLowerCase(String str) {
+        String lowerCase = str.toLowerCase(Locale.ENGLISH);
+        if (!lowerCase.equals(str)) {
+            throw new IllegalArgumentException(
+                    "The string \"" + str + "\" should be lower case.");
         }
     }
 
