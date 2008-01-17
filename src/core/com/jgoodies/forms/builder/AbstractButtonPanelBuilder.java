@@ -45,16 +45,16 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 /**
- * The abstract superclass for {@link ButtonBarBuilder2}. 
+ * The abstract superclass for {@link ButtonBarBuilder2}.
  * Provides a cell cursor for traversing
  * the button bar/stack while components are added. It also offers
  * convenience methods to append logical columns and rows.<p>
- * 
+ *
  * TODO: Mention the ButtonStackBuilder2 subclass as soon as it is available.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
- * 
+ * @version $Revision: 1.3 $
+ *
  * @since 1.2
  */
 public abstract class AbstractButtonPanelBuilder {
