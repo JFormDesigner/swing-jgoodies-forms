@@ -36,6 +36,7 @@ NEW FEATURES
           [<constant size>,<logical size>]   // lower bound
           [<logical size>,<constant size>]   // upper bound
           [<constant>,<logical>,<constant>]  // lower and upper bound
+          for example [30dlu, pref], [pref, 30dlu], [10dlu, pref, 30dlu]
       - multiplier "5*(p, 3dlu), p"
       - prototype strings "p, '123-456-789', p"
       - accepts string encodings with whitespace before a comma,
