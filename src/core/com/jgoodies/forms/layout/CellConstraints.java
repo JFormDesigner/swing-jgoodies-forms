@@ -97,7 +97,7 @@ import java.util.StringTokenizer;
  * of the Forms' issue tracker where you can track the progress.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public final class CellConstraints implements Cloneable, Serializable {
 
@@ -200,6 +200,17 @@ public final class CellConstraints implements Cloneable, Serializable {
      * Describes the component's <code>Insets</code> in it's display area.
      */
     public Insets insets;
+
+    /**
+     * Describes whether individual components shall be taken into account
+     * by the FormLayout if 1) they are invisible and 2) the FormLayout
+     * does not honor the visibility.
+     *
+     * See {@link FormLayout#setHonorsVisibility(boolean)} and
+     * {@link FormLayout#setHonorsVisibility(Component, Boolean)} for a
+     * full description of this feature.
+     */
+    public Boolean honorsVisibility;
 
 
     // Instance Creation ****************************************************
@@ -1179,6 +1190,8 @@ public final class CellConstraints implements Cloneable, Serializable {
           buffer.append("; insets=");
           buffer.append(insets);
         }
+        buffer.append("; honorsVisibility=");
+        buffer.append(honorsVisibility);
 
         buffer.append(']');
         return buffer.toString();
@@ -1236,6 +1249,11 @@ public final class CellConstraints implements Cloneable, Serializable {
         if (!(EMPTY_INSETS.equals(insets))) {
           buffer.append(", ");
           buffer.append(insets);
+        }
+        if (honorsVisibility != null) {
+            buffer.append(honorsVisibility.booleanValue()
+                    ? "honors visibility"
+                    : "ignores visibility");
         }
 
         buffer.append(')');
