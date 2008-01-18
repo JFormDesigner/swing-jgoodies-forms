@@ -37,6 +37,10 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
+import javax.swing.JComponent;
+
+import com.jgoodies.forms.util.FormUtils;
+
 
 /**
  * FormLayout is a powerful, flexible and precise general purpose
@@ -125,20 +129,10 @@ import java.util.List;
  * builder.append("Label3", new JTextField());
  * builder.append(new JButton("/u2026"));
  * return builder.getPanel();
- * </pre><p>
- *
- * TODO: In the Forms 1.1 invisible components are not taken into account
- * when the FormLayout lays out the container. Add an optional setting for
- * this on both the container-level and component-level. So one can specify
- * that invisible components shall be taken into account, but may exclude
- * individual components. Or the other way round, exclude invisible components,
- * and include individual components. The API of both the FormLayout and
- * CellConstraints classes shall be extended to support this option.
- * This feature is planned for the Forms 1.2; you can track the progress here: and is described in
- * <a href="https://forms.dev.java.net/issues/show_bug.cgi?id=28">issue #28</a>.
+ * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -987,26 +981,89 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
     // Other Accessors ********************************************************
 
+    /**
+     * Returns whether invisible components shall be taken into account
+     * by this layout. This container-wide setting can be overridden
+     * per component. See {@link #setHonorsVisibility(boolean)} for details.
+     *
+     * @return <code>true</code> if the component visibility is honored
+     *     by this FormLayout, <code>false</code> if it is ignored.
+     *     This setting can be overridden by individual CellConstraints
+     *     using {@link #setHonorsVisibility(Component, Boolean)}.
+     *
+     * @since 1.2
+     */
     public boolean getHonorsVisibility() {
         return honorsVisibility;
     }
 
 
+    /**
+     * Specifies whether invisible components shall be taken into account by
+     * this layout for computing the layout size and setting component bounds.
+     * If set to <code>true</code> invisible components will be ignored by
+     * the layout. If set to <code>false</code> components will be taken into
+     * account regardless of their visibility. Visible components are always
+     * used for sizing and positioning.<p>
+     *
+     * The default value for this setting is <code>true</code>.
+     * It is useful to set the value to <code>false</code> (in other words
+     * to ignore the visibility) if you switch the component visibility
+     * dynamically and want the container to retain the size and
+     * component positions.<p>
+     *
+     * This container-wide default setting can be overridden per component
+     * using {@link #setHonorsVisibility(Component, Boolean)}.<p>
+     *
+     * Components are taken into account, if<ol>
+     * <li> they are visible, or
+     * <li> they have no individual setting and the container-wide settings
+     *    ignores the visibility (honorsVisibility set to <code>false</code>), or
+     * <li> the individual component ignores the visibility.
+     * </ol>
+     *
+     * @param b   <code>true</code> to honor the visibility, i.e. to exclude
+     *    invisible components from the sizing and positioning,
+     *    <code>false</code> to ignore the visibility, in other words to
+     *    layout visible and invisible components
+     *
+     * @since 1.2
+     */
     public void setHonorsVisibility(boolean b) {
-//        boolean oldHonorsVisibility = getHonorsVisibility();
-//        if (oldHonorsVisibility == b)
-//            return;
+        boolean oldHonorsVisibility = getHonorsVisibility();
+        if (oldHonorsVisibility == b)
+            return;
         honorsVisibility = b;
-        // TODO: consider to invalidate the container
+        Set componentSet = constraintMap.keySet();
+        if (componentSet.isEmpty())
+            return;
+        Component firstComponent = (Component) componentSet.iterator().next();
+        Container container = firstComponent.getParent();
+        invalidateAndRepaint(container);
     }
 
 
+    /**
+     * Specifies whether the given component shall be taken into account
+     * for sizing and positioning. This setting overrides the container-wide
+     * default. See {@link #setHonorsVisibility(boolean)} for details.
+     *
+     * @param component    the component that shall get an individual setting
+     * @param b            <code>Boolean.TRUE</code> to override the container
+     *    default and honor the visibility for the given component,
+     *    <code>Boolean.FALSE</code> to override the container default and
+     *    ignore the visibility for the given component,
+     *    <code>null</code> to use the container default value as specified
+     *    by {@link #getHonorsVisibility()}.
+     *
+     * @since 1.2
+     */
     public void setHonorsVisibility(Component component, Boolean b) {
         CellConstraints constraints = getConstraints0(component);
-//        if (FormUtils.equals(b, constraints.honorsVisibility))
-//            return;
+        if (FormUtils.equals(b, constraints.honorsVisibility))
+            return;
         constraints.honorsVisibility = b;
-        // TODO: consider to invalidate the container
+        invalidateAndRepaint(component.getParent());
     }
 
 
@@ -1243,25 +1300,6 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     /**
-     * Components are taken into account, if
-     * a) they are visible, or
-     * b) they have no individual setting and the container-wide settings
-     *    ignores the visibility, or
-     * c) the individual component ignores the visibility.
-     *
-     * @param component
-     * @param cc
-     * @return <code>true</code> if the component shall be taken into account,
-     *     <code>false</code> otherwise
-     */
-    private boolean takeIntoAccount(Component component, CellConstraints cc) {
-        return   component.isVisible()
-              || ((cc.honorsVisibility == null) && !getHonorsVisibility())
-              || Boolean.FALSE.equals(cc.honorsVisibility);
-    }
-
-
-    /**
      * Computes and returns the layout size of the given <code>parent</code>
      * container using the specified measures.
      *
@@ -1413,6 +1451,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
         return origins;
     }
+
 
     /**
      * Lays out the components using the given x and y origins, the column
@@ -1637,20 +1676,6 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     /**
-     * Computes and returns the sum of integers in the given array of ints.
-     *
-     * @param sizes	   an array of ints to sum up
-     * @return the sum of ints in the array
-     */
-    private int sum(int[] sizes) {
-        int sum = 0;
-        for (int i = sizes.length - 1; i >= 0; i--) {
-            sum += sizes[i];
-        }
-        return sum;
-    }
-
-    /**
      * Computes and returns a table that maps a column/row index
      * to the maximum number of columns/rows that a component can span
      * without spanning a growing column.<p>
@@ -1688,6 +1713,54 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 maximumFixedSpan++;
         }
         return table;
+    }
+
+
+    // Helper Code ************************************************************
+
+    /**
+     * Computes and returns the sum of integers in the given array of ints.
+     *
+     * @param sizes    an array of ints to sum up
+     * @return the sum of ints in the array
+     */
+    private static int sum(int[] sizes) {
+        int sum = 0;
+        for (int i = sizes.length - 1; i >= 0; i--) {
+            sum += sizes[i];
+        }
+        return sum;
+    }
+
+
+    private static void invalidateAndRepaint(Container container) {
+        if (container == null)
+            return;
+        if (container instanceof JComponent) {
+            ((JComponent) container).revalidate();
+        } else {
+            container.invalidate();
+        }
+        container.repaint();
+    }
+
+
+    /**
+     * Components are taken into account, if
+     * a) they are visible, or
+     * b) they have no individual setting and the container-wide settings
+     *    ignores the visibility, or
+     * c) the individual component ignores the visibility.
+     *
+     * @param component
+     * @param cc
+     * @return <code>true</code> if the component shall be taken into account,
+     *     <code>false</code> otherwise
+     */
+    private boolean takeIntoAccount(Component component, CellConstraints cc) {
+        return   component.isVisible()
+              || ((cc.honorsVisibility == null) && !getHonorsVisibility())
+              || Boolean.FALSE.equals(cc.honorsVisibility);
     }
 
 
