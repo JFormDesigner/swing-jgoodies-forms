@@ -41,7 +41,7 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @since 1.2
  */
@@ -90,6 +90,29 @@ public final class FormUtils {
     public static void assertNotNull(Object object, String description) {
         if (object == null)
             throw new NullPointerException("The " + description + " must not be null.");
+    }
+
+
+    /**
+     * Checks and answers if the two objects are
+     * both {@code null} or equal.
+     *
+     * <pre>
+     * #equals(null, null)  == true
+     * #equals("Hi", "Hi")  == true
+     * #equals("Hi", null)  == false
+     * #equals(null, "Hi")  == false
+     * #equals("Hi", "Ho")  == false
+     * </pre>
+     *
+     * @param o1        the first object to compare
+     * @param o2        the second object to compare
+     * @return boolean  {@code true} if and only if
+     *    both objects are {@code null} or equal
+     */
+    public static boolean equals(Object o1, Object o2) {
+        return    ((o1 != null) && (o2 != null) && (o1.equals(o2)))
+               || ((o1 == null) && (o2 == null));
     }
 
 
