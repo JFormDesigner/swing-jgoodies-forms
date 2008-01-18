@@ -14,7 +14,8 @@ INTRODUCTION
     Version 1.2 is visually compatible with previous versions.
     Layouts specified with 1.0.7 or 1.1 are the same in 1.2. 
     
-    NOTE: This build lacks documentation and the API may still change.
+    NOTE: This build lacks documentation. I don't plan to further extend
+    the API. But you are encouraged to review and comment the new API. 
     
     The topics for this release are:
     1) Syntax extensions
@@ -52,6 +53,11 @@ NEW FEATURES
     o ColumnSpec#encode, RowSpec#encode, and Size#encode return
       a parseable encoded string specification.
     o ButtonBarBuilder2 (draft).
+    o FormLayout can honor or ignore the component visibility. Added 
+      FormLayout#setHonorsVisibility(boolean) for the container level and
+      FormLayout#setHonorsVisibility(Component, Boolean) for a
+      component-specific setting that overrides the container default.
+    o ButtonStackBuilder(FormLayout, JPanel)
 
 
 LAYOUT VARIABLES
