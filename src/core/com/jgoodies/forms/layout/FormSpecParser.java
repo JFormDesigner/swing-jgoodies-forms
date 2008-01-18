@@ -43,7 +43,7 @@ import com.jgoodies.forms.util.FormUtils;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -53,7 +53,11 @@ public final class FormSpecParser {
     // Parser Patterns ******************************************************
 
     private static final Pattern MULTIPLIER_PREFIX_PATTERN =
-        Pattern.compile("\\d+\\*\\(");
+        Pattern.compile("\\d+\\s*\\*\\s*\\(");
+
+    private static final Pattern DIGIT_PATTERN =
+        Pattern.compile("\\d+");
+
 
 
     // Instance Fields ********************************************************
@@ -122,7 +126,8 @@ public final class FormSpecParser {
         int columnCount = encodedColumnSpecs.size();
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
-            columnSpecs[i] = ColumnSpec.decodeExpanded((String) encodedColumnSpecs.get(i));
+            String encodedSpec = (String) encodedColumnSpecs.get(i);
+            columnSpecs[i] = ColumnSpec.decodeExpanded(encodedSpec);
         }
         return columnSpecs;
     }
@@ -133,7 +138,8 @@ public final class FormSpecParser {
         int rowCount = encodedRowSpecs.size();
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {
-            rowSpecs[i] = RowSpec.decodeExpanded((String) encodedRowSpecs.get(i));
+            String encodedSpec = (String) encodedRowSpecs.get(i);
+            rowSpecs[i] = RowSpec.decodeExpanded(encodedSpec);
         }
         return rowSpecs;
     }
@@ -222,21 +228,22 @@ public final class FormSpecParser {
         if (matcher.start() > 0) {
             fail(offset + matcher.start(), "illegal multiplier position");
         }
-        String groupIntStr = expression.substring(0, matcher.end() - 2);
-        int groupInt = 0;
+        Matcher digitMatcher = DIGIT_PATTERN.matcher(expression);
+        if (!digitMatcher.find()) {
+            return null;
+        }
+        String digitStr = expression.substring(0, digitMatcher.end());
+        int number = 0;
         try {
-            groupInt = Integer.parseInt(groupIntStr);
+            number = Integer.parseInt(digitStr);
         } catch (NumberFormatException e) {
             fail(offset, e);
         }
-        if (groupInt <= 0) {
+        if (number <= 0) {
             fail(offset, "illegal 0 multiplier");
         }
-        if (expression.charAt(expression.length()-1) != ')') {
-            fail(offset + expression.length(), "missing ')'");
-        }
         String subexpression = expression.substring(matcher.end(),expression.length()-1);
-        return new Multiplier(groupInt, subexpression, matcher.end());
+        return new Multiplier(number, subexpression, matcher.end());
     }
 
 
