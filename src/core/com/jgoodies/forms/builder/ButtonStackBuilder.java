@@ -72,7 +72,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see ButtonBarBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -107,8 +107,8 @@ public final class ButtonStackBuilder extends PanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an instance of <code>ButtonStackBuilder</code> on a default
-     * <code>JPanel</code> using a preconfigured FormLayout as layout manager.
+     * Constructs a ButtonStackBuilder  on a default JPanel
+     * using a preconfigured FormLayout as layout manager.
      */
     public ButtonStackBuilder() {
         this(new JPanel(null));
@@ -116,13 +116,27 @@ public final class ButtonStackBuilder extends PanelBuilder {
 
 
     /**
-     * Constructs an instance of <code>ButtonStackBuilder</code> on the given
-     * panel using a preconfigured FormLayout as layout manager.
+     * Constructs a ButtonStackBuilder on the given panel
+     * using a preconfigured FormLayout as layout manager.
      *
      * @param panel   the layout container
      */
     public ButtonStackBuilder(JPanel panel) {
-        super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
+        this(new FormLayout(COL_SPECS, ROW_SPECS), panel);
+    }
+
+
+    /**
+     * Constructs a ButtonStackBuilder on the given panel and layout.
+     * The layout must have at least one column.
+     *
+     * @param layout  the FormLayout used to layout
+     * @param panel   the layout container
+     *
+     * @since 1.2
+     */
+    public ButtonStackBuilder(FormLayout layout, JPanel panel) {
+        super(layout, panel);
     }
 
 
