@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.30 $
+ * @version $Revision: 1.31 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -200,6 +200,32 @@ public final class ColumnSpecTest extends TestCase {
         } catch (Exception e) {
             // The expected behavior
         }
+    }
+
+
+    public void testMultiplier()  {
+        ColumnSpec prefSpec = ColumnSpec.decode("pref");
+        ColumnSpec[] specs = ColumnSpec.decodeSpecs("2*(pref)");
+        assertEquals(prefSpec, 2, specs);
+    }
+
+
+    public void testMultiplierWithBlanks() {
+        ColumnSpec prefSpec = ColumnSpec.decode("pref");
+        ColumnSpec[] specs = ColumnSpec.decodeSpecs("2* (pref)");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = ColumnSpec.decodeSpecs("2 *(pref)");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = ColumnSpec.decodeSpecs("2 * (pref)");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = ColumnSpec.decodeSpecs(" 2 * (pref) ");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = ColumnSpec.decodeSpecs(" 2 * ( pref ) ");
+        assertEquals(prefSpec, 2, specs);
     }
 
 
@@ -371,6 +397,16 @@ public final class ColumnSpecTest extends TestCase {
         }
         for (int i = 0; i < specs1.length; i++) {
             assertEquals(specs1[i], specs2[i]);
+        }
+    }
+
+
+    private void assertEquals(ColumnSpec expectedSpec, int expectedLength, ColumnSpec[] specs) {
+        assertEquals("Multiplier", expectedLength, specs.length);
+        for (int i = 0; i < specs.length; i++) {
+            assertEquals("ColumnSpec[" + i + "]",
+                    expectedSpec,
+                    specs[i]);
         }
     }
 
