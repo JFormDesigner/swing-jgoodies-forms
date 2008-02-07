@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.31 $
+ * @version $Revision: 1.32 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -363,6 +363,8 @@ public final class ColumnSpecTest extends TestCase {
             assertRejects("[pref,pref,200px]");  // lower bound must be constant
             assertRejects("[10px,50px,200px]");  // basis must be logical
             assertRejects("[10px,pref,pref]");   // upper bound must be constant
+
+            assertRejectsSpecs("7dlu l:p:g 7dlu");    // Missing commas
         } finally {
             Locale.setDefault(oldDefault);
         }
@@ -420,6 +422,21 @@ public final class ColumnSpecTest extends TestCase {
         try {
             ColumnSpec.decode(invalidEncoding);
             fail("The parser should reject the invalid encoding:" + invalidEncoding);
+        } catch (Exception e) {
+            // The expected behavior
+        }
+    }
+
+
+    /**
+     * Asserts that the specified column spec encodings are rejected.
+     *
+     * @param invalidEncodings  the invalid encoded column specs
+     */
+    private void assertRejectsSpecs(String invalidEncodings) {
+        try {
+            ColumnSpec.decodeSpecs(invalidEncodings);
+            fail("The parser should reject the invalid encodings:" + invalidEncodings);
         } catch (Exception e) {
             // The expected behavior
         }
