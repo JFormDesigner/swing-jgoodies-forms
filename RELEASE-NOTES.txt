@@ -85,6 +85,7 @@ BUGS FIXED
       when computing the global dialog base units.
     o BoundedSize constructor accepts null lower and upper bound.
     o Borders#createEmptyBorder accepts null values.
+    o Parser accepts column specs without commas.
         
     
 OTHER CHANGES
