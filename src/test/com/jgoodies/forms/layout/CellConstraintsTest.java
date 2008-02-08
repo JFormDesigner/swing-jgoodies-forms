@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link CellConstraints}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public final class CellConstraintsTest extends TestCase {
 
@@ -226,8 +226,8 @@ public final class CellConstraintsTest extends TestCase {
 
 
     /**
-     * Checks if the given RowSpec instances are equal and throws a failure
-     * if not.
+     * Checks if the given CellConstraints instances are equal
+     * and throws a failure if not.
      *
      * @param expected the expected constraints object to be compared
      * @param actual   the actual constraints object to be compared
