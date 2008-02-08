@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.layout;
 
+import javax.swing.border.Border;
+
 import junit.framework.TestCase;
 
 import com.jgoodies.forms.factories.Borders;
@@ -38,7 +40,7 @@ import com.jgoodies.forms.factories.Borders;
  * A test case for class {@link Borders}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class BordersTest extends TestCase {
 
@@ -47,16 +49,31 @@ public final class BordersTest extends TestCase {
      * Checks that the constructor rejects negative resize weights.
      */
     public void testValidEncodings() {
-        assertEquals(
+        assertInsetsEquals(
                 Borders.DLU14_BORDER,
                 Borders.createEmptyBorder("14dlu, 14dlu, 14dlu, 14dlu"));
-        assertEquals(
+        assertInsetsEquals(
                 Borders.DLU14_BORDER,
                 Borders.createEmptyBorder("   14dlu , 14dlu , 14dlu , 14dlu "));
-        assertEquals(
+        assertInsetsEquals(
                 Borders.createEmptyBorder(Sizes.DLUY1, Sizes.DLUX2, Sizes.DLUY3, Sizes.DLUX4),
                 Borders.createEmptyBorder("   1dlu , 2dlu , 3dlu , 4dlu "));
     }
+
+
+    // Helper Code ************************************************************
+
+    /**
+     * Checks if the given CellConstraints instances are equal
+     * and throws a failure if not.
+     *
+     * @param expected the expected constraints object to be compared
+     * @param actual   the actual constraints object to be compared
+     */
+    private void assertInsetsEquals(Border expected, Border actual) {
+        assertEquals(expected.getBorderInsets(null), actual.getBorderInsets(null));
+    }
+
 
 
 }
