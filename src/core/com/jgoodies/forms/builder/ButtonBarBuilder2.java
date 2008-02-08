@@ -175,7 +175,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -697,8 +697,8 @@ public final class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
 
 
     /**
-     * Adds a fixed size component with narrow margin. Unlike the gridded components,
-     * this component keeps its individual preferred dimension.
+     * Adds a fixed size component with narrow margin. Unlike the gridded
+     * components, this component keeps its individual preferred dimension.
      *
      * @param component  the component to add
      */
