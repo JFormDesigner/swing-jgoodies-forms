@@ -1,26 +1,20 @@
 
 
                            JGoodies Forms
-                          Version 1.2 Beta2
+                           Version 1.2 RC
                             Release Notes
                         
 
 INTRODUCTION
 
-    This is a stable beta of the upcoming JGoodies Forms 1.2.
-    It is binary incompatible with previous versions of the Forms,
+    This is the release candidate for the JGoodies Forms 1.2.0.
+    It is binary incompatible with previous versions of the Forms;
     however the API changes won't affect typical application code.
     
     Version 1.2 is visually compatible with previous versions.
     Layouts specified with 1.0.7 or 1.1 are the same in 1.2. 
-    
-    NOTE: This build lacks documentation. I don't plan to further extend
-    the API. But you are encouraged to review and comment the new API. 
-    
-    The topics for this release are:
-    1) Syntax extensions
-    2) Layout variables
-    3) Remove rarely used code
+    The Forms 1.2 offer syntax extensions, layout variables,
+    and rarely used code has been removed.
     
     
 CHANGES THAT AFFECT THE COMPATIBILITY
@@ -52,7 +46,7 @@ NEW FEATURES
     o DefaultComponentFactory#setTextAndMnemonic is public.
     o ColumnSpec#encode, RowSpec#encode, and Size#encode return
       a parseable encoded string specification.
-    o ButtonBarBuilder2 (draft).
+    o ButtonBarBuilder2.
     o FormLayout can honor or ignore the component visibility. Added 
       FormLayout#setHonorsVisibility(boolean) for the container level and
       FormLayout#setHonorsVisibility(Component, Boolean) for a
@@ -100,12 +94,11 @@ ROADMAP
     Forms 2.0 
     o API clarification and API extensions.
     o Bug fixing - even if the fix affects the layout.
-    o Change default unit to DLU.
-    o Change default unit conversion algorithm.
+    o Make DLU a general unit.
+    o Change the default unit conversion algorithm.
     
     Future version
     o Extend the tutorial.
-    o Bug fixing - even if the fix affects the layout.
     o Move to Java 5.
     
     
