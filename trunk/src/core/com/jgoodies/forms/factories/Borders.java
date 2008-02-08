@@ -52,7 +52,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see     Border
  * @see     Sizes
@@ -301,59 +301,6 @@ public final class Borders {
          */
         public ConstantSize right() {
             return right;
-        }
-
-        // Comparison and Hashing *************************************************
-
-        /**
-         * Compares the specified object with this EmtpyBorder for equality.
-         * Returns {@code true} if and only if the specified object is also
-         * an EmptyBorder, and all sides have equals sizes. In other words,
-         * two EmptyBorders are defined to be equal if and only if they
-         * describe the same empty border.<p>
-         *
-         * This implementation first checks if the specified object is this
-         * EmptyBorder. If so, it returns {@code true};
-         * if not, it checks if the specified object is an EmptyBorder.
-         * If not, it returns {@code false}; if so, it checks and returns
-         * if the top, left, bottom, and right sizes are equal.
-         *
-         * @param o the object to be compared for equality with this EmptyBorder.
-         *
-         * @return {@code true} if the specified object is equal
-         *     to this EmptyBorder.
-         *
-         * @see Object#equals(java.lang.Object)
-         */
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (!(o instanceof EmptyBorder)) {
-                return false;
-            }
-            EmptyBorder b = (EmptyBorder) o;
-            return     top.equals(b.top())
-                    && left.equals(b.left())
-                    && bottom.equals(b.bottom())
-                    && right.equals(b.right());
-        }
-
-
-        /**
-         * Returns the hash code value for this EmptyBorder. This
-         * implementation returns the hash from the List of messages.
-         *
-         * @return the hash code value for this validation result.
-         *
-         * @see Object#hashCode()
-         */
-        public int hashCode() {
-            int hashValue = top.hashCode();
-            hashValue = hashValue * 37 + left.hashCode();
-            hashValue = hashValue * 37 + bottom.hashCode();
-            hashValue = hashValue * 37 + right.hashCode();
-            return hashValue;
         }
 
     }
