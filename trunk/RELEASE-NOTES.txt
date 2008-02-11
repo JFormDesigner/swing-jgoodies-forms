@@ -46,7 +46,8 @@ NEW FEATURES
     o DefaultComponentFactory#setTextAndMnemonic is public.
     o ColumnSpec#encode, RowSpec#encode, and Size#encode return
       a parseable encoded string specification.
-    o ButtonBarBuilder2.
+    o ButtonBarBuilder2. It builds betters button bars
+      and has a simpler API than the ButtonBarBuilder.
     o FormLayout can honor or ignore the component visibility. Added 
       FormLayout#setHonorsVisibility(boolean) for the container level and
       FormLayout#setHonorsVisibility(Component, Boolean) for a
