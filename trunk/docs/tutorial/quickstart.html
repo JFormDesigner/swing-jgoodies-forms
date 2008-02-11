@@ -51,6 +51,7 @@
 	<br>::&nbsp;<a class="nav" href="../reference/colsandrows.html">Cols &amp; Rows</a>
 	<br>::&nbsp;<a class="nav" href="../reference/cells.html">Cell Constraints</a>
 	<br>::&nbsp;<a class="nav" href="../reference/groups.html">Groups</a>
+	<br>::&nbsp;<a class="nav" href="../reference/variables.html">Layout Variables</a>
 	<p>
 	<a class="nav" href="../api/index.html"><b>API Docs</b></a>
 	<p>
@@ -284,6 +285,45 @@ return builder.getPanel();
 			<img src="../images/quickstart-shot.png" border="1"><p>
 			The Finished Panel
 	</center>
+	
+	
+	<h2>Step 7: Refine the Layout with Variables</h2>
+
+	Optionally we can use layout variables to improve
+	the consistency of our design. The have been introduced
+	in the Forms 1.2 and specify standard columns, rows, and gaps.
+	 	For example <tt>$label-component-gap</tt> (or <tt>$lcgap</tt>)
+		is a pre-defined variable for the gap between a label and the 
+		associated component.
+	   
+	
+		<p>
+		We turn:
+		<pre>
+FormLayout layout = new FormLayout(
+    "right:pref, 3dlu, pref, 7dlu, right:pref, 3dlu, pref",     // columns
+    "p, 3dlu, p, 3dlu, p, 9dlu, p, 3dlu, p, 3dlu, p");          // rows</pre>
+    
+    into:
+	<pre>
+FormLayout layout = new FormLayout(
+    "right:pref, $lcgap, pref, 7dlu, right:pref, $lcgap, pref", // columns
+    "p, 3dlu, p, $lgap, p, 9dlu, p, $lgap, p, $lgap, p");       // rows</pre>
+
+where <tt>$lgap</tt> is the <tt>$line-gap</tt> and <tt>$pgap</tt> is
+the standard <tt>$paragraph-gap</tt>. 
+
+<p>We could further improve the
+consistency by introducing a custom variable <tt>$label</tt>
+for <tt>right:pref</tt>. We specify our layout variable in the root 
+<tt>LayoutMap</tt> and can then use it in our FormLayout constructor.
+
+<pre>
+Layout.getRoot().columnPut("label", "right:pref");              // shared code
+
+FormLayout layout = new FormLayout(
+    "$label, $lcgap, pref, 7dlu, $label, $lcgap, pref",         // columns
+    "p, 3dlu, p, $lgap, p, 9dlu, p, $lgap, p, $lgap, p");       // rows</pre>
 
 	</td>
 	</tr>
