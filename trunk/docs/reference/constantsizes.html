@@ -51,6 +51,7 @@
 	<br>::&nbsp;<a class="nav" href="colsandrows.html">Cols &amp; Rows</a>
 	<br>::&nbsp;<a class="nav" href="cells.html">Cell Constraints</a>
 	<br>::&nbsp;<a class="nav" href="groups.html">Groups</a>
+	<br>::&nbsp;<a class="nav" href="variables.html">Layout Variables</a>
 	<p>
 	<a class="nav" href="../api/index.html"><b>API Docs</b></a>
 	<p>
@@ -132,6 +133,15 @@
 	Class <tt>Sizes</tt> provides methods to convert non-pixel sizes 
 	to pixels. The actual mapping is performed by a customizable
 	<i>Unit converter</i>.	 
+	
+	
+	<h2>Prototype Sizes</h2>
+	
+	You can describe a column width or row height by providing a
+	string prototype, for example 
+	<tt>new FormLayout("right:pref, 3dlu, '+49-89-32168'")</tt>.
+	Prototype sizes scale better than <i>Dialog Units</i> if
+	the content consists only of special characters, for example digits. 
 		
 	
 	<h2>Logical Constant Sizes</h2>
@@ -144,16 +154,29 @@
 	as <i>3dlu</i> on Windows and <i>4px</i> on a Mac.
 	
 	<p>
-	The FormLayout itself provides no means for such an abstraction. 
-	However, you can use logical sizes via the builders, factories and
-	layout style. You can obtain the current <i>Layout Style</i> from
-	that class via <tt>getCurrent()</tt>. The result implementation
-	returns style guide-specific logical sizes for frequently used
-	gaps and minimum widths and heights; you can quickly access
-	these constants via the <tt>FormFactory</tt>. 
-	The <tt>ButtonBarBuilder</tt> uses logical sizes to honor style
-	guide settings for button minimum width, and gaps between related
-	and unrelated components. 
+	The Forms layout system supports logical sizes in builder
+	classes, via the <i>Layout Style</i> and the <tt>FormFactory</tt> 
+	constants.
+	Since version 1.2 you can use logical sizes in encoded
+	column and row specifications too, by means of layout variables.
+	For example <tt>new FormLayout("right:pref, $lcgap, pref")</tt>
+	uses the short name of the variable	<tt>$label-component-gap</tt>
+	that describes the platform-specific gap between a label and
+	its associated component. 
+
+	<p>
+	The <tt>ButtonBarFactory</tt>, <tt>ButtonBarBuilder</tt> and 
+	<tt>ButtonStackBuilder</tt>
+	use logical sizes and in turn style guide-specific logical sizes 
+	for frequently used gaps and minimum widths and heights.
+	For example the <tt>ButtonBarBuilder</tt> uses logical sizes 
+	to honor style guide settings for button minimum width, and gaps 
+	between related and unrelated components. 
+	
+	<p>
+	If you develop a custom builder class, you can refer to the
+	logical sizes using the current <i>Layout Style</i> or 
+	the <tt>FormFactory</tt> constants.
 	
 	
 	<h2>String Representations</h2>
@@ -175,6 +198,7 @@ doubleUnit   ::= IN | MM | CM
 <pre>
 new ColumnSpec("50dlu");
 new ColumnSpec("75px");
+new ColumnSpec("'xxx-MMM-000-xxx'");
 
 new RowSpec("2in");
 new RowSpec("100px");
