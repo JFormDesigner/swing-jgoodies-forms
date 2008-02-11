@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.23 $
+ * @version $Revision: 1.24 $
  *
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -108,11 +108,11 @@ public final class ButtonBarsExample {
     private Component buildButtonBar3Panel() {
         ButtonBarBuilder builder = new ButtonBarBuilder();
         builder.addGlue();
-        builder.addGriddedButtons(new JButton[] {
-                new JButton("One"),
-                new JButton("Two"),
-                new JButton("Three")
-        	});
+        builder.addGridded(new JButton("One"));
+        builder.addRelatedGap();
+        builder.addGridded(new JButton("Two"));
+        builder.addRelatedGap();
+        builder.addGridded(new JButton("Three"));
         return wrap(builder.getPanel(),
             "This bar uses the logical gap for related buttons.\n");    }
 
