@@ -40,7 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how columns and rows can be grouped in FormLayout.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public final class GroupingExample {
 
@@ -120,7 +120,7 @@ public final class GroupingExample {
         panel.add(new JTextField(),                 cc.xyw(3, 11, 7));
         panel.add(new JLabel("Customer:"),          cc.xy (1, 13));
         panel.add(new JTextField(),                 cc.xyw(3, 13, 5));
-        panel.add(new JButton("/u2026"),            cc.xy (9, 13));
+        panel.add(new JButton("\u2026"),            cc.xy (9, 13));
         panel.add(new JLabel("Port of loading:"),   cc.xy (1, 15));
         panel.add(new JTextField(),                 cc.xyw(3, 15, 7));
         panel.add(new JLabel("Destination:"),       cc.xy (1, 17));
