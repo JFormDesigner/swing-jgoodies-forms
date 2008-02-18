@@ -42,7 +42,7 @@ import com.jgoodies.forms.util.FormUtils;
 /**
  * An abstract class that specifies columns and rows in FormLayout
  * by their default alignment, start size and resizing behavior.
- * API users will use the subclasses {@link ColumnSpec} and  {@link RowSpec}.<p>
+ * API users will use the subclasses {@link ColumnSpec} and {@link RowSpec}.<p>
  *
  * Also implements the parser for encoded column and row specifications
  * and provides parser convenience behavior for its subclasses ColumnSpec
@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
