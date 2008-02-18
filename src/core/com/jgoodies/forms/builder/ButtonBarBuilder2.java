@@ -36,7 +36,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
@@ -52,13 +51,13 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * This is an improved version of the older {@link ButtonBarBuilder}.
  * The ButtonBarBuilder2 has a simpler, safer, and more convenient API,
- * see below for a more detailed comparison.<p>
+ * see below for a comparison.<p>
  *
  * <strong>ButtonBarBuilder2 vs. ButtonBarBuilder:</strong><br>
  * ButtonBarBuilder2 uses only 3 component types that can be added:
  * <em>button</em>, <em>standard</em>, and <em>growing button</em>, where
- * ButtonBarBuilder has <em>button</em>, <em>fixed</em>, and <em>growing</em>
- * and it doesn't group buttons.
+ * ButtonBarBuilder has <em>button</em>, <em>fixed</em>, and <em>growing</em>.
+ * Also, the ButtonBarBuilder2 doesn't group buttons.
  * The layout of the ButtonBarBuilder and ButtonBarBuilder2 is the same
  * if all buttons are smaller than {@link LayoutStyle#getDefaultButtonWidth()}.
  * If some buttons are wider, ButtonBarBuilder2 will make only these buttons
@@ -89,28 +88,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * return builder.getPanel();
  * </pre>
  *
- *
  * Buttons are added to a builder individually or as a sequence.
- *
- *
- * This class is used by the {@link ButtonBarFactory} that provides
- * an even higher level of abstraction for building consistent button bars.<p>
- *
- * Buttons added to the builder are either gridded or fixed and may fill
- * their FormLayout cell or not. All gridded buttons get the same width,
- * while fixed buttons use their own size. Gridded buttons honor
- * the default minimum button width as specified by the current
- * {@link com.jgoodies.forms.util.LayoutStyle}.<p>
- *
- * You can set an optional hint for narrow margin for the fixed width buttons.
- * This is useful if you want to lay out a button bar that includes a button
- * with a long text. For example, in a bar with
- * 'Copy to Clipboard', 'OK', 'Cancel' you may declare the clipboard button
- * as a fixed size button with narrow margins, OK and Cancel as gridded.
- * Gridded buttons are marked as narrow by default.
- * Note that some look&amp;feels do not support the narrow margin feature,
- * and conversely, others have only narrow margins. The JGoodies look&amp;feels
- * honor the setting, the Mac Aqua l&amp;f uses narrow margins all the time.<p>
  *
  * To honor the platform's button order (left-to-right vs. right-to-left)
  * this builder uses the <em>leftToRightButtonOrder</em> property.
@@ -119,7 +97,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * on the Mac OS X. Builder methods that create sequences of buttons
  * (e.g. {@link #addButton(JComponent[])} honor the button order.
  * If you want to ignore the default button order, you can either
- * add individual buttons, or create a ButtonBarBuilder instance
+ * add individual buttons, or create a ButtonBarBuilder2 instance
  * with the order set to left-to-right. For the latter see
  * {@link #createLeftToRightBuilder()}. Also see the button order
  * example below.<p>
@@ -130,11 +108,11 @@ import com.jgoodies.forms.util.LayoutStyle;
  * <pre>
  * private JPanel createHelpOKCancelApplyBar(
  *         JButton help, JButton ok, JButton cancel, JButton apply) {
- *     ButtonBarBuilder builder = new ButtonBarBuilder();
- *     builder.addGridded(help);
- *     builder.addRelatedGap();
+ *     ButtonBarBuilder2 builder = new ButtonBarBuilder2();
+ *     builder.addButton(help);
+ *     builder.addUnrelatedGap();
  *     builder.addGlue();
- *     builder.addGriddedButtons(new JButton[]{ok, cancel, apply});
+ *     builder.addButton(new JButton[]{ok, cancel, apply});
  *     return builder.getPanel();
  * }
  * </pre><p>
@@ -148,15 +126,15 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     DefaultFormBuilder rowBuilder = new DefaultFormBuilder(layout);
  *     rowBuilder.setDefaultDialogBorder();
  *
- *     rowBuilder.append(buildButtonSequence(new ButtonBarBuilder()));
- *     rowBuilder.append(buildButtonSequence(ButtonBarBuilder.createLeftToRightBuilder()));
- *     rowBuilder.append(buildIndividualButtons(new ButtonBarBuilder()));
+ *     rowBuilder.append(buildButtonSequence(new ButtonBarBuilder2()));
+ *     rowBuilder.append(buildButtonSequence(ButtonBarBuilder2.createLeftToRightBuilder()));
+ *     rowBuilder.append(buildIndividualButtons(new ButtonBarBuilder2()));
  *
  *     return rowBuilder.getPanel();
  * }
  *
- * private Component buildButtonSequence(ButtonBarBuilder builder) {
- *     builder.addGriddedButtons(new JButton[] {
+ * private Component buildButtonSequence(ButtonBarBuilder2 builder) {
+ *     builder.addButton(new JButton[] {
  *             new JButton("One"),
  *             new JButton("Two"),
  *             new JButton("Three")
@@ -164,18 +142,18 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     return builder.getPanel();
  * }
  *
- * private Component buildIndividualButtons(ButtonBarBuilder builder) {
- *     builder.addGridded(new JButton("One"));
+ * private Component buildIndividualButtons(ButtonBarBuilder2 builder) {
+ *     builder.addButton(new JButton("One"));
  *     builder.addRelatedGap();
- *     builder.addGridded(new JButton("Two"));
+ *     builder.addButton(new JButton("Two"));
  *     builder.addRelatedGap();
- *     builder.addGridded(new JButton("Three"));
+ *     builder.addButton(new JButton("Three"));
  *     return builder.getPanel();
  * }
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
