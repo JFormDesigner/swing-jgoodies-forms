@@ -1,15 +1,15 @@
 
 
                            JGoodies Forms
-                           Version 1.2 RC
+                            Version 1.2.0
                             Release Notes
                         
 
 INTRODUCTION
 
-    This is the release candidate for the JGoodies Forms 1.2.0.
+    This update fixes bugs and brings several major improvements.
     It is binary incompatible with previous versions of the Forms;
-    however the API changes won't affect typical application code.
+    however the API changes don't affect typical application code.
     
     Version 1.2 is visually compatible with previous versions.
     Layouts specified with 1.0.7 or 1.1 are the same in 1.2. 

@@ -4,8 +4,6 @@ JGoodies Forms(tm) To-Do
 
 o Sanity check: no negative sizes, e.g. no "-7dlu".
 
-o Check API in ButtonBarBuilder2
-  
 o Add tests for the existing syntax parser checks
 
 o Add tests for the new multiplier feature
@@ -13,7 +11,7 @@ o Add tests for the new multiplier feature
 o Forms 2.0:
   - make DLU a unit 
   - change ButtonBarBuilder opaque default to false
-  - repace DLUX and DLUY by DLU and change the Sizes API
+  - replace DLUX and DLUY by DLU and change the Sizes API
     to hand over the orientation
 
 o Add a reference to the explicit-tablelayout project;
