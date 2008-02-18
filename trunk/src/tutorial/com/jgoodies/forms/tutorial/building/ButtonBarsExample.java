@@ -44,7 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  *
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -132,8 +132,8 @@ public final class ButtonBarsExample {
     private Component buildButtonMixedBar1Panel() {
         ButtonBarBuilder builder = new ButtonBarBuilder();
         builder.addGridded(new JButton("Help"));
-        builder.addGlue();
         builder.addUnrelatedGap();
+        builder.addGlue();
         builder.addFixed(new JButton("Copy to Clipboard"));
         builder.addUnrelatedGap();
         builder.addGriddedButtons(new JButton[] {
@@ -147,8 +147,8 @@ public final class ButtonBarsExample {
     private Component buildButtonMixedBar2Panel() {
         ButtonBarBuilder builder = new ButtonBarBuilder();
         builder.addGridded(new JButton("Help"));
-        builder.addGlue();
         builder.addUnrelatedGap();
+        builder.addGlue();
         builder.addFixedNarrow(new JButton("Copy to Clipboard"));
         builder.addUnrelatedGap();
         builder.addGriddedButtons(new JButton[] {
