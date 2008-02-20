@@ -162,7 +162,7 @@ LayoutMap.getRoot().columnPut("label", "right:[" + width + ", pref]");
 	<p>
 	If you re-define a variable value in the root LayoutMap,
 	the change will affect all layouts that use the default LayoutMap.
-	For example: <tt>LayoutMap.getRoot("lcgap", "1dlu");</tt>.
+	For example: <tt>LayoutMap.getRoot().columnPut("lcgap", "1dlu");</tt>.
 	
 	<p>
 	As an alternative you can create a child LayoutMap and use this
