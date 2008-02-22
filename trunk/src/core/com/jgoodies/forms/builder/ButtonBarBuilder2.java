@@ -153,13 +153,13 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
  * @see com.jgoodies.forms.util.LayoutStyle
  */
-public final class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
+public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
 
     /**
      * Specifies the columns of the initial FormLayout used in constructors.
