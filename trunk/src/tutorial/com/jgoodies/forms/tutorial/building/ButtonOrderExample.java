@@ -32,39 +32,43 @@ package com.jgoodies.forms.tutorial.building;
 
 import java.awt.Component;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import com.jgoodies.forms.builder.ButtonBarBuilder;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates how to build button bars with a fixed button order
  * or with a button order that honors the platform's style.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
  */
-public final class ButtonOrderExample {
+public final class ButtonOrderExample extends TutorialApplication {
+
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Button Order");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new ButtonOrderExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(ButtonOrderExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Button Order");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     /**
      * Builds and returns a panel that consists of three paragraphs
@@ -80,16 +84,16 @@ public final class ButtonOrderExample {
         rowBuilder.setDefaultDialogBorder();
 
         rowBuilder.appendSeparator("Left to Right");
-        rowBuilder.append("Ordered", buildButtonSequence(ButtonBarBuilder.createLeftToRightBuilder()));
-        rowBuilder.append("Fixed",   buildIndividualButtons(ButtonBarBuilder.createLeftToRightBuilder()));
+        rowBuilder.append("Ordered:", buildButtonSequence(ButtonBarBuilder.createLeftToRightBuilder()));
+        rowBuilder.append("Fixed:",   buildIndividualButtons(ButtonBarBuilder.createLeftToRightBuilder()));
 
         rowBuilder.appendSeparator("Right to Left");
-        rowBuilder.append("Ordered", buildButtonSequence(createRightToLeftBuilder()));
-        rowBuilder.append("Fixed",   buildIndividualButtons(createRightToLeftBuilder()));
+        rowBuilder.append("Ordered:", buildButtonSequence(createRightToLeftBuilder()));
+        rowBuilder.append("Fixed:",   buildIndividualButtons(createRightToLeftBuilder()));
 
         rowBuilder.appendSeparator("Platform Default Order");
-        rowBuilder.append("Ordered", buildButtonSequence(new ButtonBarBuilder()));
-        rowBuilder.append("Fixed",   buildIndividualButtons(new ButtonBarBuilder()));
+        rowBuilder.append("Ordered:", buildButtonSequence(new ButtonBarBuilder()));
+        rowBuilder.append("Fixed:",   buildIndividualButtons(new ButtonBarBuilder()));
 
         return rowBuilder.getPanel();
     }

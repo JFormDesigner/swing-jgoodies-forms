@@ -30,36 +30,40 @@
 
 package com.jgoodies.forms.tutorial.basics;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
-public final class BoundedSizesExample {
+public final class BoundedSizesExample extends TutorialApplication {
 
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Bounded Sizes");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new BoundedSizesExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(BoundedSizesExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Bounded Sizes");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -75,28 +79,28 @@ public final class BoundedSizesExample {
 
     private JComponent buildJumping1Panel() {
         FormLayout layout = new FormLayout(
-                "right:pref, 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "pref, 3dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorGeneralPanel(layout);
     }
 
     private JComponent buildJumping2Panel() {
         FormLayout layout = new FormLayout(
-                "right:pref, 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "pref, 3dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorTransportPanel(layout);
     }
 
     private JComponent buildStable1Panel() {
         FormLayout layout = new FormLayout(
-                "right:[50dlu,pref], 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "[50dlu,pref], 3dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorGeneralPanel(layout);
     }
 
     private JComponent buildStable2Panel() {
         FormLayout layout = new FormLayout(
-                "right:[50dlu,pref], 4dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
+                "[50dlu,pref], 3dlu, [35dlu,min], 2dlu, min, 2dlu, min, 2dlu, min, ",
                 EDITOR_ROW_SPEC);
         return buildEditorTransportPanel(layout);
     }
@@ -106,10 +110,10 @@ public final class BoundedSizesExample {
 
 
     /**
-     * Builds and answer the editor's general tab for the given layout.
+     * Builds and returns the editor's general tab for the given layout.
      *
      * @param layout   the layout to be used
-     * @return the editor's general panel
+     * @return the editor's general tab
      */
     private JComponent buildEditorGeneralPanel(FormLayout layout) {
         layout.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });

@@ -38,6 +38,7 @@ import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates a <em>pure</em> use of the FormLayout.
@@ -51,15 +52,14 @@ import com.jgoodies.forms.layout.FormLayout;
  * to create text labels and separators.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     PanelBuilderExample
  * @see	RowCounterExample
  * @see	DynamicRowsExample
  * @see	DefaultFormBuilderExample
  */
-
-public final class PlainExample {
+public final class PlainExample extends TutorialApplication {
 
     private JTextField companyNameField;
     private JTextField contactPersonField;
@@ -73,26 +73,24 @@ public final class PlainExample {
     private JComboBox  projectTypeComboBox;
 
 
+    // Launching **************************************************************
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Plain Building");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new PlainExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(PlainExample.class, args);
+    }
+
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Plain Building");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
     }
 
 
     // Component Creation and Initialization **********************************
 
     /**
-     *  Creates and intializes the UI components.
+     *  Creates and initializes the UI components.
      */
     private void initComponents() {
         companyNameField       = new JTextField();
@@ -107,6 +105,7 @@ public final class PlainExample {
         projectTypeComboBox    = createProjectTypeComboBox();
     }
 
+
     /**
      * Creates and returns a combo box for the approval states.
      *
@@ -116,6 +115,7 @@ public final class PlainExample {
         return new JComboBox(
             new String[] { "In Progress", "Finished", "Released" });
     }
+
 
     /**
      * Creates and returns a combo box for the project types.
@@ -150,34 +150,35 @@ public final class PlainExample {
 
         // Fill the table with labels and components.
         CellConstraints cc = new CellConstraints();
-        panel.add(createSeparator("Manufacturer"),  cc.xyw(1,  1, 7));
-        panel.add(new JLabel("Company"),            cc.xy (1,  3));
-        panel.add(companyNameField,                 cc.xyw(3,  3, 5));
-        panel.add(new JLabel("Contact"),            cc.xy (1,  5));
-        panel.add(contactPersonField,               cc.xyw(3,  5, 5));
-        panel.add(new JLabel("Order No"),           cc.xy (1, 7));
-        panel.add(orderNoField,                     cc.xy (3, 7));
+        panel.add(createSeparator("Manufacturer"),   cc.xyw(1,  1, 7));
+        panel.add(new JLabel("Company:"),            cc.xy (1,  3));
+        panel.add(companyNameField,                  cc.xyw(3,  3, 5));
+        panel.add(new JLabel("Contact:"),            cc.xy (1,  5));
+        panel.add(contactPersonField,                cc.xyw(3,  5, 5));
+        panel.add(new JLabel("Order No:"),           cc.xy (1, 7));
+        panel.add(orderNoField,                      cc.xy (3, 7));
 
-        panel.add(createSeparator("Inspector"),     cc.xyw(1, 9, 7));
-        panel.add(new JLabel("Name"),               cc.xy (1, 11));
-        panel.add(inspectorField,                   cc.xyw(3, 11, 5));
-        panel.add(new JLabel("Reference No"),       cc.xy (1, 13));
-        panel.add(referenceNoField,                 cc.xy (3, 13));
-        panel.add(new JLabel("Status"),             cc.xy (1, 15));
-        panel.add(approvalStatusComboBox,           cc.xy (3, 15));
+        panel.add(createSeparator("Inspector"),      cc.xyw(1, 9, 7));
+        panel.add(new JLabel("Name:"),               cc.xy (1, 11));
+        panel.add(inspectorField,                    cc.xyw(3, 11, 5));
+        panel.add(new JLabel("Reference No:"),       cc.xy (1, 13));
+        panel.add(referenceNoField,                  cc.xy (3, 13));
+        panel.add(new JLabel("Status:"),             cc.xy (1, 15));
+        panel.add(approvalStatusComboBox,            cc.xy (3, 15));
 
-        panel.add(createSeparator("Ship"),          cc.xyw(1, 17, 7));
-        panel.add(new JLabel("Shipyard"),           cc.xy (1, 19));
-        panel.add(shipYardField,                    cc.xyw(3, 19, 5));
-        panel.add(new JLabel("Register No"),        cc.xy (1, 21));
-        panel.add(registerNoField,                  cc.xy (3, 21));
-        panel.add(new JLabel("Hull No"),            cc.xy (5, 21));
-        panel.add(hullNumbersField,                 cc.xy (7, 21));
-        panel.add(new JLabel("Project Type"),       cc.xy (1, 23));
-        panel.add(projectTypeComboBox,              cc.xy (3, 23));
+        panel.add(createSeparator("Ship"),           cc.xyw(1, 17, 7));
+        panel.add(new JLabel("Shipyard:"),           cc.xy (1, 19));
+        panel.add(shipYardField,                     cc.xyw(3, 19, 5));
+        panel.add(new JLabel("Register No:"),        cc.xy (1, 21));
+        panel.add(registerNoField,                   cc.xy (3, 21));
+        panel.add(new JLabel("Hull No:"),            cc.xy (5, 21));
+        panel.add(hullNumbersField,                  cc.xy (7, 21));
+        panel.add(new JLabel("Project type:"),       cc.xy (1, 23));
+        panel.add(projectTypeComboBox,               cc.xy (3, 23));
 
         return panel;
     }
+
 
     /**
      * Creates and returns a separator with a label in the left hand side.<p>

@@ -39,33 +39,35 @@ import com.jgoodies.forms.builder.ButtonBarBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.25 $
+ * @version $Revision: 1.26 $
  *
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
  */
-public final class ButtonBarsExample {
+public final class ButtonBarsExample extends TutorialApplication {
+
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Button Bars");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new ButtonBarsExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(ButtonBarsExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Button Bars");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();

@@ -37,6 +37,7 @@ import javax.swing.*;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates the FormLayout with a PanelBuilder.
@@ -50,14 +51,13 @@ import com.jgoodies.forms.layout.FormLayout;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see	PlainExample
  * @see	DynamicRowsExample
  * @see	DefaultFormBuilderExample
  */
-
-public final class RowCounterExample {
+public final class RowCounterExample extends TutorialApplication {
 
     private JTextField identifierField;
     private JTextField powerField;
@@ -68,26 +68,24 @@ public final class RowCounterExample {
     private JTextArea  inspectionCommentArea;
 
 
+    // Launching **************************************************************
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Row Counter");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new RowCounterExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(RowCounterExample.class, args);
+    }
+
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Row Counter");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
     }
 
 
     // Component Creation and Initialization **********************************
 
     /**
-     *  Creates and intializes the UI components.
+     *  Creates and initializes the UI components.
      */
     private void initComponents() {
         identifierField         = new JTextField();
@@ -99,6 +97,7 @@ public final class RowCounterExample {
         inspectionCommentArea   = new JTextArea();
     }
 
+
     /**
      * Builds and returns a combo box for materials.
      *
@@ -108,6 +107,8 @@ public final class RowCounterExample {
         return new JComboBox(new String[] {"C45E, ReH=600",
                                             "Bolt Material, ReH=800"});
     }
+
+
     /**
      * Builds and returns a combo box for ice classes.
      *
@@ -143,34 +144,34 @@ public final class RowCounterExample {
         CellConstraints cc = new CellConstraints();
         int row = 1;
 
-        builder.addSeparator("Shaft",     cc.xyw (1, row++, 7));
+        builder.addSeparator("Shaft",      cc.xyw (1, row++, 7));
         row++;
 
-        builder.addLabel("Identifier",    cc.xy  (1, row));
-        builder.add(identifierField,      cc.xy  (3, row++));
+        builder.addLabel("Identifier:",    cc.xy  (1, row));
+        builder.add(identifierField,       cc.xy  (3, row++));
         row++;
 
-        builder.addLabel("Power",         cc.xy  (1, row));
-        builder.add(powerField,           cc.xy  (3, row));
-        builder.addLabel("Speed",         cc.xy  (5, row));
-        builder.add(speedField,           cc.xy  (7, row++));
+        builder.addLabel("Power:",         cc.xy  (1, row));
+        builder.add(powerField,            cc.xy  (3, row));
+        builder.addLabel("Speed:",         cc.xy  (5, row));
+        builder.add(speedField,            cc.xy  (7, row++));
         row++;
 
-        builder.addLabel("Material",      cc.xy  (1, row));
-        builder.add(materialComboBox,     cc.xy  (3, row));
-        builder.addLabel("Ice Class",     cc.xy  (5, row));
-        builder.add(iceClassComboBox,     cc.xy  (7, row++));
+        builder.addLabel("Material:",      cc.xy  (1, row));
+        builder.add(materialComboBox,      cc.xy  (3, row));
+        builder.addLabel("Ice class:",     cc.xy  (5, row));
+        builder.add(iceClassComboBox,      cc.xy  (7, row++));
         row++;
 
-        builder.addSeparator("Comments",  cc.xyw (1, row++, 7));
+        builder.addSeparator("Comments",   cc.xyw (1, row++, 7));
         row++;
 
-        builder.addLabel("Machinery",     cc.xy  (1, row));
-        builder.add(machineryPane,        cc.xywh(3, row++, 5, 3, "f, f"));
+        builder.addLabel("Machinery:",     cc.xy  (1, row));
+        builder.add(machineryPane,         cc.xywh(3, row++, 5, 3, "f, f"));
         row += 3;
 
-        builder.addLabel("Inspection",    cc.xy  (1, row));
-        builder.add(inspectionPane,       cc.xywh(3, row++, 5, 3, "f, f"));
+        builder.addLabel("Inspection:",    cc.xy  (1, row));
+        builder.add(inspectionPane,        cc.xywh(3, row++, 5, 3, "f, f"));
 
         return builder.getPanel();
     }

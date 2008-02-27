@@ -44,31 +44,33 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates how a JTextArea's preferred size grows with the container
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
-public final class GrowingTextAreaExample {
+public final class GrowingTextAreaExample extends TutorialApplication {
+
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Growing Text Area");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new GrowingTextAreaExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(GrowingTextAreaExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Growing Text Area");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -175,6 +177,7 @@ public final class GrowingTextAreaExample {
         }
         return area;
     }
+
 
     private JComponent buildTab(String title, String columnSpec, JTextArea area) {
         JLabel columnSpecLabel = new JLabel(columnSpec);

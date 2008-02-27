@@ -36,6 +36,7 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates the different sizing units provided by the FormLayout:
@@ -43,26 +44,26 @@ import com.jgoodies.forms.layout.FormLayout;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
-public final class UnitsExample {
+public final class UnitsExample extends TutorialApplication {
 
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Units");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new UnitsExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(UnitsExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Units");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();

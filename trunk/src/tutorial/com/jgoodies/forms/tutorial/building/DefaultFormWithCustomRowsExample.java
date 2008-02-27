@@ -35,6 +35,7 @@ import javax.swing.*;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Shows three approaches how to add custom rows to a form that is built
@@ -47,13 +48,12 @@ import com.jgoodies.forms.layout.FormLayout;
  * of font baselines and the height of the custom row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see    DefaultFormBuilder
  * @see    DefaultFormWithCustomAreasExample
  */
-
-public final class DefaultFormWithCustomRowsExample {
+public final class DefaultFormWithCustomRowsExample extends TutorialApplication {
 
     private JTextField name1Field;
     private JTextArea  comment1Area;
@@ -63,26 +63,24 @@ public final class DefaultFormWithCustomRowsExample {
     private JTextArea  comment3Area;
 
 
+    // Launching **************************************************************
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Custom Rows");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new DefaultFormWithCustomRowsExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(DefaultFormWithCustomRowsExample.class, args);
+    }
+
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Custom Rows");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
     }
 
 
     // Component Creation and Initialization **********************************
 
     /**
-     *  Creates and intializes the UI components.
+     *  Creates and initializes the UI components.
      */
     private void initComponents() {
         name1Field     = new JTextField("Name - font baselines shall be aligned");
@@ -122,11 +120,11 @@ public final class DefaultFormWithCustomRowsExample {
         // The disadvantage is the misalignment of the leading label.
         // Also the row's height may be inconsistent with other rows.
         builder.appendSeparator("Single Custom Row");
-        builder.append("Name", name1Field);
+        builder.append("Name:", name1Field);
         builder.appendRow(builder.getLineGapSpec());
         builder.appendRow("top:31dlu"); // Assumes line is 14, gap is 3
         builder.nextLine(2);
-        builder.append("Comment");
+        builder.append("Comment:");
         builder.add(new JScrollPane(comment1Area),
                     cc.xy(builder.getColumn(), builder.getRow(), "fill, fill"));
         builder.nextLine();
@@ -137,8 +135,8 @@ public final class DefaultFormWithCustomRowsExample {
         // multiple cells and is slightly less flexible.
         // Also the row's height may be inconsistent with other rows.
         builder.appendSeparator("Standard + Custom Row");
-        builder.append("Name", name2Field);
-        builder.append("Comment");
+        builder.append("Name:", name2Field);
+        builder.append("Comment:");
         builder.appendRow("17dlu"); // Assumes line is 14, gap is 3
         builder.add(new JScrollPane(comment2Area),
                     cc.xywh(builder.getColumn(), builder.getRow(), 1, 2));
@@ -150,8 +148,8 @@ public final class DefaultFormWithCustomRowsExample {
         // The disadvantage is that the comment area now spans
         // multiple cells and is slightly less flexible.
         builder.appendSeparator("Two Standard Rows");
-        builder.append("Name", name3Field);
-        builder.append("Comment");
+        builder.append("Name:", name3Field);
+        builder.append("Comment:");
         builder.nextLine();
         builder.append("");
         builder.nextRow(-2);

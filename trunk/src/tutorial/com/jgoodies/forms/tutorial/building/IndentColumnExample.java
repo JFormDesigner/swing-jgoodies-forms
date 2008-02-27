@@ -30,10 +30,13 @@
 
 package com.jgoodies.forms.tutorial.building;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates how to efficiently build a panel with a leading
@@ -45,12 +48,11 @@ import com.jgoodies.forms.layout.FormLayout;
  * a lean example over a fully functional.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     DefaultFormBuilder
  */
-
-public final class IndentColumnExample {
+public final class IndentColumnExample extends TutorialApplication {
 
     private JTextField fileNumberField;
     private JTextField rfqNumberField;
@@ -71,26 +73,24 @@ public final class IndentColumnExample {
     private JTextField deliveryDateField;
 
 
+    // Launching **************************************************************
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Indent Column");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new FormDebugExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(IndentColumnExample.class, args);
+    }
+
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Indent Column");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
     }
 
 
     // Component Creation and Initialization **********************************
 
     /**
-     *  Creates and intializes the UI components.
+     *  Creates and initializes the UI components.
      */
     private void initComponents() {
         fileNumberField       = new JTextField();
@@ -115,6 +115,7 @@ public final class IndentColumnExample {
         deliveryDateField     = new JTextField();
     }
 
+
     // Building *************************************************************
 
     /**
@@ -135,19 +136,19 @@ public final class IndentColumnExample {
         builder.setLeadingColumnOffset(1);
 
         builder.appendSeparator("General");
-        builder.append("File Number",    fileNumberField, 7);
-        builder.append("RFQ Number",     rfqNumberField,  7);
-        builder.append("BL/MBL",         blNumberField, mblNumberField); builder.nextLine();
+        builder.append("File Number:",    fileNumberField, 7);
+        builder.append("RFQ Number:",     rfqNumberField,  7);
+        builder.append("BL/MBL:",         blNumberField, mblNumberField); builder.nextLine();
 
         builder.appendSeparator("Addresses");
-        builder.append("Customer",       customerKeyField,  customerAddressField,  5);
-        builder.append("Shipper",        shipperKeyField,   shipperAddressField,   5);
-        builder.append("Consignee",      consigneeKeyField, consigneeAddressField, 5);
+        builder.append("Customer:",       customerKeyField,  customerAddressField,  5);
+        builder.append("Shipper:",        shipperKeyField,   shipperAddressField,   5);
+        builder.append("Consignee:",      consigneeKeyField, consigneeAddressField, 5);
 
         builder.appendSeparator("Transport");
-        builder.append("Departure",      departureCodeField,   departurePortField,   5);
-        builder.append("Destination",    destinationCodeField, destinationPortField, 5);
-        builder.append("Delivery Date",  deliveryDateField); builder.nextLine();
+        builder.append("Departure:",      departureCodeField,   departurePortField,   5);
+        builder.append("Destination:",    destinationCodeField, destinationPortField, 5);
+        builder.append("Delivery date:",  deliveryDateField); builder.nextLine();
 
         return builder.getPanel();
     }

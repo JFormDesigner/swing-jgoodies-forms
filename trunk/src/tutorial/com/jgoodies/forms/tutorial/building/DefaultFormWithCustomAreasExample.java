@@ -35,6 +35,7 @@ import javax.swing.*;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Compares approaches how to append a custom area at the end of
@@ -48,31 +49,26 @@ import com.jgoodies.forms.layout.FormLayout;
  * and the text area.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
  */
+public final class DefaultFormWithCustomAreasExample extends TutorialApplication {
 
-public final class DefaultFormWithCustomAreasExample {
 
-
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Custom Areas");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new DefaultFormWithCustomAreasExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(DefaultFormWithCustomAreasExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Custom Areas");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
 
 
     // Building ***************************************************************
@@ -96,10 +92,10 @@ public final class DefaultFormWithCustomAreasExample {
         builder.setRowGroupingEnabled(true);
 
         builder.appendSeparator("Customer Data");
-        builder.append("Last Name",  new JTextField());
-        builder.append("First Name", new JTextField());
-        builder.append("Street",     new JTextField());
-        builder.append("Email",      new JTextField());
+        builder.append("Last Name:",  new JTextField());
+        builder.append("First Name:", new JTextField());
+        builder.append("Street:",     new JTextField());
+        builder.append("Email:",      new JTextField());
 
         return builder;
     }
@@ -119,7 +115,7 @@ public final class DefaultFormWithCustomAreasExample {
         DefaultFormBuilder builder = buildPanelHeader();
 
         CellConstraints cc = new CellConstraints();
-        builder.append("Feedback");
+        builder.append("Feedback:");
         builder.appendRow("0:grow");
         builder.add(new JScrollPane(new JTextArea("Feedback - font baselines shall be aligned")),
                     cc.xywh(builder.getColumn(), builder.getRow(), 1, 2, "fill, fill"));
@@ -141,7 +137,7 @@ public final class DefaultFormWithCustomAreasExample {
         builder.appendRow(builder.getLineGapSpec());
         builder.appendRow("top:28dlu:grow");
         builder.nextLine(2);
-        builder.append("Feedback");
+        builder.append("Feedback:");
         builder.add(new JScrollPane(new JTextArea("Feedback - likely the baselines are not aligned")),
                     cc.xy(builder.getColumn(), builder.getRow(), "fill, fill"));
 
