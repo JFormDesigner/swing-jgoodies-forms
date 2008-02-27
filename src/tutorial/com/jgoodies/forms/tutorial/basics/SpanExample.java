@@ -37,30 +37,32 @@ import javax.swing.*;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates how components can span multiple columns and rows.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
-public final class SpanExample {
+public final class SpanExample extends TutorialApplication {
+
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Span");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new SpanExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(SpanExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Span");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     /**
      * Builds and returns a tabbed pane with tabs for the column span example
@@ -92,18 +94,18 @@ public final class SpanExample {
         panel.setBorder(Borders.DIALOG_BORDER);
         CellConstraints cc = new CellConstraints();
 
-        panel.add(new JLabel("Name:"),     cc.xy (1, 1));
-        panel.add(new JTextField(),        cc.xyw(3, 1, 3));
+        panel.add(new JLabel("Name:"),      cc.xy (1, 1));
+        panel.add(new JTextField(),         cc.xyw(3, 1, 3));
 
-        panel.add(new JLabel("Phone:"),    cc.xy (1, 3));
-        panel.add(new JTextField(),        cc.xyw(3, 3, 3));
+        panel.add(new JLabel("Phone:"),     cc.xy (1, 3));
+        panel.add(new JTextField(),         cc.xyw(3, 3, 3));
 
-        panel.add(new JLabel("ZIP/City:"), cc.xy (1, 5));
-        panel.add(new JTextField(),        cc.xy (3, 5));
-        panel.add(new JTextField(),        cc.xy (5, 5));
+        panel.add(new JLabel("ZIP, City:"), cc.xy (1, 5));
+        panel.add(new JTextField(),         cc.xy (3, 5));
+        panel.add(new JTextField(),         cc.xy (5, 5));
 
-        panel.add(new JLabel("Country:"),  cc.xy (1, 7));
-        panel.add(new JTextField(),        cc.xyw(3, 7, 3));
+        panel.add(new JLabel("Country:"),   cc.xy (1, 7));
+        panel.add(new JTextField(),         cc.xyw(3, 7, 3));
 
         return panel;
     }
@@ -133,16 +135,16 @@ public final class SpanExample {
 
         Component addressArea = new JScrollPane(new JTextArea());
 
-        panel.add(new JLabel("Name"),     cc.xy  (1,  1));
+        panel.add(new JLabel("Name:"),    cc.xy  (1,  1));
         panel.add(new JTextField(),       cc.xy  (1,  3));
 
-        panel.add(new JLabel("Phone"),    cc.xy  (1,  5));
+        panel.add(new JLabel("Phone:"),   cc.xy  (1,  5));
         panel.add(new JTextField(),       cc.xy  (1,  7));
 
-        panel.add(new JLabel("Fax"),      cc.xy  (1,  9));
+        panel.add(new JLabel("Fax:"),     cc.xy  (1,  9));
         panel.add(new JTextField(),       cc.xy  (1, 11));
 
-        panel.add(new JLabel("Notes"),    cc.xy  (3, 1));
+        panel.add(new JLabel("Notes:"),   cc.xy  (3, 1));
         panel.add(addressArea,            cc.xywh(3, 3, 1, 9));
 
         return panel;

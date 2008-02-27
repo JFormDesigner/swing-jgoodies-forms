@@ -30,13 +30,17 @@
 
 package com.jgoodies.forms.tutorial.pitfalls;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.debug.FormDebugUtils;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates a frequent pitfall when specifying a growing row.
@@ -45,30 +49,28 @@ import com.jgoodies.forms.layout.FormLayout;
  * the available vertical space.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
-public final class VerticalGrowthExample {
+public final class VerticalGrowthExample extends TutorialApplication {
 
     // UI Components **********************************************************
 
     private JTextComponent notesArea;
 
 
-    // Self Launch ************************************************************
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Vertical Growth");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        JComponent panel = new VerticalGrowthExample().buildPanel();
-        frame.getContentPane().add(panel);
+        TutorialApplication.launch(VerticalGrowthExample.class, args);
+    }
+
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Vertical Growth");
+        frame.getContentPane().add(buildPanel());
         frame.setSize(500, 400);
+        locateOnOpticalScreenCenter(frame);
         frame.setVisible(true);
     }
 

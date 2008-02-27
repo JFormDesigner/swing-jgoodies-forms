@@ -30,10 +30,14 @@
 
 package com.jgoodies.forms.tutorial.building;
 
-import javax.swing.*;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Uses the FormLayout and the <code>DefaultFormBuilder</code>.
@@ -48,7 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * rows before the panel is filled with components.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see     DefaultFormBuilder
  * @see     PlainExample
@@ -56,7 +60,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @see     DynamicRowsExample
  */
 
-public final class DefaultFormBuilderExample {
+public final class DefaultFormBuilderExample extends TutorialApplication {
 
     private JTextField identifierField;
     private JTextField ptiField;
@@ -72,26 +76,24 @@ public final class DefaultFormBuilderExample {
     private JTextField kFactorField;
 
 
+    // Launching **************************************************************
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Default Form");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new DefaultFormBuilderExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(DefaultFormBuilderExample.class, args);
+    }
+
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Default Form");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
     }
 
 
     // Component Creation and Initialization **********************************
 
     /**
-     *  Creates and intializes the UI components.
+     *  Creates and initializes the UI components.
      */
     private void initComponents() {
         identifierField = new JTextField();
@@ -107,6 +109,7 @@ public final class DefaultFormBuilderExample {
         locationCombo   = createLocationComboBox();
         kFactorField    = new JTextField();
     }
+
 
     /**
      * Creates and returns a combo box for the locations.
@@ -147,32 +150,32 @@ public final class DefaultFormBuilderExample {
 
         builder.appendSeparator("Flange");
 
-        builder.append("&Identifier", identifierField);
+        builder.append("&Identifier:", identifierField);
         builder.nextLine();
 
-        builder.append("PTI/kW",   ptiField);
-        builder.append("Power/kW", powerField);
+        builder.append("PTI/kW:",   ptiField);
+        builder.append("Power/kW:", powerField);
 
-        builder.append("s/mm",     sField);
+        builder.append("s/mm:",     sField);
         builder.nextLine();
 
 
         builder.appendSeparator("Diameters");
 
-        builder.append("&da/mm",   daField);
-        builder.append("di/mm",    diField);
+        builder.append("&da/mm:",   daField);
+        builder.append("di/mm:",    diField);
 
-        builder.append("da2/mm",   da2Field);
-        builder.append("di2/mm",   di2Field);
+        builder.append("da2/mm:",   da2Field);
+        builder.append("di2/mm:",   di2Field);
 
-        builder.append("R/mm",     rField);
-        builder.append("D/mm",     dField);
+        builder.append("R/mm:",     rField);
+        builder.append("D/mm:",     dField);
 
 
         builder.appendSeparator("Criteria");
 
-        builder.append("&Location",  locationCombo);
-        builder.append("k-factor",   kFactorField);
+        builder.append("&Location:",  locationCombo);
+        builder.append("k-factor:",   kFactorField);
 
         return builder.getPanel();
     }

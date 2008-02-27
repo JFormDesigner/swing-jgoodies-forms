@@ -39,6 +39,7 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates the three FormLayout component sizes: minimum, default and
@@ -47,26 +48,26 @@ import com.jgoodies.forms.layout.FormLayout;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
-public final class ComponentSizesExample {
+public final class ComponentSizesExample extends TutorialApplication {
 
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Component Sizes");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new ComponentSizesExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(ComponentSizesExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Component Sizes");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     public JComponent buildPanel() {
         JSplitPane splitPane = new JSplitPane(
@@ -79,7 +80,7 @@ public final class ComponentSizesExample {
 
 
     /**
-     * Builds and answer the panel that combines the three sizing panels.
+     * Builds and returns the panel that combines the three sizing panels.
      *
      * @return the combined panel
      */
@@ -103,7 +104,7 @@ public final class ComponentSizesExample {
 
     private JComponent buildMinimumSizePanel() {
         FormLayout layout = new FormLayout(
-                "right:[25dlu,pref], 3dlu, min",
+                "[25dlu,pref], 3dlu, min",
                 "pref");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.append("Min", new JTextField(15));
@@ -112,7 +113,7 @@ public final class ComponentSizesExample {
 
     private JComponent buildDefaultSizePanel() {
         FormLayout layout = new FormLayout(
-                "right:[25dlu,pref], 3dlu, default",
+                "[25dlu,pref], 3dlu, default",
                 "pref");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.append("Default", new JTextField(15));
@@ -121,7 +122,7 @@ public final class ComponentSizesExample {
 
     private JComponent buildPreferredSizePanel() {
         FormLayout layout = new FormLayout(
-                "right:[25dlu,pref], 3dlu, pref",
+                "[25dlu,pref], 3dlu, pref",
                 "pref");
         DefaultFormBuilder builder = new DefaultFormBuilder(layout);
         builder.append("Pref", new JTextField(15));

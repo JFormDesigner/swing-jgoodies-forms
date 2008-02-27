@@ -30,24 +30,27 @@
 
 package com.jgoodies.forms.tutorial;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Quickly introduces the most important features of the FormLayout:
  * create and configure a layout, create a builder, add components.<p>
  *
- * Note that this class is not a JPanel subclass;
- * it justs uses a JPanel as layout container that will be returned
- * by <code>#buildPanel()</code>.
+ * Note that this class is not a JPanel subclass; it just <em>uses</em>
+ * a JPanel as layout container that will be returned by
+ * <code>#buildPanel()</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
-public final class QuickStartExample {
+public final class QuickStartExample extends TutorialApplication {
 
     private JTextField companyField;
     private JTextField contactField;
@@ -57,19 +60,17 @@ public final class QuickStartExample {
     private JTextField diameterField;
 
 
+    // Launching **************************************************************
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Quick Start");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new QuickStartExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(QuickStartExample.class, args);
+    }
+
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Quick Start");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
     }
 
 

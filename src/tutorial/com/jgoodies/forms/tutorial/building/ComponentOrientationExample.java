@@ -33,7 +33,9 @@ package com.jgoodies.forms.tutorial.building;
 import java.awt.Component;
 import java.awt.Insets;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.builder.PanelBuilder;
@@ -42,6 +44,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
+import com.jgoodies.forms.tutorial.util.TutorialApplication;
 
 /**
  * Demonstrates how to build panels that honor or ignore the current
@@ -62,28 +65,29 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
  */
-public final class ComponentOrientationExample {
+public final class ComponentOrientationExample extends TutorialApplication {
+
+
+    // Launching **************************************************************
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        } catch (Exception e) {
-            // Likely PlasticXP is not in the class path; ignore.
-        }
-        JFrame frame = new JFrame();
-        frame.setTitle("Forms Tutorial :: Component Orientation");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JComponent panel = new ComponentOrientationExample().buildPanel();
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        TutorialApplication.launch(ComponentOrientationExample.class, args);
     }
 
+
+    protected void startup(String[] args) {
+        JFrame frame = createFrame("Forms Tutorial :: Component Orientation");
+        frame.getContentPane().add(buildPanel());
+        packAndShowOnScreenCenter(frame);
+    }
+
+
+    // Building ***************************************************************
 
     public JComponent buildPanel() {
         FormLayout layout = new FormLayout("pref:grow");
