@@ -1,4 +1,16 @@
 
+                           JGoodies Forms
+                            Version 1.2.1
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This maintenance release just contains improved tutorial sources.
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
 
                            JGoodies Forms
                             Version 1.2.0
