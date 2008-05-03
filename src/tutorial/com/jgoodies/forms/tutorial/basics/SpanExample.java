@@ -43,7 +43,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates how components can span multiple columns and rows.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 public final class SpanExample extends TutorialApplication {
 
@@ -70,7 +70,7 @@ public final class SpanExample extends TutorialApplication {
      *
      * @return a tabbed pane that shows horizontal and vertical spans
      */
-    public JComponent buildPanel() {
+    private JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

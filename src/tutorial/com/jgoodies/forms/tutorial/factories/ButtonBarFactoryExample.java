@@ -44,7 +44,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see	ButtonBarFactory
  */
@@ -67,7 +67,7 @@ public final class ButtonBarFactoryExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    public JComponent buildPanel() {
+    private JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

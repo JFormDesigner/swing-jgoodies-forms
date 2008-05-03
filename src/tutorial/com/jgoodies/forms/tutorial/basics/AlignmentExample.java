@@ -41,7 +41,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates the different FormLayout alignments.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class AlignmentExample extends TutorialApplication {
 
@@ -62,7 +62,7 @@ public final class AlignmentExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    public JComponent buildPanel() {
+    private JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

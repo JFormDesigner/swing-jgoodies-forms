@@ -46,7 +46,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * or with a button order that honors the platform's style.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -78,7 +78,7 @@ public final class ButtonOrderExample extends TutorialApplication {
      *
      * @return a panel that demonstrates button order
      */
-    public JComponent buildPanel() {
+    private JComponent buildPanel() {
         FormLayout layout = new FormLayout("right:pref:grow, 4dlu, pref");
         DefaultFormBuilder rowBuilder = new DefaultFormBuilder(layout);
         rowBuilder.setDefaultDialogBorder();

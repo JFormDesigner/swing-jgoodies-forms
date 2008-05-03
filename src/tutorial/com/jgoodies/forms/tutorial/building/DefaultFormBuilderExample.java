@@ -52,7 +52,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * rows before the panel is filled with components.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see     DefaultFormBuilder
  * @see     PlainExample
@@ -137,7 +137,7 @@ public final class DefaultFormBuilderExample extends TutorialApplication {
      *
      * @return the built panel
      */
-    public JComponent buildPanel() {
+    private JComponent buildPanel() {
         initComponents();
 
         // Column specs only, rows will be added dynamically.

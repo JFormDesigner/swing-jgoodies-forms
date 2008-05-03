@@ -65,7 +65,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
@@ -89,7 +89,7 @@ public final class ComponentOrientationExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    public JComponent buildPanel() {
+    private JComponent buildPanel() {
         FormLayout layout = new FormLayout("pref:grow");
         DefaultFormBuilder rowBuilder = new DefaultFormBuilder(layout);
         rowBuilder.setDefaultDialogBorder();

@@ -42,7 +42,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * alignments to cells, and how to override the defaults.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class CellAlignmentExample extends TutorialApplication {
 
@@ -63,7 +63,7 @@ public final class CellAlignmentExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    public JComponent buildPanel() {
+    private JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 
