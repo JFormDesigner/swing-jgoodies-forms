@@ -49,7 +49,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * the available vertical space.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 
 public final class VerticalGrowthExample extends TutorialApplication {
@@ -102,7 +102,7 @@ public final class VerticalGrowthExample extends TutorialApplication {
      *
      * @return the built panel
      */
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         initComponents();
 
         FormLayout layout = new FormLayout(

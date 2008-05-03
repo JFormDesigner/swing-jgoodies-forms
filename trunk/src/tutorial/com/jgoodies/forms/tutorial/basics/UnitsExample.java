@@ -44,7 +44,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public final class UnitsExample extends TutorialApplication {
 
@@ -65,7 +65,7 @@ public final class UnitsExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

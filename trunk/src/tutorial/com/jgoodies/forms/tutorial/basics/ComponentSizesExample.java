@@ -48,7 +48,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Default size behaves like Pref but shrinks if the container space is scarce.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public final class ComponentSizesExample extends TutorialApplication {
 
@@ -69,7 +69,7 @@ public final class ComponentSizesExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         JSplitPane splitPane = new JSplitPane(
             JSplitPane.HORIZONTAL_SPLIT,
             true,

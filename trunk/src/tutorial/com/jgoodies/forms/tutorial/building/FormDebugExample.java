@@ -49,7 +49,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * to use a leading indent column.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public final class FormDebugExample extends TutorialApplication {
 
@@ -122,7 +122,7 @@ public final class FormDebugExample extends TutorialApplication {
      *
      * @return the built panel
      */
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         initComponents();
 
         FormLayout layout = new FormLayout(

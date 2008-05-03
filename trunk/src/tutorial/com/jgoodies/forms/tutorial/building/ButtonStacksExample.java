@@ -45,7 +45,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  *
  * @see     ButtonStackBuilder
  */
@@ -68,7 +68,7 @@ public final class ButtonStacksExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 
