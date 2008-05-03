@@ -54,7 +54,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * you may consider using a row variable to address the current row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see     PanelBuilder
  * @see	RowCounterExample
@@ -137,7 +137,7 @@ public final class PanelBuilderExample extends TutorialApplication {
      *
      * @return the built panel
      */
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         initComponents();
 
         FormLayout layout = new FormLayout(

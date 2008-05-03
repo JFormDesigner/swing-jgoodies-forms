@@ -45,7 +45,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates how to build button bars using a ButtonBarBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.27 $
+ * @version $Revision: 1.28 $
  *
  * @see     ButtonBarBuilder
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -69,7 +69,7 @@ public final class ButtonBarsExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

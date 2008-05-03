@@ -51,7 +51,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see	PlainExample
  * @see	DynamicRowsExample
@@ -126,7 +126,7 @@ public final class RowCounterExample extends TutorialApplication {
      *
      * @return the built panel
      */
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         initComponents();
         Component machineryPane  = new JScrollPane(machineryCommentArea);
         Component inspectionPane = new JScrollPane(inspectionCommentArea);

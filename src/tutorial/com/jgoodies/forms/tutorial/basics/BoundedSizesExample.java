@@ -44,7 +44,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public final class BoundedSizesExample extends TutorialApplication {
 
@@ -65,7 +65,7 @@ public final class BoundedSizesExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

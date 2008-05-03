@@ -48,7 +48,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * of font baselines and the height of the custom row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see    DefaultFormBuilder
  * @see    DefaultFormWithCustomAreasExample
@@ -103,7 +103,7 @@ public final class DefaultFormWithCustomRowsExample extends TutorialApplication 
      *
      * @return the built panel
      */
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         initComponents();
 
         // Column specs only, rows will be added dynamically.

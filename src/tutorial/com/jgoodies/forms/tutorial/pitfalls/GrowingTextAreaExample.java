@@ -51,7 +51,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public final class GrowingTextAreaExample extends TutorialApplication {
 
@@ -72,7 +72,7 @@ public final class GrowingTextAreaExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

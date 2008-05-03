@@ -41,7 +41,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates the FormLayout growing options: none, default, weighted.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public final class GrowingExample extends TutorialApplication {
 
@@ -62,7 +62,7 @@ public final class GrowingExample extends TutorialApplication {
 
     // Building ***************************************************************
 
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 

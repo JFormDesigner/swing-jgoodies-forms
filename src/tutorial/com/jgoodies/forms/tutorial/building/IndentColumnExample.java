@@ -48,7 +48,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * a lean example over a fully functional.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see     DefaultFormBuilder
  */
@@ -123,7 +123,7 @@ public final class IndentColumnExample extends TutorialApplication {
      *
      * @return the built panel
      */
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         initComponents();
 
         FormLayout layout = new FormLayout(

@@ -47,7 +47,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see	PlainExample
  * @see	RowCounterExample
@@ -128,7 +128,7 @@ public final class DynamicRowsExample extends TutorialApplication {
      *
      * @return the built panel
      */
-    private JComponent buildPanel() {
+    public JComponent buildPanel() {
         initComponents();
 
         FormLayout layout = new FormLayout(
