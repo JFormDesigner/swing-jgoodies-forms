@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see     Size
  * @see     UnitConverter
@@ -139,7 +139,7 @@ public final class Sizes {
      * Holds the Unit that is used if no Unit is provided in encoded
      * ConstantSizes.
      *
-     * @see #setDefaultUnit(Unit)
+     * @see #setDefaultUnit(ConstantSize.Unit)
      */
     private static Unit defaultUnit = ConstantSize.PIXEL;
 
