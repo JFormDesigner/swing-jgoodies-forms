@@ -32,6 +32,7 @@ package com.jgoodies.forms.util;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
 import javax.swing.UIManager;
@@ -42,7 +43,7 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @since 1.2
  */
@@ -208,7 +209,7 @@ public final class FormUtils {
 
     private static synchronized void ensureLookAndFeelChangeHandlerRegistered() {
         if (!lafChangeHandlerRegistered) {
-            addWeakUIManagerPropertyChangeListener(new LookAndFeelChangeHandler());
+            addWeakUIManagerPropertyChangeListener();
             lafChangeHandlerRegistered = true;
         }
     }
@@ -258,33 +259,52 @@ public final class FormUtils {
     // Weak UIManager PropertyChangeListener **********************************
 
     /**
-     * Creates a wrapper PropertyChangeListener that holds {@code listener}
-     * holds it in a {@link WeakReference}, and registers the wrapper
-     * with the UIManager. If the reference to the wrapped listener
-     * is cleared, the wrapper will be removed as listener from the UIManager.
-     * Used to avoid memory leaks when registering PropertyChangeListeners
-     * with the UIManager.
-     *
-     * @param listener       the wrapped listener that handles the events
-     *
-     * @throws NullPointerException if {@code listener} is {@code null}.
+     * Creates a wrapper PropertyChangeListener that holds 
+     * a LookAndFeelChangeHandler instance in a {@link WeakReference}, 
+     * and registers the wrapper with the UIManager. If the reference 
+     * to the wrapped listener is cleared, the wrapper will be removed 
+     * as listener from the UIManager. Used to avoid memory leaks when 
+     * registering PropertyChangeListeners with the UIManager.
      *
      * @see WeakReference
      */
-    private static void addWeakUIManagerPropertyChangeListener(PropertyChangeListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("The wrapped listener must not be null.");
-        }
-        UIManager.addPropertyChangeListener(new WeakUIManagerListener(listener));
+    private static void addWeakUIManagerPropertyChangeListener() {
+        wrappedListener = new LookAndFeelChangeHandler();
+        referenceQueue = new ReferenceQueue();
+        weakListener = new WeakUIManagerListener(wrappedListener, referenceQueue);
+        UIManager.addPropertyChangeListener(weakListener);
+        Runnable cleanUpRunnable = new Runnable() {
+            public void run() {
+                try {
+                    referenceQueue.remove();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                cleanup();
+            }  
+            
+            private void cleanup() {
+                UIManager.removePropertyChangeListener(weakListener);
+                wrappedListener = null;
+                weakListener = null;
+                referenceQueue = null;
+            }
+        };
+        Thread thread = new Thread(cleanUpRunnable, "UIManager listener cleaning queue");
+        thread.setDaemon(true);
+        thread.start();
     }
 
+    private static PropertyChangeListener wrappedListener = null;
+    private static PropertyChangeListener weakListener    = null;
+    private static ReferenceQueue         referenceQueue  = null;
 
     private static final class WeakUIManagerListener implements PropertyChangeListener {
 
         private final WeakReference listenerReference;
 
-        private WeakUIManagerListener(PropertyChangeListener listener){
-            listenerReference = new WeakReference(listener);
+        private WeakUIManagerListener(PropertyChangeListener listener, ReferenceQueue queue){
+            listenerReference = new WeakReference(listener, queue);
         }
 
         public void propertyChange(PropertyChangeEvent evt){
@@ -292,9 +312,7 @@ public final class FormUtils {
                 (PropertyChangeListener) listenerReference.get();
             if (listener != null) {
                 listener.propertyChange(evt);
-                return;
             }
-            UIManager.removePropertyChangeListener(this);
         }
 
     }

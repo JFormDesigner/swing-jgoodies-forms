@@ -32,8 +32,14 @@ package com.jgoodies.forms.layout;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import com.jgoodies.forms.util.FormUtils;
 
 import junit.framework.TestCase;
 
@@ -41,7 +47,7 @@ import junit.framework.TestCase;
  * Tests working with the Forms with different class loaders.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public final class ClassLoaderTest extends TestCase{
 
@@ -50,16 +56,56 @@ public final class ClassLoaderTest extends TestCase{
 
     public void testLayoutMapAccess()
         throws ClassNotFoundException, IllegalAccessException, SecurityException,
-               IllegalArgumentException, NoSuchMethodException, InvocationTargetException {
+               IllegalArgumentException, NoSuchMethodException, InvocationTargetException, MalformedURLException {
         testStaticAccess(LayoutMap.class.getName(), "getRoot");
+    }
+    
+    
+    public void testLookAndFeelChangeHandlerRemainsRegistered() {
+        int oldListenerCount = UIManager.getPropertyChangeListeners().length;
+        FormUtils.isLafAqua();
+        int newListenerCount = UIManager.getPropertyChangeListeners().length;
+        assertEquals("After registration", oldListenerCount+1, newListenerCount);
+        gcAndSleep();
+        newListenerCount = UIManager.getPropertyChangeListeners().length;
+        assertEquals("After GC", oldListenerCount+1, newListenerCount);
+    }
+    
+    
+    public void testWeakLookAndFeelChangeHandler() 
+        throws SecurityException, IllegalArgumentException, ClassNotFoundException, 
+               IllegalAccessException, NoSuchMethodException, InvocationTargetException, MalformedURLException {
+        int oldListenerCount = UIManager.getPropertyChangeListeners().length;
+        testStaticAccess(FormUtils.class.getName(), "isLafAqua");
+        gcAndSleep();
+        int newListenerCount = UIManager.getPropertyChangeListeners().length;
+        assertEquals("UIManager listener count", oldListenerCount, newListenerCount);
     }
 
 
     // Helper Code ************************************************************
 
+    private void gcAndSleep() {
+        System.gc();
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    private void setLookAndFeel(String lookAndFeelName) {
+        try {
+            UIManager.setLookAndFeel(lookAndFeelName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
     private void testStaticAccess(String className, String methodName)
         throws ClassNotFoundException, IllegalAccessException, SecurityException,
-               IllegalArgumentException, NoSuchMethodException, InvocationTargetException {
+               IllegalArgumentException, NoSuchMethodException, InvocationTargetException, MalformedURLException {
         Class classVersion1 = loadClass(className);
         staticAccess(classVersion1, methodName);
         Class classVersion2 = loadClass(className);
@@ -67,8 +113,9 @@ public final class ClassLoaderTest extends TestCase{
     }
 
 
-    private Class loadClass(String className) throws ClassNotFoundException {
+    private Class loadClass(String className) throws ClassNotFoundException, MalformedURLException {
         URL url = getClass().getResource("/");
+        url = new URL("file:/D:/workspaces/default/Forms/bin/");
         ClassLoader parent = ClassLoader.getSystemClassLoader().getParent();
         ClassLoader loader = new URLClassLoader(new URL[]{url}, parent);
         return loader.loadClass(className);
