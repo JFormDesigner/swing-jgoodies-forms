@@ -6,7 +6,31 @@
 
 INTRODUCTION
 
-    This maintenance release just contains improved tutorial sources.
+    This maintenance release fixes a bug when using different class loaders,
+    and comes with improved tutorial sources.
+    
+BUGS FIXED
+
+    o Issue 64: ClassCastException when using different ClassLoaders.
+    
+
+OTHER CHANGES
+
+    o The final marker in PanelBuilder#add(Component, CellConstraints)
+      has been removed.
+      
+ROADMAP
+
+    Forms 2.0 
+    o API clarification and API extensions.
+    o Bug fixing - even if the fix affects the layout.
+    o Make DLU a general unit.
+    o Change the default unit conversion algorithm.
+    
+    Future version
+    o Extend the tutorial.
+    o Move to Java 5.
+    
     
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
@@ -102,19 +126,6 @@ OTHER CHANGES
     o Added tests for the new syntax.
     o Updated download address.
       
-    
-ROADMAP
-
-    Forms 2.0 
-    o API clarification and API extensions.
-    o Bug fixing - even if the fix affects the layout.
-    o Make DLU a general unit.
-    o Change the default unit conversion algorithm.
-    
-    Future version
-    o Extend the tutorial.
-    o Move to Java 5.
-    
     
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
