@@ -30,11 +30,7 @@
 
 package com.jgoodies.forms.util;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.lang.ref.ReferenceQueue;
-import java.lang.ref.WeakReference;
-
+import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 /**
@@ -43,12 +39,11 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @since 1.2
  */
 public final class FormUtils {
-
 
     // Instance *************************************************************
 
@@ -183,9 +178,9 @@ public final class FormUtils {
      * @return {@code true} if the current look&amp;feel is Aqua
      */
     public static boolean isLafAqua() {
+        ensureValidCache();
         if (cachedIsLafAqua == null) {
             cachedIsLafAqua = Boolean.valueOf(computeIsLafAqua());
-            ensureLookAndFeelChangeHandlerRegistered();
         }
         return cachedIsLafAqua.booleanValue();
     }
@@ -194,31 +189,19 @@ public final class FormUtils {
     // Caching and Lazily Computing the Laf State *****************************
 
     /**
-     * Holds the cached result of the Aqua l&amp;f check.
-     * Is invalidated by the <code>LookAndFeelChangeHandler</code>
-     * if the look&amp;feel changes.
+     * Holds the LookAndFeel that has been used to computed cached values.
+     * If the current L&amp;F differs from this cached value,
+     * the caches must be cleared.
      */
-    private static Boolean cachedIsLafAqua;
+    private static LookAndFeel cachedLookAndFeel;
+
 
     /**
-     * Describes whether the <code>LookAndFeelChangeHandler</code>
-     * has been registered with the <code>UIManager</code> or not.
-     * It is registered lazily when the first cached l&amp;f state is computed.
+     * Holds the cached result of the Aqua l&amp;f check.
+     * Is invalidated if a look&amp;feel change has been detected
+     * in <code>#ensureValidCache</code>.
      */
-    private static boolean lafChangeHandlerRegistered = false;
-
-    private static synchronized void ensureLookAndFeelChangeHandlerRegistered() {
-        if (!lafChangeHandlerRegistered) {
-            addWeakUIManagerPropertyChangeListener();
-            lafChangeHandlerRegistered = true;
-        }
-    }
-
-    private static void clearLookAndFeelBasedCaches() {
-        cachedIsLafAqua = null;
-        DefaultUnitConverter.getInstance().clearCache();
-    }
-
+    private static Boolean cachedIsLafAqua;
 
     /**
      * Computes and answers whether an Aqua look&amp;feel is active.
@@ -232,89 +215,17 @@ public final class FormUtils {
     }
 
 
-    /**
-     * Listens to changes of the Look and Feel and invalidates the cache.
-     */
-    private static final class LookAndFeelChangeHandler implements PropertyChangeListener {
-
-        /**
-         * Invalidates the cached laf states, if the UIManager has fired
-         * any property change event. Since we need to handle look&amp;feel
-         * changes only, we check the event's property name to be
-         * "lookAndFeel" or <code>null</code>. The check for null is necessary
-         * to handle the special event where property name, old and new value
-         * are all <code>null</code> to indicate that multiple properties
-         * have changed.
-         *
-         * @param evt  describes the property change
-         */
-        public void propertyChange(PropertyChangeEvent evt) {
-            String propertyName = evt.getPropertyName();
-            if ((propertyName == null) || propertyName.equals("lookAndFeel")) {
-                clearLookAndFeelBasedCaches();
-            }
+    static void ensureValidCache() {
+        LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
+        if (currentLookAndFeel != cachedLookAndFeel) {
+            clearLookAndFeelBasedCaches();
+            cachedLookAndFeel = currentLookAndFeel;
         }
     }
 
-    // Weak UIManager PropertyChangeListener **********************************
-
-    /**
-     * Creates a wrapper PropertyChangeListener that holds 
-     * a LookAndFeelChangeHandler instance in a {@link WeakReference}, 
-     * and registers the wrapper with the UIManager. If the reference 
-     * to the wrapped listener is cleared, the wrapper will be removed 
-     * as listener from the UIManager. Used to avoid memory leaks when 
-     * registering PropertyChangeListeners with the UIManager.
-     *
-     * @see WeakReference
-     */
-    private static void addWeakUIManagerPropertyChangeListener() {
-        wrappedListener = new LookAndFeelChangeHandler();
-        referenceQueue = new ReferenceQueue();
-        weakListener = new WeakUIManagerListener(wrappedListener, referenceQueue);
-        UIManager.addPropertyChangeListener(weakListener);
-        Runnable cleanUpRunnable = new Runnable() {
-            public void run() {
-                try {
-                    referenceQueue.remove();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                cleanup();
-            }  
-            
-            private void cleanup() {
-                UIManager.removePropertyChangeListener(weakListener);
-                wrappedListener = null;
-                weakListener = null;
-                referenceQueue = null;
-            }
-        };
-        Thread thread = new Thread(cleanUpRunnable, "UIManager listener cleaning queue");
-        thread.setDaemon(true);
-        thread.start();
-    }
-
-    private static PropertyChangeListener wrappedListener = null;
-    private static PropertyChangeListener weakListener    = null;
-    private static ReferenceQueue         referenceQueue  = null;
-
-    private static final class WeakUIManagerListener implements PropertyChangeListener {
-
-        private final WeakReference listenerReference;
-
-        private WeakUIManagerListener(PropertyChangeListener listener, ReferenceQueue queue){
-            listenerReference = new WeakReference(listener, queue);
-        }
-
-        public void propertyChange(PropertyChangeEvent evt){
-            PropertyChangeListener listener =
-                (PropertyChangeListener) listenerReference.get();
-            if (listener != null) {
-                listener.propertyChange(evt);
-            }
-        }
-
+    private static void clearLookAndFeelBasedCaches() {
+        cachedIsLafAqua = null;
+        DefaultUnitConverter.getInstance().clearCache();
     }
 
 
