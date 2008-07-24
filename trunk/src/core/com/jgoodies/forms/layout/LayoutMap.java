@@ -36,8 +36,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.swing.UIManager;
-
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.util.LayoutStyle;
 
@@ -109,7 +107,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -126,14 +124,6 @@ public final class LayoutMap {
 
 
     /**
-     * The key used to look up the default LayoutMap from the UIManager.
-     *
-     * @see #setRoot(LayoutMap)
-     */
-    private static final String LAYOUT_MAP_KEY = "JGoodiesFormsDefaultLayoutMap";
-
-
-    /**
      * Maps column aliases to their default name, for example
      * {@code "rgap"} -> {@code "related-gap"}.
      */
@@ -147,6 +137,12 @@ public final class LayoutMap {
      */
     private static final Map/*<String, String>*/ ROW_ALIASES
         = new HashMap/*<String, String>*/();
+    
+    
+    /**
+     * Holds the lazily initialized root map.
+     */
+    private static LayoutMap root = null;
 
 
     // Instance Fields ********************************************************
@@ -211,39 +207,15 @@ public final class LayoutMap {
 
     /**
      * Lazily initializes and returns the LayoutMap that is used
-     * for variable expansion, if no custom LayoutMap is provided.<p>
-     *
-     * The root LayoutMap is stored in the UIManager that in turn uses
-     * an AppContext to store the values. This way applets in different
-     * contexts uses different defaults.
+     * for variable expansion, if no custom LayoutMap is provided.
      *
      * @return the LayoutMap that is used, if no custom LayoutMap is provided
      */
     public static LayoutMap getRoot() {
-        LayoutMap root = (LayoutMap) UIManager.get(LAYOUT_MAP_KEY);
         if (root == null) {
             root = createRoot();
-            setRoot(root);
         }
         return root;
-    }
-
-
-    /**
-     * Sets the given LayoutMap as new root. The root LayoutMap is used as
-     * default for variable expansion, if no custom LayoutMap is provided.<p>
-     *
-     * Custom variables can be set in the root LayoutMap, or in child maps
-     * that are provided as argument for the FormLayout, ColumnSpec, and
-     * RowSpec constructors/factory methods.<p>
-     *
-     * The root LayoutMap is stored using an AppContext; hence applets
-     * in different contexts uses different defaults.
-     *
-     * @param root   the LayoutMap to become the new root
-     */
-    private static void setRoot(LayoutMap root) {
-        UIManager.put(LAYOUT_MAP_KEY, root);
     }
 
 
@@ -495,7 +467,7 @@ public final class LayoutMap {
      * @return a string representation
      */
     public String toString() {
-        StringBuffer buffer = new StringBuffer("LayoutMap");
+        StringBuffer buffer = new StringBuffer(super.toString());
         buffer.append("\n  Column associations:");
         for (Iterator iterator = columnMap.entrySet().iterator(); iterator.hasNext();) {
             Entry name = (Entry) iterator.next();
@@ -599,79 +571,79 @@ public final class LayoutMap {
 
 
     private static LayoutMap createRoot() {
-        LayoutMap root = new LayoutMap(null);
+        LayoutMap map = new LayoutMap(null);
 
         // Column variables
-        root.columnPut(
+        map.columnPut(
                 "label-component-gap",
                 new String[]{"lcg", "lcgap"},
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC);
-        root.columnPut(
+        map.columnPut(
                 "related-gap",
                 new String[]{"rg", "rgap"},
                 FormFactory.RELATED_GAP_COLSPEC);
-        root.columnPut(
+        map.columnPut(
                 "unrelated-gap",
                 new String[]{"ug", "ugap"},
                 FormFactory.UNRELATED_GAP_COLSPEC);
-        root.columnPut(
+        map.columnPut(
                 "button",
                 new String[]{"b"},
                 FormFactory.BUTTON_COLSPEC);
-        root.columnPut(
+        map.columnPut(
                 "growing-button",
                 new String[]{"gb"},
                 FormFactory.GROWING_BUTTON_COLSPEC);
-        root.columnPut(
+        map.columnPut(
                 "dialog-margin",
                 new String[]{"dm", "dmargin"},
                 ColumnSpec.createGap(LayoutStyle.getCurrent().getDialogMarginX()));
-        root.columnPut(
+        map.columnPut(
                 "tabbed-dialog-margin",
                 new String[]{"tdm", "tdmargin"},
                 ColumnSpec.createGap(LayoutStyle.getCurrent().getTabbedDialogMarginX()));
-        root.columnPut(
+        map.columnPut(
                 "glue",
                 FormFactory.GLUE_COLSPEC.toShortString());
 
         // Row variables
-        root.rowPut(
+        map.rowPut(
                 "related-gap",
                 new String[]{"rg", "rgap"},
                 FormFactory.RELATED_GAP_ROWSPEC);
-        root.rowPut(
+        map.rowPut(
                 "unrelated-gap",
                 new String[]{"ug", "ugap"},
                 FormFactory.UNRELATED_GAP_ROWSPEC);
-        root.rowPut(
+        map.rowPut(
                 "narrow-line-gap",
                 new String[]{"nlg", "nlgap"},
                 FormFactory.NARROW_LINE_GAP_ROWSPEC);
-        root.rowPut(
+        map.rowPut(
                 "line-gap",
                 new String[]{"lg", "lgap"},
                 FormFactory.LINE_GAP_ROWSPEC);
-        root.rowPut(
+        map.rowPut(
                 "paragraph-gap",
                 new String[]{"pg", "pgap"},
                 FormFactory.PARAGRAPH_GAP_ROWSPEC);
-        root.rowPut(
+        map.rowPut(
                 "dialog-margin",
                 new String[]{"dm", "dmargin"},
                 RowSpec.createGap(LayoutStyle.getCurrent().getDialogMarginY()));
-        root.rowPut(
+        map.rowPut(
                 "tabbed-dialog-margin",
                 new String[]{"tdm", "tdmargin"},
                 RowSpec.createGap(LayoutStyle.getCurrent().getTabbedDialogMarginY()));
-        root.rowPut(
+        map.rowPut(
                 "button",
                 new String[]{"b"},
                 FormFactory.BUTTON_ROWSPEC);
-        root.rowPut(
+        map.rowPut(
                 "glue",
                 FormFactory.GLUE_ROWSPEC);
 
-        return root;
+        return map;
     }
 
 
