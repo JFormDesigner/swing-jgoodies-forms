@@ -88,7 +88,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -198,10 +198,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a textual label to the form using the default constraints.<p>
      *
      * <pre>
-     * addLabel("Name");       // No Mnemonic
-     * addLabel("N&ame");      // Mnemonic is 'a'
-     * addLabel("Save &as");   // Mnemonic is the second 'a'
-     * addLabel("Look&&Feel"); // No mnemonic, text is "look&feel"
+     * addLabel("Name:");       // No Mnemonic
+     * addLabel("N&ame:");      // Mnemonic is 'a'
+     * addLabel("Save &as:");   // Mnemonic is the second 'a'
+     * addLabel("Look&&Feel:"); // No mnemonic, text is "look&feel"
      * </pre>
      *
      * @param textWithMnemonic   the label's text -
@@ -219,10 +219,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a textual label to the form using the specified constraints.<p>
      *
      * <pre>
-     * addLabel("Name",       cc.xy(1, 1)); // No Mnemonic
-     * addLabel("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
-     * addLabel("Save &as",   cc.xy(1, 1)); // Mnemonic is the second 'a'
-     * addLabel("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
+     * addLabel("Name:",       cc.xy(1, 1)); // No Mnemonic
+     * addLabel("N&ame:",      cc.xy(1, 1)); // Mnemonic is 'a'
+     * addLabel("Save &as:",   cc.xy(1, 1)); // Mnemonic is the second 'a'
+     * addLabel("Look&&Feel:", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
      * </pre>
      *
      * @param textWithMnemonic  the label's text -
@@ -243,10 +243,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a textual label to the form using the specified constraints.<p>
      *
      * <pre>
-     * addLabel("Name",       "1, 1"); // No Mnemonic
-     * addLabel("N&ame",      "1, 1"); // Mnemonic is 'a'
-     * addLabel("Save &as",   "1, 1"); // Mnemonic is the second 'a'
-     * addLabel("Look&&Feel", "1, 1"); // No mnemonic, text is "look&feel"
+     * addLabel("Name:",       "1, 1"); // No Mnemonic
+     * addLabel("N&ame:",      "1, 1"); // Mnemonic is 'a'
+     * addLabel("Save &as:",   "1, 1"); // Mnemonic is the second 'a'
+     * addLabel("Look&&Feel:", "1, 1"); // No mnemonic, text is "look&feel"
      * </pre>
      *
      * @param textWithMnemonic    the label's text -
