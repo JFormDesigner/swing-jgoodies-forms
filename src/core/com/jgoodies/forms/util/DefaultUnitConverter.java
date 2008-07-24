@@ -33,7 +33,6 @@ package com.jgoodies.forms.util;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
@@ -68,7 +67,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -154,7 +153,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * a listener that handles changes in the look&amp;feel.
      */
     private DefaultUnitConverter() {
-        UIManager.addPropertyChangeListener(new LookAndFeelChangeHandler());
         changeSupport = new PropertyChangeSupport(this);
     }
 
@@ -233,7 +231,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     public void setDefaultDialogFont(Font newFont) {
         Font oldFont = defaultDialogFont; // Don't use the getter
         defaultDialogFont = newFont;
-        invalidateCaches();
+        clearCache();
         changeSupport.firePropertyChange("defaultDialogFont", oldFont, newFont);
     }
 
@@ -402,7 +400,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * and resets the fallback for the default dialog font.
      * This is invoked after a change of the look&amp;feel.
      */
-    private void invalidateCaches() {
+    void clearCache() {
         cachedGlobalDialogBaseUnits = null;
         cachedDialogBaseUnits.clear();
         cachedDefaultDialogFont = null;
@@ -510,14 +508,5 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         }
     }
 
-
-    /**
-     * Listens to changes of the Look and Feel and invalidates the cache.
-     */
-    private final class LookAndFeelChangeHandler implements PropertyChangeListener {
-        public void propertyChange(PropertyChangeEvent evt) {
-            invalidateCaches();
-        }
-    }
 
 }
