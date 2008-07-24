@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
@@ -554,7 +554,7 @@ public abstract class AbstractFormBuilder {
      * @param cellConstraints  the component's cell constraints
      * @return the added component
      */
-    public final Component add(Component component, CellConstraints cellConstraints) {
+    public Component add(Component component, CellConstraints cellConstraints) {
         container.add(component, cellConstraints);
         return component;
     }
