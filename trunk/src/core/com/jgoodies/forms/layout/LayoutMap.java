@@ -107,7 +107,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -137,8 +137,8 @@ public final class LayoutMap {
      */
     private static final Map/*<String, String>*/ ROW_ALIASES
         = new HashMap/*<String, String>*/();
-    
-    
+
+
     /**
      * Holds the lazily initialized root map.
      */
