@@ -67,13 +67,20 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
  * @see     com.jgoodies.forms.layout.Sizes
  */
 public final class DefaultUnitConverter extends AbstractUnitConverter {
+
+    public static final String PROPERTY_AVERAGE_CHARACTER_WIDTH_TEST_STRING =
+        "averageCharacterWidthTestString";
+
+    public static final String PROPERTY_DEFAULT_DIALOG_FONT =
+        "defaultDialogFont";
+
 
 //    public static final String UPPERCASE_ALPHABET =
 //        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -123,11 +130,10 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     // Cached *****************************************************************
 
     /**
-     * Holds the cached global dialog base units that are used if
-     * a component is not (yet) available - for example in a Border.
+     * Holds the lazily created cached global dialog base units that are used
+     * if a component is not (yet) available - for example in a Border.
      */
-    private DialogBaseUnits cachedGlobalDialogBaseUnits =
-        computeGlobalDialogBaseUnits();
+    private DialogBaseUnits cachedGlobalDialogBaseUnits = null;
 
     /**
      * Maps <code>FontMetrics</code> to horizontal dialog base units.
@@ -204,8 +210,10 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
         String oldTestString = averageCharWidthTestString;
         averageCharWidthTestString = newTestString;
-        changeSupport.firePropertyChange("averageCharacterWidthTestString",
-            oldTestString, newTestString);
+        changeSupport.firePropertyChange(
+                PROPERTY_AVERAGE_CHARACTER_WIDTH_TEST_STRING,
+                oldTestString,
+                newTestString);
     }
 
 
@@ -232,7 +240,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         Font oldFont = defaultDialogFont; // Don't use the getter
         defaultDialogFont = newFont;
         clearCache();
-        changeSupport.firePropertyChange("defaultDialogFont", oldFont, newFont);
+        changeSupport.firePropertyChange(PROPERTY_DEFAULT_DIALOG_FONT, oldFont, newFont);
     }
 
 
@@ -288,12 +296,14 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @return the DialogBaseUnits object for the given component
      */
     private DialogBaseUnits getDialogBaseUnits(Component c) {
+        FormUtils.ensureValidCache();
         if (c == null) { // || (font = c.getFont()) == null) {
             // logInfo("Missing font metrics: " + c);
             return getGlobalDialogBaseUnits();
         }
         FontMetrics fm = c.getFontMetrics(getDefaultDialogFont());
-        DialogBaseUnits dialogBaseUnits = (DialogBaseUnits) cachedDialogBaseUnits.get(fm);
+        DialogBaseUnits dialogBaseUnits =
+            (DialogBaseUnits) cachedDialogBaseUnits.get(fm);
         if (dialogBaseUnits == null) {
             dialogBaseUnits = computeDialogBaseUnits(fm);
             cachedDialogBaseUnits.put(fm, dialogBaseUnits);
@@ -358,6 +368,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @return the cached fallback font used to compute the dialog base units
      */
     private Font getCachedDefaultDialogFont() {
+        FormUtils.ensureValidCache();
         if (cachedDefaultDialogFont == null) {
             cachedDefaultDialogFont = lookupDefaultDialogFont();
         }
