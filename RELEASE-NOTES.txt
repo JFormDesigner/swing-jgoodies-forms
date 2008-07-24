@@ -19,6 +19,10 @@ OTHER CHANGES
 
     o AbstractFormBuilder#add(Component, CellConstraints) can be
       overridden in subclasses.
+    o Added PanelBuilder2 to the source code extras. It provides
+      a feature that shall be moved to the PanelBuilder in the next
+      major version: associate a focusable component with a previously
+      added label that has a mnemonic.
       
       
 ROADMAP
