@@ -6,18 +6,20 @@
 
 INTRODUCTION
 
-    This maintenance release fixes a bug when using different class loaders,
+    This maintenance release fixes bugs when using different class loaders,
     and comes with improved tutorial sources.
     
 BUGS FIXED
 
+    o Issue 63: Class Leak due to UIManager.addPropertyChangeListener()
     o Issue 64: ClassCastException when using different ClassLoaders.
     
 
 OTHER CHANGES
 
-    o The final marker in PanelBuilder#add(Component, CellConstraints)
-      has been removed.
+    o AbstractFormBuilder#add(Component, CellConstraints) can be
+      overridden in subclasses.
+      
       
 ROADMAP
 
