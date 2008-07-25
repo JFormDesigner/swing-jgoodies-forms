@@ -49,11 +49,6 @@ import com.jgoodies.forms.util.LayoutStyle;
  * {@link com.jgoodies.forms.factories.ButtonBarFactory} that provides
  * an even higher level of abstraction for building consistent button bars.<p>
  *
- * <strong>Note:</strong> Since the Forms 1.2, it is recommended to use
- * the {@link ButtonBarBuilder2} that comes with a smaller, safer, better,
- * and more convenient API. The ButtonBarBuilder will be marked as deprecated
- * in the Forms 2.0.<p>
- *
  * Buttons added to the builder are either gridded or fixed and may fill
  * their FormLayout cell or not. All gridded buttons get the same width,
  * while fixed buttons use their own size. Gridded buttons honor
@@ -133,11 +128,16 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
  * @see com.jgoodies.forms.util.LayoutStyle
+ * 
+ * @deprecated Replaced by the {@link ButtonBarBuilder2} that comes with 
+ * a smaller, safer, better, and more convenient API.
+ *
+
  */
 public final class ButtonBarBuilder extends PanelBuilder {
 
