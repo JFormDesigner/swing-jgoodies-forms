@@ -1,5 +1,40 @@
 
                            JGoodies Forms
+                            Version 1.3.0 Beta1
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This update adds optional panel builder features to automatically 
+    associate an added focusable component with a previously added 
+    label that has a mnemonic. See class PanelBuilder.
+    
+    
+OTHER CHANGES
+
+    o ...
+      
+      
+ROADMAP
+
+    Forms 2.0 
+    o API clarification and API extensions.
+    o Bug fixing - even if the fix affects the layout.
+    o Make DLU a general unit.
+    o Change the default unit conversion algorithm.
+    
+    Future version
+    o Extend the tutorial.
+    o Move to Java 5.
+    
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+
+                           JGoodies Forms
                             Version 1.2.1
                             Release Notes
                         
@@ -32,19 +67,6 @@ OTHER CHANGES
     o FormUtils#clearLookAndFeelBasedCaches is public.
       
       
-ROADMAP
-
-    Forms 2.0 
-    o API clarification and API extensions.
-    o Bug fixing - even if the fix affects the layout.
-    o Make DLU a general unit.
-    o Change the default unit conversion algorithm.
-    
-    Future version
-    o Extend the tutorial.
-    o Move to Java 5.
-    
-    
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
 
