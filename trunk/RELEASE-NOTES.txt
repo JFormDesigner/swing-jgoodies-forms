@@ -6,8 +6,13 @@
 
 INTRODUCTION
 
-    This maintenance release fixes bugs when using different class loaders,
-    and comes with improved tutorial sources.
+    This maintenance release fixes bugs when using multiple class loaders
+    to use multiple Forms versions in a single application (where most
+    applications load only a single Forms version). This version also
+    comes with improved tutorial sources, and it ships a new feature
+    in the source code extras that can automatically associate added 
+    components with labels that have mnemonics, see the PanelBuilder2.
+    
     
 BUGS FIXED
 
@@ -22,7 +27,9 @@ OTHER CHANGES
     o Added PanelBuilder2 to the source code extras. It provides
       a feature that shall be moved to the PanelBuilder in the next
       major version: associate a focusable component with a previously
-      added label that has a mnemonic.
+      added label that has a mnemonic. This feature will be moved
+      to the core PanelBuilder in the next release.
+    o FormUtils#clearLookAndFeelBasedCaches is public.
       
       
 ROADMAP
