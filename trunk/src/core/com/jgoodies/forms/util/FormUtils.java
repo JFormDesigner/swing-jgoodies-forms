@@ -39,7 +39,7 @@ import javax.swing.UIManager;
  * This class may be merged with the FormLayoutUtils extra - or not.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @since 1.2
  */
@@ -189,6 +189,25 @@ public final class FormUtils {
     // Caching and Lazily Computing the Laf State *****************************
 
     /**
+     * Clears cached internal Forms state that is based
+     * on the Look&amp;Feel, for example dialog base units.<p>
+     *
+     * There's typically no need to call this method directly.
+     * It'll be invoked automatically, if the L&amp;F has been changed
+     * via {@link UIManager#setLookAndFeel} and cached data is requested.
+     * It's been made public to allow cache invalidation for cases
+     * where the L&amp;F is changed temporarily by replacing the UIDefaults,
+     * for example in a visual editor.
+     *
+     * @since 1.2.1
+     */
+    public static void clearLookAndFeelBasedCaches() {
+        cachedIsLafAqua = null;
+        DefaultUnitConverter.getInstance().clearCache();
+    }
+
+
+    /**
      * Holds the LookAndFeel that has been used to computed cached values.
      * If the current L&amp;F differs from this cached value,
      * the caches must be cleared.
@@ -221,11 +240,6 @@ public final class FormUtils {
             clearLookAndFeelBasedCaches();
             cachedLookAndFeel = currentLookAndFeel;
         }
-    }
-
-    private static void clearLookAndFeelBasedCaches() {
-        cachedIsLafAqua = null;
-        DefaultUnitConverter.getInstance().clearCache();
     }
 
 
