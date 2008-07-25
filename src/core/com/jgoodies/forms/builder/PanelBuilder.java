@@ -32,6 +32,7 @@ package com.jgoodies.forms.builder;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.lang.ref.WeakReference;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -51,7 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to set a default border and to add labels, titles and titled separators.<p>
  *
  * The PanelBuilder is the working horse for layouts when more specialized
- * builders like the {@link ButtonBarBuilder} or {@link DefaultFormBuilder}
+ * builders like the {@link ButtonBarBuilder2} or {@link DefaultFormBuilder}
  * are inappropriate.<p>
  *
  * The Forms tutorial includes several examples that present and compare
@@ -72,38 +73,75 @@ import com.jgoodies.forms.layout.FormLayout;
  * This example creates a panel with 3 columns and 3 rows.
  * <pre>
  * FormLayout layout = new FormLayout(
- *      "right:pref, 6dlu, 50dlu, 4dlu, default",  // columns
- *      "pref, 3dlu, pref, 3dlu, pref");           // rows
+ *      "pref, $lcgap, 50dlu, $rgap, default",  // columns
+ *      "pref, $lg, pref, $lg, pref");          // rows
  *
  * PanelBuilder builder = new PanelBuilder(layout);
  * CellConstraints cc = new CellConstraints();
- * builder.addLabel("&Title",      cc.xy  (1, 1));
- * builder.add(new JTextField(),   cc.xywh(3, 1, 3, 1));
- * builder.addLabel("&Price",      cc.xy  (1, 3));
- * builder.add(new JTextField(),   cc.xy  (3, 3));
- * builder.addLabel("&Author",     cc.xy  (1, 5));
- * builder.add(new JTextField(),   cc.xy  (3, 5));
- * builder.add(new JButton("..."), cc.xy  (5, 5));
+ * builder.addLabel("&Title:",        cc.xy  (1, 1));
+ * builder.add(new JTextField(),      cc.xywh(3, 1, 3, 1));
+ * builder.addLabel("&Price:",        cc.xy  (1, 3));
+ * builder.add(new JTextField(),      cc.xy  (3, 3));
+ * builder.addLabel("&Author:",       cc.xy  (1, 5));
+ * builder.add(new JTextField(),      cc.xy  (3, 5));
+ * builder.add(new JButton("\u2026"), cc.xy  (5, 5));
  * return builder.getPanel();
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
  */
 public class PanelBuilder extends AbstractFormBuilder {
+    
+    
+    // Static Fields **********************************************************
+    
+    /**
+     * The global default for the enablement of the setLabelFor feature.
+     * Turned off by default.
+     * 
+     * @see #setLabelForFeatureEnabledDefault(boolean)
+     * @see #setLabelForFeatureEnabled(boolean)
+     */
+    private static boolean labelForFeatureEnabledDefault = false;
+    
+    
+    // Instance Fields ********************************************************
 
     /**
      * Refers to a factory that is used to create labels,
      * titles and paragraph separators.
      */
     private ComponentFactory componentFactory;
+    
+    
+    /**
+     * The instance value for the setLabelFor feature.
+     * Is initialized using the global default.
+     * 
+     * @see #setLabelForFeatureEnabled(boolean)
+     * @see #setLabelForFeatureEnabledDefault(boolean)
+     */
+    private boolean labelForFeatureEnabled;
+    
+
+    /**
+     * Refers to the most recently label that has a mnemonic set - if any.
+     * Used to invoke {@link JLabel#setLabelFor(java.awt.Component)}
+     * for the next component added to the panel that is applicable for
+     * this feature (for example focusable). After the association
+     * has been set, the reference will be cleared.
+     * 
+     * @see #add(Component, CellConstraints)
+     */
+    private WeakReference mostRecentlyAddedMnemonicLabelReference = null;
 
 
-    // Instance Creation ****************************************************
+    // Instance Creation ******************************************************
 
     /**
      * Constructs a <code>PanelBuilder</code> for the given
@@ -125,10 +163,69 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public PanelBuilder(FormLayout layout, JPanel panel){
         super(layout, panel);
+        labelForFeatureEnabled = labelForFeatureEnabledDefault;
+    }
+    
+    
+    // Global Defaults ********************************************************
+    
+    /**
+     * Returns the global default for the enablement of the setLabelFor feature.
+     * This can be overridden per PanelBuilder using
+     * {@link #setLabelForFeatureEnabled(boolean)}.
+     * The feature is globally disabled by default.
+     * 
+     * @return true for globally enabled, false for globally disabled
+     */
+    public static boolean getLabelForFeatureEnabledDefault() {
+        return labelForFeatureEnabledDefault;
+    }
+    
+
+    /**
+     * Sets the default value for the setLabelFor feature enablement.
+     * This can be overridden per PanelBuilder using
+     * {@link #setLabelForFeatureEnabled(boolean)}.
+     * The default value is used to set the initial PanelBuilder
+     * setting for this feature.
+     * The feature is globally disabled by default.
+     * 
+     * @param b true for globally enabled, false for globally disabled
+     */
+    public static void setLabelForFeatureEnabledDefault(boolean b) {
+        labelForFeatureEnabledDefault = b;
+    }
+    
+    
+    // Configuration **********************************************************
+    
+    /**
+     * Returns whether the setLabelFor feature is enabled for this PanelBuilder.
+     * The value is initialized from the global default value for this feature
+     * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
+     * by default.
+     * 
+     * @return true for enabled, false for disabled
+     */
+    public boolean isLabelForFeatureEnabled() {
+        return labelForFeatureEnabled;
+    }
+    
+    
+    /**
+     * Enables or disables the setLabelFor feature for this PanelBuilder.
+     * The value is initialized from the global default value
+     * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
+     * by default.
+     * 
+     * @param b true for enabled, false for disabled
+     */
+    public void setLabelForFeatureEnabled(boolean b) {
+        labelForFeatureEnabled = b;
     }
 
 
-    // Accessors ************************************************************
+    // Accessors **************************************************************
 
     /**
      * Returns the panel used to build the form.
@@ -599,6 +696,107 @@ public class PanelBuilder extends AbstractFormBuilder {
     public final void setComponentFactory(ComponentFactory newFactory) {
         componentFactory = newFactory;
     }
+    
+    
+    // Overriding Superclass Behavior *****************************************
+
+    /**
+     * Adds a component to the panel using the given cell constraints.
+     * In addition to the superclass behavior, this implementation
+     * tracks the most recently label that has mnemonic, and associates
+     * it with the next added focusable component.<p>
+     * 
+     * TODO: Consider to clear the most recently added mnemonic label
+     * if another label is added - even if the latter has no mnemonic set.
+     *
+     * @param component        the component to add
+     * @param cellConstraints  the component's cell constraints
+     * @return the added component
+     *
+     * @see #isLabelForFeatureEnabled()
+     * @see #isLabelForApplicable(Component)
+     */
+    public Component add(Component component, CellConstraints cellConstraints) {
+        Component result = super.add(component, cellConstraints);
+        if (!isLabelForFeatureEnabled()) {
+            return result;
+        }
+        JLabel mostRecentlyAddedMnemonicLabel = getMostRecentlyAddedMnemonicLabel();
+        if (   (mostRecentlyAddedMnemonicLabel != null)
+            && isLabelForApplicable(component)) {
+            mostRecentlyAddedMnemonicLabel.setLabelFor(component);
+            clearMostRecentlyAddedMnemonicLabel();
+        }
+        setMostRecentlyAddedMnemonicLabel(component);
+        return result;
+    }
 
 
+    // Default Behavior *******************************************************
+
+    /**
+     * Checks and answers whether the given component shall be set
+     * as component for a previously added label with mnemonic using
+     * {@link JLabel#setLabelFor(Component)}.
+     * This default implementation just checks whether the component is
+     * focusable. Subclasses may override.
+     *
+     * @param component    the component to be checked
+     * @return true if focusable, false otherwise
+     */
+    protected boolean isLabelForApplicable(Component component) {
+        return component.isFocusable();
+    }
+
+
+    // Helper Code ************************************************************
+
+    /**
+     * Returns the most recently added JLabel that has a mnemonic set
+     * - if any, <code>null</code>, if none has been set, or if it has
+     * been cleared after setting an association before, or if it has been
+     * cleared by the garbage collector.
+     * 
+     * @return the most recently added JLabel that has a mnemonic set
+     *     and has not been associated with a component applicable for this
+     *     feature. <code>null</code> otherwise.
+     */
+    private JLabel getMostRecentlyAddedMnemonicLabel() {
+        if (mostRecentlyAddedMnemonicLabelReference == null) {
+            return null;
+        }
+        JLabel label = (JLabel) mostRecentlyAddedMnemonicLabelReference.get();
+        if (label == null) {
+            return null;
+        }
+        return label;
+    }
+
+
+    /**
+     * Sets a JLabel that has a mnemonic set as most recently added label.
+     * Does nothing otherwise.
+     * 
+     * @param component  the label to be set - if at all
+     */
+    private void setMostRecentlyAddedMnemonicLabel(Component component) {
+        if (!(component instanceof JLabel)) {
+            return;
+        }
+        JLabel label = (JLabel) component;
+        if (label.getDisplayedMnemonic() != -1) {
+            mostRecentlyAddedMnemonicLabelReference =
+                new WeakReference(label);
+        }
+    }
+
+
+    /**
+     * Clears the reference to the most recently added mnemonic label.
+     */
+    private void clearMostRecentlyAddedMnemonicLabel() {
+        mostRecentlyAddedMnemonicLabelReference = null;
+    }
+
+    
 }
