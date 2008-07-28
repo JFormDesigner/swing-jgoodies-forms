@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 final class WindowsLayoutStyle extends LayoutStyle {
 
@@ -297,7 +297,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
      *
      * @return true if buttons are typically ordered from left to right
      *
-     * @see com.jgoodies.forms.builder.ButtonBarBuilder
+     * @see com.jgoodies.forms.builder.ButtonBarBuilder2
      * @see com.jgoodies.forms.factories.ButtonBarFactory
      *
      * @since 1.0.3
