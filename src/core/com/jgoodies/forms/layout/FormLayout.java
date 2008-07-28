@@ -132,13 +132,13 @@ import com.jgoodies.forms.util.FormUtils;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
- * @see	com.jgoodies.forms.builder.ButtonBarBuilder
+ * @see	com.jgoodies.forms.builder.ButtonBarBuilder2
  * @see	com.jgoodies.forms.builder.DefaultFormBuilder
  * @see	com.jgoodies.forms.factories.FormFactory
  * @see	Size
