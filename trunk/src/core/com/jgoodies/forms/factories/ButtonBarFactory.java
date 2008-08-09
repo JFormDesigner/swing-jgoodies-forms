@@ -34,19 +34,19 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.jgoodies.forms.builder.ButtonBarBuilder;
+import com.jgoodies.forms.builder.ButtonBarBuilder2;
 
 /**
  * A factory class that consists only of static methods to build frequently used
- * button bars. Utilizes the {@link com.jgoodies.forms.builder.ButtonBarBuilder}
+ * button bars. Utilizes the {@link ButtonBarBuilder2}
  * that in turn uses the {@link com.jgoodies.forms.layout.FormLayout}
  * to lay out the bars.<p>
  *
  * The button bars returned by this builder comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
- * @see com.jgoodies.forms.builder.ButtonBarBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
  */
 public final class ButtonBarFactory {
@@ -150,8 +150,8 @@ public final class ButtonBarFactory {
      * @return a left aligned button bar with the given buttons
      */
     public static JPanel buildLeftAlignedBar(JButton[] buttons) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
-        builder.addGriddedButtons(buttons);
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
+        builder.addButton(buttons);
         builder.addGlue();
         return builder.getPanel();
     }
@@ -167,9 +167,9 @@ public final class ButtonBarFactory {
     public static JPanel buildLeftAlignedBar(
             JButton[] buttons,
             boolean  leftToRightButtonOrder) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
         builder.setLeftToRightButtonOrder(leftToRightButtonOrder);
-        builder.addGriddedButtons(buttons);
+        builder.addButton(buttons);
         builder.addGlue();
         return builder.getPanel();
     }
@@ -264,9 +264,9 @@ public final class ButtonBarFactory {
      * @return a centered button bar with the given buttons
      */
     public static JPanel buildCenteredBar(JButton[] buttons) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
         builder.addGlue();
-        builder.addGriddedButtons(buttons);
+        builder.addButton(buttons);
         builder.addGlue();
         return builder.getPanel();
     }
@@ -459,9 +459,9 @@ public final class ButtonBarFactory {
      * @return a right aligned button bar with the given buttons
      */
     public static JPanel buildRightAlignedBar(JButton[] buttons) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
         builder.addGlue();
-        builder.addGriddedButtons(buttons);
+        builder.addButton(buttons);
         return builder.getPanel();
     }
 
@@ -476,10 +476,10 @@ public final class ButtonBarFactory {
     public static JPanel buildRightAlignedBar(
              JButton[] buttons,
              boolean leftToRightButtonOrder) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
         builder.setLeftToRightButtonOrder(leftToRightButtonOrder);
         builder.addGlue();
-        builder.addGriddedButtons(buttons);
+        builder.addButton(buttons);
         return builder.getPanel();
     }
 
@@ -560,11 +560,11 @@ public final class ButtonBarFactory {
      * @return a right aligned button bar with the given buttons
      */
     public static JPanel buildHelpBar(JButton help, JButton[] buttons) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
-        builder.addGridded(help);
-        builder.addRelatedGap();
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
+        builder.addButton(help);
+        builder.addUnrelatedGap();
         builder.addGlue();
-        builder.addGriddedButtons(buttons);
+        builder.addButton(buttons);
         return builder.getPanel();
     }
 
@@ -813,12 +813,12 @@ public final class ButtonBarFactory {
      */
     public static JPanel buildAddRemovePropertiesBar(
             JButton add, JButton remove, JButton properties) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
-        builder.addGriddedGrowing(add);
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
+        builder.addButton(add);
         builder.addRelatedGap();
-        builder.addGriddedGrowing(remove);
+        builder.addButton(remove);
         builder.addRelatedGap();
-        builder.addGriddedGrowing(properties);
+        builder.addButton(properties);
         return builder.getPanel();
     }
 

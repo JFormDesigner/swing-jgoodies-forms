@@ -36,7 +36,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import com.jgoodies.forms.builder.ButtonBarBuilder;
+import com.jgoodies.forms.builder.ButtonBarBuilder2;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.tutorial.util.TutorialApplication;
@@ -46,9 +46,9 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * or with a button order that honors the platform's style.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
- * @see     ButtonBarBuilder
+ * @see     ButtonBarBuilder2
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
  */
 public final class ButtonOrderExample extends TutorialApplication {
@@ -84,16 +84,16 @@ public final class ButtonOrderExample extends TutorialApplication {
         rowBuilder.setDefaultDialogBorder();
 
         rowBuilder.appendSeparator("Left to Right");
-        rowBuilder.append("Ordered:", buildButtonSequence(ButtonBarBuilder.createLeftToRightBuilder()));
-        rowBuilder.append("Fixed:",   buildIndividualButtons(ButtonBarBuilder.createLeftToRightBuilder()));
+        rowBuilder.append("Ordered:", buildButtonSequence(ButtonBarBuilder2.createLeftToRightBuilder()));
+        rowBuilder.append("Fixed:",   buildIndividualButtons(ButtonBarBuilder2.createLeftToRightBuilder()));
 
         rowBuilder.appendSeparator("Right to Left");
         rowBuilder.append("Ordered:", buildButtonSequence(createRightToLeftBuilder()));
         rowBuilder.append("Fixed:",   buildIndividualButtons(createRightToLeftBuilder()));
 
         rowBuilder.appendSeparator("Platform Default Order");
-        rowBuilder.append("Ordered:", buildButtonSequence(new ButtonBarBuilder()));
-        rowBuilder.append("Fixed:",   buildIndividualButtons(new ButtonBarBuilder()));
+        rowBuilder.append("Ordered:", buildButtonSequence(new ButtonBarBuilder2()));
+        rowBuilder.append("Fixed:",   buildIndividualButtons(new ButtonBarBuilder2()));
 
         return rowBuilder.getPanel();
     }
@@ -105,8 +105,8 @@ public final class ButtonOrderExample extends TutorialApplication {
      * @param builder   the builder used to build the bar
      * @return a button bar that honors the builder's button order
      */
-    private Component buildButtonSequence(ButtonBarBuilder builder) {
-        builder.addGriddedButtons(new JButton[] {
+    private Component buildButtonSequence(ButtonBarBuilder2 builder) {
+        builder.addButton(new JButton[] {
                 new JButton("One"),
                 new JButton("Two"),
                 new JButton("Three")
@@ -122,12 +122,12 @@ public final class ButtonOrderExample extends TutorialApplication {
      * @param builder   the builder used to build the bar
      * @return a button bar with a fixed left to right button order
      */
-    private Component buildIndividualButtons(ButtonBarBuilder builder) {
-        builder.addGridded(new JButton("One"));
+    private Component buildIndividualButtons(ButtonBarBuilder2 builder) {
+        builder.addButton(new JButton("One"));
         builder.addRelatedGap();
-        builder.addGridded(new JButton("Two"));
+        builder.addButton(new JButton("Two"));
         builder.addRelatedGap();
-        builder.addGridded(new JButton("Three"));
+        builder.addButton(new JButton("Three"));
         return builder.getPanel();
     }
 
@@ -135,13 +135,13 @@ public final class ButtonOrderExample extends TutorialApplication {
     /**
      * Creates and returns a button bar builder with a fixed
      * right-to-left button order. Unlike the factory method
-     * {@link ButtonBarBuilder#createLeftToRightBuilder()}
+     * {@link ButtonBarBuilder2#createLeftToRightBuilder()}
      * this method is useful for demonstration purposes only.
      *
      * @return a ButtonBarBuilder with right-to-left button order
      */
-    private static ButtonBarBuilder createRightToLeftBuilder() {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+    private static ButtonBarBuilder2 createRightToLeftBuilder() {
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
         builder.setLeftToRightButtonOrder(false);
         return builder;
     }
