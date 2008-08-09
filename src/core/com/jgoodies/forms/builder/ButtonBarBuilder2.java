@@ -153,7 +153,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -175,18 +175,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
 
 
     /**
-     * The client property key used to indicate that a button shall
-     * get narrow margins on the left and right hand side.<p>
-     *
-     * This optional setting will be honored by all JGoodies Look&amp;Feel
-     * implementations. The Mac Aqua l&amp;f uses narrow margins only.
-     * Other look&amp;feel implementations will likely ignore this key
-     * and so may render a wider button margin.
-     */
-    private static final String NARROW_KEY = "jgoodies.isNarrow";
-
-
-    /**
      * Describes how sequences of buttons are added to the button bar:
      * left-to-right or right-to-left. This setting is initialized using
      * the current {@link LayoutStyle}'s button order. It is honored
@@ -201,7 +189,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     private boolean leftToRight;
 
 
-    // Instance Creation ****************************************************
+    // Instance Creation ******************************************************
 
     /**
      * Constructs an empty ButtonBarBuilder2 on a JPanel.
@@ -219,12 +207,11 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     public ButtonBarBuilder2(JPanel panel) {
         super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
         leftToRight = LayoutStyle.getCurrent().isLeftToRightButtonOrder();
-        setOpaque(false);
     }
 
 
     /**
-     * Creates and returns a ButtonBarBuilder2 with
+     * Creates and returns an empty ButtonBarBuilder2 with
      * a left to right button order.
      *
      * @return a button bar builder with button order set to left-to-right
@@ -236,7 +223,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     }
 
 
-    // Accessing Properties *************************************************
+    // Accessing Properties ***************************************************
 
     /**
      * Returns whether button sequences will be ordered from
