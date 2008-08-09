@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -321,7 +321,7 @@ public abstract class LayoutStyle {
      *
      * @return true if buttons are typically ordered from left to right
      *
-     * @see com.jgoodies.forms.builder.ButtonBarBuilder
+     * @see com.jgoodies.forms.builder.ButtonBarBuilder2
      * @see com.jgoodies.forms.factories.ButtonBarFactory
      *
      * @since 1.0.3
