@@ -132,7 +132,7 @@ import com.jgoodies.forms.util.FormUtils;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -457,15 +457,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         return colSpecs.size();
     }
 
-    /**
-     * Returns the number of rows in this layout.
-     *
-     * @return the number of rows
-     */
-    public int getRowCount() {
-        return rowSpecs.size();
-    }
-
+    
     /**
      * Returns the <code>ColumnSpec</code> at the specified column index.
      *
@@ -491,33 +483,6 @@ public final class FormLayout implements LayoutManager2, Serializable {
             throw new NullPointerException("The column spec must not be null.");
         }
         colSpecs.set(columnIndex - 1, columnSpec);
-    }
-
-
-    /**
-     * Returns the <code>RowSpec</code> at the specified row index.
-     *
-     * @param rowIndex   the row index of the requested <code>RowSpec</code>
-     * @return the <code>RowSpec</code> at the specified row
-     * @throws IndexOutOfBoundsException if the row index is out of range
-     */
-    public RowSpec getRowSpec(int rowIndex) {
-        return (RowSpec) rowSpecs.get(rowIndex - 1);
-    }
-
-    /**
-     * Sets the <code>RowSpec</code> at the specified row index.
-     *
-     * @param rowIndex   the index of the row to be changed
-     * @param rowSpec    the <code>RowSpec</code> to be set
-     * @throws NullPointerException if the row specification is null
-     * @throws IndexOutOfBoundsException if the row index is out of range
-     */
-    public void setRowSpec(int rowIndex, RowSpec rowSpec) {
-        if (rowSpec == null) {
-            throw new NullPointerException("The row spec must not be null.");
-        }
-        rowSpecs.set(rowIndex - 1, rowSpec);
     }
 
 
@@ -607,6 +572,45 @@ public final class FormLayout implements LayoutManager2, Serializable {
         shiftComponentsHorizontally(columnIndex, true);
         adjustGroupIndices(colGroupIndices, columnIndex, true);
     }
+
+    
+    /**
+     * Returns the number of rows in this layout.
+     *
+     * @return the number of rows
+     */
+    public int getRowCount() {
+        return rowSpecs.size();
+    }
+
+
+    /**
+     * Returns the <code>RowSpec</code> at the specified row index.
+     *
+     * @param rowIndex   the row index of the requested <code>RowSpec</code>
+     * @return the <code>RowSpec</code> at the specified row
+     * @throws IndexOutOfBoundsException if the row index is out of range
+     */
+    public RowSpec getRowSpec(int rowIndex) {
+        return (RowSpec) rowSpecs.get(rowIndex - 1);
+    }
+
+    
+    /**
+     * Sets the <code>RowSpec</code> at the specified row index.
+     *
+     * @param rowIndex   the index of the row to be changed
+     * @param rowSpec    the <code>RowSpec</code> to be set
+     * @throws NullPointerException if the row specification is null
+     * @throws IndexOutOfBoundsException if the row index is out of range
+     */
+    public void setRowSpec(int rowIndex, RowSpec rowSpec) {
+        if (rowSpec == null) {
+            throw new NullPointerException("The row spec must not be null.");
+        }
+        rowSpecs.set(rowIndex - 1, rowSpec);
+    }
+
 
     /**
      * Appends the given row specification to the bottom of all rows.
