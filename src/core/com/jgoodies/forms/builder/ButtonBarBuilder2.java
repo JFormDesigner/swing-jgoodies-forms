@@ -153,7 +153,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -311,6 +311,8 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     }
 
 
+    // Buttons ****************************************************************
+    
     /**
      * Adds a command button component that has a minimum width
      * specified by the {@link LayoutStyle#getDefaultButtonWidth()}.<p>
