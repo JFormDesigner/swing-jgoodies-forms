@@ -14,6 +14,7 @@ INTRODUCTION
 OTHER CHANGES
 
     o Changed the Mac button minimum width from 39 to 54 dlu.
+    o Changed the FormDebugPanel to paint dashes. 
       
       
 ROADMAP
