@@ -13,7 +13,7 @@ INTRODUCTION
     
 OTHER CHANGES
 
-    o ...
+    o Changed the Mac button minimum width from 39 to 54 dlu.
       
       
 ROADMAP

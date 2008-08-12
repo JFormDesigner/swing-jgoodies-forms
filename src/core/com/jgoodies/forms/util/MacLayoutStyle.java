@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 final class MacLayoutStyle extends LayoutStyle {
 
@@ -52,7 +52,7 @@ final class MacLayoutStyle extends LayoutStyle {
 
     // Component Sizes ******************************************************
 
-    private static final Size         BUTTON_WIDTH              = Sizes.dluX(39);
+    private static final Size         BUTTON_WIDTH              = Sizes.dluX(54);
     private static final Size         BUTTON_HEIGHT             = Sizes.dluY(14);
 
 
