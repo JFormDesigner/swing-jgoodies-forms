@@ -53,11 +53,15 @@ import com.jgoodies.forms.layout.FormLayout;
  * <code>#paintComponent</code> or <code>#updateUI</code>.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @see     FormDebugUtils
  */
 public class FormDebugPanel extends JPanel {
+
+
+    public static boolean paintRowsDefault = true;
+
 
     /**
      * The default color used to paint the form's debug grid.
@@ -76,6 +80,12 @@ public class FormDebugPanel extends JPanel {
      * Specifies whether the container's diagonals should be painted.
      */
     private boolean paintDiagonals;
+
+
+    /**
+     * Specifies whether all rows shall be painted. Enabled by default.
+     */
+    private boolean paintRows = paintRowsDefault;
 
 
     /**
@@ -165,6 +175,18 @@ public class FormDebugPanel extends JPanel {
         paintDiagonals = b;
     }
 
+
+    /**
+     * Enables or disables painting of rows. Enabled by default.
+     * Note that the top and bottom are always painted.
+     *
+     * @param b  true to paint all rows, false to paint only the top and
+     *    bottom
+     */
+    public void setPaintRows(boolean b) {
+        paintRows = b;
+    }
+
     /**
      * Sets the debug grid's color.
      *
@@ -228,14 +250,33 @@ public class FormDebugPanel extends JPanel {
         int height = layoutInfo.getHeight();
 
         g.setColor(gridColor);
+
         // Paint the column bounds.
-        for (int col = 0; col < layoutInfo.columnOrigins.length; col++) {
-            g.fillRect(layoutInfo.columnOrigins[col], top, 1, height);
+        int last = layoutInfo.columnOrigins.length - 1;
+        for (int col = 0; col <= last; col++) {
+            boolean firstOrLast = (col == 0) || (col == last);
+            int x = layoutInfo.columnOrigins[col];
+            int start = firstOrLast ? 0 : top;
+            int stop = firstOrLast ? getHeight() : (top + height);
+            for (int i=start; i < stop; i+=5) {
+                int length = Math.min(3, stop - i);
+                g.fillRect(x, i, 1, length);
+            }
         }
 
         // Paint the row bounds.
-        for (int row = 0; row < layoutInfo.rowOrigins.length; row++) {
-            g.fillRect(left, layoutInfo.rowOrigins[row], width, 1);
+        last = layoutInfo.rowOrigins.length - 1;
+        for (int row = 0; row <= last; row++) {
+            boolean firstOrLast = (row == 0) || (row == last);
+            int y = layoutInfo.rowOrigins[row];
+            int start = firstOrLast ? 0 : left;
+            int stop = firstOrLast ? getWidth() : (left + width);
+            if (firstOrLast  || paintRows) {
+                for (int i=start; i < stop; i+=5) {
+                    int length = Math.min(3, stop - i);
+                    g.fillRect(i, y, length, 1);
+                }
+            }
         }
 
         if (paintDiagonals) {
