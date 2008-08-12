@@ -132,7 +132,7 @@ import com.jgoodies.forms.util.FormUtils;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -457,7 +457,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         return colSpecs.size();
     }
 
-    
+
     /**
      * Returns the <code>ColumnSpec</code> at the specified column index.
      *
@@ -573,7 +573,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         adjustGroupIndices(colGroupIndices, columnIndex, true);
     }
 
-    
+
     /**
      * Returns the number of rows in this layout.
      *
@@ -595,7 +595,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         return (RowSpec) rowSpecs.get(rowIndex - 1);
     }
 
-    
+
     /**
      * Sets the <code>RowSpec</code> at the specified row index.
      *

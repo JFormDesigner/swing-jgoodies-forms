@@ -128,13 +128,13 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
  * @see com.jgoodies.forms.util.LayoutStyle
- * 
- * @deprecated Replaced by the {@link ButtonBarBuilder2} that comes with 
+ *
+ * @deprecated Replaced by the {@link ButtonBarBuilder2} that comes with
  * a smaller, safer, better, and more convenient API.
  *
 
