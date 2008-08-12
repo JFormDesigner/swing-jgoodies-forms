@@ -53,15 +53,15 @@ import com.jgoodies.forms.layout.RowSpec;
  * TODO: Mention the ButtonStackBuilder2 subclass as soon as it is available.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @since 1.2
  */
 public abstract class AbstractButtonPanelBuilder {
 
-    
+
     // Static Fields **********************************************************
-    
+
     /**
      * The client property key used to indicate that a button shall
      * get narrow margins on the left and right hand side.<p>
@@ -73,9 +73,9 @@ public abstract class AbstractButtonPanelBuilder {
      */
     protected static final String NARROW_KEY = "jgoodies.isNarrow";
 
-    
+
     // Instance Fields ********************************************************
-    
+
     /**
      * Holds the layout container that we are building.
      */
@@ -130,7 +130,7 @@ public abstract class AbstractButtonPanelBuilder {
         container.setLayout(layout);
 
         setOpaque(false);
-        
+
         currentCellConstraints = new CellConstraints();
         ComponentOrientation orientation = container.getComponentOrientation();
         leftToRight = orientation.isLeftToRight()

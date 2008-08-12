@@ -89,27 +89,27 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
  */
 public class PanelBuilder extends AbstractFormBuilder {
-    
-    
+
+
     // Static Fields **********************************************************
-    
+
     /**
      * The global default for the enablement of the setLabelFor feature.
      * Turned off by default.
-     * 
+     *
      * @see #setLabelForFeatureEnabledDefault(boolean)
      * @see #setLabelForFeatureEnabled(boolean)
      */
     private static boolean labelForFeatureEnabledDefault = false;
-    
-    
+
+
     // Instance Fields ********************************************************
 
     /**
@@ -117,17 +117,17 @@ public class PanelBuilder extends AbstractFormBuilder {
      * titles and paragraph separators.
      */
     private ComponentFactory componentFactory;
-    
-    
+
+
     /**
      * The instance value for the setLabelFor feature.
      * Is initialized using the global default.
-     * 
+     *
      * @see #setLabelForFeatureEnabled(boolean)
      * @see #setLabelForFeatureEnabledDefault(boolean)
      */
     private boolean labelForFeatureEnabled;
-    
+
 
     /**
      * Refers to the most recently label that has a mnemonic set - if any.
@@ -135,7 +135,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * for the next component added to the panel that is applicable for
      * this feature (for example focusable). After the association
      * has been set, the reference will be cleared.
-     * 
+     *
      * @see #add(Component, CellConstraints)
      */
     private WeakReference mostRecentlyAddedMnemonicLabelReference = null;
@@ -165,22 +165,22 @@ public class PanelBuilder extends AbstractFormBuilder {
         super(layout, panel);
         labelForFeatureEnabled = labelForFeatureEnabledDefault;
     }
-    
-    
+
+
     // Global Defaults ********************************************************
-    
+
     /**
      * Returns the global default for the enablement of the setLabelFor feature.
      * This can be overridden per PanelBuilder using
      * {@link #setLabelForFeatureEnabled(boolean)}.
      * The feature is globally disabled by default.
-     * 
+     *
      * @return true for globally enabled, false for globally disabled
      */
     public static boolean getLabelForFeatureEnabledDefault() {
         return labelForFeatureEnabledDefault;
     }
-    
+
 
     /**
      * Sets the default value for the setLabelFor feature enablement.
@@ -189,35 +189,35 @@ public class PanelBuilder extends AbstractFormBuilder {
      * The default value is used to set the initial PanelBuilder
      * setting for this feature.
      * The feature is globally disabled by default.
-     * 
+     *
      * @param b true for globally enabled, false for globally disabled
      */
     public static void setLabelForFeatureEnabledDefault(boolean b) {
         labelForFeatureEnabledDefault = b;
     }
-    
-    
+
+
     // Configuration **********************************************************
-    
+
     /**
      * Returns whether the setLabelFor feature is enabled for this PanelBuilder.
      * The value is initialized from the global default value for this feature
      * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
      * by default.
-     * 
+     *
      * @return true for enabled, false for disabled
      */
     public boolean isLabelForFeatureEnabled() {
         return labelForFeatureEnabled;
     }
-    
-    
+
+
     /**
      * Enables or disables the setLabelFor feature for this PanelBuilder.
      * The value is initialized from the global default value
      * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
      * by default.
-     * 
+     *
      * @param b true for enabled, false for disabled
      */
     public void setLabelForFeatureEnabled(boolean b) {
@@ -696,8 +696,8 @@ public class PanelBuilder extends AbstractFormBuilder {
     public final void setComponentFactory(ComponentFactory newFactory) {
         componentFactory = newFactory;
     }
-    
-    
+
+
     // Overriding Superclass Behavior *****************************************
 
     /**
@@ -705,7 +705,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * In addition to the superclass behavior, this implementation
      * tracks the most recently label that has mnemonic, and associates
      * it with the next added focusable component.<p>
-     * 
+     *
      * TODO: Consider to clear the most recently added mnemonic label
      * if another label is added - even if the latter has no mnemonic set.
      *
@@ -756,7 +756,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * - if any, <code>null</code>, if none has been set, or if it has
      * been cleared after setting an association before, or if it has been
      * cleared by the garbage collector.
-     * 
+     *
      * @return the most recently added JLabel that has a mnemonic set
      *     and has not been associated with a component applicable for this
      *     feature. <code>null</code> otherwise.
@@ -776,7 +776,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * Sets a JLabel that has a mnemonic set as most recently added label.
      * Does nothing otherwise.
-     * 
+     *
      * @param component  the label to be set - if at all
      */
     private void setMostRecentlyAddedMnemonicLabel(Component component) {
@@ -798,5 +798,5 @@ public class PanelBuilder extends AbstractFormBuilder {
         mostRecentlyAddedMnemonicLabelReference = null;
     }
 
-    
+
 }
