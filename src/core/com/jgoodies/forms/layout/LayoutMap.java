@@ -61,13 +61,14 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * By default the root LayoutMap provides the following associations:
  * <table border="1">
- * <tr><td><b>Variable Name</b><td><b>Abbreviations</b></td><td><b>Value</b></td></tr>
- * <tr><td>label-component-gap</td><td>lcg, lcgap</td><td>gap between a label and its component</td></tr>
- * <tr><td>related-gap</td><td>rg, rgap</td><td>gap between two related components</td></tr>
- * <tr><td>unrelated-gap</td><td>ug, ugap</td><td>gap between two unrelated components</td></tr>
- * <tr><td>line-gap</td><td>lg, lgap</td><td>gap between two lines</td></tr>
- * <tr><td>narrow-line-gap</td><td>nlg, nlgap</td><td>narrow gap between two lines</td></tr>
- * <tr><td>paragraph</td><td>pg, pgap</td><td>gap between two paragraphs/sections</td></tr>
+ * <tr><td><b>Variable Name</b><td><b>Abbreviations</b></td><td><b>Orientation</b></td><td><b>Description</b></td></tr>
+ * <tr><td>label-component-gap</td><td>lcg, lcgap</td><td>horizontal</td><td>gap between a label and its component</td></tr>
+ * <tr><td>button</td><td>b</td><td>horizontal</td><td>button column with minimum width</td></tr>
+ * <tr><td>related-gap</td><td>rg, rgap</td><td>both</td><td>gap between two related components</td></tr>
+ * <tr><td>unrelated-gap</td><td>ug, ugap</td><td>both</td><td>gap between two unrelated components</td></tr>
+ * <tr><td>line-gap</td><td>lg, lgap</td><td>vertical</td><td>gap between two lines</td></tr>
+ * <tr><td>narrow-line-gap</td><td>nlg, nlgap</td><td>vertical</td><td>narrow gap between two lines</td></tr>
+ * <tr><td>paragraph</td><td>pg, pgap</td><td>vertical</td><td>gap between two paragraphs/sections</td></tr>
  * </table><p>
  *
  * <strong>Examples:</strong>
@@ -107,7 +108,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
