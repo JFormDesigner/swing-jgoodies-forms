@@ -44,7 +44,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see	ButtonBarFactory
  */
@@ -169,8 +169,8 @@ public final class ButtonBarFactoryExample extends TutorialApplication {
     private Component buildAddRemovePropertiesPanel() {
         FormLayout layout = new FormLayout(
                         "fill:default:grow",
-                        "fill:p:grow, 4dlu, p, 14dlu, " +
-                        "fill:p:grow, 4dlu, p");
+                        "fill:p:grow, $rgap, p, 14dlu, " +
+                        "fill:p:grow, $rgap, p");
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
@@ -178,14 +178,14 @@ public final class ButtonBarFactoryExample extends TutorialApplication {
         builder.add(new JScrollPane(new JTextArea()));
         builder.nextRow(2);
         builder.add(ButtonBarFactory.buildAddRemovePropertiesLeftBar(
-            new JButton("Add\u2026"), new JButton("Remove"), new JButton("Properties\u2026")
+            new JButton("Add\u2026"), new JButton("Remove"), new JButton("Properties")
         ));
         builder.nextRow(2);
 
         builder.add(new JScrollPane(new JTextArea()));
         builder.nextRow(2);
         builder.add(ButtonBarFactory.buildAddRemovePropertiesRightBar(
-            new JButton("Add\u2026"), new JButton("Remove"), new JButton("Properties\u2026")
+            new JButton("Add\u2026"), new JButton("Remove"), new JButton("Properties")
         ));
         return builder.getContainer();
     }
@@ -193,7 +193,7 @@ public final class ButtonBarFactoryExample extends TutorialApplication {
     private Component buildAddRemovePanel() {
         FormLayout layout = new FormLayout(
                         "fill:default:grow, 9dlu, fill:default:grow",
-                        "fill:p:grow, 4dlu, p");
+                        "fill:p:grow, $rgap, p");
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
