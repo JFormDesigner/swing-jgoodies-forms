@@ -89,13 +89,21 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
  */
 public class PanelBuilder extends AbstractFormBuilder {
+
+    // Constants **************************************************************
+
+    /**
+     * A JComponent client property that is used to determine the label
+     * labeling a component. Copied from the JLabel class.
+     */
+    private static final String LABELED_BY_PROPERTY = "labeledBy";
 
 
     // Static Fields **********************************************************
@@ -130,7 +138,7 @@ public class PanelBuilder extends AbstractFormBuilder {
 
 
     /**
-     * Refers to the most recently label that has a mnemonic set - if any.
+     * Refers to the most recently added label.
      * Used to invoke {@link JLabel#setLabelFor(java.awt.Component)}
      * for the next component added to the panel that is applicable for
      * this feature (for example focusable). After the association
@@ -138,7 +146,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @see #add(Component, CellConstraints)
      */
-    private WeakReference mostRecentlyAddedMnemonicLabelReference = null;
+    private WeakReference mostRecentlyAddedLabelReference = null;
 
 
     // Instance Creation ******************************************************
@@ -703,31 +711,31 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * Adds a component to the panel using the given cell constraints.
      * In addition to the superclass behavior, this implementation
-     * tracks the most recently label that has mnemonic, and associates
-     * it with the next added focusable component.<p>
-     *
-     * TODO: Consider to clear the most recently added mnemonic label
-     * if another label is added - even if the latter has no mnemonic set.
+     * tracks the most recently added label, and associates it with
+     * the next added component that is applicable for being set as component
+     * for the label.
      *
      * @param component        the component to add
      * @param cellConstraints  the component's cell constraints
      * @return the added component
      *
      * @see #isLabelForFeatureEnabled()
-     * @see #isLabelForApplicable(Component)
+     * @see #isLabelForApplicable(JLabel, Component)
      */
     public Component add(Component component, CellConstraints cellConstraints) {
         Component result = super.add(component, cellConstraints);
         if (!isLabelForFeatureEnabled()) {
             return result;
         }
-        JLabel mostRecentlyAddedMnemonicLabel = getMostRecentlyAddedMnemonicLabel();
-        if (   (mostRecentlyAddedMnemonicLabel != null)
-            && isLabelForApplicable(component)) {
-            mostRecentlyAddedMnemonicLabel.setLabelFor(component);
-            clearMostRecentlyAddedMnemonicLabel();
+        JLabel mostRecentlyAddedLabel = getMostRecentlyAddedLabel();
+        if (   (mostRecentlyAddedLabel != null)
+            && isLabelForApplicable(mostRecentlyAddedLabel, component)) {
+            mostRecentlyAddedLabel.setLabelFor(component);
+            clearMostRecentlyAddedLabel();
         }
-        setMostRecentlyAddedMnemonicLabel(component);
+        if (component instanceof JLabel) {
+            setMostRecentlyAddedLabel((JLabel) component);
+        }
         return result;
     }
 
@@ -736,16 +744,34 @@ public class PanelBuilder extends AbstractFormBuilder {
 
     /**
      * Checks and answers whether the given component shall be set
-     * as component for a previously added label with mnemonic using
+     * as component for a previously added label using
      * {@link JLabel#setLabelFor(Component)}.
-     * This default implementation just checks whether the component is
-     * focusable. Subclasses may override.
      *
-     * @param component    the component to be checked
+     * This default implementation checks whether the component is focusable,
+     * and - if a JComponent - whether it is already labeled by a JLabel.
+     * Subclasses may override.
+     *
+     * @param label        the candidate for labeling {@code component}
+     * @param component    the component that could be labeled by {@code label}
      * @return true if focusable, false otherwise
      */
-    protected boolean isLabelForApplicable(Component component) {
-        return component.isFocusable();
+    protected boolean isLabelForApplicable(JLabel label, Component component) {
+        // 1) Is the label labeling a component?
+        if (label.getLabelFor() != null) {
+            return false;
+        }
+
+        // 2) Is the component focusable?
+        if (!component.isFocusable()) {
+            return false;
+        }
+
+        // 3) Is the component labeled by another label?
+        if (!(component instanceof JComponent)) {
+            return true;
+        }
+        JComponent c = (JComponent) component;
+        return c.getClientProperty(LABELED_BY_PROPERTY) == null;
     }
 
 
@@ -761,11 +787,11 @@ public class PanelBuilder extends AbstractFormBuilder {
      *     and has not been associated with a component applicable for this
      *     feature. <code>null</code> otherwise.
      */
-    private JLabel getMostRecentlyAddedMnemonicLabel() {
-        if (mostRecentlyAddedMnemonicLabelReference == null) {
+    private JLabel getMostRecentlyAddedLabel() {
+        if (mostRecentlyAddedLabelReference == null) {
             return null;
         }
-        JLabel label = (JLabel) mostRecentlyAddedMnemonicLabelReference.get();
+        JLabel label = (JLabel) mostRecentlyAddedLabelReference.get();
         if (label == null) {
             return null;
         }
@@ -774,28 +800,20 @@ public class PanelBuilder extends AbstractFormBuilder {
 
 
     /**
-     * Sets a JLabel that has a mnemonic set as most recently added label.
-     * Does nothing otherwise.
+     * Sets the given label as most recently added label using a weak reference.
      *
-     * @param component  the label to be set - if at all
+     * @param label  the label to be set
      */
-    private void setMostRecentlyAddedMnemonicLabel(Component component) {
-        if (!(component instanceof JLabel)) {
-            return;
-        }
-        JLabel label = (JLabel) component;
-        if (label.getDisplayedMnemonic() != -1) {
-            mostRecentlyAddedMnemonicLabelReference =
-                new WeakReference(label);
-        }
+    private void setMostRecentlyAddedLabel(JLabel label) {
+        mostRecentlyAddedLabelReference = new WeakReference(label);
     }
 
 
     /**
      * Clears the reference to the most recently added mnemonic label.
      */
-    private void clearMostRecentlyAddedMnemonicLabel() {
-        mostRecentlyAddedMnemonicLabelReference = null;
+    private void clearMostRecentlyAddedLabel() {
+        mostRecentlyAddedLabelReference = null;
     }
 
 
