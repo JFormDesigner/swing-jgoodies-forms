@@ -1,20 +1,21 @@
 
                            JGoodies Forms
-                            Version 1.3.0 Preview1
+                            Version 1.3.0 Preview2
                             Release Notes
                         
 
 INTRODUCTION
 
-    This update adds optional panel builder features to automatically 
-    associate an added focusable component with a previously added 
-    label that has a mnemonic. See class PanelBuilder.
+    This update adds a PanelBuilder feature to automatically 
+    associate an added focusable component with a previously 
+    added label. See class PanelBuilder.
     
     
 OTHER CHANGES
 
     o Changed the Mac button minimum width from 39 to 54 dlu.
     o Changed the FormDebugPanel to paint dashes. 
+    o Added tests for the labelFor feature.
       
       
 ROADMAP
