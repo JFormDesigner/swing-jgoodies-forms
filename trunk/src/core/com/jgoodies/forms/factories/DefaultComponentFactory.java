@@ -32,6 +32,7 @@ package com.jgoodies.forms.factories;
 
 import java.awt.*;
 
+import javax.accessibility.AccessibleContext;
 import javax.swing.*;
 
 import com.jgoodies.forms.layout.Sizes;
@@ -50,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public class DefaultComponentFactory implements ComponentFactory {
 
@@ -96,7 +97,7 @@ public class DefaultComponentFactory implements ComponentFactory {
      * @return an label with optional mnemonic
      */
     public JLabel createLabel(String textWithMnemonic) {
-        JLabel label = new JLabel();
+        JLabel label = new FormsLabel();
         setTextAndMnemonic(label, textWithMnemonic);
         return label;
     }
@@ -284,10 +285,73 @@ public class DefaultComponentFactory implements ComponentFactory {
     }
 
 
+    // Helper Classes *********************************************************
+
+    /**
+     * Differs from its superclass JLabel in that it removes a trailing
+     * colon (':') - if any - from the label's accessible name.
+     * This in turn leads to improved accessible names for components
+     * labeled by FormLabels via {@code #setLabelFor}.
+     */
+    private static class FormsLabel extends JLabel {
+
+
+        // Accessibility Support ----------------------------------------------
+
+        /**
+         * Lazily creates and returns the {@link AccessibleContext} associated
+         * with this label, an instance of {@code AccessibleFormsLabel}.
+         *
+         * @return this link's AccessibleContext
+         */
+        public AccessibleContext getAccessibleContext() {
+            if (accessibleContext == null) {
+                accessibleContext = new AccessibleFormsLabel();
+            }
+            return accessibleContext;
+        }
+
+
+        /**
+         * This class implements accessibility support for CommandLinks.
+         * In addition to the superclass behavior inherited from the JButton
+         * Accessibility, this class' accessible description falls back to the
+         * CommandLink's description.
+         */
+        private final class AccessibleFormsLabel extends AccessibleJLabel {
+
+            /**
+             * Returns the accessible name of this label.
+             * Unlike the superclass behavior, this implementation
+             * cuts of a trailing colon (':') - if any.
+             *
+             * @return the label name
+             *
+             * @see AccessibleContext#setAccessibleName
+             */
+            public String getAccessibleName() {
+                if (accessibleName != null) {
+                    return accessibleName;
+                }
+                String text = FormsLabel.this.getText();
+                if (text == null) {
+                    return super.getAccessibleName();
+                }
+                return text.endsWith(":")
+                    ? text.substring(0, text.length()-1)
+                    : text;
+            }
+
+        }
+
+
+    }
+
+
     /**
      * A label that uses the TitleBorder font and color.
      */
-    private static final class TitleLabel extends JLabel {
+    private static final class TitleLabel extends FormsLabel {
 
         private TitleLabel() {
             // Just invoke the super constructor.
