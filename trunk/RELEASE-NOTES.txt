@@ -16,6 +16,10 @@ OTHER CHANGES
     o Changed the Mac button minimum width from 39 to 54 dlu.
     o Changed the FormDebugPanel to paint dashes. 
     o Added tests for the labelFor feature.
+    o DefaultComponentFactory creates JLabels that remove
+      the trailing colon (':') - if any - from its accessible name.
+      This in turn leads to improved accessible names for components
+      labeled by FormLabels via {@code #setLabelFor}.
       
       
 ROADMAP
