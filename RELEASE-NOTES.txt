@@ -1,6 +1,6 @@
 
                            JGoodies Forms
-                            Version 1.3.0 Preview2
+                       Version 1.3.0 Preview3
                             Release Notes
                         
 
@@ -19,7 +19,8 @@ OTHER CHANGES
     o DefaultComponentFactory creates JLabels that remove
       the trailing colon (':') - if any - from its accessible name.
       This in turn leads to improved accessible names for components
-      labeled by FormLabels via {@code #setLabelFor}.
+      labeled by FormsLabels via {@code #setLabelFor}.
+    o Added tests for the accessible name in FormLabels.
       
       
 ROADMAP
