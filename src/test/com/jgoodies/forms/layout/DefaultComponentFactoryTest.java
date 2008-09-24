@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  * A test case for class {@link DefaultComponentFactory}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public final class DefaultComponentFactoryTest extends TestCase {
 
@@ -157,17 +157,38 @@ public final class DefaultComponentFactoryTest extends TestCase {
     }
     
     
+    public void testLabelWithCustomAccessibleName() {
+        String text = "Name:";
+        String accessibleName = "The name";
+        JLabel label = DefaultComponentFactory.getInstance().createLabel(text);
+        label.getAccessibleContext().setAccessibleName(accessibleName);
+        testLabelAccessibleName("Label with custom accessible name",
+                label,
+                accessibleName);
+    }
+    
+    
     private void testLabelAccessibleName(
             String description, 
             String text, 
             String expected) {
-        JLabel label = DefaultComponentFactory.getInstance().createLabel(text);
+        testLabelAccessibleName(
+                description,
+                DefaultComponentFactory.getInstance().createLabel(text),
+                expected);
+    }
+
+
+    private void testLabelAccessibleName(
+            String description,
+            JLabel label,
+            String expected) {
         assertEquals(description, 
                 expected, 
                 label.getAccessibleContext().getAccessibleName());
     }
-
-
+    
+    
     // Test Helper Code *******************************************************
 
     private void testMnemonic(String textWithMnemonic,
