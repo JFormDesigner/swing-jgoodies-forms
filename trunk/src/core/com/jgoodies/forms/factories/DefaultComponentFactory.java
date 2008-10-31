@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public class DefaultComponentFactory implements ComponentFactory2 {
 
@@ -118,6 +118,10 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an label with optional mnemonic intended for read-only
      *     components
+     *
+     * @see ComponentFactory2
+     *
+     * @since 1.3
      */
     public JLabel createReadOnlyLabel(String textWithMnemonic) {
         JLabel label = new ReadOnlyLabel();

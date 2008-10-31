@@ -67,7 +67,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * construction, and requests strings from that bundle.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  *
  * @since 1.1
  */
@@ -231,6 +231,8 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      * @param resourceKey   the resource key for the label's text
      * @param constraints   the label's cell constraints
      * @return the added label
+     *
+     * @since 1.3
      */
     public final JLabel addI15dROLabel(String resourceKey, CellConstraints constraints) {
         JLabel label = addROLabel(getI15dString(resourceKey), constraints);
@@ -248,6 +250,8 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      * @param resourceKey         the resource key for the label's text
      * @param encodedConstraints  a string representation for the constraints
      * @return the added label
+     *
+     * @since 1.3
      */
     public final JLabel addI15dROLabel(String resourceKey, String encodedConstraints) {
         return addI15dROLabel(resourceKey, encodedConstraints);
@@ -273,14 +277,14 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      * is cloned by the <code>FormLayout</code>.<p>
      *
      * <strong>Wrong:</strong><pre>
-     * builder.add("name.key",
+     * builder.addI15dROLabel("name.key",
      *             cc.xy(1, 7),         // will be modified by the code below
      *             nameField,
      *             cc.xy(3, 7)          // sets the single instance to (3, 7)
      *            );
      * </pre>
      * <strong>Correct:</strong><pre>
-     * builder.add("name.key",
+     * builder.addI15dROLabel("name.key",
      *             cc.xy(1, 7).clone(), // cloned before the next modification
      *             nameField,
      *             cc.xy(3, 7)          // sets this instance to (3, 7)
@@ -297,6 +301,8 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      *     is used for the label and the component
      *
      * @see JLabel#setLabelFor(java.awt.Component)
+     *
+     * @since 1.3
      */
     public final JLabel addI15dROLabel(
             String resourceKey,   CellConstraints labelConstraints,

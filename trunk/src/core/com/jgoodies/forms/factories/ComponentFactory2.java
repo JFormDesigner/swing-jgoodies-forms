@@ -35,10 +35,15 @@ import javax.swing.JLabel;
 /**
  * An extension to the ComponentFactory interface that describes
  * the describes the read-only label creation introduced by the
- * Forms 1.3.
+ * Forms 1.3.<p>
+ *
+ * <strong>Note: This interface shall be merged with the ComponentFactory
+ * interface in the Forms 2.0</strong>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
+ *
+ * @since 1.3
  *
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
