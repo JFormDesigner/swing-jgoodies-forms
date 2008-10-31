@@ -60,7 +60,9 @@ import com.jgoodies.forms.layout.CellConstraints.Alignment;
  * See also the examples in the {@link FormLayout} class comment.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
+ *
+ * @since 1.3
  */
 public final class CC implements Cloneable, Serializable {
 

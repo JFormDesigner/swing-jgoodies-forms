@@ -90,7 +90,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -461,7 +461,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the new label
      *
-     * @see ComponentFactory
+     * @see ComponentFactory2
+     *
+     * @since 1.3
      */
     public final JLabel addROLabel(String textWithMnemonic) {
         return addROLabel(textWithMnemonic, cellConstraints());
@@ -484,7 +486,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param constraints       the label's cell constraints
      * @return the new label
      *
-     * @see ComponentFactory
+     * @see ComponentFactory2
+     *
+     * @since 1.3
      */
     public final JLabel addROLabel(String textWithMnemonic, CellConstraints constraints) {
         ComponentFactory factory = getComponentFactory();
@@ -516,7 +520,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param encodedConstraints  a string representation for the constraints
      * @return the new label
      *
-     * @see ComponentFactory
+     * @see ComponentFactory2
+     *
+     * @since 1.3
      */
     public final JLabel addROLabel(String textWithMnemonic, String encodedConstraints) {
         return addROLabel(textWithMnemonic, new CellConstraints(encodedConstraints));
@@ -580,8 +586,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      *     is used for the label and the component
      *
      * @see JLabel#setLabelFor(java.awt.Component)
-     * @see ComponentFactory
+     * @see ComponentFactory2
      * @see DefaultFormBuilder
+     *
+     * @since 1.3
      */
     public final JLabel addROLabel(
         String textWithMnemonic, CellConstraints labelConstraints,
