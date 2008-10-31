@@ -8,11 +8,14 @@ INTRODUCTION
 
     This update adds a PanelBuilder feature to automatically 
     associate an added focusable component with a previously 
-    added label. See class PanelBuilder.
+    added label, see class PanelBuilder. The component factory
+    mechanism and the builder classes have been extended to create
+    JLabels that are intended to label read-only components.
     
     
 OTHER CHANGES
 
+    o Added ButtonStackBuilder methods to add buttons from Actions.
     o Changed the Mac button minimum width from 39 to 54 dlu.
     o Changed the FormDebugPanel to paint dashes. 
     o Added tests for the labelFor feature.
@@ -21,6 +24,8 @@ OTHER CHANGES
       This in turn leads to improved accessible names for components
       labeled by FormsLabels via {@code #setLabelFor}.
     o Added tests for the accessible name in FormLabels.
+    o Added convenience methods #addButton to the ButtonStackBuilder
+      that add given JButtons or JButtons created from given Actions. 
       
       
 ROADMAP
