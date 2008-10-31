@@ -30,6 +30,7 @@
 
 package com.jgoodies.forms.builder;
 
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -72,7 +73,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see ButtonBarBuilder2
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -137,6 +138,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
      */
     public ButtonStackBuilder(FormLayout layout, JPanel panel) {
         super(layout, panel);
+        setOpaque(false);
     }
 
 
@@ -220,6 +222,167 @@ public final class ButtonStackBuilder extends PanelBuilder {
                                           size,
                                           RowSpec.NO_GROW));
         nextRow();
+    }
+
+
+    // Convenience Methods ***************************************************
+
+    /**
+     * Adds the given button.
+     * Equivalent to:
+     * <pre>addButton(new JButton[]{button});</pre>
+     *
+     * @param button   the button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(JButton button) {
+        addButton(new JButton[]{button});
+    }
+
+
+    /**
+     * Adds the given buttons as a sequence of related buttons.
+     * Equivalent to:
+     * <pre>addButton(new JButton[]{button1, button2});</pre>
+     *
+     * @param button1   the first button to add
+     * @param button2   the second button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(JButton button1, JButton button2) {
+        addButton(new JButton[]{button1, button2});
+    }
+
+
+    /**
+     * Adds the given buttons as a sequence of related buttons.
+     * Equivalent to:
+     * <pre>addButton(new JButton[]{button1, button2, button3});</pre>
+     *
+     * @param button1   the first button to add
+     * @param button2   the second button to add
+     * @param button3   the third button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(JButton button1, JButton button2, JButton button3) {
+        addButton(new JButton[]{button1, button2, button3});
+    }
+
+
+    /**
+     * Adds the given buttons as a sequence of related buttons.
+     * Equivalent to:
+     * <pre>addButton(new JButton[]{button1, button2, button3, button4});</pre>
+     *
+     * @param button1   the first button to add
+     * @param button2   the second button to add
+     * @param button3   the third button to add
+     * @param button4   the fourth button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(
+            JButton button1,
+            JButton button2,
+            JButton button3,
+            JButton button4) {
+        addButton(new JButton[]{button1, button2, button3, button4});
+    }
+
+
+    /**
+     * Adds a sequence of related buttons separated by a default gap.
+     *
+     * @param buttons  the array of buttons to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(JButton[] buttons) {
+        addButtons(buttons);
+    }
+
+
+    /**
+     * Creates a {@code JButton} for the given Action and adds
+     * the button to this builder.
+     * Equivalent to:
+     * <pre>addButton(new Action[]{action});</pre>
+     *
+     * @param action   the Action used to create the button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(Action action) {
+        addButton(new Action[]{action});
+    }
+
+
+    /**
+     * Creates {@code JButton}s for the given Actions and adds
+     * the buttons to this builder.
+     * Equivalent to:
+     * <pre>addButton(new Action[]{action1, action2});</pre>
+     *
+     * @param action1   the Action used to create the first button to add
+     * @param action2   the Action used to create the second button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(Action action1, Action action2) {
+        addButton(new Action[]{action1, action2});
+    }
+
+
+    /**
+     * Creates {@code JButton}s for the given Actions and adds
+     * the buttons to this builder.
+     * Equivalent to:
+     * <pre>addButton(new Action[]{action1, action2, action3});</pre>
+     *
+     * @param action1   the Action used to create the first button to add
+     * @param action2   the Action used to create the second button to add
+     * @param action3   the Action used to create the third button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(Action action1, Action action2, Action action3) {
+        addButton(new Action[]{action1, action2, action3});
+    }
+
+
+    /**
+     * Creates {@code JButton}s for the given Actions and adds
+     * the buttons to this builder.
+     * Equivalent to:
+     * <pre>addButton(new Action[]{action1, action2, action3, action4});</pre>
+     *
+     * @param action1   the Action used to create the first button to add
+     * @param action2   the Action used to create the second button to add
+     * @param action3   the Action used to create the third button to add
+     * @param action4   the Action used to create the fourth button to add
+     *
+     * @since 1.3.0
+     */
+    public void addButton(Action action1, Action action2, Action action3, Action action4) {
+        addButton(new Action[]{action1, action2, action3, action4});
+    }
+
+
+    /**
+     * Constructs an array of JButtons from the given Action array,
+     * and adds them as a sequence of related buttons separated by a default gap.
+     *
+     * @param actions  an array of buttons to add
+     */
+    public void addButton(Action[] actions) {
+        JButton[] buttons = new JButton[actions.length];
+        for (int i = 0; i < actions.length; i++) {
+            buttons[i] = new JButton(actions[i]);
+        }
+        addButtons(buttons);
     }
 
 
