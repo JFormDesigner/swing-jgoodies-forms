@@ -15,7 +15,24 @@ INTRODUCTION
     
 OTHER CHANGES
 
+    o Added the CC factory class that vends CellConstraints.
+      It allows to remove a line from typical builder code.
+      
+      This code:
+           FormLayout layout = new FormLayout(...);
+           PanelBuilder builder = new PanelBuilder(layout);
+           CellConstraints cc = new CellConstraints();
+           builder.add(...,  cc.xy (1, 1));
+           builder.add(...,  cc.xyw(3, 1, 3));
+         
+      can be replaced by:
+           FormLayout layout = new FormLayout(...);
+           PanelBuilder builder = new PanelBuilder(layout);
+           builder.add(...,  CC.xy (1, 1));
+           builder.add(...,  CC.xyw(3, 1, 3));
+         
     o Added ButtonStackBuilder methods to add buttons from Actions.
+    o Introduced the ComponentFactory2 interface.
     o Changed the Mac button minimum width from 39 to 54 dlu.
     o Changed the FormDebugPanel to paint dashes. 
     o Added tests for the labelFor feature.
