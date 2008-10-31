@@ -47,12 +47,11 @@ import javax.swing.JLabel;
  * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
  */
-
 public interface ComponentFactory {
 
     /**
