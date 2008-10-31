@@ -37,6 +37,8 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import com.jgoodies.forms.factories.CC;
+
 /**
  * Defines constraints for components that are laid out with the FormLayout.
  * Defines the components display area: grid&nbsp;x, grid&nbsp;y,
@@ -80,7 +82,9 @@ import java.util.StringTokenizer;
  * TODO: Rename the inset to offsets.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
+ *
+ * @see CC
  */
 public final class CellConstraints implements Cloneable, Serializable {
 
