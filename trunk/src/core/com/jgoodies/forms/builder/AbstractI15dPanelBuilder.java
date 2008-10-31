@@ -67,7 +67,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * construction, and requests strings from that bundle.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @since 1.1
  */
@@ -221,6 +221,93 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
         return label;
     }
 
+
+    // Adding Labels for Read-Only Fields *************************************
+
+    /**
+     * Adds an internationalized (i15d) textual label to the form using the
+     * specified constraints that is intended to label a read-only component.
+     *
+     * @param resourceKey   the resource key for the label's text
+     * @param constraints   the label's cell constraints
+     * @return the added label
+     */
+    public final JLabel addI15dROLabel(String resourceKey, CellConstraints constraints) {
+        JLabel label = addROLabel(getI15dString(resourceKey), constraints);
+        if (isDebugToolTipsEnabled()) {
+            label.setToolTipText(resourceKey);
+        }
+        return label;
+    }
+
+
+    /**
+     * Adds an internationalized (i15d) textual label to the form using the
+     * specified constraints that is intended to label a read-only component.
+     *
+     * @param resourceKey         the resource key for the label's text
+     * @param encodedConstraints  a string representation for the constraints
+     * @return the added label
+     */
+    public final JLabel addI15dROLabel(String resourceKey, String encodedConstraints) {
+        return addI15dROLabel(resourceKey, encodedConstraints);
+    }
+
+    /**
+     * Adds an internationalized (i15d) label and component to the panel using
+     * the given cell constraints. Intended for read-only components.
+     * Sets the label as <i>the</i> component label
+     * using {@link JLabel#setLabelFor(java.awt.Component)}.<p>
+     *
+     * <strong>Note:</strong> The {@link CellConstraints} objects for the label
+     * and the component must be different. Cell constraints are implicitly
+     * cloned by the <code>FormLayout</code> when added to the container.
+     * However, in this case you may be tempted to reuse a
+     * <code>CellConstraints</code> object in the same way as with many other
+     * builder methods that require a single <code>CellConstraints</code>
+     * parameter.
+     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code>
+     * just set the coordinates but do <em>not</em> create a new instance.
+     * And so the second invocation of <code>xy***(...)</code> overrides
+     * the settings performed in the first invocation before the object
+     * is cloned by the <code>FormLayout</code>.<p>
+     *
+     * <strong>Wrong:</strong><pre>
+     * builder.add("name.key",
+     *             cc.xy(1, 7),         // will be modified by the code below
+     *             nameField,
+     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
+     *            );
+     * </pre>
+     * <strong>Correct:</strong><pre>
+     * builder.add("name.key",
+     *             cc.xy(1, 7).clone(), // cloned before the next modification
+     *             nameField,
+     *             cc.xy(3, 7)          // sets this instance to (3, 7)
+     *            );
+     * </pre>
+     *
+     * @param resourceKey           the resource key for the label
+     * @param labelConstraints      the label's cell constraints
+     * @param component             the component to add
+     * @param componentConstraints  the component's cell constraints
+     * @return the added label
+     *
+     * @throws IllegalArgumentException if the same cell constraints instance
+     *     is used for the label and the component
+     *
+     * @see JLabel#setLabelFor(java.awt.Component)
+     */
+    public final JLabel addI15dROLabel(
+            String resourceKey,   CellConstraints labelConstraints,
+            Component component,  CellConstraints componentConstraints) {
+
+        return addI15dROLabel(resourceKey, labelConstraints,
+                              component, componentConstraints);
+    }
+
+
+    // Adding Titled Separators ***********************************************
 
     /**
      * Adds an internationalized (i15d) titled separator to the form using the
