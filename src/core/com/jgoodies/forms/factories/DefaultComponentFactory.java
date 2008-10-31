@@ -51,9 +51,9 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
-public class DefaultComponentFactory implements ComponentFactory {
+public class DefaultComponentFactory implements ComponentFactory2 {
 
     /**
      * Holds the single instance of this class.
@@ -98,6 +98,29 @@ public class DefaultComponentFactory implements ComponentFactory {
      */
     public JLabel createLabel(String textWithMnemonic) {
         JLabel label = new FormsLabel();
+        setTextAndMnemonic(label, textWithMnemonic);
+        return label;
+    }
+
+
+    /**
+     * Creates and returns a label with an optional mnemonic
+     * that is intended to label a read-only component.<p>
+     *
+     * <pre>
+     * createReadOnlyLabel("Name");       // No mnemonic
+     * createReadOnlyLabel("N&ame");      // Mnemonic is 'a'
+     * createReadOnlyLabel("Save &as");   // Mnemonic is the second 'a'
+     * createReadOnlyLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * </pre>
+     *
+     * @param textWithMnemonic  the label's text -
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @return an label with optional mnemonic intended for read-only
+     *     components
+     */
+    public JLabel createReadOnlyLabel(String textWithMnemonic) {
+        JLabel label = new ReadOnlyLabel();
         setTextAndMnemonic(label, textWithMnemonic);
         return label;
     }
@@ -344,7 +367,38 @@ public class DefaultComponentFactory implements ComponentFactory {
 
         }
 
+    }
 
+
+    /**
+     * A FormsLabel subclasses intended to label read-only components.
+     * Aims to set the disabled foreground color.
+     */
+    private static final class ReadOnlyLabel extends FormsLabel {
+
+        private static final String[] UIMANAGER_KEYS =
+            {"Label.disabledForeground",
+             "Label.disabledText",
+             "Label[Disabled].textForeground",
+             "textInactiveText"};
+
+        public void updateUI() {
+            super.updateUI();
+            setForeground(getDisabledForeground());
+        }
+
+        private Color getDisabledForeground() {
+            Color foreground;
+            for (int i = 0; i < UIMANAGER_KEYS.length; i++) {
+                String key = UIMANAGER_KEYS[i];
+                foreground = UIManager.getColor(key);
+                if (foreground != null) {
+                    // System.out.println("Matching key=" + key + "; color=" + foreground);
+                    return foreground;
+                }
+            }
+            return null;
+        }
     }
 
 
