@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  * A test case for class {@link DefaultComponentFactory}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public final class DefaultComponentFactoryTest extends TestCase {
 
@@ -140,23 +140,23 @@ public final class DefaultComponentFactoryTest extends TestCase {
         testMnemonic("a&&b&&c&&d&x&&e&&f&&",  "a&b&c&dx&e&f&",  'X', 7);
         testMnemonic("a&&b&&c&&d&x&&e&&f&&g", "a&b&c&dx&e&f&g", 'X', 7);
     }
-    
-    
+
+
     // Accessibility **********************************************************
-    
+
     public void testLabelWithoutColon() {
         testLabelAccessibleName("Label without colon",        "Name", "Name");
         testLabelAccessibleName("1 char label without colon", "A",    "A");
         testLabelAccessibleName("Empty label without colon",  "",     "");
     }
-    
-    
+
+
     public void testLabelWithColon() {
         testLabelAccessibleName("Label without colon",      "Name:", "Name");
         testLabelAccessibleName("Empty label without colon", ":",    "");
     }
-    
-    
+
+
     public void testLabelWithCustomAccessibleName() {
         String text = "Name:";
         String accessibleName = "The name";
@@ -166,11 +166,11 @@ public final class DefaultComponentFactoryTest extends TestCase {
                 label,
                 accessibleName);
     }
-    
-    
+
+
     private void testLabelAccessibleName(
-            String description, 
-            String text, 
+            String description,
+            String text,
             String expected) {
         testLabelAccessibleName(
                 description,
@@ -183,12 +183,12 @@ public final class DefaultComponentFactoryTest extends TestCase {
             String description,
             JLabel label,
             String expected) {
-        assertEquals(description, 
-                expected, 
+        assertEquals(description,
+                expected,
                 label.getAccessibleContext().getAccessibleName());
     }
-    
-    
+
+
     // Test Helper Code *******************************************************
 
     private void testMnemonic(String textWithMnemonic,
