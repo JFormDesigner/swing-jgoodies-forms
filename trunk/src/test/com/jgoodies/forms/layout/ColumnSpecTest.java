@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.32 $
+ * @version $Revision: 1.33 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -354,14 +354,10 @@ public final class ColumnSpecTest extends TestCase {
             assertRejects("d:a:b:");
             assertRejects("top:default:grow");
             assertRejects("bottom:10px");
-            assertRejects("max(10px;20px)");
-            assertRejects("min(10px;20px)");
-            assertRejects("[10px,20px]");
             assertRejects("max(pref;pref)");
             assertRejects("min(pref;pref)");
             assertRejects("[pref,pref]");
             assertRejects("[pref,pref,200px]");  // lower bound must be constant
-            assertRejects("[10px,50px,200px]");  // basis must be logical
             assertRejects("[10px,pref,pref]");   // upper bound must be constant
 
             assertRejectsSpecs("7dlu l:p:g 7dlu");    // Missing commas

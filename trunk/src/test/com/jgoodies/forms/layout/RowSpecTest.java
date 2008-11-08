@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.26 $
+ * @version $Revision: 1.27 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -315,14 +315,10 @@ public final class RowSpecTest extends TestCase {
             assertRejects("d:a:b:");
             assertRejects("right:default:grow"); // invalid alignment
             assertRejects("left:20dlu");
-            assertRejects("max(10px;20px)");
-            assertRejects("min(10px;20px)");
-            assertRejects("[10px,20px]");
             assertRejects("max(pref;pref)");
             assertRejects("min(pref;pref)");
             assertRejects("[pref,pref]");
             assertRejects("[pref,pref,200px]");  // lower bound must be constant
-            assertRejects("[10px,50px,200px]");  // basis must be logical
             assertRejects("[10px,pref,pref]");   // upper bound must be constant
         } finally {
             Locale.setDefault(oldDefault);
