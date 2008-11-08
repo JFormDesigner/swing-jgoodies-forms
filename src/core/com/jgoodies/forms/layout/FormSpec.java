@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -320,8 +320,14 @@ public abstract class FormSpec implements Serializable {
             Size size1 = parseAtomicSize(subtoken[0]);
             Size size2 = parseAtomicSize(subtoken[1]);
             if (isConstant(size1)) {
-                lower = size1;
-                basis = size2;
+                if (isConstant(size2)) {
+                    lower = size1;
+                    basis = size2;
+                    upper = size2;
+                } else {
+                    lower = size1;
+                    basis = size2;
+                }
             } else {
                 basis = size1;
                 upper = size2;
@@ -331,8 +337,7 @@ public abstract class FormSpec implements Serializable {
             basis = parseAtomicSize(subtoken[1]);
             upper = parseAtomicSize(subtoken[2]);
         }
-        if (   (basis instanceof Sizes.ComponentSize)
-            && ((lower == null) || (isConstant(lower)))
+        if (   ((lower == null) || (isConstant(lower)))
             && ((upper == null) || (isConstant(upper))))  {
             return new BoundedSize(basis, lower, upper);
         }
