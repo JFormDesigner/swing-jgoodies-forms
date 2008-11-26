@@ -34,10 +34,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.lang.ref.WeakReference;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.Borders;
@@ -90,7 +87,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -894,7 +891,7 @@ public class PanelBuilder extends AbstractFormBuilder {
         JLabel mostRecentlyAddedLabel = getMostRecentlyAddedLabel();
         if (   (mostRecentlyAddedLabel != null)
             && isLabelForApplicable(mostRecentlyAddedLabel, component)) {
-            mostRecentlyAddedLabel.setLabelFor(component);
+            setLabelFor(mostRecentlyAddedLabel, component);
             clearMostRecentlyAddedLabel();
         }
         if (component instanceof JLabel) {
@@ -936,6 +933,28 @@ public class PanelBuilder extends AbstractFormBuilder {
         }
         JComponent c = (JComponent) component;
         return c.getClientProperty(LABELED_BY_PROPERTY) == null;
+    }
+
+
+    /**
+     * Sets {@code label} as labeling label for {@code component} or an
+     * appropriate child. In case of a JScrollPane as given component,
+     * this default implementation labels the view of the scroll pane's
+     * viewport.
+     *
+     * @param label      the labeling label
+     * @param component  the component to be labeled, or the parent of
+     *   the labeled component
+     */
+    protected void setLabelFor(JLabel label, Component component) {
+        Component labeledComponent;
+        if (component instanceof JScrollPane) {
+            JScrollPane scrollPane = (JScrollPane) component;
+            labeledComponent = scrollPane.getViewport().getView();
+        } else {
+            labeledComponent = component;
+        }
+        label.setLabelFor(labeledComponent);
     }
 
 
