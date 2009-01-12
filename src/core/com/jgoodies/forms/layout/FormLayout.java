@@ -132,7 +132,7 @@ import com.jgoodies.forms.util.FormUtils;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -992,7 +992,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @return <code>true</code> if the component visibility is honored
      *     by this FormLayout, <code>false</code> if it is ignored.
-     *     This setting can be overridden by individual CellConstraints
+     *     This setting can be overridden for individual CellConstraints
      *     using {@link #setHonorsVisibility(Component, Boolean)}.
      *
      * @since 1.2
