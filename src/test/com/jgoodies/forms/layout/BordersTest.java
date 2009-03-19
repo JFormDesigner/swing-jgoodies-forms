@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2008 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.Borders;
  * A test case for class {@link Borders}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public final class BordersTest extends TestCase {
 
