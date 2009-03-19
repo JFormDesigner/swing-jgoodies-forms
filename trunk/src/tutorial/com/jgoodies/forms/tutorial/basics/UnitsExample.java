@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2008 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,7 +44,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Pt, mm, cm, in honor the screen resolution; dlus honor the font size too.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 public final class UnitsExample extends TutorialApplication {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2008 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -67,7 +67,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
