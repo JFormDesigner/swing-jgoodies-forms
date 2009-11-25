@@ -51,7 +51,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see	PlainExample
  * @see	DynamicRowsExample
@@ -136,7 +136,7 @@ public final class RowCounterExample extends TutorialApplication {
               + "right:[40dlu,pref], 3dlu, 70dlu",
                 "p, 3dlu, p, 3dlu, p, 3dlu, p, 9dlu, "
               + "p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p");
-        layout.setRowGroups(new int[][] { { 3, 13, 15, 17 } });
+        layout.setRowGroups(new int[][] { { 3, 11, 13, 15, 17 } });
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
