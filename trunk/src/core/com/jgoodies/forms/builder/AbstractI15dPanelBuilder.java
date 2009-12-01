@@ -67,7 +67,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * construction, and requests strings from that bundle.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @since 1.1
  */
@@ -186,14 +186,14 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      * is cloned by the <code>FormLayout</code>.<p>
      *
      * <strong>Wrong:</strong><pre>
-     * builder.add("name.key",
+     * builder.addI15dLabel("name.key",
      *             cc.xy(1, 7),         // will be modified by the code below
      *             nameField,
      *             cc.xy(3, 7)          // sets the single instance to (3, 7)
      *            );
      * </pre>
      * <strong>Correct:</strong><pre>
-     * builder.add("name.key",
+     * builder.addI15dLabel("name.key",
      *             cc.xy(1, 7).clone(), // cloned before the next modification
      *             nameField,
      *             cc.xy(3, 7)          // sets this instance to (3, 7)
@@ -254,8 +254,9 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      * @since 1.3
      */
     public final JLabel addI15dROLabel(String resourceKey, String encodedConstraints) {
-        return addI15dROLabel(resourceKey, encodedConstraints);
+        return addI15dROLabel(resourceKey, new CellConstraints(encodedConstraints));
     }
+
 
     /**
      * Adds an internationalized (i15d) label and component to the panel using
@@ -290,6 +291,13 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      *             cc.xy(3, 7)          // sets this instance to (3, 7)
      *            );
      * </pre>
+     * <strong>Better:</strong><pre>
+     * builder.addI15dROLabel("name.key",
+     *             CC.xy(1, 7)          // creates a CellConstraints object
+     *             nameField,
+     *             CC.xy(3, 7)          // creates another CellConstraints object
+     *            );
+     * </pre>
      *
      * @param resourceKey           the resource key for the label
      * @param labelConstraints      the label's cell constraints
@@ -307,9 +315,13 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
     public final JLabel addI15dROLabel(
             String resourceKey,   CellConstraints labelConstraints,
             Component component,  CellConstraints componentConstraints) {
-
-        return addI15dROLabel(resourceKey, labelConstraints,
-                              component, componentConstraints);
+        JLabel label = addROLabel(
+                getI15dString(resourceKey), labelConstraints,
+                component, componentConstraints);
+        if (isDebugToolTipsEnabled()) {
+            label.setToolTipText(resourceKey);
+        }
+        return label;
     }
 
 
@@ -331,6 +343,7 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
         return component;
     }
 
+
     /**
      * Adds an internationalized (i15d)  titled separator to the form using
      * the specified constraints.
@@ -342,6 +355,7 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
     public final JComponent addI15dSeparator(String resourceKey, String encodedConstraints) {
         return addI15dSeparator(resourceKey, new CellConstraints(encodedConstraints));
     }
+
 
     /**
      * Adds a title to the form using the specified constraints.
@@ -357,6 +371,7 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
         }
         return label;
     }
+
 
     /**
      * Adds a title to the form using the specified constraints.
