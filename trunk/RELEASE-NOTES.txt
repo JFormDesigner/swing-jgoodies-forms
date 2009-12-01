@@ -1,6 +1,6 @@
 
                            JGoodies Forms
-                       Version 1.3.0 Preview4
+                       Version 1.3.0 Preview5
                             Release Notes
                         
 
