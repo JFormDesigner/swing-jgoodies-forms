@@ -49,7 +49,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * and honors the platform's {@link LayoutStyle} regarding button sizes,
  * gap widths, and the default button order.<p>
  *
- * This is an improved version of the older {@link ButtonBarBuilder}.
+ * This is an improved version of the older {@code ButtonBarBuilder}.
  * The ButtonBarBuilder2 has a simpler, safer, and more convenient API,
  * see below for a comparison.<p>
  *
@@ -153,7 +153,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -456,16 +456,19 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @see #addButton(JComponent)
      */
     public void addButton(JComponent[] buttons) {
-        if (buttons == null)
+        if (buttons == null) {
             throw new NullPointerException("The button array must not be null.");
+        }
         int length = buttons.length;
-        if (length == 0)
+        if (length == 0) {
             throw new IllegalArgumentException("The button array must not be empty.");
+        }
         for (int i = 0; i < length; i++) {
             int index = leftToRight ? i : length -1 - i;
             addButton(buttons[index]);
-            if (i < buttons.length - 1)
+            if (i < buttons.length - 1) {
                 addRelatedGap();
+            }
         }
     }
 
@@ -481,8 +484,9 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @see #addButton(JComponent)
      */
     public void addButton(Action action) {
-        if (action == null)
+        if (action == null) {
             throw new NullPointerException("The button Action must not be null.");
+        }
         addButton(new JButton(action));
     }
 
@@ -611,11 +615,13 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @see #addButton(JComponent[])
      */
     public void addButton(Action[] actions) {
-        if (actions == null)
+        if (actions == null) {
             throw new NullPointerException("The Action array must not be null.");
+        }
         int length = actions.length;
-        if (length == 0)
+        if (length == 0) {
             throw new IllegalArgumentException("The Action array must not be empty.");
+        }
         JButton[] buttons = new JButton[length];
         for (int i = 0; i < length; i++) {
             buttons[i] = new JButton(actions[i]);
@@ -657,8 +663,9 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
         for (int i = 0; i < length; i++) {
             int index = leftToRight ? i : length -1 - i;
             addGrowing(buttons[index]);
-            if (i < buttons.length - 1)
+            if (i < buttons.length - 1) {
                 addRelatedGap();
+            }
         }
     }
 
