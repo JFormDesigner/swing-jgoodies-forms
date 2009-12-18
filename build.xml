@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.20 2007-04-18 07:57:17 karsten Exp $
+   $Id: build.xml,v 1.21 2009-12-18 20:28:00 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -55,7 +55,7 @@
         <pathelement location="${build.core.dir}" 	/> 
         <pathelement location="${build.extras.dir}" /> 
         <pathelement location="${build.test.dir}" 	/> 
-        <pathelement location="${junit.jar}" 		/> 
+        <pathelement location="${junit4.jar}" 		/> 
     </path>
   
     <path id="classpath.tutorial">
