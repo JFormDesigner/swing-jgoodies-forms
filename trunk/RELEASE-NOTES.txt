@@ -1,6 +1,6 @@
 
                            JGoodies Forms
-                       Version 1.3.0 Preview5
+                           Version 1.3.0
                             Release Notes
                         
 
@@ -11,6 +11,12 @@ INTRODUCTION
     added label, see class PanelBuilder. The component factory
     mechanism and the builder classes have been extended to create
     JLabels that are intended to label read-only components.
+    
+    
+BUGS FIXED
+
+    o Fixed a parse problem with commas in prototype strings,
+      e.g. new FormLayout("pref, 'a,b', pref", "p");
     
     
 OTHER CHANGES
