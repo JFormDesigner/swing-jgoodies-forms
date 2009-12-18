@@ -35,9 +35,10 @@ package com.jgoodies.forms.util;
  * Consists only of static utility methods.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
- * @deprecated Replaced by {@link FormUtils}. Will be removed from the Forms 2.0.
+ * @deprecated Replaced by {@link FormUtils}. Will be removed
+ *    from the next Forms version.
  */
 public final class Utilities {
 

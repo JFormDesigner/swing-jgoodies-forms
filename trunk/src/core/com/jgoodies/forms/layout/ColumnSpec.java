@@ -58,7 +58,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -151,7 +151,7 @@ public final class ColumnSpec extends FormSpec {
      * does not expand layout variables, and it cannot vend cached objects.<p>
      *
      * <strong>Note:</strong> This constructor will become private
-     * in the Forms 2.0.
+     * in the next Forms version.
      *
      * @param encodedDescription	the encoded description
      *
