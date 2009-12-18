@@ -43,7 +43,7 @@ import com.jgoodies.forms.util.FormUtils;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -151,6 +151,7 @@ public final class FormSpecParser {
         List encodedSpecs = new ArrayList();
         int parenthesisLevel = 0;  // number of open '('
         int bracketLevel = 0;      // number of open '['
+        int quoteLevel = 0;        // number of open '\''
         int length = expression.length();
         int specStart = 0;
         char c;
@@ -162,7 +163,7 @@ public final class FormSpecParser {
                 continue;
             }
             lead = false;
-            if ((c == ',') && (parenthesisLevel == 0) && (bracketLevel == 0)) {
+            if (c == ',' && parenthesisLevel == 0 && bracketLevel == 0 && quoteLevel == 0) {
                 String token = expression.substring(specStart, i);
                 addSpec(encodedSpecs, token, offset + specStart);
                 specStart = i + 1;
@@ -189,6 +190,12 @@ public final class FormSpecParser {
                 bracketLevel--;
                 if (bracketLevel < 0) {
                     fail(offset + i, "missing '['");
+                }
+            } else if (c == '\'') {
+                if (quoteLevel == 0) {
+                    quoteLevel++;
+                } else if (quoteLevel == 1) {
+                    quoteLevel--;
                 }
             }
         }
