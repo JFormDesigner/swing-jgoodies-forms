@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.34 $
+ * @version $Revision: 1.35 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -332,6 +332,12 @@ public final class ColumnSpecTest extends TestCase {
             ColumnSpec spec2 = new ColumnSpec(ColumnSpec.RIGHT, Sizes.DEFAULT, 1.0);
             ColumnSpec[] specs = ColumnSpec.decodeSpecs(
                     "left:pref:none , right:default:grow");
+            assertEquals(2, specs.length);
+            assertEquals(spec1, specs[0]);
+            assertEquals(spec2, specs[1]);
+
+            spec2 = new ColumnSpec(new PrototypeSize("a,b"));
+            specs = ColumnSpec.decodeSpecs("l:p, 'a,b'");
             assertEquals(2, specs.length);
             assertEquals(spec1, specs[0]);
             assertEquals(spec2, specs[1]);
