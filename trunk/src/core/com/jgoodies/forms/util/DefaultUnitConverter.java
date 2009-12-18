@@ -35,8 +35,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
@@ -67,7 +66,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -136,11 +135,16 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     private DialogBaseUnits cachedGlobalDialogBaseUnits = null;
 
     /**
-     * Maps <code>FontMetrics</code> to horizontal dialog base units.
-     * This is a second-level cache, that stores dialog base units
-     * for a <code>FontMetrics</code> object.
+     * Holds the horizontal dialog base units that are valid
+     * for the FontMetrics stored in {@code cachedFontMetrics}.
      */
-    private final Map cachedDialogBaseUnits = new HashMap();
+    private DialogBaseUnits cachedDialogBaseUnits = null;
+
+    /**
+     * Holds the FontMetrics used to compute the per-component dialog units.
+     * The latter are valid, if a FontMetrics equals this stored metrics.
+     */
+    private FontMetrics cachedFontMetrics = null;
 
     /**
      * Holds a cached default dialog font that is used as fallback,
@@ -203,10 +207,12 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @throws NullPointerException     if the test string is <code>null</code>
      */
     public void setAverageCharacterWidthTestString(String newTestString) {
-        if (newTestString == null)
+        if (newTestString == null) {
             throw new NullPointerException("The test string must not be null.");
-        if (newTestString.length() == 0)
+        }
+        if (newTestString.length() == 0) {
             throw new IllegalArgumentException("The test string must not be empty.");
+        }
 
         String oldTestString = averageCharWidthTestString;
         averageCharWidthTestString = newTestString;
@@ -302,12 +308,12 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
             return getGlobalDialogBaseUnits();
         }
         FontMetrics fm = c.getFontMetrics(getDefaultDialogFont());
-        DialogBaseUnits dialogBaseUnits =
-            (DialogBaseUnits) cachedDialogBaseUnits.get(fm);
-        if (dialogBaseUnits == null) {
-            dialogBaseUnits = computeDialogBaseUnits(fm);
-            cachedDialogBaseUnits.put(fm, dialogBaseUnits);
+        if (fm.equals(cachedFontMetrics)) {
+            return cachedDialogBaseUnits;
         }
+        DialogBaseUnits dialogBaseUnits = computeDialogBaseUnits(fm);
+        cachedFontMetrics = fm;
+        cachedDialogBaseUnits = dialogBaseUnits;
         return dialogBaseUnits;
     }
 
@@ -334,11 +340,13 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         double height = ascent > 14 ? ascent : ascent + (15 - ascent) / 3;
         DialogBaseUnits dialogBaseUnits =
             new DialogBaseUnits(averageCharWidth, height);
-        LOGGER.config(
-            "Computed dialog base units "
-                + dialogBaseUnits
-                + " for: "
-                + metrics.getFont());
+        if (LOGGER.isLoggable(Level.CONFIG)) {
+            LOGGER.config(
+                "Computed dialog base units "
+                    + dialogBaseUnits
+                    + " for: "
+                    + metrics.getFont());
+        }
         return dialogBaseUnits;
     }
 
@@ -413,7 +421,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      */
     void clearCache() {
         cachedGlobalDialogBaseUnits = null;
-        cachedDialogBaseUnits.clear();
+        cachedFontMetrics = null;
         cachedDefaultDialogFont = null;
     }
 
