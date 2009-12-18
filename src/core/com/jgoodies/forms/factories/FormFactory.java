@@ -40,7 +40,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * Provides frequently used column and row specifications.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -321,7 +321,7 @@ public final class FormFactory {
      * @return a <code>ColumnSpec</code> that describes a horizontal gap
      *
      * @deprecated Replaced by {@link ColumnSpec#createGap(ConstantSize)}.
-     *     This method will be removed from the Forms 2.0 API.
+     *     This method will be removed from the next Forms version.
      */
     public static ColumnSpec createGapColumnSpec(ConstantSize gapWidth) {
         return ColumnSpec.createGap(gapWidth);
@@ -336,7 +336,7 @@ public final class FormFactory {
      * @return a <code>RowSpec</code> that describes a vertical gap
      *
      * @deprecated Replaced by {@link RowSpec#createGap(ConstantSize)}.
-     *     This method will be removed from the Forms 2.0 API.
+     *     This method will be removed from the next Forms version.
      */
     public static RowSpec createGapRowSpec(ConstantSize gapHeight) {
         return RowSpec.createGap(gapHeight);
