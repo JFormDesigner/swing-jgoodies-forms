@@ -53,7 +53,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * TODO: Mention the ButtonStackBuilder2 subclass as soon as it is available.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @since 1.2
  */
@@ -119,11 +119,13 @@ public abstract class AbstractButtonPanelBuilder {
      * @throws NullPointerException if the layout or container is null
      */
     protected AbstractButtonPanelBuilder(FormLayout layout, JPanel container) {
-        if (layout == null)
+        if (layout == null) {
             throw new NullPointerException("The layout must not be null.");
+        }
 
-        if (container == null)
+        if (container == null) {
             throw new NullPointerException("The layout container must not be null.");
+        }
 
         this.container = container;
         this.layout    = layout;
@@ -260,6 +262,11 @@ public abstract class AbstractButtonPanelBuilder {
      */
     private void nextColumn(int columns) {
         currentCellConstraints.gridX += columns * getColumnIncrementSign();
+    }
+
+
+    protected int getColumn() {
+        return currentCellConstraints.gridX;
     }
 
 
