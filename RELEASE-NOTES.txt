@@ -60,16 +60,16 @@ OTHER CHANGES
       
 ROADMAP
 
+    Forms 1.4
+    o Move to Java 5.
+    o Remove deprecated classes and methods.
+    o Use JGoodies Common.
+
     Forms 2.0 
     o API clarification and API extensions.
     o Bug fixing - even if the fix affects the layout.
     o Make DLU a general unit.
     o Change the default unit conversion algorithm.
-    
-    Future version
-    o Extend the tutorial.
-    o Move to Java 5.
-    
     
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
