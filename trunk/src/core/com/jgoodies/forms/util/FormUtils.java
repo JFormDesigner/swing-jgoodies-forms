@@ -34,12 +34,14 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 /**
- * Consists only of static utility methods.
+ * A library-internal class that consists only of static utility methods.
  *
- * This class may be merged with the FormLayoutUtils extra - or not.
+ * <strong>Note: This class is not part of the public Forms API.
+ * It's intended for library implementation purposes only.
+ * The class's API may change at any time.</strong>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @since 1.2
  */
@@ -65,8 +67,9 @@ public final class FormUtils {
      * @throws IllegalArgumentException if {@code text} is empty, or blank
      */
     public static void assertNotBlank(String text, String description) {
-        if (text == null)
+        if (text == null) {
             throw new NullPointerException("The " + description + " must not be null.");
+        }
         if (FormUtils.isBlank(text)) {
             throw new IllegalArgumentException(
                     "The " + description + " must not be empty, or whitespace. " +
@@ -85,8 +88,9 @@ public final class FormUtils {
      * @throws NullPointerException if {@code object} is {@code null}
      */
     public static void assertNotNull(Object object, String description) {
-        if (object == null)
+        if (object == null) {
             throw new NullPointerException("The " + description + " must not be null.");
+        }
     }
 
 
@@ -108,8 +112,8 @@ public final class FormUtils {
      *    both objects are {@code null} or equal
      */
     public static boolean equals(Object o1, Object o2) {
-        return    ((o1 != null) && (o2 != null) && (o1.equals(o2)))
-               || ((o1 == null) && (o2 == null));
+        return    o1 != null && o2 != null && o1.equals(o2)
+               || o1 == null && o2 == null;
     }
 
 
@@ -131,7 +135,7 @@ public final class FormUtils {
      */
     public static boolean isBlank(String str) {
         int length;
-        if ((str == null) || ((length = str.length()) == 0)) {
+        if (str == null || (length = str.length()) == 0) {
             return true;
         }
         for (int i = length - 1; i >= 0; i--) {
@@ -162,11 +166,13 @@ public final class FormUtils {
      */
     public static boolean isNotBlank(String str) {
         int length;
-        if ((str == null) || ((length = str.length()) == 0))
+        if (str == null || (length = str.length()) == 0) {
             return false;
+        }
         for (int i = length-1; i >= 0; i--) {
-            if (!Character.isWhitespace(str.charAt(i)))
+            if (!Character.isWhitespace(str.charAt(i))) {
                 return true;
+            }
         }
         return false;
     }
