@@ -15,6 +15,7 @@ INTRODUCTION
     
 BUGS FIXED
 
+    o Issue 66: Potential out of memory in DefaultUnitConverter.
     o Fixed a parse problem with commas in prototype strings,
       e.g. new FormLayout("pref, 'a,b', pref", "p");
     
