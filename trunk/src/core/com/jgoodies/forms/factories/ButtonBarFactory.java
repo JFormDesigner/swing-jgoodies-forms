@@ -33,7 +33,6 @@ package com.jgoodies.forms.factories;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.jgoodies.forms.builder.ButtonBarBuilder;
 import com.jgoodies.forms.builder.ButtonBarBuilder2;
 
 /**
@@ -45,7 +44,7 @@ import com.jgoodies.forms.builder.ButtonBarBuilder2;
  * The button bars returned by this builder comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see com.jgoodies.forms.util.LayoutStyle
  */
@@ -360,8 +359,8 @@ public final class ButtonBarFactory {
      * @return a filled button bar with the given buttons
      */
     public static JPanel buildGrowingBar(JButton[] buttons) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
-        builder.addGriddedGrowingButtons(buttons);
+        ButtonBarBuilder2 builder = new ButtonBarBuilder2();
+        builder.addGrowing(buttons);
         return builder.getPanel();
     }
 
@@ -934,27 +933,31 @@ public final class ButtonBarFactory {
                                          JButton overlaidFinish,
                                          JButton[] rightAlignedButtons) {
 
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        MyButtonBarBuilder2 builder = new MyButtonBarBuilder2();
         if (leftAlignedButtons != null) {
-            builder.addGriddedButtons(leftAlignedButtons);
+            builder.addButton(leftAlignedButtons);
             builder.addRelatedGap();
         }
         builder.addGlue();
-        builder.addGridded(back);
-        builder.addGridded(next);
+        builder.addButton(back);
+        builder.addButton(next);
 
         // Optionally overlay the finish and next button.
         if (overlaidFinish != null) {
-            builder.nextColumn(-1);
-            builder.add(overlaidFinish);
-            builder.nextColumn();
+            builder.getPanel().add(overlaidFinish, CC.xy(builder.getColumn(), 1));
         }
 
         if (rightAlignedButtons != null) {
             builder.addRelatedGap();
-            builder.addGriddedButtons(rightAlignedButtons);
+            builder.addButton(rightAlignedButtons);
         }
         return builder.getPanel();
+    }
+
+    private static final class MyButtonBarBuilder2 extends ButtonBarBuilder2 {
+        public int getColumn() {
+            return super.getColumn();
+        }
     }
 
 
