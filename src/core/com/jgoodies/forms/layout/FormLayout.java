@@ -132,7 +132,7 @@ import com.jgoodies.forms.util.FormUtils;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -427,10 +427,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @throws NullPointerException if colSpecs or rowSpecs is {@code null}
      */
     public FormLayout(ColumnSpec[] colSpecs, RowSpec[] rowSpecs) {
-        if (colSpecs == null)
+        if (colSpecs == null) {
             throw new NullPointerException("The column specifications must not be null.");
-        if (rowSpecs == null)
+        }
+        if (rowSpecs == null) {
             throw new NullPointerException("The row specifications must not be null.");
+        }
 
         this.colSpecs  = new ArrayList(Arrays.asList(colSpecs));
         this.rowSpecs  = new ArrayList(Arrays.asList(rowSpecs));
@@ -798,12 +800,14 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     private CellConstraints getConstraints0(Component component) {
-        if (component == null)
+        if (component == null) {
             throw new NullPointerException("The component must not be null.");
+        }
 
         CellConstraints constraints = (CellConstraints) constraintMap.get(component);
-        if (constraints == null)
+        if (constraints == null) {
             throw new NullPointerException("The component has not been added to the container.");
+        }
 
         return constraints;
     }
@@ -818,10 +822,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     is <code>null</code>
      */
     public void setConstraints(Component component, CellConstraints constraints) {
-        if (component == null)
+        if (component == null) {
             throw new NullPointerException("The component must not be null.");
-        if (constraints == null)
+        }
+        if (constraints == null) {
             throw new NullPointerException("The constraints must not be null.");
+        }
 
         constraints.ensureValidGridBounds(getColumnCount(), getRowCount());
         constraintMap.put(component, constraints.clone());
@@ -1035,12 +1041,14 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     public void setHonorsVisibility(boolean b) {
         boolean oldHonorsVisibility = getHonorsVisibility();
-        if (oldHonorsVisibility == b)
+        if (oldHonorsVisibility == b) {
             return;
+        }
         honorsVisibility = b;
         Set componentSet = constraintMap.keySet();
-        if (componentSet.isEmpty())
+        if (componentSet.isEmpty()) {
             return;
+        }
         Component firstComponent = (Component) componentSet.iterator().next();
         Container container = firstComponent.getParent();
         invalidateAndRepaint(container);
@@ -1064,8 +1072,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     public void setHonorsVisibility(Component component, Boolean b) {
         CellConstraints constraints = getConstraints0(component);
-        if (FormUtils.equals(b, constraints.honorsVisibility))
+        if (FormUtils.equals(b, constraints.honorsVisibility)) {
             return;
+        }
         constraints.honorsVisibility = b;
         invalidateAndRepaint(component.getParent());
     }
@@ -1293,11 +1302,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
             Component component = (Component) entry.getKey();
             CellConstraints constraints = (CellConstraints) entry.getValue();
             if (takeIntoAccount(component, constraints)) {
-                if (constraints.gridWidth == 1)
+                if (constraints.gridWidth == 1) {
                     colComponents[constraints.gridX-1].add(component);
+                }
 
-                if (constraints.gridHeight == 1)
+                if (constraints.gridHeight == 1) {
                     rowComponents[constraints.gridY-1].add(component);
+                }
             }
         }
     }
@@ -1351,11 +1362,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 Map.Entry entry = (Map.Entry) i.next();
                 Component component = (Component) entry.getKey();
                 CellConstraints constraints = (CellConstraints) entry.getValue();
-                if (!takeIntoAccount(component, constraints))
+                if (!takeIntoAccount(component, constraints)) {
                     continue;
+                }
 
-                if (   (constraints.gridWidth > 1)
-                    && (constraints.gridWidth > maxFixedSizeColsTable[constraints.gridX-1])) {
+                if (   constraints.gridWidth > 1
+                    && constraints.gridWidth > maxFixedSizeColsTable[constraints.gridX-1]) {
                     //int compWidth = minimumWidthMeasure.sizeOf(component);
                     int compWidth = defaultWidthMeasure.sizeOf(component);
                     //int compWidth = preferredWidthMeasure.sizeOf(component);
@@ -1369,8 +1381,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                     }
                 }
 
-                if (   (constraints.gridHeight > 1)
-                    && (constraints.gridHeight > maxFixedSizeRowsTable[constraints.gridY-1])) {
+                if (   constraints.gridHeight > 1
+                    && constraints.gridHeight > maxFixedSizeRowsTable[constraints.gridY-1]) {
                     //int compHeight = minimumHeightMeasure.sizeOf(component);
                     int compHeight = defaultHeightMeasure.sizeOf(component);
                     //int compHeight = preferredHeightMeasure.sizeOf(component);
@@ -1558,11 +1570,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                  int[] minSizes, int[] prefSizes) {
 
         // If we have less space than the total min size, answer the min sizes.
-        if (totalSize < totalMinSize)
+        if (totalSize < totalMinSize) {
             return minSizes;
+        }
         // If we have more space than the total pref size, answer the pref sizes.
-        if (totalSize >= totalPrefSize)
+        if (totalSize >= totalPrefSize) {
             return prefSizes;
+        }
 
         int count = formSpecs.size();
         int[] sizes = new int[count];
@@ -1641,8 +1655,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                     int[] inputSizes) {
         double totalFreeSpace = totalSize - totalPrefSize;
         // Do nothing if there's no free space.
-        if (totalFreeSpace < 0)
+        if (totalFreeSpace < 0) {
             return inputSizes;
+        }
 
         // Compute the total weight.
         int count = formSpecs.size();
@@ -1653,8 +1668,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
 
         // Do nothing if there's no resizing column.
-        if (totalWeight == 0.0)
+        if (totalWeight == 0.0) {
             return inputSizes;
+        }
 
         int[] sizes = new int[count];
 
@@ -1713,8 +1729,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 maximumFixedSpan = 0;
             }
             table[i] = maximumFixedSpan;
-            if (maximumFixedSpan < Integer.MAX_VALUE)
+            if (maximumFixedSpan < Integer.MAX_VALUE) {
                 maximumFixedSpan++;
+            }
         }
         return table;
     }
@@ -1738,8 +1755,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     private static void invalidateAndRepaint(Container container) {
-        if (container == null)
+        if (container == null) {
             return;
+        }
         if (container instanceof JComponent) {
             ((JComponent) container).revalidate();
         } else {
@@ -1750,20 +1768,21 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     /**
-     * Components are taken into account, if
-     * a) they are visible, or
-     * b) they have no individual setting and the container-wide settings
-     *    ignores the visibility, or
-     * c) the individual component ignores the visibility.
+     * Checks and answers whether the given component with the specified
+     * CellConstraints shall be taken into account for the layout.
      *
-     * @param component
-     * @param cc
-     * @return <code>true</code> if the component shall be taken into account,
-     *     <code>false</code> otherwise
+     * @param component   the component to test
+     * @param cc          the component's associated CellConstraints
+     * @return {@code true} if
+     *     a) {@code component} is visible, or
+     *     b) {@code component} has no individual setting and the container-wide settings
+     *    ignores the visibility, or
+     *     c) {@code cc} indicates that this individual component
+     *        ignores the visibility.
      */
     private boolean takeIntoAccount(Component component, CellConstraints cc) {
         return   component.isVisible()
-              || ((cc.honorsVisibility == null) && !getHonorsVisibility())
+              || cc.honorsVisibility == null && !getHonorsVisibility()
               || Boolean.FALSE.equals(cc.honorsVisibility);
     }
 
