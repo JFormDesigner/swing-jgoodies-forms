@@ -82,7 +82,7 @@ import com.jgoodies.forms.factories.CC;
  * TODO: Rename the inset to offsets.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see CC
  */
@@ -317,18 +317,24 @@ public final class CellConstraints implements Cloneable, Serializable {
         this.hAlign     = hAlign;
         this.vAlign     = vAlign;
         this.insets     = insets;
-        if (gridX <= 0)
+        if (gridX <= 0) {
             throw new IndexOutOfBoundsException("The grid x must be a positive number.");
-        if (gridY <= 0)
+        }
+        if (gridY <= 0) {
             throw new IndexOutOfBoundsException("The grid y must be a positive number.");
-        if (gridWidth <= 0)
+        }
+        if (gridWidth <= 0) {
             throw new IndexOutOfBoundsException("The grid width must be a positive number.");
-        if (gridHeight <= 0)
+        }
+        if (gridHeight <= 0) {
             throw new IndexOutOfBoundsException("The grid height must be a positive number.");
-        if (hAlign == null)
+        }
+        if (hAlign == null) {
             throw new NullPointerException("The horizontal alignment must not be null.");
-        if (vAlign == null)
+        }
+        if (vAlign == null) {
             throw new NullPointerException("The vertical alignment must not be null.");
+        }
         ensureValidOrientations(hAlign, vAlign);
     }
 
@@ -804,9 +810,10 @@ public final class CellConstraints implements Cloneable, Serializable {
     private void initFromConstraints(String encodedConstraints) {
         StringTokenizer tokenizer = new StringTokenizer(encodedConstraints, " ,");
         int argCount = tokenizer.countTokens();
-        if (!(argCount == 2 || argCount == 4 || argCount == 6))
-           throw new IllegalArgumentException(
-                    "You must provide 2, 4 or 6 arguments.");
+        if (!(argCount == 2 || argCount == 4 || argCount == 6)) {
+            throw new IllegalArgumentException(
+                        "You must provide 2, 4 or 6 arguments.");
+        }
 
         Integer nextInt = decodeInt(tokenizer.nextToken());
         if (nextInt == null) {
@@ -814,8 +821,9 @@ public final class CellConstraints implements Cloneable, Serializable {
                     "First cell constraint element must be a number.");
         }
         gridX = nextInt.intValue();
-        if (gridX <= 0)
+        if (gridX <= 0) {
             throw new IndexOutOfBoundsException("The grid x must be a positive number.");
+        }
 
         nextInt = decodeInt(tokenizer.nextToken());
         if (nextInt == null) {
@@ -823,12 +831,14 @@ public final class CellConstraints implements Cloneable, Serializable {
                     "Second cell constraint element must be a number.");
         }
         gridY = nextInt.intValue();
-        if (gridY <= 0)
+        if (gridY <= 0) {
             throw new IndexOutOfBoundsException(
                     "The grid y must be a positive number.");
+        }
 
-        if (!tokenizer.hasMoreTokens())
+        if (!tokenizer.hasMoreTokens()) {
             return;
+        }
 
         String token = tokenizer.nextToken();
         nextInt = decodeInt(token);
@@ -836,20 +846,24 @@ public final class CellConstraints implements Cloneable, Serializable {
             // Case: "x, y, w, h" or
             //       "x, y, w, h, hAlign, vAlign"
             gridWidth = nextInt.intValue();
-            if (gridWidth <= 0)
+            if (gridWidth <= 0) {
                 throw new IndexOutOfBoundsException(
                     "The grid width must be a positive number.");
+            }
             nextInt = decodeInt(tokenizer.nextToken());
-            if (nextInt == null)
+            if (nextInt == null) {
                 throw new IllegalArgumentException(
                     "Fourth cell constraint element must be like third.");
+            }
             gridHeight = nextInt.intValue();
-            if (gridHeight <= 0)
+            if (gridHeight <= 0) {
                 throw new IndexOutOfBoundsException(
                     "The grid height must be a positive number.");
+            }
 
-            if (!tokenizer.hasMoreTokens())
+            if (!tokenizer.hasMoreTokens()) {
                 return;
+            }
             token = tokenizer.nextToken();
         }
 
@@ -967,10 +981,12 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @throws IllegalArgumentException if an alignment is invalid
      */
     private void ensureValidOrientations(Alignment horizontalAlignment, Alignment verticalAlignment) {
-        if (!horizontalAlignment.isHorizontal())
+        if (!horizontalAlignment.isHorizontal()) {
             throw new IllegalArgumentException("The horizontal alignment must be one of: left, center, right, fill, default.");
-        if (!verticalAlignment.isVertical())
+        }
+        if (!verticalAlignment.isVertical()) {
             throw new IllegalArgumentException("The vertical alignment must be one of: top, center, botto, fill, default.");
+        }
     }
 
 
@@ -1054,18 +1070,20 @@ public final class CellConstraints implements Cloneable, Serializable {
             return cellAlignment;
         }
         FormSpec.DefaultAlignment defaultAlignment = formSpec.getDefaultAlignment();
-        if (defaultAlignment == FormSpec.FILL_ALIGN)
+        if (defaultAlignment == FormSpec.FILL_ALIGN) {
             return FILL;
-        if (defaultAlignment == ColumnSpec.LEFT)
+        }
+        if (defaultAlignment == ColumnSpec.LEFT) {
             return LEFT;
-        else if (defaultAlignment == FormSpec.CENTER_ALIGN)
+        } else if (defaultAlignment == FormSpec.CENTER_ALIGN) {
             return CENTER;
-        else if (defaultAlignment == ColumnSpec.RIGHT)
+        } else if (defaultAlignment == ColumnSpec.RIGHT) {
             return RIGHT;
-        else if (defaultAlignment == RowSpec.TOP)
+        } else if (defaultAlignment == RowSpec.TOP) {
             return TOP;
-        else
+        } else {
             return BOTTOM;
+        }
     }
 
 
@@ -1100,10 +1118,10 @@ public final class CellConstraints implements Cloneable, Serializable {
     /**
      * Computes and returns the component's pixel origin.
      *
-     * @param alignment		the component's alignment
+     * @param alignment		    the component's alignment
      * @param cellOrigin		the origin of the display area
      * @param cellSize			the extent of the display area
-     * @param componentSize
+     * @param componentSize     the component's size
      * @return the component's pixel origin
      */
     private int origin(Alignment alignment,
@@ -1173,7 +1191,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         buffer.append(hAlign);
         buffer.append("; vAlign=");
         buffer.append(vAlign);
-        if (!(EMPTY_INSETS.equals(insets))) {
+        if (!EMPTY_INSETS.equals(insets)) {
           buffer.append("; insets=");
           buffer.append(insets);
         }
@@ -1233,7 +1251,7 @@ public final class CellConstraints implements Cloneable, Serializable {
             buffer.append(concreteAlignment(vAlign, rowSpec).abbreviation());
         }
         buffer.append("\"");
-        if (!(EMPTY_INSETS.equals(insets))) {
+        if (!EMPTY_INSETS.equals(insets)) {
           buffer.append(", ");
           buffer.append(insets);
         }
@@ -1270,25 +1288,26 @@ public final class CellConstraints implements Cloneable, Serializable {
 
         static Alignment valueOf(String nameOrAbbreviation) {
             String str = nameOrAbbreviation.toLowerCase(Locale.ENGLISH);
-            if (str.equals("d") || str.equals("default"))
+            if (str.equals("d") || str.equals("default")) {
                 return DEFAULT;
-            else if (str.equals("f") || str.equals("fill"))
+            } else if (str.equals("f") || str.equals("fill")) {
                 return FILL;
-            else if (str.equals("c") || str.equals("center"))
+            } else if (str.equals("c") || str.equals("center")) {
                 return CENTER;
-            else if (str.equals("l") || str.equals("left"))
+            } else if (str.equals("l") || str.equals("left")) {
                 return LEFT;
-            else if (str.equals("r") || str.equals("right"))
+            } else if (str.equals("r") || str.equals("right")) {
                 return RIGHT;
-            else if (str.equals("t") || str.equals("top"))
+            } else if (str.equals("t") || str.equals("top")) {
                 return TOP;
-            else if (str.equals("b") || str.equals("bottom"))
+            } else if (str.equals("b") || str.equals("bottom")) {
                 return BOTTOM;
-            else
+            } else {
                 throw new IllegalArgumentException(
                     "Invalid alignment " + nameOrAbbreviation
                     + ". Must be one of: left, center, right, top, bottom, "
                     + "fill, default, l, c, r, t, b, f, d.");
+            }
         }
 
         /**
