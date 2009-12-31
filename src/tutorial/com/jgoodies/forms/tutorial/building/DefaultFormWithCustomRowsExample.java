@@ -48,7 +48,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * of font baselines and the height of the custom row.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see    DefaultFormBuilder
  * @see    DefaultFormWithCustomAreasExample
@@ -70,6 +70,7 @@ public final class DefaultFormWithCustomRowsExample extends TutorialApplication 
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Custom Rows");
         frame.getContentPane().add(buildPanel());

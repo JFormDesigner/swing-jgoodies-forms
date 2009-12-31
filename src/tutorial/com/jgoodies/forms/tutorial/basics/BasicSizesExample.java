@@ -41,7 +41,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates the basic FormLayout sizes: constant, minimum, preferred.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 public final class BasicSizesExample extends TutorialApplication {
 
@@ -53,6 +53,7 @@ public final class BasicSizesExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Basic Sizes");
         frame.getContentPane().add(buildPanel());

@@ -73,7 +73,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see ButtonBarBuilder2
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -152,8 +152,9 @@ public final class ButtonStackBuilder extends PanelBuilder {
     public void addButtons(JButton[] buttons) {
         for (int i = 0; i < buttons.length; i++) {
             addGridded(buttons[i]);
-            if (i < buttons.length - 1)
+            if (i < buttons.length - 1) {
                 addRelatedGap();
+            }
         }
     }
 

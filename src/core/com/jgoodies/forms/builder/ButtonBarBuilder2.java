@@ -153,7 +153,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -338,110 +338,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
      * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
      *
-     * This method is equivalent to
-     * <code>addButton(new JComponent[]{button1, button2});</code>
-     *
-     * @param button1    the first button to add
-     * @param button2    the second button to add
-     *
-     * @throws NullPointerException if a button is {@code null}
-     *
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            JComponent button1,
-            JComponent button2) {
-        addButton(new JComponent[]{button1, button2});
-    }
-
-
-    /**
-     * Adds a sequence of related button components.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * This method is equivalent to
-     * <code>addButton(new JComponent[]{button1, button2, button3});</code>
-     *
-     * @param button1    the first button to add
-     * @param button2    the second button to add
-     * @param button3    the third button to add
-     *
-     * @throws NullPointerException if a button is {@code null}
-     *
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            JComponent button1,
-            JComponent button2,
-            JComponent button3) {
-        addButton(new JComponent[]{button1, button2, button3});
-    }
-
-
-    /**
-     * Adds a sequence of related button components.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * This method is equivalent to
-     * <code>addButton(new JComponent[]{button1, button2, button3, button4});</code>
-     *
-     * @param button1    the first button to add
-     * @param button2    the second button to add
-     * @param button3    the third button to add
-     * @param button4    the fourth button to add
-     *
-     * @throws NullPointerException if a button is {@code null}
-     *
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            JComponent button1,
-            JComponent button2,
-            JComponent button3,
-            JComponent button4) {
-        addButton(new JComponent[]{button1, button2, button3, button4});
-    }
-
-
-    /**
-     * Adds a sequence of related button components.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * This method is equivalent to
-     * <code>addButton(new JComponent[]{button1, button2, button3, button4, button5});</code>
-     *
-     * @param button1    the first button to add
-     * @param button2    the second button to add
-     * @param button3    the third button to add
-     * @param button4    the fourth button to add
-     * @param button5    the fifth button to add
-     *
-     * @throws NullPointerException if a button is {@code null}
-     *
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            JComponent button1,
-            JComponent button2,
-            JComponent button3,
-            JComponent button4,
-            JComponent button5) {
-        addButton(new JComponent[]{button1, button2, button3, button4, button5});
-    }
-
-
-    /**
-     * Adds a sequence of related button components.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
      * Uses this builder's button order (left-to-right vs. right-to-left).
      * If you  want to use a fixed order, add individual buttons instead.<p>
      *
@@ -455,7 +351,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @see #addButton(JComponent)
      */
-    public void addButton(JComponent[] buttons) {
+    public void addButton(JComponent... buttons) {
         if (buttons == null) {
             throw new NullPointerException("The button array must not be null.");
         }
@@ -492,114 +388,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
 
 
     /**
-     * Adds a sequence of related JButtons built from the given Actions.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * This method is equivalent to
-     * <code>addButton(new Action[]{action1, action2});</code>
-     *
-     * @param action1    describes the first button to add
-     * @param action2    describes the second button to add
-     *
-     * @throws NullPointerException if an Action is {@code null}
-     *
-     * @see #addButton(Action[])
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            Action action1,
-            Action action2) {
-        addButton(new Action[]{action1, action2});
-    }
-
-
-    /**
-     * Adds a sequence of related JButtons built from the given Actions.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * This method is equivalent to
-     * <code>addButton(new Action[]{action1, action2, action3});</code>
-     *
-     * @param action1    describes the first button to add
-     * @param action2    describes the second button to add
-     * @param action3    describes the third button to add
-     *
-     * @throws NullPointerException if an Action is {@code null}
-     *
-     * @see #addButton(Action[])
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            Action action1,
-            Action action2,
-            Action action3) {
-        addButton(new Action[]{action1, action2, action3});
-    }
-
-
-    /**
-     * Adds a sequence of related JButtons built from the given Actions.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * This method is equivalent to
-     * <code>addButton(new Action[]{action1, action2, action3, action4});</code>
-     *
-     * @param action1    describes the first button to add
-     * @param action2    describes the second button to add
-     * @param action3    describes the third button to add
-     * @param action4    describes the fourth button to add
-     *
-     * @throws NullPointerException if an Action is {@code null}
-     *
-     * @see #addButton(Action[])
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            Action action1,
-            Action action2,
-            Action action3,
-            Action action4) {
-        addButton(new Action[]{action1, action2, action3, action4});
-    }
-
-
-    /**
-     * Adds a sequence of related JButtons built from the given Actions.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * This method is equivalent to
-     * <code>addButton(new Action[]{action1, action2, action3, action4, action5});</code>
-     *
-     * @param action1    describes the first button to add
-     * @param action2    describes the second button to add
-     * @param action3    describes the third button to add
-     * @param action4    describes the fourth button to add
-     * @param action5    describes the fifth button to add
-     *
-     * @throws NullPointerException if an Action is {@code null}
-     *
-     * @see #addButton(Action[])
-     * @see #addButton(JComponent[])
-     */
-    public void addButton(
-            Action action1,
-            Action action2,
-            Action action3,
-            Action action4,
-            Action action5) {
-        addButton(new Action[]{action1, action2, action3, action4, action5});
-    }
-
-
-    /**
      * Adds a sequence of related JButtons built from the given Actions
      * that are separated by the default gap as specified by
      * {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
@@ -614,7 +402,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @see #addButton(JComponent[])
      */
-    public void addButton(Action[] actions) {
+    public void addButton(Action... actions) {
         if (actions == null) {
             throw new NullPointerException("The Action array must not be null.");
         }
@@ -658,7 +446,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @see LayoutStyle
      */
-    public void addGrowing(JComponent[] buttons) {
+    public void addGrowing(JComponent... buttons) {
         int length = buttons.length;
         for (int i = 0; i < length; i++) {
             int index = leftToRight ? i : length -1 - i;

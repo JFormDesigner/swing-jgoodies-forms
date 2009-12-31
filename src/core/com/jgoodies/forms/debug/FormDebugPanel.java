@@ -53,7 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * <code>#paintComponent</code> or <code>#updateUI</code>.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see     FormDebugUtils
  */
@@ -208,6 +208,7 @@ public class FormDebugPanel extends JPanel {
      *
      * @see #paint(Graphics)
      */
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (paintInBackground) {
@@ -226,6 +227,7 @@ public class FormDebugPanel extends JPanel {
      *
      * @see #paintComponent(Graphics)
      */
+    @Override
     public void paint(Graphics g) {
         super.paint(g);
         if (!paintInBackground) {

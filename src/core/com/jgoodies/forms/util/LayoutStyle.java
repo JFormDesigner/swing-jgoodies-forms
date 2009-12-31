@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -71,8 +71,9 @@ public abstract class LayoutStyle {
      * @return MacLayoutStyle on Mac, WindowsLayoutStyle on all other platforms
      */
     private static LayoutStyle initialLayoutStyle() {
-        if (isOSMac())
-        	return MacLayoutStyle.INSTANCE;
+        if (isOSMac()) {
+            return MacLayoutStyle.INSTANCE;
+        }
         return WindowsLayoutStyle.INSTANCE;
     }
 

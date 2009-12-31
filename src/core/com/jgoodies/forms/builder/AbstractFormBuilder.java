@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see    ButtonBarBuilder2
  * @see    ButtonStackBuilder
@@ -104,11 +104,13 @@ public abstract class AbstractFormBuilder {
      * @throws NullPointerException if the layout or container is null
      */
     public AbstractFormBuilder(FormLayout layout, Container container) {
-        if (layout == null)
+        if (layout == null) {
             throw new NullPointerException("The layout must not be null.");
+        }
 
-        if (container == null)
+        if (container == null) {
             throw new NullPointerException("The layout container must not be null.");
+        }
 
         this.container = container;
         this.layout    = layout;

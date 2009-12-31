@@ -108,7 +108,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -467,6 +467,7 @@ public final class LayoutMap {
      *
      * @return a string representation
      */
+    @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer(super.toString());
         buffer.append("\n  Column associations:");
@@ -651,9 +652,9 @@ public final class LayoutMap {
     private void columnPut(String key, String[] aliases, ColumnSpec value) {
         ensureLowerCase(key);
         columnPut(key, value);
-        for (int i=0; i < aliases.length; i++) {
-            ensureLowerCase(aliases[i]);
-            COLUMN_ALIASES.put(aliases[i], key);
+        for (String aliase : aliases) {
+            ensureLowerCase(aliase);
+            COLUMN_ALIASES.put(aliase, key);
         }
     }
 
@@ -661,9 +662,9 @@ public final class LayoutMap {
     private void rowPut(String key, String[] aliases, RowSpec value) {
         ensureLowerCase(key);
         rowPut(key, value);
-        for (int i=0; i < aliases.length; i++) {
-            ensureLowerCase(aliases[i]);
-            ROW_ALIASES.put(aliases[i], key);
+        for (String aliase : aliases) {
+            ensureLowerCase(aliase);
+            ROW_ALIASES.put(aliase, key);
         }
     }
 

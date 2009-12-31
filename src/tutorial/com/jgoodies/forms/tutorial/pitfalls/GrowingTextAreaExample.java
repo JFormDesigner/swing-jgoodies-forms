@@ -51,7 +51,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * if no columns and rows are set.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public final class GrowingTextAreaExample extends TutorialApplication {
 
@@ -63,6 +63,7 @@ public final class GrowingTextAreaExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Growing Text Area");
         frame.getContentPane().add(buildPanel());
@@ -246,6 +247,7 @@ public final class GrowingTextAreaExample extends TutorialApplication {
             this.prefSizeLabel = prefSizeLabel;
         }
 
+        @Override
         public void componentResized(ComponentEvent evt) {
             sizeLabel.setText(format(area.getSize()));
             minSizeLabel.setText(format(area.getMinimumSize()));

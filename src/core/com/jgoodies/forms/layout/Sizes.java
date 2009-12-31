@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see     Size
  * @see     UnitConverter
@@ -387,12 +387,15 @@ public final class Sizes {
          * @return the corresponding ComponentSize or null if none matches
          */
         static ComponentSize valueOf(String str) {
-            if (str.equals("m") || str.equals("min"))
+            if (str.equals("m") || str.equals("min")) {
                 return MINIMUM;
-            if (str.equals("p") || str.equals("pref"))
+            }
+            if (str.equals("p") || str.equals("pref")) {
                 return PREFERRED;
-            if (str.equals("d") || str.equals("default"))
+            }
+            if (str.equals("d") || str.equals("default")) {
                 return DEFAULT;
+            }
             return null;
         }
 
@@ -445,6 +448,7 @@ public final class Sizes {
         }
 
 
+        @Override
         public String toString() {
             return encode();
         }

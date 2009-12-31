@@ -87,7 +87,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -428,11 +428,12 @@ public class PanelBuilder extends AbstractFormBuilder {
         String textWithMnemonic, CellConstraints labelConstraints,
         Component component,     CellConstraints componentConstraints) {
 
-        if (labelConstraints == componentConstraints)
+        if (labelConstraints == componentConstraints) {
             throw new IllegalArgumentException(
                     "You must provide two CellConstraints instances, " +
                     "one for the label and one for the component.\n" +
                     "Consider using #clone(). See the JavaDocs for details.");
+        }
 
         JLabel label = addLabel(textWithMnemonic, labelConstraints);
         add(component, componentConstraints);
@@ -592,11 +593,12 @@ public class PanelBuilder extends AbstractFormBuilder {
         String textWithMnemonic, CellConstraints labelConstraints,
         Component component,     CellConstraints componentConstraints) {
 
-        if (labelConstraints == componentConstraints)
+        if (labelConstraints == componentConstraints) {
             throw new IllegalArgumentException(
                     "You must provide two CellConstraints instances, " +
                     "one for the label and one for the component.\n" +
                     "Consider using #clone(). See the JavaDocs for details.");
+        }
 
         JLabel label = addROLabel(textWithMnemonic, labelConstraints);
         add(component, componentConstraints);
@@ -823,11 +825,12 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public final JLabel add(JLabel label,        CellConstraints labelConstraints,
                             Component component, CellConstraints componentConstraints) {
-        if (labelConstraints == componentConstraints)
+        if (labelConstraints == componentConstraints) {
             throw new IllegalArgumentException(
                     "You must provide two CellConstraints instances, " +
                     "one for the label and one for the component.\n" +
                     "Consider using #clone(). See the JavaDocs for details.");
+        }
 
         add(label,     labelConstraints);
         add(component, componentConstraints);
@@ -883,6 +886,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @see #isLabelForFeatureEnabled()
      * @see #isLabelForApplicable(JLabel, Component)
      */
+    @Override
     public Component add(Component component, CellConstraints cellConstraints) {
         Component result = super.add(component, cellConstraints);
         if (!isLabelForFeatureEnabled()) {

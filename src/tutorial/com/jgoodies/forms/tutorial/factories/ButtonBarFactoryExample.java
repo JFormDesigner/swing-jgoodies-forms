@@ -44,7 +44,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates the use of Factories as provided by the Forms framework.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see	ButtonBarFactory
  */
@@ -58,6 +58,7 @@ public final class ButtonBarFactoryExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: ButtonBarFactory");
         frame.getContentPane().add(buildPanel());

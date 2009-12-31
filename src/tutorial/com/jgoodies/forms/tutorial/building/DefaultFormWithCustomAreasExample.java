@@ -49,7 +49,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * and the text area.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see     DefaultFormBuilder
  * @see     DefaultFormWithCustomRowsExample
@@ -64,6 +64,7 @@ public final class DefaultFormWithCustomAreasExample extends TutorialApplication
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Custom Areas");
         frame.getContentPane().add(buildPanel());

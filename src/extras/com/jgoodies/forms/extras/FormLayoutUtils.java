@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * your codebase.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public final class FormLayoutUtils {
 
@@ -154,10 +154,8 @@ public final class FormLayoutUtils {
      * @return true if index is contained in one of the groups
      */
     private static boolean isGrouped(int[][] allGroupIndices, int index) {
-        for (int group = 0; group < allGroupIndices.length; group++) {
-            int[] groupIndices = allGroupIndices[group];
-            for (int i = 0; i < groupIndices.length; i++) {
-                int aGroupIndex = groupIndices[i];
+        for (int[] groupIndices : allGroupIndices) {
+            for (int aGroupIndex : groupIndices) {
                 if (index == aGroupIndex) {
                     return true;
                 }
@@ -233,9 +231,10 @@ public final class FormLayoutUtils {
          * @throws NoSuchElementException iteration has no more elements.
          */
         public CellConstraints nextConstraints() {
-            if (!hasNext())
+            if (!hasNext()) {
                 throw new NoSuchElementException(
                         "The constraint iterator has no more elements.");
+            }
 
             return layout.getConstraints(components[index++]);
         }

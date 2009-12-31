@@ -66,7 +66,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see	Size
  * @see	Sizes
@@ -154,9 +154,10 @@ public final class ConstantSize implements Size, Serializable {
         Unit unit = Unit.valueOf(encodedUnit, horizontal);
         double value = Double.parseDouble(encodedValue);
         if (unit.requiresIntegers) {
-            if (value != (int) value)
+            if (value != (int) value) {
                 throw new IllegalArgumentException(unit.toString()
                     + " value " + encodedValue + " must be an integer.");
+            }
         }
         return new ConstantSize(value, unit);
     }
@@ -221,22 +222,23 @@ public final class ConstantSize implements Size, Serializable {
      * @return the size in pixels
      */
     public int getPixelSize(Component component) {
-        if (unit == PIXEL)
+        if (unit == PIXEL) {
             return intValue();
-        else if (unit == POINT)
+        } else if (unit == POINT) {
             return Sizes.pointAsPixel(intValue(), component);
-        else if (unit == INCH)
+        } else if (unit == INCH) {
             return Sizes.inchAsPixel(value, component);
-        else if (unit == MILLIMETER)
+        } else if (unit == MILLIMETER) {
             return Sizes.millimeterAsPixel(value, component);
-        else if (unit == CENTIMETER)
+        } else if (unit == CENTIMETER) {
             return Sizes.centimeterAsPixel(value, component);
-        else if (unit == DIALOG_UNITS_X)
+        } else if (unit == DIALOG_UNITS_X) {
             return Sizes.dialogUnitXAsPixel(intValue(), component);
-        else if (unit == DIALOG_UNITS_Y)
+        } else if (unit == DIALOG_UNITS_Y) {
             return Sizes.dialogUnitYAsPixel(intValue(), component);
-        else
+        } else {
             throw new IllegalStateException("Invalid unit " + unit);
+        }
     }
 
 
@@ -293,11 +295,14 @@ public final class ConstantSize implements Size, Serializable {
      * @see     java.lang.Object#hashCode()
      * @see     java.util.Hashtable
      */
+    @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof ConstantSize))
+        }
+        if (!(o instanceof ConstantSize)) {
             return false;
+        }
         ConstantSize size = (ConstantSize) o;
         return this.value == size.value
              && this.unit  == size.unit;
@@ -314,6 +319,7 @@ public final class ConstantSize implements Size, Serializable {
      * @see     java.lang.Object#equals(java.lang.Object)
      * @see     java.util.Hashtable
      */
+    @Override
     public int hashCode() {
         return new Double(value).hashCode() + 37 * unit.hashCode();
     }
@@ -328,6 +334,7 @@ public final class ConstantSize implements Size, Serializable {
      *
      * @return  a string representation of the constant size
      */
+    @Override
     public String toString() {
         return (value == intValue())
             ? Integer.toString(intValue()) + unit.abbreviation()
@@ -414,22 +421,23 @@ public final class ConstantSize implements Size, Serializable {
                     return defaultUnit;
                 }
                 return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            } else if (name.equals("px"))
+            } else if (name.equals("px")) {
                 return PIXEL;
-            else if (name.equals("dlu"))
+            } else if (name.equals("dlu")) {
                 return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            else if (name.equals("pt"))
+            } else if (name.equals("pt")) {
                 return POINT;
-            else if (name.equals("in"))
+            } else if (name.equals("in")) {
                 return INCH;
-            else if (name.equals("mm"))
+            } else if (name.equals("mm")) {
                 return MILLIMETER;
-            else if (name.equals("cm"))
+            } else if (name.equals("cm")) {
                 return CENTIMETER;
-            else
+            } else {
                 throw new IllegalArgumentException(
                     "Invalid unit name '" + name + "'. Must be one of: " +
                     "px, dlu, pt, mm, cm, in");
+            }
         }
 
 
@@ -442,6 +450,7 @@ public final class ConstantSize implements Size, Serializable {
          *
          * @return  a string representation of the constant size
          */
+        @Override
         public String toString() {
             return name;
         }

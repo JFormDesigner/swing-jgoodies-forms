@@ -41,7 +41,7 @@ import com.jgoodies.forms.builder.PanelBuilder;
  * A test case for class {@link PanelBuilder}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public final class PanelBuilderTest extends TestCase {
 
@@ -60,6 +60,7 @@ public final class PanelBuilderTest extends TestCase {
 
     // Setup ******************************************************************
 
+    @Override
     protected void setUp() {
         labelWithMnemonic = new JLabel("Label1:");
         labelWithMnemonic.setDisplayedMnemonic('L');

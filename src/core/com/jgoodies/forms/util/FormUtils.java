@@ -41,7 +41,7 @@ import javax.swing.UIManager;
  * The class's API may change at any time.</strong>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @since 1.2
  */
@@ -55,128 +55,6 @@ public final class FormUtils {
 
 
     // API ********************************************************************
-
-    /**
-     * Throws an exception if the specified text is blank using the given
-     * text description.
-     *
-     * @param text          the text to check
-     * @param description   describes the text, used in the exception message
-     *
-     * @throws NullPointerException if {@code text} is {@code null}
-     * @throws IllegalArgumentException if {@code text} is empty, or blank
-     */
-    public static void assertNotBlank(String text, String description) {
-        if (text == null) {
-            throw new NullPointerException("The " + description + " must not be null.");
-        }
-        if (FormUtils.isBlank(text)) {
-            throw new IllegalArgumentException(
-                    "The " + description + " must not be empty, or whitespace. " +
-                    "See FormUtils.isBlank(String)");
-        }
-    }
-
-
-    /**
-     * Throws an NPE if the given object is {@code null} that uses
-     * the specified text to describe the object.
-     *
-     * @param object        the text to check
-     * @param description   describes the object, used in the exception message
-     *
-     * @throws NullPointerException if {@code object} is {@code null}
-     */
-    public static void assertNotNull(Object object, String description) {
-        if (object == null) {
-            throw new NullPointerException("The " + description + " must not be null.");
-        }
-    }
-
-
-    /**
-     * Checks and answers if the two objects are
-     * both {@code null} or equal.
-     *
-     * <pre>
-     * #equals(null, null)  == true
-     * #equals("Hi", "Hi")  == true
-     * #equals("Hi", null)  == false
-     * #equals(null, "Hi")  == false
-     * #equals("Hi", "Ho")  == false
-     * </pre>
-     *
-     * @param o1        the first object to compare
-     * @param o2        the second object to compare
-     * @return boolean  {@code true} if and only if
-     *    both objects are {@code null} or equal
-     */
-    public static boolean equals(Object o1, Object o2) {
-        return    o1 != null && o2 != null && o1.equals(o2)
-               || o1 == null && o2 == null;
-    }
-
-
-    /**
-     * Checks and answers if the given string is whitespace, empty (""),
-     * or {@code null}.
-     *
-     * <pre>
-     * FormUtils.isBlank(null)    == true
-     * FormUtils.isBlank("")      == true
-     * FormUtils.isBlank(" ")     == true
-     * FormUtils.isBlank(" abc")  == false
-     * FormUtils.isBlank("abc ")  == false
-     * FormUtils.isBlank(" abc ") == false
-     * </pre>
-     *
-     * @param str   the string to check, may be{@code null}
-     * @return {@code true} if the string is whitespace, empty, or {@code null}
-     */
-    public static boolean isBlank(String str) {
-        int length;
-        if (str == null || (length = str.length()) == 0) {
-            return true;
-        }
-        for (int i = length - 1; i >= 0; i--) {
-            if (!Character.isWhitespace(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    /**
-     * Checks and answers if the given string is not empty (""),
-     * not {@code null} and not whitespace only.
-     *
-     * <pre>
-     * FormUtils.isNotBlank(null)    == false
-     * FormUtils.isNotBlank("")      == false
-     * FormUtils.isNotBlank(" ")     == false
-     * FormUtils.isNotBlank(" abc")  == true
-     * FormUtils.isNotBlank("abc ")  == true
-     * FormUtils.isNotBlank(" abc ") == true
-     * </pre>
-     *
-     * @param str   the string to check, may be {@code null}
-     * @return {@code true} if the string is not empty
-     *    and not {@code null} and not whitespace only
-     */
-    public static boolean isNotBlank(String str) {
-        int length;
-        if (str == null || (length = str.length()) == 0) {
-            return false;
-        }
-        for (int i = length-1; i >= 0; i--) {
-            if (!Character.isWhitespace(str.charAt(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     /**
      * Lazily checks and answers whether the Aqua look&amp;feel is active.

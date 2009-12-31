@@ -51,7 +51,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * add rows dynamically; see the {@link DynamicRowsExample} for this alternative.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  *
  * @see	PlainExample
  * @see	DynamicRowsExample
@@ -75,6 +75,7 @@ public final class RowCounterExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Row Counter");
         frame.getContentPane().add(buildPanel());

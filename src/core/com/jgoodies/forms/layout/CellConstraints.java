@@ -82,7 +82,7 @@ import com.jgoodies.forms.factories.CC;
  * TODO: Rename the inset to offsets.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see CC
  */
@@ -1160,6 +1160,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      *
      * @return		a copy of this cell constraints object
      */
+    @Override
     public Object clone() {
         try {
             CellConstraints c = (CellConstraints) super.clone();
@@ -1177,6 +1178,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      *
      * @return	string representation of this constraints object
      */
+    @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer("CellConstraints");
         buffer.append("[x=");
@@ -1315,6 +1317,7 @@ public final class CellConstraints implements Cloneable, Serializable {
          *
          * @return this alignment's name.
          */
+        @Override
         public String toString() {
             return name;
         }

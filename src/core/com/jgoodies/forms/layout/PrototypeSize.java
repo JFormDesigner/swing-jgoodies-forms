@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.DefaultUnitConverter;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see	Size
  * @see	Sizes
@@ -158,11 +158,14 @@ public final class PrototypeSize implements Size, Serializable {
      * @see     java.lang.Object#hashCode()
      * @see     java.util.Hashtable
      */
+    @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof PrototypeSize))
+        }
+        if (!(o instanceof PrototypeSize)) {
             return false;
+        }
         PrototypeSize size = (PrototypeSize) o;
         return prototype.equals(size.prototype);
     }
@@ -178,6 +181,7 @@ public final class PrototypeSize implements Size, Serializable {
      * @see     java.lang.Object#equals(java.lang.Object)
      * @see     java.util.Hashtable
      */
+    @Override
     public int hashCode() {
         return prototype.hashCode();
     }
@@ -192,6 +196,7 @@ public final class PrototypeSize implements Size, Serializable {
      *
      * @return  a string representation of the constant size
      */
+    @Override
     public String toString() {
         return encode();
     }

@@ -42,7 +42,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * alignments to cells, and how to override the defaults.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 public final class CellAlignmentExample extends TutorialApplication {
 
@@ -54,6 +54,7 @@ public final class CellAlignmentExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Cell Alignments");
         frame.getContentPane().add(buildPanel());

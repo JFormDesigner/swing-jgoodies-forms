@@ -31,7 +31,6 @@
 package com.jgoodies.forms.factories;
 
 import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.LayoutStyle;
@@ -40,7 +39,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * Provides frequently used column and row specifications.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -308,39 +307,6 @@ public final class FormFactory {
         new RowSpec(Sizes.bounded(Sizes.PREFERRED,
                                   LayoutStyle.getCurrent().getDefaultButtonHeight(),
                                   null));
-
-
-
-    // Factory Methods ******************************************************
-
-    /**
-     * Creates and returns a {@link ColumnSpec} that represents a gap with the
-     * specified {@link ConstantSize}.
-     *
-     * @param gapWidth	a <code>ConstantSize</code> that specifies the gap
-     * @return a <code>ColumnSpec</code> that describes a horizontal gap
-     *
-     * @deprecated Replaced by {@link ColumnSpec#createGap(ConstantSize)}.
-     *     This method will be removed from the next Forms version.
-     */
-    public static ColumnSpec createGapColumnSpec(ConstantSize gapWidth) {
-        return ColumnSpec.createGap(gapWidth);
-    }
-
-
-    /**
-     * Creates and returns a {@link RowSpec} that represents a gap with the
-     * specified {@link ConstantSize}.
-     *
-     * @param gapHeight   a <code>ConstantSize</code> that specifies the gap
-     * @return a <code>RowSpec</code> that describes a vertical gap
-     *
-     * @deprecated Replaced by {@link RowSpec#createGap(ConstantSize)}.
-     *     This method will be removed from the next Forms version.
-     */
-    public static RowSpec createGapRowSpec(ConstantSize gapHeight) {
-        return RowSpec.createGap(gapHeight);
-    }
 
 
 }

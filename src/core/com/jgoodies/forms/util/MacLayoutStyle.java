@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 final class MacLayoutStyle extends LayoutStyle {
 
@@ -85,6 +85,7 @@ final class MacLayoutStyle extends LayoutStyle {
      *
      * @see #getDefaultButtonHeight()
      */
+    @Override
     public Size getDefaultButtonWidth() {
         return BUTTON_WIDTH;
     }
@@ -97,6 +98,7 @@ final class MacLayoutStyle extends LayoutStyle {
      *
      * @see #getDefaultButtonWidth()
      */
+    @Override
     public Size getDefaultButtonHeight() {
         return BUTTON_HEIGHT;
     }
@@ -110,6 +112,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getDialogMarginY()
      * @see #getTabbedDialogMarginX()
      */
+    @Override
     public ConstantSize getDialogMarginX() {
         return DIALOG_MARGIN_X;
     }
@@ -123,6 +126,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getDialogMarginX()
      * @see #getTabbedDialogMarginY()
      */
+    @Override
     public ConstantSize getDialogMarginY() {
         return DIALOG_MARGIN_Y;
     }
@@ -139,6 +143,7 @@ final class MacLayoutStyle extends LayoutStyle {
      *
      * @since 1.0.3
      */
+    @Override
     public ConstantSize getTabbedDialogMarginX() {
         return TABBED_DIALOG_MARGIN_X;
     }
@@ -155,6 +160,7 @@ final class MacLayoutStyle extends LayoutStyle {
      *
      * @since 1.0.3
      */
+    @Override
     public ConstantSize getTabbedDialogMarginY() {
         return TABBED_DIALOG_MARGIN_Y;
     }
@@ -168,6 +174,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getRelatedComponentsPadX()
      * @see #getUnrelatedComponentsPadX()
      */
+    @Override
     public ConstantSize getLabelComponentPadX() {
         return LABEL_COMPONENT_PADX;
     }
@@ -182,6 +189,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getRelatedComponentsPadY()
      * @see #getUnrelatedComponentsPadX()
      */
+    @Override
     public ConstantSize getRelatedComponentsPadX() {
         return RELATED_COMPONENTS_PADX;
     }
@@ -195,6 +203,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getRelatedComponentsPadX()
      * @see #getUnrelatedComponentsPadY()
      */
+    @Override
     public ConstantSize getRelatedComponentsPadY() {
         return RELATED_COMPONENTS_PADY;
     }
@@ -209,6 +218,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getUnrelatedComponentsPadY()
      * @see #getRelatedComponentsPadX()
      */
+    @Override
     public ConstantSize getUnrelatedComponentsPadX() {
         return UNRELATED_COMPONENTS_PADX;
     }
@@ -222,6 +232,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getUnrelatedComponentsPadX()
      * @see #getRelatedComponentsPadY()
      */
+    @Override
     public ConstantSize getUnrelatedComponentsPadY() {
         return UNRELATED_COMPONENTS_PADY;
     }
@@ -235,6 +246,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getLinePad()
      * @see #getParagraphPad()
      */
+    @Override
     public ConstantSize getNarrowLinePad() {
         return NARROW_LINE_PAD;
     }
@@ -248,6 +260,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getNarrowLinePad()
      * @see #getParagraphPad()
      */
+    @Override
     public ConstantSize getLinePad() {
         return LINE_PAD;
     }
@@ -261,6 +274,7 @@ final class MacLayoutStyle extends LayoutStyle {
      * @see #getNarrowLinePad()
      * @see #getLinePad()
      */
+    @Override
     public ConstantSize getParagraphPad() {
         return PARAGRAPH_PAD;
     }
@@ -276,6 +290,7 @@ final class MacLayoutStyle extends LayoutStyle {
      *
      * @since 1.0.3
      */
+    @Override
     public ConstantSize getButtonBarPad() {
         return BUTTON_BAR_PAD;
     }
@@ -302,6 +317,7 @@ final class MacLayoutStyle extends LayoutStyle {
      *
      * @since 1.0.3
      */
+    @Override
     public boolean isLeftToRightButtonOrder() {
         return false;
     }
