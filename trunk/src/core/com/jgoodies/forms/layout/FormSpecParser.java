@@ -30,12 +30,12 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.jgoodies.forms.util.FormUtils;
 
 /**
  * Parses encoded column and row specifications.
@@ -43,7 +43,7 @@ import com.jgoodies.forms.util.FormUtils;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -79,15 +79,15 @@ public final class FormSpecParser {
      *                       RowSpec objects
      * @param horizontal    {@code true} for columns, {@code false} for rows
      *
-     * @throws NullPointerException if {@code source} is {@code null}
+     * @throws NullPointerException if {@code source} or {@code layoutMap} is {@code null}
      */
     private FormSpecParser(
             String source,
             String description,
             LayoutMap layoutMap,
             boolean horizontal) {
-        FormUtils.assertNotNull(source, description);
-        FormUtils.assertNotNull(layoutMap, "LayoutMap");
+        checkNotNull(source, "The %S must not be null.", description);
+        checkNotNull(layoutMap, "The LayoutMap must not be null.");
         this.layoutMap = layoutMap;
         this.source = this.layoutMap.expand(source, horizontal);
     }

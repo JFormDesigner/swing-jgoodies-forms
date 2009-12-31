@@ -32,39 +32,33 @@ package com.jgoodies.forms.layout;
 
 import java.util.Locale;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * A test suite for all tests related to the JGoodies Forms framework.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    BordersTest.class,
+    CellConstraintsTest.class,
+    ClassLoaderTest.class,
+    ColumnSpecTest.class,
+    DefaultComponentFactoryTest.class,
+    FormLayoutTest.class,
+    FormLayoutGroupsTest.class,
+    PanelBuilderTest.class,
+    RowSpecTest.class,
+    SerializationTest.class,
+    UnitConversionTest.class
+})
 public final class AllFormsTests {
 
     /** A constant for the Turkish locale. */
     public static final Locale TURKISH = new Locale("tr");
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(AllFormsTests.class);
-    }
-
-    public static Test suite() {
-        return new TestSuite(new Class[]{
-                BordersTest.class,
-                CellConstraintsTest.class,
-                ClassLoaderTest.class,
-                ColumnSpecTest.class,
-                DefaultComponentFactoryTest.class,
-                FormLayoutTest.class,
-                FormLayoutGroupsTest.class,
-                PanelBuilderTest.class,
-                RowSpecTest.class,
-                SerializationTest.class,
-                UnitConversionTest.class
-            },
-            "Tests for com.jgoodies.forms.layout");
-    }
 
 }

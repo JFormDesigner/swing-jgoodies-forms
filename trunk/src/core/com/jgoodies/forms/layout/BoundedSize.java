@@ -39,7 +39,7 @@ import java.util.List;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -80,10 +80,12 @@ public final class BoundedSize implements Size, Serializable {
      * @since 1.1
      */
     public BoundedSize(Size basis, Size lowerBound, Size upperBound) {
-        if (basis == null)
+        if (basis == null) {
             throw new NullPointerException("The basis of a bounded size must not be null.");
-        if ((lowerBound == null) && (upperBound == null))
+        }
+        if ((lowerBound == null) && (upperBound == null)) {
             throw new IllegalArgumentException("A bounded size must have a non-null lower or upper bound.");
+        }
         this.basis = basis;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -202,11 +204,14 @@ public final class BoundedSize implements Size, Serializable {
      * @see     Object#hashCode()
      * @see     java.util.Hashtable
      */
+    @Override
     public boolean equals(Object object) {
-        if (this == object)
+        if (this == object) {
             return true;
-        if (!(object instanceof BoundedSize))
+        }
+        if (!(object instanceof BoundedSize)) {
             return false;
+        }
         BoundedSize size = (BoundedSize) object;
         return basis.equals(size.basis)
              && (   (lowerBound == null && size.lowerBound == null)
@@ -224,6 +229,7 @@ public final class BoundedSize implements Size, Serializable {
      * @see     Object#equals(Object)
      * @see     java.util.Hashtable
      */
+    @Override
     public int hashCode() {
         int hashValue = basis.hashCode();
         if (lowerBound != null) {
@@ -244,6 +250,7 @@ public final class BoundedSize implements Size, Serializable {
      *
      * @return  a string representation of this bounded size
      */
+    @Override
     public String toString() {
         return encode();
     }

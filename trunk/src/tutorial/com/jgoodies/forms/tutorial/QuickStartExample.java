@@ -48,7 +48,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * <code>#buildPanel()</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public final class QuickStartExample extends TutorialApplication {
 
@@ -67,6 +67,7 @@ public final class QuickStartExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Quick Start");
         frame.getContentPane().add(buildPanel());

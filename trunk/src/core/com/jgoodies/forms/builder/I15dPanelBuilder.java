@@ -52,7 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @since 1.0.3
  *
  * @see	ResourceBundle
@@ -107,9 +107,11 @@ public class I15dPanelBuilder extends AbstractI15dPanelBuilder {
      * @throws IllegalStateException  if no <code>ResourceBundle</code>
      *     has been set
      */
+    @Override
     protected String getI15dString(String resourceKey) {
-        if (bundle == null)
+        if (bundle == null) {
             throw new IllegalStateException("You must specify a ResourceBundle" +                " before using the internationalization support.");
+        }
         try {
             return bundle.getString(resourceKey);
         } catch (MissingResourceException mre) {

@@ -30,11 +30,12 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkNotBlank;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import com.jgoodies.forms.util.FormUtils;
 
 
 /**
@@ -57,7 +58,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -138,16 +139,11 @@ public final class RowSpec extends FormSpec {
      * The description will be parsed to set initial values.<p>
      *
      * Unlike the factory method {@link #decode(String)}, this constructor
-     * does not expand layout variables, and it cannot vend cached objects..<p>
-     *
-     * <strong>Note:</strong> This constructor will become private
-     * in the next Forms version.
+     * does not expand layout variables, and it cannot vend cached objects.
      *
      * @param encodedDescription	the encoded description
-     *
-     * @deprecated Replaced by {@link #decode(String)}.
      */
-	public RowSpec(String encodedDescription) {
+	private RowSpec(String encodedDescription) {
 	    super(DEFAULT, encodedDescription);
 	}
 
@@ -207,8 +203,10 @@ public final class RowSpec extends FormSpec {
      * @since 1.2
      */
     public static RowSpec decode(String encodedRowSpec, LayoutMap layoutMap) {
-        FormUtils.assertNotBlank(encodedRowSpec, "encoded row specification");
-        FormUtils.assertNotNull(layoutMap, "LayoutMap");
+        checkNotBlank(encodedRowSpec,
+                "The encoded row specification must not be null, empty or whitespace.");
+        checkNotNull(layoutMap,
+                "The LayoutMap must not be null.");
         String trimmed = encodedRowSpec.trim();
         String lower = trimmed.toLowerCase(Locale.ENGLISH);
         return decodeExpanded(layoutMap.expand(lower, false));
@@ -280,6 +278,7 @@ public final class RowSpec extends FormSpec {
      *
      * @return always {@code false} (for vertical)
      */
+    @Override
     protected boolean isHorizontal() { return false; }
 
 

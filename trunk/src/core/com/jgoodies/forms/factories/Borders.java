@@ -52,7 +52,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see     Border
  * @see     Sizes
@@ -249,6 +249,7 @@ public final class Borders {
          * @param insets the insets to be reinitialized
          * @return the <code>insets</code> object
          */
+        @Override
         public Insets getBorderInsets(Component c, Insets insets) {
             insets.top    = top.getPixelSize(c);
             insets.left   = left.getPixelSize(c);
@@ -263,6 +264,7 @@ public final class Borders {
          * @param c the component for which this border insets value applies
          * @return the border's Insets
          */
+        @Override
         public Insets getBorderInsets(Component c) {
             return getBorderInsets(c, new Insets(0, 0, 0, 0));
         }

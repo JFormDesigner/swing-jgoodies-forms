@@ -66,7 +66,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -258,6 +258,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @param component     a Component that provides the font and graphics
      * @return the horizontal dialog base units
      */
+    @Override
     protected double getDialogBaseUnitsX(Component component) {
         return getDialogBaseUnits(component).x;
     }
@@ -269,6 +270,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @param component     a Component that provides the font and graphics
      * @return the vertical dialog base units
      */
+    @Override
     protected double getDialogBaseUnitsY(Component component) {
         return getDialogBaseUnits(component).y;
     }
@@ -522,6 +524,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
             this.y = dialogBaseUnitsY;
         }
 
+        @Override
         public String toString() {
             return "DBU(x=" + x + "; y=" + y + ")";
         }

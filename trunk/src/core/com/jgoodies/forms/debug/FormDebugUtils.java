@@ -58,7 +58,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  *
  * @see FormDebugPanel
  */
@@ -104,8 +104,9 @@ public final class FormDebugUtils {
         for (int col = 1; col <= layout.getColumnCount(); col++) {
             ColumnSpec colSpec = layout.getColumnSpec(col);
             System.out.print(colSpec.toShortString());
-            if (col < layout.getColumnCount())
+            if (col < layout.getColumnCount()) {
                 System.out.print(", ");
+            }
         }
         System.out.println();
     }
@@ -121,8 +122,9 @@ public final class FormDebugUtils {
         for (int row = 1; row <= layout.getRowCount(); row++) {
             RowSpec rowSpec = layout.getRowSpec(row);
             System.out.print(rowSpec.toShortString());
-            if (row < layout.getRowCount())
+            if (row < layout.getRowCount()) {
                 System.out.print(", ");
+            }
         }
         System.out.println();
     }
@@ -168,14 +170,14 @@ public final class FormDebugUtils {
      */
     public static void dumpGridBounds(FormLayout.LayoutInfo layoutInfo) {
         System.out.print("COLUMN ORIGINS: ");
-        for (int col = 0; col < layoutInfo.columnOrigins.length; col++) {
-            System.out.print(layoutInfo.columnOrigins[col] + " ");
+        for (int columnOrigin : layoutInfo.columnOrigins) {
+            System.out.print(columnOrigin + " ");
         }
         System.out.println();
 
         System.out.print("ROW ORIGINS:    ");
-        for (int row = 0; row < layoutInfo.rowOrigins.length; row++) {
-            System.out.print(layoutInfo.rowOrigins[row] + " ");
+        for (int rowOrigin : layoutInfo.rowOrigins) {
+            System.out.print(rowOrigin + " ");
         }
         System.out.println();
     }

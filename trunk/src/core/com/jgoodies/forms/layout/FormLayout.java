@@ -39,7 +39,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
-import com.jgoodies.forms.util.FormUtils;
+import com.jgoodies.common.base.Objects;
 
 
 /**
@@ -132,7 +132,7 @@ import com.jgoodies.forms.util.FormUtils;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.25 $
+ * @version $Revision: 1.26 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -768,8 +768,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     private void adjustGroupIndices(int[][] allGroupIndices,
                                      int modifiedIndex, boolean remove) {
         final int offset = remove ? -1 : +1;
-        for (int group = 0; group < allGroupIndices.length; group++) {
-            int[] groupIndices = allGroupIndices[group];
+        for (int[] allGroupIndice : allGroupIndices) {
+            int[] groupIndices = allGroupIndice;
             for (int i = 0; i < groupIndices.length; i++) {
                 int index = groupIndices[i];
                 if (index == modifiedIndex && remove) {
@@ -1072,7 +1072,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     public void setHonorsVisibility(Component component, Boolean b) {
         CellConstraints constraints = getConstraints0(component);
-        if (FormUtils.equals(b, constraints.honorsVisibility)) {
+        if (Objects.equals(b, constraints.honorsVisibility)) {
             return;
         }
         constraints.honorsVisibility = b;
@@ -1622,17 +1622,16 @@ public final class FormLayout implements LayoutManager2, Serializable {
         }
 
         // For each group equalize the sizes.
-        for (int group = 0; group < groups.length; group++) {
-            int[] groupIndices = groups[group];
+        for (int[] groupIndices : groups) {
             int groupMaxSize = 0;
             // Compute the group's maximum size.
-            for (int i = 0; i < groupIndices.length; i++) {
-                int index = groupIndices[i] - 1;
+            for (int groupIndice : groupIndices) {
+                int index = groupIndice - 1;
                 groupMaxSize = Math.max(groupMaxSize, sizes[index]);
             }
             // Set all sizes of this group to the group's maximum size.
-            for (int i = 0; i < groupIndices.length; i++) {
-                int index = groupIndices[i] - 1;
+            for (int groupIndice : groupIndices) {
+                int index = groupIndice - 1;
                 sizes[index] = groupMaxSize;
             }
         }
@@ -2072,7 +2071,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
     private int[][] deepClone(int[][] array) {
         int[][] result = new int[array.length][];
         for (int i = 0; i < result.length; i++) {
-            result[i] = (int[]) array[i].clone();
+            result[i] = array[i].clone();
         }
         return result;
     }

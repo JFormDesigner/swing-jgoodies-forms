@@ -51,7 +51,7 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public class DefaultComponentFactory implements ComponentFactory2 {
 
@@ -232,14 +232,16 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      * @since 1.0.6
      */
     public JComponent createSeparator(JLabel label) {
-        if (label == null)
+        if (label == null) {
             throw new NullPointerException("The label must not be null.");
+        }
         int horizontalAlignment = label.getHorizontalAlignment();
         if (   (horizontalAlignment != SwingConstants.LEFT)
             && (horizontalAlignment != SwingConstants.CENTER)
-            && (horizontalAlignment != SwingConstants.RIGHT))
+            && (horizontalAlignment != SwingConstants.RIGHT)) {
             throw new IllegalArgumentException("The label's horizontal alignment"
                     + " must be one of: LEFT, CENTER, RIGHT.");
+        }
 
         JPanel panel = new JPanel(new TitledSeparatorLayout(!FormUtils.isLafAqua()));
         panel.setOpaque(false);
@@ -331,6 +333,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          *
          * @return this link's AccessibleContext
          */
+        @Override
         public AccessibleContext getAccessibleContext() {
             if (accessibleContext == null) {
                 accessibleContext = new AccessibleFormsLabel();
@@ -356,6 +359,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
              *
              * @see AccessibleContext#setAccessibleName
              */
+            @Override
             public String getAccessibleName() {
                 if (accessibleName != null) {
                     return accessibleName;
@@ -386,6 +390,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
              "Label[Disabled].textForeground",
              "textInactiveText"};
 
+        @Override
         public void updateUI() {
             super.updateUI();
             setForeground(getDisabledForeground());
@@ -393,8 +398,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
 
         private Color getDisabledForeground() {
             Color foreground;
-            for (int i = 0; i < UIMANAGER_KEYS.length; i++) {
-                String key = UIMANAGER_KEYS[i];
+            for (String key : UIMANAGER_KEYS) {
                 foreground = UIManager.getColor(key);
                 if (foreground != null) {
                     // System.out.println("Matching key=" + key + "; color=" + foreground);
@@ -420,6 +424,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          * a <code>TitledBorder</code> instance for its font and color using
          * <code>#getTitleFont</code> and <code>#getTitleColor</code> resp.
          */
+        @Override
         public void updateUI() {
             super.updateUI();
             Color foreground = getTitleColor();

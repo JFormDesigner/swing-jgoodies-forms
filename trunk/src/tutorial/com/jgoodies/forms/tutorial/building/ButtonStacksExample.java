@@ -45,7 +45,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * Demonstrates how to build button stacks using the ButtonStackBuilder.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.23 $
+ * @version $Revision: 1.24 $
  *
  * @see     ButtonStackBuilder
  */
@@ -59,6 +59,7 @@ public final class ButtonStacksExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Button Stacks");
         frame.getContentPane().add(buildPanel());

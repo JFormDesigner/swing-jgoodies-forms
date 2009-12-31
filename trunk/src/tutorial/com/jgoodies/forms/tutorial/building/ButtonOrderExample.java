@@ -46,7 +46,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * or with a button order that honors the platform's style.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see     ButtonBarBuilder2
  * @see     com.jgoodies.forms.factories.ButtonBarFactory
@@ -61,6 +61,7 @@ public final class ButtonOrderExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Button Order");
         frame.getContentPane().add(buildPanel());

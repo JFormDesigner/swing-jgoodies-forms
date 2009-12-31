@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -136,9 +136,9 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * @deprecated Replaced by the {@link ButtonBarBuilder2} that comes with
  * a smaller, safer, better, and more convenient API.
- *
-
  */
+
+@Deprecated
 public final class ButtonBarBuilder extends PanelBuilder {
 
     /**
@@ -277,8 +277,9 @@ public final class ButtonBarBuilder extends PanelBuilder {
         for (int i = 0; i < length; i++) {
             int index = leftToRight ? i : length -1 - i;
             addGridded(buttons[index]);
-            if (i < buttons.length - 1)
+            if (i < buttons.length - 1) {
                 addRelatedGap();
+            }
         }
     }
 
@@ -299,8 +300,9 @@ public final class ButtonBarBuilder extends PanelBuilder {
         for (int i = 0; i < length; i++) {
             int index = leftToRight ? i : length -1 - i;
             addGriddedGrowing(buttons[index]);
-            if (i < buttons.length - 1)
+            if (i < buttons.length - 1) {
                 addRelatedGap();
+            }
         }
     }
 

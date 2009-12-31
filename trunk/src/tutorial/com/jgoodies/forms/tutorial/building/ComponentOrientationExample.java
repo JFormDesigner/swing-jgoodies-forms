@@ -65,7 +65,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * <a href="http://forms.dev.java.net/issues/show_bug.cgi?id=2">issue #2</a>.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see     com.jgoodies.forms.builder.AbstractFormBuilder
  * @see     com.jgoodies.forms.builder.DefaultFormBuilder
@@ -80,6 +80,7 @@ public final class ComponentOrientationExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Component Orientation");
         frame.getContentPane().add(buildPanel());
@@ -160,10 +161,11 @@ public final class ComponentOrientationExample extends TutorialApplication {
          */
         static ColumnSpec flipped(ColumnSpec spec) {
             DefaultAlignment alignment = spec.getDefaultAlignment();
-            if (alignment == ColumnSpec.LEFT)
+            if (alignment == ColumnSpec.LEFT) {
                 alignment = ColumnSpec.RIGHT;
-            else if (alignment == ColumnSpec.RIGHT)
+            } else if (alignment == ColumnSpec.RIGHT) {
                 alignment = ColumnSpec.LEFT;
+            }
             return new ColumnSpec(alignment, spec.getSize(), spec.getResizeWeight());
         }
 
@@ -207,10 +209,11 @@ public final class ComponentOrientationExample extends TutorialApplication {
          */
         static CellConstraints flipHorizontally(CellConstraints cc) {
             CellConstraints.Alignment flippedHAlign = cc.hAlign;
-            if (flippedHAlign == CellConstraints.LEFT)
+            if (flippedHAlign == CellConstraints.LEFT) {
                 flippedHAlign = CellConstraints.RIGHT;
-            else if (flippedHAlign == CellConstraints.RIGHT)
+            } else if (flippedHAlign == CellConstraints.RIGHT) {
                 flippedHAlign = CellConstraints.LEFT;
+            }
 
             CellConstraints flipped = new CellConstraints(
                     cc.gridX,

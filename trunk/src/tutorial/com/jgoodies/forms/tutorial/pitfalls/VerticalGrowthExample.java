@@ -49,7 +49,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * the available vertical space.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 
 public final class VerticalGrowthExample extends TutorialApplication {
@@ -66,6 +66,7 @@ public final class VerticalGrowthExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Vertical Growth");
         frame.getContentPane().add(buildPanel());

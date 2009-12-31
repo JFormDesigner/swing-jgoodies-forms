@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * Tests column and row groups of the FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public final class FormLayoutGroupsTest extends TestCase {
 
@@ -45,6 +45,7 @@ public final class FormLayoutGroupsTest extends TestCase {
     /**
      * @throws Exception   in case of an unexpected problem
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         layout = new FormLayout(
@@ -55,6 +56,7 @@ public final class FormLayoutGroupsTest extends TestCase {
     /**
      * @throws Exception   in case of an unexpected problem
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         layout = null;
@@ -70,13 +72,15 @@ public final class FormLayoutGroupsTest extends TestCase {
 
         // Modify the column group set (first level).
         columnGroups[1] = new int[]{1, 4};
-        if (equals(columnGroups, layout.getColumnGroups()))
+        if (equals(columnGroups, layout.getColumnGroups())) {
             fail("Column group sets should be immutable.");
+        }
 
         // Modify a column group (second level)
         columnGroups[0][0] = 5;
-        if (equals(columnGroups, layout.getColumnGroups()))
+        if (equals(columnGroups, layout.getColumnGroups())) {
             fail("Column groups should be immutable.");
+        }
     }
 
 
@@ -90,13 +94,15 @@ public final class FormLayoutGroupsTest extends TestCase {
 
         // Modify the row group set (first level).
         rowGroups[1] = new int[]{1, 4};
-        if (equals(rowGroups, layout.getRowGroups()))
+        if (equals(rowGroups, layout.getRowGroups())) {
             fail("The row group sets should be immutable.");
+        }
 
         // Modify a row group (second level)
         rowGroups[0][0] = 5;
-        if (equals(rowGroups, layout.getRowGroups()))
+        if (equals(rowGroups, layout.getRowGroups())) {
             fail("Row groups should be immutable.");
+        }
     }
 
     /**
@@ -163,16 +169,19 @@ public final class FormLayoutGroupsTest extends TestCase {
      * @return true if both arrays are equal, false otherwise
      */
     private boolean equals(int[][] array1, int[][] array2) {
-        if (array1.length != array2.length)
+        if (array1.length != array2.length) {
             return false;
+        }
         for (int i = 0; i < array1.length; i++) {
             int[] subarray1 = array1[i];
             int[] subarray2 = array2[i];
-            if (subarray1.length != subarray2.length)
+            if (subarray1.length != subarray2.length) {
                 return false;
+            }
             for (int j = 0; j < subarray1.length; j++) {
-                if (subarray1[j] != subarray2[j])
+                if (subarray1[j] != subarray2[j]) {
                     return false;
+                }
             }
         }
         return true;

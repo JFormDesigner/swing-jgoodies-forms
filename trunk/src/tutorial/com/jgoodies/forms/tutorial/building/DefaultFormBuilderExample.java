@@ -52,7 +52,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * rows before the panel is filled with components.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  *
  * @see     DefaultFormBuilder
  * @see     PlainExample
@@ -83,6 +83,7 @@ public final class DefaultFormBuilderExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Default Form");
         frame.getContentPane().add(buildPanel());

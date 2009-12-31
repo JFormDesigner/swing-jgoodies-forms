@@ -30,11 +30,12 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkNotBlank;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import com.jgoodies.forms.util.FormUtils;
 
 
 
@@ -58,7 +59,7 @@ import com.jgoodies.forms.util.FormUtils;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -148,16 +149,11 @@ public final class ColumnSpec extends FormSpec {
      * The description will be parsed to set initial values.<p>
      *
      * Unlike the factory method {@link #decode(String)}, this constructor
-     * does not expand layout variables, and it cannot vend cached objects.<p>
-     *
-     * <strong>Note:</strong> This constructor will become private
-     * in the next Forms version.
+     * does not expand layout variables, and it cannot vend cached objects.
      *
      * @param encodedDescription	the encoded description
-     *
-     * @deprecated Replaced by {@link #decode(String)}
      */
-	public ColumnSpec(String encodedDescription) {
+    private ColumnSpec(String encodedDescription) {
 	    super(DEFAULT, encodedDescription);
 	}
 
@@ -211,14 +207,17 @@ public final class ColumnSpec extends FormSpec {
      * @return a ColumnSpec instance for the given specification
      * @throws NullPointerException if {@code encodedColumnSpec} or
      *     {@code layoutMap} is {@code null}
+     * @throws IllegalArgumentException if {@code encodedColumnSpec} is empty
+     *     or whitespace
      *
      * @see #decodeSpecs(String, LayoutMap)
      *
      * @since 1.2
      */
     public static ColumnSpec decode(String encodedColumnSpec, LayoutMap layoutMap) {
-        FormUtils.assertNotBlank(encodedColumnSpec, "encoded column specification");
-        FormUtils.assertNotNull(layoutMap, "LayoutMap");
+        checkNotBlank(encodedColumnSpec,
+                "The encoded column specification must not be null, empty or whitespace.");
+        checkNotNull(layoutMap, "The LayoutMap must not be null.");
         String trimmed = encodedColumnSpec.trim();
         String lower = trimmed.toLowerCase(Locale.ENGLISH);
         return decodeExpanded(layoutMap.expand(lower, true));
@@ -290,6 +289,7 @@ public final class ColumnSpec extends FormSpec {
      *
      * @return  always {@code true} (for horizontal)
      */
+    @Override
     protected boolean isHorizontal() {
         return true;
     }

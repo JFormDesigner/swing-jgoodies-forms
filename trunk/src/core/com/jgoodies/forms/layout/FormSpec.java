@@ -30,13 +30,15 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+import static com.jgoodies.common.base.Preconditions.checkNotBlank;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
-
-import com.jgoodies.forms.util.FormUtils;
 
 
 /**
@@ -51,7 +53,7 @@ import com.jgoodies.forms.util.FormUtils;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -160,13 +162,11 @@ public abstract class FormSpec implements Serializable {
     protected FormSpec(DefaultAlignment defaultAlignment,
                         Size size,
                         double resizeWeight) {
-        if (size == null)
-            throw new NullPointerException("The size must not be null.");
+        checkNotNull(size, "The size must not be null.");
+        checkArgument(resizeWeight >= 0, "The resize weight must be non-negative.");
     	this.defaultAlignment = defaultAlignment;
         this.size             = size;
         this.resizeWeight     = resizeWeight;
-        if (resizeWeight < 0)
-            throw new IllegalArgumentException("The resize weight must be non-negative.");
     }
 
     /**
@@ -264,7 +264,8 @@ public abstract class FormSpec implements Serializable {
      *     or is otherwise invalid
      */
     private void parseAndInitValues(String encodedDescription) {
-        FormUtils.assertNotBlank(encodedDescription, "encoded form specification");
+        checkNotBlank(encodedDescription,
+                "The encoded form specification must not be null, empty or whitespace.");
         String[] token = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
         if (token.length == 0) {
             throw new IllegalArgumentException(
@@ -337,8 +338,8 @@ public abstract class FormSpec implements Serializable {
             basis = parseAtomicSize(subtoken[1]);
             upper = parseAtomicSize(subtoken[2]);
         }
-        if (   ((lower == null) || (isConstant(lower)))
-            && ((upper == null) || (isConstant(upper))))  {
+        if (   (lower == null || isConstant(lower))
+            && (upper == null || isConstant(upper)))  {
             return new BoundedSize(basis, lower, upper);
         }
         throw new IllegalArgumentException(
@@ -408,8 +409,9 @@ public abstract class FormSpec implements Serializable {
             return new PrototypeSize(trimmedToken.substring(1, length - 1));
         }
         Sizes.ComponentSize componentSize = Sizes.ComponentSize.valueOf(trimmedToken);
-        if (componentSize != null)
+        if (componentSize != null) {
             return componentSize;
+        }
         return ConstantSize.valueOf(trimmedToken, isHorizontal());
     }
 
@@ -445,8 +447,8 @@ public abstract class FormSpec implements Serializable {
 
 
     private static boolean isConstant(Size aSize) {
-        return  (aSize instanceof ConstantSize)
-             || (aSize instanceof PrototypeSize);
+        return  aSize instanceof ConstantSize
+             || aSize instanceof PrototypeSize;
     }
 
 
@@ -467,6 +469,7 @@ public abstract class FormSpec implements Serializable {
      *
      * @return	a string representation of the form specification.
      */
+    @Override
     public final String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append(defaultAlignment);
@@ -607,24 +610,26 @@ public abstract class FormSpec implements Serializable {
          * @return the corresponding DefaultAlignment or null
          */
         private static DefaultAlignment valueOf(String str, boolean isHorizontal) {
-            if (str.equals("f") || str.equals("fill"))
+            if (str.equals("f") || str.equals("fill")) {
                 return FILL_ALIGN;
-            else if (str.equals("c") || str.equals("center"))
+            } else if (str.equals("c") || str.equals("center")) {
                 return CENTER_ALIGN;
-            else if (isHorizontal) {
-                if (str.equals("r") || str.equals("right"))
+            } else if (isHorizontal) {
+                if (str.equals("r") || str.equals("right")) {
                     return RIGHT_ALIGN;
-                else if (str.equals("l") || str.equals("left"))
+                } else if (str.equals("l") || str.equals("left")) {
                     return LEFT_ALIGN;
-                else
+                } else {
                     return null;
+                }
             } else {
-                if (str.equals("t") || str.equals("top"))
+                if (str.equals("t") || str.equals("top")) {
                     return TOP_ALIGN;
-                else if (str.equals("b") || str.equals("bottom"))
+                } else if (str.equals("b") || str.equals("bottom")) {
                     return BOTTOM_ALIGN;
-                else
+                } else {
                     return null;
+                }
             }
         }
 
@@ -633,6 +638,7 @@ public abstract class FormSpec implements Serializable {
          *
          * @return this alignment's name.
          */
+        @Override
         public String toString()  {
             return name;
         }

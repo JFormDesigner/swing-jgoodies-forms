@@ -52,7 +52,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * to create text labels and separators.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see     PanelBuilderExample
  * @see	RowCounterExample
@@ -80,6 +80,7 @@ public final class PlainExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Plain Building");
         frame.getContentPane().add(buildPanel());

@@ -47,7 +47,7 @@ import com.jgoodies.forms.tutorial.util.TutorialApplication;
  * The recommended style is demonstrated in the {@link DefaultFormBuilderExample}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  *
  * @see	PlainExample
  * @see	RowCounterExample
@@ -78,6 +78,7 @@ public final class DynamicRowsExample extends TutorialApplication {
     }
 
 
+    @Override
     protected void startup(String[] args) {
         JFrame frame = createFrame("Forms Tutorial :: Dynamic Rows");
         frame.getContentPane().add(buildPanel());
