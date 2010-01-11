@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -96,7 +96,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * Strings for the columns and rows respectively. Null values are not allowed.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
