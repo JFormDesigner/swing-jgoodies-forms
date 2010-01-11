@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,9 @@
 
 package com.jgoodies.forms.debug;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.awt.Component;
 import java.awt.Container;
 
@@ -58,7 +61,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @see FormDebugPanel
  */
@@ -253,12 +256,13 @@ public final class FormDebugUtils {
      *
      * @param container   the layout container to inspect
      * @return an object that comprises the cell origins and extents
-     * @throws IllegalArgumentException   if the layout is not FormLayout
+     * @throws NullPointerException       if {@code container} is {@link NullPointerException}
+     * @throws IllegalArgumentException   if {@code container}'s layout is not FormLayout
      */
     public static FormLayout.LayoutInfo getLayoutInfo(Container container) {
-        if (!(container.getLayout() instanceof FormLayout)) {
-            throw new IllegalArgumentException("The container must use an instance of FormLayout.");
-        }
+        checkNotNull(container, "The container must not be null.");
+        checkArgument(container.getLayout() instanceof FormLayout,
+                "The container must use an instance of FormLayout.");
         FormLayout layout = (FormLayout) container.getLayout();
         return layout.getLayoutInfo(container);
     }

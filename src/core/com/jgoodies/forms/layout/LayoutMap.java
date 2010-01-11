@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,8 @@
  */
 
 package com.jgoodies.forms.layout;
+
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -108,7 +110,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -236,8 +238,8 @@ public final class LayoutMap {
      */
     public boolean columnContainsKey(String key) {
         String resolvedKey = resolveColumnKey(key);
-        return  (columnMap.containsKey(resolvedKey))
-            || ((parent != null) && (parent.columnContainsKey(resolvedKey)));
+        return  columnMap.containsKey(resolvedKey)
+            || parent != null && parent.columnContainsKey(resolvedKey);
     }
 
 
@@ -262,7 +264,7 @@ public final class LayoutMap {
             return cachedValue;
         }
         String value = (String) columnMap.get(resolvedKey);
-        if ((value == null) && (parent != null)) {
+        if (value == null && parent != null) {
             value = parent.columnGet(resolvedKey);
         }
         if (value == null) {
@@ -296,9 +298,7 @@ public final class LayoutMap {
      */
     public String columnPut(String key, String value) {
         String resolvedKey = resolveColumnKey(key);
-        if (value == null) {
-            throw new NullPointerException("The column expression value must not be null.");
-        }
+        checkNotNull(value, "The column expression value must not be null.");
         columnMapCache.clear();
         return (String) columnMap.put(
                 resolvedKey,
@@ -356,8 +356,8 @@ public final class LayoutMap {
      */
     public boolean rowContainsKey(String key) {
         String resolvedKey = resolveRowKey(key);
-        return  (rowMap.containsKey(resolvedKey))
-            || ((parent != null) && (parent.rowContainsKey(resolvedKey)));
+        return  rowMap.containsKey(resolvedKey)
+            || parent != null && parent.rowContainsKey(resolvedKey);
     }
 
 
@@ -382,7 +382,7 @@ public final class LayoutMap {
             return cachedValue;
         }
         String value = (String) rowMap.get(resolvedKey);
-        if ((value == null) && (parent != null)) {
+        if (value == null && parent != null) {
             value = parent.rowGet(resolvedKey);
         }
         if (value == null) {
@@ -396,9 +396,7 @@ public final class LayoutMap {
 
     public String rowPut(String key, String value) {
         String resolvedKey = resolveRowKey(key);
-        if (value == null) {
-            throw new NullPointerException("The row expression value must not be null.");
-        }
+        checkNotNull(value, "The row expression value must not be null.");
         rowMapCache.clear();
         return (String) rowMap.put(
                 resolvedKey,
@@ -524,7 +522,7 @@ public final class LayoutMap {
             return expression.substring(start + 1, end + 1);
         }
         int end = start + 1;
-        while ((end < length)
+        while (end < length
             && Character.isUnicodeIdentifierPart(expression.charAt(end))) {
             end++;
         }
@@ -553,9 +551,7 @@ public final class LayoutMap {
     // Helper Code ************************************************************
 
     private String resolveColumnKey(String key) {
-        if (key == null) {
-            throw new NullPointerException("The key must not be null.");
-        }
+        checkNotNull(key, "The column key must not be null.");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
         String defaultKey = (String) COLUMN_ALIASES.get(lowercaseKey);
         return defaultKey == null ? lowercaseKey : defaultKey;
@@ -563,9 +559,7 @@ public final class LayoutMap {
 
 
     private String resolveRowKey(String key) {
-        if (key == null) {
-            throw new NullPointerException("The key must not be null.");
-        }
+        checkNotNull(key, "The row key must not be null.");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
         String defaultKey = (String) ROW_ALIASES.get(lowercaseKey);
         return defaultKey == null ? lowercaseKey : defaultKey;
