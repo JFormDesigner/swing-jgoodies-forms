@@ -1,6 +1,61 @@
+                           JGoodies Forms
+                           Version @version.name@
+                            Release Notes
+                        
+
+INTRODUCTION
+
+    This version requires Java 5 and the new JGoodies Common library.
+    Make sure that you include jgoodies-common-0.9.9.jar in your
+    classpath when using this Forms version.
+    
+   
+INCOMPATIBLE CHANGES
+
+    o The handling of text with mnemonic markers ('&') has changed.
+      However, the changes are minimal and most marked text won't
+      be affected. Nothing changed for single mnemonic markers
+      The difference is how ampersands are handled that shall not 
+      mark the mnemonic character. In version 1.3 all these markers
+      needed to be quoted - before and after the mnemonic marker.
+      Since version 1.4 only the ampersands before the marker shall
+      be quoted.
+      
+      Version 1.3            Version 1.4            Comment
+      Save                   Save                   unchanged
+      &Save                  &Save                  unchanged
+      Save &as               Save &as               unchanged
+      Look & Feel            Look & Feel            unchanged
+      R&&D department        R&&D department        unchanged
+      R&&D d&epartment       R&&D d&epartment       unchanged
+      A&&B &GmbH&&Co KG      A&&B &GmbH&Co KG       change
+      
+      In the last line there's the ampersand in "mbH&Co KG"
+      doesn't mark a mnemonic. It needs to be quoted in 1.3
+      but must not be quoted in 1.4.
+    
+ 
+OTHER CHANGES
+
+    o All classes now use the Common class Preconditions
+      to check preconditions on method state and parameters.
+    o Adjusted and extended tests for handling mnemonics.
+      
+      
+ROADMAP
+
+    Forms 2.0 
+    o API clarification and API extensions.
+    o Bug fixing - even if the fix affects the layout.
+    o Make DLU a general unit.
+    o Change the default unit conversion algorithm.
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
 
                            JGoodies Forms
-                           Version 1.3.0
+                            Version 1.3.0
                             Release Notes
                         
 
@@ -58,22 +113,8 @@ OTHER CHANGES
     o Added tests for the accessible name in FormLabels.
       
       
-ROADMAP
-
-    Forms 1.4
-    o Move to Java 5.
-    o Remove deprecated classes and methods.
-    o Use JGoodies Common.
-
-    Forms 2.0 
-    o API clarification and API extensions.
-    o Bug fixing - even if the fix affects the layout.
-    o Make DLU a general unit.
-    o Change the default unit conversion algorithm.
-    
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
-
 
 
                            JGoodies Forms

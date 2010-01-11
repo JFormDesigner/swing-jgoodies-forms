@@ -75,15 +75,17 @@
 	<table width="530" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 	  <td>
-	<h1>:: Readme :: Forms 1.3.0 ::</h1>
+	<h1>:: Readme :: Forms @version.name@ ::</h1>
 	
     The Forms framework helps you lay out and implement 
     elegant Swing panels quickly and consistently. 
     It makes simple things easy and the hard stuff possible,
     the good design easy and the bad difficult.
 
-	<p>	 
-	The JGoodies Forms requires Java 1.4 or later. 
+     <p>
+     Since version 1.4 the JGoodies Forms requires Java 5 or later. 
+     Forms versions for Java 1.4 are available in the 
+     <a href="http://www.jgoodies.com/downloads/archive.html">JGoodies Archive</a>.
 
 	 
 	 <h2>Top Questions</h2>
@@ -100,9 +102,37 @@
 
 		<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
-		    <td><tt>forms-1.3.0.jar</tt></td>
+		    <td><tt>jgoodies-forms-@impl.version@.jar</tt></td>
 		    <td>&nbsp;</td>
 		    <td>the library jar </td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		<tr>
+		    <td><tt>lib</tt></td>
+		    <td>&nbsp;</td>
+		    <td>required libraries</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		<tr>
+		    <td><tt>docs/api</tt></td>
+		    <td width="10">&nbsp;</td>
+		    <td>JavaDocs directory</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		<tr>
+		    <td><tt>src/core</tt></td>
+		    <td>&nbsp;</td>
+		    <td>Java sources for the library core</td>
+		</tr>
+		<tr>
+		    <td><tt>src/extras</tt></td>
+		    <td>&nbsp;</td>
+		    <td>Java sources for useful extensions</td>
+		</tr>
+		<tr>
+		    <td><tt>src/test</tt></td>
+		    <td>&nbsp;</td>
+		    <td>Java sources for unit tests</td>
 		</tr>
 		<tr><td colspan="3">&nbsp;</td></tr>
 		<tr>
@@ -129,33 +159,6 @@
 		    <td><tt>default.properties</tt></td>
 		    <td>&nbsp;</td>
 		    <td>ANT default build properties</td>
-		</tr>
-		<tr><td colspan="3">&nbsp;</td></tr>
-		<tr>
-		    <td><tt>docs/api</tt></td>
-		    <td width="10">&nbsp;</td>
-		    <td>JavaDocs directory</td>
-		</tr>
-		<tr><td colspan="3">&nbsp;</td></tr>
-		<tr>
-		    <td><tt>src/core</tt></td>
-		    <td>&nbsp;</td>
-		    <td>Java sources for the library core</td>
-		</tr>
-		<tr>
-		    <td><tt>src/extras</tt></td>
-		    <td>&nbsp;</td>
-		    <td>Java sources for useful extensions</td>
-		</tr>
-		<tr>
-		    <td><tt>src/test</tt></td>
-		    <td>&nbsp;</td>
-		    <td>Java sources for unit tests</td>
-		</tr>
-		<tr>
-		    <td><tt>src/tutorial</tt></td>
-		    <td>&nbsp;</td>
-		    <td>Java tutorial sources</td>
 		</tr>
 		</table>
 
@@ -199,7 +202,7 @@
 <tr>
     <td nowrap="nowrap" bgcolor="F4f3f3">
       <div style="font-size: 10px; margin-left: 17px; margin-top: 20px; margin-right: 10px; margin-bottom: 4px;">
-      (c) 2009 JGoodies
+      (c) 2010 JGoodies
       </div>
     </td>
     <td width="1" bgcolor="E7E5E5"></td>
