@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.builder;
 
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -51,7 +53,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see    ButtonBarBuilder2
  * @see    ButtonStackBuilder
@@ -95,26 +97,17 @@ public abstract class AbstractFormBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs a <code>AbstractFormBuilder</code>
+     * Constructs an AbstractFormBuilder
      * for the given FormLayout and layout container.
      *
-     * @param layout     the {@link FormLayout} to use
+     * @param layout     the FormLayout to use
      * @param container  the layout container
      *
-     * @throws NullPointerException if the layout or container is null
+     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
     public AbstractFormBuilder(FormLayout layout, Container container) {
-        if (layout == null) {
-            throw new NullPointerException("The layout must not be null.");
-        }
-
-        if (container == null) {
-            throw new NullPointerException("The layout container must not be null.");
-        }
-
-        this.container = container;
-        this.layout    = layout;
-
+        this.layout    = checkNotNull(layout, "The layout must not be null.");
+        this.container = checkNotNull(container, "The layout container must not be null.");
         container.setLayout(layout);
         currentCellConstraints = new CellConstraints();
         ComponentOrientation orientation = container.getComponentOrientation();

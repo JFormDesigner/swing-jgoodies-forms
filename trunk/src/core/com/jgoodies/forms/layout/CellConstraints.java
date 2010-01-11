@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,9 @@
  */
 
 package com.jgoodies.forms.layout;
+
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
 import java.awt.Component;
 import java.awt.Insets;
@@ -82,7 +85,7 @@ import com.jgoodies.forms.factories.CC;
  * TODO: Rename the inset to offsets.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see CC
  */
@@ -329,12 +332,8 @@ public final class CellConstraints implements Cloneable, Serializable {
         if (gridHeight <= 0) {
             throw new IndexOutOfBoundsException("The grid height must be a positive number.");
         }
-        if (hAlign == null) {
-            throw new NullPointerException("The horizontal alignment must not be null.");
-        }
-        if (vAlign == null) {
-            throw new NullPointerException("The vertical alignment must not be null.");
-        }
+        checkNotNull(hAlign, "The horizontal alignment must not be null.");
+        checkNotNull(vAlign, "The vertical alignment must not be null.");
         ensureValidOrientations(hAlign, vAlign);
     }
 
@@ -807,35 +806,22 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @throws IllegalArgumentException if the encoded constraints do not
      *     follow the constraint syntax
      */
+    @SuppressWarnings("null")
     private void initFromConstraints(String encodedConstraints) {
         StringTokenizer tokenizer = new StringTokenizer(encodedConstraints, " ,");
         int argCount = tokenizer.countTokens();
-        if (!(argCount == 2 || argCount == 4 || argCount == 6)) {
-            throw new IllegalArgumentException(
-                        "You must provide 2, 4 or 6 arguments.");
-        }
-
+        checkArgument(argCount == 2 || argCount == 4 || argCount == 6,
+                "You must provide 2, 4 or 6 arguments.");
         Integer nextInt = decodeInt(tokenizer.nextToken());
-        if (nextInt == null) {
-            throw new IllegalArgumentException(
-                    "First cell constraint element must be a number.");
-        }
+        checkArgument(nextInt != null,
+                "First cell constraint element must be a number.");
         gridX = nextInt.intValue();
-        if (gridX <= 0) {
-            throw new IndexOutOfBoundsException("The grid x must be a positive number.");
-        }
-
+        checkArgument(gridX > 0, "The grid x must be a positive number.");
         nextInt = decodeInt(tokenizer.nextToken());
-        if (nextInt == null) {
-            throw new IllegalArgumentException(
-                    "Second cell constraint element must be a number.");
-        }
+        checkArgument(nextInt != null,
+                "Second cell constraint element must be a number.");
         gridY = nextInt.intValue();
-        if (gridY <= 0) {
-            throw new IndexOutOfBoundsException(
-                    "The grid y must be a positive number.");
-        }
-
+        checkArgument(gridY > 0, "The grid y must be a positive number.");
         if (!tokenizer.hasMoreTokens()) {
             return;
         }

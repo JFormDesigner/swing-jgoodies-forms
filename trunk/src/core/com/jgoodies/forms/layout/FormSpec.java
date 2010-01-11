@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.23 $
+ * @version $Revision: 1.24 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -259,18 +259,15 @@ public abstract class FormSpec implements Serializable {
      *
      * @param encodedDescription   the FormSpec in an encoded format
      *
-     * @throws NullPointerException  if the string is {@code null}
-     * @throws IllegalArgumentException if the string is empty, has no size,
-     *     or is otherwise invalid
+     * @throws NullPointerException  if {@code encodedDescription} is {@code null}
+     * @throws IllegalArgumentException if {@code encodedDescription}
+     *     is empty, whitespace, has no size, or is otherwise invalid
      */
     private void parseAndInitValues(String encodedDescription) {
         checkNotBlank(encodedDescription,
                 "The encoded form specification must not be null, empty or whitespace.");
         String[] token = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
-        if (token.length == 0) {
-            throw new IllegalArgumentException(
-                                    "The form spec must not be empty.");
-        }
+        checkArgument(token.length > 0, "The form spec must not be empty.");
         int nextIndex = 0;
         String next = token[nextIndex++];
 
@@ -278,10 +275,7 @@ public abstract class FormSpec implements Serializable {
         DefaultAlignment alignment = DefaultAlignment.valueOf(next, isHorizontal());
         if (alignment != null) {
             setDefaultAlignment(alignment);
-            if (token.length == 1) {
-                throw new IllegalArgumentException(
-                                    "The form spec must provide a size.");
-            }
+            checkArgument(token.length > 1, "The form spec must provide a size.");
             next = token[nextIndex++];
         }
         setSize(parseSize(next));

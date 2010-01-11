@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,9 @@
  */
 
 package com.jgoodies.forms.builder;
+
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -153,7 +156,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -352,13 +355,9 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @see #addButton(JComponent)
      */
     public void addButton(JComponent... buttons) {
-        if (buttons == null) {
-            throw new NullPointerException("The button array must not be null.");
-        }
+        checkNotNull(buttons, "The button array must not be null.");
         int length = buttons.length;
-        if (length == 0) {
-            throw new IllegalArgumentException("The button array must not be empty.");
-        }
+        checkArgument(length > 0, "The button array must not be empty.");
         for (int i = 0; i < length; i++) {
             int index = leftToRight ? i : length -1 - i;
             addButton(buttons[index]);
@@ -380,9 +379,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @see #addButton(JComponent)
      */
     public void addButton(Action action) {
-        if (action == null) {
-            throw new NullPointerException("The button Action must not be null.");
-        }
+        checkNotNull(action, "The button Action must not be null.");
         addButton(new JButton(action));
     }
 
@@ -403,13 +400,9 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @see #addButton(JComponent[])
      */
     public void addButton(Action... actions) {
-        if (actions == null) {
-            throw new NullPointerException("The Action array must not be null.");
-        }
+        checkNotNull(actions, "The Action array must not be null.");
         int length = actions.length;
-        if (length == 0) {
-            throw new IllegalArgumentException("The Action array must not be empty.");
-        }
+        checkArgument(length > 0, "The Action array must not be empty.");
         JButton[] buttons = new JButton[length];
         for (int i = 0; i < length; i++) {
             buttons[i] = new JButton(actions[i]);

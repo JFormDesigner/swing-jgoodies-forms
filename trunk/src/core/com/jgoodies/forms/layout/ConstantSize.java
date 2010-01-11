@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,8 @@
  */
 
 package com.jgoodies.forms.layout;
+
+import static com.jgoodies.common.base.Preconditions.checkArgument;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -66,7 +68,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see	Size
  * @see	Sizes
@@ -154,10 +156,8 @@ public final class ConstantSize implements Size, Serializable {
         Unit unit = Unit.valueOf(encodedUnit, horizontal);
         double value = Double.parseDouble(encodedValue);
         if (unit.requiresIntegers) {
-            if (value != (int) value) {
-                throw new IllegalArgumentException(unit.toString()
-                    + " value " + encodedValue + " must be an integer.");
-            }
+            checkArgument(value == (int) value,
+                    unit.toString() + " value " + encodedValue + " must be an integer.");
         }
         return new ConstantSize(value, unit);
     }
@@ -336,7 +336,7 @@ public final class ConstantSize implements Size, Serializable {
      */
     @Override
     public String toString() {
-        return (value == intValue())
+        return value == intValue()
             ? Integer.toString(intValue()) + unit.abbreviation()
             : Double.toString(value) + unit.abbreviation();
     }
@@ -350,7 +350,7 @@ public final class ConstantSize implements Size, Serializable {
      * @since 1.2
      */
     public String encode() {
-        return (value == intValue())
+        return value == intValue()
             ? Integer.toString(intValue()) + unit.encode()
             : Double.toString(value) + unit.encode();
     }

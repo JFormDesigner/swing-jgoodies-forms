@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.extras;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.util.NoSuchElementException;
@@ -50,7 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * your codebase.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public final class FormLayoutUtils {
 
@@ -205,9 +207,8 @@ public final class FormLayoutUtils {
          *     not a <code>FormLayout</code>
          */
         public ConstraintIterator(Container container) {
-            if (!(container.getLayout() instanceof FormLayout)) {
-                throw new IllegalArgumentException("The container must use an instance of FormLayout.");
-            }
+            checkArgument(container.getLayout() instanceof FormLayout,
+                    "The container must use an instance of FormLayout.");
             layout = (FormLayout) container.getLayout();
             components = container.getComponents();
             index = 0;

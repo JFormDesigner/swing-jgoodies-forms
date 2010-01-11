@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,8 @@
  */
 
 package com.jgoodies.forms.util;
+
+import static com.jgoodies.common.base.Preconditions.checkNotBlank;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -66,7 +68,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -203,17 +205,11 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * </ul>
      *
      * @param newTestString   the test string to be used
-     * @throws IllegalArgumentException if the test string is empty
-     * @throws NullPointerException     if the test string is <code>null</code>
+     * @throws NullPointerException     if {@code newTestString} is {@code null}
+     * @throws IllegalArgumentException if {@code newTestString} is empty or whitespace
      */
     public void setAverageCharacterWidthTestString(String newTestString) {
-        if (newTestString == null) {
-            throw new NullPointerException("The test string must not be null.");
-        }
-        if (newTestString.length() == 0) {
-            throw new IllegalArgumentException("The test string must not be empty.");
-        }
-
+        checkNotBlank(newTestString, "The test string must not be null, empty, or whitespace.");
         String oldTestString = averageCharWidthTestString;
         averageCharWidthTestString = newTestString;
         changeSupport.firePropertyChange(

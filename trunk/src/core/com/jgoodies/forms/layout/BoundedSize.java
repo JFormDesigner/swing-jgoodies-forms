@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
@@ -39,7 +41,7 @@ import java.util.List;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -72,23 +74,19 @@ public final class BoundedSize implements Size, Serializable {
      * @param lowerBound  the lower bound size
      * @param upperBound  the upper bound size
      *
-     * @throws NullPointerException if the basis is {@code null}
-     *
-     * @throws IllegalArgumentException of {@code lowerBound} and
-     *     {@code upperBound} is {@code null}
+     * @throws NullPointerException if {@code basis}, {@code lowerBound},
+     *     or {@code upperBound} is {@code null}
      *
      * @since 1.1
      */
     public BoundedSize(Size basis, Size lowerBound, Size upperBound) {
-        if (basis == null) {
-            throw new NullPointerException("The basis of a bounded size must not be null.");
-        }
-        if ((lowerBound == null) && (upperBound == null)) {
-            throw new IllegalArgumentException("A bounded size must have a non-null lower or upper bound.");
-        }
-        this.basis = basis;
+        this.basis      = checkNotNull(basis,      "The basis must not be null.");
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
+        if (lowerBound == null && upperBound == null) {
+            throw new IllegalArgumentException(
+                    "A bounded size must have a non-null lower or upper bound.");
+        }
     }
 
 
@@ -214,10 +212,10 @@ public final class BoundedSize implements Size, Serializable {
         }
         BoundedSize size = (BoundedSize) object;
         return basis.equals(size.basis)
-             && (   (lowerBound == null && size.lowerBound == null)
-                 || (lowerBound != null && lowerBound.equals(size.lowerBound)))
-             && (   (upperBound == null && size.upperBound == null)
-                 || (upperBound != null && upperBound.equals(size.upperBound)));
+             && (   lowerBound == null && size.lowerBound == null
+                 || lowerBound != null && lowerBound.equals(size.lowerBound))
+             && (   upperBound == null && size.upperBound == null
+                 || upperBound != null && upperBound.equals(size.upperBound));
     }
 
     /**

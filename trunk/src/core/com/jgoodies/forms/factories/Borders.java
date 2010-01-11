@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.factories;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+
 import java.awt.Component;
 import java.awt.Insets;
 
@@ -52,7 +54,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see     Border
  * @see     Sizes
@@ -201,11 +203,9 @@ public final class Borders {
     public static Border createEmptyBorder(String encodedSizes) {
         String[] token = encodedSizes.split("\\s*,\\s*");
         int tokenCount = token.length;
-        if (token.length != 4) {
-            throw new IllegalArgumentException(
+        checkArgument(token.length == 4,
                 "The border requires 4 sizes, but \"" + encodedSizes +
                 "\" has " + tokenCount + ".");
-        }
         ConstantSize top    = Sizes.constant(token[0], false);
         ConstantSize left   = Sizes.constant(token[1], true);
         ConstantSize bottom = Sizes.constant(token[2], false);
@@ -230,10 +230,10 @@ public final class Borders {
                 ConstantSize left,
                 ConstantSize bottom,
                 ConstantSize right) {
-            if (   (top == null)
-                || (left == null)
-                || (bottom == null)
-                || (right == null)) {
+            if (   top == null
+                || left == null
+                || bottom == null
+                || right == null) {
                 throw new NullPointerException("The top, left, bottom, and right must not be null.");
             }
             this.top    = top;

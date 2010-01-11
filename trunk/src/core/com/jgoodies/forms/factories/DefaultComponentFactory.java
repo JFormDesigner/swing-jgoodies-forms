@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,11 +30,15 @@
 
 package com.jgoodies.forms.factories;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+
 import java.awt.*;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
 
+import com.jgoodies.common.base.Preconditions;
+import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.FormUtils;
 
@@ -51,7 +55,7 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public class DefaultComponentFactory implements ComponentFactory2 {
 
@@ -98,7 +102,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      */
     public JLabel createLabel(String textWithMnemonic) {
         JLabel label = new FormsLabel();
-        setTextAndMnemonic(label, textWithMnemonic);
+        MnemonicUtils.configure(label, textWithMnemonic);
         return label;
     }
 
@@ -125,7 +129,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      */
     public JLabel createReadOnlyLabel(String textWithMnemonic) {
         JLabel label = new ReadOnlyLabel();
-        setTextAndMnemonic(label, textWithMnemonic);
+        MnemonicUtils.configure(label, textWithMnemonic);
         return label;
     }
 
@@ -147,7 +151,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      */
     public JLabel createTitle(String textWithMnemonic) {
         JLabel label = new TitleLabel();
-        setTextAndMnemonic(label, textWithMnemonic);
+        MnemonicUtils.configure(label, textWithMnemonic);
         label.setVerticalAlignment(SwingConstants.CENTER);
         return label;
     }
@@ -232,17 +236,14 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      * @since 1.0.6
      */
     public JComponent createSeparator(JLabel label) {
-        if (label == null) {
-            throw new NullPointerException("The label must not be null.");
-        }
+        Preconditions.checkNotNull(label, "The label must not be null.");
         int horizontalAlignment = label.getHorizontalAlignment();
-        if (   (horizontalAlignment != SwingConstants.LEFT)
-            && (horizontalAlignment != SwingConstants.CENTER)
-            && (horizontalAlignment != SwingConstants.RIGHT)) {
-            throw new IllegalArgumentException("The label's horizontal alignment"
-                    + " must be one of: LEFT, CENTER, RIGHT.");
-        }
-
+        checkArgument(
+                horizontalAlignment == SwingConstants.LEFT
+             || horizontalAlignment == SwingConstants.CENTER
+             || horizontalAlignment == SwingConstants.RIGHT,
+            "The label's horizontal alignment must be one of: " +
+            "LEFT, CENTER, RIGHT.");
         JPanel panel = new JPanel(new TitledSeparatorLayout(!FormUtils.isLafAqua()));
         panel.setOpaque(false);
         panel.add(label);
@@ -272,45 +273,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
     public static void setTextAndMnemonic(
         JLabel label,
         String textWithMnemonic) {
-        int markerIndex = textWithMnemonic.indexOf(MNEMONIC_MARKER);
-        // No marker at all
-        if (markerIndex == -1) {
-            label.setText(textWithMnemonic);
-            return;
-        }
-        int mnemonicIndex = -1;
-        int begin = 0;
-        int end;
-        int length = textWithMnemonic.length();
-        int quotedMarkers = 0;
-        StringBuffer buffer = new StringBuffer();
-        do {
-            // Check whether the next index has a mnemonic marker, too
-            if (   (markerIndex + 1 < length)
-                && (textWithMnemonic.charAt(markerIndex + 1) == MNEMONIC_MARKER)) {
-                end = markerIndex + 1;
-                quotedMarkers++;
-            } else {
-                end = markerIndex;
-                if (mnemonicIndex == -1) {
-                    mnemonicIndex = markerIndex - quotedMarkers;
-                }
-            }
-            buffer.append(textWithMnemonic.substring(begin, end));
-            begin = end + 1;
-            markerIndex =  begin < length
-                ? textWithMnemonic.indexOf(MNEMONIC_MARKER, begin)
-                : -1;
-        } while (markerIndex != -1);
-        buffer.append(textWithMnemonic.substring(begin));
-
-        String text = buffer.toString();
-        label.setText(text);
-        if ((mnemonicIndex != -1) && (mnemonicIndex < text.length())) {
-            label.setDisplayedMnemonic(
-                text.charAt(mnemonicIndex));
-            label.setDisplayedMnemonicIndex(mnemonicIndex);
-        }
+        MnemonicUtils.configure(label, textWithMnemonic);
     }
 
 

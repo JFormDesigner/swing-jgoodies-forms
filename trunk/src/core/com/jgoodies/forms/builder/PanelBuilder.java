@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,8 @@
  */
 
 package com.jgoodies.forms.builder;
+
+import static com.jgoodies.common.base.Preconditions.checkArgument;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -87,7 +89,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -592,14 +594,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     public final JLabel addROLabel(
         String textWithMnemonic, CellConstraints labelConstraints,
         Component component,     CellConstraints componentConstraints) {
-
-        if (labelConstraints == componentConstraints) {
-            throw new IllegalArgumentException(
-                    "You must provide two CellConstraints instances, " +
-                    "one for the label and one for the component.\n" +
-                    "Consider using #clone(). See the JavaDocs for details.");
-        }
-
+        checkConstraints(labelConstraints, componentConstraints);
         JLabel label = addROLabel(textWithMnemonic, labelConstraints);
         add(component, componentConstraints);
         label.setLabelFor(component);
@@ -825,13 +820,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public final JLabel add(JLabel label,        CellConstraints labelConstraints,
                             Component component, CellConstraints componentConstraints) {
-        if (labelConstraints == componentConstraints) {
-            throw new IllegalArgumentException(
-                    "You must provide two CellConstraints instances, " +
-                    "one for the label and one for the component.\n" +
-                    "Consider using #clone(). See the JavaDocs for details.");
-        }
-
+        checkConstraints(labelConstraints, componentConstraints);
         add(label,     labelConstraints);
         add(component, componentConstraints);
         label.setLabelFor(component);
@@ -893,7 +882,7 @@ public class PanelBuilder extends AbstractFormBuilder {
             return result;
         }
         JLabel mostRecentlyAddedLabel = getMostRecentlyAddedLabel();
-        if (   (mostRecentlyAddedLabel != null)
+        if (   mostRecentlyAddedLabel != null
             && isLabelForApplicable(mostRecentlyAddedLabel, component)) {
             setLabelFor(mostRecentlyAddedLabel, component);
             clearMostRecentlyAddedLabel();
@@ -1001,6 +990,14 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     private void clearMostRecentlyAddedLabel() {
         mostRecentlyAddedLabelReference = null;
+    }
+
+
+    private void checkConstraints(CellConstraints c1, CellConstraints c2) {
+        checkArgument(c1 != c2,
+                "You must provide two CellConstraints instances, " +
+                "one for the label and one for the component.\n" +
+                "Consider using the CC factory. See the JavaDocs for details.");
     }
 
 
