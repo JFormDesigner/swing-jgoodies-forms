@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.21 2009-12-18 20:28:00 karsten Exp $
+   $Id: build.xml,v 1.22 2010-01-11 22:47:40 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
@@ -44,27 +44,28 @@
     <!-- ***************************************************************** -->
     <path id="classpath.core">
         <pathelement location="${build.core.dir}" 	/> 
+        <pathelement location="${lib.common.jar}"   /> 
     </path>
     
     <path id="classpath.extras">
         <pathelement location="${build.core.dir}" 	/> 
         <pathelement location="${build.extras.dir}" /> 
+        <pathelement location="${lib.common.jar}"   /> 
     </path>
     
     <path id="classpath.tests">
         <pathelement location="${build.core.dir}" 	/> 
         <pathelement location="${build.extras.dir}" /> 
         <pathelement location="${build.test.dir}" 	/> 
+        <pathelement location="${lib.common.jar}"   /> 
         <pathelement location="${junit4.jar}" 		/> 
     </path>
   
-    <path id="classpath.tutorial">
-        <pathelement location="${build.core.dir}"   /> 
-        <pathelement location="${build.extras.dir}" /> 
+    <path id="classpath.javadoc">
+        <pathelement location="${lib.common.jar}"   /> 
     </path>
 
- 
-    
+	
     <!-- ***************************************************************** -->
     <!-- C L E A N                                                         -->
     <!-- ***************************************************************** -->
@@ -88,7 +89,6 @@
         
 		<mkdir dir="${build.core.dir}"		/>
 		<mkdir dir="${build.extras.dir}"	/>
-		<mkdir dir="${build.tutorial.dir}"	/>
 
         <available
             property="junit.task.present"
@@ -96,7 +96,7 @@
         />
         <available
             property="junit.jar.present"
-            file="${junit.jar}"
+            file="${junit4.jar}"
         />
 	</target>
 	
@@ -105,8 +105,8 @@
     <!-- C O M P I L A T I O N                                             -->
     <!-- ***************************************************************** -->
 	<target name="compile" 
-	        depends="compile-core, compile-extras, compile-tests, compile-tutorial" 
-	        description="Compiles the framework, extras, tests and tutorial." />
+	        depends="compile-core, compile-extras, compile-tests" 
+	        description="Compiles the framework, extras and tests." />
 	        
     <!-- ***************************************************************** -->
 	<target name="compile-core" depends="prepare"
@@ -125,7 +125,8 @@
             source       ="${build.compile.source}"
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
-			bootclasspath="${build.boot.classpath}" />
+			bootclasspath="${build.boot.classpath}"
+			classpathref ="classpath.core" />
 	</target>
 	
     <!-- ***************************************************************** -->
@@ -146,7 +147,7 @@
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.core" />
+			classpathref ="classpath.extras" />
 	</target>
 	
     <!-- ***************************************************************** -->
@@ -171,27 +172,6 @@
             classpathref ="classpath.tests" />
     </target>   
     
-    <!-- ***************************************************************** -->
-	<target name="compile-tutorial" depends="compile-extras"
-	        description="Compiles the tutorial." >
-		<javac 
-			srcdir       ="${src.tutorial.dir}" 
-			destdir      ="${build.tutorial.dir}"
-        	encoding     ="${build.encoding}"
-        	executable   ="${build.compile.executable}"
-        	fork         ="${build.compile.fork}"
-			debug        ="${build.compile.debug}"
-			depend       ="${build.compile.depend}"
-			deprecation  ="${build.compile.deprecation}"
-			nowarn       ="${build.compile.nowarn}" 
-			optimize     ="${build.compile.optimize}"
-            source       ="${build.compile.source}"
-			target       ="${build.compile.target}"
-			verbose      ="${build.compile.verbose}"
-			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.tutorial" />
-	</target>
-
 	
     <!-- ***************************************************************** -->
     <!-- J A V A D O C                                                     -->
@@ -212,7 +192,8 @@
             overview="${javadoc.overview}"
             windowtitle="${Name} ${spec.version} API" 
             doctitle="${Name} ${spec.version} API"
-            bottom="${copyright.message}" >
+            bottom="${copyright.message}" 
+            classpathref ="classpath.javadoc" >
          </javadoc>
     </target>
     
@@ -288,11 +269,20 @@
                                unused/**/*"      />
         </copy>
         
+		<!-- Copy the libraries. -->
+		<copy todir="${dist.lib.dir}" file="${lib.common.jar}" />
+		
 		<!-- Copy the distribution files. -->
 		<copy todir="${dist.dir}" >
 			<fileset dir="${top.dir}" 
 				     includes="*.txt, *.html, *.xml, *.properties" 
 				     excludes="todo.txt" />
+			<filterset>
+				<filter token="impl.version"      value="${impl.version}"      />
+				<filter token="version.name"      value="${version.name}"      />
+				<filter token="copyright.message" value="${copyright.message}" />
+				<filter token="copyright.short"   value="${copyright.short}"   />
+			</filterset>
 		</copy>
 
 		<!-- Copy the library jar file. -->
@@ -315,11 +305,14 @@
             description="Creates a Maven bundle for the Ibiblio upload." >
             
         <!-- Copy the Maven pom template. -->
-        <copy tofile="${dist.maven.pom}" file="${build.maven.pom.template}" />
-        <!-- Replace the version in the pom.xml. -->
-        <replace file="${dist.maven.pom}"
-            token="@impl.version"
-            value="${impl.version}" />   
+        <copy 
+        	tofile="${dist.maven.pom}" 
+        	file="${build.maven.pom.template}" >
+			<filterset>
+				<filter token="impl.version"      value="${impl.version}"      />
+				<filter token="shortname"         value="${shortname}"      />
+			</filterset>
+    	</copy>
         
         <copy tofile="${dist.maven.bin.jar}" file="${build.core.jar}" />
         <jar 
