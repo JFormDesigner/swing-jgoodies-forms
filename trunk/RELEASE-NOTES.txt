@@ -37,6 +37,7 @@ INCOMPATIBLE CHANGES
  
 OTHER CHANGES
 
+    o Uses varargs where appropriate.
     o All classes now use the Common class Preconditions
       to check preconditions on method state and parameters.
     o Adjusted and extended tests for handling mnemonics.
