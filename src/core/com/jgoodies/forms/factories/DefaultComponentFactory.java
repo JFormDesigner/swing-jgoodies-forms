@@ -55,7 +55,7 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public class DefaultComponentFactory implements ComponentFactory2 {
 
@@ -64,12 +64,6 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      */
     private static final DefaultComponentFactory INSTANCE =
         new DefaultComponentFactory();
-
-    /**
-     * The character used to indicate the mnemonic position for labels.
-     */
-    private static final char MNEMONIC_MARKER = '&';
-
 
 
     // Instance *************************************************************
