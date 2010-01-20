@@ -35,6 +35,12 @@ INCOMPATIBLE CHANGES
       but must not be quoted in 1.4.
     
  
+NEW FEATURES
+
+    o Added DefaultUnitConverter.MODERN_AVERAGE_CHARACTER_TEST_STRING.
+    o Added DefaultUnitConverter.BALANCED_AVERAGE_CHARACTER_TEST_STRING.
+
+
 OTHER CHANGES
 
     o Uses varargs where appropriate.
