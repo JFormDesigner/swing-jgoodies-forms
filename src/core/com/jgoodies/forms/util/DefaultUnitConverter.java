@@ -68,7 +68,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -82,12 +82,11 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
     public static final String PROPERTY_DEFAULT_DIALOG_FONT =
         "defaultDialogFont";
 
+    public static final String MODERN_AVERAGE_CHARACTER_TEST_STRING =
+        "abcdefghijklmnopqrstuvwxyz0123456789";
 
-//    public static final String UPPERCASE_ALPHABET =
-//        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//
-//    public static final String LOWERCASE_ALPHABET =
-//        "abcdefghijklmnopqrstuvwxyz";
+    public static final String BALANCED_AVERAGE_CHARACTER_TEST_STRING =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     private static final Logger LOGGER =
         Logger.getLogger(DefaultUnitConverter.class.getName());
