@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
  * and aims to provide useful information in case of a syntax error.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -112,7 +112,7 @@ public final class FormSpecParser {
             LayoutMap layoutMap) {
         FormSpecParser parser = new FormSpecParser(
                 encodedRowSpecs,
-                "encoded column specifications",
+                "encoded row specifications",
                 layoutMap,
                 false);
         return parser.parseRowSpecs();
