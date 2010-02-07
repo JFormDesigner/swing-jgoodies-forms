@@ -89,7 +89,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -157,6 +157,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      * with the given layout as layout manager.
      *
      * @param layout  the FormLayout to use
+     *
+     * @throws NullPointerException if {@code layout} is {@code null}
      */
     public PanelBuilder(FormLayout layout){
         this(layout, new JPanel(null));
@@ -168,6 +170,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @param layout  the FormLayout to use
      * @param panel   the layout container to build on
+     *
+     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
     public PanelBuilder(FormLayout layout, JPanel panel){
         super(layout, panel);

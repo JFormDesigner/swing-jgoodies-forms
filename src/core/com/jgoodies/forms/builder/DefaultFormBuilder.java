@@ -37,6 +37,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
@@ -85,14 +86,9 @@ import com.jgoodies.forms.layout.RowSpec;
  * There are different ways to add custom rows. Find below example code
  * that presents and compares the pros and cons of three approaches.<p>
  *
- * The texts used in methods <code>#append(String, ...)</code> and
- * <code>#appendTitle(String)</code> as well as the localized texts used in
- * methods <code>#appendI15d</code> and <code>#appendI15dTitle</code>
- * can contain an optional mnemonic marker. The mnemonic and mnemonic index
- * are indicated by a single ampersand (<tt>&amp;</tt>).
- * For example <tt>&quot;&amp;Save&quot</tt>, or
- * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself,
- * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * The texts for labels and titles can be <em>marked texts</em>,
+ * i.e. strings with an optional mnemonic marker.
+ * See the {@link MnemonicUtils} class comment for details.<p>
  *
  * <strong>Example:</strong>
  * <pre>
@@ -208,7 +204,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  * @since 1.0.3
  *
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -266,6 +262,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * layout.
      *
      * @param layout	the <code>FormLayout</code> to be used
+     *
+     * @throws NullPointerException if {@code layout} is {@code null}
      */
     public DefaultFormBuilder(FormLayout layout) {
         this(layout, new JPanel(null));
@@ -277,10 +275,12 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * layout and panel.
      *
      * @param layout    the <code>FormLayout</code> to be used
-     * @param panel     the layout container
+     * @param container     the layout container
+     *
+     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
-    public DefaultFormBuilder(FormLayout layout, JPanel panel) {
-        this(layout, null, panel);
+    public DefaultFormBuilder(FormLayout layout, JPanel container) {
+        this(layout, null, container);
     }
 
 
@@ -291,6 +291,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @param layout    the <code>FormLayout</code> to be used
      * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
      * strings
+     *
+     * @throws NullPointerException if {@code layout} is {@code null}
      */
     public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle) {
         this(layout, bundle, new JPanel(null));
@@ -302,12 +304,14 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * layout, resource bundle, and panel.
      *
      * @param layout    the <code>FormLayout</code> to be used
-     * @param panel     the layout container
+     * @param container the layout container
      * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
      *     strings
+     *
+     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
-    public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle, JPanel panel) {
-        super(layout, bundle, panel);
+    public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle, JPanel container) {
+        super(layout, bundle, container);
     }
 
 
@@ -877,8 +881,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * of the next line.
      */
     private void ensureCursorColumnInGrid() {
-        if (   ( isLeftToRight() && (getColumn() > getColumnCount()))
-            || (!isLeftToRight() && (getColumn() < 1))) {
+        if (   isLeftToRight() && getColumn() > getColumnCount()
+            || !isLeftToRight() && getColumn() < 1) {
             nextLine();
         }
     }
@@ -892,13 +896,13 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @param gapRowSpec  the row specification to check for
      */
     private void ensureHasGapRow(RowSpec gapRowSpec) {
-        if ((getRow() == 1) || (getRow() <= getRowCount())) {
+        if (getRow() == 1 || getRow() <= getRowCount()) {
             return;
         }
 
         if (getRow() <= getRowCount()) {
             RowSpec rowSpec = getCursorRowSpec();
-            if ((rowSpec == gapRowSpec)) {
+            if (rowSpec == gapRowSpec) {
                 return;
             }
         }

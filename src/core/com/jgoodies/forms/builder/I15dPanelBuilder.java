@@ -35,24 +35,23 @@ import java.util.ResourceBundle;
 
 import javax.swing.JPanel;
 
+import com.jgoodies.common.base.Preconditions;
+import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * A general purpose panel builder that uses the {@link FormLayout}
- * to lay out <code>JPanel</code>s. In addition to its superclass
+ * A general purpose panel builder that uses the FormLayout
+ * to lay out JPanels. In addition to its superclass
  * {@link PanelBuilder} this class provides convenience behavior to map
  * resource keys to their associated internationalized (i15d) strings
  * when adding labels, titles and titled separators.<p>
  *
- * The localized texts used in methods <code>#addI15dLabel</code>
- * and <code>#addI15dTitle</code> can contain an optional mnemonic marker.
- * The mnemonic and mnemonic index are indicated by a single ampersand
- * (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, or
- * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself,
- * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * The localized texts used in methods {@code #addI15d*} can be
+ * <em>marked texts</em>, i.e. strings with an optional mnemonic marker.
+ * See the {@link MnemonicUtils} class comment for details.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * @since 1.0.3
  *
  * @see	ResourceBundle
@@ -60,7 +59,7 @@ import com.jgoodies.forms.layout.FormLayout;
 public class I15dPanelBuilder extends AbstractI15dPanelBuilder {
 
     /**
-     * Holds the <code>ResourceBundle</code> used to lookup internationalized
+     * Holds the ResourceBundle used to look up internationalized
      * (i15d) String resources.
      */
     private final ResourceBundle bundle;
@@ -69,12 +68,13 @@ public class I15dPanelBuilder extends AbstractI15dPanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an <code>I15dPanelBuilder</code> for the given
-     * layout and resource bundle. Uses an instance of <code>JPanel</code>
-     * as layout container.
+     * Constructs an I15dPanelBuilder for the given layout and resource bundle.
+     * Uses an instance of JPanel as layout container.
      *
-     * @param layout    the <code>FormLayout</code> used to layout the container
-     * @param bundle    the <code>ResourceBundle</code> used to lookup i15d strings
+     * @param layout    the FormLayout used to layout the container
+     * @param bundle    the ResourceBundle used to look up i15d strings
+     *
+     * @throws NullPointerException if {@code layout} is {@code null}
      */
     public I15dPanelBuilder(FormLayout layout, ResourceBundle bundle){
         this(layout, bundle, new JPanel(null));
@@ -82,15 +82,17 @@ public class I15dPanelBuilder extends AbstractI15dPanelBuilder {
 
 
     /**
-     * Constructs an <code>I15dPanelBuilder</code>
-     * for the given FormLayout, resource bundle, and layout container.
+     * Constructs an I15dPanelBuilder for the given FormLayout, resource bundle,
+     * and layout container.
      *
-     * @param layout  the <code>FormLayout</code> used to layout the container
-     * @param bundle  the <code>ResourceBundle</code> used to lookup i15d strings
-     * @param panel   the layout container
+     * @param layout    the FormLayout used to layout the container
+     * @param bundle    the ResourceBundle used to lookup i15d strings
+     * @param container the layout container
+     *
+     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
-    public I15dPanelBuilder(FormLayout layout, ResourceBundle bundle, JPanel panel){
-        super(layout, panel);
+    public I15dPanelBuilder(FormLayout layout, ResourceBundle bundle, JPanel container){
+        super(layout, container);
         this.bundle = bundle;
     }
 
@@ -99,19 +101,20 @@ public class I15dPanelBuilder extends AbstractI15dPanelBuilder {
 
     /**
      * Looks up and returns the internationalized (i15d) string for the given
-     * resource key from the <code>ResourceBundle</code>.
+     * resource key from the ResourceBundle that has been provided during
+     * the builder construction.
      *
      * @param resourceKey  the key to look for in the resource bundle
      * @return the associated internationalized string, or the resource key
      *     itself in case of a missing resource
-     * @throws IllegalStateException  if no <code>ResourceBundle</code>
+     * @throws IllegalStateException  if no ResourceBundle
      *     has been set
      */
     @Override
     protected String getI15dString(String resourceKey) {
-        if (bundle == null) {
-            throw new IllegalStateException("You must specify a ResourceBundle" +                " before using the internationalization support.");
-        }
+        Preconditions.checkState(bundle != null,
+                "To use the internationalization support " +
+                "a ResourceBundle must be provided during the builder construction.");
         try {
             return bundle.getString(resourceKey);
         } catch (MissingResourceException mre) {
