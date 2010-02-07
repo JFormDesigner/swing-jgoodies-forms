@@ -36,22 +36,20 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * An abstract panel builder class that uses the {@link FormLayout}
- * to lay out <code>JPanel</code>s. In addition to its superclass
+ * An abstract panel builder class that uses the FormLayout
+ * to lay out JPanels. In addition to its superclass
  * {@link PanelBuilder} this class provides convenience behavior to map
  * resource keys to their associated internationalized (i15d) strings
  * when adding labels, titles and titled separators.<p>
  *
- * The localized texts used in methods <code>#addI15dLabel</code>
- * and <code>#addI15dTitle</code> can contain an optional mnemonic marker.
- * The mnemonic and mnemonic index are indicated by a single ampersand
- * (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>, or
- * <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself,
- * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * The localized texts used in methods {@code #addI15d*} can be
+ * <em>marked texts</em>, i.e. strings with an optional mnemonic marker.
+ * See the {@link MnemonicUtils} class comment for details.<p>
  *
  * For debugging purposes you can automatically set a tooltip for the
  * created labels that show its resource key. In case of an inproper
@@ -63,11 +61,11 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * Subclasses must implement the conversion from resource key
  * to the localized string in <code>#getI15dString(String)</code>.
- * For example class I15dPanelBuilder gets a ResourceBundle on
+ * For example class I15dPanelBuilder gets a ResourceBundle during
  * construction, and requests strings from that bundle.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @since 1.1
  */
@@ -83,10 +81,12 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an <code>AbstractI15dPanelBuilder</code> for the given
-     * layout. Uses an instance of <code>JPanel</code> as layout container.
+     * Constructs an AbstractI15dPanelBuilder for the given layout.
+     * Uses an instance of JPanel as layout container.
      *
-     * @param layout        the <code>FormLayout</code> used to layout the container
+     * @param layout        the FormLayout used to lay out the container
+     *
+     * @throws NullPointerException if {@code layout} is {@code null}
      */
     protected AbstractI15dPanelBuilder(FormLayout layout){
         super(layout);
@@ -94,14 +94,16 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
 
 
     /**
-     * Constructs an <code>AbstractI15dPanelBuilder</code>
+     * Constructs an AbstractI15dPanelBuilder
      * for the given FormLayout and layout container.
      *
-     * @param layout  the <code>FormLayout</code> used to layout the container
-     * @param panel   the layout container
+     * @param layout    the FormLayout used to lay out the container
+     * @param container the layout container
+     *
+     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
-    protected AbstractI15dPanelBuilder(FormLayout layout, JPanel panel){
-        super(layout, panel);
+    protected AbstractI15dPanelBuilder(FormLayout layout, JPanel container){
+        super(layout, container);
     }
 
 
