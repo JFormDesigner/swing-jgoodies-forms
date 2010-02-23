@@ -30,9 +30,9 @@ INCOMPATIBLE CHANGES
       R&&D d&epartment       R&&D d&epartment       unchanged
       A&&B &GmbH&&Co KG      A&&B &GmbH&Co KG       change
       
-      In the last line there's the ampersand in "mbH&Co KG"
-      doesn't mark a mnemonic. It needs to be quoted in 1.3
-      but must not be quoted in 1.4.
+      In the last line the ampersand in "mbH&Co KG" does not
+      mark a mnemonic. It must be quoted in version 1.3, 
+      it must not be quoted in 1.4.
     
  
 NEW FEATURES
