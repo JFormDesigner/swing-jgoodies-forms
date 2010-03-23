@@ -30,18 +30,21 @@
 
 package com.jgoodies.forms.factories;
 
+import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
  * An extension to the ComponentFactory interface that describes
  * the describes the read-only label creation introduced by the
- * Forms 1.3.<p>
+ * Forms 1.3. In version 1.4 it has been further extended to create
+ * buttons for Actions.<p>
  *
  * <strong>Note: This interface shall be merged with the ComponentFactory
  * interface in the Forms 2.0</strong>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @since 1.3
  *
@@ -65,8 +68,23 @@ public interface ComponentFactory2 extends ComponentFactory {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an label with optional mnemonic intended for read-only
      *     components
+     *
+     * @since 1.3
      */
     JLabel createReadOnlyLabel(String textWithMnemonic);
+
+
+    /**
+     * Creates and returns a button that is bound to the given Action.
+     * Useful to return customized buttons, for example, the JGoodies
+     * {@code JGButton} is bound to some custom Action properties.
+     *
+     * @param action    provides [bound] visual properties for the button
+     * @return the created button
+     *
+     * @since 1.4
+     */
+    JButton createButton(Action action);
 
 
 }
