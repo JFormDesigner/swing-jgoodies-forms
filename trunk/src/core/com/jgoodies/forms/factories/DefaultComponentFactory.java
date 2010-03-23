@@ -38,6 +38,7 @@ import javax.accessibility.AccessibleContext;
 import javax.swing.*;
 
 import com.jgoodies.common.base.Preconditions;
+import com.jgoodies.common.base.Strings;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.FormUtils;
@@ -55,7 +56,7 @@ import com.jgoodies.forms.util.FormUtils;
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 public class DefaultComponentFactory implements ComponentFactory2 {
 
@@ -129,6 +130,23 @@ public class DefaultComponentFactory implements ComponentFactory2 {
 
 
     /**
+     * Creates and returns a button that is bound to the given Action.
+     * Useful to return customized buttons, for example, the JGoodies
+     * {@code JGButton} is bound to some custom Action properties.<p>
+     *
+     * This default implementation just returns a {@code JButton}.
+     *
+     * @param action    provides [bound] visual properties for the button
+     * @return the created button
+     *
+     * @since 1.4
+     */
+    public JButton createButton(Action action) {
+        return new JButton(action);
+    }
+
+
+    /**
      * Creates and returns a title label that uses the foreground color
      * and font of a <code>TitledBorder</code>.<p>
      *
@@ -192,7 +210,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      * @return a separator with title label
      */
     public JComponent createSeparator(String textWithMnemonic, int alignment) {
-        if (textWithMnemonic == null || textWithMnemonic.length() == 0) {
+        if (Strings.isBlank(textWithMnemonic)) {
             return new JSeparator();
         }
         JLabel title = createTitle(textWithMnemonic);
@@ -263,7 +281,10 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      * @param textWithMnemonic  the text with optional mnemonic marker
      *
      * @since 1.2
+     *
+     * @deprecated Replaced by {@link MnemonicUtils#configure(JLabel, String)}.
      */
+    @Deprecated
     public static void setTextAndMnemonic(
         JLabel label,
         String textWithMnemonic) {
