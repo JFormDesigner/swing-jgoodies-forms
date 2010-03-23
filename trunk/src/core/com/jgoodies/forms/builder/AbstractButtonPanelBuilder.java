@@ -36,6 +36,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 
+import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -55,7 +57,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * TODO: Mention the ButtonStackBuilder2 subclass as soon as it is available.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  *
  * @since 1.2
  */
@@ -383,6 +385,23 @@ public abstract class AbstractButtonPanelBuilder {
     protected final Component add(Component component) {
         container.add(component, currentCellConstraints);
         return component;
+    }
+
+
+    /**
+     * Creates and returns a button that is bound to the given Action.
+     * This is a hook that allows to return customized buttons.
+     * For example, the JGoodies {@code JGButton} is bound to some
+     * custom Action properties.<p>
+     *
+     * This default implementation delegates the button creation
+     * to the ComponentFactory2.
+     *
+     * @param action    provides bound visual properties for the button
+     * @return the created button
+     */
+    protected JButton createButton(Action action) {
+        return new JButton(action);
     }
 
 
