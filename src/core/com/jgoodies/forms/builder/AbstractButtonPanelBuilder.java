@@ -30,8 +30,6 @@
 
 package com.jgoodies.forms.builder;
 
-import static com.jgoodies.common.base.Preconditions.checkNotNull;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -42,8 +40,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.jgoodies.forms.factories.ComponentFactory2;
 import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
@@ -57,11 +55,11 @@ import com.jgoodies.forms.layout.RowSpec;
  * TODO: Mention the ButtonStackBuilder2 subclass as soon as it is available.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @since 1.2
  */
-public abstract class AbstractButtonPanelBuilder {
+public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 
 
     // Static Fields **********************************************************
@@ -81,24 +79,6 @@ public abstract class AbstractButtonPanelBuilder {
     // Instance Fields ********************************************************
 
     /**
-     * Holds the layout container that we are building.
-     */
-    private final JPanel container;
-
-    /**
-     * Holds the instance of <code>FormLayout</code> that is used
-     * to specify, fill and layout this form.
-     */
-    private final FormLayout layout;
-
-    /**
-     * Holds an instance of <code>CellConstraints</code> that will be used to
-     * specify the location, extent and alignments of the component to be
-     * added next.
-     */
-    private final CellConstraints currentCellConstraints;
-
-    /**
      * Specifies if we fill the grid from left to right or right to left.
      * This value is initialized during the construction from the layout
      * container's component orientation.
@@ -108,7 +88,6 @@ public abstract class AbstractButtonPanelBuilder {
      * @see ComponentOrientation
      */
     private boolean leftToRight;
-
 
 
     // Instance Creation ****************************************************
@@ -123,11 +102,8 @@ public abstract class AbstractButtonPanelBuilder {
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
     protected AbstractButtonPanelBuilder(FormLayout layout, JPanel container) {
-        this.layout    = checkNotNull(layout, "The layout must not be null.");
-        this.container = checkNotNull(container, "The layout container must not be null.");
-        container.setLayout(layout);
+        super(layout, container);
         setOpaque(false);
-        currentCellConstraints = new CellConstraints();
         ComponentOrientation orientation = container.getComponentOrientation();
         leftToRight = orientation.isLeftToRight()
                   || !orientation.isHorizontal();
@@ -137,32 +113,12 @@ public abstract class AbstractButtonPanelBuilder {
     // Accessors ************************************************************
 
     /**
-     * Returns the container used to build the form.
-     *
-     * @return the layout container, a {code JPanel}.
-     */
-    public final JPanel getContainer() {
-        return container;
-    }
-
-
-    /**
      * Returns the panel used to build the form.
      *
      * @return the panel used by this builder to build the form
      */
     public final JPanel getPanel() {
-        return getContainer();
-    }
-
-
-    /**
-     * Returns the instance of {@link FormLayout} used to build this form.
-     *
-     * @return the FormLayout
-     */
-    public final FormLayout getLayout() {
-        return layout;
+        return (JPanel) getContainer();
     }
 
 
@@ -383,7 +339,7 @@ public abstract class AbstractButtonPanelBuilder {
      * @return the added component
      */
     protected final Component add(Component component) {
-        container.add(component, currentCellConstraints);
+        getContainer().add(component, currentCellConstraints);
         return component;
     }
 
@@ -391,16 +347,24 @@ public abstract class AbstractButtonPanelBuilder {
     /**
      * Creates and returns a button that is bound to the given Action.
      * This is a hook that allows to return customized buttons.
-     * For example, the JGoodies {@code JGButton} is bound to some
-     * custom Action properties.<p>
+     * For example, the JGoodies {@code JGButton} configures
+     * the accessible name and accessible description from Actions
+     * that provide these information.<p>
      *
-     * This default implementation delegates the button creation
-     * to the ComponentFactory2.
+     * This default implementation delegates the button creation to this
+     * builder's component factory, if it is an an instance of ComponentFactory
+     * (that provides {@link ComponentFactory2#createButton(Action)}).
+     * Otherwise a JButton is created.
      *
      * @param action    provides bound visual properties for the button
      * @return the created button
+     *
+     * @since 1.4
      */
     protected JButton createButton(Action action) {
+        if (getComponentFactory() instanceof ComponentFactory2) {
+            return ((ComponentFactory2) getComponentFactory()).createButton(action);
+        }
         return new JButton(action);
     }
 
