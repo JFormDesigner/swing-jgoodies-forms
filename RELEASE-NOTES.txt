@@ -6,12 +6,13 @@
 INTRODUCTION
 
     This version requires Java 5 and the new JGoodies Common library.
-    Make sure that you include jgoodies-common-0.9.9.jar in your
+    Make sure that you include jgoodies-common-1.0.0.jar in your
     classpath when using this Forms version.
     
    
 INCOMPATIBLE CHANGES
 
+    o Added ComponentFactory2#createButton(Action).
     o The handling of text with mnemonic markers ('&') has changed.
       However, the changes are minimal and most marked text won't
       be affected. Nothing changed for single mnemonic markers
@@ -37,6 +38,9 @@ INCOMPATIBLE CHANGES
  
 NEW FEATURES
 
+    o Added AbstractBuilder as new builder superclass.
+      It holds a ComponentFactory per instance, that is initialized
+      using the global default ComponentFactory2 instance.
     o Added DefaultUnitConverter.MODERN_AVERAGE_CHARACTER_TEST_STRING.
     o Added DefaultUnitConverter.BALANCED_AVERAGE_CHARACTER_TEST_STRING.
 
