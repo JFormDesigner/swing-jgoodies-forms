@@ -156,7 +156,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -380,7 +380,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      */
     public void addButton(Action action) {
         checkNotNull(action, "The button Action must not be null.");
-        addButton(new JButton(action));
+        addButton(createButton(action));
     }
 
 
@@ -405,7 +405,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
         checkArgument(length > 0, "The Action array must not be empty.");
         JButton[] buttons = new JButton[length];
         for (int i = 0; i < length; i++) {
-            buttons[i] = new JButton(actions[i]);
+            buttons[i] = createButton(actions[i]);
         }
         addButton(buttons);
     }
