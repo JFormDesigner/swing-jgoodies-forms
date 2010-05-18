@@ -35,6 +35,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import com.jgoodies.forms.factories.ComponentFactory2;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
@@ -73,7 +74,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see ButtonBarBuilder2
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -249,9 +250,34 @@ public final class ButtonStackBuilder extends PanelBuilder {
     public void addButton(Action... actions) {
         JButton[] buttons = new JButton[actions.length];
         for (int i = 0; i < actions.length; i++) {
-            buttons[i] = new JButton(actions[i]);
+            buttons[i] = createButton(actions[i]);
         }
         addButtons(buttons);
+    }
+
+
+    /**
+     * Creates and returns a button that is bound to the given Action.
+     * This is a hook that allows to return customized buttons.
+     * For example, the JGoodies {@code JGButton} configures
+     * the accessible name and accessible description from Actions
+     * that provide these information.<p>
+     *
+     * This default implementation delegates the button creation to this
+     * builder's component factory, if it is an an instance of ComponentFactory
+     * (that provides {@link ComponentFactory2#createButton(Action)}).
+     * Otherwise a JButton is created.
+     *
+     * @param action    provides bound visual properties for the button
+     * @return the created button
+     *
+     * @since 1.4
+     */
+    private JButton createButton(Action action) {
+        if (getComponentFactory() instanceof ComponentFactory2) {
+            return ((ComponentFactory2) getComponentFactory()).createButton(action);
+        }
+        return new JButton(action);
     }
 
 
