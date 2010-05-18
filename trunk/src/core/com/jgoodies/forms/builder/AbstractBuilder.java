@@ -32,9 +32,11 @@ package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
-import java.awt.ComponentOrientation;
 import java.awt.Container;
 
+import com.jgoodies.forms.factories.ComponentFactory;
+import com.jgoodies.forms.factories.ComponentFactory2;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -49,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  * @see    ButtonBarBuilder2
  * @see    ButtonStackBuilder
@@ -59,41 +61,37 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public abstract class AbstractBuilder {
 
+    private static ComponentFactory2 defaultComponentFactory;
+
     /**
      * Holds the layout container that we are building.
      */
-    private final Container  container;
+    private final Container container;
 
     /**
-     * Holds the instance of <code>FormLayout</code> that is used
+     * Holds the FormLayout instance that is used
      * to specify, fill and layout this form.
      */
     private final FormLayout layout;
 
     /**
-     * Holds an instance of <code>CellConstraints</code> that will be used to
+     * Holds an instance of {@link CellConstraints} that will be used to
      * specify the location, extent and alignments of the component to be
      * added next.
      */
-    private final CellConstraints currentCellConstraints;
+    protected final CellConstraints currentCellConstraints;
 
     /**
-     * Specifies if we fill the grid from left to right or right to left.
-     * This value is initialized during the construction from the layout
-     * container's component orientation.
-     *
-     * @see #isLeftToRight()
-     * @see #setLeftToRight(boolean)
-     * @see ComponentOrientation
+     * Refers to a factory that is used to create labels, titles,
+     * separators, and buttons.
      */
-    private boolean leftToRight;
-
+    private ComponentFactory componentFactory;
 
 
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an AbstractFormBuilder
+     * Constructs an AbstractBuilder
      * for the given FormLayout and layout container.
      *
      * @param layout     the FormLayout to use
@@ -106,13 +104,30 @@ public abstract class AbstractBuilder {
         this.container = checkNotNull(container, "The layout container must not be null.");
         container.setLayout(layout);
         currentCellConstraints = new CellConstraints();
-        ComponentOrientation orientation = container.getComponentOrientation();
-        leftToRight = orientation.isLeftToRight()
-                  || !orientation.isHorizontal();
     }
 
 
     // Accessors ************************************************************
+
+    /**
+     * Returns the factory that is used as default for new builder's
+     * as they are created. This default itself is lazily initialized
+     * as the {@link DefaultComponentFactory}.
+     *
+     * @return the factory that is used as default for new builder instances
+     */
+    public static ComponentFactory2 getDefaultComponentFactory() {
+        if (defaultComponentFactory == null) {
+            defaultComponentFactory = new DefaultComponentFactory();
+        }
+        return defaultComponentFactory;
+    }
+
+
+    public static void setDefaultComponentFactory(ComponentFactory2 factory) {
+        defaultComponentFactory = factory;
+    }
+
 
     /**
      * Returns the container used to build the form.
@@ -125,7 +140,7 @@ public abstract class AbstractBuilder {
 
 
     /**
-     * Returns the instance of {@link FormLayout} used to build this form.
+     * Returns the FormLayout instance used to build this form.
      *
      * @return the FormLayout
      */
@@ -154,251 +169,32 @@ public abstract class AbstractBuilder {
     }
 
 
-    // Accessing the Cursor Direction ***************************************
-
     /**
-     * Returns whether this builder fills the form left-to-right
-     * or right-to-left. The initial value of this property is set
-     * during the builder construction from the layout container's
-     * <code>componentOrientation</code> property.
+     * Returns the builder's component factory. If no factory
+     * has been set before, it is lazily initialized using with an instance of
+     * {@link com.jgoodies.forms.factories.DefaultComponentFactory}.
      *
-     * @return true indicates left-to-right, false indicates right-to-left
+     * @return the component factory
      *
-     * @see #setLeftToRight(boolean)
-     * @see ComponentOrientation
+     * @see #setComponentFactory(ComponentFactory2)
      */
-    public final boolean isLeftToRight() {
-        return leftToRight;
+    public final ComponentFactory getComponentFactory() {
+        if (componentFactory == null) {
+            componentFactory = getDefaultComponentFactory();
+        }
+        return componentFactory;
     }
 
 
     /**
-     * Sets the form fill direction to left-to-right or right-to-left.
-     * The initial value of this property is set during the builder construction
-     * from the layout container's <code>componentOrientation</code> property.
+     * Sets a new component factory.
      *
-     * @param b   true indicates left-to-right, false right-to-left
+     * @param newFactory   the component factory to be set
      *
-     * @see #isLeftToRight()
-     * @see ComponentOrientation
+     * @see #getComponentFactory()
      */
-    public final void setLeftToRight(boolean b) {
-        leftToRight = b;
-    }
-
-
-    // Accessing the Cursor Location and Extent *****************************
-
-    /**
-     * Returns the cursor's column.
-     *
-     * @return the cursor's column
-     */
-    public final int getColumn() {
-        return currentCellConstraints.gridX;
-    }
-
-
-    /**
-     * Sets the cursor to the given column.
-     *
-     * @param column    the cursor's new column index
-     */
-    public final void setColumn(int column) {
-        currentCellConstraints.gridX = column;
-    }
-
-
-    /**
-     * Returns the cursor's row.
-     *
-     * @return the cursor's row
-     */
-    public final int getRow() {
-        return currentCellConstraints.gridY;
-    }
-
-
-    /**
-     * Sets the cursor to the given row.
-     *
-     * @param row       the cursor's new row index
-     */
-    public final void setRow(int row) {
-        currentCellConstraints.gridY = row;
-    }
-
-
-    /**
-     * Sets the cursor's column span.
-     *
-     * @param columnSpan    the cursor's new column span (grid width)
-     */
-    public final void setColumnSpan(int columnSpan) {
-        currentCellConstraints.gridWidth = columnSpan;
-    }
-
-
-    /**
-     * Sets the cursor's row span.
-     *
-     * @param rowSpan    the cursor's new row span (grid height)
-     */
-    public final void setRowSpan(int rowSpan) {
-        currentCellConstraints.gridHeight = rowSpan;
-    }
-
-
-    /**
-     * Sets the cursor's origin to the given column and row.
-     *
-     * @param column 	the new column index
-     * @param row		the new row index
-     */
-    public final void setOrigin(int column, int row) {
-        setColumn(column);
-        setRow(row);
-    }
-
-
-    /**
-     * Sets the cursor's extent to the given column span and row span.
-     *
-     * @param columnSpan    the new column span (grid width)
-     * @param rowSpan       the new row span (grid height)
-     */
-    public final void setExtent(int columnSpan, int rowSpan) {
-        setColumnSpan(columnSpan);
-        setRowSpan(rowSpan);
-    }
-
-
-    /**
-     * Sets the cell bounds (location and extent) to the given column, row,
-     * column span and row span.
-     *
-     * @param column       the new column index (grid x)
-     * @param row          the new row index	 (grid y)
-     * @param columnSpan   the new column span  (grid width)
-     * @param rowSpan      the new row span     (grid height)
-     */
-    public final void setBounds(int column, int row, int columnSpan, int rowSpan) {
-        setColumn(column);
-        setRow(row);
-        setColumnSpan(columnSpan);
-        setRowSpan(rowSpan);
-    }
-
-
-    /**
-     * Moves to the next column, does the same as #nextColumn(1).
-     */
-    public final void nextColumn() {
-        nextColumn(1);
-    }
-
-
-    /**
-     * Moves to the next column.
-     *
-     * @param columns	 number of columns to move
-     */
-    public final void nextColumn(int columns) {
-        currentCellConstraints.gridX += columns * getColumnIncrementSign();
-    }
-
-
-    /**
-     * Increases the row by one; does the same as #nextRow(1).
-     */
-    public final void nextRow() {
-        nextRow(1);
-    }
-
-
-    /**
-     * Increases the row by the specified rows.
-     *
-     * @param rows	 number of rows to move
-     */
-    public final void nextRow(int rows) {
-        currentCellConstraints.gridY += rows;
-    }
-
-
-    /**
-     * Moves to the next line: increases the row and resets the column;
-     * does the same as #nextLine(1).
-     */
-    public final void nextLine() {
-        nextLine(1);
-    }
-
-
-    /**
-     * Moves the cursor down several lines: increases the row by the
-     * specified number of lines and sets the cursor to the leading column.
-     *
-     * @param lines  number of rows to move
-     */
-    public final void nextLine(int lines) {
-        nextRow(lines);
-        setColumn(getLeadingColumn());
-    }
-
-
-    // Form Constraints Alignment *******************************************
-
-    /**
-     * Returns the CellConstraints object that is used as a cursor and
-     * holds the current column span and row span.
-     *
-     * @return the builder's current {@link CellConstraints} object
-     */
-    protected final CellConstraints cellConstraints() {
-        return currentCellConstraints;
-    }
-
-
-    /**
-     * Returns the index of the leading column.<p>
-     *
-     * Subclasses may override this method, for example, if the form
-     * has a leading gap column that should not be filled with components.
-     *
-     * @return the leading column
-     */
-    protected int getLeadingColumn() {
-        return isLeftToRight() ? 1 : getColumnCount();
-    }
-
-
-    /**
-     * Returns the sign (-1 or 1) used to increment the cursor's column
-     * when moving to the next column.
-     *
-     * @return -1 for right-to-left, 1 for left-to-right
-     */
-    protected final int getColumnIncrementSign() {
-        return isLeftToRight() ? 1 : -1;
-    }
-
-
-    /**
-     * Creates and returns a <code>CellConstraints</code> object at
-     * the current cursor position that uses the given column span
-     * and is adjusted to the left. Useful when building from right to left.
-     *
-     * @param columnSpan   the column span to be used in the constraints
-     * @return CellConstraints adjusted to the left hand side
-     */
-    protected final CellConstraints createLeftAdjustedConstraints(int columnSpan) {
-        int firstColumn = isLeftToRight()
-                            ? getColumn()
-                            : getColumn() + 1 - columnSpan;
-        return new CellConstraints(firstColumn, getRow(),
-                                    columnSpan,
-                                    cellConstraints().gridHeight);
+    public final void setComponentFactory(ComponentFactory newFactory) {
+        componentFactory = newFactory;
     }
 
 
