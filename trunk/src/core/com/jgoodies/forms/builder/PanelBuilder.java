@@ -89,7 +89,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -119,13 +119,6 @@ public class PanelBuilder extends AbstractFormBuilder {
 
 
     // Instance Fields ********************************************************
-
-    /**
-     * Refers to a factory that is used to create labels,
-     * titles and paragraph separators.
-     */
-    private ComponentFactory componentFactory;
-
 
     /**
      * The instance value for the setLabelFor feature.
@@ -833,37 +826,6 @@ public class PanelBuilder extends AbstractFormBuilder {
 
 
     // Accessing the ComponentFactory *****************************************
-
-    /**
-     * Returns the builder's component factory. If no factory
-     * has been set before, it is lazily initialized using with an instance of
-     * {@link com.jgoodies.forms.factories.DefaultComponentFactory}.
-     *
-     * @return the component factory
-     *
-     * @see #setComponentFactory(ComponentFactory)
-     */
-    public final ComponentFactory getComponentFactory() {
-        if (componentFactory == null) {
-            componentFactory = DefaultComponentFactory.getInstance();
-        }
-        return componentFactory;
-    }
-
-
-    /**
-     * Sets a new component factory.
-     *
-     * @param newFactory   the component factory to be set
-     *
-     * @see #getComponentFactory()
-     */
-    public final void setComponentFactory(ComponentFactory newFactory) {
-        componentFactory = newFactory;
-    }
-
-
-    // Overriding Superclass Behavior *****************************************
 
     /**
      * Adds a component to the panel using the given cell constraints.
