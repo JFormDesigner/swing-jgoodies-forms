@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  *
  * @see    ButtonBarBuilder2
  * @see    ButtonStackBuilder
@@ -61,6 +61,10 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public abstract class AbstractBuilder {
 
+    /**
+     * Holds the global factory that is used as default for the
+     * per-instance component factory.
+     */
     private static ComponentFactory2 defaultComponentFactory;
 
     /**
@@ -124,6 +128,13 @@ public abstract class AbstractBuilder {
     }
 
 
+    /**
+     * Sets the global default that is used to initialize the per-instance
+     * component factory.
+     *
+     * @param factory  the factory to be used for all new builder instances
+     *    that do not override the default
+     */
     public static void setDefaultComponentFactory(ComponentFactory2 factory) {
         defaultComponentFactory = factory;
     }
@@ -170,31 +181,49 @@ public abstract class AbstractBuilder {
 
 
     /**
-     * Returns the builder's component factory. If no factory
-     * has been set before, it is lazily initialized using with an instance of
-     * {@link com.jgoodies.forms.factories.DefaultComponentFactory}.
+     * Returns this builder's component factory. If no factory
+     * has been set before, it is lazily initialized from the global
+     * default as returned by {@link #getDefaultComponentFactory()}.
      *
      * @return the component factory
      *
-     * @see #setComponentFactory(ComponentFactory2)
+     * @see #setComponentFactory(ComponentFactory)
      */
     public final ComponentFactory getComponentFactory() {
         if (componentFactory == null) {
-            componentFactory = getDefaultComponentFactory();
+            componentFactory = createComponentFactory();
         }
         return componentFactory;
     }
 
 
     /**
-     * Sets a new component factory.
+     * Sets a new component factory for this builder,
+     * overriding the default as provided by
+     * {@link #getDefaultComponentFactory()}.
      *
-     * @param newFactory   the component factory to be set
+     * @param newFactory   the component factory to be used for this builder
      *
      * @see #getComponentFactory()
      */
     public final void setComponentFactory(ComponentFactory newFactory) {
         componentFactory = newFactory;
+    }
+
+
+    /**
+     * Invoked when the per-instance component factory is lazily initialized.
+     * This implementation returns the global default factory.<p>
+     *
+     * Subclasses may override to use a factory other than the global default.
+     * However, in most cases it is sufficient to just set a new gobal default
+     * using {@link #setDefaultComponentFactory(ComponentFactory2)}.
+     *
+     * @return the factory used during the lazy initialization of
+     *    the per-instance component factory
+     */
+    protected ComponentFactory createComponentFactory() {
+        return getDefaultComponentFactory();
     }
 
 
