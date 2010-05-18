@@ -30,8 +30,6 @@
 
 package com.jgoodies.forms.builder;
 
-import static com.jgoodies.common.base.Preconditions.checkNotNull;
-
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -53,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see    ButtonBarBuilder2
  * @see    ButtonStackBuilder
@@ -61,25 +59,8 @@ import com.jgoodies.forms.layout.RowSpec;
  * @see    I15dPanelBuilder
  * @see    DefaultFormBuilder
  */
-public abstract class AbstractFormBuilder {
+public abstract class AbstractFormBuilder extends AbstractBuilder {
 
-    /**
-     * Holds the layout container that we are building.
-     */
-    private final Container  container;
-
-    /**
-     * Holds the instance of <code>FormLayout</code> that is used
-     * to specify, fill and layout this form.
-     */
-    private final FormLayout layout;
-
-    /**
-     * Holds an instance of <code>CellConstraints</code> that will be used to
-     * specify the location, extent and alignments of the component to be
-     * added next.
-     */
-    private final CellConstraints currentCellConstraints;
 
     /**
      * Specifies if we fill the grid from left to right or right to left.
@@ -106,10 +87,7 @@ public abstract class AbstractFormBuilder {
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
     public AbstractFormBuilder(FormLayout layout, Container container) {
-        this.layout    = checkNotNull(layout, "The layout must not be null.");
-        this.container = checkNotNull(container, "The layout container must not be null.");
-        container.setLayout(layout);
-        currentCellConstraints = new CellConstraints();
+        super(layout, container);
         ComponentOrientation orientation = container.getComponentOrientation();
         leftToRight = orientation.isLeftToRight()
                   || !orientation.isHorizontal();
@@ -117,48 +95,6 @@ public abstract class AbstractFormBuilder {
 
 
     // Accessors ************************************************************
-
-    /**
-     * Returns the container used to build the form.
-     *
-     * @return the layout container
-     */
-    public final Container getContainer() {
-        return container;
-    }
-
-
-    /**
-     * Returns the instance of {@link FormLayout} used to build this form.
-     *
-     * @return the FormLayout
-     */
-    public final FormLayout getLayout() {
-        return layout;
-    }
-
-
-    /**
-     * Returns the number of columns in the form.
-     *
-     * @return the number of columns
-     */
-    public final int getColumnCount() {
-        return getLayout().getColumnCount();
-    }
-
-
-    /**
-     * Returns the number of rows in the form.
-     *
-     * @return the number of rows
-     */
-    public final int getRowCount() {
-        return getLayout().getRowCount();
-    }
-
-
-    // Accessing the Cursor Direction ***************************************
 
     /**
      * Returns whether this builder fills the form left-to-right
@@ -256,8 +192,8 @@ public abstract class AbstractFormBuilder {
     /**
      * Sets the cursor's origin to the given column and row.
      *
-     * @param column 	the new column index
-     * @param row		the new row index
+     * @param column    the new column index
+     * @param row       the new row index
      */
     public final void setOrigin(int column, int row) {
         setColumn(column);
@@ -282,7 +218,7 @@ public abstract class AbstractFormBuilder {
      * column span and row span.
      *
      * @param column       the new column index (grid x)
-     * @param row          the new row index	 (grid y)
+     * @param row          the new row index     (grid y)
      * @param columnSpan   the new column span  (grid width)
      * @param rowSpan      the new row span     (grid height)
      */
@@ -293,6 +229,42 @@ public abstract class AbstractFormBuilder {
         setRowSpan(rowSpan);
     }
 
+
+    // Accessing the Cursor Location and Extent *****************************
+
+    /**
+     * Sets the horizontal alignment.
+     *
+     * @param alignment the new horizontal alignment
+     */
+    public final void setHAlignment(CellConstraints.Alignment alignment) {
+        cellConstraints().hAlign = alignment;
+    }
+
+    /**
+     * Sets the vertical alignment.
+     *
+     * @param alignment the new vertical alignment
+     */
+    public final void setVAlignment(CellConstraints.Alignment alignment) {
+        cellConstraints().vAlign = alignment;
+    }
+
+
+    /**
+     * Sets the horizontal and vertical alignment.
+     *
+     * @param hAlign the new horizontal alignment
+     * @param vAlign the new vertical alignment
+     */
+    public final void setAlignment(CellConstraints.Alignment hAlign,
+                                    CellConstraints.Alignment vAlign) {
+        setHAlignment(hAlign);
+        setVAlignment(vAlign);
+    }
+
+
+    // Moving the Cursor ******************************************************
 
     /**
      * Moves to the next column, does the same as #nextColumn(1).
@@ -305,10 +277,10 @@ public abstract class AbstractFormBuilder {
     /**
      * Moves to the next column.
      *
-     * @param columns	 number of columns to move
+     * @param columns    number of columns to move
      */
     public final void nextColumn(int columns) {
-        currentCellConstraints.gridX += columns * getColumnIncrementSign();
+        cellConstraints().gridX += columns * getColumnIncrementSign();
     }
 
 
@@ -323,10 +295,10 @@ public abstract class AbstractFormBuilder {
     /**
      * Increases the row by the specified rows.
      *
-     * @param rows	 number of rows to move
+     * @param rows   number of rows to move
      */
     public final void nextRow(int rows) {
-        currentCellConstraints.gridY += rows;
+        cellConstraints().gridY += rows;
     }
 
 
@@ -348,40 +320,6 @@ public abstract class AbstractFormBuilder {
     public final void nextLine(int lines) {
         nextRow(lines);
         setColumn(getLeadingColumn());
-    }
-
-
-    // Form Constraints Alignment *******************************************
-
-    /**
-     * Sets the horizontal alignment.
-     *
-     * @param alignment the new horizontal alignment
-     */
-    public final void setHAlignment(CellConstraints.Alignment alignment) {
-        currentCellConstraints.hAlign = alignment;
-    }
-
-    /**
-     * Sets the vertical alignment.
-     *
-     * @param alignment the new vertical alignment
-     */
-    public final void setVAlignment(CellConstraints.Alignment alignment) {
-        currentCellConstraints.vAlign = alignment;
-    }
-
-
-    /**
-     * Sets the horizontal and vertical alignment.
-     *
-     * @param hAlign the new horizontal alignment
-     * @param vAlign the new vertical alignment
-     */
-    public final void setAlignment(CellConstraints.Alignment hAlign,
-                                    CellConstraints.Alignment vAlign) {
-        setHAlignment(hAlign);
-        setVAlignment(vAlign);
     }
 
 
@@ -550,7 +488,7 @@ public abstract class AbstractFormBuilder {
      * @return the added component
      */
     public Component add(Component component, CellConstraints cellConstraints) {
-        container.add(component, cellConstraints);
+        getContainer().add(component, cellConstraints);
         return component;
     }
 
@@ -563,7 +501,7 @@ public abstract class AbstractFormBuilder {
      * @return the added component
      */
     public final Component add(Component component, String encodedCellConstraints) {
-        container.add(component, new CellConstraints(encodedCellConstraints));
+        getContainer().add(component, new CellConstraints(encodedCellConstraints));
         return component;
     }
 
@@ -582,7 +520,7 @@ public abstract class AbstractFormBuilder {
      * @see #createLeftAdjustedConstraints(int)
      */
     public final Component add(Component component) {
-        add(component, currentCellConstraints);
+        add(component, cellConstraints());
         return component;
     }
 
