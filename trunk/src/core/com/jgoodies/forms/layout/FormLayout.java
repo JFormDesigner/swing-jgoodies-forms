@@ -135,7 +135,7 @@ import com.jgoodies.common.base.Objects;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.27 $
+ * @version $Revision: 1.28 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -1724,7 +1724,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param sizes    an array of ints to sum up
      * @return the sum of ints in the array
      */
-    private static int sum(int[] sizes) {
+    private static int sum(final int[] sizes) {
         int sum = 0;
         for (int i = sizes.length - 1; i >= 0; i--) {
             sum += sizes[i];
