@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link RowSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.29 $
+ * @version $Revision: 1.30 $
  */
 public final class RowSpecTest extends TestCase {
 
@@ -48,6 +48,7 @@ public final class RowSpecTest extends TestCase {
     /**
      * Checks that the constructor rejects negative resize weights.
      */
+    @SuppressWarnings("unused")
     public void testRejectNegativeResizeWeight() {
         try {
             new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, -1);

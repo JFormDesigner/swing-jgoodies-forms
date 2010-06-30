@@ -38,7 +38,7 @@ import junit.framework.TestCase;
  * A test case for class {@link CellConstraints}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public final class CellConstraintsTest extends TestCase {
 
@@ -60,6 +60,7 @@ public final class CellConstraintsTest extends TestCase {
     /**
      * Tests that the CellConstraints parser rejects invalid alignments.
      */
+    @SuppressWarnings("unused")
     public void testRejectInvalidCellConstraintsAlignments() {
         try {
             new CellConstraints(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
@@ -187,6 +188,7 @@ public final class CellConstraintsTest extends TestCase {
      *
      * @param invalidEncoding   the encoding that should be rejected
      */
+    @SuppressWarnings("unused")
     private void assertRejects(String invalidEncoding) {
         try {
             new CellConstraints(invalidEncoding);
@@ -212,6 +214,7 @@ public final class CellConstraintsTest extends TestCase {
      * @param gridWidth the column span
      * @param gridHeight the row span
      */
+    @SuppressWarnings("unused")
     private void assertRejects(int gridX, int gridY,
                                int gridWidth, int gridHeight) {
         try {
