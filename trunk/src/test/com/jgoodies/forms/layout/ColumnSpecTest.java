@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
  * A test case for class {@link ColumnSpec}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.36 $
+ * @version $Revision: 1.37 $
  */
 public final class ColumnSpecTest extends TestCase {
 
@@ -48,6 +48,7 @@ public final class ColumnSpecTest extends TestCase {
     /**
      * Checks that the constructor rejects negative resize weights.
      */
+    @SuppressWarnings("unused")
     public void testRejectNegativeResizeWeight() {
         try {
             new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, -1);
