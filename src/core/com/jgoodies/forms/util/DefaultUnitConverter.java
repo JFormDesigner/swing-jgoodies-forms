@@ -68,7 +68,7 @@ import javax.swing.UIManager;
  * Since the Forms 1.1 this converter logs font information at
  * the <code>CONFIG</code> level.
  *
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -124,7 +124,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * If any <code>PropertyChangeListeners</code> have been registered,
      * the <code>changeSupport</code> field describes them.
      *
-     * @serial
      * @see #addPropertyChangeListener(PropertyChangeListener)
      * @see #addPropertyChangeListener(String, PropertyChangeListener)
      * @see #removePropertyChangeListener(PropertyChangeListener)
