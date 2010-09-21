@@ -117,9 +117,9 @@ boundedSize ::=   [constantSize,componentSize]               // lower bound
 
 
 	<h2>Examples</h2><pre>
-new ColumnSpec("[50dlu,pref]");     //  pref size with lower bound 50dlu
+ColumnSpec.decode("[50dlu,pref]");     //  pref size with lower bound 50dlu
 
-new RowSpec("[pref,80dlu]");        //  pref size with upper bound 80dlu
+RowSpec.decode("[pref,80dlu]");        //  pref size with upper bound 80dlu
 
 new FormLayout("[50dlu,pref], 4dlu, [100dlu,min]", 
                "p, 3dlu, p, 3dlu, [200dlu,p]:grow");
