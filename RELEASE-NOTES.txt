@@ -6,7 +6,7 @@
 INTRODUCTION
 
     This version requires Java 5 and the new JGoodies Common library.
-    Make sure that you include jgoodies-common-1.0.0.jar in your
+    Make sure that you include jgoodies-common-1.0.1.jar in your
     classpath when using this Forms version.
     
    
