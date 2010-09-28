@@ -86,15 +86,14 @@ import com.jgoodies.common.base.Objects;
  *      "right:pref, 6dlu, 50dlu, 4dlu, default",  // columns
  *      "pref, 3dlu, pref, 3dlu, pref");           // rows
  *
- * CellConstraints cc = new CellConstraints();
  * JPanel panel = new JPanel(layout);
- * panel.add(new JLabel("Label1"),   cc.xy  (1, 1));
- * panel.add(new JTextField(),       cc.xywh(3, 1, 3, 1));
- * panel.add(new JLabel("Label2"),   cc.xy  (1, 3));
- * panel.add(new JTextField(),       cc.xy  (3, 3));
- * panel.add(new JLabel("Label3"),   cc.xy  (1, 5));
- * panel.add(new JTextField(),       cc.xy  (3, 5));
- * panel.add(new JButton("/u2026"),  cc.xy  (5, 5));
+ * panel.add(new JLabel("Label1"),   CC.xy  (1, 1));
+ * panel.add(new JTextField(),       CC.xywh(3, 1, 3, 1));
+ * panel.add(new JLabel("Label2"),   CC.xy  (1, 3));
+ * panel.add(new JTextField(),       CC.xy  (3, 3));
+ * panel.add(new JLabel("Label3"),   CC.xy  (1, 5));
+ * panel.add(new JTextField(),       CC.xy  (3, 5));
+ * panel.add(new JButton("/u2026"),  CC.xy  (5, 5));
  * return panel;
  * </pre><p>
  *
@@ -107,14 +106,13 @@ import com.jgoodies.common.base.Objects;
  *      "pref, 3dlu, pref, 3dlu, pref");           // rows
  *
  * PanelBuilder builder = new PanelBuilder(layout);
- * CellConstraints cc = new CellConstraints();
- * builder.addLabel("Label1",         cc.xy  (1, 1));
- * builder.add(new JTextField(),      cc.xywh(3, 1, 3, 1));
- * builder.addLabel("Label2",         cc.xy  (1, 3));
- * builder.add(new JTextField(),      cc.xy  (3, 3));
- * builder.addLabel("Label3",         cc.xy  (1, 5));
- * builder.add(new JTextField(),      cc.xy  (3, 5));
- * builder.add(new JButton("/u2026"), cc.xy  (5, 5));
+ * builder.addLabel("Label1",         CC.xy  (1, 1));
+ * builder.add(new JTextField(),      CC.xywh(3, 1, 3, 1));
+ * builder.addLabel("Label2",         CC.xy  (1, 3));
+ * builder.add(new JTextField(),      CC.xy  (3, 3));
+ * builder.addLabel("Label3",         CC.xy  (1, 5));
+ * builder.add(new JTextField(),      CC.xy  (3, 5));
+ * builder.add(new JButton("/u2026"), CC.xy  (5, 5));
  * return builder.getPanel();
  * </pre><p>
  *
@@ -135,7 +133,7 @@ import com.jgoodies.common.base.Objects;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.28 $
+ * @version $Revision: 1.29 $
  *
  * @see	ColumnSpec
  * @see	RowSpec

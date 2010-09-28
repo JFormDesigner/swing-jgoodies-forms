@@ -165,7 +165,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *     builder.nextLine(2);
  *     builder.append("Comment");
  *     builder.add(new JScrollPane(comment1Area),
- *                 cc.xy(builder.getColumn(), builder.getRow(), "fill, fill"));
+ *                 CC.xy(builder.getColumn(), builder.getRow(), "fill, fill"));
  *     builder.nextLine();
  *
  *     // In this approach, we append a standard row with gap before it.
@@ -178,7 +178,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *     builder.append("Comment");
  *     builder.appendRow(new RowSpec("17dlu")); // Assumes line is 14, gap is 3
  *     builder.add(new JScrollPane(comment2Area),
- *                 cc.xywh(builder.getColumn(), builder.getRow(), 1, 2));
+ *                 CC.xywh(builder.getColumn(), builder.getRow(), 1, 2));
  *     builder.nextLine(2);
  *
  *     // In this approach, we append two standard rows with associated gaps.
@@ -193,7 +193,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *     builder.append("");
  *     builder.nextRow(-2);
  *     builder.add(new JScrollPane(comment3Area),
- *                 cc.xywh(builder.getColumn(), builder.getRow(), 1, 3));
+ *                 CC.xywh(builder.getColumn(), builder.getRow(), 1, 3));
  *
  *     return builder.getPanel();
  * }
@@ -204,7 +204,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  * @since 1.0.3
  *
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
