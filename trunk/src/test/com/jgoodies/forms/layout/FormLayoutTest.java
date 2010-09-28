@@ -36,16 +36,15 @@ import javax.swing.JPanel;
 
 import junit.framework.TestCase;
 
+import com.jgoodies.forms.factories.CC;
+
 /**
  * Tests the FormLayout's layout algorithm.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public final class FormLayoutTest extends TestCase {
-
-    private final CellConstraints cc = new CellConstraints();
-
 
     /**
      * Checks basic layout functions.
@@ -83,11 +82,11 @@ public final class FormLayoutTest extends TestCase {
             "pref");
 
         JPanel panel = new JPanel(layout);
-        panel.add(left,   cc.xy(1, 1));
-        panel.add(center, cc.xy(2, 1));
-        panel.add(right,  cc.xy(3, 1));
-        panel.add(fill,   cc.xy(4, 1));
-        panel.add(def,    cc.xy(5, 1));
+        panel.add(left,   CC.xy(1, 1));
+        panel.add(center, CC.xy(2, 1));
+        panel.add(right,  CC.xy(3, 1));
+        panel.add(fill,   CC.xy(4, 1));
+        panel.add(def,    CC.xy(5, 1));
 
         panel.doLayout();
 
@@ -118,11 +117,11 @@ public final class FormLayoutTest extends TestCase {
             "top:10px, center:10px, bottom:10px, fill:10px, 10px");
 
         JPanel panel = new JPanel(layout);
-        panel.add(top,     cc.xy(1, 1));
-        panel.add(center,  cc.xy(1, 2));
-        panel.add(bottom,  cc.xy(1, 3));
-        panel.add(fill,    cc.xy(1, 4));
-        panel.add(def,     cc.xy(1, 5));
+        panel.add(top,     CC.xy(1, 1));
+        panel.add(center,  CC.xy(1, 2));
+        panel.add(bottom,  CC.xy(1, 3));
+        panel.add(fill,    CC.xy(1, 4));
+        panel.add(def,     CC.xy(1, 5));
 
         panel.doLayout();
 
@@ -159,14 +158,14 @@ public final class FormLayoutTest extends TestCase {
             "pref");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy(1, 1));
-        panel.add(c2, cc.xy(2, 1));
-        panel.add(c3, cc.xy(3, 1));
-        panel.add(c4, cc.xy(4, 1));
-        panel.add(c5, cc.xy(5, 1));
-        panel.add(c6, cc.xy(6, 1));
-        panel.add(c7, cc.xy(7, 1));
-        panel.add(c8, cc.xy(8, 1));
+        panel.add(c1, CC.xy(1, 1));
+        panel.add(c2, CC.xy(2, 1));
+        panel.add(c3, CC.xy(3, 1));
+        panel.add(c4, CC.xy(4, 1));
+        panel.add(c5, CC.xy(5, 1));
+        panel.add(c6, CC.xy(6, 1));
+        panel.add(c7, CC.xy(7, 1));
+        panel.add(c8, CC.xy(8, 1));
 
         panel.doLayout();
 
@@ -200,14 +199,14 @@ public final class FormLayoutTest extends TestCase {
             "f:[pref,10px], f:[pref,10px]");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy(1, 1));
-        panel.add(c2, cc.xy(1, 2));
-        panel.add(c3, cc.xy(1, 3));
-        panel.add(c4, cc.xy(1, 4));
-        panel.add(c5, cc.xy(1, 5));
-        panel.add(c6, cc.xy(1, 6));
-        panel.add(c7, cc.xy(1, 7));
-        panel.add(c8, cc.xy(1, 8));
+        panel.add(c1, CC.xy(1, 1));
+        panel.add(c2, CC.xy(1, 2));
+        panel.add(c3, CC.xy(1, 3));
+        panel.add(c4, CC.xy(1, 4));
+        panel.add(c5, CC.xy(1, 5));
+        panel.add(c6, CC.xy(1, 6));
+        panel.add(c7, CC.xy(1, 7));
+        panel.add(c8, CC.xy(1, 8));
 
         panel.doLayout();
 
@@ -238,10 +237,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy (1, 1));
-        panel.add(c2, cc.xy (2, 1));
-        panel.add(c3, cc.xy (3, 1));
-        panel.add(c4, cc.xyw(1, 2, 2));
+        panel.add(c1, CC.xy (1, 1));
+        panel.add(c2, CC.xy (2, 1));
+        panel.add(c3, CC.xy (3, 1));
+        panel.add(c4, CC.xyw(1, 2, 2));
 
         Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
         panel.setSize(preferredLayoutSize);
@@ -270,10 +269,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy (1, 1));
-        panel.add(c2, cc.xy (2, 1));
-        panel.add(c3, cc.xy (3, 1));
-        panel.add(c4, cc.xyw(1, 2, 2));
+        panel.add(c1, CC.xy (1, 1));
+        panel.add(c2, CC.xy (2, 1));
+        panel.add(c3, CC.xy (3, 1));
+        panel.add(c4, CC.xyw(1, 2, 2));
 
         Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
         panel.setSize(preferredLayoutSize);
@@ -302,10 +301,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy (1, 1));
-        panel.add(c2, cc.xy (2, 1));
-        panel.add(c3, cc.xy (3, 1));
-        panel.add(c4, cc.xyw(1, 2, 2));
+        panel.add(c1, CC.xy (1, 1));
+        panel.add(c2, CC.xy (2, 1));
+        panel.add(c3, CC.xy (3, 1));
+        panel.add(c4, CC.xyw(1, 2, 2));
 
         Dimension preferredLayoutSize = layout.preferredLayoutSize(panel);
         panel.setSize(preferredLayoutSize);
@@ -334,10 +333,10 @@ public final class FormLayoutTest extends TestCase {
             "pref, pref");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy (1, 1));
-        panel.add(c2, cc.xy (2, 1));
-        panel.add(c3, cc.xy (3, 1));
-        panel.add(c4, cc.xyw(1, 2, 2));
+        panel.add(c1, CC.xy (1, 1));
+        panel.add(c2, CC.xy (2, 1));
+        panel.add(c3, CC.xy (3, 1));
+        panel.add(c4, CC.xyw(1, 2, 2));
 
         int minimumLayoutWidth   = layout.minimumLayoutSize(panel).width;
         int preferredLayoutWidth = layout.preferredLayoutSize(panel).width;
@@ -357,7 +356,7 @@ public final class FormLayoutTest extends TestCase {
                 "default");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy(1, 1));
+        panel.add(c1, CC.xy(1, 1));
 
         Dimension minimumLayoutSize    = layout.minimumLayoutSize(panel);
         Dimension preferredLayoutSize  = layout.preferredLayoutSize(panel);
@@ -393,7 +392,7 @@ public final class FormLayoutTest extends TestCase {
                 "[20px,default]");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy(1, 1));
+        panel.add(c1, CC.xy(1, 1));
 
         Dimension minimumLayoutSize    = layout.minimumLayoutSize(panel);
         Dimension preferredLayoutSize  = layout.preferredLayoutSize(panel);
@@ -430,7 +429,7 @@ public final class FormLayoutTest extends TestCase {
                 "[default,20px]");
 
         JPanel panel = new JPanel(layout);
-        panel.add(c1, cc.xy(1, 1));
+        panel.add(c1, CC.xy(1, 1));
 
         Dimension minimumLayoutSize    = layout.minimumLayoutSize(panel);
         Dimension preferredLayoutSize  = layout.preferredLayoutSize(panel);
@@ -483,10 +482,10 @@ public final class FormLayoutTest extends TestCase {
         layout.setHonorsVisibility(containerHonorsVisibility);
 
         JPanel panel = new JPanel(layout);
-        panel.add(visible,                    cc.xy(1, 1));
-        panel.add(invisible,                  cc.xy(2, 2));
-        panel.add(invisibleHonorsVisibility,  cc.xy(3, 3));
-        panel.add(invisibleIgnoresVisibility, cc.xy(4, 4));
+        panel.add(visible,                    CC.xy(1, 1));
+        panel.add(invisible,                  CC.xy(2, 2));
+        panel.add(invisibleHonorsVisibility,  CC.xy(3, 3));
+        panel.add(invisibleIgnoresVisibility, CC.xy(4, 4));
         layout.setHonorsVisibility(invisibleHonorsVisibility, Boolean.TRUE);
         layout.setHonorsVisibility(invisibleIgnoresVisibility, Boolean.FALSE);
 

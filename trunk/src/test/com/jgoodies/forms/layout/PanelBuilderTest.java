@@ -36,12 +36,13 @@ import javax.swing.JTextField;
 import junit.framework.TestCase;
 
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.factories.CC;
 
 /**
  * A test case for class {@link PanelBuilder}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public final class PanelBuilderTest extends TestCase {
 
@@ -54,8 +55,6 @@ public final class PanelBuilderTest extends TestCase {
     private JTextField labeledField;
 
     private PanelBuilder builder;
-
-    private CellConstraints cc;
 
 
     // Setup ******************************************************************
@@ -76,7 +75,6 @@ public final class PanelBuilderTest extends TestCase {
         labelingLabel.setLabelFor(labeledField);
 
         builder = createBuilder();
-        cc = new CellConstraints();
     }
 
 
@@ -86,8 +84,8 @@ public final class PanelBuilderTest extends TestCase {
      * Checks the association between mnemonic label and next component.
      */
     public void testLabelForWithMnemonic() {
-        builder.add(labelWithMnemonic, cc.xy(1, 1));
-        builder.add(plainField,        cc.xy(3, 1));
+        builder.add(labelWithMnemonic, CC.xy(1, 1));
+        builder.add(plainField,        CC.xy(3, 1));
         assertSame("Labeling label",
                 plainField,
                 labelWithMnemonic.getLabelFor());
@@ -98,8 +96,8 @@ public final class PanelBuilderTest extends TestCase {
      * Checks the association between plain label and next component.
      */
     public void testLabelForWithoutMnemonic() {
-        builder.add(labelWithoutMnemonic, cc.xy(1, 1));
-        builder.add(plainField,           cc.xy(3, 1));
+        builder.add(labelWithoutMnemonic, CC.xy(1, 1));
+        builder.add(plainField,           CC.xy(3, 1));
         assertSame("Labeling label",
                 plainField,
                 labelWithoutMnemonic.getLabelFor());
@@ -110,8 +108,8 @@ public final class PanelBuilderTest extends TestCase {
      * Checks the association between label and unfocusable component.
      */
     public void testLabelForUnfocusableField() {
-        builder.add(labelWithoutMnemonic, cc.xy(1, 1));
-        builder.add(unfocusableField,     cc.xy(3, 1));
+        builder.add(labelWithoutMnemonic, CC.xy(1, 1));
+        builder.add(unfocusableField,     CC.xy(3, 1));
         assertNull("Labeling label",
                 labelWithoutMnemonic.getLabelFor());
     }
@@ -121,10 +119,10 @@ public final class PanelBuilderTest extends TestCase {
      * Checks the association between labeling label and next component.
      */
     public void testLabelForLabelingLabel() {
-        builder.add(labelingLabel,     cc.xy(1, 1));
-        builder.add(plainField,        cc.xy(3, 1));
-        builder.add(labelWithMnemonic, cc.xy(1, 3));
-        builder.add(new JTextField(),  cc.xy(3, 3));
+        builder.add(labelingLabel,     CC.xy(1, 1));
+        builder.add(plainField,        CC.xy(3, 1));
+        builder.add(labelWithMnemonic, CC.xy(1, 3));
+        builder.add(new JTextField(),  CC.xy(3, 3));
         assertSame("Labeling label",
                 labeledField,
                 labelingLabel.getLabelFor());
