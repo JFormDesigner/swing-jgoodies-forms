@@ -65,7 +65,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * construction, and requests strings from that bundle.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @since 1.1
  */
@@ -189,16 +189,16 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      *
      * <strong>Wrong:</strong><pre>
      * builder.addI15dLabel("name.key",
-     *             cc.xy(1, 7),         // will be modified by the code below
+     *             CC.xy(1, 7),         // will be modified by the code below
      *             nameField,
-     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
+     *             CC.xy(3, 7)          // sets the single instance to (3, 7)
      *            );
      * </pre>
      * <strong>Correct:</strong><pre>
      * builder.addI15dLabel("name.key",
-     *             cc.xy(1, 7).clone(), // cloned before the next modification
+     *             CC.xy(1, 7).clone(), // cloned before the next modification
      *             nameField,
-     *             cc.xy(3, 7)          // sets this instance to (3, 7)
+     *             CC.xy(3, 7)          // sets this instance to (3, 7)
      *            );
      * </pre>
      *
@@ -281,16 +281,16 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      *
      * <strong>Wrong:</strong><pre>
      * builder.addI15dROLabel("name.key",
-     *             cc.xy(1, 7),         // will be modified by the code below
+     *             CC.xy(1, 7),         // will be modified by the code below
      *             nameField,
-     *             cc.xy(3, 7)          // sets the single instance to (3, 7)
+     *             CC.xy(3, 7)          // sets the single instance to (3, 7)
      *            );
      * </pre>
      * <strong>Correct:</strong><pre>
      * builder.addI15dROLabel("name.key",
-     *             cc.xy(1, 7).clone(), // cloned before the next modification
+     *             CC.xy(1, 7).clone(), // cloned before the next modification
      *             nameField,
-     *             cc.xy(3, 7)          // sets this instance to (3, 7)
+     *             CC.xy(3, 7)          // sets this instance to (3, 7)
      *            );
      * </pre>
      * <strong>Better:</strong><pre>
