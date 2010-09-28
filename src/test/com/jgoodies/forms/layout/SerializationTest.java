@@ -38,12 +38,14 @@ import javax.swing.JPanel;
 
 import junit.framework.TestCase;
 
+import com.jgoodies.forms.factories.CC;
+
 /**
  * Tests the serialization and deserialization of instances of
  * <code>FormLayout</code> and <code>JPanel</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see java.io.Serializable
  */
@@ -191,11 +193,10 @@ public final class SerializationTest extends TestCase {
      */
     private JPanel createSamplePanel() {
         JPanel panel = new JPanel(createSampleLayout());
-        CellConstraints cc = new CellConstraints();
-        panel.add(new JLabel("Test1"),  cc.xy(1, 1, "l, t"));
-        panel.add(new JButton("Test2"), cc.xy(2, 2, "c, c"));
-        panel.add(new JButton("Test3"), cc.xy(3, 3, "r, b"));
-        panel.add(new JButton("Test4"), cc.xy(4, 4, "f, f"));
+        panel.add(new JLabel("Test1"),  CC.xy(1, 1, "l, t"));
+        panel.add(new JButton("Test2"), CC.xy(2, 2, "c, c"));
+        panel.add(new JButton("Test3"), CC.xy(3, 3, "r, b"));
+        panel.add(new JButton("Test4"), CC.xy(4, 4, "f, f"));
         panel.doLayout();
         return panel;
     }
