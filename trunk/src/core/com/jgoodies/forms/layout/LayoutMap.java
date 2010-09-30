@@ -33,7 +33,6 @@ package com.jgoodies.forms.layout;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -64,10 +63,10 @@ import com.jgoodies.forms.util.LayoutStyle;
  * By default the root LayoutMap provides the following associations:
  * <table border="1">
  * <tr><td><b>Variable Name</b><td><b>Abbreviations</b></td><td><b>Orientation</b></td><td><b>Description</b></td></tr>
- * <tr><td>label-component-gap</td><td>lcg, lcgap</td><td>horizontal</td><td>gap between a label and its component</td></tr>
- * <tr><td>button</td><td>b</td><td>horizontal</td><td>button column with minimum width</td></tr>
+ * <tr><td>label-component-gap</td><td>lcg, lcgap</td><td>both</td><td>gap between a label and the labeled component</td></tr>
  * <tr><td>related-gap</td><td>rg, rgap</td><td>both</td><td>gap between two related components</td></tr>
  * <tr><td>unrelated-gap</td><td>ug, ugap</td><td>both</td><td>gap between two unrelated components</td></tr>
+ * <tr><td>button</td><td>b</td><td>horizontal</td><td>button column with minimum width</td></tr>
  * <tr><td>line-gap</td><td>lg, lgap</td><td>vertical</td><td>gap between two lines</td></tr>
  * <tr><td>narrow-line-gap</td><td>nlg, nlgap</td><td>vertical</td><td>narrow gap between two lines</td></tr>
  * <tr><td>paragraph</td><td>pg, pgap</td><td>vertical</td><td>gap between two paragraphs/sections</td></tr>
@@ -110,7 +109,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </ul>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see     FormLayout
  * @see     ColumnSpec
@@ -130,16 +129,16 @@ public final class LayoutMap {
      * Maps column aliases to their default name, for example
      * {@code "rgap"} -> {@code "related-gap"}.
      */
-    private static final Map/*<String, String>*/ COLUMN_ALIASES =
-        new HashMap/*<String, String>*/();
+    private static final Map<String, String> COLUMN_ALIASES =
+        new HashMap<String, String>();
 
 
     /**
      * Maps row aliases to their default name, for example
      * {@code "rgap"} -> {@code "related-gap"}.
      */
-    private static final Map/*<String, String>*/ ROW_ALIASES
-        = new HashMap/*<String, String>*/();
+    private static final Map<String, String> ROW_ALIASES
+        = new HashMap<String, String>();
 
 
     /**
@@ -161,25 +160,25 @@ public final class LayoutMap {
      * Holds the raw associations from variable names to expressions.
      * The expression may contain variables that are not expanded.
      */
-    private final Map/*<String, String>*/ columnMap;
+    private final Map<String, String> columnMap;
 
     /**
      * Holds the cached associations from variable names to expressions.
      * The expression are fully expanded and contain no variables.
      */
-    private final Map/*<String, String>*/ columnMapCache;
+    private final Map<String, String> columnMapCache;
 
     /**
      * Holds the raw associations from variable names to expressions.
      * The expression may contain variables that are not expanded.
      */
-    private final Map/*<String, String>   */ rowMap;
+    private final Map<String, String> rowMap;
 
     /**
      * Holds the cached associations from variable names to expressions.
      * The expression are fully expanded and contain no variables.
      */
-    private final Map/*<String, String>*/ rowMapCache;
+    private final Map<String, String> rowMapCache;
 
 
     // Instance Creation ******************************************************
@@ -199,10 +198,10 @@ public final class LayoutMap {
      */
     public LayoutMap(LayoutMap parent) {
         this.parent = parent;
-        columnMap = new HashMap/*<String, String>*/();
-        rowMap    = new HashMap/*<String, String>*/();
-        columnMapCache = new HashMap/*<String, String>*/();
-        rowMapCache    = new HashMap/*<String, String>*/();
+        columnMap      = new HashMap<String, String>();
+        rowMap         = new HashMap<String, String>();
+        columnMapCache = new HashMap<String, String>();
+        rowMapCache    = new HashMap<String, String>();
     }
 
 
@@ -259,11 +258,11 @@ public final class LayoutMap {
      */
     public String columnGet(String key) {
         String resolvedKey = resolveColumnKey(key);
-        String cachedValue = (String) columnMapCache.get(resolvedKey);
+        String cachedValue = columnMapCache.get(resolvedKey);
         if (cachedValue != null) {
             return cachedValue;
         }
-        String value = (String) columnMap.get(resolvedKey);
+        String value = columnMap.get(resolvedKey);
         if (value == null && parent != null) {
             value = parent.columnGet(resolvedKey);
         }
@@ -297,10 +296,10 @@ public final class LayoutMap {
      * @see Map#put(Object, Object)
      */
     public String columnPut(String key, String value) {
-        String resolvedKey = resolveColumnKey(key);
         checkNotNull(value, "The column expression value must not be null.");
+        String resolvedKey = resolveColumnKey(key);
         columnMapCache.clear();
-        return (String) columnMap.put(
+        return columnMap.put(
                 resolvedKey,
                 value.toLowerCase(Locale.ENGLISH));
     }
@@ -336,7 +335,7 @@ public final class LayoutMap {
     public String columnRemove(String key) {
         String resolvedKey = resolveColumnKey(key);
         columnMapCache.clear();
-        return (String) columnMap.remove(resolvedKey);
+        return columnMap.remove(resolvedKey);
     }
 
 
@@ -377,11 +376,11 @@ public final class LayoutMap {
      */
     public String rowGet(String key) {
         String resolvedKey = resolveRowKey(key);
-        String cachedValue = (String) rowMapCache.get(resolvedKey);
+        String cachedValue = rowMapCache.get(resolvedKey);
         if (cachedValue != null) {
             return cachedValue;
         }
-        String value = (String) rowMap.get(resolvedKey);
+        String value = rowMap.get(resolvedKey);
         if (value == null && parent != null) {
             value = parent.rowGet(resolvedKey);
         }
@@ -395,10 +394,10 @@ public final class LayoutMap {
 
 
     public String rowPut(String key, String value) {
-        String resolvedKey = resolveRowKey(key);
         checkNotNull(value, "The row expression value must not be null.");
+        String resolvedKey = resolveRowKey(key);
         rowMapCache.clear();
-        return (String) rowMap.put(
+        return rowMap.put(
                 resolvedKey,
                 value.toLowerCase(Locale.ENGLISH));
     }
@@ -453,7 +452,7 @@ public final class LayoutMap {
     public String rowRemove(String key) {
         String resolvedKey = resolveRowKey(key);
         rowMapCache.clear();
-        return (String) rowMap.remove(resolvedKey);
+        return rowMap.remove(resolvedKey);
     }
 
 
@@ -469,20 +468,18 @@ public final class LayoutMap {
     public String toString() {
         StringBuffer buffer = new StringBuffer(super.toString());
         buffer.append("\n  Column associations:");
-        for (Iterator iterator = columnMap.entrySet().iterator(); iterator.hasNext();) {
-            Entry name = (Entry) iterator.next();
+        for (Entry entry : columnMap.entrySet()) {
             buffer.append("\n    ");
-            buffer.append(name.getKey());
+            buffer.append(entry.getKey());
             buffer.append("->");
-            buffer.append(name.getValue());
+            buffer.append(entry.getValue());
         }
         buffer.append("\n  Row associations:");
-        for (Iterator iterator = rowMap.entrySet().iterator(); iterator.hasNext();) {
-            Entry name = (Entry) iterator.next();
+        for (Entry entry : rowMap.entrySet()) {
             buffer.append("\n    ");
-            buffer.append(name.getKey());
+            buffer.append(entry.getKey());
             buffer.append("->");
-            buffer.append(name.getValue());
+            buffer.append(entry.getValue());
         }
         return buffer.toString();
     }
@@ -553,7 +550,7 @@ public final class LayoutMap {
     private String resolveColumnKey(String key) {
         checkNotNull(key, "The column key must not be null.");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
-        String defaultKey = (String) COLUMN_ALIASES.get(lowercaseKey);
+        String defaultKey = COLUMN_ALIASES.get(lowercaseKey);
         return defaultKey == null ? lowercaseKey : defaultKey;
     }
 
@@ -561,7 +558,7 @@ public final class LayoutMap {
     private String resolveRowKey(String key) {
         checkNotNull(key, "The row key must not be null.");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
-        String defaultKey = (String) ROW_ALIASES.get(lowercaseKey);
+        String defaultKey = ROW_ALIASES.get(lowercaseKey);
         return defaultKey == null ? lowercaseKey : defaultKey;
     }
 
@@ -603,6 +600,10 @@ public final class LayoutMap {
                 FormFactory.GLUE_COLSPEC.toShortString());
 
         // Row variables
+        map.rowPut(
+                "label-component-gap",
+                new String[]{"lcg", "lcgap"},
+                FormFactory.LABEL_COMPONENT_GAP_ROWSPEC);
         map.rowPut(
                 "related-gap",
                 new String[]{"rg", "rgap"},
