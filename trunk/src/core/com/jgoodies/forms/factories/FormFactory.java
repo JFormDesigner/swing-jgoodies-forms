@@ -39,7 +39,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * Provides frequently used column and row specifications.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -224,6 +224,20 @@ public final class FormFactory {
 
 
     // Layout Style Dependent Row Specs *************************************
+
+    /**
+     * Describes a logical horizontal gap between a label and an associated
+     * component. Useful for builders that automatically fill a grid with labels
+     * and components.<p>
+     *
+     * <strong>Note:</strong> In a future version this constant will likely
+     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     *
+     * @since 1.4
+     */
+    public static final RowSpec LABEL_COMPONENT_GAP_ROWSPEC =
+        RowSpec.createGap(LayoutStyle.getCurrent().getLabelComponentPadY());
+
 
     /**
      * Describes a logical vertical gap between two related components.

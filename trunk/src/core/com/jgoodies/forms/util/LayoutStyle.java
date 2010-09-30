@@ -46,7 +46,7 @@ import com.jgoodies.forms.layout.Size;
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -212,6 +212,19 @@ public abstract class LayoutStyle {
      * @see #getUnrelatedComponentsPadX()
      */
     public abstract ConstantSize getLabelComponentPadX();
+
+
+    /**
+     * Returns a gap used to separate a label and associated control.
+     *
+     * @return a gap between label and associated control
+     *
+     * @see #getRelatedComponentsPadY()
+     * @see #getUnrelatedComponentsPadY()
+     *
+     * @since 1.4
+     */
+    public abstract ConstantSize getLabelComponentPadY();
 
 
     /**
