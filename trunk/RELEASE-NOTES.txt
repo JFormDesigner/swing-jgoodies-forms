@@ -12,6 +12,7 @@ INTRODUCTION
    
 INCOMPATIBLE CHANGES
 
+    o Added LayoutStyle#getLabelComponentPadY().
     o Added ComponentFactory2#createButton(Action).
     o The handling of text with mnemonic markers ('&') has changed.
       However, the changes are minimal and most marked text won't
@@ -38,6 +39,7 @@ INCOMPATIBLE CHANGES
  
 NEW FEATURES
 
+    o Added ${label-component-gap}, $lcgap, and $lcg as row variables.
     o Added AbstractBuilder as new builder superclass.
       It holds a ComponentFactory per instance, that is initialized
       using the global default ComponentFactory2 instance.
@@ -47,7 +49,7 @@ NEW FEATURES
 
 OTHER CHANGES
 
-    o Uses varargs where appropriate.
+    o Moved to Java 5: uses varargs and generics where appropriate.
     o All classes now use the Common class Preconditions
       to check preconditions on method state and parameters.
     o Adjusted and extended tests for handling mnemonics.
