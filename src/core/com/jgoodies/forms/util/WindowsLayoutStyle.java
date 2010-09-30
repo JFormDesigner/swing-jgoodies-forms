@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.Sizes;
  * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 final class WindowsLayoutStyle extends LayoutStyle {
 
@@ -68,6 +68,7 @@ final class WindowsLayoutStyle extends LayoutStyle {
     private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX4;
     private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX7;
 
+    private static final ConstantSize LABEL_COMPONENT_PADY      = Sizes.DLUY2;
     private static final ConstantSize RELATED_COMPONENTS_PADY   = Sizes.DLUY4;
     private static final ConstantSize UNRELATED_COMPONENTS_PADY = Sizes.DLUY7;
     private static final ConstantSize NARROW_LINE_PAD           = Sizes.DLUY2;
@@ -78,245 +79,102 @@ final class WindowsLayoutStyle extends LayoutStyle {
 
     // Layout Sizes *********************************************************
 
-    /**
-     * Returns this style's default button width.
-     *
-     * @return the default button width
-     *
-     * @see #getDefaultButtonHeight()
-     */
     @Override
     public Size getDefaultButtonWidth() {
         return BUTTON_WIDTH;
     }
 
 
-    /**
-     * Returns this style's default button height.
-     *
-     * @return the default button height
-     *
-     * @see #getDefaultButtonWidth()
-     */
     @Override
     public Size getDefaultButtonHeight() {
         return BUTTON_HEIGHT;
     }
 
 
-    /**
-     * Returns this style's horizontal margin for general dialogs.
-     *
-     * @return the horizontal margin for general dialogs
-     *
-     * @see #getDialogMarginY()
-     * @see #getTabbedDialogMarginX()
-     */
     @Override
     public ConstantSize getDialogMarginX() {
         return DIALOG_MARGIN_X;
     }
 
 
-    /**
-     * Returns this style's vertical margin for general dialogs.
-     *
-     * @return the vertical margin for general dialogs
-     *
-     * @see #getDialogMarginX()
-     * @see #getTabbedDialogMarginY()
-     */
     @Override
     public ConstantSize getDialogMarginY() {
         return DIALOG_MARGIN_Y;
     }
 
 
-    /**
-     * Returns this style's horizontal margin for dialogs that consist of
-     * a tabbed pane.
-     *
-     * @return the horizontal margin for dialogs that consist of a tabbed pane
-     *
-     * @see #getTabbedDialogMarginY()
-     * @see #getDialogMarginX()
-     *
-     * @since 1.0.3
-     */
     @Override
     public ConstantSize getTabbedDialogMarginX() {
         return TABBED_DIALOG_MARGIN_X;
     }
 
 
-    /**
-     * Returns this style's vertical margin for dialogs that consist of
-     * a tabbed pane.
-     *
-     * @return the vertical margin for dialogs that consist of a tabbed pane
-     *
-     * @see #getTabbedDialogMarginX()
-     * @see #getDialogMarginY()
-     *
-     * @since 1.0.3
-     */
     @Override
     public ConstantSize getTabbedDialogMarginY() {
         return TABBED_DIALOG_MARGIN_Y;
     }
 
 
-    /**
-     * Returns a gap used to separate a label and associated control.
-     *
-     * @return a gap between label and associated control
-     *
-     * @see #getRelatedComponentsPadX()
-     * @see #getUnrelatedComponentsPadX()
-     */
     @Override
     public ConstantSize getLabelComponentPadX() {
         return LABEL_COMPONENT_PADX;
     }
 
 
-    /**
-     * Returns a horizontal gap used to separate related controls.
-     *
-     * @return a horizontal gap between related controls
-     *
-     * @see #getLabelComponentPadX()
-     * @see #getRelatedComponentsPadY()
-     * @see #getUnrelatedComponentsPadX()
-     */
+    @Override
+    public ConstantSize getLabelComponentPadY() {
+        return LABEL_COMPONENT_PADY;
+    }
+
+
     @Override
     public ConstantSize getRelatedComponentsPadX() {
         return RELATED_COMPONENTS_PADX;
     }
 
 
-    /**
-     * Returns a vertical gap used to separate related controls.
-     *
-     * @return a vertical gap between related controls
-     *
-     * @see #getRelatedComponentsPadX()
-     * @see #getUnrelatedComponentsPadY()
-     */
     @Override
     public ConstantSize getRelatedComponentsPadY() {
         return RELATED_COMPONENTS_PADY;
     }
 
 
-    /**
-     * Returns a horizontal gap used to separate unrelated controls.
-     *
-     * @return a horizontal gap between unrelated controls
-     *
-     * @see #getLabelComponentPadX()
-     * @see #getUnrelatedComponentsPadY()
-     * @see #getRelatedComponentsPadX()
-     */
     @Override
     public ConstantSize getUnrelatedComponentsPadX() {
         return UNRELATED_COMPONENTS_PADX;
     }
 
 
-    /**
-     * Returns a vertical gap used to separate unrelated controls.
-     *
-     * @return a vertical gap between unrelated controls
-     *
-     * @see #getUnrelatedComponentsPadX()
-     * @see #getRelatedComponentsPadY()
-     */
     @Override
     public ConstantSize getUnrelatedComponentsPadY() {
         return UNRELATED_COMPONENTS_PADY;
     }
 
 
-    /**
-     * Returns a narrow vertical pad used to separate lines.
-     *
-     * @return a narrow vertical pad used to separate lines
-     *
-     * @see #getLinePad()
-     * @see #getParagraphPad()
-     */
     @Override
     public ConstantSize getNarrowLinePad() {
         return NARROW_LINE_PAD;
     }
 
 
-    /**
-     * Returns a narrow vertical pad used to separate lines.
-     *
-     * @return a vertical pad used to separate lines
-     *
-     * @see #getNarrowLinePad()
-     * @see #getParagraphPad()
-     */
     @Override
     public ConstantSize getLinePad() {
         return LINE_PAD;
     }
 
 
-    /**
-     * Returns a pad used to separate paragraphs.
-     *
-     * @return a vertical pad used to separate paragraphs
-     *
-     * @see #getNarrowLinePad()
-     * @see #getLinePad()
-     */
     @Override
     public ConstantSize getParagraphPad() {
         return PARAGRAPH_PAD;
     }
 
 
-    /**
-     * Returns a pad used to separate a button bar from a component.
-     *
-     * @return a vertical pad used to separate paragraphs
-     *
-     * @see #getRelatedComponentsPadY()
-     * @see #getUnrelatedComponentsPadY()
-     *
-     * @since 1.0.3
-     */
     @Override
     public ConstantSize getButtonBarPad() {
         return BUTTON_BAR_PAD;
     }
 
 
-    /**
-     * Checks and answers whether buttons are typically ordered from
-     * left to right or from right to left. Useful for building button bars
-     * that shall comply with the platform's layout style guide.<p>
-     *
-     * For example the Windows style guide recommends to layout out
-     * <em>OK, Cancel, Apply</em> from left to right, where the
-     * Mac Aqua style guide recommends to layout out these buttons
-     * from right to left.<p>
-     *
-     * Although most button sequences shall honor this order
-     * some buttons require a left to right order. For example
-     * <em>Back, Next</em> or <em>Move Left, Move Right</em>.<p>
-     *
-     * @return true if buttons are typically ordered from left to right
-     *
-     * @see com.jgoodies.forms.builder.ButtonBarBuilder2
-     * @see com.jgoodies.forms.factories.ButtonBarFactory
-     *
-     * @since 1.0.3
-     */
     @Override
     public boolean isLeftToRightButtonOrder() {
         return true;
