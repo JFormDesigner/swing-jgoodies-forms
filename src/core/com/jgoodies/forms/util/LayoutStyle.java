@@ -30,8 +30,7 @@
 
 package com.jgoodies.forms.util;
 
-import java.util.logging.Logger;
-
+import com.jgoodies.common.base.SystemUtils;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.Size;
 
@@ -39,14 +38,14 @@ import com.jgoodies.forms.layout.Size;
  * An abstract class that describes a layout and design style guide.
  * It provides constants used to lay out panels consistently.<p>
  *
- * This class is work in progress and the API may change without notice.
- * Therefore it is recommended to not write custom subclasses
- * for production code.
+ * <strong>Note:</strong> This class is work in progress and
+ * the API may change without notice. Therefore it is recommended
+ * to not write custom subclasses for production code.
  * A future version of this class will likely collaborate with a class
  * <code>LogicalSize</code> or <code>StyledSize</code>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -71,41 +70,9 @@ public abstract class LayoutStyle {
      * @return MacLayoutStyle on Mac, WindowsLayoutStyle on all other platforms
      */
     private static LayoutStyle initialLayoutStyle() {
-        if (isOSMac()) {
-            return MacLayoutStyle.INSTANCE;
-        }
-        return WindowsLayoutStyle.INSTANCE;
-    }
-
-
-    /**
-     * Checks and answers whether Java runs on a Mac by requesting
-     * the system property <em>os.name</em>.
-     *
-     * @return true on Mac, false on all other Platforms
-     */
-    private static boolean isOSMac() {
-        return getSystemProperty("os.name").startsWith("Mac");
-    }
-
-
-    /**
-     * Tries to look up the System property for the given key.
-     * In untrusted environments this may throw a SecurityException.
-     * In this case we catch the exception and answer <code>null</code>.
-     *
-     * @param key   the name of the system property
-     * @return the system property's String value, or a blank string
-     *     if there's no such value, or a SecurityException has been caught
-     */
-    private static String getSystemProperty(String key) {
-        try {
-            return System.getProperty(key);
-        } catch (SecurityException e) {
-            Logger.getLogger(LayoutStyle.class.getName()).warning(
-                    "Can't read the System property " + key + ".");
-            return "";
-        }
+        return SystemUtils.IS_OS_MAC
+            ? MacLayoutStyle.INSTANCE
+            : WindowsLayoutStyle.INSTANCE;
     }
 
 
