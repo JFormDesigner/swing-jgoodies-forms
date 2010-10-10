@@ -43,6 +43,8 @@ NEW FEATURES
     o Added AbstractBuilder as new builder superclass.
       It holds a ComponentFactory per instance, that is initialized
       using the global default ComponentFactory2 instance.
+    o ButtonBarBuilder2 methods return the builder to allow cascades, 
+       e.g.: builder.addButton(...).addSeparator().add(...) etc.
     o Added DefaultUnitConverter.MODERN_AVERAGE_CHARACTER_TEST_STRING.
     o Added DefaultUnitConverter.BALANCED_AVERAGE_CHARACTER_TEST_STRING.
 

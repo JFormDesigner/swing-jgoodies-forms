@@ -156,7 +156,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -248,10 +248,13 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @param newButtonOrder  true if button sequences shall be ordered
      *     from left to right
      *
+     * @return this builder
+     *
      * @see LayoutStyle#isLeftToRightButtonOrder()
      */
-    public void setLeftToRightButtonOrder(boolean newButtonOrder) {
+    public ButtonBarBuilder2 setLeftToRightButtonOrder(boolean newButtonOrder) {
         leftToRight = newButtonOrder;
+        return this;
     }
 
 
@@ -259,9 +262,12 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
 
     /**
      * Sets a default border that has a gap in the bar's north.
+     *
+     * @return this builder
      */
-    public void setDefaultButtonBarGapBorder() {
+    public ButtonBarBuilder2 setDefaultButtonBarGapBorder() {
         setBorder(Borders.BUTTON_BAR_GAP_BORDER);
+        return this;
     }
 
 
@@ -270,32 +276,41 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     /**
      * Adds a glue that will be given the extra space,
      * if this button bar is larger than its preferred size.
+     *
+     * @return this builder
      */
-    public void addGlue() {
+    public ButtonBarBuilder2 addGlue() {
         appendGlueColumn();
         nextColumn();
+        return this;
     }
 
 
     /**
      * Adds the standard horizontal gap for related components.
      *
+     * @return this builder
+     *
      * @see LayoutStyle#getRelatedComponentsPadX()
      */
-    public void addRelatedGap() {
+    public ButtonBarBuilder2 addRelatedGap() {
         appendRelatedComponentsGapColumn();
         nextColumn();
+        return this;
     }
 
 
     /**
      * Adds the standard horizontal gap for unrelated components.
      *
+     * @return this builder
+     *
      * @see LayoutStyle#getUnrelatedComponentsPadX()
      */
-    public void addUnrelatedGap() {
+    public ButtonBarBuilder2 addUnrelatedGap() {
         appendUnrelatedComponentsGapColumn();
         nextColumn();
+        return this;
     }
 
 
@@ -306,11 +321,14 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @param width  describes the gap width
      *
+     * @return this builder
+     *
      * @see ColumnSpec#createGap(ConstantSize)
      */
-    public void addStrut(ConstantSize width) {
+    public ButtonBarBuilder2 addStrut(ConstantSize width) {
         getLayout().appendColumn(ColumnSpec.createGap(width));
         nextColumn();
+        return this;
     }
 
 
@@ -325,13 +343,16 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @param button  the component to add
      *
+     * @return this builder
+     *
      * @throws NullPointerException if {@code button} is {@code null}
      */
-    public void addButton(JComponent button) {
+    public ButtonBarBuilder2 addButton(JComponent button) {
         button.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormFactory.BUTTON_COLSPEC);
         add(button);
         nextColumn();
+        return this;
     }
 
 
@@ -349,12 +370,14 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @param buttons  an array of buttons to add
      *
+     * @return this builder
+     *
      * @throws NullPointerException if the button array or a button is {@code null}
      * @throws IllegalArgumentException if the button array is empty
      *
      * @see #addButton(JComponent)
      */
-    public void addButton(JComponent... buttons) {
+    public ButtonBarBuilder2 addButton(JComponent... buttons) {
         checkNotNull(buttons, "The button array must not be null.");
         int length = buttons.length;
         checkArgument(length > 0, "The button array must not be empty.");
@@ -365,6 +388,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
                 addRelatedGap();
             }
         }
+        return this;
     }
 
 
@@ -374,13 +398,15 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @param action  the action that describes the button to add
      *
+     * @return this builder
+     *
      * @throws NullPointerException if {@code action} is {@code null}
      *
      * @see #addButton(JComponent)
      */
-    public void addButton(Action action) {
+    public ButtonBarBuilder2 addButton(Action action) {
         checkNotNull(action, "The button Action must not be null.");
-        addButton(createButton(action));
+        return addButton(createButton(action));
     }
 
 
@@ -394,12 +420,14 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @param actions   the Actions that describe the buttons to add
      *
+     * @return this builder
+     *
      * @throws NullPointerException if the Action array or an Action is {@code null}
      * @throws IllegalArgumentException if the Action array is empty
      *
      * @see #addButton(JComponent[])
      */
-    public void addButton(Action... actions) {
+    public ButtonBarBuilder2 addButton(Action... actions) {
         checkNotNull(actions, "The Action array must not be null.");
         int length = actions.length;
         checkArgument(length > 0, "The Action array must not be empty.");
@@ -407,7 +435,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
         for (int i = 0; i < length; i++) {
             buttons[i] = createButton(actions[i]);
         }
-        addButton(buttons);
+        return addButton(buttons);
     }
 
 
@@ -419,12 +447,15 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * by the {@link LayoutStyle#getDefaultButtonWidth()}.
      *
      * @param component  the component to add
+     *
+     * @return this builder
      */
-    public void addGrowing(JComponent component) {
+    public ButtonBarBuilder2 addGrowing(JComponent component) {
         getLayout().appendColumn(FormFactory.GROWING_BUTTON_COLSPEC);
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         add(component);
         nextColumn();
+        return this;
     }
 
 
@@ -437,9 +468,11 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @param buttons  an array of buttons to add
      *
+     * @return this builder
+     *
      * @see LayoutStyle
      */
-    public void addGrowing(JComponent... buttons) {
+    public ButtonBarBuilder2 addGrowing(JComponent... buttons) {
         int length = buttons.length;
         for (int i = 0; i < length; i++) {
             int index = leftToRight ? i : length -1 - i;
@@ -448,6 +481,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
                 addRelatedGap();
             }
         }
+        return this;
     }
 
 
@@ -456,12 +490,15 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * components, this component keeps its individual preferred dimension.
      *
      * @param component  the component to add
+     *
+     * @return this builder
      */
-    public void addFixed(JComponent component) {
+    public ButtonBarBuilder2 addFixed(JComponent component) {
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormFactory.PREF_COLSPEC);
         add(component);
         nextColumn();
+        return this;
     }
 
 
