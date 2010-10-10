@@ -77,19 +77,18 @@ import com.jgoodies.forms.layout.FormLayout;
  *      "pref, $lg, pref, $lg, pref");          // rows
  *
  * PanelBuilder builder = new PanelBuilder(layout);
- * CellConstraints cc = new CellConstraints();
- * builder.addLabel("&Title:",        cc.xy  (1, 1));
- * builder.add(new JTextField(),      cc.xywh(3, 1, 3, 1));
- * builder.addLabel("&Price:",        cc.xy  (1, 3));
- * builder.add(new JTextField(),      cc.xy  (3, 3));
- * builder.addLabel("&Author:",       cc.xy  (1, 5));
- * builder.add(new JTextField(),      cc.xy  (3, 5));
- * builder.add(new JButton("\u2026"), cc.xy  (5, 5));
+ * builder.addLabel("&Title:",        CC.xy  (1, 1));
+ * builder.add(new JTextField(),      CC.xywh(3, 1, 3, 1));
+ * builder.addLabel("&Price:",        CC.xy  (1, 3));
+ * builder.add(new JTextField(),      CC.xy  (3, 3));
+ * builder.addLabel("&Author:",       CC.xy  (1, 5));
+ * builder.add(new JTextField(),      CC.xy  (3, 5));
+ * builder.add(new JButton("\u2026"), CC.xy  (5, 5));
  * return builder.getPanel();
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -321,10 +320,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a textual label to the form using the specified constraints.<p>
      *
      * <pre>
-     * addLabel("Name:",       cc.xy(1, 1)); // No Mnemonic
-     * addLabel("N&ame:",      cc.xy(1, 1)); // Mnemonic is 'a'
-     * addLabel("Save &as:",   cc.xy(1, 1)); // Mnemonic is the second 'a'
-     * addLabel("Look&&Feel:", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
+     * addLabel("Name:",       CC.xy(1, 1)); // No Mnemonic
+     * addLabel("N&ame:",      CC.xy(1, 1)); // Mnemonic is 'a'
+     * addLabel("Save &as:",   CC.xy(1, 1)); // Mnemonic is the second 'a'
+     * addLabel("Look&&Feel:", CC.xy(1, 1)); // No mnemonic, text is "look&feel"
      * </pre>
      *
      * @param textWithMnemonic  the label's text -
@@ -390,23 +389,11 @@ public class PanelBuilder extends AbstractFormBuilder {
      * );
      * </pre>
      * <strong>Correct:</strong><pre>
-     * // Using a single CellConstraints instance and cloning
-     * CellConstraints cc = new CellConstraints();
      * builder.addLabel(
      *     "&Name:",
-     *     (CellConstraints) cc.xy(1, 7).clone(), // cloned before the next modification
+     *     CC.xy(1, 7),         // creates an instance
      *     nameField,
-     *     cc.xy(3, 7)                            // sets this instance to (3, 7)
-     * );
-     *
-     * // Using two CellConstraints instances
-     * CellConstraints cc1 = new CellConstraints();
-     * CellConstraints cc2 = new CellConstraints();
-     * builder.addLabel(
-     *     "&Name:",           // Mnemonic is 'N'
-     *     cc1.xy(1, 7),       // sets instance 1 to (1, 7)
-     *     nameField,
-     *     cc2.xy(3, 7)        // sets instance 2 to (3, 7)
+     *     CC.xy(3, 7)          // creates another instance
      * );
      * </pre>
      *
@@ -431,7 +418,7 @@ public class PanelBuilder extends AbstractFormBuilder {
             throw new IllegalArgumentException(
                     "You must provide two CellConstraints instances, " +
                     "one for the label and one for the component.\n" +
-                    "Consider using #clone(). See the JavaDocs for details.");
+                    "Consider using the CC class. See the JavaDocs for details.");
         }
 
         JLabel label = addLabel(textWithMnemonic, labelConstraints);
@@ -472,10 +459,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * to the form using the specified constraints.<p>
      *
      * <pre>
-     * addROLabel("Name:",       cc.xy(1, 1)); // No Mnemonic
-     * addROLabel("N&ame:",      cc.xy(1, 1)); // Mnemonic is 'a'
-     * addROLabel("Save &as:",   cc.xy(1, 1)); // Mnemonic is the second 'a'
-     * addROLabel("Look&&Feel:", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
+     * addROLabel("Name:",       CC.xy(1, 1)); // No Mnemonic
+     * addROLabel("N&ame:",      CC.xy(1, 1)); // Mnemonic is 'a'
+     * addROLabel("Save &as:",   CC.xy(1, 1)); // Mnemonic is the second 'a'
+     * addROLabel("Look&&Feel:", CC.xy(1, 1)); // No mnemonic, text is "look&feel"
      * </pre>
      *
      * @param textWithMnemonic  the label's text -
@@ -553,23 +540,11 @@ public class PanelBuilder extends AbstractFormBuilder {
      * );
      * </pre>
      * <strong>Correct:</strong><pre>
-     * // Using a single CellConstraints instance and cloning
-     * CellConstraints cc = new CellConstraints();
      * builder.addROLabel(
      *     "&Name:",
-     *     (CellConstraints) cc.xy(1, 7).clone(), // cloned before the next modification
+     *     CC.xy(1, 7),          // creates an instance
      *     nameField,
-     *     cc.xy(3, 7)                            // sets this instance to (3, 7)
-     * );
-     *
-     * // Using two CellConstraints instances
-     * CellConstraints cc1 = new CellConstraints();
-     * CellConstraints cc2 = new CellConstraints();
-     * builder.addROLabel(
-     *     "&Name:",           // Mnemonic is 'N'
-     *     cc1.xy(1, 7),       // sets instance 1 to (1, 7)
-     *     nameField,
-     *     cc2.xy(3, 7)        // sets instance 2 to (3, 7)
+     *     CC.xy(3, 7)           // creates another instance
      * );
      * </pre>
      *
@@ -627,10 +602,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a title label to the form using the specified constraints.<p>
      *
      * <pre>
-     * addTitle("Name",       cc.xy(1, 1)); // No mnemonic
-     * addTitle("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
-     * addTitle("Save &as",   cc.xy(1, 1)); // Mnemonic is the second 'a'
-     * addTitle("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is Look&Feel
+     * addTitle("Name",       CC.xy(1, 1)); // No mnemonic
+     * addTitle("N&ame",      CC.xy(1, 1)); // Mnemonic is 'a'
+     * addTitle("Save &as",   CC.xy(1, 1)); // Mnemonic is the second 'a'
+     * addTitle("Look&&Feel", CC.xy(1, 1)); // No mnemonic, text is Look&Feel
      * </pre>
      *
      * @param textWithMnemonic   the title label's text -
@@ -694,10 +669,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Adds a titled separator to the form using the specified constraints.<p>
      *
      * <pre>
-     * addSeparator("Name",       cc.xy(1, 1)); // No Mnemonic
-     * addSeparator("N&ame",      cc.xy(1, 1)); // Mnemonic is 'a'
-     * addSeparator("Save &as",   cc.xy(1, 1)); // Mnemonic is the second 'a'
-     * addSeparator("Look&&Feel", cc.xy(1, 1)); // No mnemonic, text is "look&feel"
+     * addSeparator("Name",       CC.xy(1, 1)); // No Mnemonic
+     * addSeparator("N&ame",      CC.xy(1, 1)); // Mnemonic is 'a'
+     * addSeparator("Save &as",   CC.xy(1, 1)); // Mnemonic is the second 'a'
+     * addSeparator("Look&&Feel", CC.xy(1, 1)); // No mnemonic, text is "look&feel"
      * </pre>
      *
      * @param textWithMnemonic   the separator label's text -
@@ -784,23 +759,11 @@ public class PanelBuilder extends AbstractFormBuilder {
      * );
      * </pre>
      * <strong>Correct:</strong><pre>
-     * // Using a single CellConstraints instance and cloning
-     * CellConstraints cc = new CellConstraints();
      * builder.add(
      *     nameLabel,
-     *     (CellConstraints) cc.xy(1, 7).clone(), // cloned before the next modification
+     *     CC.xy(1, 7),         // creates an instance
      *     nameField,
-     *     cc.xy(3, 7)                            // sets this instance to (3, 7)
-     * );
-     *
-     * // Using two CellConstraints instances
-     * CellConstraints cc1 = new CellConstraints();
-     * CellConstraints cc2 = new CellConstraints();
-     * builder.add(
-     *     nameLabel,
-     *     cc1.xy(1, 7),       // sets instance 1 to (1, 7)
-     *     nameField,
-     *     cc2.xy(3, 7)        // sets instance 2 to (3, 7)
+     *     CC.xy(3, 7)          // creates another instance
      * );
      * </pre>
      *
