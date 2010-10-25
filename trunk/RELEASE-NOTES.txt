@@ -55,6 +55,8 @@ OTHER CHANGES
     o All classes now use the Common class Preconditions
       to check preconditions on method state and parameters.
     o Adjusted and extended tests for handling mnemonics.
+    o Moved tutorial sources and tutorial docs to the upcoming
+      JGoodies Showcase application.
       
       
 ROADMAP
