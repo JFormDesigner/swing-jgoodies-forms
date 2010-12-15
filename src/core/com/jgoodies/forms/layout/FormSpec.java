@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
  * TODO: Consider extracting the parser role to a separate class.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  *
  * @see     ColumnSpec
  * @see     RowSpec
@@ -147,9 +147,9 @@ public abstract class FormSpec implements Serializable {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs a <code>FormSpec</code> for the given default alignment,
+     * Constructs a {@code FormSpec} for the given default alignment,
      * size, and resize weight. The resize weight must be a non-negative
-     * double; you can use <code>NONE</code> as a convenience value for no
+     * double; you can use {@code NONE} as a convenience value for no
      * resize.
      *
      * @param defaultAlignment the spec's default alignment
@@ -214,7 +214,7 @@ public abstract class FormSpec implements Serializable {
     /**
      * Checks and answers whether this spec can grow or not.
      * That is the case if and only if the resize weight is
-     * != <code>NO_GROW</code>.
+     * != {@code NO_GROW}.
      *
      * @return true if it can grow, false if it can't grow
      */

@@ -128,7 +128,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.factories.ButtonBarFactory
@@ -185,8 +185,8 @@ public final class ButtonBarBuilder extends PanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an instance of <code>ButtonBarBuilder</code> on a
-     * <code>JPanel</code> using a preconfigured FormLayout as layout manager.
+     * Constructs an instance of {@code ButtonBarBuilder} on a
+     * {@code JPanel} using a preconfigured FormLayout as layout manager.
      */
     public ButtonBarBuilder() {
         this(new JPanel(null));
@@ -194,7 +194,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
 
 
     /**
-     * Constructs an instance of <code>ButtonBarBuilder</code> on the given
+     * Constructs an instance of {@code ButtonBarBuilder} on the given
      * panel using a preconfigured FormLayout as layout manager.
      *
      * @param panel  the layout container
@@ -206,7 +206,7 @@ public final class ButtonBarBuilder extends PanelBuilder {
 
 
     /**
-     * Creates and returns a <code>ButtonBarBuilder</code> with
+     * Creates and returns a {@code ButtonBarBuilder} with
      * initialized with a left to right button order.
      *
      * @return a button bar builder with button order set to left-to-right

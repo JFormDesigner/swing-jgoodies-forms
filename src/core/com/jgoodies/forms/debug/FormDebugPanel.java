@@ -45,15 +45,15 @@ import com.jgoodies.forms.layout.FormLayout;
  * in the background or foreground.<p>
  *
  * This class is not intended to be extended. However, it is not
- * marked as <code>final</code> to allow users to subclass it for
+ * marked as {@code final} to allow users to subclass it for
  * debugging purposes. In general it is recommended to <em>use</em> JPanel
  * instances, not <em>extend</em> them. You can see this implementation style
  * in the Forms tutorial classes. Rarely there's a need to extend JPanel;
  * for example if you provide a custom behavior for
- * <code>#paintComponent</code> or <code>#updateUI</code>.
+ * {@code #paintComponent} or {@code #updateUI}.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see     FormDebugUtils
  */
@@ -202,7 +202,7 @@ public class FormDebugPanel extends JPanel {
     /**
      * Paints the component and - if background painting is enabled - the grid.
      * If foreground painting is enabled, the grid will be painted in
-     * <code>#paint</code>.
+     * {@code #paint}.
      *
      * @param g   the Graphics object to paint on
      *
@@ -221,7 +221,7 @@ public class FormDebugPanel extends JPanel {
      * Paints the panel. If the panel's layout manager is a FormLayout
      * and foreground painting is enabled, it paints the form's grid lines.
      * If the grid shall be painted in the background, the grid will be
-     * painted in <code>#paintComponent</code>.
+     * painted in {@code #paintComponent}.
      *
      * @param g   the Graphics object to paint on
      *

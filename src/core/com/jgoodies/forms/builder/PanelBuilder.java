@@ -48,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * An general purpose panel builder that uses the {@link FormLayout}
- * to lay out <code>JPanel</code>s. It provides convenience methods
+ * to lay out {@code JPanel}s. It provides convenience methods
  * to set a default border and to add labels, titles and titled separators.<p>
  *
  * The PanelBuilder is the working horse for layouts when more specialized
@@ -61,8 +61,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * static rows vs. dynamically added rows. Also, you may check out the
  * Tips &amp; Tricks section of the Forms HTML documentation.<p>
  *
- * The text arguments passed to the methods <code>#addLabel</code>,
- * <code>#addTitle</code>, and <code>#addSeparator</code> can contain
+ * The text arguments passed to the methods {@code #addLabel},
+ * {@code #addTitle}, and {@code #addSeparator} can contain
  * an optional mnemonic marker. The mnemonic and mnemonic index
  * are indicated by a single ampersand (<tt>&amp;</tt>). For example
  * <tt>&quot;&amp;Save&quot</tt>, or <tt>&quot;Save&nbsp;&amp;as&quot</tt>.
@@ -88,7 +88,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
@@ -144,8 +144,8 @@ public class PanelBuilder extends AbstractFormBuilder {
     // Instance Creation ******************************************************
 
     /**
-     * Constructs a <code>PanelBuilder</code> for the given
-     * layout. Uses an instance of <code>JPanel</code> as layout container
+     * Constructs a {@code PanelBuilder} for the given
+     * layout. Uses an instance of {@code JPanel} as layout container
      * with the given layout as layout manager.
      *
      * @param layout  the FormLayout to use
@@ -157,7 +157,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
     /**
-     * Constructs a <code>PanelBuilder</code> for the given
+     * Constructs a {@code PanelBuilder} for the given
      * FormLayout and layout container.
      *
      * @param layout  the FormLayout to use
@@ -369,16 +369,16 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * <strong>Note:</strong> The {@link CellConstraints} objects for the label
      * and the component must be different. Cell constraints are implicitly
-     * cloned by the <code>FormLayout</code> when added to the container.
+     * cloned by the {@code FormLayout} when added to the container.
      * However, in this case you may be tempted to reuse a
-     * <code>CellConstraints</code> object in the same way as with many other
-     * builder methods that require a single <code>CellConstraints</code>
+     * {@code CellConstraints} object in the same way as with many other
+     * builder methods that require a single {@code CellConstraints}
      * parameter.
-     * The pitfall is that the methods <code>CellConstraints.xy*(...)</code>
+     * The pitfall is that the methods {@code CellConstraints.xy*(...)}
      * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy*(...)</code> overrides
+     * And so the second invocation of {@code xy*(...)} overrides
      * the settings performed in the first invocation before the object
-     * is cloned by the <code>FormLayout</code>.<p>
+     * is cloned by the {@code FormLayout}.<p>
      *
      * <strong>Wrong:</strong><pre>
      * builder.addLabel(
@@ -522,14 +522,14 @@ public class PanelBuilder extends AbstractFormBuilder {
      * and the component must be different. Cell constraints are implicitly
      * cloned by the FormLayout when added to the container.
      * However, in this case you may be tempted to reuse a
-     * <code>CellConstraints</code> object in the same way as with many other
-     * builder methods that require a single <code>CellConstraints</code>
+     * {@code CellConstraints} object in the same way as with many other
+     * builder methods that require a single {@code CellConstraints}
      * parameter.
-     * The pitfall is that the methods <code>CellConstraints.xy*(...)</code>
+     * The pitfall is that the methods {@code CellConstraints.xy*(...)}
      * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy*(...)</code> overrides
+     * And so the second invocation of {@code xy*(...)} overrides
      * the settings performed in the first invocation before the object
-     * is cloned by the <code>FormLayout</code>.<p>
+     * is cloned by the {@code FormLayout}.<p>
      *
      * <strong>Wrong:</strong><pre>
      * builder.addROLabel(
@@ -738,16 +738,16 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * <strong>Note:</strong> The {@link CellConstraints} objects for the label
      * and the component must be different. Cell constraints are implicitly
-     * cloned by the <code>FormLayout</code> when added to the container.
+     * cloned by the {@code FormLayout} when added to the container.
      * However, in this case you may be tempted to reuse a
-     * <code>CellConstraints</code> object in the same way as with many other
-     * builder methods that require a single <code>CellConstraints</code>
+     * {@code CellConstraints} object in the same way as with many other
+     * builder methods that require a single {@code CellConstraints}
      * parameter.
-     * The pitfall is that the methods <code>CellConstraints.xy*(...)</code>
+     * The pitfall is that the methods {@code CellConstraints.xy*(...)}
      * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy*(...)</code> overrides
+     * And so the second invocation of {@code xy*(...)} overrides
      * the settings performed in the first invocation before the object
-     * is cloned by the <code>FormLayout</code>.<p>
+     * is cloned by the {@code FormLayout}.<p>
      *
      * <strong>Wrong:</strong><pre>
      * CellConstraints cc = new CellConstraints();
@@ -884,13 +884,13 @@ public class PanelBuilder extends AbstractFormBuilder {
 
     /**
      * Returns the most recently added JLabel that has a mnemonic set
-     * - if any, <code>null</code>, if none has been set, or if it has
+     * - if any, {@code null}, if none has been set, or if it has
      * been cleared after setting an association before, or if it has been
      * cleared by the garbage collector.
      *
      * @return the most recently added JLabel that has a mnemonic set
      *     and has not been associated with a component applicable for this
-     *     feature. <code>null</code> otherwise.
+     *     feature. {@code null} otherwise.
      */
     private JLabel getMostRecentlyAddedLabel() {
         if (mostRecentlyAddedLabelReference == null) {

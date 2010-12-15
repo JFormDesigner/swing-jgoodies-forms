@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * and logical columns and rows.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  *
  * @see    ButtonBarBuilder2
  * @see    ButtonStackBuilder
@@ -100,7 +100,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * Returns whether this builder fills the form left-to-right
      * or right-to-left. The initial value of this property is set
      * during the builder construction from the layout container's
-     * <code>componentOrientation</code> property.
+     * {@code componentOrientation} property.
      *
      * @return true indicates left-to-right, false indicates right-to-left
      *
@@ -115,7 +115,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
     /**
      * Sets the form fill direction to left-to-right or right-to-left.
      * The initial value of this property is set during the builder construction
-     * from the layout container's <code>componentOrientation</code> property.
+     * from the layout container's {@code componentOrientation} property.
      *
      * @param b   true indicates left-to-right, false right-to-left
      *
@@ -563,7 +563,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
 
 
     /**
-     * Creates and returns a <code>CellConstraints</code> object at
+     * Creates and returns a {@code CellConstraints} object at
      * the current cursor position that uses the given column span
      * and is adjusted to the left. Useful when building from right to left.
      *

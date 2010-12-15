@@ -59,7 +59,7 @@ import java.util.Map;
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -115,7 +115,7 @@ public final class ColumnSpec extends FormSpec {
      * size and resize weight.<p>
      *
      * The resize weight must be a non-negative double; you can use
-     * <code>NO_GROW</code> as a convenience value for no resize.
+     * {@code NO_GROW} as a convenience value for no resize.
      *
      * @param defaultAlignment the column's default alignment
      * @param size             constant, component size or bounded size

@@ -50,7 +50,7 @@ import com.jgoodies.forms.util.UnitConverter;
  * layout container as parameter to read its current font and resolution.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  *
  * @see     Size
  * @see     UnitConverter
@@ -154,12 +154,12 @@ public final class Sizes {
     // Creation of Size Instances *********************************************
 
     /**
-     * Creates and returns an instance of <code>ConstantSize</code> from the
+     * Creates and returns an instance of {@code ConstantSize} from the
      * given encoded size and unit description.
      *
      * @param encodedValueAndUnit  value and unit in string representation
      * @param horizontal			true for horizontal, false for vertical
-     * @return a <code>ConstantSize</code> for the given value and unit
+     * @return a {@code ConstantSize} for the given value and unit
      */
     public static ConstantSize constant(String encodedValueAndUnit,
                                          boolean horizontal) {
@@ -173,7 +173,7 @@ public final class Sizes {
      * in horizontal dialog units.
      *
      * @param value	size value in horizontal dialog units
-     * @return the associated <code>ConstantSize</code>
+     * @return the associated {@code ConstantSize}
      */
     public static ConstantSize dluX(int value) {
         return ConstantSize.dluX(value);
@@ -184,7 +184,7 @@ public final class Sizes {
      * in vertical dialog units.
      *
      * @param value 	size value in vertical dialog units
-     * @return the associated <code>ConstantSize</code>
+     * @return the associated {@code ConstantSize}
      */
     public static ConstantSize dluY(int value) {
         return ConstantSize.dluY(value);
@@ -195,7 +195,7 @@ public final class Sizes {
      * for the specified pixel value.
      *
      * @param value  value in pixel
-     * @return the associated <code>ConstantSize</code>
+     * @return the associated {@code ConstantSize}
      */
     public static ConstantSize pixel(int value) {
         return new ConstantSize(value, ConstantSize.PIXEL);
@@ -208,7 +208,7 @@ public final class Sizes {
      * @param basis  		the base size
      * @param lowerBound  	the lower bound size
      * @param upperBound  	the upper bound size
-     * @return a <code>BoundedSize</code> for the given basis and bounds
+     * @return a {@code BoundedSize} for the given basis and bounds
      * @throws NullPointerException if {@code basis} is {@code null},
      *    or if both {@code lowerBound} and {@code upperBound} are {@code null}.
      */
@@ -309,7 +309,7 @@ public final class Sizes {
      * Returns the current {@link UnitConverter}. If it has not been initialized
      * before it will get an instance of {@link DefaultUnitConverter}.
      *
-     * @return the current <code>UnitConverter</code>
+     * @return the current {@code UnitConverter}
      */
     public static UnitConverter getUnitConverter() {
         if (unitConverter == null) {
@@ -381,7 +381,7 @@ public final class Sizes {
         }
 
         /**
-         * Returns an instance of <code>ComponentSize</code> that corresponds
+         * Returns an instance of {@code ComponentSize} that corresponds
          * to the specified string.
          * @param str   		the encoded component size
          * @return the corresponding ComponentSize or null if none matches
@@ -432,14 +432,14 @@ public final class Sizes {
 
         /**
          * Describes if this Size can be compressed, if container space gets scarce.
-         * Used by the FormLayout size computations in <code>#compressedSizes</code>
+         * Used by the FormLayout size computations in {@code #compressedSizes}
          * to check whether a column or row can be compressed or not.<p>
          *
          * The DEFAULT ComponentSize is compressible, MINIMUM and PREFERRED
          * are incompressible.
          *
-         * @return <code>true</code> for the DEFAULT size,
-         *      <code>false</code> otherwise
+         * @return {@code true} for the DEFAULT size,
+         *      {@code false} otherwise
          *
          * @since 1.1
          */
