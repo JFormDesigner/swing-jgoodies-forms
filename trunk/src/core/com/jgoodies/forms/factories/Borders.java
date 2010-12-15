@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.LayoutStyle;
 
 /**
- * Provides constants and factory methods for <code>Border</code>s that use
+ * Provides constants and factory methods for {@code Border}s that use
  * instances of {@link ConstantSize} to define the margins.<p>
  *
  * <strong>Examples:</strong><br>
@@ -54,7 +54,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * </pre>
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @see     Border
  * @see     Sizes
@@ -172,14 +172,14 @@ public final class Borders {
     // Factory Methods ******************************************************
 
     /**
-     * Creates and returns an <code>EmptyBorder</code> with the specified
+     * Creates and returns an {@code EmptyBorder} with the specified
      * gaps.
      *
      * @param top		the top gap
      * @param left		the left-hand side gap
      * @param bottom	the bottom gap
      * @param right	the right-hand side gap
-     * @return an <code>EmptyBorder</code> with the specified gaps
+     * @return an {@code EmptyBorder} with the specified gaps
      *
      * @throws NullPointerException if top, left, bottom, or right is {@code null}
      *
@@ -191,12 +191,12 @@ public final class Borders {
     }
 
     /**
-     * Creates and returns a <code>Border</code> using sizes as specified by
+     * Creates and returns a {@code Border} using sizes as specified by
      * the given string. This string is a comma-separated encoding of
-     * 4 <code>ConstantSize</code>s.
+     * 4 {@code ConstantSize}s.
      *
      * @param encodedSizes	 top, left, bottom, right gap encoded as String
-     * @return an <code>EmptyBorder</code> with the specified gaps
+     * @return an {@code EmptyBorder} with the specified gaps
      *
      * @see #createEmptyBorder(ConstantSize, ConstantSize, ConstantSize, ConstantSize)
      */
@@ -247,7 +247,7 @@ public final class Borders {
          *
          * @param c      the component for which this border insets value applies
          * @param insets the insets to be reinitialized
-         * @return the <code>insets</code> object
+         * @return the {@code insets} object
          */
         @Override
         public Insets getBorderInsets(Component c, Insets insets) {

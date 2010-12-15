@@ -42,10 +42,10 @@ import com.jgoodies.forms.layout.Size;
  * the API may change without notice. Therefore it is recommended
  * to not write custom subclasses for production code.
  * A future version of this class will likely collaborate with a class
- * <code>LogicalSize</code> or <code>StyledSize</code>.
+ * {@code LogicalSize} or {@code StyledSize}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
@@ -63,9 +63,9 @@ public abstract class LayoutStyle {
     // Computing the initial layout style *************************************
 
     /**
-     * Computes and returns the initial <code>LayoutStyle</code>.
-     * Checks the OS name and returns <code>MacLayoutStyle</code>
-     * on Mac OS X and <code>WindowLayoutStyle</code> on all other platforms.
+     * Computes and returns the initial {@code LayoutStyle}.
+     * Checks the OS name and returns {@code MacLayoutStyle}
+     * on Mac OS X and {@code WindowLayoutStyle} on all other platforms.
      *
      * @return MacLayoutStyle on Mac, WindowsLayoutStyle on all other platforms
      */
@@ -79,9 +79,9 @@ public abstract class LayoutStyle {
     // Accessing the current style ******************************************
 
     /**
-     * Returns the current <code>LayoutStyle</code>.
+     * Returns the current {@code LayoutStyle}.
      *
-     * @return the current <code>LayoutStyle</code>
+     * @return the current {@code LayoutStyle}
      */
     public static LayoutStyle getCurrent() {
         return current;
@@ -89,7 +89,7 @@ public abstract class LayoutStyle {
 
 
     /**
-     * Set a new <code>LayoutStyle</code>.
+     * Set a new {@code LayoutStyle}.
      *
      * @param newLayoutStyle   the style to be set
      */

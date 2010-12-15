@@ -66,9 +66,9 @@ import javax.swing.UIManager;
  * Specifications and Guidelines</a>.<p>
  *
  * Since the Forms 1.1 this converter logs font information at
- * the <code>CONFIG</code> level.
+ * the {@code CONFIG} level.
  *
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  * @author  Karsten Lentzsch
  * @see     UnitConverter
  * @see     com.jgoodies.forms.layout.Size
@@ -121,8 +121,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
 
     /**
-     * If any <code>PropertyChangeListeners</code> have been registered,
-     * the <code>changeSupport</code> field describes them.
+     * If any {@code PropertyChangeListeners} have been registered,
+     * the {@code changeSupport} field describes them.
      *
      * @see #addPropertyChangeListener(PropertyChangeListener)
      * @see #addPropertyChangeListener(String, PropertyChangeListener)
@@ -293,12 +293,12 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Looks up and returns the dialog base units for the given component.
-     * In case the component is <code>null</code> the global dialog base units
+     * In case the component is {@code null} the global dialog base units
      * are answered.<p>
      *
      * Before we compute the dialog base units we check whether they
      * have been computed and cached before - for the same component
-     * <code>FontMetrics</code>.
+     * {@code FontMetrics}.
      *
      * @param c  the component that provides the graphics object
      * @return the DialogBaseUnits object for the given component
@@ -401,10 +401,10 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Creates and returns a component that is used to lookup the default
-     * font metrics. The current implementation creates a <code>JPanel</code>.
+     * font metrics. The current implementation creates a {@code JPanel}.
      * Since this panel has no parent, it has no toolkit assigned. And so,
      * requesting the font metrics will end up using the default toolkit
-     * and its deprecated method <code>ToolKit#getFontMetrics()</code>.<p>
+     * and its deprecated method {@code ToolKit#getFontMetrics()}.<p>
      *
      * TODO: Consider publishing this method and providing a setter, so that
      * an API user can set a realized component that has a toolkit assigned.
@@ -417,7 +417,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Invalidates the caches. Resets the global dialog base units,
-     * clears the Map from <code>FontMetrics</code> to dialog base units,
+     * clears the Map from {@code FontMetrics} to dialog base units,
      * and resets the fallback for the default dialog font.
      * This is invoked after a change of the look&amp;feel.
      */

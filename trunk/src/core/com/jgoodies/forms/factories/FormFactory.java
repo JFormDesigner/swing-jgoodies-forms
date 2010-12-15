@@ -39,7 +39,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * Provides frequently used column and row specifications.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
@@ -54,7 +54,7 @@ public final class FormFactory {
     // Frequently used Column Specifications ********************************
 
     /**
-     * An unmodifiable <code>ColumnSpec</code> that determines its width by
+     * An unmodifiable {@code ColumnSpec} that determines its width by
      * computing the maximum of all column component minimum widths.
      *
      * @see #PREF_COLSPEC
@@ -65,7 +65,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifiable <code>ColumnSpec</code> that determines its width by
+     * An unmodifiable {@code ColumnSpec} that determines its width by
      * computing the maximum of all column component preferred widths.
      *
      * @see #MIN_COLSPEC
@@ -76,7 +76,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifiable <code>ColumnSpec</code> that determines its preferred
+     * An unmodifiable {@code ColumnSpec} that determines its preferred
      * width by computing the maximum of all column component preferred widths
      * and its minimum width by computing all column component minimum widths.<p>
      *
@@ -91,7 +91,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifiable <code>ColumnSpec</code> that has an initial width
+     * An unmodifiable {@code ColumnSpec} that has an initial width
      * of 0 pixels and that grows. Useful to describe <em>glue</em> columns
      * that fill the space between other columns.
      *
@@ -109,7 +109,7 @@ public final class FormFactory {
      * and components.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @since 1.0.3
      */
@@ -123,7 +123,7 @@ public final class FormFactory {
      * related.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #UNRELATED_GAP_COLSPEC
      */
@@ -135,7 +135,7 @@ public final class FormFactory {
      * Describes a logical horizontal gap between two unrelated components.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #RELATED_GAP_COLSPEC
      */
@@ -148,7 +148,7 @@ public final class FormFactory {
      * honors the current layout style's default button minimum width.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #GROWING_BUTTON_COLSPEC
      */
@@ -163,7 +163,7 @@ public final class FormFactory {
      * does <em>not</em> use the layout style's default button minimum width.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #BUTTON_COLSPEC
      */
@@ -176,7 +176,7 @@ public final class FormFactory {
     // Frequently used Row Specifications ***********************************
 
     /**
-     * An unmodifiable <code>RowSpec</code> that determines its height by
+     * An unmodifiable {@code RowSpec} that determines its height by
      * computing the maximum of all column component minimum heights.
      *
      * @see #PREF_ROWSPEC
@@ -187,7 +187,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifiable <code>RowSpec</code> that determines its height by
+     * An unmodifiable {@code RowSpec} that determines its height by
      * computing the maximum of all column component preferred heights.
      *
      * @see #MIN_ROWSPEC
@@ -198,7 +198,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifiable <code>RowSpec</code> that determines its preferred
+     * An unmodifiable {@code RowSpec} that determines its preferred
      * height by computing the maximum of all column component preferred heights
      * and its minimum height by computing all column component minimum heights.<p>
      *
@@ -213,7 +213,7 @@ public final class FormFactory {
 
 
     /**
-     * An unmodifiable <code>RowSpec</code> that has an initial height
+     * An unmodifiable {@code RowSpec} that has an initial height
      * of 0 pixels and that grows. Useful to describe <em>glue</em> rows
      * that fill the space between other rows.
      *
@@ -231,7 +231,7 @@ public final class FormFactory {
      * and components.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @since 1.4
      */
@@ -245,7 +245,7 @@ public final class FormFactory {
      * related.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #UNRELATED_GAP_ROWSPEC
      */
@@ -257,7 +257,7 @@ public final class FormFactory {
      * Describes a logical vertical gap between two unrelated components.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #RELATED_GAP_ROWSPEC
      */
@@ -271,7 +271,7 @@ public final class FormFactory {
      * shall be small than the default line gap.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #LINE_GAP_ROWSPEC
      * @see #PARAGRAPH_GAP_ROWSPEC
@@ -285,7 +285,7 @@ public final class FormFactory {
      * A little bit larger than the narrow line gap.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #NARROW_LINE_GAP_ROWSPEC
      * @see #PARAGRAPH_GAP_ROWSPEC
@@ -299,7 +299,7 @@ public final class FormFactory {
      * the layout grid. This gap is larger than the default line gap.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @see #NARROW_LINE_GAP_ROWSPEC
      * @see #LINE_GAP_ROWSPEC
@@ -313,7 +313,7 @@ public final class FormFactory {
      * honors the current layout style's default button minimum height.<p>
      *
      * <strong>Note:</strong> In a future version this constant will likely
-     * be moved to a class <code>LogicalSize</code> or <code>StyledSize</code>.
+     * be moved to a class {@code LogicalSize} or {@code StyledSize}.
      *
      * @since 1.2
      */

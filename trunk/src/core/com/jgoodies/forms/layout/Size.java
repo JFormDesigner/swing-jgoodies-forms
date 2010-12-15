@@ -38,14 +38,14 @@ import java.util.List;
  * component measuring sizes, constant sizes with value and unit,
  * and bounded sizes that provide lower and upper bounds for a size.<p>
  *
- * You can find a motivation for the different <code>Size</code> types in
+ * You can find a motivation for the different {@code Size} types in
  * the Forms whitepaper that is part of the product documentation and that is
  * available online too, see
  * <a href="http://www.jgoodies.com/articles/forms.pdf" >
  * http://www.jgoodies.com/articles/forms.pdf</a>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -76,13 +76,13 @@ public interface Size {
 
     /**
      * Describes if this Size can be compressed, if container space gets scarce.
-     * Used by the FormLayout size computations in <code>#compressedSizes</code>
+     * Used by the FormLayout size computations in {@code #compressedSizes}
      * to check whether a column or row can be compressed or not.<p>
      *
      * The ComponentSize <em>default</em> is compressible, as well as
      * BoundedSizes that are based on the <em>default</em> size.
      *
-     * @return <code>true</code> for compressible Sizes
+     * @return {@code true} for compressible Sizes
      *
      * @since 1.1
      */

@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Consists only of static methods that provide convenience behavior
- * for working with the <code>FormLayout</code>.<p>
+ * for working with the {@code FormLayout}.<p>
  *
  * <strong>Note:</strong> This class is not part of the binary Form library.
  * It comes with the Forms distributions as an extra.
@@ -52,7 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * your codebase.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public final class FormLayoutUtils {
 
@@ -68,14 +68,14 @@ public final class FormLayoutUtils {
      * contains a component in the specified column.<p>
      *
      * For every container child component, we look up the associated
-     * <code>CellConstraints</code> object from the layout and
+     * {@code CellConstraints} object from the layout and
      * compare its horizontal grid origin with the specified column index.
      *
      * @param container     the layout container
      * @param columnIndex   the index of the column to test
      * @return true if the column contains a component, false otherwise
      * @throws IllegalArgumentException if the container's layout is
-     *     not a <code>FormLayout</code>
+     *     not a {@code FormLayout}
      */
     public static boolean columnContainsComponent(
             Container container,
@@ -94,14 +94,14 @@ public final class FormLayoutUtils {
      * contains a component in the specified row.<p>
      *
      * For every container child component, we look up the associated
-     * <code>CellConstraints</code> object from the layout and
+     * {@code CellConstraints} object from the layout and
      * compare its vertical grid origin with the specified row index.
      *
      * @param container     the layout container
      * @param rowIndex      the index of the row to test
      * @return true if the row contains a component, false otherwise
      * @throws IllegalArgumentException if the container's layout is
-     *     not a <code>FormLayout</code>
+     *     not a {@code FormLayout}
      */
     public static boolean rowContainsComponent(
             Container container,
@@ -117,9 +117,9 @@ public final class FormLayoutUtils {
 
     /**
      * Checks and answers whether the specified column is grouped
-     * in the given FormLayout. A column <code>col</code> is grouped,
+     * in the given FormLayout. A column {@code col} is grouped,
      * if and only if there's a column group <em>group</em>
-     * that includes <code>col</code>'s index.
+     * that includes {@code col}'s index.
      *
      * @param layout      the layout to be inspected
      * @param columnIndex the index of the column to be checked
@@ -132,9 +132,9 @@ public final class FormLayoutUtils {
 
     /**
      * Checks and answers whether the specified row is grouped
-     * in the given FormLayout. A row <code>row</code> is grouped,
+     * in the given FormLayout. A row {@code row} is grouped,
      * if and only if there's a row group <em>group</em>
-     * that includes <code>row</code>'s index.
+     * that includes {@code row}'s index.
      *
      * @param layout      the layout to be inspected
      * @param rowIndex    the index of the row to be checked
@@ -168,7 +168,7 @@ public final class FormLayoutUtils {
 
 
     /**
-     * Iterates over a FormLayout container's <code>CellConstraints</code>.
+     * Iterates over a FormLayout container's {@code CellConstraints}.
      * The container's child component collection and the layout's
      * constraints collection must not be changed during the iteration;
      * otherwise the behavior of this iterator is unspecified and unsafe.
@@ -200,11 +200,11 @@ public final class FormLayoutUtils {
 
         /**
          * Constructs a ConstraintIterator for the given FormLayout container.
-         * Useful to iterate over the container's <code>CellConstraints</code>.
+         * Useful to iterate over the container's {@code CellConstraints}.
          *
          * @param container   the layout container
          * @throws IllegalArgumentException if the container's layout is
-         *     not a <code>FormLayout</code>
+         *     not a {@code FormLayout}
          */
         public ConstraintIterator(Container container) {
             checkArgument(container.getLayout() instanceof FormLayout,

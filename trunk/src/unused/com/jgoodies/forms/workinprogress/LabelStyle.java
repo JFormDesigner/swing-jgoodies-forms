@@ -43,7 +43,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
  * These label styles can be used in the 
  * {@link com.jgoodies.forms.factories.FormFactory} to specify the label
  * alignment of a {@link com.jgoodies.forms.layout.FormLayout}. Instances of
- * <code>LabelStyle</code> are used in the 
+ * {@code LabelStyle} are used in the 
  * {@link com.jgoodies.forms.workinprogress.DefaultFormBuilder} too.
  * <p>
  * This class is work in progress and in the early stages of development; 
@@ -75,7 +75,7 @@ public final class LabelStyle {
     // Instance Creation ****************************************************
     
     /**
-     * Constructs a <code>LabelStyle</code> with the given alignment
+     * Constructs a {@code LabelStyle} with the given alignment
      * and colon flag.
      * 
      * @param alignment  the label's alignment
@@ -90,8 +90,8 @@ public final class LabelStyle {
     // Label and Text Creation **********************************************
     
     /**
-     * Creates and returns a decorated <code>JLabel</code> that has a colon or
-     * not, depending on the <code>colon</code> flag of this style.
+     * Creates and returns a decorated {@code JLabel} that has a colon or
+     * not, depending on the {@code colon} flag of this style.
      * 
      * @param text    the label's text
      * @return JLabel  the decorated label with or without extra colon
@@ -139,7 +139,7 @@ public final class LabelStyle {
     /**
      * Computes and returns the platform's default style.
      * 
-     * @return the platform's default <code>LabelStyle</code>
+     * @return the platform's default {@code LabelStyle}
      */
     private static LabelStyle getPlatformDefaultStyle() {
         String osName = System.getProperty("os.name");

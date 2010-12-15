@@ -37,9 +37,9 @@ import javax.swing.JLabel;
  * An interface that defines the factory methods as used by the
  * {@link com.jgoodies.forms.builder.PanelBuilder} and its subclasses.<p>
  *
- * The String arguments passed to the methods <code>#createLabel(String)</code>,
- * <code>#createTitle(String)</code>, and
- * <code>#createSeparator(String, int)</code> can contain an optional
+ * The String arguments passed to the methods {@code #createLabel(String)},
+ * {@code #createTitle(String)}, and
+ * {@code #createSeparator(String, int)} can contain an optional
  * mnemonic marker. The mnemonic and mnemonic index are indicated
  * by a single ampersand (<tt>&amp;</tt>). For example
  * <tt>&quot;&amp;Save&quot</tt>, or <tt>&quot;Save&nbsp;&amp;as&quot</tt>.
@@ -47,7 +47,7 @@ import javax.swing.JLabel;
  * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see    DefaultComponentFactory
  * @see    com.jgoodies.forms.builder.PanelBuilder
@@ -73,7 +73,7 @@ public interface ComponentFactory {
 
     /**
      * Creates and returns a title label that uses the foreground color
-     * and font of a <code>TitledBorder</code>.<p>
+     * and font of a {@code TitledBorder}.<p>
      *
      * <pre>
      * createTitle("Name");       // No mnemonic
@@ -92,7 +92,7 @@ public interface ComponentFactory {
     /**
      * Creates and returns a labeled separator. Useful to separate
      * paragraphs in a panel, which is often a better choice than a
-     * <code>TitledBorder</code>.<p>
+     * {@code TitledBorder}.<p>
      *
      * <pre>
      * final int LEFT = SwingConstants.LEFT;
@@ -104,8 +104,8 @@ public interface ComponentFactory {
      *
      * @param textWithMnemonic  the label's text -
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
-     * @param alignment text alignment, one of <code>SwingConstants.LEFT</code>,
-     *     <code>SwingConstants.CENTER</code>, <code>SwingConstants.RIGHT</code>
+     * @param alignment text alignment, one of {@code SwingConstants.LEFT},
+     *     {@code SwingConstants.CENTER}, {@code SwingConstants.RIGHT}
      * @return a title label with separator on the side
      */
     JComponent createSeparator(String textWithMnemonic, int alignment);

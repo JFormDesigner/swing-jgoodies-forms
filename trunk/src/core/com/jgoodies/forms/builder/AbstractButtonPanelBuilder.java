@@ -55,7 +55,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * TODO: Mention the ButtonStackBuilder2 subclass as soon as it is available.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @since 1.2
  */
@@ -168,7 +168,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * Returns whether this builder fills the form left-to-right
      * or right-to-left. The initial value of this property is set
      * during the builder construction from the layout container's
-     * <code>componentOrientation</code> property.
+     * {@code componentOrientation} property.
      *
      * @return true indicates left-to-right, false indicates right-to-left
      *
@@ -183,7 +183,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     /**
      * Sets the form fill direction to left-to-right or right-to-left.
      * The initial value of this property is set during the builder construction
-     * from the layout container's <code>componentOrientation</code> property.
+     * from the layout container's {@code componentOrientation} property.
      *
      * @param b   true indicates left-to-right, false right-to-left
      *

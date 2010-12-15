@@ -41,7 +41,7 @@ import java.util.List;
  * as used by the JGoodies FormLayout.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see	Sizes
  * @see	ConstantSize
@@ -93,7 +93,7 @@ public final class BoundedSize implements Size, Serializable {
     // Accessors ************************************************************
 
     /**
-     * Returns the base size, which is not-<code>null</code>.
+     * Returns the base size, which is not-{@code null}.
      *
      * @return the base size
      *
@@ -134,7 +134,7 @@ public final class BoundedSize implements Size, Serializable {
      * Returns this size as pixel size. Neither requires the component
      * list nor the specified measures. Honors the lower and upper bound.<p>
      *
-     * Invoked by <code>FormSpec</code> to determine the size of a column or
+     * Invoked by {@code FormSpec} to determine the size of a column or
      * row.
      *
      * @param container       the layout container
@@ -177,12 +177,12 @@ public final class BoundedSize implements Size, Serializable {
 
     /**
      * Describes if this Size can be compressed, if container space gets scarce.
-     * Used by the FormLayout size computations in <code>#compressedSizes</code>
+     * Used by the FormLayout size computations in {@code #compressedSizes}
      * to check whether a column or row can be compressed or not.<p>
      *
      * BoundedSizes are compressible if the base Size is compressible.
      *
-     * @return <code>true</code> if and only if the basis is compressible
+     * @return {@code true} if and only if the basis is compressible
      *
      * @since 1.1
      */
@@ -197,8 +197,8 @@ public final class BoundedSize implements Size, Serializable {
      * Indicates whether some other BoundedSize is "equal to" this one.
      *
      * @param object   the object with which to compare
-     * @return <code>true</code> if this object is the same as the object
-     *     argument, <code>false</code> otherwise.
+     * @return {@code true} if this object is the same as the object
+     *     argument, {@code false} otherwise.
      * @see     Object#hashCode()
      * @see     java.util.Hashtable
      */
@@ -221,7 +221,7 @@ public final class BoundedSize implements Size, Serializable {
     /**
      * Returns a hash code value for the object. This method is
      * supported for the benefit of hashtables such as those provided by
-     * <code>java.util.Hashtable</code>.
+     * {@code java.util.Hashtable}.
      *
      * @return  a hash code value for this object.
      * @see     Object#equals(Object)

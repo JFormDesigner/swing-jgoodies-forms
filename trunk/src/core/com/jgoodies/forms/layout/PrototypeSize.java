@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.DefaultUnitConverter;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  *
  * @see	Size
  * @see	Sizes
@@ -124,7 +124,7 @@ public final class PrototypeSize implements Size, Serializable {
 
     /**
      * Describes if this Size can be compressed, if container space gets scarce.
-     * Used by the FormLayout size computations in <code>#compressedSizes</code>
+     * Used by the FormLayout size computations in {@code #compressedSizes}
      * to check whether a column or row can be compressed or not.<p>
      *
      * PrototypeSizes are incompressible.
@@ -152,8 +152,8 @@ public final class PrototypeSize implements Size, Serializable {
      * Indicates whether some other ConstantSize is "equal to" this one.
      *
      * @param o   the Object with which to compare
-     * @return <code>true</code> if this object is the same as the obj
-     *     argument; <code>false</code> otherwise.
+     * @return {@code true} if this object is the same as the obj
+     *     argument; {@code false} otherwise.
      *
      * @see     java.lang.Object#hashCode()
      * @see     java.util.Hashtable

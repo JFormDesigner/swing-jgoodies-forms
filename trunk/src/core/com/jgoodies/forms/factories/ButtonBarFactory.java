@@ -44,7 +44,7 @@ import com.jgoodies.forms.builder.ButtonBarBuilder2;
  * The button bars returned by this builder comply with popular UI style guides.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  *
  * @see com.jgoodies.forms.util.LayoutStyle
  */
@@ -589,7 +589,7 @@ public final class ButtonBarFactory {
      * Builds and returns a wizard button bar. It consists of some left
      * aligned buttons, the back, next group, and some right aligned buttons.
      * To allow the finish button to overlay the next button, you can
-     * optionally provide the <code>overlayedFinish</code> parameter.
+     * optionally provide the {@code overlayedFinish} parameter.
      *
      * @param leftAlignedButtons  an optional array of buttons that will be
      *     positioned in the bar's left hand side

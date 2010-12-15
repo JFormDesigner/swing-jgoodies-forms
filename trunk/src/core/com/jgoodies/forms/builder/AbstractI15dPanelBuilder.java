@@ -55,17 +55,17 @@ import com.jgoodies.forms.layout.FormLayout;
  * created labels that show its resource key. In case of an inproper
  * resource localization, the label will show the wrong text, and the tooltip
  * will help you identify the resource key with the broken localization.
- * This feature can be enabled by calling <code>setDebugToolTipsEnabled</code>.
+ * This feature can be enabled by calling {@code setDebugToolTipsEnabled}.
  * If you want to enable it in a deployed application, you can set the system
- * parameter <code>I15dPanelBuilder.debugToolTipsEnabled</code> to "true".<p>
+ * parameter {@code I15dPanelBuilder.debugToolTipsEnabled} to "true".<p>
  *
  * Subclasses must implement the conversion from resource key
- * to the localized string in <code>#getI15dString(String)</code>.
+ * to the localized string in {@code #getI15dString(String)}.
  * For example class I15dPanelBuilder gets a ResourceBundle during
  * construction, and requests strings from that bundle.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @since 1.1
  */
@@ -176,16 +176,16 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      *
      * <strong>Note:</strong> The {@link CellConstraints} objects for the label
      * and the component must be different. Cell constraints are implicitly
-     * cloned by the <code>FormLayout</code> when added to the container.
+     * cloned by the {@code FormLayout} when added to the container.
      * However, in this case you may be tempted to reuse a
-     * <code>CellConstraints</code> object in the same way as with many other
-     * builder methods that require a single <code>CellConstraints</code>
+     * {@code CellConstraints} object in the same way as with many other
+     * builder methods that require a single {@code CellConstraints}
      * parameter.
-     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code>
+     * The pitfall is that the methods {@code CellConstraints.xy**(...)}
      * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy***(...)</code> overrides
+     * And so the second invocation of {@code xy***(...)} overrides
      * the settings performed in the first invocation before the object
-     * is cloned by the <code>FormLayout</code>.<p>
+     * is cloned by the {@code FormLayout}.<p>
      *
      * <strong>Wrong:</strong><pre>
      * builder.addI15dLabel("name.key",
@@ -268,16 +268,16 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
      *
      * <strong>Note:</strong> The {@link CellConstraints} objects for the label
      * and the component must be different. Cell constraints are implicitly
-     * cloned by the <code>FormLayout</code> when added to the container.
+     * cloned by the {@code FormLayout} when added to the container.
      * However, in this case you may be tempted to reuse a
-     * <code>CellConstraints</code> object in the same way as with many other
-     * builder methods that require a single <code>CellConstraints</code>
+     * {@code CellConstraints} object in the same way as with many other
+     * builder methods that require a single {@code CellConstraints}
      * parameter.
-     * The pitfall is that the methods <code>CellConstraints.xy**(...)</code>
+     * The pitfall is that the methods {@code CellConstraints.xy**(...)}
      * just set the coordinates but do <em>not</em> create a new instance.
-     * And so the second invocation of <code>xy***(...)</code> overrides
+     * And so the second invocation of {@code xy***(...)} overrides
      * the settings performed in the first invocation before the object
-     * is cloned by the <code>FormLayout</code>.<p>
+     * is cloned by the {@code FormLayout}.<p>
      *
      * <strong>Wrong:</strong><pre>
      * builder.addI15dROLabel("name.key",
@@ -391,12 +391,12 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
 
     /**
      * Looks up and returns the internationalized (i15d) string for the given
-     * resource key from the <code>ResourceMap</code>.
+     * resource key from the {@code ResourceMap}.
      *
      * @param resourceKey  the key to look for in the resource map
      * @return the associated internationalized string, or the resource key
      *     itself in case of a missing resource
-     * @throws IllegalStateException  if no <code>ResourceBundle</code>
+     * @throws IllegalStateException  if no {@code ResourceBundle}
      *     has been set
      */
     protected abstract String getI15dString(String resourceKey);

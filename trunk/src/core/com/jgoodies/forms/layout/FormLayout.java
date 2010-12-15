@@ -63,7 +63,7 @@ import com.jgoodies.common.base.Objects;
  * {@link CellConstraints}. The constraints object specifies where a component
  * should be located on the form's grid and how the component should be
  * positioned. In addition to its constraints object the
- * <code>FormLayout</code> also considers each component's minimum and
+ * {@code FormLayout} also considers each component's minimum and
  * preferred sizes in order to determine a component's size.<p>
  *
  * FormLayout has been designed to work with non-visual builders that help you
@@ -133,7 +133,7 @@ import com.jgoodies.common.base.Objects;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.29 $
+ * @version $Revision: 1.30 $
  *
  * @see	ColumnSpec
  * @see	RowSpec
@@ -192,7 +192,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
     private int[][] rowGroupIndices;
 
     /**
-     * Maps components to their associated <code>CellConstraints</code>.
+     * Maps components to their associated {@code CellConstraints}.
      *
      * @see CellConstraints
      * @see #getConstraints(Component)
@@ -257,7 +257,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * The string decoding uses the default LayoutMap.<p>
      *
      * This constructor is intended to be used with builder classes that
-     * add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
+     * add rows dynamically, such as the {@code DefaultFormBuilder}.<p>
      *
      * <strong>Examples:</strong><pre>
      * // Label, gap, component
@@ -290,7 +290,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * before components can be added to the layout container.<p>
      *
      * This constructor is intended to be used with builder classes that
-     * add rows dynamically, such as the <code>DefaultFormBuilder</code>.<p>
+     * add rows dynamically, such as the {@code DefaultFormBuilder}.<p>
      *
      * <strong>Examples:</strong><pre>
      * // Label, gap, component
@@ -458,10 +458,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     /**
-     * Returns the <code>ColumnSpec</code> at the specified column index.
+     * Returns the {@code ColumnSpec} at the specified column index.
      *
-     * @param columnIndex   the column index of the requested <code>ColumnSpec</code>
-     * @return the <code>ColumnSpec</code> at the specified column
+     * @param columnIndex   the column index of the requested {@code ColumnSpec}
+     * @return the {@code ColumnSpec} at the specified column
      * @throws IndexOutOfBoundsException if the column index is out of range
      */
     public ColumnSpec getColumnSpec(int columnIndex) {
@@ -544,10 +544,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * A typical layout implementation can ensure that these constraints are
      * not violated. However, in some cases you may need to check these
      * conditions before you invoke this method. The Forms extras contain
-     * source code for class <code>FormLayoutUtils</code> that provides
+     * source code for class {@code FormLayoutUtils} that provides
      * the required test methods:<br>
-     * <code>#columnContainsComponents(Container, int)</code> and<br>
-     * <code>#isGroupedColumn(FormLayout, int)</code>.
+     * {@code #columnContainsComponents(Container, int)} and<br>
+     * {@code #isGroupedColumn(FormLayout, int)}.
      *
      * @param columnIndex  index of the column to remove
      * @throws IndexOutOfBoundsException if the column index is out of range
@@ -580,10 +580,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     /**
-     * Returns the <code>RowSpec</code> at the specified row index.
+     * Returns the {@code RowSpec} at the specified row index.
      *
-     * @param rowIndex   the row index of the requested <code>RowSpec</code>
-     * @return the <code>RowSpec</code> at the specified row
+     * @param rowIndex   the row index of the requested {@code RowSpec}
+     * @return the {@code RowSpec} at the specified row
      * @throws IndexOutOfBoundsException if the row index is out of range
      */
     public RowSpec getRowSpec(int rowIndex) {
@@ -662,10 +662,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * A typical layout implementation can ensure that these constraints are
      * not violated. However, in some cases you may need to check these
      * conditions before you invoke this method. The Forms extras contain
-     * source code for class <code>FormLayoutUtils</code> that provides
+     * source code for class {@code FormLayoutUtils} that provides
      * the required test methods:<br>
-     * <code>#rowContainsComponents(Container, int)</code> and<br>
-     * <code>#isGroupedRow(FormLayout, int)</code>.
+     * {@code #rowContainsComponents(Container, int)} and<br>
+     * {@code #isGroupedRow(FormLayout, int)}.
      *
      * @param rowIndex  index of the row to remove
      * @throws IndexOutOfBoundsException if the row index is out of range
@@ -975,8 +975,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * by this layout. This container-wide setting can be overridden
      * per component. See {@link #setHonorsVisibility(boolean)} for details.
      *
-     * @return <code>true</code> if the component visibility is honored
-     *     by this FormLayout, <code>false</code> if it is ignored.
+     * @return {@code true} if the component visibility is honored
+     *     by this FormLayout, {@code false} if it is ignored.
      *     This setting can be overridden for individual CellConstraints
      *     using {@link #setHonorsVisibility(Component, Boolean)}.
      *
@@ -990,13 +990,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Specifies whether invisible components shall be taken into account by
      * this layout for computing the layout size and setting component bounds.
-     * If set to <code>true</code> invisible components will be ignored by
-     * the layout. If set to <code>false</code> components will be taken into
+     * If set to {@code true} invisible components will be ignored by
+     * the layout. If set to {@code false} components will be taken into
      * account regardless of their visibility. Visible components are always
      * used for sizing and positioning.<p>
      *
-     * The default value for this setting is <code>true</code>.
-     * It is useful to set the value to <code>false</code> (in other words
+     * The default value for this setting is {@code true}.
+     * It is useful to set the value to {@code false} (in other words
      * to ignore the visibility) if you switch the component visibility
      * dynamically and want the container to retain the size and
      * component positions.<p>
@@ -1007,13 +1007,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * Components are taken into account, if<ol>
      * <li> they are visible, or
      * <li> they have no individual setting and the container-wide settings
-     *    ignores the visibility (honorsVisibility set to <code>false</code>), or
+     *    ignores the visibility (honorsVisibility set to {@code false}), or
      * <li> the individual component ignores the visibility.
      * </ol>
      *
-     * @param b   <code>true</code> to honor the visibility, i.e. to exclude
+     * @param b   {@code true} to honor the visibility, i.e. to exclude
      *    invisible components from the sizing and positioning,
-     *    <code>false</code> to ignore the visibility, in other words to
+     *    {@code false} to ignore the visibility, in other words to
      *    layout visible and invisible components
      *
      * @since 1.2
@@ -1040,11 +1040,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * default. See {@link #setHonorsVisibility(boolean)} for details.
      *
      * @param component    the component that shall get an individual setting
-     * @param b            <code>Boolean.TRUE</code> to override the container
+     * @param b            {@code Boolean.TRUE} to override the container
      *    default and honor the visibility for the given component,
-     *    <code>Boolean.FALSE</code> to override the container default and
+     *    {@code Boolean.FALSE} to override the container default and
      *    ignore the visibility for the given component,
-     *    <code>null</code> to use the container default value as specified
+     *    {@code null} to use the container default value as specified
      *    by {@link #getHonorsVisibility()}.
      *
      * @since 1.2
@@ -1062,7 +1062,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
     // Implementing the LayoutManager and LayoutManager2 Interfaces *********
 
     /**
-     * Throws an <code>UnsupportedOperationException</code>. Does not add
+     * Throws an {@code UnsupportedOperationException}. Does not add
      * the specified component with the specified name to the layout.
      *
      * @param name         indicates entry's position and anchor
@@ -1076,7 +1076,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
     /**
      * Adds the specified component to the layout, using the specified
-     * <code>constraints</code> object.  Note that constraints are mutable and
+     * {@code constraints} object.  Note that constraints are mutable and
      * are, therefore, cloned when cached.
      *
      * @param comp         the component to be added
@@ -1114,13 +1114,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
     // Layout Requests ******************************************************
 
     /**
-     * Determines the minimum size of the <code>parent</code> container
+     * Determines the minimum size of the {@code parent} container
      * using this form layout.<p>
      *
      * Most applications do not call this method directly.
      *
      * @param parent   the container in which to do the layout
-     * @return the minimum size of the <code>parent</code> container
+     * @return the minimum size of the {@code parent} container
      *
      * @see Container#doLayout()
      */
@@ -1131,13 +1131,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
     }
 
     /**
-     * Determines the preferred size of the <code>parent</code>
+     * Determines the preferred size of the {@code parent}
      * container using this form layout.<p>
      *
      * Most applications do not call this method directly.
      *
      * @param parent   the container in which to do the layout
-     * @return the preferred size of the <code>parent</code> container
+     * @return the preferred size of the {@code parent} container
      *
      * @see Container#getPreferredSize()
      */
@@ -1169,7 +1169,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * the farthest away from the origin, 0.5 is centered, etc.
      *
      * @param parent   the parent container
-     * @return the value <code>0.5f</code> to indicate center alignment
+     * @return the value {@code 0.5f} to indicate center alignment
      */
     public float getLayoutAlignmentX(Container parent) {
         return 0.5f;
@@ -1183,7 +1183,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * the farthest away from the origin, 0.5 is centered, etc.
      *
      * @param parent  the parent container
-     * @return the value <code>0.5f</code> to indicate center alignment
+     * @return the value {@code 0.5f} to indicate center alignment
      */
     public float getLayoutAlignmentY(Container parent) {
         return 0.5f;
@@ -1204,7 +1204,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Lays out the specified container using this form layout.  This method
      * reshapes components in the specified container in order to satisfy
-     * the constraints of this <code>FormLayout</code> object.<p>
+     * the constraints of this {@code FormLayout} object.<p>
      *
      * Most applications do not call this method directly.<p>
      *
@@ -1293,13 +1293,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     /**
-     * Computes and returns the layout size of the given <code>parent</code>
+     * Computes and returns the layout size of the given {@code parent}
      * container using the specified measures.
      *
      * @param parent   the container in which to do the layout
      * @param defaultWidthMeasure   the measure used to compute the default width
      * @param defaultHeightMeasure  the measure used to compute the default height
-     * @return the layout size of the <code>parent</code> container
+     * @return the layout size of the {@code parent} container
      */
     private Dimension computeLayoutSize(Container parent,
                                          Measure defaultWidthMeasure,
@@ -1454,7 +1454,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * The actual computation is done by each component's form constraint
      * object. We just compute the cell, the cell bounds and then hand over
      * the component, cell bounds, and measure to the form constraints.
-     * This will allow potential subclasses of <code>CellConstraints</code>
+     * This will allow potential subclasses of {@code CellConstraints}
      * to do special micro-layout corrections. For example, such a subclass
      * could map JComponent classes to visual layout bounds that may
      * lead to a slightly different bounds.
@@ -1767,7 +1767,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
     // Measuring Component Sizes ********************************************
 
     /**
-     * An interface that describes how to measure a <code>Component</code>.
+     * An interface that describes how to measure a {@code Component}.
      * Used to abstract from horizontal and vertical dimensions as well as
      * minimum and preferred sizes.
      *
@@ -1776,7 +1776,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
     public static interface Measure {
 
         /**
-         * Computes and returns the size of the given <code>Component</code>.
+         * Computes and returns the size of the given {@code Component}.
          *
          * @param component  the component to measure
          * @return the component's size
@@ -1786,7 +1786,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     /**
-     * An abstract implementation of the <code>Measure</code> interface
+     * An abstract implementation of the {@code Measure} interface
      * that caches component sizes.
      */
     private abstract static class CachingMeasure implements Measure, Serializable {
@@ -1871,7 +1871,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         private final Map preferredSizes;
 
         /**
-         * Constructs a <code>ComponentSizeCache</code>.
+         * Constructs a {@code ComponentSizeCache}.
          *
          * @param initialCapacity	the initial cache capacity
          */
@@ -1933,7 +1933,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
     /**
      * Computes and returns the horizontal and vertical grid origins.
-     * Performs the same layout process as <code>#layoutContainer</code>
+     * Performs the same layout process as {@code #layoutContainer}
      * but does not layout the components.<p>
      *
      * This method has been added only to make it easier to debug
@@ -1941,7 +1941,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * It may be removed in a future release or the visibility
      * may be reduced.</strong>
      *
-     * @param parent   the <code>Container</code> to inspect
+     * @param parent   the {@code Container} to inspect
      * @return an object that comprises the grid x and y origins
      */
     public LayoutInfo getLayoutInfo(Container parent) {
@@ -2038,7 +2038,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
     /**
      * Creates and returns a deep copy of the given array.
-     * Unlike <code>#clone</code> that performs a shallow copy,
+     * Unlike {@code #clone} that performs a shallow copy,
      * this method copies both array levels.
      *
      * @param array   the array to clone
@@ -2061,8 +2061,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * In addition to the default serialization mechanism this class
      * invalidates the component size cache. The cache will be populated
      * again after the deserialization.
-     * Also, the fields <code>colComponents</code> and
-     * <code>rowComponents</code> have been marked as transient
+     * Also, the fields {@code colComponents} and
+     * {@code rowComponents} have been marked as transient
      * to exclude them from the serialization.
      */
     private void writeObject(ObjectOutputStream out) throws IOException {

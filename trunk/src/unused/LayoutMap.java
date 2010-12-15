@@ -51,8 +51,8 @@ import com.jgoodies.forms.util.LayoutStyle;
  * specification is parsed and converted into ColumnSpec and RowSpec values.
  * Variables start with the '$' character. The variable name can be wrapped
  * by braces ('{' and '}'). For example, you can write:
- * <code>new FormLayout("pref, $lcgap, pref",)</code> or
- * <code>new FormLayout("pref, ${lcgap}, pref")</code>.<p>
+ * {@code new FormLayout("pref, $lcgap, pref",)} or
+ * {@code new FormLayout("pref, ${lcgap}, pref")}.<p>
  *
  * LayoutMaps build a chain; each LayoutMap has an optional parent map.
  * The root is defined by {@link LayoutMap#getRoot()}. Application-wide
@@ -96,7 +96,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * Strings for the columns and rows respectively. Null values are not allowed.
  *
  * @author  Karsten Lentzsch
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  *
  * @see     FormLayout
  * @see     ColumnSpec

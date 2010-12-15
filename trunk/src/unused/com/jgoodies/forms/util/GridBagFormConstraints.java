@@ -35,14 +35,14 @@ import com.jgoodies.forms.layout.CellConstraints;
 
 /**
  * Defines constraints for components that are layed out with the
- * <code>FormLayout</code>. Defines the components display area: 
+ * {@code FormLayout}. Defines the components display area: 
  * grid x, grid y, column span, row span, horizontal alignment, 
  * and vertical alignment.
  * <p>
  * Most methods return <em>this</em> object to enabled method chaining.
  * <p>
  * This class differs from its superclass in that it describes
- * alignment and resizing much like the <code>GridBagConstraints</code>.
+ * alignment and resizing much like the {@code GridBagConstraints}.
  *
  * @author 	Karsten Lentzsch
  */
@@ -126,14 +126,14 @@ public final class GridBagFormConstraints extends CellConstraints {
 	// Instance Creation ****************************************************
     
     /**
-     * Constructs a default instance of <code>GridBagFormConstraints</code>.
+     * Constructs a default instance of {@code GridBagFormConstraints}.
      */
     public GridBagFormConstraints() {
         this(1, 1);
     }
 
     /**
-     * Constructs an instance of <code>GridBagFormConstraints</code> 
+     * Constructs an instance of {@code GridBagFormConstraints} 
      * for the given grid position.
      */
     public GridBagFormConstraints(int gridX, int gridY) {
@@ -141,7 +141,7 @@ public final class GridBagFormConstraints extends CellConstraints {
     }
 
     /**
-     * Constructs an instance of <code>GridBagFormConstraints</code> 
+     * Constructs an instance of {@code GridBagFormConstraints} 
      * for the given grid position and size.
      */
     public GridBagFormConstraints(int gridX, int gridY, int gridWidth, int gridHeight) {
@@ -149,7 +149,7 @@ public final class GridBagFormConstraints extends CellConstraints {
     }
 
     /**
-     * Constructs an instance of <code>CellConstraints</code> for the given
+     * Constructs an instance of {@code CellConstraints} for the given
      * cell position and size, anchor, and fill.
      */
     public GridBagFormConstraints(int gridX, int gridY, int gridWidth, int gridHeight,
@@ -182,7 +182,7 @@ public final class GridBagFormConstraints extends CellConstraints {
 
     /**
      * Translates an anchor and fill as used by the 
-     * <code>java.awt.GridBagConstraints</code> 
+     * {@code java.awt.GridBagConstraints} 
      * to the corresponding horizontal alignment.
      * 
      * @param anchor        the component orientation
@@ -218,7 +218,7 @@ public final class GridBagFormConstraints extends CellConstraints {
 
     /**
      * Translates an anchor and fill as used by the 
-     * <code>java.awt.GridBagConstraints</code> 
+     * {@code java.awt.GridBagConstraints} 
      * to the corresponding vertical alignment.
      * 
      * @param anchor        the component orientation

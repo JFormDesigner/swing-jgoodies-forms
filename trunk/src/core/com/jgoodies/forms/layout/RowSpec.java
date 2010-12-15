@@ -58,7 +58,7 @@ import java.util.Map;
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  *
  * @see     com.jgoodies.forms.factories.FormFactory
  */
@@ -109,7 +109,7 @@ public final class RowSpec extends FormSpec {
      * size, and resize weight.<p>
      *
      * The resize weight must be a non-negative double; you can use
-     * <code>NO_FILL</code> as a convenience value for no resize.
+     * {@code NO_FILL} as a convenience value for no resize.
      *
      * @param defaultAlignment  the row's default alignment
      * @param size              constant size, component size, or bounded size

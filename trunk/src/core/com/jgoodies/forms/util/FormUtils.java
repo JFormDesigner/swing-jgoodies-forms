@@ -41,7 +41,7 @@ import javax.swing.UIManager;
  * The class's API may change at any time.</strong>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  *
  * @since 1.2
  */
@@ -102,7 +102,7 @@ public final class FormUtils {
     /**
      * Holds the cached result of the Aqua l&amp;f check.
      * Is invalidated if a look&amp;feel change has been detected
-     * in <code>#ensureValidCache</code>.
+     * in {@code #ensureValidCache}.
      */
     private static Boolean cachedIsLafAqua;
 

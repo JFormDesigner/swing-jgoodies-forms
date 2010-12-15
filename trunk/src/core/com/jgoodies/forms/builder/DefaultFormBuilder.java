@@ -49,17 +49,17 @@ import com.jgoodies.forms.layout.RowSpec;
  * panel building steps: add a new row, add a label, proceed to the next
  * data column, then add a component.<p>
  *
- * The extra value lies in the <code>#append</code> methods that
+ * The extra value lies in the {@code #append} methods that
  * append gap rows and component rows if necessary and then add
  * the given components. They are built upon the superclass behavior
- * <code>#appendRow</code> and the set of <code>#add</code> methods.
+ * {@code #appendRow} and the set of {@code #add} methods.
  * A set of component appenders allows to add a textual label and
  * associated component in a single step.<p>
  *
  * This builder can map resource keys to internationalized (i15d) texts
  * when creating text labels, titles and titled separators. Therefore
- * you must specify a <code>ResourceBundle</code> in the constructor.
- * The builder methods throw an <code>IllegalStateException</code> if one
+ * you must specify a {@code ResourceBundle} in the constructor.
+ * The builder methods throw an {@code IllegalStateException} if one
  * of the mapping builder methods is invoked and no bundle has been set.<p>
  *
  * You can configure the build process by setting a leading column,
@@ -201,10 +201,10 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  * TODO: Consider adding a method for appending a component that spans the
  * remaining columns in the current row. Method name candidates are
- * <code>#appendFullSpan</code> and <code>#appendRemaining</code>.
+ * {@code #appendFullSpan} and {@code #appendRemaining}.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  * @since 1.0.3
  *
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
@@ -258,10 +258,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs a <code>DefaultFormBuilder</code> for the given
+     * Constructs a {@code DefaultFormBuilder} for the given
      * layout.
      *
-     * @param layout	the <code>FormLayout</code> to be used
+     * @param layout	the {@code FormLayout} to be used
      *
      * @throws NullPointerException if {@code layout} is {@code null}
      */
@@ -271,10 +271,10 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
 
     /**
-     * Constructs a <code>DefaultFormBuilder</code> for the given
+     * Constructs a {@code DefaultFormBuilder} for the given
      * layout and panel.
      *
-     * @param layout    the <code>FormLayout</code> to be used
+     * @param layout    the {@code FormLayout} to be used
      * @param container     the layout container
      *
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
@@ -285,11 +285,11 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
 
     /**
-     * Constructs a <code>DefaultFormBuilder</code> for the given
+     * Constructs a {@code DefaultFormBuilder} for the given
      * layout and resource bundle.
      *
-     * @param layout    the <code>FormLayout</code> to be used
-     * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
+     * @param layout    the {@code FormLayout} to be used
+     * @param bundle    the {@code ResourceBundle} used to lookup i15d
      * strings
      *
      * @throws NullPointerException if {@code layout} is {@code null}
@@ -300,12 +300,12 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
 
     /**
-     * Constructs a <code>DefaultFormBuilder</code> for the given
+     * Constructs a {@code DefaultFormBuilder} for the given
      * layout, resource bundle, and panel.
      *
-     * @param layout    the <code>FormLayout</code> to be used
+     * @param layout    the {@code FormLayout} to be used
      * @param container the layout container
-     * @param bundle    the <code>ResourceBundle</code> used to lookup i15d
+     * @param bundle    the {@code ResourceBundle} used to lookup i15d
      *     strings
      *
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
@@ -345,7 +345,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     /**
      * Returns the row specification that is used to separate component row.
      *
-     * @return the <code>RowSpec</code> that is used to separate component rows
+     * @return the {@code RowSpec} that is used to separate component rows
      */
     public RowSpec getLineGapSpec() {
         return lineGapSpec;
@@ -362,7 +362,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * builder.setLineGapSize(Sizes.pixel(1));
      * </pre>
      *
-     * @param lineGapSize   the <code>ConstantSize</code> that describes
+     * @param lineGapSize   the {@code ConstantSize} that describes
      *     the size of the gaps between component lines
      */
     public void setLineGapSize(ConstantSize lineGapSize) {
@@ -381,7 +381,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * builder.setParagraphGapSize(Sizes.pixel(42));
      * </pre>
      *
-     * @param paragraphGapSize   the <code>ConstantSize</code> that describes
+     * @param paragraphGapSize   the {@code ConstantSize} that describes
      *     the size of the gaps between paragraphs
      */
     public void setParagraphGapSize(ConstantSize paragraphGapSize) {
@@ -890,7 +890,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
      * Ensures that we have a gap row before the next component row.
-     * Checks if the current row is the given <code>RowSpec</code>
+     * Checks if the current row is the given {@code RowSpec}
      * and appends this row spec if necessary.
      *
      * @param gapRowSpec  the row specification to check for

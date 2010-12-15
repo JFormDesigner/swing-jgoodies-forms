@@ -63,7 +63,7 @@ public final class DefaultFormBuilder extends PanelBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the
+     * Constructs an instance of {@code DefaultFormBuilder} for the
      * layout as specified by major columns, minor columns, and label style.
      * 
      * @param majorColumns		the number of major columns
@@ -76,7 +76,7 @@ public final class DefaultFormBuilder extends PanelBuilder {
     }
     
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
+     * Constructs an instance of {@code DefaultFormBuilder} for the given
      * panel, and layout as specified by major columns, minor columns,
      * and label style.
      *
@@ -93,7 +93,7 @@ public final class DefaultFormBuilder extends PanelBuilder {
     }
     
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
+     * Constructs an instance of {@code DefaultFormBuilder} for the given
      * panel, and layout as specified by major columns, minor columns,
      * labeled and indented properties, and the minor column gap.
      *
@@ -118,7 +118,7 @@ public final class DefaultFormBuilder extends PanelBuilder {
     }
     
     /**
-     * Constructs an instance of <code>DefaultFormBuilder</code> for the given
+     * Constructs an instance of {@code DefaultFormBuilder} for the given
      * panel, layout, and label style.
      * 
      * @param panel		the layout container
@@ -335,7 +335,7 @@ public final class DefaultFormBuilder extends PanelBuilder {
     // Component Creation ***************************************************
     
     /**
-     * Creates and returns a decorated <code>JLabel</code>.
+     * Creates and returns a decorated {@code JLabel}.
      * 
      * @param text		the label's text
      */

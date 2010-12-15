@@ -85,7 +85,7 @@ import com.jgoodies.forms.factories.CC;
  * TODO: Rename the inset to offsets.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  *
  * @see CC
  */
@@ -148,7 +148,7 @@ public final class CellConstraints implements Cloneable, Serializable {
         { DEFAULT, FILL, LEFT, RIGHT, CENTER, TOP, BOTTOM };
 
     /**
-     * A reusable <code>Insets</code> object to reduce object instantiation.
+     * A reusable {@code Insets} object to reduce object instantiation.
      */
     private static final Insets EMPTY_INSETS =
         new Insets(0, 0, 0, 0);
@@ -187,7 +187,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     public Alignment vAlign;
 
     /**
-     * Describes the component's <code>Insets</code> in it's display area.
+     * Describes the component's {@code Insets} in it's display area.
      */
     public Insets insets;
 
@@ -206,7 +206,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs a default instance of <code>CellConstraints</code>.
+     * Constructs a default instance of {@code CellConstraints}.
      */
     public CellConstraints() {
         this(1, 1);
@@ -214,7 +214,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
 
     /**
-     * Constructs an instance of <code>CellConstraints</code> for the given
+     * Constructs an instance of {@code CellConstraints} for the given
      * cell position.<p>
      *
      * <strong>Examples:</strong><pre>
@@ -231,7 +231,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
 
     /**
-     * Constructs an instance of <code>CellConstraints</code> for the given
+     * Constructs an instance of {@code CellConstraints} for the given
      * cell position, anchor, and fill.<p>
      *
      * <strong>Examples:</strong><pre>
@@ -251,7 +251,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
 
     /**
-     * Constructs an instance of <code>CellConstraints</code> for the given
+     * Constructs an instance of {@code CellConstraints} for the given
      * cell position and size.<p>
      *
      * <strong>Examples:</strong><pre>
@@ -270,7 +270,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
 
     /**
-     * Constructs an instance of <code>CellConstraints</code> for the given
+     * Constructs an instance of {@code CellConstraints} for the given
      * cell position and size, anchor, and fill.<p>
      *
      * <strong>Examples:</strong><pre>
@@ -292,7 +292,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
 
     /**
-     * Constructs an instance of <code>CellConstraints</code> for
+     * Constructs an instance of {@code CellConstraints} for
      * the complete set of available properties.<p>
      *
      * <strong>Examples:</strong><pre>
@@ -306,7 +306,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param gridHeight	the component's vertical extent
      * @param hAlign		the component's horizontal alignment
      * @param vAlign		the component's vertical alignment
-     * @param insets		the component's display area <code>Insets</code>
+     * @param insets		the component's display area {@code Insets}
      * @throws IndexOutOfBoundsException if the grid origin or extent is negative
      * @throws NullPointerException if the horizontal or vertical alignment is null
      * @throws IllegalArgumentException if an alignment orientation is invalid
@@ -339,7 +339,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
 
     /**
-     * Constructs an instance of <code>CellConstraints</code> from
+     * Constructs an instance of {@code CellConstraints} from
      * the given encoded string properties.<p>
      *
      * <strong>Examples:</strong><pre>
@@ -862,9 +862,9 @@ public final class CellConstraints implements Cloneable, Serializable {
     /**
      * Decodes a string description for the horizontal and vertical alignment
      * and sets this CellConstraints' alignment values. If the boolean is
-     * <code>true</code> the horizontal alignment is the first token,
+     * {@code true} the horizontal alignment is the first token,
      * and the vertical alignment is the second token. if the boolean is
-     * <code>false</code> the vertical alignment comes first. <p>
+     * {@code false} the vertical alignment comes first. <p>
      *
      * Valid horizontal alignments are: left, middle, right, default, and fill.
      * Valid vertical alignments are: top, center, bottom, default, and fill.
@@ -910,7 +910,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * returns the corresponding alignment value.
      *
      * @param encodedAlignment	the encoded alignment
-     * @return the associated <code>Alignment</code> instance
+     * @return the associated {@code Alignment} instance
      */
     private Alignment decodeAlignment(String encodedAlignment) {
         return Alignment.valueOf(encodedAlignment);
@@ -1018,15 +1018,15 @@ public final class CellConstraints implements Cloneable, Serializable {
 
     /**
      * Computes and returns the concrete alignment. Takes into account
-     * the cell alignment and <i>the</i> <code>FormSpec</code> if applicable.<p>
+     * the cell alignment and <i>the</i> {@code FormSpec} if applicable.<p>
      *
      * If this constraints object doesn't belong to a single column or row,
-     * the <code>formSpec</code> parameter is <code>null</code>.
-     * In this case the cell alignment is answered, but <code>DEFAULT</code>
-     * is mapped to <code>FILL</code>.<p>
+     * the {@code formSpec} parameter is {@code null}.
+     * In this case the cell alignment is answered, but {@code DEFAULT}
+     * is mapped to {@code FILL}.<p>
      *
      * If the cell belongs to a single column or row, we use the cell
-     * alignment, unless it is <code>DEFAULT</code>, where the alignment
+     * alignment, unless it is {@code DEFAULT}, where the alignment
      * is inherited from the column or row resp.
      *
      * @param cellAlignment   this cell's alignment
@@ -1043,7 +1043,7 @@ public final class CellConstraints implements Cloneable, Serializable {
     /**
      * Returns the alignment used for a given form constraints object.
      * The cell alignment overrides the column or row default, unless
-     * it is <code>DEFAULT</code>. In the latter case, we use the
+     * it is {@code DEFAULT}. In the latter case, we use the
      * column or row alignment.
      *
      * @param cellAlignment   this cell constraint's alignment
@@ -1203,7 +1203,7 @@ public final class CellConstraints implements Cloneable, Serializable {
 
     /**
      * Returns a short string representation of this constraints object.
-     * This method can use the given <code>FormLayout</code>
+     * This method can use the given {@code FormLayout}
      * to display extra information how default alignments
      * are mapped to concrete alignments. Therefore it asks the
      * related column and row as specified by this constraints object.

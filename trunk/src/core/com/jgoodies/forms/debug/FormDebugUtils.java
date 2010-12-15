@@ -61,7 +61,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * </pre>
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  *
  * @see FormDebugPanel
  */
@@ -100,7 +100,7 @@ public final class FormDebugUtils {
     /**
      * Dumps the layout's column specifications to the console.
      *
-     * @param layout   the <code>FormLayout</code> to inspect
+     * @param layout   the {@code FormLayout} to inspect
      */
     public static void dumpColumnSpecs(FormLayout layout) {
         System.out.print("COLUMN SPECS:");
@@ -118,7 +118,7 @@ public final class FormDebugUtils {
     /**
      * Dumps the layout's row specifications to the console.
      *
-     * @param layout   the <code>FormLayout</code> to inspect
+     * @param layout   the {@code FormLayout} to inspect
      */
     public static void dumpRowSpecs(FormLayout layout) {
         System.out.print("ROW SPECS:   ");
@@ -136,7 +136,7 @@ public final class FormDebugUtils {
     /**
      * Dumps the layout's column groups to the console.
      *
-     * @param layout   the <code>FormLayout</code> to inspect
+     * @param layout   the {@code FormLayout} to inspect
      */
     public static void dumpColumnGroups(FormLayout layout) {
         dumpGroups("COLUMN GROUPS: ", layout.getColumnGroups());
@@ -146,7 +146,7 @@ public final class FormDebugUtils {
     /**
      * Dumps the layout's row groups to the console.
      *
-     * @param layout   the <code>FormLayout</code> to inspect
+     * @param layout   the {@code FormLayout} to inspect
      */
     public static void dumpRowGroups(FormLayout layout) {
         dumpGroups("ROW GROUPS:    ", layout.getRowGroups());
@@ -155,7 +155,7 @@ public final class FormDebugUtils {
 
     /**
      * Dumps the container's grid info to the console if and only
-     * if the container's layout is a <code>FormLayout</code>.
+     * if the container's layout is a {@code FormLayout}.
      *
      * @param container   the container to inspect
      * @throws IllegalArgumentException   if the layout is not FormLayout

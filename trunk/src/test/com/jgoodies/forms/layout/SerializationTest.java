@@ -42,10 +42,10 @@ import com.jgoodies.forms.factories.CC;
 
 /**
  * Tests the serialization and deserialization of instances of
- * <code>FormLayout</code> and <code>JPanel</code>.
+ * {@code FormLayout} and {@code JPanel}.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  *
  * @see java.io.Serializable
  */
@@ -80,7 +80,7 @@ public final class SerializationTest extends TestCase {
     /**
      * Tests the serialization of a panel that is laid out using
      * a FormLayout. The panel consists some sample components that in turn
-     * uses some sample <code>CellConstraints</code>.
+     * uses some sample {@code CellConstraints}.
      */
     public void testSerializePanel() {
         JPanel panel = createSamplePanel();
@@ -123,7 +123,7 @@ public final class SerializationTest extends TestCase {
     /**
      * Tests the deserialization of a panel that is laid out using
      * a FormLayout. The panel consists some sample components that in turn
-     * uses some sample <code>CellConstraints</code>.
+     * uses some sample {@code CellConstraints}.
      */
     public void testDeserializePanel() {
         JPanel panel = createSamplePanel();
@@ -169,8 +169,8 @@ public final class SerializationTest extends TestCase {
     // Helper Code *********************************************************
 
     /**
-     * Creates and returns a sample <code>FormLayout</code> instance
-     * that uses all prebuilt alignments and <code>Size</code> implementations
+     * Creates and returns a sample {@code FormLayout} instance
+     * that uses all prebuilt alignments and {@code Size} implementations
      * so we can test their serialization and deserialization.
      *
      * @return a sample layout
@@ -184,10 +184,10 @@ public final class SerializationTest extends TestCase {
 
     /**
      * Creates and returns a sample panel that uses the sample layout
-     * created by <code>#createSampleLayout</code>. Useful to test the
+     * created by {@code #createSampleLayout}. Useful to test the
      * FormLayout serialization in combination with a layout container
      * and some components managed by the FormLayout. Especially it tests
-     * the serialization of <code>CellConstraints</code> objects.
+     * the serialization of {@code CellConstraints} objects.
      *
      * @return a sample panel
      */
@@ -203,7 +203,7 @@ public final class SerializationTest extends TestCase {
 
 
     /**
-     * Lays out a container using the given <code>FormLayout</code>
+     * Lays out a container using the given {@code FormLayout}
      * and returns the layout info object.
      *
      * @param layout    the FormLayout used to lay out

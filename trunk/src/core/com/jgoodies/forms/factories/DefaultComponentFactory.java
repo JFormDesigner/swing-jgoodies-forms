@@ -48,15 +48,15 @@ import com.jgoodies.forms.util.FormUtils;
  * that creates UI components as required by the
  * {@link com.jgoodies.forms.builder.PanelBuilder}.<p>
  *
- * The texts used in methods <code>#createLabel(String)</code> and
- * <code>#createTitle(String)</code> can contain an optional mnemonic marker.
+ * The texts used in methods {@code #createLabel(String)} and
+ * {@code #createTitle(String)} can contain an optional mnemonic marker.
  * The mnemonic and mnemonic index are indicated by a single ampersand
  * (<tt>&amp;</tt>). For example <tt>&quot;&amp;Save&quot</tt>,
  * or <tt>&quot;Save&nbsp;&amp;as&quot</tt>. To use the ampersand itself
  * duplicate it, for example <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 public class DefaultComponentFactory implements ComponentFactory2 {
 
@@ -148,7 +148,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
 
     /**
      * Creates and returns a title label that uses the foreground color
-     * and font of a <code>TitledBorder</code>.<p>
+     * and font of a {@code TitledBorder}.<p>
      *
      * <pre>
      * createTitle("Name");       // No mnemonic
@@ -172,7 +172,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
     /**
      * Creates and returns a labeled separator with the label in the left-hand
      * side. Useful to separate paragraphs in a panel; often a better choice
-     * than a <code>TitledBorder</code>.<p>
+     * than a {@code TitledBorder}.<p>
      *
      * <pre>
      * createSeparator("Name");       // No mnemonic
@@ -193,7 +193,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
     /**
      * Creates and returns a labeled separator. Useful to separate
      * paragraphs in a panel, which is often a better choice than a
-     * <code>TitledBorder</code>.<p>
+     * {@code TitledBorder}.<p>
      *
      * <pre>
      * final int LEFT = SwingConstants.LEFT;
@@ -205,8 +205,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      *
      * @param textWithMnemonic  the label's text -
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
-     * @param alignment text alignment, one of <code>SwingConstants.LEFT</code>,
-     *     <code>SwingConstants.CENTER</code>, <code>SwingConstants.RIGHT</code>
+     * @param alignment text alignment, one of {@code SwingConstants.LEFT},
+     *     {@code SwingConstants.CENTER}, {@code SwingConstants.RIGHT}
      * @return a separator with title label
      */
     public JComponent createSeparator(String textWithMnemonic, int alignment) {
@@ -222,13 +222,13 @@ public class DefaultComponentFactory implements ComponentFactory2 {
     /**
      * Creates and returns a labeled separator. Useful to separate
      * paragraphs in a panel, which is often a better choice than a
-     * <code>TitledBorder</code>.<p>
+     * {@code TitledBorder}.<p>
      *
      * The label's position is determined by the label's horizontal alignment,
      * which must be one of:
-     * <code>SwingConstants.LEFT</code>,
-     * <code>SwingConstants.CENTER</code>,
-     * <code>SwingConstants.RIGHT</code>.<p>
+     * {@code SwingConstants.LEFT},
+     * {@code SwingConstants.CENTER},
+     * {@code SwingConstants.RIGHT}.<p>
      *
      * TODO: Since this method has been marked public in version 1.0.6,
      * we need to precisely describe the semantic of this method.<p>
@@ -239,11 +239,11 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      * @param label       the title label component
      * @return a separator with title label
      *
-     * @throws NullPointerException       if the label is <code>null</code>
+     * @throws NullPointerException       if the label is {@code null}
      * @throws IllegalArgumentException   if the label's horizontal alignment
-     *      is not one of: <code>SwingConstants.LEFT</code>,
-     *      <code>SwingConstants.CENTER</code>,
-     *      <code>SwingConstants.RIGHT</code>.
+     *      is not one of: {@code SwingConstants.LEFT},
+     *      {@code SwingConstants.CENTER},
+     *      {@code SwingConstants.RIGHT}.
      *
      * @since 1.0.6
      */
@@ -399,8 +399,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
 
         /**
          * TODO: For the Synth-based L&amp;f we should consider asking
-         * a <code>TitledBorder</code> instance for its font and color using
-         * <code>#getTitleFont</code> and <code>#getTitleColor</code> resp.
+         * a {@code TitledBorder} instance for its font and color using
+         * {@code #getTitleFont} and {@code #getTitleColor} resp.
          */
         @Override
         public void updateUI() {
@@ -479,7 +479,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
         /**
          * Computes and returns the minimum size dimensions
          * for the specified container. Forwards this request
-         * to <code>#preferredLayoutSize</code>.
+         * to {@code #preferredLayoutSize}.
          *
          * @param parent the component to be laid out
          * @return the container's minimum size.

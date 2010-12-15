@@ -38,19 +38,19 @@ import java.awt.Dimension;
  * with fixed minimum and preferred sizes.
  *
  * @author	Karsten Lentzsch
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public final class TestComponent extends Component {
 
     /**
      * Holds the component's minimum size that can be requested
-     * using <code>#getMinimumSize</code>.
+     * using {@code #getMinimumSize}.
      */
     private final Dimension minimumSize;
 
     /**
      * Holds the component's preferred size that can be requested
-     * using <code>#getPreferredSize</code>.
+     * using {@code #getPreferredSize}.
      */
     private final Dimension preferredSize;
 

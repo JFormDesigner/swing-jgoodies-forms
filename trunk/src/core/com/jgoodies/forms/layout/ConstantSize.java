@@ -41,7 +41,7 @@ import java.util.List;
  * An implementation of the {@link Size} interface that represents constant
  * sizes described by a value and unit, for example:
  * 10&nbsp;pixel, 15&nbsp;point or 4&nbsp;dialog units.
- * You can get instances of <code>ConstantSize</code> using
+ * You can get instances of {@code ConstantSize} using
  * the factory methods and constants in the {@link Sizes} class.
  * Logical constant sizes that vary with the current layout style
  * are delivered by the {@link com.jgoodies.forms.util.LayoutStyle} class.<p>
@@ -68,7 +68,7 @@ import java.util.List;
  * </pre>
  *
  * @author Karsten Lentzsch
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  *
  * @see	Size
  * @see	Sizes
@@ -269,12 +269,12 @@ public final class ConstantSize implements Size, Serializable {
 
     /**
      * Describes if this Size can be compressed, if container space gets scarce.
-     * Used by the FormLayout size computations in <code>#compressedSizes</code>
+     * Used by the FormLayout size computations in {@code #compressedSizes}
      * to check whether a column or row can be compressed or not.<p>
      *
      * ConstantSizes are incompressible.
      *
-     * @return <code>false</code>
+     * @return {@code false}
      *
      * @since 1.1
      */
@@ -289,8 +289,8 @@ public final class ConstantSize implements Size, Serializable {
      * Indicates whether some other ConstantSize is "equal to" this one.
      *
      * @param o   the Object with which to compare
-     * @return <code>true</code> if this object is the same as the obj
-     *     argument; <code>false</code> otherwise.
+     * @return {@code true} if this object is the same as the obj
+     *     argument; {@code false} otherwise.
      *
      * @see     java.lang.Object#hashCode()
      * @see     java.util.Hashtable
@@ -312,7 +312,7 @@ public final class ConstantSize implements Size, Serializable {
     /**
      * Returns a hash code value for the object. This method is
      * supported for the benefit of hashtables such as those provided by
-     * <code>java.util.Hashtable</code>.
+     * {@code java.util.Hashtable}.
      *
      * @return  a hash code value for this object.
      *
