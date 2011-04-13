@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2011 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -391,13 +391,14 @@ public abstract class AbstractI15dPanelBuilder extends PanelBuilder {
 
     /**
      * Looks up and returns the internationalized (i15d) string for the given
-     * resource key from the {@code ResourceMap}.
+     * resource key, for example from a {@code ResourceBundle} or
+     * {@code ResourceMap}.
      *
      * @param resourceKey  the key to look for in the resource map
      * @return the associated internationalized string, or the resource key
      *     itself in case of a missing resource
-     * @throws IllegalStateException  if no {@code ResourceBundle}
-     *     has been set
+     * @throws IllegalStateException  if the localization is not possible,
+     *     for example, because no {@code ResourceBundle} has been set
      */
     protected abstract String getI15dString(String resourceKey);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2010 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2011 JGoodies Karsten Lentzsch. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -213,7 +213,7 @@ public final class LayoutMap {
      *
      * @return the LayoutMap that is used, if no custom LayoutMap is provided
      */
-    public static LayoutMap getRoot() {
+    public synchronized static LayoutMap getRoot() {
         if (root == null) {
             root = createRoot();
         }
