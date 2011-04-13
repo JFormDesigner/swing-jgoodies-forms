@@ -3,11 +3,24 @@
                             Release Notes
                         
 
+BUG FIXES
+
+    o Fixed missing synchronization of the lazy LayoutMap creation.
+    
+---------------------------------------------------------------------------
+Find below the change history for older releases.
+
+
+                           JGoodies Forms
+                            Version 1.4.0
+                            Release Notes
+                        
+
 INTRODUCTION
 
     This version requires Java 5 and the new JGoodies Common library.
-    Make sure that you include jgoodies-common-1.1.1.jar in your
-    classpath when using this Forms version.
+    Make sure that you include jgoodies-common-1.1.1.jar or later 
+    in your classpath when using this Forms version.
     
    
 INCOMPATIBLE CHANGES
@@ -58,15 +71,6 @@ OTHER CHANGES
     o Moved tutorial sources and tutorial docs to the upcoming
       JGoodies Showcase application.
       
-      
-ROADMAP
-
-    Forms 2.0 
-    o API clarification and API extensions.
-    o Bug fixing - even if the fix affects the layout.
-    o Make DLU a general unit.
-    o Change the default unit conversion algorithm.
-    
 ---------------------------------------------------------------------------
 Find below the change history for older releases.
 

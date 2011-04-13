@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   $Id: build.xml,v 1.22 2010-01-11 22:47:40 karsten Exp $
+   $Id: build.xml,v 1.22 2010/01/11 22:47:40 karsten Exp $
 
    This is a build file for use with the Jakarta Ant build tool, see
    http://jakarta.apache.org/ant/index.html
