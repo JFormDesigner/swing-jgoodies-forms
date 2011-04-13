@@ -321,17 +321,15 @@ public class DefaultComponentFactory implements ComponentFactory2 {
 
 
         /**
-         * This class implements accessibility support for CommandLinks.
-         * In addition to the superclass behavior inherited from the JButton
-         * Accessibility, this class' accessible description falls back to the
-         * CommandLink's description.
+         * This class implements accessibility support for FormsLabels.
+         * Cuts off trailing colons from the accessible name - if any.
          */
         private final class AccessibleFormsLabel extends AccessibleJLabel {
 
             /**
              * Returns the accessible name of this label.
              * Unlike the superclass behavior, this implementation
-             * cuts of a trailing colon (':') - if any.
+             * cuts off a trailing colon (':') - if any.
              *
              * @return the label name
              *
