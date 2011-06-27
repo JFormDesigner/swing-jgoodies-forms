@@ -506,7 +506,7 @@ public final class LayoutMap {
     }
 
 
-    private String nextVariableName(String expression, int start) {
+    private static String nextVariableName(String expression, int start) {
         int length = expression.length();
         if (length <= start) {
             FormSpecParser.fail(expression, start, "Missing variable name after variable char '$'.");
@@ -547,7 +547,7 @@ public final class LayoutMap {
 
     // Helper Code ************************************************************
 
-    private String resolveColumnKey(String key) {
+    private static String resolveColumnKey(String key) {
         checkNotNull(key, "The column key must not be null.");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
         String defaultKey = COLUMN_ALIASES.get(lowercaseKey);
@@ -555,7 +555,7 @@ public final class LayoutMap {
     }
 
 
-    private String resolveRowKey(String key) {
+    private static String resolveRowKey(String key) {
         checkNotNull(key, "The row key must not be null.");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
         String defaultKey = ROW_ALIASES.get(lowercaseKey);
@@ -664,7 +664,7 @@ public final class LayoutMap {
     }
 
 
-    private void ensureLowerCase(String str) {
+    private static void ensureLowerCase(String str) {
         String lowerCase = str.toLowerCase(Locale.ENGLISH);
         if (!lowerCase.equals(str)) {
             throw new IllegalArgumentException(

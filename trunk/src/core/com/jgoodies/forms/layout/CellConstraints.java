@@ -896,7 +896,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param token		the encoded integer
      * @return the decoded Integer or null
      */
-    private Integer decodeInt(String token) {
+    private static Integer decodeInt(String token) {
         try {
             return Integer.decode(token);
         } catch (NumberFormatException e) {
@@ -912,7 +912,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param encodedAlignment	the encoded alignment
      * @return the associated {@code Alignment} instance
      */
-    private Alignment decodeAlignment(String encodedAlignment) {
+    private static Alignment decodeAlignment(String encodedAlignment) {
         return Alignment.valueOf(encodedAlignment);
     }
 
@@ -966,7 +966,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param verticalAlignment    the vertical alignment
      * @throws IllegalArgumentException if an alignment is invalid
      */
-    private void ensureValidOrientations(Alignment horizontalAlignment, Alignment verticalAlignment) {
+    private static void ensureValidOrientations(Alignment horizontalAlignment, Alignment verticalAlignment) {
         if (!horizontalAlignment.isHorizontal()) {
             throw new IllegalArgumentException("The horizontal alignment must be one of: left, center, right, fill, default.");
         }
@@ -1033,9 +1033,9 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param formSpec        the associated column or row specification
      * @return the concrete alignment
      */
-    private Alignment concreteAlignment(Alignment cellAlignment, FormSpec formSpec) {
+    private static Alignment concreteAlignment(Alignment cellAlignment, FormSpec formSpec) {
         return formSpec == null
-            ? (cellAlignment == DEFAULT ? FILL : cellAlignment)
+            ? cellAlignment == DEFAULT ? FILL : cellAlignment
             : usedAlignment(cellAlignment, formSpec);
     }
 
@@ -1050,7 +1050,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param formSpec        the associated column or row specification
      * @return the alignment used
      */
-    private Alignment usedAlignment(Alignment cellAlignment, FormSpec formSpec) {
+    private static Alignment usedAlignment(Alignment cellAlignment, FormSpec formSpec) {
         if (cellAlignment != CellConstraints.DEFAULT) {
             // Cell alignments other than DEFAULT override col/row alignments
             return cellAlignment;
@@ -1084,7 +1084,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param cellSize		the cell size
      * @return the component size as measured or a constant
      */
-    private int componentSize(Component component,
+    private static int componentSize(Component component,
                                FormSpec formSpec,
                                int cellSize,
                                FormLayout.Measure minMeasure,
@@ -1110,7 +1110,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param componentSize     the component's size
      * @return the component's pixel origin
      */
-    private int origin(Alignment alignment,
+    private static int origin(Alignment alignment,
                         int cellOrigin,
                         int cellSize,
                         int componentSize) {
@@ -1132,7 +1132,7 @@ public final class CellConstraints implements Cloneable, Serializable {
      * @param componentSize	the component's size
      * @return the component's pixel extent
      */
-    private int extent(Alignment alignment, int cellSize, int componentSize) {
+    private static int extent(Alignment alignment, int cellSize, int componentSize) {
         return alignment == FILL
                     ? cellSize
                     : componentSize;
@@ -1344,9 +1344,9 @@ public final class CellConstraints implements Cloneable, Serializable {
      * Returns an integer that has a minimum of two characters.
      *
      * @param number   the number to format
-     * @return a string representation for a number with a minum of two chars
+     * @return a string representation for a number with a minimum of two chars
      */
-	private String formatInt(int number) {
+	private static String formatInt(int number) {
         String str = Integer.toString(number);
         return number < 10 ? " " + str : str;
     }

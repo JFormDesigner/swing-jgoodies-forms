@@ -754,7 +754,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param remove			true for remove, false for add
      * @throws IllegalStateException if we remove and the index is grouped
      */
-    private void adjustGroupIndices(int[][] allGroupIndices,
+    private static void adjustGroupIndices(int[][] allGroupIndices,
                                      int modifiedIndex, boolean remove) {
         final int offset = remove ? -1 : +1;
         for (int[] allGroupIndice : allGroupIndices) {
@@ -1394,7 +1394,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param groupIndices		the group specification
      * @return an int array with the origins
      */
-    private int[] computeGridOrigins(Container container,
+    private static int[] computeGridOrigins(Container container,
                                       int totalSize, int offset,
                                       List formSpecs,
                                       List[] componentLists,
@@ -1436,7 +1436,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param offset    an offset for the first origin
      * @return an array of origins
      */
-    private int[] computeOrigins(int[] sizes, int offset) {
+    private static int[] computeOrigins(int[] sizes, int offset) {
         int count = sizes.length;
         int[] origins = new int[count + 1];
         origins[0] = offset;
@@ -1505,7 +1505,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param defaultMeasure    the measure used to determine default sizes
      * @return the column or row sizes
      */
-    private int[] maximumSizes(Container container,
+    private static int[] maximumSizes(Container container,
                                 List formSpecs,
                                 List[] componentLists,
                                 Measure minMeasure,
@@ -1543,7 +1543,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param prefSizes      an int array of column/row preferred sizes
      * @return an int array of compressed column/row sizes
      */
-    private int[] compressedSizes(List formSpecs,
+    private static int[] compressedSizes(List formSpecs,
                                  int totalSize, int totalMinSize, int totalPrefSize,
                                  int[] minSizes, int[] prefSizes) {
 
@@ -1587,7 +1587,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param rawSizes	the raw sizes before the grouping
      * @return the grouped sizes
      */
-    private int[] groupedSizes(int[][] groups, int[] rawSizes) {
+    private static int[] groupedSizes(int[][] groups, int[] rawSizes) {
         // Return the compressed sizes if there are no groups.
         if (groups == null || groups.length == 0) {
             return rawSizes;
@@ -1627,7 +1627,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param inputSizes     the input sizes
      * @return the distributed sizes
      */
-    private int[] distributedSizes(List formSpecs,
+    private static int[] distributedSizes(List formSpecs,
                                     int totalSize, int totalPrefSize,
                                     int[] inputSizes) {
         double totalFreeSpace = totalSize - totalPrefSize;
@@ -1696,7 +1696,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @return a table that maps a spec index to the maximum span for
      *    fixed size specs
      */
-    private int[] computeMaximumFixedSpanTable(List formSpecs) {
+    private static int[] computeMaximumFixedSpanTable(List formSpecs) {
         int size = formSpecs.size();
         int[] table = new int[size];
         int maximumFixedSpan = Integer.MAX_VALUE;        // Could be 1
@@ -2046,7 +2046,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @see Object#clone()
      */
-    private int[][] deepClone(int[][] array) {
+    private static int[][] deepClone(int[][] array) {
         int[][] result = new int[array.length][];
         for (int i = 0; i < result.length; i++) {
             result[i] = array[i].clone();

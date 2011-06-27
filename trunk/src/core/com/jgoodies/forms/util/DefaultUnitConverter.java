@@ -392,7 +392,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      *
      * @return the font used for a standard button
      */
-    private Font lookupDefaultDialogFont() {
+    private static Font lookupDefaultDialogFont() {
         Font buttonFont = UIManager.getFont("Button.font");
         return buttonFont != null
             ? buttonFont
@@ -411,7 +411,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      *
      * @return a component used to compute the default font metrics
      */
-    private Component createDefaultGlobalComponent() {
+    private static Component createDefaultGlobalComponent() {
         return new JPanel(null);
     }
 
