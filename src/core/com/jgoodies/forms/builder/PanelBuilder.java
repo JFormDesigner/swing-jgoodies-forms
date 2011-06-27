@@ -922,7 +922,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
 
-    private void checkConstraints(CellConstraints c1, CellConstraints c2) {
+    private static void checkConstraints(CellConstraints c1, CellConstraints c2) {
         checkArgument(c1 != c2,
                 "You must provide two CellConstraints instances, " +
                 "one for the label and one for the component.\n" +

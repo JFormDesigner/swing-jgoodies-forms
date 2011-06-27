@@ -372,7 +372,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
             setForeground(getDisabledForeground());
         }
 
-        private Color getDisabledForeground() {
+        private static Color getDisabledForeground() {
             Color foreground;
             for (String key : UIMANAGER_KEYS) {
                 foreground = UIManager.getColor(key);
@@ -410,7 +410,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
             setFont(getTitleFont());
         }
 
-        private Color getTitleColor() {
+        private static Color getTitleColor() {
             return UIManager.getColor("TitledBorder.titleColor");
         }
 
@@ -424,7 +424,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          *
          * @return the font used for title labels
          */
-        private Font getTitleFont() {
+        private static Font getTitleFont() {
             return FormUtils.isLafAqua()
             	? UIManager.getFont("Label.font").deriveFont(Font.BOLD)
                 : UIManager.getFont("TitledBorder.font");
@@ -565,7 +565,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
             }
         }
 
-        private JLabel getLabel(Container parent) {
+        private static JLabel getLabel(Container parent) {
             return (JLabel) parent.getComponent(0);
         }
 
