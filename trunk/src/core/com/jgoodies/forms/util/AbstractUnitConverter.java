@@ -161,7 +161,7 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param dpi   the resolution
      * @return the given Inches as pixels
      */
-    protected final int inchAsPixel(double in, int dpi) {
+    protected static final int inchAsPixel(double in, int dpi) {
         return (int) Math.round(dpi * in);
     }
 
@@ -173,7 +173,7 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param dpi   the resolution
      * @return the given Millimeters as pixels
      */
-    protected final int millimeterAsPixel(double mm, int dpi) {
+    protected static final int millimeterAsPixel(double mm, int dpi) {
         return (int) Math.round(dpi * mm * 10 / 254);
     }
 
@@ -185,7 +185,7 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param dpi   the resolution
      * @return the given Centimeters as pixels
      */
-    protected final int centimeterAsPixel(double cm, int dpi) {
+    protected static final int centimeterAsPixel(double cm, int dpi) {
         return (int) Math.round(dpi * cm * 100 / 254);
     }
 
@@ -197,7 +197,7 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param dpi   the resolution in dpi
      * @return the given Points as pixels
      */
-    protected final int pointAsPixel(int pt, int dpi) {
+    protected static final int pointAsPixel(int pt, int dpi) {
         return Math.round(dpi * pt / DTP_RESOLUTION);
     }
 
