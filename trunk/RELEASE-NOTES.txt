@@ -3,18 +3,25 @@
                             Release Notes
                         
 
+JGoodies Forms 1.4.2 ------------------------------------------------------
+
+OTHER CHANGES
+
+    o Declared methods as static where possible.
+    
+    
+JGoodies Forms 1.4.1 ------------------------------------------------------
+
 BUG FIXES
 
     o Fixed missing synchronization of the lazy LayoutMap creation.
     
----------------------------------------------------------------------------
-Find below the change history for older releases.
+OTHER CHANGES
 
-
-                           JGoodies Forms
-                            Version 1.4.0
-                            Release Notes
-                        
+    o Requires JGoodies Common 1.2.0
+    
+    
+JGoodies Forms 1.4.0 ------------------------------------------------------
 
 INTRODUCTION
 
