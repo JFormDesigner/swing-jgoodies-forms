@@ -49,7 +49,7 @@ public final class RowSpecTest extends TestCase {
      * Checks that the constructor rejects negative resize weights.
      */
     @SuppressWarnings("unused")
-    public void testRejectNegativeResizeWeight() {
+    public static void testRejectNegativeResizeWeight() {
         try {
             new RowSpec(RowSpec.DEFAULT, Sizes.DEFAULT, -1);
             fail("The RowSpec constructor should reject negative resize weights.");
@@ -64,7 +64,7 @@ public final class RowSpecTest extends TestCase {
     /**
      * Checks that the constructor rejects negative resize weights.
      */
-    public void testRejectParsedNegativeResizeWeight() {
+    public static void testRejectParsedNegativeResizeWeight() {
         try {
             RowSpec.decode("right:default:-1");
             fail("The RowSpec parser constructor should reject negative resize weights.");
@@ -79,7 +79,7 @@ public final class RowSpecTest extends TestCase {
     /**
      * Tests the RowSpec parser on valid encodings with different locales.
      */
-    public void testValidRowSpecEncodings() {
+    public static void testValidRowSpecEncodings() {
         testValidRowSpecEncodings(Locale.ENGLISH);
         testValidRowSpecEncodings(AllFormsTests.TURKISH);
     }
@@ -88,13 +88,13 @@ public final class RowSpecTest extends TestCase {
     /**
      * Tests that the RowSpec parser rejects invalid encodings for a given Locale.
      */
-    public void testRejectInvalidRowSpecEncodings() {
+    public static void testRejectInvalidRowSpecEncodings() {
         testRejectInvalidRowSpecEncodings(Locale.ENGLISH);
         testRejectInvalidRowSpecEncodings(AllFormsTests.TURKISH);
     }
 
 
-    public void testDefaultVariables() {
+    public static void testDefaultVariables() {
         assertEquals(
                 FormFactory.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("${related-gap}"));
@@ -147,7 +147,7 @@ public final class RowSpecTest extends TestCase {
     }
 
 
-    public void testCustomVariable() {
+    public static void testCustomVariable() {
         ConstantSize gapHeight = Sizes.DLUY21;
         RowSpec largeGap = RowSpec.createGap(gapHeight);
         LayoutMap layoutMap = new LayoutMap(null);
@@ -158,7 +158,7 @@ public final class RowSpecTest extends TestCase {
     }
 
 
-    public void testOverrideDefaultVariableWithDefaultName() {
+    public static void testOverrideDefaultVariableWithDefaultName() {
         ConstantSize gapHeight = Sizes.DLUY1;
         RowSpec lineSpec = RowSpec.createGap(gapHeight);
         LayoutMap layoutMap = new LayoutMap();
@@ -172,7 +172,7 @@ public final class RowSpecTest extends TestCase {
     }
 
 
-    public void testOverrideDefaultVariableWithAlias() {
+    public static void testOverrideDefaultVariableWithAlias() {
         ConstantSize gapHeight = Sizes.DLUY1;
         RowSpec lineSpec = RowSpec.createGap(gapHeight);
         LayoutMap layoutMap = new LayoutMap();
@@ -186,7 +186,7 @@ public final class RowSpecTest extends TestCase {
     }
 
 
-    public void testVariableExpression() {
+    public static void testVariableExpression() {
         RowSpec spec0 = new RowSpec(RowSpec.TOP_ALIGN, Sizes.PREFERRED, RowSpec.NO_GROW);
         RowSpec spec1 = RowSpec.createGap(Sizes.DLUY3);
         RowSpec spec2 = new RowSpec(Sizes.PREFERRED);
@@ -201,7 +201,7 @@ public final class RowSpecTest extends TestCase {
     }
 
 
-    public void testMissingColumnSpecVariable() {
+    public static void testMissingColumnSpecVariable() {
         String variable = "$rumpelstilzchen";
         try {
             RowSpec.decode(variable);
@@ -217,7 +217,7 @@ public final class RowSpecTest extends TestCase {
      *
      * @param locale    the Locale used while parsing the strings
      */
-    private void testValidRowSpecEncodings(Locale locale) {
+    private static void testValidRowSpecEncodings(Locale locale) {
         Locale oldDefault = Locale.getDefault();
         Locale.setDefault(locale);
         try {
@@ -308,7 +308,7 @@ public final class RowSpecTest extends TestCase {
      *
      * @param locale    the Locale used while parsing the strings
      */
-    private void testRejectInvalidRowSpecEncodings(Locale locale) {
+    private static void testRejectInvalidRowSpecEncodings(Locale locale) {
         Locale oldDefault = Locale.getDefault();
         Locale.setDefault(locale);
         try {
@@ -336,7 +336,7 @@ public final class RowSpecTest extends TestCase {
      * @param expected  the expected row spec object to be compared
      * @param actual    the actual row spec object to be compared
      */
-    private void assertEquals(RowSpec expected, RowSpec actual) {
+    private static void assertEquals(RowSpec expected, RowSpec actual) {
         if (!expected.getDefaultAlignment().equals(actual.getDefaultAlignment())) {
             fail("Alignment mismatch: expected=" + expected + "; actual=" + actual);
         }
@@ -348,7 +348,7 @@ public final class RowSpecTest extends TestCase {
         }
     }
 
-    private void assertEquals(RowSpec[] specs1, RowSpec[] specs2) {
+    private static void assertEquals(RowSpec[] specs1, RowSpec[] specs2) {
         if (specs1.length != specs2.length) {
             fail("Array size mismatch. specs1.length" + specs1.length + "; specs2.length=" + specs2.length);
         }
@@ -363,7 +363,7 @@ public final class RowSpecTest extends TestCase {
      *
      * @param encodedRowSpec  an encoded row spec
      */
-    private void assertRejects(String encodedRowSpec) {
+    private static void assertRejects(String encodedRowSpec) {
         try {
             RowSpec.decode(encodedRowSpec);
             fail("The parser should reject encoding:" + encodedRowSpec);

@@ -131,7 +131,7 @@ public final class PanelBuilderTest extends TestCase {
 
     // Helper Code ************************************************************
 
-    private PanelBuilder createBuilder() {
+    private static PanelBuilder createBuilder() {
         FormLayout layout = new FormLayout(
                 "p, $lcgap, p",
                 "10*(p, $lg), p");

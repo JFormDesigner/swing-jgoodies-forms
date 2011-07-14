@@ -57,7 +57,7 @@ public final class SerializationTest extends TestCase {
      * The layout contains no components and the layout algorithm has not
      * been performed.
      */
-    public void testSerializeConstructedLayout() {
+    public static void testSerializeConstructedLayout() {
         FormLayout layout = createSampleLayout();
         OutputStream out = new ByteArrayOutputStream();
         serialize(out, layout);
@@ -69,7 +69,7 @@ public final class SerializationTest extends TestCase {
      * a layout immediately after its construction.
      * The layout contains no components.
      */
-    public void testSerializeEmptyLayout() {
+    public static void testSerializeEmptyLayout() {
         FormLayout layout = createSampleLayout();
         doLayout(layout);
         OutputStream out = new ByteArrayOutputStream();
@@ -82,7 +82,7 @@ public final class SerializationTest extends TestCase {
      * a FormLayout. The panel consists some sample components that in turn
      * uses some sample {@code CellConstraints}.
      */
-    public void testSerializePanel() {
+    public static void testSerializePanel() {
         JPanel panel = createSamplePanel();
         OutputStream out = new ByteArrayOutputStream();
         serialize(out, panel);
@@ -94,7 +94,7 @@ public final class SerializationTest extends TestCase {
      * The layout contains no components and the layout algorithm has not
      * been performed.
      */
-    public void testDeserializeConstructedLayout() {
+    public static void testDeserializeConstructedLayout() {
         FormLayout layout = createSampleLayout();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         serialize(out, layout);
@@ -109,7 +109,7 @@ public final class SerializationTest extends TestCase {
      * a layout immediately after its construction.
      * The layout contains no components.
      */
-    public void testDeserializeEmptyLayout() {
+    public static void testDeserializeEmptyLayout() {
         FormLayout layout = createSampleLayout();
         doLayout(layout);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -125,7 +125,7 @@ public final class SerializationTest extends TestCase {
      * a FormLayout. The panel consists some sample components that in turn
      * uses some sample {@code CellConstraints}.
      */
-    public void testDeserializePanel() {
+    public static void testDeserializePanel() {
         JPanel panel = createSamplePanel();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         serialize(out, panel);
@@ -139,7 +139,7 @@ public final class SerializationTest extends TestCase {
      * Tests that the a layout can be computed with a deserialized
      * empty FormLayout.
      */
-    public void testLayoutDeserializedEmptyLayout() {
+    public static void testLayoutDeserializedEmptyLayout() {
         FormLayout layout = createSampleLayout();
         doLayout(layout);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -155,7 +155,7 @@ public final class SerializationTest extends TestCase {
      * Tests that the a panel can be laid out with a deserialized
      * FormLayout.
      */
-    public void testLayoutDeserializedPanel() {
+    public static void testLayoutDeserializedPanel() {
         JPanel panel = createSamplePanel();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         serialize(out, panel);
@@ -175,7 +175,7 @@ public final class SerializationTest extends TestCase {
      *
      * @return a sample layout
      */
-    private FormLayout createSampleLayout() {
+    private static FormLayout createSampleLayout() {
         return new FormLayout(
                 "l:1px, c:2dlu, r:3mm, f:m, p, d, max(p;3dlu), min(p;7px)",
                 "t:1px, c:2dlu, b:3mm, f:m, p, d, max(p;3dlu), min(p;7px)");
@@ -191,7 +191,7 @@ public final class SerializationTest extends TestCase {
      *
      * @return a sample panel
      */
-    private JPanel createSamplePanel() {
+    private static JPanel createSamplePanel() {
         JPanel panel = new JPanel(createSampleLayout());
         panel.add(new JLabel("Test1"),  CC.xy(1, 1, "l, t"));
         panel.add(new JButton("Test2"), CC.xy(2, 2, "c, c"));
@@ -209,7 +209,7 @@ public final class SerializationTest extends TestCase {
      * @param layout    the FormLayout used to lay out
      * @return the layout info after the container has been laid out
      */
-    private FormLayout.LayoutInfo doLayout(FormLayout layout) {
+    private static FormLayout.LayoutInfo doLayout(FormLayout layout) {
         JPanel panel = new JPanel(layout);
         panel.doLayout();
         FormLayout.LayoutInfo info = layout.getLayoutInfo(panel);
@@ -224,7 +224,7 @@ public final class SerializationTest extends TestCase {
      * @param out      the stream to write the serialized object
      * @param object   the object to be serialized
      */
-    private void serialize(OutputStream out, Object object) {
+    private static void serialize(OutputStream out, Object object) {
         ObjectOutputStream objectOut = null;
         try {
             objectOut = new ObjectOutputStream(out);
@@ -251,7 +251,7 @@ public final class SerializationTest extends TestCase {
      * @param in   the stream to read from
      * @return the deserialized object
      */
-    private Object deserialize(InputStream in) {
+    private static Object deserialize(InputStream in) {
         ObjectInputStream objectIn = null;
         try {
             objectIn = new ObjectInputStream(in);

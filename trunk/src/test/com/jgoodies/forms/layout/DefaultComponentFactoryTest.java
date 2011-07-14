@@ -44,20 +44,20 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  */
 public final class DefaultComponentFactoryTest extends TestCase {
 
-    public void testLabelWithoutColon() {
+    public static void testLabelWithoutColon() {
         testLabelAccessibleName("Label without colon",        "Name", "Name");
         testLabelAccessibleName("1 char label without colon", "A",    "A");
         testLabelAccessibleName("Empty label without colon",  "",     "");
     }
 
 
-    public void testLabelWithColon() {
+    public static void testLabelWithColon() {
         testLabelAccessibleName("Label without colon",      "Name:", "Name");
         testLabelAccessibleName("Empty label without colon", ":",    "");
     }
 
 
-    public void testLabelWithCustomAccessibleName() {
+    public static void testLabelWithCustomAccessibleName() {
         String text = "Name:";
         String accessibleName = "The name";
         JLabel label = DefaultComponentFactory.getInstance().createLabel(text);
@@ -68,7 +68,7 @@ public final class DefaultComponentFactoryTest extends TestCase {
     }
 
 
-    private void testLabelAccessibleName(
+    private static void testLabelAccessibleName(
             String description,
             String text,
             String expected) {
@@ -79,7 +79,7 @@ public final class DefaultComponentFactoryTest extends TestCase {
     }
 
 
-    private void testLabelAccessibleName(
+    private static void testLabelAccessibleName(
             String description,
             JLabel label,
             String expected) {

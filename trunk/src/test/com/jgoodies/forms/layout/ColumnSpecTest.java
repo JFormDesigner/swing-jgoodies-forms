@@ -49,7 +49,7 @@ public final class ColumnSpecTest extends TestCase {
      * Checks that the constructor rejects negative resize weights.
      */
     @SuppressWarnings("unused")
-    public void testRejectNegativeResizeWeight() {
+    public static void testRejectNegativeResizeWeight() {
         try {
             new ColumnSpec(ColumnSpec.DEFAULT, Sizes.DEFAULT, -1);
             fail("The ColumnSpec constructor should reject negative resize weights.");
@@ -64,7 +64,7 @@ public final class ColumnSpecTest extends TestCase {
     /**
      * Checks that the constructor rejects negative resize weights.
      */
-    public void testRejectParsedNegativeResizeWeight() {
+    public static void testRejectParsedNegativeResizeWeight() {
         try {
             ColumnSpec.decode("right:default:-1");
             fail("The ColumnSpec parser constructor should reject negative resize weights.");
@@ -79,7 +79,7 @@ public final class ColumnSpecTest extends TestCase {
     /**
      * Tests the ColumnSpec parser on valid encodings with different Locales.
      */
-    public void testValidColumnSpecEncodings() {
+    public static void testValidColumnSpecEncodings() {
         testValidColumnSpecEncodings(Locale.ENGLISH);
         testValidColumnSpecEncodings(AllFormsTests.TURKISH);
     }
@@ -89,13 +89,13 @@ public final class ColumnSpecTest extends TestCase {
      * Tests with different Locales that the ColumnSpec parser
      * rejects invalid encodings.
      */
-    public void testRejectInvalidColumnSpecEncodings() {
+    public static void testRejectInvalidColumnSpecEncodings() {
         testRejectInvalidColumnSpecEncodings(Locale.ENGLISH);
         testRejectInvalidColumnSpecEncodings(AllFormsTests.TURKISH);
     }
 
 
-    public void testDefaultVariables() {
+    public static void testDefaultVariables() {
         assertEquals(
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("${label-component-gap}"));
@@ -131,7 +131,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testCustomVariable() {
+    public static void testCustomVariable() {
         ColumnSpec labelColumnSpec = ColumnSpec.decode("left:[80dlu,pref]");
         LayoutMap layoutMap = new LayoutMap(null);
         layoutMap.columnPut("label", labelColumnSpec);
@@ -141,7 +141,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testOverrideDefaultVariableWithDefaultName() {
+    public static void testOverrideDefaultVariableWithDefaultName() {
         ConstantSize gapWidth = Sizes.DLUX1;
         ColumnSpec labelComponentColumnSpec = ColumnSpec.createGap(gapWidth);
         LayoutMap layoutMap = new LayoutMap();
@@ -155,7 +155,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testOverrideDefaultVariableWithAlias() {
+    public static void testOverrideDefaultVariableWithAlias() {
         ConstantSize gapWidth = Sizes.DLUX1;
         ColumnSpec labelComponentColumnSpec = ColumnSpec.createGap(gapWidth);
         LayoutMap layoutMap = new LayoutMap();
@@ -169,7 +169,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testVariableExpression() {
+    public static void testVariableExpression() {
         ColumnSpec spec0 = new ColumnSpec(ColumnSpec.LEFT_ALIGN, Sizes.PREFERRED, ColumnSpec.NO_GROW);
         ColumnSpec spec1 = ColumnSpec.createGap(Sizes.DLUX3);
         ColumnSpec spec2 = new ColumnSpec(Sizes.PREFERRED);
@@ -184,7 +184,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testPrototypeVariable() {
+    public static void testPrototypeVariable() {
         Size size = new PrototypeSize("123-456-789");
         ColumnSpec spec = new ColumnSpec(size);
         LayoutMap layoutMap = new LayoutMap();
@@ -193,7 +193,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testMissingVariable() {
+    public static void testMissingVariable() {
         String variable = "$rumpelstilzchen";
         try {
             ColumnSpec.decode(variable);
@@ -204,14 +204,14 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    public void testMultiplier()  {
+    public static void testMultiplier()  {
         ColumnSpec prefSpec = ColumnSpec.decode("pref");
         ColumnSpec[] specs = ColumnSpec.decodeSpecs("2*(pref)");
         assertEquals(prefSpec, 2, specs);
     }
 
 
-    public void testMultiplierWithBlanks() {
+    public static void testMultiplierWithBlanks() {
         ColumnSpec prefSpec = ColumnSpec.decode("pref");
         ColumnSpec[] specs = ColumnSpec.decodeSpecs("2* (pref)");
         assertEquals(prefSpec, 2, specs);
@@ -235,7 +235,7 @@ public final class ColumnSpecTest extends TestCase {
      *
      * @param locale    the Locale used while parsing the strings
      */
-    private void testValidColumnSpecEncodings(Locale locale) {
+    private static void testValidColumnSpecEncodings(Locale locale) {
         Locale oldDefault = Locale.getDefault();
         Locale.setDefault(locale);
         try {
@@ -353,7 +353,7 @@ public final class ColumnSpecTest extends TestCase {
      *
      * @param locale    the Locale used while parsing the strings
      */
-    private void testRejectInvalidColumnSpecEncodings(Locale locale) {
+    private static void testRejectInvalidColumnSpecEncodings(Locale locale) {
         Locale oldDefault = Locale.getDefault();
         Locale.setDefault(locale);
         try {
@@ -383,7 +383,7 @@ public final class ColumnSpecTest extends TestCase {
      * @param expected  the expected spec object to be compared
      * @param actual    the actual spec object to be compared
      */
-    private void assertEquals(ColumnSpec expected, ColumnSpec actual) {
+    private static void assertEquals(ColumnSpec expected, ColumnSpec actual) {
         if (!expected.getDefaultAlignment().equals(actual.getDefaultAlignment())) {
             fail("Alignment mismatch: expected=" + expected + "; actual=" + actual);
         }
@@ -396,7 +396,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    private void assertEquals(ColumnSpec[] specs1, ColumnSpec[] specs2) {
+    private static void assertEquals(ColumnSpec[] specs1, ColumnSpec[] specs2) {
         if (specs1.length != specs2.length) {
             fail("Array size mismatch. specs1.length" + specs1.length + "; specs2.length=" + specs2.length);
         }
@@ -406,7 +406,7 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
-    private void assertEquals(ColumnSpec expectedSpec, int expectedLength, ColumnSpec[] specs) {
+    private static void assertEquals(ColumnSpec expectedSpec, int expectedLength, ColumnSpec[] specs) {
         assertEquals("Multiplier", expectedLength, specs.length);
         for (int i = 0; i < specs.length; i++) {
             assertEquals("ColumnSpec[" + i + "]",
@@ -421,7 +421,7 @@ public final class ColumnSpecTest extends TestCase {
      *
      * @param invalidEncoding  the invalid encoded column spec
      */
-    private void assertRejects(String invalidEncoding) {
+    private static void assertRejects(String invalidEncoding) {
         try {
             ColumnSpec.decode(invalidEncoding);
             fail("The parser should reject the invalid encoding:" + invalidEncoding);
@@ -436,7 +436,7 @@ public final class ColumnSpecTest extends TestCase {
      *
      * @param invalidEncodings  the invalid encoded column specs
      */
-    private void assertRejectsSpecs(String invalidEncodings) {
+    private static void assertRejectsSpecs(String invalidEncodings) {
         try {
             ColumnSpec.decodeSpecs(invalidEncodings);
             fail("The parser should reject the invalid encodings:" + invalidEncodings);

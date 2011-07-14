@@ -156,7 +156,7 @@ public final class FormLayoutGroupsTest extends TestCase {
 
     // Helper Code *************************************************
 
-    private int[][] createAllGroups() {
+    private static int[][] createAllGroups() {
         int[] group1 = new int[]{1, 2};
         int[] group2 = new int[]{3, 4};
         return new int[][] {group1, group2};
@@ -168,7 +168,7 @@ public final class FormLayoutGroupsTest extends TestCase {
      * @param array2	a second two-dimensional array
      * @return true if both arrays are equal, false otherwise
      */
-    private boolean equals(int[][] array1, int[][] array2) {
+    private static boolean equals(int[][] array1, int[][] array2) {
         if (array1.length != array2.length) {
             return false;
         }
