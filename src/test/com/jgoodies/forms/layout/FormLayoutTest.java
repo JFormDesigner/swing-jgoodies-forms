@@ -49,7 +49,7 @@ public final class FormLayoutTest extends TestCase {
     /**
      * Checks basic layout functions.
      */
-    public void testBasic() {
+    public static void testBasic() {
         FormLayout layout = new FormLayout(
             "1px, 2px, 3px, 5px, 7px",
             "1px, 2px, 3px");
@@ -71,7 +71,7 @@ public final class FormLayoutTest extends TestCase {
     /**
      * Checks whether components are aligned according to the column specs.
      */
-    public void testHorizontalAlignments() {
+    public static void testHorizontalAlignments() {
         TestComponent left   = new TestComponent(2, 7, 4, 9);
         TestComponent center = new TestComponent(2, 7, 4, 9);
         TestComponent right  = new TestComponent(2, 7, 4, 9);
@@ -106,7 +106,7 @@ public final class FormLayoutTest extends TestCase {
     /**
      * Checks whether components are aligned according to the row specs.
      */
-    public void testVerticalAlignments() {
+    public static void testVerticalAlignments() {
         TestComponent top     = new TestComponent(7, 2, 9, 4);
         TestComponent center  = new TestComponent(7, 2, 9, 4);
         TestComponent bottom  = new TestComponent(7, 2, 9, 4);
@@ -141,7 +141,7 @@ public final class FormLayoutTest extends TestCase {
     /**
      * Tests bounded min and pref widths.
      */
-    public void testBoundedWidth() {
+    public static void testBoundedWidth() {
         TestComponent c1 = new TestComponent( 2, 7,  4, 9);
         TestComponent c2 = new TestComponent(20, 7, 40, 9);
         TestComponent c3 = new TestComponent( 2, 7,  4, 9);
@@ -182,7 +182,7 @@ public final class FormLayoutTest extends TestCase {
     /**
      * Tests bounded min and pref widths.
      */
-    public void testBoundedHeight() {
+    public static void testBoundedHeight() {
         TestComponent c1 = new TestComponent(7,  2, 9,  4);
         TestComponent c2 = new TestComponent(7, 20, 9, 40);
         TestComponent c3 = new TestComponent(7,  2, 9,  4);
@@ -227,7 +227,7 @@ public final class FormLayoutTest extends TestCase {
      * Checks and verifies that components that span multiple columns
      * do not expand the container of no column grows.
      */
-    public void testNoExtraExpansionIfAllColumnsAreFixed() {
+    public static void testNoExtraExpansionIfAllColumnsAreFixed() {
         TestComponent c1 = new TestComponent(10, 1, 50, 1);
         TestComponent c2 = new TestComponent(10, 1, 50, 1);
         TestComponent c3 = new TestComponent(10, 1, 50, 1);
@@ -259,7 +259,7 @@ public final class FormLayoutTest extends TestCase {
      * Checks and verifies that components that span multiple columns
      * do not expand the container of no column grows.
      */
-    public void testNoExtraExpansionIfSpannedColumnsAreFixed() {
+    public static void testNoExtraExpansionIfSpannedColumnsAreFixed() {
         TestComponent c1 = new TestComponent(10, 1, 50, 1);
         TestComponent c2 = new TestComponent(10, 1, 50, 1);
         TestComponent c3 = new TestComponent(10, 1, 50, 1);
@@ -291,7 +291,7 @@ public final class FormLayoutTest extends TestCase {
      * Checks and verifies that components that span multiple columns
      * do not expand the container of no column grows.
      */
-    public void testExtraExpansionIfSpannedColumnsGrow() {
+    public static void testExtraExpansionIfSpannedColumnsGrow() {
         TestComponent c1 = new TestComponent(10, 1, 50, 1);
         TestComponent c2 = new TestComponent(10, 1, 50, 1);
         TestComponent c3 = new TestComponent(10, 1, 50, 1);
@@ -323,7 +323,7 @@ public final class FormLayoutTest extends TestCase {
      * Checks and verifies that components that span multiple columns
      * and that expand the container are measured using the correct measure.
      */
-    public void testExtraExpansionHonorsCurrentMeasure() {
+    public static void testExtraExpansionHonorsCurrentMeasure() {
         TestComponent c1 = new TestComponent(10, 1, 50, 1);
         TestComponent c2 = new TestComponent(10, 1, 50, 1);
         TestComponent c3 = new TestComponent(10, 1, 50, 1);
@@ -349,7 +349,7 @@ public final class FormLayoutTest extends TestCase {
     /**
      * Tests the layout size, column and row sizes for a default specs.
      */
-    public void testDefaultSize() {
+    public static void testDefaultSize() {
         TestComponent c1 = new TestComponent(10, 10, 50, 50);
         FormLayout layout = new FormLayout(
                 "default",
@@ -385,7 +385,7 @@ public final class FormLayoutTest extends TestCase {
      * Tests the combination of a default size spec with a lower bound
      * that shall ensure a minimum size.
      */
-    public void testDefaultWithLowerBound() {
+    public static void testDefaultWithLowerBound() {
         TestComponent c1 = new TestComponent(10, 10, 50, 50);
         FormLayout layout = new FormLayout(
                 "[20px,default]",
@@ -422,7 +422,7 @@ public final class FormLayoutTest extends TestCase {
      * Tests the combination of a default size spec with an upper bound
      * that shall ensure a maximum size.
      */
-    public void testDefaultWithUpperBound() {
+    public static void testDefaultWithUpperBound() {
         TestComponent c1 = new TestComponent(10, 10, 50, 50);
         FormLayout layout = new FormLayout(
                 "[default,20px]",
@@ -462,13 +462,13 @@ public final class FormLayoutTest extends TestCase {
      * to their visibility, the container wide FormLayout setting,
      * and the cell setting.
      */
-    public void testVisibility() {
+    public static void testVisibility() {
         testVisibility(true);
         testVisibility(false);
     }
 
 
-    public void testVisibility(boolean containerHonorsVisibility) {
+    public static void testVisibility(boolean containerHonorsVisibility) {
         TestComponent visible   = new TestComponent(10, 10, 10, 10);
         TestComponent invisible = new TestComponent(10, 10, 10, 10);
         invisible.setVisible(false);
@@ -510,4 +510,6 @@ public final class FormLayoutTest extends TestCase {
         assertEquals("Row 3",     origin3, info.rowOrigins[3]);
         assertEquals("Row 4",     origin4, info.rowOrigins[4]);
     }
+
+
 }

@@ -48,7 +48,7 @@ public final class BordersTest extends TestCase {
     /**
      * Checks that the constructor rejects negative resize weights.
      */
-    public void testValidEncodings() {
+    public static void testValidEncodings() {
         assertInsetsEquals(
                 Borders.DLU14_BORDER,
                 Borders.createEmptyBorder("14dlu, 14dlu, 14dlu, 14dlu"));
@@ -70,7 +70,7 @@ public final class BordersTest extends TestCase {
      * @param expected the expected constraints object to be compared
      * @param actual   the actual constraints object to be compared
      */
-    private void assertInsetsEquals(Border expected, Border actual) {
+    private static void assertInsetsEquals(Border expected, Border actual) {
         assertEquals(expected.getBorderInsets(null), actual.getBorderInsets(null));
     }
 

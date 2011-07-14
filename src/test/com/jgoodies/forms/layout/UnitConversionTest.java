@@ -51,7 +51,7 @@ public final class UnitConversionTest extends TestCase {
      * Checks that users can set a custom font for use in
      * the DefaultUnitConverter.
      */
-    public void testSetDefaultDialogFont() {
+    public static void testSetDefaultDialogFont() {
         DefaultUnitConverter duc = DefaultUnitConverter.getInstance();
         Font customFont = new Font("Serif", Font.PLAIN, 16);
         duc.setDefaultDialogFont(customFont);
@@ -62,7 +62,7 @@ public final class UnitConversionTest extends TestCase {
      * Checks that users can set a custom string for testing
      * the average character width in the DefaultUnitConverter.
      */
-    public void testSetAverageCharacterWidthTestString() {
+    public static void testSetAverageCharacterWidthTestString() {
         DefaultUnitConverter duc = DefaultUnitConverter.getInstance();
         String customString = "Einen Vorsprung im Leben hat, " +
                               "wer da anpackt, " +
@@ -75,7 +75,7 @@ public final class UnitConversionTest extends TestCase {
      * Checks that a size with a value of 0 map to 0 px regardless
      * which unit has been specified.
      */
-    public void testZeroSizesMapToZeroPixels() {
+    public static void testZeroSizesMapToZeroPixels() {
         Component component = new JLabel();
         assertEquals("Centimeter to pixel", 0, Sizes.centimeterAsPixel(0.0d, component));
         assertEquals("DluX to pixel",       0, Sizes.dialogUnitXAsPixel(0, component));

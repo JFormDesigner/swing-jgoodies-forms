@@ -45,7 +45,7 @@ public final class CellConstraintsTest extends TestCase {
     /**
      * Checks that the constructor rejects non-positive origin and extent.
      */
-    public void testRejectNonPositiveOriginAndExtent() {
+    public static void testRejectNonPositiveOriginAndExtent() {
         assertRejects( 0,  1,  1,  1);
         assertRejects(-1,  1,  1,  1);
         assertRejects( 1,  0,  1,  1);
@@ -61,7 +61,7 @@ public final class CellConstraintsTest extends TestCase {
      * Tests that the CellConstraints parser rejects invalid alignments.
      */
     @SuppressWarnings("unused")
-    public void testRejectInvalidCellConstraintsAlignments() {
+    public static void testRejectInvalidCellConstraintsAlignments() {
         try {
             new CellConstraints(1, 1, CellConstraints.BOTTOM, CellConstraints.CENTER);
             fail("The CellConstraints constructor should reject invalid orientations.");
@@ -101,7 +101,7 @@ public final class CellConstraintsTest extends TestCase {
     /**
      * Tests the CellConstraints parser on valid encodings with different locales.
      */
-    public void testValidEncodings() {
+    public static void testValidEncodings() {
         testValidEncodings(Locale.ENGLISH);
         testValidEncodings(AllFormsTests.TURKISH);
     }
@@ -111,7 +111,7 @@ public final class CellConstraintsTest extends TestCase {
      * Tests with different locales that the CellConstraints parser
      * rejects invalid encodings.
      */
-    public void testRejectInvalidCellConstraintsEncodings() {
+    public static void testRejectInvalidCellConstraintsEncodings() {
         testRejectInvalidCellConstraintsEncodings(Locale.ENGLISH);
         testRejectInvalidCellConstraintsEncodings(AllFormsTests.TURKISH);
     }
@@ -122,7 +122,7 @@ public final class CellConstraintsTest extends TestCase {
      *
      * @param locale    the Locale used while parsing the strings
      */
-    private void testValidEncodings(Locale locale) {
+    private static void testValidEncodings(Locale locale) {
         Locale oldDefault = Locale.getDefault();
         Locale.setDefault(locale);
         try {
@@ -159,7 +159,7 @@ public final class CellConstraintsTest extends TestCase {
      *
      * @param locale    the Locale used while parsing the strings
      */
-    private void testRejectInvalidCellConstraintsEncodings(Locale locale) {
+    private static void testRejectInvalidCellConstraintsEncodings(Locale locale) {
         Locale oldDefault = Locale.getDefault();
         Locale.setDefault(locale);
         try {
@@ -189,7 +189,7 @@ public final class CellConstraintsTest extends TestCase {
      * @param invalidEncoding   the encoding that should be rejected
      */
     @SuppressWarnings("unused")
-    private void assertRejects(String invalidEncoding) {
+    private static void assertRejects(String invalidEncoding) {
         try {
             new CellConstraints(invalidEncoding);
             fail("The parser should reject the invalid encoding: " + invalidEncoding);
@@ -215,7 +215,7 @@ public final class CellConstraintsTest extends TestCase {
      * @param gridHeight the row span
      */
     @SuppressWarnings("unused")
-    private void assertRejects(int gridX, int gridY,
+    private static void assertRejects(int gridX, int gridY,
                                int gridWidth, int gridHeight) {
         try {
             new CellConstraints(gridX, gridY, gridWidth, gridHeight);
@@ -235,7 +235,7 @@ public final class CellConstraintsTest extends TestCase {
      * @param expected the expected constraints object to be compared
      * @param actual   the actual constraints object to be compared
      */
-    private void assertEquals(CellConstraints expected, CellConstraints actual) {
+    private static void assertEquals(CellConstraints expected, CellConstraints actual) {
         if (   expected.gridX != actual.gridX
             || expected.gridY != actual.gridY
             || expected.gridWidth != actual.gridWidth

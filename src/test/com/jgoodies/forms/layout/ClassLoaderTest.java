@@ -75,7 +75,7 @@ public final class ClassLoaderTest extends TestCase{
     }
 
 
-    private void staticAccess(Class classVersion, String methodName)
+    private static void staticAccess(Class classVersion, String methodName)
         throws IllegalAccessException, SecurityException, NoSuchMethodException,
                IllegalArgumentException, InvocationTargetException {
         Method method = classVersion.getMethod(methodName, (Class[]) null);
