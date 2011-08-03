@@ -126,7 +126,8 @@
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.core" />
+			classpathref ="classpath.core" 
+			includeAntRuntime="false" />
 	</target>
 	
     <!-- ***************************************************************** -->
@@ -147,7 +148,8 @@
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.extras" />
+			classpathref ="classpath.extras" 
+			includeAntRuntime="false" />
 	</target>
 	
     <!-- ***************************************************************** -->
@@ -169,7 +171,8 @@
             target       ="${build.compile.target}"
             verbose      ="${build.compile.verbose}"
             bootclasspath="${build.boot.classpath}"
-            classpathref ="classpath.tests" />
+            classpathref ="classpath.tests" 
+			includeAntRuntime="false" />
     </target>   
     
 	
