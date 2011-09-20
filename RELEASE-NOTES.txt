@@ -3,6 +3,13 @@
                             Release Notes
                         
 
+JGoodies Forms 1.4.3 ------------------------------------------------------
+
+OTHER CHANGES
+
+    o Minor implementation improvements.
+    
+    
 JGoodies Forms 1.4.2 ------------------------------------------------------
 
 OTHER CHANGES

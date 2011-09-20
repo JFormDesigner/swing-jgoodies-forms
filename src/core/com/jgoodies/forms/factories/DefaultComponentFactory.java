@@ -254,8 +254,7 @@ public class DefaultComponentFactory implements ComponentFactory2 {
                 horizontalAlignment == SwingConstants.LEFT
              || horizontalAlignment == SwingConstants.CENTER
              || horizontalAlignment == SwingConstants.RIGHT,
-            "The label's horizontal alignment must be one of: " +
-            "LEFT, CENTER, RIGHT.");
+            "The label's horizontal alignment must be one of: LEFT, CENTER, RIGHT.");
         JPanel panel = new JPanel(new TitledSeparatorLayout(!FormUtils.isLafAqua()));
         panel.setOpaque(false);
         panel.add(label);
