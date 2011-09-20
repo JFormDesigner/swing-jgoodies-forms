@@ -204,8 +204,7 @@ public final class Borders {
         String[] token = encodedSizes.split("\\s*,\\s*");
         int tokenCount = token.length;
         checkArgument(token.length == 4,
-                "The border requires 4 sizes, but \"" + encodedSizes +
-                "\" has " + tokenCount + ".");
+                "The border requires 4 sizes, but \"%s\" has %d.", encodedSizes, Integer.valueOf(tokenCount));
         ConstantSize top    = Sizes.constant(token[0], false);
         ConstantSize left   = Sizes.constant(token[1], true);
         ConstantSize bottom = Sizes.constant(token[2], false);

@@ -157,7 +157,7 @@ public final class ConstantSize implements Size, Serializable {
         double value = Double.parseDouble(encodedValue);
         if (unit.requiresIntegers) {
             checkArgument(value == (int) value,
-                    unit.toString() + " value " + encodedValue + " must be an integer.");
+                    "%s value %s must be an integer.", unit, encodedValue);
         }
         return new ConstantSize(value, unit);
     }
