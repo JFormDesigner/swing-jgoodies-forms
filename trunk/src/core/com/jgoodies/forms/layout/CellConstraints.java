@@ -971,7 +971,7 @@ public final class CellConstraints implements Cloneable, Serializable {
             throw new IllegalArgumentException("The horizontal alignment must be one of: left, center, right, fill, default.");
         }
         if (!verticalAlignment.isVertical()) {
-            throw new IllegalArgumentException("The vertical alignment must be one of: top, center, botto, fill, default.");
+            throw new IllegalArgumentException("The vertical alignment must be one of: top, center, bottom, fill, default.");
         }
     }
 
