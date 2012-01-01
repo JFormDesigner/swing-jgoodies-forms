@@ -32,10 +32,24 @@ package com.jgoodies.forms.factories;
 
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Insets;
+import java.awt.LayoutManager;
 
 import javax.accessibility.AccessibleContext;
-import javax.swing.*;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import com.jgoodies.common.base.Preconditions;
 import com.jgoodies.common.base.Strings;
@@ -95,7 +109,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an label with optional mnemonic
      */
-    public JLabel createLabel(String textWithMnemonic) {
+    @Override
+	public JLabel createLabel(String textWithMnemonic) {
         JLabel label = new FormsLabel();
         MnemonicUtils.configure(label, textWithMnemonic);
         return label;
@@ -122,7 +137,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      *
      * @since 1.3
      */
-    public JLabel createReadOnlyLabel(String textWithMnemonic) {
+    @Override
+	public JLabel createReadOnlyLabel(String textWithMnemonic) {
         JLabel label = new ReadOnlyLabel();
         MnemonicUtils.configure(label, textWithMnemonic);
         return label;
@@ -141,7 +157,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      *
      * @since 1.4
      */
-    public JButton createButton(Action action) {
+    @Override
+	public JButton createButton(Action action) {
         return new JButton(action);
     }
 
@@ -161,7 +178,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return an emphasized title label
      */
-    public JLabel createTitle(String textWithMnemonic) {
+    @Override
+	public JLabel createTitle(String textWithMnemonic) {
         JLabel label = new TitleLabel();
         MnemonicUtils.configure(label, textWithMnemonic);
         label.setVerticalAlignment(SwingConstants.CENTER);
@@ -209,7 +227,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      *     {@code SwingConstants.CENTER}, {@code SwingConstants.RIGHT}
      * @return a separator with title label
      */
-    public JComponent createSeparator(String textWithMnemonic, int alignment) {
+    @Override
+	public JComponent createSeparator(String textWithMnemonic, int alignment) {
         if (Strings.isBlank(textWithMnemonic)) {
             return new JSeparator();
         }
@@ -263,31 +282,6 @@ public class DefaultComponentFactory implements ComponentFactory2 {
             panel.add(new JSeparator());
         }
         return panel;
-    }
-
-
-    // Helper Code ***********************************************************
-
-    /**
-     * Sets the text of the given label and optionally a mnemonic.
-     * The given text may contain an ampersand (<tt>&amp;</tt>)
-     * to mark a mnemonic and its position. Such a marker indicates
-     * that the character that follows the ampersand shall be the mnemonic.
-     * If you want to use the ampersand itself duplicate it, for example
-     * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.
-     *
-     * @param label             the label that gets a mnemonic
-     * @param textWithMnemonic  the text with optional mnemonic marker
-     *
-     * @since 1.2
-     *
-     * @deprecated Replaced by {@link MnemonicUtils#configure(JLabel, String)}.
-     */
-    @Deprecated
-    public static void setTextAndMnemonic(
-        JLabel label,
-        String textWithMnemonic) {
-        MnemonicUtils.configure(label, textWithMnemonic);
     }
 
 
@@ -458,7 +452,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          * @param name the string to be associated with the component
          * @param comp the component to be added
          */
-        public void addLayoutComponent(String name, Component comp) {
+        @Override
+		public void addLayoutComponent(String name, Component comp) {
             // Does nothing.
         }
 
@@ -469,7 +464,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          *
          * @param comp the component to be removed
          */
-        public void removeLayoutComponent(Component comp) {
+        @Override
+		public void removeLayoutComponent(Component comp) {
             // Does nothing.
         }
 
@@ -482,7 +478,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          * @return the container's minimum size.
          * @see #preferredLayoutSize(Container)
          */
-        public Dimension minimumLayoutSize(Container parent) {
+        @Override
+		public Dimension minimumLayoutSize(Container parent) {
             return preferredLayoutSize(parent);
         }
 
@@ -495,7 +492,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          * @return the container's preferred size.
          * @see #minimumLayoutSize(Container)
          */
-        public Dimension preferredLayoutSize(Container parent) {
+        @Override
+		public Dimension preferredLayoutSize(Container parent) {
             Component label = getLabel(parent);
             Dimension labelSize = label.getPreferredSize();
             Insets insets = parent.getInsets();
@@ -509,7 +507,8 @@ public class DefaultComponentFactory implements ComponentFactory2 {
          *
          * @param parent the container to be laid out
          */
-        public void layoutContainer(Container parent) {
+        @Override
+		public void layoutContainer(Container parent) {
             synchronized (parent.getTreeLock()) {
                 // Look up the parent size and insets
                 Dimension size = parent.getSize();
@@ -534,14 +533,14 @@ public class DefaultComponentFactory implements ComponentFactory2 {
 
                 int alignment = label.getHorizontalAlignment();
                 int y = insets.top;
-                if (alignment == JLabel.LEFT) {
+                if (alignment == SwingConstants.LEFT) {
                     int x = insets.left;
                     label.setBounds(x, y, labelWidth, labelHeight);
                     x+= labelWidth;
                     x+= hGap;
                     int separatorWidth = size.width - insets.right - x;
                     separator1.setBounds(x, y + vOffset, separatorWidth, separatorHeight);
-                } else if (alignment == JLabel.RIGHT) {
+                } else if (alignment == SwingConstants.RIGHT) {
                     int x = insets.left + width - labelWidth;
                     label.setBounds(x, y, labelWidth, labelHeight);
                     x -= hGap;
