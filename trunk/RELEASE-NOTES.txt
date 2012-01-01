@@ -3,10 +3,14 @@
                             Release Notes
                         
 
-JGoodies Forms 1.4.3 ------------------------------------------------------
+JGoodies Forms 1.5.0 ------------------------------------------------------
 
-OTHER CHANGES
-
+    o Requires Java 6 and JGoodies Common 1.3.
+    o Generified several members.
+    o Removed the deprecated ButtonBarBuilder that has been replaced
+      by the ButtonBarBuilder2 before.
+    o Removed DefaultComponentFactory#setTextAndMnemonic that has been
+      marked as deprecated and replaced by MnemonicUtils#configure before.
     o Minor implementation improvements.
     
     
