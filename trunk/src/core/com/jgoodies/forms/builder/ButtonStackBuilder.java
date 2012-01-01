@@ -40,6 +40,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 /**
@@ -222,7 +223,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
     public void addStrut(ConstantSize size) {
         getLayout().appendRow(new RowSpec(RowSpec.TOP,
                                           size,
-                                          RowSpec.NO_GROW));
+                                          FormSpec.NO_GROW));
         nextRow();
     }
 
