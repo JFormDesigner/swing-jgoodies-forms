@@ -187,7 +187,7 @@ public final class RowSpecTest extends TestCase {
 
 
     public static void testVariableExpression() {
-        RowSpec spec0 = new RowSpec(RowSpec.TOP_ALIGN, Sizes.PREFERRED, RowSpec.NO_GROW);
+        RowSpec spec0 = new RowSpec(FormSpec.TOP_ALIGN, Sizes.PREFERRED, FormSpec.NO_GROW);
         RowSpec spec1 = RowSpec.createGap(Sizes.DLUY3);
         RowSpec spec2 = new RowSpec(Sizes.PREFERRED);
         LayoutMap layoutMap = new LayoutMap();

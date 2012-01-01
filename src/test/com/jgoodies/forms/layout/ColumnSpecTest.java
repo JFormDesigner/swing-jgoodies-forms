@@ -170,7 +170,7 @@ public final class ColumnSpecTest extends TestCase {
 
 
     public static void testVariableExpression() {
-        ColumnSpec spec0 = new ColumnSpec(ColumnSpec.LEFT_ALIGN, Sizes.PREFERRED, ColumnSpec.NO_GROW);
+        ColumnSpec spec0 = new ColumnSpec(FormSpec.LEFT_ALIGN, Sizes.PREFERRED, FormSpec.NO_GROW);
         ColumnSpec spec1 = ColumnSpec.createGap(Sizes.DLUX3);
         ColumnSpec spec2 = new ColumnSpec(Sizes.PREFERRED);
         LayoutMap layoutMap = new LayoutMap();
