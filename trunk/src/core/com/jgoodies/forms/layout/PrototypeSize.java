@@ -111,7 +111,8 @@ public final class PrototypeSize implements Size, Serializable {
      *    computed by the {@code container}'s FontMetrics for the
      *    {@code DefaultUnitConverter}'s default dialog font
      */
-    public int maximumSize(Container container,
+    @Override
+	public int maximumSize(Container container,
                     List components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
@@ -131,7 +132,8 @@ public final class PrototypeSize implements Size, Serializable {
      *
      * @return {@code false}
      */
-    public boolean compressible() {
+    @Override
+	public boolean compressible() {
         return false;
     }
 
@@ -141,7 +143,8 @@ public final class PrototypeSize implements Size, Serializable {
      *
      * @return a String that can be parsed by the Forms parser
      */
-    public String encode() {
+    @Override
+	public String encode() {
         return "'" + prototype + "'";
     }
 

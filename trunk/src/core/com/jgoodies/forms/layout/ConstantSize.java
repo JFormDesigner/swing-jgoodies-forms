@@ -258,7 +258,8 @@ public final class ConstantSize implements Size, Serializable {
      * @param defaultMeasure  the measure that determines the default sizes
      * @return the computed maximum size in pixel
      */
-    public int maximumSize(Container container,
+    @Override
+	public int maximumSize(Container container,
                     List components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
@@ -278,7 +279,8 @@ public final class ConstantSize implements Size, Serializable {
      *
      * @since 1.1
      */
-    public boolean compressible() {
+    @Override
+	public boolean compressible() {
         return false;
     }
 
@@ -349,7 +351,8 @@ public final class ConstantSize implements Size, Serializable {
      *
      * @since 1.2
      */
-    public String encode() {
+    @Override
+	public String encode() {
         return value == intValue()
             ? Integer.toString(intValue()) + unit.encode()
             : Double.toString(value) + unit.encode();
