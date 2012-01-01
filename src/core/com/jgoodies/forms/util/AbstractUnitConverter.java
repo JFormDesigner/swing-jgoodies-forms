@@ -59,7 +59,8 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param component  the component that provides the graphics object
      * @return the given Inches as pixels
      */
-    public int inchAsPixel(double in, Component component) {
+    @Override
+	public int inchAsPixel(double in, Component component) {
         return inchAsPixel(in, getScreenResolution(component));
     }
 
@@ -72,7 +73,8 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param component    the component that provides the graphics object
      * @return the given Millimeters as pixels
      */
-    public int millimeterAsPixel(double mm, Component component) {
+    @Override
+	public int millimeterAsPixel(double mm, Component component) {
         return millimeterAsPixel(mm, getScreenResolution(component));
     }
 
@@ -85,7 +87,8 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param component    the component that provides the graphics object
      * @return the given Centimeters as pixels
      */
-    public int centimeterAsPixel(double cm, Component component) {
+    @Override
+	public int centimeterAsPixel(double cm, Component component) {
         return centimeterAsPixel(cm, getScreenResolution(component));
     }
 
@@ -98,7 +101,8 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param component    the component that provides the graphics object
      * @return the given Points as pixels
      */
-    public int pointAsPixel(int pt, Component component) {
+    @Override
+	public int pointAsPixel(int pt, Component component) {
         return pointAsPixel(pt, getScreenResolution(component));
     }
 
@@ -110,7 +114,8 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param c 	a Component that provides the font and graphics
      * @return the given horizontal dialog units as pixels
      */
-    public int dialogUnitXAsPixel(int dluX, Component c) {
+    @Override
+	public int dialogUnitXAsPixel(int dluX, Component c) {
         return dialogUnitXAsPixel(dluX, getDialogBaseUnitsX(c));
     }
 
@@ -123,7 +128,8 @@ public abstract class AbstractUnitConverter implements UnitConverter {
      * @param c     a Component that provides the font and graphics
      * @return the given vertical dialog units as pixels
      */
-    public int dialogUnitYAsPixel(int dluY, Component c) {
+    @Override
+	public int dialogUnitYAsPixel(int dluY, Component c) {
         return dialogUnitYAsPixel(dluY, getDialogBaseUnitsY(c));
     }
 
