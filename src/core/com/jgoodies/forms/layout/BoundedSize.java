@@ -145,7 +145,8 @@ public final class BoundedSize implements Size, Serializable {
      * @return the maximum size in pixels
      * @see FormSpec#maximumSize(Container, List, FormLayout.Measure, FormLayout.Measure, FormLayout.Measure)
      */
-    public int maximumSize(Container container,
+    @Override
+	public int maximumSize(Container container,
                     List components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
@@ -186,7 +187,8 @@ public final class BoundedSize implements Size, Serializable {
      *
      * @since 1.1
      */
-    public boolean compressible() {
+    @Override
+	public boolean compressible() {
         return getBasis().compressible();
     }
 
@@ -261,7 +263,8 @@ public final class BoundedSize implements Size, Serializable {
      *
      * @since 1.2
      */
-    public String encode() {
+    @Override
+	public String encode() {
         StringBuffer buffer = new StringBuffer("[");
         if (lowerBound != null) {
             buffer.append(lowerBound.encode());

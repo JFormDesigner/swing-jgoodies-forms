@@ -412,7 +412,8 @@ public final class Sizes {
          * @param defaultMeasure  the measure used to determine the default size
          * @return the maximum size in pixels for the given list of components
          */
-        public int maximumSize(
+        @Override
+		public int maximumSize(
             Container container,
             List components,
             FormLayout.Measure minMeasure,
@@ -443,7 +444,8 @@ public final class Sizes {
          *
          * @since 1.1
          */
-        public boolean compressible() {
+        @Override
+		public boolean compressible() {
             return this == DEFAULT;
         }
 
@@ -461,7 +463,8 @@ public final class Sizes {
          *
          * @since 1.2
          */
-        public String encode() {
+        @Override
+		public String encode() {
             return name.substring(0, 1);
         }
 
