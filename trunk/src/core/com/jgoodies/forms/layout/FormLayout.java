@@ -33,12 +33,22 @@ package com.jgoodies.forms.layout;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 import static com.jgoodies.common.base.Preconditions.checkState;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.LayoutManager2;
+import java.awt.Rectangle;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JComponent;
 
@@ -159,7 +169,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see #insertColumn(int, ColumnSpec)
      * @see #removeColumn(int)
      */
-    private final List colSpecs;
+    private final List<ColumnSpec> colSpecs;
 
     /**
      * Holds the row specifications.
@@ -171,7 +181,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see #insertRow(int, RowSpec)
      * @see #removeRow(int)
      */
-    private final List rowSpecs;
+    private final List<RowSpec> rowSpecs;
 
     /**
      * Holds the column groups as an array of arrays of column indices.
@@ -198,7 +208,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see #getConstraints(Component)
      * @see #setConstraints(Component, CellConstraints)
      */
-    private final Map constraintMap;
+    private final Map<Component, CellConstraints> constraintMap;
 
 
     private boolean honorsVisibility = true;
@@ -210,13 +220,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * Holds the components that occupy exactly one column.
      * For each column we keep a list of these components.
      */
-    private transient List[] colComponents;
+    private transient List<Component>[] colComponents;
 
     /**
      * Holds the components that occupy exactly one row.
      * For each row we keep a list of these components.
      */
-    private transient List[] rowComponents;
+    private transient List<Component>[] rowComponents;
 
     /**
      * Caches component minimum and preferred sizes.
@@ -431,12 +441,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
     public FormLayout(ColumnSpec[] colSpecs, RowSpec[] rowSpecs) {
         checkNotNull(colSpecs, "The column specifications must not be null.");
         checkNotNull(rowSpecs, "The row specifications must not be null.");
-        this.colSpecs  = new ArrayList(Arrays.asList(colSpecs));
-        this.rowSpecs  = new ArrayList(Arrays.asList(rowSpecs));
+        this.colSpecs  = new ArrayList<ColumnSpec>(Arrays.asList(colSpecs));
+        this.rowSpecs  = new ArrayList<RowSpec>(Arrays.asList(rowSpecs));
         colGroupIndices = new int[][]{};
         rowGroupIndices = new int[][]{};
         int initialCapacity = colSpecs.length * rowSpecs.length / 4;
-        constraintMap       = new HashMap(initialCapacity);
+        constraintMap       = new HashMap<Component, CellConstraints>(initialCapacity);
         componentSizeCache  = new ComponentSizeCache(initialCapacity);
         minimumWidthMeasure    = new MinimumWidthMeasure(componentSizeCache);
         minimumHeightMeasure   = new MinimumHeightMeasure(componentSizeCache);
@@ -809,7 +819,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         checkNotNull(component, "The component must not be null.");
         checkNotNull(constraints, "The constraints must not be null.");
         constraints.ensureValidGridBounds(getColumnCount(), getRowCount());
-        constraintMap.put(component, constraints.clone());
+        constraintMap.put(component, (CellConstraints) constraints.clone());
     }
 
 
@@ -1069,7 +1079,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param component    component to add
      * @throws UnsupportedOperationException always
      */
-    public void addLayoutComponent(String name, Component component) {
+    @Override
+	public void addLayoutComponent(String name, Component component) {
         throw new UnsupportedOperationException(
                 "Use #addLayoutComponent(Component, Object) instead.");
     }
@@ -1086,7 +1097,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     a String, nor a CellConstraints object,
      *     or a String that is rejected by the CellConstraints construction
      */
-    public void addLayoutComponent(Component comp, Object constraints) {
+    @Override
+	public void addLayoutComponent(Component comp, Object constraints) {
         checkNotNull(constraints, "The constraints must not be null.");
         if (constraints instanceof String) {
             setConstraints(comp, new CellConstraints((String) constraints));
@@ -1106,7 +1118,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see Container#remove(java.awt.Component)
      * @see Container#removeAll()
      */
-    public void removeLayoutComponent(Component comp) {
+    @Override
+	public void removeLayoutComponent(Component comp) {
         removeConstraints(comp);
     }
 
@@ -1124,7 +1137,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @see Container#doLayout()
      */
-    public Dimension minimumLayoutSize(Container parent) {
+    @Override
+	public Dimension minimumLayoutSize(Container parent) {
         return computeLayoutSize(parent,
                                  minimumWidthMeasure,
                                  minimumHeightMeasure);
@@ -1141,7 +1155,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @see Container#getPreferredSize()
      */
-    public Dimension preferredLayoutSize(Container parent) {
+    @Override
+	public Dimension preferredLayoutSize(Container parent) {
         return computeLayoutSize(parent,
                                  preferredWidthMeasure,
                                  preferredHeightMeasure);
@@ -1157,7 +1172,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see #preferredLayoutSize(Container)
      * @return the maximum dimensions for this layout
      */
-    public Dimension maximumLayoutSize(Container target) {
+    @Override
+	public Dimension maximumLayoutSize(Container target) {
         return new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
 
@@ -1171,7 +1187,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param parent   the parent container
      * @return the value {@code 0.5f} to indicate center alignment
      */
-    public float getLayoutAlignmentX(Container parent) {
+    @Override
+	public float getLayoutAlignmentX(Container parent) {
         return 0.5f;
     }
 
@@ -1185,7 +1202,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param parent  the parent container
      * @return the value {@code 0.5f} to indicate center alignment
      */
-    public float getLayoutAlignmentY(Container parent) {
+    @Override
+	public float getLayoutAlignmentY(Container parent) {
         return 0.5f;
     }
 
@@ -1196,7 +1214,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @param target   the container that holds the layout to be invalidated
      */
-    public void invalidateLayout(Container target) {
+    @Override
+	public void invalidateLayout(Container target) {
         invalidateCaches();
     }
 
@@ -1224,7 +1243,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @see Container
      * @see Container#doLayout()
      */
-    public void layoutContainer(Container parent) {
+    @Override
+	public void layoutContainer(Container parent) {
         synchronized (parent.getTreeLock()) {
             initializeColAndRowComponentLists();
             Dimension size = parent.getSize();
@@ -1267,12 +1287,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
     private void initializeColAndRowComponentLists() {
         colComponents = new List[getColumnCount()];
         for (int i=0; i < getColumnCount(); i++) {
-            colComponents[i] = new ArrayList();
+            colComponents[i] = new ArrayList<Component>();
         }
 
         rowComponents = new List[getRowCount()];
         for (int i=0; i < getRowCount(); i++) {
-            rowComponents[i] = new ArrayList();
+            rowComponents[i] = new ArrayList<Component>();
         }
 
         for (Iterator i = constraintMap.entrySet().iterator(); i.hasNext(); ) {
@@ -1811,7 +1831,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
         private MinimumWidthMeasure(ComponentSizeCache cache) {
             super(cache);
         }
-        public int sizeOf(Component c) {
+        @Override
+		public int sizeOf(Component c) {
             return cache.getMinimumSize(c).width;
         }
     }
@@ -1824,7 +1845,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
         private MinimumHeightMeasure(ComponentSizeCache cache) {
             super(cache);
         }
-        public int sizeOf(Component c) {
+        @Override
+		public int sizeOf(Component c) {
             return cache.getMinimumSize(c).height;
         }
     }
@@ -1837,7 +1859,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
         private PreferredWidthMeasure(ComponentSizeCache cache) {
             super(cache);
         }
-        public int sizeOf(Component c) {
+        @Override
+		public int sizeOf(Component c) {
             return cache.getPreferredSize(c).width;
         }
     }
@@ -1850,7 +1873,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
         private PreferredHeightMeasure(ComponentSizeCache cache) {
             super(cache);
         }
-        public int sizeOf(Component c) {
+        @Override
+		public int sizeOf(Component c) {
             return cache.getPreferredSize(c).height;
         }
     }
@@ -1865,10 +1889,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
     private static final class ComponentSizeCache implements Serializable {
 
         /** Maps components to their minimum sizes.  */
-        private final Map minimumSizes;
+        private final Map<Component, Dimension> minimumSizes;
 
         /** Maps components to their preferred sizes. */
-        private final Map preferredSizes;
+        private final Map<Component, Dimension> preferredSizes;
 
         /**
          * Constructs a {@code ComponentSizeCache}.
@@ -1876,8 +1900,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
          * @param initialCapacity	the initial cache capacity
          */
         private ComponentSizeCache(int initialCapacity) {
-            minimumSizes   = new HashMap(initialCapacity);
-            preferredSizes = new HashMap(initialCapacity);
+            minimumSizes   = new HashMap<Component, Dimension>(initialCapacity);
+            preferredSizes = new HashMap<Component, Dimension>(initialCapacity);
         }
 
         /**

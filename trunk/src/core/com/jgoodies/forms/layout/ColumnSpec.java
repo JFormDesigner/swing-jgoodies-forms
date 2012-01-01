@@ -104,8 +104,8 @@ public final class ColumnSpec extends FormSpec {
     /**
      * Maps encoded column specifications to ColumnSpec instances.
      */
-    private static final Map/*<String, ColumnSpec>*/ CACHE =
-        new HashMap();
+    private static final Map<String, ColumnSpec> CACHE =
+        new HashMap<String, ColumnSpec>();
 
 
     // Instance Creation ****************************************************
@@ -172,7 +172,7 @@ public final class ColumnSpec extends FormSpec {
      * @since 1.2
      */
     public static ColumnSpec createGap(ConstantSize gapWidth) {
-        return new ColumnSpec(DEFAULT, gapWidth, ColumnSpec.NO_GROW);
+        return new ColumnSpec(DEFAULT, gapWidth, FormSpec.NO_GROW);
     }
 
 
