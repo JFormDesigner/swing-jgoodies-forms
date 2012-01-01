@@ -147,8 +147,8 @@ public final class FormSpecParser {
 
     // Parser Implementation **************************************************
 
-    private List split(String expression, int offset) {
-        List encodedSpecs = new ArrayList();
+    private List<String> split(String expression, int offset) {
+        List<String> encodedSpecs = new ArrayList<String>();
         int parenthesisLevel = 0;  // number of open '('
         int bracketLevel = 0;      // number of open '['
         int quoteLevel = 0;        // number of open '\''
@@ -213,14 +213,14 @@ public final class FormSpecParser {
     }
 
 
-    private void addSpec(List encodedSpecs, String expression, int offset) {
+    private void addSpec(List<String> encodedSpecs, String expression, int offset) {
         String trimmedExpression = expression.trim();
         Multiplier multiplier = multiplier(trimmedExpression, offset);
         if (multiplier == null) {
             encodedSpecs.add(trimmedExpression);
             return;
         }
-        List subTokenList = split(multiplier.expression, offset + multiplier.offset);
+        List<String> subTokenList = split(multiplier.expression, offset + multiplier.offset);
         for (int i=0; i < multiplier.multiplier; i++) {
             encodedSpecs.addAll(subTokenList);
         }
