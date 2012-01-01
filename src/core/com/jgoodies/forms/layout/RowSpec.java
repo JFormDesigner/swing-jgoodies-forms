@@ -98,8 +98,8 @@ public final class RowSpec extends FormSpec {
     /**
      * Maps encoded row specifications to RowSpec instances.
      */
-    private static final Map/*<String, RowSpec>*/ CACHE =
-        new HashMap();
+    private static final Map<String, RowSpec> CACHE =
+        new HashMap<String, RowSpec>();
 
 
     // Instance Creation ****************************************************
@@ -162,7 +162,7 @@ public final class RowSpec extends FormSpec {
      * @since 1.2
      */
     public static RowSpec createGap(ConstantSize gapHeight) {
-        return new RowSpec(RowSpec.DEFAULT, gapHeight, RowSpec.NO_GROW);
+        return new RowSpec(RowSpec.DEFAULT, gapHeight, FormSpec.NO_GROW);
     }
 
 
