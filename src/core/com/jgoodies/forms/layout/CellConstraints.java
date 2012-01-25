@@ -866,14 +866,14 @@ public final class CellConstraints implements Cloneable, Serializable {
      * and the vertical alignment is the second token. if the boolean is
      * {@code false} the vertical alignment comes first. <p>
      *
-     * Valid horizontal alignments are: left, middle, right, default, and fill.
+     * Valid horizontal alignments are: left, center, right, default, and fill.
      * Valid vertical alignments are: top, center, bottom, default, and fill.
      * The anchor's string representation abbreviates the alignment:
-     * l, m, r, d, f, t, c, and b.<p>
+     * l, c, r, d, f, t, and b.<p>
      *
      * Anchor examples:
-     * "m, c" is centered, "l, t" is northwest, "m, t" is north, "r, c" east.
-     * "m, d" is horizontally centered and uses the row's default alignment.
+     * "c, c" is centered, "l, t" is northwest, "c, t" is north, "r, c" east.
+     * "c, d" is horizontally centered and uses the row's default alignment.
      * "d, t" is on top of the cell and uses the column's default alignment.<p>
      *
      * @param encodedAlignments represents horizontal and vertical alignment
