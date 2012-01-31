@@ -80,7 +80,10 @@ public final class ColumnSpec extends FormSpec {
 
     /**
      * By default put components in the middle.
+     * 
+     * @deprecated Use {@link #CENTER} instead.
      */
+    @Deprecated
     public static final DefaultAlignment MIDDLE = CENTER;
 
     /**
