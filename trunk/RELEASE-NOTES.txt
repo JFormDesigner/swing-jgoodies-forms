@@ -11,6 +11,7 @@ JGoodies Forms 1.5.0 ------------------------------------------------------
       by the ButtonBarBuilder2 before.
     o Removed DefaultComponentFactory#setTextAndMnemonic that has been
       marked as deprecated and replaced by MnemonicUtils#configure before.
+    o Marked ColumnSpec#MIDDLE as deprecated; use CENTER instead.
     o Minor implementation improvements.
     
     
