@@ -1,7 +1,11 @@
                            JGoodies Forms
-                           Version @version.name@
                             Release Notes
                         
+
+JGoodies Forms 1.5.1 ------------------------------------------------------
+
+    o The javadocs, main and test sources are delivered as JARs.
+
 
 JGoodies Forms 1.5.0 ------------------------------------------------------
 
