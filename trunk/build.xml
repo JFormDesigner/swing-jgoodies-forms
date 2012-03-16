@@ -10,7 +10,7 @@
    with one of the following targets:
    
      clean               removes temporary files and directories
-     compile             compiles the core, extras, tutorial and tests
+     compile             compiles the main and test sources
      javadoc             creates the API documentation
      test                compiles and runs the unit tests
      jar                 creates a library jar
@@ -28,7 +28,7 @@
 
 -->
 
-<project default="create-all" basedir="." name="JGoodies Forms" >
+<project default="deploy" basedir="." name="JGoodies Forms" >
 
     <!-- ***************************************************************** -->
     <!-- Give users a chance to override build properties.                 -->
@@ -42,20 +42,13 @@
     <!-- ***************************************************************** -->
     <!-- P A T H S                                                         -->
     <!-- ***************************************************************** -->
-    <path id="classpath.core">
-        <pathelement location="${build.core.dir}" 	/> 
-        <pathelement location="${lib.common.jar}"   /> 
-    </path>
-    
-    <path id="classpath.extras">
-        <pathelement location="${build.core.dir}" 	/> 
-        <pathelement location="${build.extras.dir}" /> 
+    <path id="classpath.main">
+        <pathelement location="${build.main.dir}" 	/> 
         <pathelement location="${lib.common.jar}"   /> 
     </path>
     
     <path id="classpath.tests">
-        <pathelement location="${build.core.dir}" 	/> 
-        <pathelement location="${build.extras.dir}" /> 
+        <pathelement location="${build.main.dir}" 	/> 
         <pathelement location="${build.test.dir}" 	/> 
         <pathelement location="${lib.common.jar}"   /> 
         <pathelement location="${junit4.jar}" 		/> 
@@ -87,8 +80,7 @@
            <format property="DATE" pattern="yyyy-MM-dd hh:mm:ss" />
         </tstamp>
         
-		<mkdir dir="${build.core.dir}"		/>
-		<mkdir dir="${build.extras.dir}"	/>
+		<mkdir dir="${build.main.dir}"		/>
 
         <available
             property="junit.task.present"
@@ -105,15 +97,16 @@
     <!-- C O M P I L A T I O N                                             -->
     <!-- ***************************************************************** -->
 	<target name="compile" 
-	        depends="compile-core, compile-extras, compile-tests" 
+	        depends="compile-main, compile-tests" 
 	        description="Compiles the framework, extras and tests." />
 	        
     <!-- ***************************************************************** -->
-	<target name="compile-core" depends="prepare"
-	        description="Compiles the core sources." >
+	<target name="compile-main" depends="prepare"
+	        description="Compiles the main sources." >
 		<javac 
-			srcdir       ="${src.core.dir}" 
-			destdir      ="${build.core.dir}"
+			srcdir       ="${src.main.dir}" 
+            excludes     = "com/jgoodies/forms/extras/**"
+			destdir      ="${build.main.dir}"
         	encoding     ="${build.encoding}"
         	executable   ="${build.compile.executable}"
         	fork         ="${build.compile.fork}"
@@ -126,34 +119,12 @@
 			target       ="${build.compile.target}"
 			verbose      ="${build.compile.verbose}"
 			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.core" 
+			classpathref ="classpath.main" 
 			includeAntRuntime="false" />
 	</target>
 	
     <!-- ***************************************************************** -->
-	<target name="compile-extras" depends="compile-core"
-	        description="Compiles the extra sources." >
-		<javac 
-			srcdir       ="${src.extras.dir}" 
-			destdir      ="${build.extras.dir}"
-        	encoding     ="${build.encoding}"
-        	executable   ="${build.compile.executable}"
-        	fork         ="${build.compile.fork}"
-			debug        ="${build.compile.debug}"
-			depend       ="${build.compile.depend}"
-			deprecation  ="${build.compile.deprecation}"
-			nowarn       ="${build.compile.nowarn}" 
-			optimize     ="${build.compile.optimize}"
-            source       ="${build.compile.source}"
-			target       ="${build.compile.target}"
-			verbose      ="${build.compile.verbose}"
-			bootclasspath="${build.boot.classpath}"
-			classpathref ="classpath.extras" 
-			includeAntRuntime="false" />
-	</target>
-	
-    <!-- ***************************************************************** -->
-    <target name="compile-tests" depends="compile-extras" if="junit.jar.present"
+    <target name="compile-tests" depends="compile-main" if="junit.jar.present"
             description="Compiles the unit tests." >
         <mkdir dir="${build.test.dir}"/>
         <javac 
@@ -183,7 +154,7 @@
             description="Creates the API documentation using JavaDoc." >
 		<mkdir dir="${build.javadocs.dir}"	/>
         <javadoc 
-        	sourcepath="${src.core.dir}:${src.extras.dir}"
+        	sourcepath="${src.main.dir}"
             packagenames="${javadoc.packages}"
         	destdir="${build.javadocs.dir}"
         	encoding="${build.encoding}"
@@ -220,11 +191,11 @@
     <!-- ***************************************************************** -->
     <!-- J A R                                       				       -->
     <!-- ***************************************************************** -->
-	<target name="jar" depends="compile-core"
+	<target name="jar" depends="compile-main"
 	        description="Creates the library jar." >
 		<jar 
-			destfile="${build.core.jar}" >
-			<fileset dir="${build.core.dir}" />
+			destfile="${build.main.jar}" >
+			<fileset dir="${build.main.dir}" />
             <manifest>
                 <attribute name ="Built-By" 
                            value="${user.name}"/>
@@ -265,20 +236,27 @@
 		</copy>
         <move todir="${dist.docs.dir}" file="${build.javadocs.dir}" />
 		
-        <!-- Copy the source directories. -->
-        <copy todir="${dist.src.dir}" >
-            <fileset dir="${src.dir}" 
-                     excludes="unused,
-                               unused/**/*"      />
-        </copy>
+        <!-- Compress the JavaDocs. -->
+        <jar 
+            destfile="${dist.javadocs.jar}"
+            basedir="${dist.docs.dir}"
+        />
+        <!-- Compress the main and test sources. -->
+        <jar 
+            destfile="${dist.sources.jar}" 
+            basedir="${src.main.dir}"
+        />
+        <jar 
+            destfile="${dist.tests.jar}" 
+            basedir="${src.test.dir}"
+        />
+        <!-- Copy the library jar file. -->
+        <copy tofile="${dist.main.jar}" file="${build.main.jar}" />
         
-		<!-- Copy the libraries. -->
-		<copy todir="${dist.lib.dir}" file="${lib.common.jar}" />
-		
 		<!-- Copy the distribution files. -->
 		<copy todir="${dist.dir}" >
 			<fileset dir="${top.dir}" 
-				     includes="*.txt, *.html, *.xml, *.properties" 
+				     includes="pom.xml, *.txt, *.html" 
 				     excludes="todo.txt" />
 			<filterset>
 				<filter token="impl.version"      value="${impl.version}"      />
@@ -287,9 +265,6 @@
 				<filter token="copyright.short"   value="${copyright.short}"   />
 			</filterset>
 		</copy>
-
-		<!-- Copy the library jar file. -->
-		<copy tofile="${dist.core.jar}" file="${build.core.jar}" />
 	  
 	</target>
 
@@ -307,23 +282,24 @@
     <target name="create-maven-bundle" depends="create-dist-dir"
             description="Creates a Maven bundle for the Ibiblio upload." >
             
-        <!-- Copy the Maven pom template. -->
-        <copy 
-        	tofile="${dist.maven.pom}" 
-        	file="${build.maven.pom.template}" >
-			<filterset>
-				<filter token="impl.version"      value="${impl.version}"      />
-				<filter token="shortname"         value="${shortname}"      />
-			</filterset>
-    	</copy>
-        
-        <copy tofile="${dist.maven.bin.jar}" file="${build.core.jar}" />
-        <jar 
-            destfile="${dist.maven.src.jar}"
-            basedir="${dist.src.dir}" />   
         <jar 
             destfile="${dist.maven.bundle}" 
-            basedir="${build.maven.dir}" />
+            basedir="${dist.dir}" 
+            excludes="docs, docs/**/*"
+        />
+    </target>
+    
+    <!-- ***************************************************************** -->
+    <target name="publish-locally" depends="create-dist-dir"
+            description="Copies the binary library to the local library repository." >
+            
+        <copy todir="${lib.dir}" file="${dist.main.jar}" />
+    </target>
+    
+    <!-- ***************************************************************** -->
+    <target name="deploy" depends="create-all, publish-locally"
+            description="Creates all distribution files and publishes locally." >
+            
     </target>
     
         
