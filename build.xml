@@ -263,6 +263,7 @@
 				<filter token="version.name"      value="${version.name}"      />
 				<filter token="copyright.message" value="${copyright.message}" />
 				<filter token="copyright.short"   value="${copyright.short}"   />
+                <filter token="common.version"    value="${common.version}"    />
 			</filterset>
 		</copy>
 	  
