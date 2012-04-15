@@ -238,7 +238,7 @@
 		
         <!-- Compress the JavaDocs. -->
         <jar 
-            destfile="${dist.javadocs.jar}"
+            destfile="${dist.javadoc.jar}"
             basedir="${dist.docs.dir}"
         />
         <!-- Compress the main and test sources. -->
