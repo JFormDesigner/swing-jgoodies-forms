@@ -4,6 +4,8 @@
 
 JGoodies Forms 1.5.1 ------------------------------------------------------
 
+    o Marked the ButtonBarFactory as deprecated. 
+      This class will be removed from the next Forms version.
     o The javadocs, main and test sources are delivered as JARs.
 
 
