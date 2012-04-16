@@ -47,7 +47,12 @@ import com.jgoodies.forms.builder.ButtonBarBuilder2;
  * @version $Revision: 1.11 $
  *
  * @see com.jgoodies.forms.util.LayoutStyle
+ * 
+ * @deprecated Replaced by the button bar builders in the JGoodies Standard
+ *    Dialog Library (JSDL) Core library. 
+ *    <strong>This class will be removed from the JGoodies Forms version 1.6.</strong>
  */
+@Deprecated
 public final class ButtonBarFactory {
 
 
