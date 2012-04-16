@@ -303,7 +303,6 @@ public abstract class LayoutStyle {
      * @return true if buttons are typically ordered from left to right
      *
      * @see com.jgoodies.forms.builder.ButtonBarBuilder2
-     * @see com.jgoodies.forms.factories.ButtonBarFactory
      *
      * @since 1.0.3
      */
