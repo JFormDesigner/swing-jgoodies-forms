@@ -72,7 +72,7 @@ import com.jgoodies.forms.util.FormUtils;
  * @author Karsten Lentzsch
  * @version $Revision: 1.21 $
  */
-public class DefaultComponentFactory implements ComponentFactory2 {
+public class DefaultComponentFactory implements ComponentFactory {
 
     /**
      * Holds the single instance of this class.
@@ -133,8 +133,6 @@ public class DefaultComponentFactory implements ComponentFactory2 {
      * @return an label with optional mnemonic intended for read-only
      *     components
      *
-     * @see ComponentFactory2
-     *
      * @since 1.3
      */
     @Override
@@ -184,6 +182,12 @@ public class DefaultComponentFactory implements ComponentFactory2 {
         MnemonicUtils.configure(label, textWithMnemonic);
         label.setVerticalAlignment(SwingConstants.CENTER);
         return label;
+    }
+    
+    
+    @Override
+    public JLabel createHeaderLabel(String markedText) {
+    	return createTitle(markedText);
     }
 
 
