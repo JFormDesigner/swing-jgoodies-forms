@@ -2,6 +2,19 @@
                             Release Notes
                         
 
+CHANGES IN 1.6.0  -----------------------------------------------------
+
+    o Overhauled the ComponentFactory interface:
+      - merged ComponentFactory and ComponentFactory2
+      - removed ComponentFactory2
+      - added #createHeaderLabel(String)
+      - DefaultComponentFactory implements ComponentFactory
+    o Overhauled the I15dPanelBuilder:
+      - merged it with its superclass AbstractI15dPanelBuilder
+      - supports a general StringLocalizer for the String resource access
+      - sets the initial "opaque" property value to false
+      
+
 JGoodies Forms 1.5.1 ------------------------------------------------------
 
     o Marked the ButtonBarFactory as deprecated. 
@@ -22,8 +35,6 @@ JGoodies Forms 1.5.0 ------------------------------------------------------
     
     
 JGoodies Forms 1.4.2 ------------------------------------------------------
-
-OTHER CHANGES
 
     o Declared methods as static where possible.
     
