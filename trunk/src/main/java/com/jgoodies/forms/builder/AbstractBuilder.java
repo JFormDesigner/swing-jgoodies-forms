@@ -216,7 +216,7 @@ public abstract class AbstractBuilder {
      *
      * Subclasses may override to use a factory other than the global default.
      * However, in most cases it is sufficient to just set a new gobal default
-     * using {@link #setDefaultComponentFactory(ComponentFactory2)}.
+     * using {@link #setDefaultComponentFactory(ComponentFactory)}.
      *
      * @return the factory used during the lazy initialization of
      *    the per-instance component factory
