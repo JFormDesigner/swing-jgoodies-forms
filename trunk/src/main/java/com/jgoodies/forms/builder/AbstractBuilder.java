@@ -35,7 +35,6 @@ import static com.jgoodies.common.base.Preconditions.checkNotNull;
 import java.awt.Container;
 
 import com.jgoodies.forms.factories.ComponentFactory;
-import com.jgoodies.forms.factories.ComponentFactory2;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -65,7 +64,7 @@ public abstract class AbstractBuilder {
      * Holds the global factory that is used as default for the
      * per-instance component factory.
      */
-    private static ComponentFactory2 defaultComponentFactory;
+    private static ComponentFactory defaultComponentFactory;
 
     /**
      * Holds the layout container that we are building.
@@ -120,7 +119,7 @@ public abstract class AbstractBuilder {
      *
      * @return the factory that is used as default for new builder instances
      */
-    public static ComponentFactory2 getDefaultComponentFactory() {
+    public static ComponentFactory getDefaultComponentFactory() {
         if (defaultComponentFactory == null) {
             defaultComponentFactory = new DefaultComponentFactory();
         }
@@ -135,7 +134,7 @@ public abstract class AbstractBuilder {
      * @param factory  the factory to be used for all new builder instances
      *    that do not override the default
      */
-    public static void setDefaultComponentFactory(ComponentFactory2 factory) {
+    public static void setDefaultComponentFactory(ComponentFactory factory) {
         defaultComponentFactory = factory;
     }
 

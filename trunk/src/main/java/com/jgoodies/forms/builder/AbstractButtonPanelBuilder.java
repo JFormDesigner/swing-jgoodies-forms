@@ -40,7 +40,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.jgoodies.forms.factories.ComponentFactory2;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -362,10 +361,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @since 1.4
      */
     protected JButton createButton(Action action) {
-        if (getComponentFactory() instanceof ComponentFactory2) {
-            return ((ComponentFactory2) getComponentFactory()).createButton(action);
-        }
-        return new JButton(action);
+        return getComponentFactory().createButton(action);
     }
 
 

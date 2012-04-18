@@ -36,13 +36,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.lang.ref.WeakReference;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.ComponentFactory;
-import com.jgoodies.forms.factories.ComponentFactory2;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -445,8 +447,6 @@ public class PanelBuilder extends AbstractFormBuilder {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the new label
      *
-     * @see ComponentFactory2
-     *
      * @since 1.3
      */
     public final JLabel addROLabel(String textWithMnemonic) {
@@ -470,19 +470,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param constraints       the label's cell constraints
      * @return the new label
      *
-     * @see ComponentFactory2
-     *
      * @since 1.3
      */
     public final JLabel addROLabel(String textWithMnemonic, CellConstraints constraints) {
-        ComponentFactory factory = getComponentFactory();
-        ComponentFactory2 factory2;
-        if (factory instanceof ComponentFactory2) {
-            factory2 = (ComponentFactory2) factory;
-        } else {
-            factory2 = DefaultComponentFactory.getInstance();
-        }
-        JLabel label = factory2.createReadOnlyLabel(textWithMnemonic);
+        JLabel label = getComponentFactory().createReadOnlyLabel(textWithMnemonic);
         add(label, constraints);
         return label;
     }
@@ -503,8 +494,6 @@ public class PanelBuilder extends AbstractFormBuilder {
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @param encodedConstraints  a string representation for the constraints
      * @return the new label
-     *
-     * @see ComponentFactory2
      *
      * @since 1.3
      */
@@ -558,7 +547,6 @@ public class PanelBuilder extends AbstractFormBuilder {
      *     is used for the label and the component
      *
      * @see JLabel#setLabelFor(java.awt.Component)
-     * @see ComponentFactory2
      * @see DefaultFormBuilder
      *
      * @since 1.3
