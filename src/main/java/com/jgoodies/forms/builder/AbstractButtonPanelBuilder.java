@@ -40,6 +40,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -350,10 +351,9 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * the accessible name and accessible description from Actions
      * that provide these information.<p>
      *
-     * This default implementation delegates the button creation to this
-     * builder's component factory, if it is an an instance of ComponentFactory
-     * (that provides {@link ComponentFactory2#createButton(Action)}).
-     * Otherwise a JButton is created.
+     * This default implementation delegates the button creation 
+     * to this builder's component factory, 
+     * see {@link ComponentFactory#createButton(Action)}).
      *
      * @param action    provides bound visual properties for the button
      * @return the created button
