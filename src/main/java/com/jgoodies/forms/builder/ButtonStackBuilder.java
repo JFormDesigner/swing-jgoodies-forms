@@ -35,7 +35,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import com.jgoodies.forms.factories.ComponentFactory2;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
@@ -78,7 +77,6 @@ import com.jgoodies.forms.layout.RowSpec;
  * @version $Revision: 1.15 $
  *
  * @see ButtonBarBuilder2
- * @see com.jgoodies.forms.factories.ButtonBarFactory
  * @see com.jgoodies.forms.util.LayoutStyle
  */
 public final class ButtonStackBuilder extends PanelBuilder {
@@ -275,10 +273,7 @@ public final class ButtonStackBuilder extends PanelBuilder {
      * @since 1.4
      */
     private JButton createButton(Action action) {
-        if (getComponentFactory() instanceof ComponentFactory2) {
-            return ((ComponentFactory2) getComponentFactory()).createButton(action);
-        }
-        return new JButton(action);
+        return getComponentFactory().createButton(action);
     }
 
 
