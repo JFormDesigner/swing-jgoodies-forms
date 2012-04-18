@@ -30,6 +30,8 @@
 
 package com.jgoodies.forms.factories;
 
+import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
@@ -55,20 +57,54 @@ import javax.swing.JLabel;
 public interface ComponentFactory {
 
     /**
-     * Creates and returns a label with an optional mnemonic.<p>
+	 * Creates and returns a button that is bound to the given Action.
+	 * Useful to return customized buttons, for example, the JGoodies
+	 * {@code JGButton} is bound to some custom Action properties.
+	 *
+	 * @param action    provides [bound] visual properties for the button
+	 * @return the created button
+	 *
+	 * @since 1.4
+	 */
+	JButton createButton(Action action);
+
+
+	/**
+	 * Creates and returns a label with an optional mnemonic.<p>
+	 *
+	 * <pre>
+	 * createLabel("Name");       // No mnemonic
+	 * createLabel("N&ame");      // Mnemonic is 'a'
+	 * createLabel("Save &as");   // Mnemonic is the second 'a'
+	 * createLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+	 * </pre>
+	 *
+	 * @param textWithMnemonic  the label's text -
+	 *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+	 * @return an label with optional mnemonic
+	 */
+	JLabel createLabel(String textWithMnemonic);
+
+
+	/**
+     * Creates and returns a label with an optional mnemonic
+     * that is intended to label a read-only component.<p>
      *
      * <pre>
-     * createLabel("Name");       // No mnemonic
-     * createLabel("N&ame");      // Mnemonic is 'a'
-     * createLabel("Save &as");   // Mnemonic is the second 'a'
-     * createLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * createReadOnlyLabel("Name");       // No mnemonic
+     * createReadOnlyLabel("N&ame");      // Mnemonic is 'a'
+     * createReadOnlyLabel("Save &as");   // Mnemonic is the second 'a'
+     * createReadOnlyLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
      * </pre>
      *
      * @param textWithMnemonic  the label's text -
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
-     * @return an label with optional mnemonic
+     * @return an label with optional mnemonic intended for read-only
+     *     components
+     *
+     * @since 1.3
      */
-    JLabel createLabel(String textWithMnemonic);
+    JLabel createReadOnlyLabel(String textWithMnemonic);
 
 
     /**
@@ -89,6 +125,30 @@ public interface ComponentFactory {
     JLabel createTitle(String textWithMnemonic);
 
 
+    /**
+     * Creates and returns a label intended for pane headers that uses
+     * a larger font than the control font and a special foreground color.
+     * For example, on the Windows platform this method may use the font,
+     * size, and color of the TaskDialog main instruction as described
+     * by the MS User Experience Guide.<p>
+     *
+     * If the label text is marked with the mnemonic marker '&amp',
+     * the mnemonic and mnemonic index will be configured.
+     * For example if {@code markedText} is &quot;&Charge Codes&quot;, the text
+     * will be set to &quot;Charge Codes&quot;, the mnemonic is 'C', and the
+     * mnemonic index is 0.<p>
+     * 
+     * A simple implementation may just delegate to 
+     * {@link #createTitle(String)}.
+     *
+     * @param markedText   the label text with optional mnemonic marker
+     * @return a label intended for pane headers
+     * 
+     * @since 1.6
+     */
+    JLabel createHeaderLabel(String markedText);
+    
+    
     /**
      * Creates and returns a labeled separator. Useful to separate
      * paragraphs in a panel, which is often a better choice than a
