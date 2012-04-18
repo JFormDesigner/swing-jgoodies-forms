@@ -37,6 +37,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jgoodies.common.base.StringLocalizer;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ConstantSize;
@@ -280,7 +281,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
     public DefaultFormBuilder(FormLayout layout, JPanel container) {
-        this(layout, null, container);
+        this(layout, (StringLocalizer) null, container);
     }
 
 
@@ -295,7 +296,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @throws NullPointerException if {@code layout} is {@code null}
      */
     public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle) {
-        this(layout, bundle, new JPanel(null));
+        super(layout, bundle);
     }
 
 
@@ -312,6 +313,35 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      */
     public DefaultFormBuilder(FormLayout layout, ResourceBundle bundle, JPanel container) {
         super(layout, bundle, container);
+    }
+
+
+    /**
+     * Constructs a {@code DefaultFormBuilder} for the given
+     * layout and resource bundle.
+     *
+     * @param layout       the {@code FormLayout} to be used
+     * @param localizer    used to lookup i15d strings
+     *
+     * @throws NullPointerException if {@code layout} is {@code null}
+     */
+    public DefaultFormBuilder(FormLayout layout, StringLocalizer localizer) {
+        super(layout, localizer);
+    }
+
+
+    /**
+     * Constructs a {@code DefaultFormBuilder} for the given
+     * layout, resource bundle, and panel.
+     *
+     * @param layout       the {@code FormLayout} to be used
+     * @param container    the layout container
+     * @param localizer    used to lookup i15d strings
+     *
+     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
+     */
+    public DefaultFormBuilder(FormLayout layout, StringLocalizer localizer, JPanel container) {
+        super(layout, localizer, container);
     }
 
 
