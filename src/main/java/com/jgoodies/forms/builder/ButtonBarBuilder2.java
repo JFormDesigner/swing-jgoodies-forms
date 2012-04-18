@@ -159,7 +159,6 @@ import com.jgoodies.forms.util.LayoutStyle;
  * @version $Revision: 1.18 $
  *
  * @see ButtonStackBuilder
- * @see com.jgoodies.forms.factories.ButtonBarFactory
  * @see com.jgoodies.forms.util.LayoutStyle
  */
 public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
