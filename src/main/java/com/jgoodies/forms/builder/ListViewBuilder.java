@@ -13,7 +13,10 @@ import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.CC;
@@ -147,26 +150,22 @@ public final class ListViewBuilder {
 
 
     /**
-     * Wraps the given component and sets it as the the mandatory list view.
+     * Sets the given component as the the mandatory list view. 
+     * If {@code listView} is a JTable, JList, or JTree, it is 
+     * automatically wrapped with a JScrollPane, before the scroll pane
+     * is set as list view.
      * 
      * @param listView   the component to be used as scrollable list view
      * 
      * @throws NullPointerException if {@code listView} is {@code null}
      */
     public void setListView(JComponent listView) {
-        setListView(new JScrollPane(checkNotNull(listView, "The list view must not be null.")));
-    }
-    
-    
-    /**
-     * Sets the given scrollable content as mandatory list view.
-     * 
-     * @param listView  the scroll pane that contains the list view
-     * 
-     * @throws NullPointerException if {@code listView} is {@code null}
-     */
-    public void setListView(JScrollPane listView) {
-    	this.listView = checkNotNull(listView, "The list view must not be null.");
+    	checkNotNull(listView, "The list view must not be null.");
+    	if (listView instanceof JTable || listView instanceof JList || listView instanceof JTree) {
+    		this.listView = new JScrollPane(listView);
+    	} else {
+    		this.listView = listView;
+    	}
         invalidatePanel();
     }
     
