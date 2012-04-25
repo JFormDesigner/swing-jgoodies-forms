@@ -61,33 +61,7 @@ public final class ButtonBarFactory {
     }
 
 
-    // General Purpose Factory Methods: Left Aligned ************************
-
-    
-
-
-    
-
-
-    // General Purpose Factory Methods: Centered ****************************
-
-    
-
-
     // General Purpose Factory Methods: Right Aligned ***********************
-
-    /**
-     * Builds and returns a right aligned bar with one button.
-     *
-     * @param button1  the first button to add
-     * @return a button bar with the given button
-     */
-    public static JPanel buildRightAlignedBar(JButton button1) {
-        return buildRightAlignedBar(new JButton[]{
-                button1
-        	});
-    }
-
 
     /**
      * Builds and returns a right aligned button bar with the given buttons.
@@ -101,49 +75,6 @@ public final class ButtonBarFactory {
         builder.addButton(buttons);
         return builder.getPanel();
     }
-
-    // Popular Dialog Button Bars: No Help **********************************
-
-    /**
-     * Builds and returns a button bar with Close.
-     *
-     * @param close   	the Close button
-     * @return a panel that contains the button(s)
-     */
-    public static JPanel buildCloseBar(JButton close) {
-        return buildRightAlignedBar(close);
-    }
-
-
-	/**
-     * Builds and returns a button bar with OK and Cancel.
-     *
-     * @param ok		the OK button
-     * @param cancel	the Cancel button
-     * @return a panel that contains the button(s)
-     */
-    public static JPanel buildOKCancelBar(
-            JButton ok, JButton cancel) {
-        return buildRightAlignedBar(new JButton[] {ok, cancel});
-    }
-
-
-    /**
-     * Builds and returns a button bar with OK, Cancel and Apply.
-     *
-     * @param ok        the OK button
-     * @param cancel    the Cancel button
-     * @param apply	the Apply button
-     * @return a panel that contains the button(s)
-     */
-    public static JPanel buildOKCancelApplyBar(
-            JButton ok, JButton cancel, JButton apply) {
-        return buildRightAlignedBar(new JButton[] {ok, cancel, apply});
-    }
-
-
-    // Popular Dialog Button Bars: Help in the Left *************************
-
 
 
 }
