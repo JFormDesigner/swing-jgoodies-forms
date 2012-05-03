@@ -45,8 +45,8 @@ public final class ListViewBuilder {
     private JComponent detailsView;
     
     private Border border;
-    private int filterViewMinimumWidthDLU = 100;
-    private int listViewMinimumHeightDLU  = 100;
+    private String filterViewColSpec = "[100dlu, p]";
+    private String listViewRowSpec   = "fill:100dlu:grow";
 
     /**
      * Holds the panel that has been lazily built in {@code #buildPanel}.
@@ -136,15 +136,20 @@ public final class ListViewBuilder {
 
 
     /**
-     * Changes the filter view's default minimum width of 100dlu.
+     * Changes the FormLayout column specification used to lay out 
+     * the filter view.
+     * The default value is {@code "[100dlu, p]"}, which is a column where
+     * the width is determined by the filter view's preferred width,
+     * but a minimum width of 100dlu is ensured. The filter view won't grow
+     * horizontally, if the container gets more space.
      * 
-     * @param minimumWidthtDLU   the width in DLU to be used
+     * @param colSpec   specifies the horizontal layout of the filter view
      * 
-     * @throws IllegalArgumentException if {@code minimumWidthDLU} is not positive
+     * @throws NullPointerException if {@code colSpec} is {@code null}
      */
-    public void setFilterViewMinimumWidth(int minimumWidthtDLU) {
-    	checkArgument(minimumWidthtDLU > 0, "The filter view minimum width must be positive.");
-    	this.listViewMinimumHeightDLU = minimumWidthtDLU;
+    public void setFilterViewColSpec(String colSpec) {
+    	checkNotNull(colSpec, "The filter view column specification must not be null.");
+    	this.filterViewColSpec = colSpec;
         invalidatePanel();
     }
 
@@ -171,15 +176,20 @@ public final class ListViewBuilder {
     
     
     /**
-     * Changes the list view's default minimum height of 100dlu.
+     * Changes the FormLayout row specification used to lay out the list view.
+     * The default value is {@code "fill:[100dlu, pref]:grow"}, which is a row
+     * that is filled by the list view; the height is determined 
+     * by the list view's preferred height, but a minimum of 100dlu is ensured.
+     * The list view grows vertically, if the container gets more vertical 
+     * space.
      * 
-     * @param minimumHeightDLU   the height in DLU to be used
+     * @param rowSpec   specifies the vertical layout of the list view
      * 
-     * @throws IllegalArgumentException if {@code minimumHeightDLU} is not positive
+     * @throws NullPointerException if {@code rowSpec} is {@code null}
      */
-    public void setListViewMinimumHeight(int minimumHeightDLU) {
-    	checkArgument(minimumHeightDLU > 0, "The list view minimum height must be positive.");
-    	this.listViewMinimumHeightDLU = minimumHeightDLU;
+    public void setListViewRowSpec(String rowSpec) {
+    	checkNotNull(rowSpec, "The list view row specification must not be null.");
+    	this.listViewRowSpec = rowSpec;
         invalidatePanel();
     }
 
@@ -283,8 +293,8 @@ public final class ListViewBuilder {
     private JComponent buildPanel() {
     	checkNotNull(labelView, "The label must be set before #getPanel is invoked.");
         FormLayout layout = new FormLayout(
-                "default:grow, 9dlu, [" + filterViewMinimumWidthDLU + "dlu,p]",
-                "[14dlu,p], $lcg, fill:" + listViewMinimumHeightDLU + "dlu:grow, p, p");
+                "default:grow, 9dlu, " + filterViewColSpec,
+                "[14dlu,p], $lcg, " + listViewRowSpec + ", p, p");
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setOpaque(false);
         builder.setBorder(border);
