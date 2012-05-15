@@ -30,13 +30,14 @@
 
 package com.jgoodies.forms.builder;
 
-import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
+import java.awt.Color;
+
 import javax.swing.Action;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
@@ -49,109 +50,45 @@ import com.jgoodies.forms.util.LayoutStyle;
  * A non-visual builder for building consistent button bars that comply
  * with popular style guides. Utilizes the JGoodies {@link FormLayout}
  * and honors the platform's {@link LayoutStyle} regarding button sizes,
- * gap widths, and the default button order.<p>
+ * and gaps.<p>
  *
- * This is an improved version of the older {@code ButtonBarBuilder}.
- * The ButtonBarBuilder has a simpler, safer, and more convenient API,
- * see below for a comparison.<p>
- *
- * <strong>ButtonBarBuilder vs. ButtonBarBuilder:</strong><br>
- * ButtonBarBuilder uses only 3 component types that can be added:
- * <em>button</em>, <em>standard</em>, and <em>growing button</em>, where
- * ButtonBarBuilder has <em>button</em>, <em>fixed</em>, and <em>growing</em>.
- * Also, the ButtonBarBuilder doesn't group buttons.
- * The layout of the ButtonBarBuilder and ButtonBarBuilder is the same
- * if all buttons are smaller than {@link LayoutStyle#getDefaultButtonWidth()}.
- * If some buttons are wider, ButtonBarBuilder will make only these buttons
- * wider, where the old ButtonBarBuilder makes all (gridded) buttons wider.
- *
- * <p>
  * <strong>Examples:</strong><pre>
- * // Build a right-aligned bar for: OK, Cancel, Apply
- * ButtonBarBuilder builder = new ButtonBarBuilder();
- * builder.addGlue();
- * builder.addButton(okButton);
- * builder.addRelatedGap();
- * builder.addButton(cancelButton);
- * builder.addRelatedGap();
- * builder.addButton(applyButton);
- * return builder.getPanel();
+ * // 1) Build and return a bar with three related buttons 
+ * return new ButtonBarBuilder()
+ *     .addButton(newButton)
+ *     .addRelatedGap()
+ *     .addButton(editButton)
+ *     .addRelatedGap()
+ *     .addButton(deleteButton)
+ *     .getPanel();
  *
- * // Add a sequence of related buttons
- * ButtonBarBuilder builder = new ButtonBarBuilder();
- * builder.addGlue();
- * builder.addButton(okButton, cancelButton, applyButton);
- * return builder.getPanel();
+ * // 2) Short hand for example 1) 
+ * return new ButtonBarBuilder()
+ *     .addButton(newButton, editButton, deleteButton)
+ *     .getPanel();
  *
- * // Add a sequence of related buttons for given Actions
- * ButtonBarBuilder builder = new ButtonBarBuilder();
- * builder.addGlue();
- * builder.addButton(okAction, cancelAction, applyAction);
- * return builder.getPanel();
- * </pre>
+ * // 3) Build and return a bar with two sections
+ * return new ButtonBarBuilder()
+ *     .addButton(newButton, editButton, deleteButton)
+ *     .addUnrelatedGap()
+ *     .addButton(moveUpButton, moveDownButton)
+ *     .getPanel();
  *
- * Buttons are added to a builder individually or as a sequence.
+ * // 4) Short hand for example 3)
+ * return new ButtonBarBuilder()
+ *     .addButton(newButton, editButton, deleteButton, 
+ *                null, 
+ *                moveUpButton, moveDownButton)
+ *     .getPanel();
  *
- * To honor the platform's button order (left-to-right vs. right-to-left)
- * this builder uses the <em>leftToRightButtonOrder</em> property.
- * It is initialized with the current LayoutStyle's button order,
- * which in turn is left-to-right on most platforms and right-to-left
- * on the Mac OS X. Builder methods that create sequences of buttons
- * (e.g. {@link #addButton(JComponent[])} honor the button order.
- * If you want to ignore the default button order, you can either
- * add individual buttons, or create a ButtonBarBuilder instance
- * with the order set to left-to-right. For the latter see
- * {@link #createLeftToRightBuilder()}. Also see the button order
- * example below.<p>
- *
- * <strong>Example:</strong><br>
- * The following example builds a button bar with <i>Help</i> button on the
- * left-hand side and <i>OK, Cancel, Apply</i> buttons on the right-hand side.
- * <pre>
- * private JPanel createHelpOKCancelApplyBar(
- *         JButton help, JButton ok, JButton cancel, JButton apply) {
- *     ButtonBarBuilder builder = new ButtonBarBuilder();
- *     builder.addButton(help);
- *     builder.addUnrelatedGap();
- *     builder.addGlue();
- *     builder.addButton(new JButton[]{ok, cancel, apply});
- *     return builder.getPanel();
- * }
- * </pre><p>
- *
- * <strong>Button Order Example:</strong><br>
- * The following example builds three button bars where one honors
- * the platform's button order and the other two ignore it.
- * <pre>
- * public JComponent buildPanel() {
- *     FormLayout layout = new FormLayout("pref");
- *     DefaultFormBuilder rowBuilder = new DefaultFormBuilder(layout);
- *     rowBuilder.setDefaultDialogBorder();
- *
- *     rowBuilder.append(buildButtonSequence(new ButtonBarBuilder()));
- *     rowBuilder.append(buildButtonSequence(ButtonBarBuilder.createLeftToRightBuilder()));
- *     rowBuilder.append(buildIndividualButtons(new ButtonBarBuilder()));
- *
- *     return rowBuilder.getPanel();
- * }
- *
- * private Component buildButtonSequence(ButtonBarBuilder builder) {
- *     builder.addButton(new JButton[] {
- *             new JButton("One"),
- *             new JButton("Two"),
- *             new JButton("Three")
- *     });
- *     return builder.getPanel();
- * }
- *
- * private Component buildIndividualButtons(ButtonBarBuilder builder) {
- *     builder.addButton(new JButton("One"));
- *     builder.addRelatedGap();
- *     builder.addButton(new JButton("Two"));
- *     builder.addRelatedGap();
- *     builder.addButton(new JButton("Three"));
- *     return builder.getPanel();
- * }
+ * // 5) Build and return a complex button bar
+ * return new ButtonBarBuilder()
+ *     .addButton(newButton, editButton, deleteButton)
+ *     .addUnrelatedGap()
+ *     .addButton(moveUpButton, moveDownButton)
+ *     .addGlue()
+ *     .addGrowing(legendComponent)
+ *     .getPanel();
  * </pre>
  *
  * @author	Karsten Lentzsch
@@ -160,7 +97,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
  */
-public class ButtonBarBuilder extends AbstractButtonPanelBuilder {
+public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
 
     /**
      * Specifies the columns of the initial FormLayout used in constructors.
@@ -173,8 +110,8 @@ public class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      */
     private static final RowSpec[] ROW_SPECS  =
         new RowSpec[]{ RowSpec.decode("center:pref") };
-
-
+    
+    
     // Instance Creation ******************************************************
 
     /**
@@ -192,6 +129,84 @@ public class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      */
     public ButtonBarBuilder(JPanel panel) {
         super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
+    }
+
+
+    // Buttons ****************************************************************
+
+    /**
+     * Adds a button component that has a minimum width
+     * specified by the {@link LayoutStyle#getDefaultButtonWidth()}.<p>
+     *
+     * Although a JButton is expected, any JComponent is accepted
+     * to allow custom button component types.
+     *
+     * @param button  the component to add
+     *
+     * @return this builder
+     *
+     * @throws NullPointerException if {@code button} is {@code null}
+     */
+    public ButtonBarBuilder addButton(JComponent button) {
+        checkNotNull(button, "The button to add must not be null.");
+        button.putClientProperty(NARROW_KEY, Boolean.TRUE);
+        getLayout().appendColumn(FormSpecs.BUTTON_COLSPEC);
+        add(button);
+        nextColumn();
+        return this;
+    }
+
+
+    @Override
+    public ButtonBarBuilder addButton(JComponent... buttons) {
+        super.addButton(buttons);
+        return this;
+    }
+
+
+    @Override
+	public ButtonBarBuilder addButton(Action... actions) {
+	    super.addButton(actions);
+	    return this;
+	}
+
+
+
+    // Other ******************************************************************
+
+    /**
+     * Adds a fixed size component with narrow margin. Unlike the buttons,
+     * this component is laid out without a minimum width. In other words,
+     * the width is determined only by the component's preferred width.
+     *
+     * @param component  the component to add
+     *
+     * @return this builder
+     */
+    public ButtonBarBuilder addFixed(JComponent component) {
+        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
+        getLayout().appendColumn(FormSpecs.PREF_COLSPEC);
+        add(component);
+        nextColumn();
+        return this;
+    }
+
+
+	/**
+     * Adds a component that grows if the container grows.
+     * The component's initial size (before it grows) is specified
+     * by the {@link LayoutStyle#getDefaultButtonWidth()}.
+     *
+     * @param component  the component to add
+     *
+     * @return this builder
+     */
+    public ButtonBarBuilder addGrowing(JComponent component) {
+    	component.putClientProperty(NARROW_KEY, Boolean.TRUE);
+        getLayout().appendColumn(FormSpecs.GROWING_BUTTON_COLSPEC);
+        add(component);
+        nextColumn();
+        return this;
     }
 
 
@@ -217,6 +232,7 @@ public class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      *
      * @see LayoutStyle#getRelatedComponentsPadX()
      */
+    @Override
     public ButtonBarBuilder addRelatedGap() {
         appendRelatedComponentsGapColumn();
         nextColumn();
@@ -231,7 +247,8 @@ public class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      *
      * @see LayoutStyle#getUnrelatedComponentsPadX()
      */
-    public ButtonBarBuilder addUnrelatedGap() {
+   @Override
+   public ButtonBarBuilder addUnrelatedGap() {
         appendUnrelatedComponentsGapColumn();
         nextColumn();
         return this;
@@ -256,166 +273,27 @@ public class ButtonBarBuilder extends AbstractButtonPanelBuilder {
     }
 
 
-    // Buttons ****************************************************************
-
-    /**
-     * Adds a command button component that has a minimum width
-     * specified by the {@link LayoutStyle#getDefaultButtonWidth()}.<p>
-     *
-     * Although a JButton is expected, any JComponent is accepted
-     * to allow custom button component types.
-     *
-     * @param button  the component to add
-     *
-     * @return this builder
-     *
-     * @throws NullPointerException if {@code button} is {@code null}
-     */
-    public ButtonBarBuilder addButton(JComponent button) {
-        button.putClientProperty(NARROW_KEY, Boolean.TRUE);
-        getLayout().appendColumn(FormSpecs.BUTTON_COLSPEC);
-        add(button);
-        nextColumn();
+    // Configuration **********************************************************
+    
+    @Override
+    public ButtonBarBuilder setBackground(Color background) {
+        super.setBackground(background);
         return this;
     }
 
 
-    /**
-     * Adds a sequence of related button components.
-     * Each button has the minimum width as specified by
-     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
-     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * Although JButtons are expected, general JComponents are accepted
-     * to allow custom button component types.
-     *
-     * @param buttons  the buttons to add
-     *
-     * @return this builder
-     *
-     * @throws NullPointerException if the button array or a button is {@code null}
-     * @throws IllegalArgumentException if the button array is empty
-     *
-     * @see #addButton(JComponent)
-     */
-    public ButtonBarBuilder addButton(JComponent... buttons) {
-        checkNotNull(buttons, "The button array must not be null.");
-        int length = buttons.length;
-        checkArgument(length > 0, "The button array must not be empty.");
-        for (int i = 0; i < length; i++) {
-            addButton(buttons[i]);
-            if (i < buttons.length - 1) {
-                addRelatedGap();
-            }
-        }
+    @Override
+    public ButtonBarBuilder setBorder(Border border) {
+        super.setBorder(border);
         return this;
     }
 
 
-    /**
-     * Adds a JButton for the given Action that has a minimum width
-     * specified by the {@link LayoutStyle#getDefaultButtonWidth()}.
-     *
-     * @param action  the action that describes the button to add
-     *
-     * @return this builder
-     *
-     * @throws NullPointerException if {@code action} is {@code null}
-     *
-     * @see #addButton(JComponent)
-     */
-    public ButtonBarBuilder addButton(Action action) {
-        checkNotNull(action, "The button Action must not be null.");
-        return addButton(createButton(action));
+    @Override
+    public ButtonBarBuilder setOpaque(boolean b) {
+    	super.setOpaque(b);
+    	return this;
     }
-
-
-    /**
-     * Adds a sequence of related JButtons built from the given Actions
-     * that are separated by the default gap as specified by
-     * {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * Uses this builder's button order (left-to-right vs. right-to-left).
-     * If you  want to use a fixed order, add individual Actions instead.
-     *
-     * @param actions   the Actions that describe the buttons to add
-     *
-     * @return this builder
-     *
-     * @throws NullPointerException if the Action array or an Action is {@code null}
-     * @throws IllegalArgumentException if the Action array is empty
-     *
-     * @see #addButton(JComponent[])
-     */
-    public ButtonBarBuilder addButton(Action... actions) {
-        checkNotNull(actions, "The Action array must not be null.");
-        int length = actions.length;
-        checkArgument(length > 0, "The Action array must not be empty.");
-        JButton[] buttons = new JButton[length];
-        for (int i = 0; i < length; i++) {
-            buttons[i] = createButton(actions[i]);
-        }
-        return addButton(buttons);
-    }
-
-
-    // Other ******************************************************************
-
-    /**
-     * Adds a button or other component that grows if the container grows.
-     * The component's initial size (before it grows) is specified
-     * by the {@link LayoutStyle#getDefaultButtonWidth()}.
-     *
-     * @param component  the component to add
-     *
-     * @return this builder
-     */
-    public ButtonBarBuilder addGrowing(JComponent component) {
-    	component.putClientProperty(NARROW_KEY, Boolean.TRUE);
-        getLayout().appendColumn(FormSpecs.GROWING_BUTTON_COLSPEC);
-        add(component);
-        nextColumn();
-        return this;
-    }
-
-
-    /**
-     * Adds a sequence of related growing buttons
-     * where each is separated by a default gap.
-     *
-     * @param buttons  an array of buttons to add
-     *
-     * @return this builder
-     *
-     * @see LayoutStyle
-     */
-    public ButtonBarBuilder addGrowing(JComponent... buttons) {
-        int length = buttons.length;
-        for (int i = 0; i < length; i++) {
-            addGrowing(buttons[i]);
-            if (i < buttons.length - 1) {
-                addRelatedGap();
-            }
-        }
-        return this;
-    }
-
-
-    /**
-     * Adds a fixed size component with narrow margin. Unlike the gridded
-     * components, this component keeps its individual preferred dimension.
-     *
-     * @param component  the component to add
-     *
-     * @return this builder
-     */
-    public ButtonBarBuilder addFixed(JComponent component) {
-        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
-        getLayout().appendColumn(FormSpecs.PREF_COLSPEC);
-        add(component);
-        nextColumn();
-        return this;
-    }
-
-
+    
+    
 }
