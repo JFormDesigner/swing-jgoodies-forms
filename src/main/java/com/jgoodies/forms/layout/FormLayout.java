@@ -78,7 +78,7 @@ import com.jgoodies.common.base.Objects;
  *
  * FormLayout has been designed to work with non-visual builders that help you
  * specify the layout and fill the grid. For example, the
- * {@link com.jgoodies.forms.builder.ButtonBarBuilder2} assists you in building button
+ * {@link com.jgoodies.forms.builder.ButtonBarBuilder} assists you in building button
  * bars; it creates a standardized FormLayout and provides a minimal API that
  * specializes in adding buttons and Actions. Other builders can create
  * frequently used panel design, for example a form that consists of rows of
@@ -149,9 +149,9 @@ import com.jgoodies.common.base.Objects;
  * @see	RowSpec
  * @see	CellConstraints
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
- * @see	com.jgoodies.forms.builder.ButtonBarBuilder2
+ * @see	com.jgoodies.forms.builder.ButtonBarBuilder
  * @see	com.jgoodies.forms.builder.DefaultFormBuilder
- * @see	com.jgoodies.forms.factories.FormFactory
+ * @see	com.jgoodies.forms.layout.FormSpecs
  * @see	Size
  * @see	Sizes
  */
