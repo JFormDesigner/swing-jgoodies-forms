@@ -30,17 +30,22 @@
 
 package com.jgoodies.forms.builder;
 
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
+import java.awt.Color;
+
 import javax.swing.Action;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpec;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.util.LayoutStyle;
 
 /**
  * A non-visual builder that assists you in building consistent button stacks
@@ -76,33 +81,22 @@ import com.jgoodies.forms.layout.RowSpec;
  * @author	Karsten Lentzsch
  * @version $Revision: 1.15 $
  *
- * @see ButtonBarBuilder2
+ * @see ButtonBarBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
  */
-public final class ButtonStackBuilder extends PanelBuilder {
+public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
 
     /**
      * Specifies the FormLayout's the single button stack column.
      */
     private static final ColumnSpec[] COL_SPECS =
-        new ColumnSpec[] { FormFactory.BUTTON_COLSPEC };
+        new ColumnSpec[] { FormSpecs.BUTTON_COLSPEC };
 
     /**
      * Specifies the rows of the initial FormLayout used in constructors.
      */
     private static final RowSpec[] ROW_SPECS =
         new RowSpec[]{};
-
-    /**
-     * The client property key used to indicate that a button shall
-     * get narrow margins on the left and right hand side.<p>
-     *
-     * This optional setting will be honored by all JGoodies Look&amp;Feel
-     * implementations. The Mac Aqua l&amp;f uses narrow margins only.
-     * Other look&amp;feel implementations will likely ignore this key
-     * and so may render a wider button margin.
-     */
-    private static final String NARROW_KEY = "jgoodies.isNarrow";
 
 
     // Instance Creation ****************************************************
@@ -123,40 +117,50 @@ public final class ButtonStackBuilder extends PanelBuilder {
      * @param panel   the layout container
      */
     public ButtonStackBuilder(JPanel panel) {
-        this(new FormLayout(COL_SPECS, ROW_SPECS), panel);
-    }
-
-
-    /**
-     * Constructs a ButtonStackBuilder on the given panel and layout.
-     * The layout must have at least one column.
-     *
-     * @param layout  the FormLayout used to layout
-     * @param panel   the layout container
-     *
-     * @since 1.2
-     */
-    public ButtonStackBuilder(FormLayout layout, JPanel panel) {
-        super(layout, panel);
-        setOpaque(false);
+        super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
     }
 
 
     // Adding Components ****************************************************
 
     /**
-     * Adds a sequence of related buttons separated by a default gap.
+     * Adds a button component that has a minimum width
+     * specified by the {@link LayoutStyle#getDefaultButtonWidth()}.<p>
      *
-     * @param buttons  an array of buttons to add
+     * Although a JButton is expected, any JComponent is accepted
+     * to allow custom button component types.
+     *
+     * @param button  the component to add
+     *
+     * @return this builder
+     *
+     * @throws NullPointerException if {@code button} is {@code null}
      */
-    public void addButtons(JButton[] buttons) {
-        for (int i = 0; i < buttons.length; i++) {
-            addGridded(buttons[i]);
-            if (i < buttons.length - 1) {
-                addRelatedGap();
-            }
-        }
-    }
+	public ButtonStackBuilder addButton(JComponent button) {
+        checkNotNull(button, "The button must not be null.");
+        button.putClientProperty(NARROW_KEY, Boolean.TRUE);
+	    getLayout().appendRow(FormSpecs.PREF_ROWSPEC);
+	    getLayout().addGroupedRow(getRow());
+	    add(button);
+	    nextRow();
+	    return this;
+	}
+
+
+	@Override
+	public ButtonStackBuilder addButton(JComponent... buttons) {
+        super.addButton(buttons);
+        return this;
+	}
+
+
+	// Convenience Methods ***************************************************
+	
+	@Override
+	public ButtonStackBuilder addButton(Action... actions) {
+	    super.addButton(actions);
+	    return this;
+	}
 
 
     /**
@@ -164,52 +168,40 @@ public final class ButtonStackBuilder extends PanelBuilder {
      *
      * @param component  the component to add
      */
-    public void addFixed(JComponent component) {
-        getLayout().appendRow(FormFactory.PREF_ROWSPEC);
+    public ButtonStackBuilder addFixed(JComponent component) {
+        getLayout().appendRow(FormSpecs.PREF_ROWSPEC);
         add(component);
         nextRow();
+        return this;
     }
 
-
-    /**
-     * Adds a gridded component.
-     *
-     * @param component  the component to add
-     */
-    public void addGridded(JComponent component) {
-        getLayout().appendRow(FormFactory.PREF_ROWSPEC);
-        getLayout().addGroupedRow(getRow());
-        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
-        add(component);
-        nextRow();
-    }
-
+    
+    // Spacing ****************************************************************
 
     /**
      * Adds a glue that will be given the extra space,
      * if this box is larger than its preferred size.
      */
-    public void addGlue() {
+    public ButtonStackBuilder addGlue() {
         appendGlueRow();
         nextRow();
+        return this;
     }
 
 
-    /**
-     * Adds the standard gap for related components.
-     */
-    public void addRelatedGap() {
+    @Override
+    public ButtonStackBuilder addRelatedGap() {
         appendRelatedComponentsGapRow();
         nextRow();
+        return this;
     }
 
 
-    /**
-     * Adds the standard gap for unrelated components.
-     */
-    public void addUnrelatedGap() {
+    @Override
+    public ButtonStackBuilder addUnrelatedGap() {
         appendUnrelatedComponentsGapRow();
         nextRow();
+        return this;
     }
 
 
@@ -218,63 +210,36 @@ public final class ButtonStackBuilder extends PanelBuilder {
      *
      * @param size  a constant that describes the gap
      */
-    public void addStrut(ConstantSize size) {
+    public ButtonStackBuilder addStrut(ConstantSize size) {
         getLayout().appendRow(new RowSpec(RowSpec.TOP,
                                           size,
                                           FormSpec.NO_GROW));
         nextRow();
+        return this;
     }
 
 
-    // Convenience Methods ***************************************************
-
-    /**
-     * Adds a sequence of related buttons separated by a default gap.
-     *
-     * @param buttons  the array of buttons to add
-     *
-     * @since 1.3.0
-     */
-    public void addButton(JButton... buttons) {
-        addButtons(buttons);
+    // Configuration **********************************************************
+    
+    @Override
+    public ButtonStackBuilder setBackground(Color background) {
+        super.setBackground(background);
+        return this;
     }
 
 
-    /**
-     * Constructs an array of JButtons from the given Action array,
-     * and adds them as a sequence of related buttons separated by a default gap.
-     *
-     * @param actions  an array of buttons to add
-     */
-    public void addButton(Action... actions) {
-        JButton[] buttons = new JButton[actions.length];
-        for (int i = 0; i < actions.length; i++) {
-            buttons[i] = createButton(actions[i]);
-        }
-        addButtons(buttons);
+    @Override
+    public ButtonStackBuilder setBorder(Border border) {
+        super.setBorder(border);
+        return this;
     }
 
 
-    /**
-     * Creates and returns a button that is bound to the given Action.
-     * This is a hook that allows to return customized buttons.
-     * For example, the JGoodies {@code JGButton} configures
-     * the accessible name and accessible description from Actions
-     * that provide these information.<p>
-     *
-     * This default implementation delegates the button creation to this
-     * builder's component factory, if it is an an instance of ComponentFactory
-     * (that provides {@link ComponentFactory2#createButton(Action)}).
-     * Otherwise a JButton is created.
-     *
-     * @param action    provides bound visual properties for the button
-     * @return the created button
-     *
-     * @since 1.4
-     */
-    private JButton createButton(Action action) {
-        return getComponentFactory().createButton(action);
+    @Override
+    public ButtonStackBuilder setOpaque(boolean b) {
+    	super.setOpaque(b);
+    	return this;
     }
-
-
+    
+    
 }
