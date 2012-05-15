@@ -383,6 +383,9 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
        focusGrouped = false;
        return component;
     }
+    
+    
+    abstract protected AbstractButtonPanelBuilder addButton(JComponent button);
 
 
     /**
