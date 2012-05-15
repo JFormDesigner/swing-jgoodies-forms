@@ -41,7 +41,7 @@ import com.jgoodies.forms.layout.Size;
  * <strong>Note:</strong> This class is work in progress and
  * the API may change without notice. Therefore it is recommended
  * to not write custom subclasses for production code.
- * A future version of this class will likely collaborate with a class
+ * A future version of this class may collaborate with a class
  * {@code LogicalSize} or {@code StyledSize}.
  *
  * @author Karsten Lentzsch
@@ -49,7 +49,7 @@ import com.jgoodies.forms.layout.Size;
  *
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
- * @see com.jgoodies.forms.factories.FormFactory
+ * @see com.jgoodies.forms.layout.FormSpecs
  * @see com.jgoodies.forms.factories.Borders
  */
 public abstract class LayoutStyle {
@@ -284,29 +284,6 @@ public abstract class LayoutStyle {
      * @since 1.0.3
      */
     public abstract ConstantSize getButtonBarPad();
-
-
-    /**
-     * Checks and answers whether buttons are typically ordered from
-     * left to right or from right to left. Useful for building button bars
-     * that shall comply with the platform's layout style guide.<p>
-     *
-     * For example the Windows style guide recommends to layout out
-     * <em>OK, Cancel, Apply</em> from left to right, where the
-     * Mac Aqua style guide recommends to layout out these buttons
-     * from right to left.<p>
-     *
-     * Although most button sequences shall honor this order
-     * some buttons require a left to right order. For example
-     * <em>Back, Next</em> or <em>Move Left, Move Right</em>.<p>
-     *
-     * @return true if buttons are typically ordered from left to right
-     *
-     * @see com.jgoodies.forms.builder.ButtonBarBuilder2
-     *
-     * @since 1.0.3
-     */
-    public abstract boolean isLeftToRightButtonOrder();
 
 
 }
