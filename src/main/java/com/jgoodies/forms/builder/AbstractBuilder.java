@@ -52,7 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Karsten Lentzsch
  * @version $Revision: 1.3 $
  *
- * @see    ButtonBarBuilder2
+ * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
  * @see    PanelBuilder
  * @see    I15dPanelBuilder
@@ -64,8 +64,8 @@ public abstract class AbstractBuilder {
      * Holds the global factory that is used as default for the
      * per-instance component factory.
      */
-    private static ComponentFactory defaultComponentFactory;
-
+    private static ComponentFactory componentFactoryDefault;
+    
     /**
      * Holds the layout container that we are building.
      */
@@ -112,18 +112,18 @@ public abstract class AbstractBuilder {
 
     // Accessors ************************************************************
 
-    /**
+	/**
      * Returns the factory that is used as default for new builder's
      * as they are created. This default itself is lazily initialized
      * as the {@link DefaultComponentFactory}.
      *
      * @return the factory that is used as default for new builder instances
      */
-    public static ComponentFactory getDefaultComponentFactory() {
-        if (defaultComponentFactory == null) {
-            defaultComponentFactory = new DefaultComponentFactory();
+    public static ComponentFactory getComponentFactoryDefault() {
+        if (componentFactoryDefault == null) {
+            componentFactoryDefault = new DefaultComponentFactory();
         }
-        return defaultComponentFactory;
+        return componentFactoryDefault;
     }
 
 
@@ -134,11 +134,11 @@ public abstract class AbstractBuilder {
      * @param factory  the factory to be used for all new builder instances
      *    that do not override the default
      */
-    public static void setDefaultComponentFactory(ComponentFactory factory) {
-        defaultComponentFactory = factory;
+    public static void setComponentFactoryDefault(ComponentFactory factory) {
+        componentFactoryDefault = factory;
     }
-
-
+    
+    
     /**
      * Returns the container used to build the form.
      *
@@ -182,7 +182,7 @@ public abstract class AbstractBuilder {
     /**
      * Returns this builder's component factory. If no factory
      * has been set before, it is lazily initialized from the global
-     * default as returned by {@link #getDefaultComponentFactory()}.
+     * default as returned by {@link #getComponentFactoryDefault()}.
      *
      * @return the component factory
      *
@@ -199,7 +199,7 @@ public abstract class AbstractBuilder {
     /**
      * Sets a new component factory for this builder,
      * overriding the default as provided by
-     * {@link #getDefaultComponentFactory()}.
+     * {@link #getComponentFactoryDefault()}.
      *
      * @param newFactory   the component factory to be used for this builder
      *
@@ -216,13 +216,13 @@ public abstract class AbstractBuilder {
      *
      * Subclasses may override to use a factory other than the global default.
      * However, in most cases it is sufficient to just set a new gobal default
-     * using {@link #setDefaultComponentFactory(ComponentFactory)}.
+     * using {@link #setComponentFactoryDefault(ComponentFactory)}.
      *
      * @return the factory used during the lazy initialization of
      *    the per-instance component factory
      */
     protected ComponentFactory createComponentFactory() {
-        return getDefaultComponentFactory();
+        return getComponentFactoryDefault();
     }
 
 
