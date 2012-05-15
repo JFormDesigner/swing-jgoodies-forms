@@ -37,7 +37,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.util.LayoutStyle;
 
 
@@ -570,23 +569,23 @@ public final class LayoutMap {
         map.columnPut(
                 "label-component-gap",
                 new String[]{"lcg", "lcgap"},
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC);
+                FormSpecs.LABEL_COMPONENT_GAP_COLSPEC);
         map.columnPut(
                 "related-gap",
                 new String[]{"rg", "rgap"},
-                FormFactory.RELATED_GAP_COLSPEC);
+                FormSpecs.RELATED_GAP_COLSPEC);
         map.columnPut(
                 "unrelated-gap",
                 new String[]{"ug", "ugap"},
-                FormFactory.UNRELATED_GAP_COLSPEC);
+                FormSpecs.UNRELATED_GAP_COLSPEC);
         map.columnPut(
                 "button",
                 new String[]{"b"},
-                FormFactory.BUTTON_COLSPEC);
+                FormSpecs.BUTTON_COLSPEC);
         map.columnPut(
                 "growing-button",
                 new String[]{"gb"},
-                FormFactory.GROWING_BUTTON_COLSPEC);
+                FormSpecs.GROWING_BUTTON_COLSPEC);
         map.columnPut(
                 "dialog-margin",
                 new String[]{"dm", "dmargin"},
@@ -597,33 +596,33 @@ public final class LayoutMap {
                 ColumnSpec.createGap(LayoutStyle.getCurrent().getTabbedDialogMarginX()));
         map.columnPut(
                 "glue",
-                FormFactory.GLUE_COLSPEC.toShortString());
+                FormSpecs.GLUE_COLSPEC.toShortString());
 
         // Row variables
         map.rowPut(
                 "label-component-gap",
                 new String[]{"lcg", "lcgap"},
-                FormFactory.LABEL_COMPONENT_GAP_ROWSPEC);
+                FormSpecs.LABEL_COMPONENT_GAP_ROWSPEC);
         map.rowPut(
                 "related-gap",
                 new String[]{"rg", "rgap"},
-                FormFactory.RELATED_GAP_ROWSPEC);
+                FormSpecs.RELATED_GAP_ROWSPEC);
         map.rowPut(
                 "unrelated-gap",
                 new String[]{"ug", "ugap"},
-                FormFactory.UNRELATED_GAP_ROWSPEC);
+                FormSpecs.UNRELATED_GAP_ROWSPEC);
         map.rowPut(
                 "narrow-line-gap",
                 new String[]{"nlg", "nlgap"},
-                FormFactory.NARROW_LINE_GAP_ROWSPEC);
+                FormSpecs.NARROW_LINE_GAP_ROWSPEC);
         map.rowPut(
                 "line-gap",
                 new String[]{"lg", "lgap"},
-                FormFactory.LINE_GAP_ROWSPEC);
+                FormSpecs.LINE_GAP_ROWSPEC);
         map.rowPut(
                 "paragraph-gap",
                 new String[]{"pg", "pgap"},
-                FormFactory.PARAGRAPH_GAP_ROWSPEC);
+                FormSpecs.PARAGRAPH_GAP_ROWSPEC);
         map.rowPut(
                 "dialog-margin",
                 new String[]{"dm", "dmargin"},
@@ -635,10 +634,10 @@ public final class LayoutMap {
         map.rowPut(
                 "button",
                 new String[]{"b"},
-                FormFactory.BUTTON_ROWSPEC);
+                FormSpecs.BUTTON_ROWSPEC);
         map.rowPut(
                 "glue",
-                FormFactory.GLUE_ROWSPEC);
+                FormSpecs.GLUE_ROWSPEC);
 
         return map;
     }
