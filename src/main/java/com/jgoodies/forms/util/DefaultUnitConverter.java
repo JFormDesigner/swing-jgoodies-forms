@@ -35,8 +35,6 @@ import static com.jgoodies.common.base.Preconditions.checkNotBlank;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,6 +81,12 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         "defaultDialogFont";
 
     /**
+     * @since 1.6
+     */
+    public static final String OLD_AVERAGE_CHARACTER_TEST_STRING =
+        "X";
+
+    /**
      * @since 1.4
      */
     public static final String MODERN_AVERAGE_CHARACTER_TEST_STRING =
@@ -106,9 +110,11 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Holds the string that is used to compute the average character width.
-     * By default this is just &quot;X&quot;.
+     * Since 1.6 the default value is the balanced average character test
+     * string, where it was just &quot;X&quot; before.
      */
-    private String averageCharWidthTestString = "X";
+    private String averageCharWidthTestString = 
+    		BALANCED_AVERAGE_CHARACTER_TEST_STRING;
 
 
     /**
@@ -118,18 +124,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * in method #lookupDefaultDialogFont.
      */
     private Font defaultDialogFont;
-
-
-    /**
-     * If any {@code PropertyChangeListeners} have been registered,
-     * the {@code changeSupport} field describes them.
-     *
-     * @see #addPropertyChangeListener(PropertyChangeListener)
-     * @see #addPropertyChangeListener(String, PropertyChangeListener)
-     * @see #removePropertyChangeListener(PropertyChangeListener)
-     * @see #removePropertyChangeListener(String, PropertyChangeListener)
-     */
-    private final PropertyChangeSupport changeSupport;
 
 
     // Cached *****************************************************************
@@ -169,7 +163,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * a listener that handles changes in the look&amp;feel.
      */
     private DefaultUnitConverter() {
-        changeSupport = new PropertyChangeSupport(this);
     }
 
 
@@ -190,7 +183,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Returns the string used to compute the average character width.
-     * By default it is initialized to &quot;X&quot;.
+     * By default it is initialized to 
+     * {@link #BALANCED_AVERAGE_CHARACTER_TEST_STRING}.
      *
      * @return the test string used to compute the average character width
      */
@@ -200,7 +194,8 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Sets a string that will be used to compute the average character width.
-     * By default it is initialized to &quot;X&quot;. You can provide
+     * By default it is initialized to 
+     * {@link #BALANCED_AVERAGE_CHARACTER_TEST_STRING}. You can provide
      * other test strings, for example:
      * <ul>
      *  <li>&quot;Xximeee&quot;</li>
@@ -216,7 +211,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         checkNotBlank(newTestString, "The test string must not be null, empty, or whitespace.");
         String oldTestString = averageCharWidthTestString;
         averageCharWidthTestString = newTestString;
-        changeSupport.firePropertyChange(
+        firePropertyChange(
                 PROPERTY_AVERAGE_CHARACTER_WIDTH_TEST_STRING,
                 oldTestString,
                 newTestString);
@@ -246,7 +241,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         Font oldFont = defaultDialogFont; // Don't use the getter
         defaultDialogFont = newFont;
         clearCache();
-        changeSupport.firePropertyChange(PROPERTY_DEFAULT_DIALOG_FONT, oldFont, newFont);
+        firePropertyChange(PROPERTY_DEFAULT_DIALOG_FONT, oldFont, newFont);
     }
 
 
@@ -425,87 +420,6 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
         cachedGlobalDialogBaseUnits = null;
         cachedFontMetrics = null;
         cachedDefaultDialogFont = null;
-    }
-
-
-     // Managing Property Change Listeners **********************************
-
-    /**
-     * Adds a PropertyChangeListener to the listener list. The listener is
-     * registered for all bound properties of this class.<p>
-     *
-     * If listener is null, no exception is thrown and no action is performed.
-     *
-     * @param listener      the PropertyChangeListener to be added
-     *
-     * @see #removePropertyChangeListener(PropertyChangeListener)
-     * @see #removePropertyChangeListener(String, PropertyChangeListener)
-     * @see #addPropertyChangeListener(String, PropertyChangeListener)
-     */
-    public synchronized void addPropertyChangeListener(
-                                            PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-
-    /**
-     * Removes a PropertyChangeListener from the listener list. This method
-     * should be used to remove PropertyChangeListeners that were registered
-     * for all bound properties of this class.<p>
-     *
-     * If listener is null, no exception is thrown and no action is performed.
-     *
-     * @param listener      the PropertyChangeListener to be removed
-     *
-     * @see #addPropertyChangeListener(PropertyChangeListener)
-     * @see #addPropertyChangeListener(String, PropertyChangeListener)
-     * @see #removePropertyChangeListener(String, PropertyChangeListener)
-     */
-    public synchronized void removePropertyChangeListener(
-                                        PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
-    }
-
-
-    /**
-     * Adds a PropertyChangeListener to the listener list for a specific
-     * property. The specified property may be user-defined.<p>
-     *
-     * Note that if this Model is inheriting a bound property, then no event
-     * will be fired in response to a change in the inherited property.<p>
-     *
-     * If listener is null, no exception is thrown and no action is performed.
-     *
-     * @param propertyName      one of the property names listed above
-     * @param listener          the PropertyChangeListener to be added
-     *
-     * @see #removePropertyChangeListener(java.lang.String, java.beans.PropertyChangeListener)
-     * @see #addPropertyChangeListener(java.lang.String, java.beans.PropertyChangeListener)
-     */
-    public synchronized void addPropertyChangeListener(
-                                        String propertyName,
-                                        PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(propertyName, listener);
-    }
-
-
-    /**
-     * Removes a PropertyChangeListener from the listener list for a specific
-     * property. This method should be used to remove PropertyChangeListeners
-     * that were registered for a specific bound property.<p>
-     *
-     * If listener is null, no exception is thrown and no action is performed.
-     *
-     * @param propertyName      a valid property name
-     * @param listener          the PropertyChangeListener to be removed
-     *
-     * @see #addPropertyChangeListener(java.lang.String, java.beans.PropertyChangeListener)
-     * @see #removePropertyChangeListener(java.beans.PropertyChangeListener)
-     */
-    public synchronized void removePropertyChangeListener(
-                                        String propertyName,
-                                        PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(propertyName, listener);
     }
 
 
