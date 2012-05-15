@@ -32,6 +32,7 @@ package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkState;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -41,9 +42,10 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import com.jgoodies.common.base.Preconditions;
-import com.jgoodies.common.base.StringLocalizer;
+import com.jgoodies.common.internal.StringLocalizer;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -155,7 +157,6 @@ public class I15dPanelBuilder extends PanelBuilder {
     public I15dPanelBuilder(FormLayout layout, StringLocalizer localizer, JPanel container){
         super(layout, container);
         this.localizer = localizer;
-        setOpaque(false);
     }
 
 
@@ -178,6 +179,43 @@ public class I15dPanelBuilder extends PanelBuilder {
      */
     public static void setDebugToolTipsEnabled(boolean b) {
         debugToolTipsEnabled = b;
+    }
+
+
+    // Frequently Used Panel Properties ***************************************
+
+    @Override
+    public I15dPanelBuilder setBackground(Color background) {
+        super.setBackground(background);
+        return this;
+    }
+
+
+    @Override
+    public I15dPanelBuilder setBorder(Border border) {
+        super.setBorder(border);
+        return this;
+    }
+    
+    
+    @Override
+    public I15dPanelBuilder setBorder(String emptyBorderSpec) {
+    	super.setBorder(emptyBorderSpec);
+    	return this;
+    }
+
+
+    @Override
+    public I15dPanelBuilder setDefaultDialogBorder() {
+        super.setDefaultDialogBorder();
+        return this;
+    }
+
+
+    @Override
+    public I15dPanelBuilder setOpaque(boolean b) {
+        super.setOpaque(b);
+        return this;
     }
 
 
