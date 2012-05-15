@@ -32,9 +32,9 @@ package com.jgoodies.forms.layout;
 
 import java.util.Locale;
 
+
 import junit.framework.TestCase;
 
-import com.jgoodies.forms.factories.FormFactory;
 
 /**
  * A test case for class {@link RowSpec}.
@@ -96,53 +96,53 @@ public final class RowSpecTest extends TestCase {
 
     public static void testDefaultVariables() {
         assertEquals(
-                FormFactory.RELATED_GAP_ROWSPEC,
+                FormSpecs.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("${related-gap}"));
         assertEquals(
-                FormFactory.RELATED_GAP_ROWSPEC,
+                FormSpecs.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("${RELATED-GAP}"));
         assertEquals(
-                FormFactory.RELATED_GAP_ROWSPEC,
+                FormSpecs.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("$rgap"));
         assertEquals(
-                FormFactory.RELATED_GAP_ROWSPEC,
+                FormSpecs.RELATED_GAP_ROWSPEC,
                 RowSpec.decode("$rg"));
 
         assertEquals(
-                FormFactory.UNRELATED_GAP_ROWSPEC,
+                FormSpecs.UNRELATED_GAP_ROWSPEC,
                 RowSpec.decode("${unrelated-gap}"));
         assertEquals(
-                FormFactory.UNRELATED_GAP_ROWSPEC,
+                FormSpecs.UNRELATED_GAP_ROWSPEC,
                 RowSpec.decode("$ugap"));
         assertEquals(
-                FormFactory.UNRELATED_GAP_ROWSPEC,
+                FormSpecs.UNRELATED_GAP_ROWSPEC,
                 RowSpec.decode("$ug"));
 
         assertEquals(
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                FormSpecs.NARROW_LINE_GAP_ROWSPEC,
                 RowSpec.decode("${narrow-line-gap}"));
         assertEquals(
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                FormSpecs.NARROW_LINE_GAP_ROWSPEC,
                 RowSpec.decode("$nlgap"));
         assertEquals(
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                FormSpecs.NARROW_LINE_GAP_ROWSPEC,
                 RowSpec.decode("$nlg"));
 
         assertEquals(
-                FormFactory.LINE_GAP_ROWSPEC,
+                FormSpecs.LINE_GAP_ROWSPEC,
                 RowSpec.decode("${line-gap}"));
         assertEquals(
-                FormFactory.LINE_GAP_ROWSPEC,
+                FormSpecs.LINE_GAP_ROWSPEC,
                 RowSpec.decode("$lgap"));
         assertEquals(
-                FormFactory.LINE_GAP_ROWSPEC,
+                FormSpecs.LINE_GAP_ROWSPEC,
                 RowSpec.decode("$lg"));
 
         assertEquals(
-                FormFactory.PARAGRAPH_GAP_ROWSPEC,
+                FormSpecs.PARAGRAPH_GAP_ROWSPEC,
                 RowSpec.decode("${paragraph-gap}"));
         assertEquals(
-                FormFactory.PARAGRAPH_GAP_ROWSPEC,
+                FormSpecs.PARAGRAPH_GAP_ROWSPEC,
                 RowSpec.decode("$pgap"));
     }
 
