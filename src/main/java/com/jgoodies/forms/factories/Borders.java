@@ -48,7 +48,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * <strong>Examples:</strong><br>
  * <pre>
- * Borders.DLU2_BORDER
+ * Borders.DLU2
  * Borders.createEmptyBorder(Sizes.DLUY4, Sizes.DLUX2, Sizes.DLUY4, Sizes.DLUX2);
  * Borders.createEmptyBorder("4dlu, 2dlu, 4dlu, 2dlu");
  * </pre>
@@ -71,14 +71,14 @@ public final class Borders {
     /**
      * A prepared and reusable EmptyBorder without gaps.
      */
-    public static final Border EMPTY_BORDER =
+    public static final Border EMPTY =
         new javax.swing.border.EmptyBorder(0, 0, 0, 0);
 
 
     /**
      * A prepared and reusable Border with 2dlu on all sides.
      */
-    public static final Border DLU2_BORDER =
+    public static final Border DLU2 =
         createEmptyBorder(Sizes.DLUY2,
                           Sizes.DLUX2,
                           Sizes.DLUY2,
@@ -88,7 +88,7 @@ public final class Borders {
     /**
      * A prepared and reusable Border with 4dlu on all sides.
      */
-    public static final Border DLU4_BORDER =
+    public static final Border DLU4 =
         createEmptyBorder(Sizes.DLUY4,
                           Sizes.DLUX4,
                           Sizes.DLUY4,
@@ -98,7 +98,7 @@ public final class Borders {
     /**
      * A prepared and reusable Border with 7dlu on all sides.
      */
-    public static final Border DLU7_BORDER =
+    public static final Border DLU7 =
         createEmptyBorder(Sizes.DLUY7,
                           Sizes.DLUX7,
                           Sizes.DLUY7,
@@ -106,9 +106,21 @@ public final class Borders {
 
 
     /**
+     * A prepared and reusable Border with 9dlu on all sides.
+     * 
+     * @since 1.6
+     */
+    public static final Border DLU9 =
+        createEmptyBorder(Sizes.DLUY9,
+                          Sizes.DLUX9,
+                          Sizes.DLUY9,
+                          Sizes.DLUX9);
+
+
+    /**
      * A prepared Border with 14dlu on all sides.
      */
-    public static final Border DLU14_BORDER =
+    public static final Border DLU14 =
         createEmptyBorder(Sizes.DLUY14,
                           Sizes.DLUX14,
                           Sizes.DLUY14,
@@ -120,7 +132,7 @@ public final class Borders {
      *
      * @since 1.2
      */
-    public static final Border DLU21_BORDER =
+    public static final Border DLU21 =
         createEmptyBorder(Sizes.DLUY21,
                           Sizes.DLUX21,
                           Sizes.DLUY21,
@@ -131,7 +143,7 @@ public final class Borders {
      * A standardized Border that describes the gap between a component
      * and a button bar in its bottom.
      */
-    public static final Border BUTTON_BAR_GAP_BORDER =
+    public static final Border BUTTON_BAR_PAD =
         createEmptyBorder(
             LayoutStyle.getCurrent().getButtonBarPad(),
             Sizes.dluX(0),
@@ -143,9 +155,9 @@ public final class Borders {
      * A standardized Border that describes the border around
      * a dialog content that has no tabs.
      *
-     * @see #TABBED_DIALOG_BORDER
+     * @see #TABBED_DIALOG
      */
-    public static final Border DIALOG_BORDER =
+    public static final Border DIALOG =
         createEmptyBorder(
             LayoutStyle.getCurrent().getDialogMarginY(),
             LayoutStyle.getCurrent().getDialogMarginX(),
@@ -158,8 +170,138 @@ public final class Borders {
      * A standardized Border that describes the border around
      * a dialog content that uses tabs.
      *
-     * @see #DIALOG_BORDER
+     * @see #DIALOG
      */
+    public static final Border TABBED_DIALOG =
+        createEmptyBorder(
+                LayoutStyle.getCurrent().getTabbedDialogMarginY(),
+                LayoutStyle.getCurrent().getTabbedDialogMarginX(),
+                LayoutStyle.getCurrent().getTabbedDialogMarginY(),
+                LayoutStyle.getCurrent().getTabbedDialogMarginX()
+        );
+
+
+    // Deprecated Constant Borders ********************************************
+
+    /**
+     * A prepared and reusable EmptyBorder without gaps.
+     * 
+     * @deprecated Replaced by {@link #EMPTY}
+     */
+    @Deprecated
+    public static final Border EMPTY_BORDER =
+        new javax.swing.border.EmptyBorder(0, 0, 0, 0);
+
+
+    /**
+     * A prepared and reusable Border with 2dlu on all sides.
+     * 
+     * @deprecated Replaced by {@link #DLU2}
+     */
+    @Deprecated
+    public static final Border DLU2_BORDER =
+        createEmptyBorder(Sizes.DLUY2,
+                          Sizes.DLUX2,
+                          Sizes.DLUY2,
+                          Sizes.DLUX2);
+
+
+    /**
+     * A prepared and reusable Border with 4dlu on all sides.
+     * 
+     * @deprecated Replaced by {@link #DLU4}
+     */
+    @Deprecated
+    public static final Border DLU4_BORDER =
+        createEmptyBorder(Sizes.DLUY4,
+                          Sizes.DLUX4,
+                          Sizes.DLUY4,
+                          Sizes.DLUX4);
+
+
+    /**
+     * A prepared and reusable Border with 7dlu on all sides.
+     * 
+     * @deprecated Replaced by {@link #DLU7}
+     */
+    @Deprecated
+    public static final Border DLU7_BORDER =
+        createEmptyBorder(Sizes.DLUY7,
+                          Sizes.DLUX7,
+                          Sizes.DLUY7,
+                          Sizes.DLUX7);
+
+
+    /**
+     * A prepared Border with 14dlu on all sides.
+     * 
+     * @deprecated Replaced by {@link #DLU14}
+     */
+    @Deprecated
+    public static final Border DLU14_BORDER =
+        createEmptyBorder(Sizes.DLUY14,
+                          Sizes.DLUX14,
+                          Sizes.DLUY14,
+                          Sizes.DLUX14);
+
+
+    /**
+     * A prepared Border with 21dlu on all sides.
+     * 
+     * @deprecated Replaced by {@link #DLU21}
+     * 
+     * @since 1.2
+     */
+    @Deprecated
+    public static final Border DLU21_BORDER =
+        createEmptyBorder(Sizes.DLUY21,
+                          Sizes.DLUX21,
+                          Sizes.DLUY21,
+                          Sizes.DLUX21);
+
+
+    /**
+     * A standardized Border that describes the gap between a component
+     * and a button bar in its bottom.
+     * 
+     * @deprecated Replaced by {@link #BUTTON_BAR_PAD}
+     */
+    @Deprecated
+    public static final Border BUTTON_BAR_GAP_BORDER =
+        createEmptyBorder(
+            LayoutStyle.getCurrent().getButtonBarPad(),
+            Sizes.dluX(0),
+            Sizes.dluY(0),
+            Sizes.dluX(0));
+
+
+    /**
+     * A standardized Border that describes the border around
+     * a dialog content that has no tabs.
+     * 
+     * @deprecated Replaced by {@link #DIALOG}
+     *
+     * @see #TABBED_DIALOG
+     */
+    @Deprecated
+    public static final Border DIALOG_BORDER =
+        createEmptyBorder(
+            LayoutStyle.getCurrent().getDialogMarginY(),
+            LayoutStyle.getCurrent().getDialogMarginX(),
+            LayoutStyle.getCurrent().getDialogMarginY(),
+            LayoutStyle.getCurrent().getDialogMarginX()
+        );
+
+
+    /**
+     * A standardized Border that describes the border around
+     * a dialog content that uses tabs.
+     * 
+     * @deprecated Replaced by {@link #TABBED_DIALOG}
+     *
+     * @see #DIALOG
+     */
+    @Deprecated
     public static final Border TABBED_DIALOG_BORDER =
         createEmptyBorder(
                 LayoutStyle.getCurrent().getTabbedDialogMarginY(),
