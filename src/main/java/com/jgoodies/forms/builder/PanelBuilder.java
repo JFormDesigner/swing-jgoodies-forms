@@ -54,7 +54,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * to set a default border and to add labels, titles and titled separators.<p>
  *
  * The PanelBuilder is the working horse for layouts when more specialized
- * builders like the {@link ButtonBarBuilder2} or {@link DefaultFormBuilder}
+ * builders like the {@link ButtonBarBuilder} or {@link DefaultFormBuilder}
  * are inappropriate.<p>
  *
  * The Forms tutorial includes several examples that present and compare
@@ -111,13 +111,21 @@ public class PanelBuilder extends AbstractFormBuilder {
 
     /**
      * The global default for the enablement of the setLabelFor feature.
-     * Turned off by default.
+     * Turned on by default.
      *
      * @see #setLabelForFeatureEnabledDefault(boolean)
      * @see #setLabelForFeatureEnabled(boolean)
      */
-    private static boolean labelForFeatureEnabledDefault = false;
+    private static boolean labelForFeatureEnabledDefault = true;
 
+
+    /**
+     * Holds the global default opaque state that can be overridden
+     * per builder. Since the Forms 1.6, the default value is {@code false},
+     * in other words, panels will not be opaque.
+     */
+    private static boolean opaqueDefault = false;
+    
 
     // Instance Fields ********************************************************
 
@@ -169,6 +177,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public PanelBuilder(FormLayout layout, JPanel panel){
         super(layout, panel);
+        setOpaque(getOpaqueDefault());
         labelForFeatureEnabled = labelForFeatureEnabledDefault;
     }
 
@@ -200,6 +209,26 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public static void setLabelForFeatureEnabledDefault(boolean b) {
         labelForFeatureEnabledDefault = b;
+    }
+
+
+    /**
+     * @return the global default value for a builder's opaque state
+     *     that can be overridden per builder
+     */
+    public static boolean getOpaqueDefault() {
+    	return opaqueDefault;
+    }
+    
+    
+    /**
+     * Sets the global default value for a builder's opaque state
+     *    that can be overridden per builder.
+     *    
+     * @param b   the new value
+     */
+    public static void setOpaqueDefault(boolean b) {
+    	opaqueDefault = b;
     }
 
 
@@ -246,7 +275,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     // Frequently Used Panel Properties ***************************************
 
     /**
-     * Sets the panel's background color.
+     * Sets the panel's background color and the panel to be opaque.
      *
      * @param background  the color to set as new background
      *
@@ -254,8 +283,10 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @since 1.1
      */
-    public final void setBackground(Color background) {
+    public PanelBuilder setBackground(Color background) {
         getPanel().setBackground(background);
+        setOpaque(true);
+        return this;
     }
 
 
@@ -266,8 +297,29 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @see JComponent#setBorder(Border)
      */
-    public final void setBorder(Border border) {
+    public PanelBuilder setBorder(Border border) {
         getPanel().setBorder(border);
+        return this;
+    }
+    
+    
+    /**
+     * Sets the panel's border as an EmptyBorder using the given specification
+     * for the top, left, bottom, right in DLU. For example 
+     * "1dlu, 2dlu, 3dlu, 4dlu" sets an empty border with 1dlu in the top,
+     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand 
+     * side.<p>
+     * 
+     * Equivalent to {@code setBorder(Borders.createEmptyBorder(emptyBorderSpec))}.
+     *  
+     * @param emptyBorderSpec   describes the top, left, bottom, right sizes
+     *    of the EmptyBorder to create
+     *    
+     * @see Borders#createEmptyBorder(String)
+     */
+    public PanelBuilder setBorder(String emptyBorderSpec) {
+    	setBorder(Borders.createEmptyBorder(emptyBorderSpec));
+    	return this;
     }
 
 
@@ -276,8 +328,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @see Borders
      */
-    public final void setDefaultDialogBorder() {
-        setBorder(Borders.DIALOG_BORDER);
+    public PanelBuilder setDefaultDialogBorder() {
+        setBorder(Borders.DIALOG);
+        return this;
     }
 
 
@@ -290,8 +343,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @since 1.1
      */
-    public final void setOpaque(boolean b) {
+    public PanelBuilder setOpaque(boolean b) {
         getPanel().setOpaque(b);
+        return this;
     }
 
 
