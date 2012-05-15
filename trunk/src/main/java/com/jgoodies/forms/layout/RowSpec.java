@@ -54,13 +54,13 @@ import java.util.Map;
  * RowSpec.parse("center:14dlu:0");
  * </pre><p>
  *
- * The {@link com.jgoodies.forms.factories.FormFactory} provides
+ * The {@link com.jgoodies.forms.layout.FormSpecs} provides
  * predefined frequently used RowSpec instances.
  *
  * @author	Karsten Lentzsch
  * @version $Revision: 1.20 $
  *
- * @see     com.jgoodies.forms.factories.FormFactory
+ * @see     com.jgoodies.forms.layout.FormSpecs
  */
 public final class RowSpec extends FormSpec {
 
