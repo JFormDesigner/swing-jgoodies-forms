@@ -55,13 +55,13 @@ import java.util.Map;
  * ColumnSpec.parse("fill:10dlu:0");
  * </pre><p>
  *
- * The {@link com.jgoodies.forms.factories.FormFactory} provides
+ * The {@link com.jgoodies.forms.layout.FormSpecs} provides
  * predefined frequently used ColumnSpec instances.
  *
  * @author	Karsten Lentzsch
  * @version $Revision: 1.20 $
  *
- * @see     com.jgoodies.forms.factories.FormFactory
+ * @see     com.jgoodies.forms.layout.FormSpecs
  */
 public final class ColumnSpec extends FormSpec {
 
@@ -77,14 +77,6 @@ public final class ColumnSpec extends FormSpec {
      * By default put the components in the center.
      */
     public static final DefaultAlignment CENTER = FormSpec.CENTER_ALIGN;
-
-    /**
-     * By default put components in the middle.
-     * 
-     * @deprecated Use {@link #CENTER} instead.
-     */
-    @Deprecated
-    public static final DefaultAlignment MIDDLE = CENTER;
 
     /**
      * By default put components in the right.
