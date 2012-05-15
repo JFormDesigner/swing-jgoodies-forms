@@ -4,6 +4,32 @@
 
 CHANGES IN 1.6.0  -----------------------------------------------------
 
+    This version is binary incompatible with previous releases.
+    The vast majority of client code isn't affected, because primarily 
+    internal interfaces and their implementations have changed.
+    However, some changes may require a migration, for example 
+    if you have used the deprecated ButtonBarFactory in the past. 
+
+
+    VISUAL INCOMPATIBILITIES
+    o Since 1.6 the PanelBuilder's opaque state is false by default,
+      where it was true before. You can get the old behavior with: 
+          PanelBuilder.setOpaqueDefault(true);
+          
+    o Since 1.6 the DefaultUnitConverter's default test string is
+      BALANCED_AVERAGE_CHARACTER_TEST_STRING where it was "X" before.
+      It is recommended to use the new default, because it scales
+      better with new typefaces on modern windowing systems.
+      You can get the old behavior with:
+          DefaultUnitConverter.getInstance()
+              .setAverageCharacterWidthTestString(
+                  DefaultUnitConverter.OLD_AVERAGE_CHARACTER_TEST_STRING);
+    
+    OTHER CHANGES
+    o Since 1.6 the PanelBuilder's label-for-feature is on by default.
+      The new behavior is recommended. You can get the old behavior with:
+          PanelBuilder.setLabelForFeatureEnabledDefault(false);
+              
     o Overhauled the ComponentFactory interface:
       - merged ComponentFactory and ComponentFactory2
       - removed ComponentFactory2
@@ -13,6 +39,27 @@ CHANGES IN 1.6.0  -----------------------------------------------------
       - merged it with its superclass AbstractI15dPanelBuilder
       - supports a general StringLocalizer for the String resource access
       - sets the initial "opaque" property value to false
+    o Renamed FormFactory to FormSpecs.
+    o Removed the deprecated ColumnSpec.MIDDLE; use CENTER instead.
+    o Added ButtonBarBuilder
+      - builds button bars in a platform-independent order
+      - can add sequences of related buttons
+    o Marked ButtonBarBuilder2 as deprecated; use ButtonBarBuilder.
+    o ButtonBarBuilder, ButtonStackBuilder, and ButtonBarBuilder2
+      build focus traversal groups for the contained buttons,
+      if the JGoodies FocusTraversalUtils class is available.
+    o Removed LayoutStyle#isLeftToRightButtonOrder() and its
+      implementations in MacLayoutStyle and WindowsLayoutStyle.
+    o Overhauled the ButtonStackBuilder
+      - removed #ButtonStackBuilder(FormLayout, JPanel)
+      - removed #addButtons
+      - added configuration methods
+      - changed superclass to AbstractButtonPanelBuilder
+    o Changed names in Borders from DIALOG_BORDER to DIALOG,
+      DLU14_BORDER to DLU14, ...
+    o AbstractBuilder#setDefaultComponentFactory has been renamed to
+      #setComponentFactoryDefault.
+    o Fixed and added JavaDocs and JavaDoc comment examples.
       
 
 JGoodies Forms 1.5.1 ------------------------------------------------------
