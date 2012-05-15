@@ -36,12 +36,12 @@ import com.jgoodies.forms.layout.Sizes;
 
 /**
  * A {@link LayoutStyle} that aims to provide layout constants as defined by
- * Microsoft's <i>Design Specifications and Guidelines - Visual Design</i>.
+ * Microsoft's <em>User Experience Guidelines</em>.
  *
  * @author Karsten Lentzsch
  * @version $Revision: 1.12 $
  */
-final class MacLayoutStyle extends LayoutStyle {
+public final class MacLayoutStyle extends LayoutStyle {
 
     static final MacLayoutStyle INSTANCE = new MacLayoutStyle();
 
@@ -172,12 +172,6 @@ final class MacLayoutStyle extends LayoutStyle {
     @Override
     public ConstantSize getButtonBarPad() {
         return BUTTON_BAR_PAD;
-    }
-
-
-    @Override
-    public boolean isLeftToRightButtonOrder() {
-        return false;
     }
 
 
