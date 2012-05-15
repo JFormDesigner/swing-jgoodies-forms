@@ -50,10 +50,10 @@ public final class BordersTest extends TestCase {
      */
     public static void testValidEncodings() {
         assertInsetsEquals(
-                Borders.DLU14_BORDER,
+                Borders.DLU14,
                 Borders.createEmptyBorder("14dlu, 14dlu, 14dlu, 14dlu"));
         assertInsetsEquals(
-                Borders.DLU14_BORDER,
+                Borders.DLU14,
                 Borders.createEmptyBorder("   14dlu , 14dlu , 14dlu , 14dlu "));
         assertInsetsEquals(
                 Borders.createEmptyBorder(Sizes.DLUY1, Sizes.DLUX2, Sizes.DLUY3, Sizes.DLUX4),

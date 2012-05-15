@@ -32,9 +32,9 @@ package com.jgoodies.forms.layout;
 
 import java.util.Locale;
 
+
 import junit.framework.TestCase;
 
-import com.jgoodies.forms.factories.FormFactory;
 
 /**
  * A test case for class {@link ColumnSpec}.
@@ -97,36 +97,36 @@ public final class ColumnSpecTest extends TestCase {
 
     public static void testDefaultVariables() {
         assertEquals(
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("${label-component-gap}"));
         assertEquals(
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("${LABEL-COMPONENT-GAP}"));
         assertEquals(
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("$lcgap"));
         assertEquals(
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("$lcg"));
 
         assertEquals(
-                FormFactory.RELATED_GAP_COLSPEC,
+                FormSpecs.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("${related-gap}"));
         assertEquals(
-                FormFactory.RELATED_GAP_COLSPEC,
+                FormSpecs.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("$rgap"));
         assertEquals(
-                FormFactory.RELATED_GAP_COLSPEC,
+                FormSpecs.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("$rg"));
 
         assertEquals(
-                FormFactory.UNRELATED_GAP_COLSPEC,
+                FormSpecs.UNRELATED_GAP_COLSPEC,
                 ColumnSpec.decode("${unrelated-gap}"));
         assertEquals(
-                FormFactory.UNRELATED_GAP_COLSPEC,
+                FormSpecs.UNRELATED_GAP_COLSPEC,
                 ColumnSpec.decode("$ugap"));
         assertEquals(
-                FormFactory.UNRELATED_GAP_COLSPEC,
+                FormSpecs.UNRELATED_GAP_COLSPEC,
                 ColumnSpec.decode("$ug"));
     }
 
