@@ -136,6 +136,7 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
      *
      * @throws NullPointerException if {@code button} is {@code null}
      */
+    @Override
 	public ButtonStackBuilder addButton(JComponent button) {
         checkNotNull(button, "The button must not be null.");
         button.putClientProperty(NARROW_KEY, Boolean.TRUE);

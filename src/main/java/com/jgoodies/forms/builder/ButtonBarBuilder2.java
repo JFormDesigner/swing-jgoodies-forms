@@ -333,6 +333,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @throws NullPointerException if {@code button} is {@code null}
      */
+    @Override
     public ButtonBarBuilder2 addButton(JComponent button) {
         button.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormSpecs.BUTTON_COLSPEC);
