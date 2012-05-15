@@ -34,6 +34,8 @@ import java.awt.Component;
 import java.awt.FontMetrics;
 import java.awt.Toolkit;
 
+import com.jgoodies.common.bean.AbstractBean;
+
 /**
  * An abstract implementation of the {@link UnitConverter} interface that
  * minimizes the effort required to convert font-dependent sizes to pixels.
@@ -45,7 +47,7 @@ import java.awt.Toolkit;
  * @see    com.jgoodies.forms.layout.Size
  * @see    com.jgoodies.forms.layout.Sizes
  */
-public abstract class AbstractUnitConverter implements UnitConverter {
+public abstract class AbstractUnitConverter extends AbstractBean implements UnitConverter {
 
     private static final int DTP_RESOLUTION = 72;
 
