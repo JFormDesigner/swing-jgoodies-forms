@@ -34,17 +34,17 @@ import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
 import javax.swing.Action;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import com.jgoodies.forms.factories.Borders;
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.util.LayoutStyle;
+import com.jgoodies.forms.util.MacLayoutStyle;
 
 /**
  * A non-visual builder for building consistent button bars that comply
@@ -160,7 +160,10 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
+ * 
+ * @deprecated Replaced by the {@link ButtonBarBuilder}
  */
+@Deprecated
 public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
 
     /**
@@ -208,7 +211,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      */
     public ButtonBarBuilder2(JPanel panel) {
         super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
-        leftToRight = LayoutStyle.getCurrent().isLeftToRightButtonOrder();
+        leftToRight = !(LayoutStyle.getCurrent() instanceof MacLayoutStyle);
     }
 
 
@@ -232,8 +235,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * left to right or from right to left.
      *
      * @return true if button sequences are ordered from left to right
-     *
-     * @see LayoutStyle#isLeftToRightButtonOrder()
      */
     public boolean isLeftToRightButtonOrder() {
         return leftToRight;
@@ -248,8 +249,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *     from left to right
      *
      * @return this builder
-     *
-     * @see LayoutStyle#isLeftToRightButtonOrder()
      */
     public ButtonBarBuilder2 setLeftToRightButtonOrder(boolean newButtonOrder) {
         leftToRight = newButtonOrder;
@@ -265,7 +264,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @return this builder
      */
     public ButtonBarBuilder2 setDefaultButtonBarGapBorder() {
-        setBorder(Borders.BUTTON_BAR_GAP_BORDER);
+        setBorder(Borders.BUTTON_BAR_PAD);
         return this;
     }
 
@@ -285,13 +284,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     }
 
 
-    /**
-     * Adds the standard horizontal gap for related components.
-     *
-     * @return this builder
-     *
-     * @see LayoutStyle#getRelatedComponentsPadX()
-     */
+    @Override
     public ButtonBarBuilder2 addRelatedGap() {
         appendRelatedComponentsGapColumn();
         nextColumn();
@@ -299,13 +292,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     }
 
 
-    /**
-     * Adds the standard horizontal gap for unrelated components.
-     *
-     * @return this builder
-     *
-     * @see LayoutStyle#getUnrelatedComponentsPadX()
-     */
+    @Override
     public ButtonBarBuilder2 addUnrelatedGap() {
         appendUnrelatedComponentsGapColumn();
         nextColumn();
@@ -348,7 +335,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      */
     public ButtonBarBuilder2 addButton(JComponent button) {
         button.putClientProperty(NARROW_KEY, Boolean.TRUE);
-        getLayout().appendColumn(FormFactory.BUTTON_COLSPEC);
+        getLayout().appendColumn(FormSpecs.BUTTON_COLSPEC);
         add(button);
         nextColumn();
         return this;
@@ -376,6 +363,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      *
      * @see #addButton(JComponent)
      */
+    @Override
     public ButtonBarBuilder2 addButton(JComponent... buttons) {
         checkNotNull(buttons, "The button array must not be null.");
         int length = buttons.length;
@@ -409,32 +397,10 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
     }
 
 
-    /**
-     * Adds a sequence of related JButtons built from the given Actions
-     * that are separated by the default gap as specified by
-     * {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
-     *
-     * Uses this builder's button order (left-to-right vs. right-to-left).
-     * If you  want to use a fixed order, add individual Actions instead.
-     *
-     * @param actions   the Actions that describe the buttons to add
-     *
-     * @return this builder
-     *
-     * @throws NullPointerException if the Action array or an Action is {@code null}
-     * @throws IllegalArgumentException if the Action array is empty
-     *
-     * @see #addButton(JComponent[])
-     */
+    @Override
     public ButtonBarBuilder2 addButton(Action... actions) {
-        checkNotNull(actions, "The Action array must not be null.");
-        int length = actions.length;
-        checkArgument(length > 0, "The Action array must not be empty.");
-        JButton[] buttons = new JButton[length];
-        for (int i = 0; i < length; i++) {
-            buttons[i] = createButton(actions[i]);
-        }
-        return addButton(buttons);
+        super.addButton(actions);
+        return this;
     }
 
 
@@ -450,7 +416,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @return this builder
      */
     public ButtonBarBuilder2 addGrowing(JComponent component) {
-        getLayout().appendColumn(FormFactory.GROWING_BUTTON_COLSPEC);
+        getLayout().appendColumn(FormSpecs.GROWING_BUTTON_COLSPEC);
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         add(component);
         nextColumn();
@@ -494,7 +460,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      */
     public ButtonBarBuilder2 addFixed(JComponent component) {
         component.putClientProperty(NARROW_KEY, Boolean.TRUE);
-        getLayout().appendColumn(FormFactory.PREF_COLSPEC);
+        getLayout().appendColumn(FormSpecs.PREF_COLSPEC);
         add(component);
         nextColumn();
         return this;
