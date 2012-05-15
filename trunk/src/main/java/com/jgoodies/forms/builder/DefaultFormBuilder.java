@@ -37,11 +37,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.jgoodies.common.base.StringLocalizer;
+import com.jgoodies.common.internal.StringLocalizer;
 import com.jgoodies.common.swing.MnemonicUtils;
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 /**
@@ -209,7 +209,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * @since 1.0.3
  *
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
- * @see	com.jgoodies.forms.factories.FormFactory
+ * @see	com.jgoodies.forms.layout.FormSpecs
  * @see	com.jgoodies.forms.layout.FormLayout
  */
 public final class DefaultFormBuilder extends I15dPanelBuilder {
@@ -220,7 +220,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      *
      * @see #setDefaultRowSpec(RowSpec)
      */
-    private RowSpec defaultRowSpec = FormFactory.PREF_ROWSPEC;
+    private RowSpec defaultRowSpec = FormSpecs.PREF_ROWSPEC;
 
     /**
      * Holds the row specification that is reused to describe
@@ -228,7 +228,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      *
      * @see #setLineGapSize(ConstantSize)
      */
-    private RowSpec lineGapSpec = FormFactory.LINE_GAP_ROWSPEC;
+    private RowSpec lineGapSpec = FormSpecs.LINE_GAP_ROWSPEC;
 
     /**
      * Holds the row specification that describes the constant gaps
@@ -236,7 +236,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      *
      * @see #setParagraphGapSize(ConstantSize)
      */
-    private RowSpec paragraphGapSpec = FormFactory.PARAGRAPH_GAP_ROWSPEC;
+    private RowSpec paragraphGapSpec = FormSpecs.PARAGRAPH_GAP_ROWSPEC;
 
     /**
      * Holds the offset of the leading column - often 0 or 1.
@@ -361,7 +361,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
      * Sets the row specification that shall be used for component rows.
-     * It is {@link FormFactory#PREF_ROWSPEC} by default.
+     * It is {@link FormSpecs#PREF_ROWSPEC} by default.
      *
      * @param defaultRowSpec   the RowSpec to be used for component rows
      *
