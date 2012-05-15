@@ -30,10 +30,16 @@
 
 package com.jgoodies.forms.builder;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -41,13 +47,15 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.ComponentFactory;
-import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.internal.FocusTraversalUtilsAccessor;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.util.LayoutStyle;
 
 /**
- * The abstract superclass for {@link ButtonBarBuilder2}.
+ * The abstract superclass for {@link ButtonBarBuilder}.
  * Provides a cell cursor for traversing
  * the button bar/stack while components are added. It also offers
  * convenience methods to append logical columns and rows.<p>
@@ -90,6 +98,13 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     private boolean leftToRight;
 
 
+    /**
+     * Indicates whether a focus group has been built in {@link #getPanel()}.
+     * Reset to {@code false} whenever a component is added.
+     */
+    protected boolean focusGrouped = false;
+
+
     // Instance Creation ****************************************************
 
     /**
@@ -113,26 +128,39 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     // Accessors ************************************************************
 
     /**
-     * Returns the panel used to build the form.
+     * Returns the panel used to build the form and lazily builds
+     * a focus traversal group for all contained AbstractButtons.
      *
      * @return the panel used by this builder to build the form
      */
-    public final JPanel getPanel() {
+    public JPanel getPanel() {
+    	if (!focusGrouped) {
+	    	List<AbstractButton> buttons = new ArrayList<AbstractButton>();
+	    	for (Component component : getContainer().getComponents()) {
+				if (component instanceof AbstractButton) {
+					buttons.add((JButton) component);
+				}
+			}
+	    	FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons.toArray(new AbstractButton[0]));
+	    	focusGrouped = true;
+    	}
         return (JPanel) getContainer();
     }
-
-
+    
+    
     // Frequently Used Panel Properties ***************************************
 
     /**
-     * Sets the panel's background color.
+     * Sets the panel's background color and makes the panel opaque.
      *
      * @param background  the color to set as new background
      *
      * @see JComponent#setBackground(Color)
      */
-    public final void setBackground(Color background) {
+    protected AbstractButtonPanelBuilder setBackground(Color background) {
         getPanel().setBackground(background);
+        setOpaque(true);
+        return this;
     }
 
 
@@ -143,8 +171,9 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      *
      * @see JComponent#setBorder(Border)
      */
-    public final void setBorder(Border border) {
+    protected AbstractButtonPanelBuilder setBorder(Border border) {
         getPanel().setBorder(border);
+        return this;
     }
 
 
@@ -157,8 +186,9 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      *
      * @since 1.1
      */
-    public final void setOpaque(boolean b) {
+    protected AbstractButtonPanelBuilder setOpaque(boolean b) {
         getPanel().setOpaque(b);
+        return this;
     }
 
 
@@ -215,8 +245,18 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     }
 
 
-    protected int getColumn() {
+    protected final int getColumn() {
         return currentCellConstraints.gridX;
+    }
+
+
+    /**
+     * Returns the cursor's row.
+     *
+     * @return the cursor's row
+     */
+    protected final int getRow() {
+        return currentCellConstraints.gridY;
     }
 
 
@@ -257,7 +297,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapColumn()
      */
     protected final void appendGlueColumn() {
-        appendColumn(FormFactory.GLUE_COLSPEC);
+        appendColumn(FormSpecs.GLUE_COLSPEC);
     }
 
 
@@ -268,7 +308,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapColumn()
      */
     protected final void appendRelatedComponentsGapColumn() {
-        appendColumn(FormFactory.RELATED_GAP_COLSPEC);
+        appendColumn(FormSpecs.RELATED_GAP_COLSPEC);
     }
 
 
@@ -279,7 +319,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @see #appendRelatedComponentsGapColumn()
      */
     protected final void appendUnrelatedComponentsGapColumn() {
-        appendColumn(FormFactory.UNRELATED_GAP_COLSPEC);
+        appendColumn(FormSpecs.UNRELATED_GAP_COLSPEC);
     }
 
 
@@ -302,7 +342,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapRow()
      */
     protected final void appendGlueRow() {
-        appendRow(FormFactory.GLUE_ROWSPEC);
+        appendRow(FormSpecs.GLUE_ROWSPEC);
     }
 
 
@@ -313,7 +353,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapRow()
      */
     protected final void appendRelatedComponentsGapRow() {
-        appendRow(FormFactory.RELATED_GAP_ROWSPEC);
+        appendRow(FormSpecs.RELATED_GAP_ROWSPEC);
     }
 
 
@@ -324,7 +364,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @see #appendRelatedComponentsGapRow()
      */
     protected final void appendUnrelatedComponentsGapRow() {
-        appendRow(FormFactory.UNRELATED_GAP_ROWSPEC);
+        appendRow(FormSpecs.UNRELATED_GAP_ROWSPEC);
     }
 
 
@@ -338,10 +378,88 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @param component	the component to add
      * @return the added component
      */
-    protected final Component add(Component component) {
+    protected Component add(Component component) {
         getContainer().add(component, currentCellConstraints);
-        return component;
+       focusGrouped = false;
+       return component;
     }
+
+
+    /**
+     * Adds one or many sequences of related buttons. A new sequence starts
+     * when a button is {@code null}. The next sequence is separated by an
+     * unrelated gap. 
+     * Each button has the minimum width as specified by
+     * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
+     * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
+     *
+     * Although JButtons are expected, general JComponents are accepted
+     * to allow custom button component types.<p>
+     * 
+     * <strong>Examples:</strong>
+     * <pre>
+     * builder.addButtons(newButton, editButton, deleteButton);
+     * builder.addButtons(newButton, editButton, deleteButton, null, printButton);
+     * </pre>
+     *
+     * @param buttons  the buttons to add
+     *
+     * @return this builder
+     *
+     * @throws NullPointerException if {@code buttons} is {@code null}
+     * @throws IllegalArgumentException if {@code buttons} is empty
+     *
+     * @see #addButton(JComponent)
+     */
+    protected AbstractButtonPanelBuilder addButton(JComponent... buttons) {
+        checkNotNull(buttons, "The button array must not be null.");
+        checkArgument(buttons.length > 0, "The button array must not be empty.");
+        boolean needsGap = false;
+        for (JComponent button : buttons) {
+            if (button == null) {
+                addUnrelatedGap();
+                needsGap = false;
+                continue;
+            }
+            if (needsGap) {
+                addRelatedGap();
+            }
+            addButton(button);
+            needsGap = true;
+        }
+        return this;
+    }
+
+
+	/**
+	 * Constructs an array of JButtons from the given Action array,
+	 * and adds them as a sequence of related buttons separated by a default gap.
+	 *
+	 * @param actions  an array of buttons to add
+	 */
+	protected AbstractButtonPanelBuilder addButton(Action... actions) {
+	    checkNotNull(actions, "The Action array must not be null.");
+	    int length = actions.length;
+	    checkArgument(length > 0, "The Action array must not be empty.");
+	    JButton[] buttons = new JButton[length];
+	    for (int i = 0; i < length; i++) {
+	    	Action action = actions[i];
+	        buttons[i] = action == null ? null : createButton(action);
+	    }
+	    return addButton(buttons);
+	}
+	
+	
+    /**
+     * Adds the standard gap for related components.
+     */
+	abstract protected AbstractButtonPanelBuilder addRelatedGap();
+
+
+    /**
+     * Adds the standard gap for unrelated components.
+     */
+    abstract protected AbstractButtonPanelBuilder addUnrelatedGap();
 
 
     /**
