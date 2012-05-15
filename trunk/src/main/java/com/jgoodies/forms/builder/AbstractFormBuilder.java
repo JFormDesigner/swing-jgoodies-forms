@@ -34,10 +34,10 @@ import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 /**
@@ -53,7 +53,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * @author Karsten Lentzsch
  * @version $Revision: 1.16 $
  *
- * @see    ButtonBarBuilder2
+ * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
  * @see    PanelBuilder
  * @see    I15dPanelBuilder
@@ -358,7 +358,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapColumn()
      */
     public final void appendGlueColumn() {
-        appendColumn(FormFactory.GLUE_COLSPEC);
+        appendColumn(FormSpecs.GLUE_COLSPEC);
     }
 
 
@@ -373,7 +373,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapColumn()
      */
     public final void appendLabelComponentsGapColumn() {
-        appendColumn(FormFactory.LABEL_COMPONENT_GAP_COLSPEC);
+        appendColumn(FormSpecs.LABEL_COMPONENT_GAP_COLSPEC);
     }
 
 
@@ -385,7 +385,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapColumn()
      */
     public final void appendRelatedComponentsGapColumn() {
-        appendColumn(FormFactory.RELATED_GAP_COLSPEC);
+        appendColumn(FormSpecs.RELATED_GAP_COLSPEC);
     }
 
 
@@ -397,7 +397,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendRelatedComponentsGapColumn()
      */
     public final void appendUnrelatedComponentsGapColumn() {
-        appendColumn(FormFactory.UNRELATED_GAP_COLSPEC);
+        appendColumn(FormSpecs.UNRELATED_GAP_COLSPEC);
     }
 
 
@@ -436,7 +436,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendParagraphGapRow()
      */
     public final void appendGlueRow() {
-        appendRow(FormFactory.GLUE_ROWSPEC);
+        appendRow(FormSpecs.GLUE_ROWSPEC);
     }
 
 
@@ -448,7 +448,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendParagraphGapRow()
      */
     public final void appendRelatedComponentsGapRow() {
-        appendRow(FormFactory.RELATED_GAP_ROWSPEC);
+        appendRow(FormSpecs.RELATED_GAP_ROWSPEC);
     }
 
 
@@ -460,7 +460,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendParagraphGapRow()
      */
     public final void appendUnrelatedComponentsGapRow() {
-        appendRow(FormFactory.UNRELATED_GAP_ROWSPEC);
+        appendRow(FormSpecs.UNRELATED_GAP_ROWSPEC);
     }
 
 
@@ -474,7 +474,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @see #appendUnrelatedComponentsGapRow()
      */
     public final void appendParagraphGapRow() {
-        appendRow(FormFactory.PARAGRAPH_GAP_ROWSPEC);
+        appendRow(FormSpecs.PARAGRAPH_GAP_ROWSPEC);
     }
 
 
