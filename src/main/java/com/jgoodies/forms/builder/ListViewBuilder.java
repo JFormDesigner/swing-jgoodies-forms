@@ -32,7 +32,6 @@ package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -253,7 +252,7 @@ public final class ListViewBuilder {
      * Sets an optional list bar - often a button bar - 
      * that will be located in the lower left corner of the list view. 
      * If the list bar view consists only of buttons, 
-     * use {@link #setListBar(JButton...)} instead.
+     * use {@link #setListBar(JComponent...)} instead.
      * 
      * @param listBarView   the component to set
      */
