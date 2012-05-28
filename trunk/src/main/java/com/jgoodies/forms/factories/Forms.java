@@ -152,7 +152,8 @@ public class Forms {
 
     /**
      * Builds and returns a button bar that consists of the given buttons.
-     * The buttons are grouped using the {@link FocusTraversalUtils}.
+     * Aims to build a focus group via the {@code FocusTraversalUtils},
+     * if in the classpath.
      *
      * @return the built panel
      */
