@@ -34,7 +34,7 @@ import java.awt.Component;
 import java.awt.FontMetrics;
 import java.awt.Toolkit;
 
-import com.jgoodies.common.bean.AbstractBean;
+import com.jgoodies.common.bean.Bean;
 
 /**
  * An abstract implementation of the {@link UnitConverter} interface that
@@ -47,7 +47,7 @@ import com.jgoodies.common.bean.AbstractBean;
  * @see    com.jgoodies.forms.layout.Size
  * @see    com.jgoodies.forms.layout.Sizes
  */
-public abstract class AbstractUnitConverter extends AbstractBean implements UnitConverter {
+public abstract class AbstractUnitConverter extends Bean implements UnitConverter {
 
     private static final int DTP_RESOLUTION = 72;
 
