@@ -60,6 +60,7 @@ CHANGES IN 1.6.0  -----------------------------------------------------
     o AbstractBuilder#setDefaultComponentFactory has been renamed to
       #setComponentFactoryDefault.
     o Fixed and added JavaDocs and JavaDoc comment examples.
+    o Fixed the broken artifact id in the pom.xml.
       
 
 JGoodies Forms 1.5.1 ------------------------------------------------------
