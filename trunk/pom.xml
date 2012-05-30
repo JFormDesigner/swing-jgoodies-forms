@@ -1,7 +1,7 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jgoodies</groupId>
-	<artifactId>jgoodiesforms</artifactId>
+	<artifactId>jgoodies-forms</artifactId>
 	<version>@impl.version@</version>
 	<packaging>jar</packaging>
 	<name>JGoodies Forms</name>
