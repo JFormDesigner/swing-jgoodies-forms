@@ -222,8 +222,10 @@ public class PanelBuilder extends AbstractFormBuilder {
     
     
     /**
-     * Sets the global default value for a builder's opaque state
-     *    that can be overridden per builder.
+     * Sets the global default value for a builder's opaque state 
+     * that can be overridden per builder. 
+     * Since the Forms 1.6, the default value is {@code false},
+     * in other words, panels will not be opaque.
      *    
      * @param b   the new value
      */
