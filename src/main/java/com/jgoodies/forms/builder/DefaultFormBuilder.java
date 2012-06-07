@@ -30,12 +30,14 @@
 
 package com.jgoodies.forms.builder;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.util.ResourceBundle;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import com.jgoodies.common.internal.StringLocalizer;
 import com.jgoodies.common.swing.MnemonicUtils;
@@ -342,6 +344,43 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      */
     public DefaultFormBuilder(FormLayout layout, StringLocalizer localizer, JPanel container) {
         super(layout, localizer, container);
+    }
+
+
+    // Frequently Used Panel Properties ***************************************
+
+    @Override
+    public DefaultFormBuilder setBackground(Color background) {
+        super.setBackground(background);
+        return this;
+    }
+
+
+    @Override
+    public DefaultFormBuilder setBorder(Border border) {
+        super.setBorder(border);
+        return this;
+    }
+    
+    
+    @Override
+    public DefaultFormBuilder setBorder(String emptyBorderSpec) {
+    	super.setBorder(emptyBorderSpec);
+    	return this;
+    }
+
+
+    @Override
+    public DefaultFormBuilder setDefaultDialogBorder() {
+        super.setDefaultDialogBorder();
+        return this;
+    }
+
+
+    @Override
+    public DefaultFormBuilder setOpaque(boolean b) {
+        super.setOpaque(b);
+        return this;
     }
 
 
