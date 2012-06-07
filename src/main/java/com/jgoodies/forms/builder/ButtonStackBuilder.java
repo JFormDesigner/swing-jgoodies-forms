@@ -68,13 +68,13 @@ import com.jgoodies.forms.util.LayoutStyle;
  * <pre>
  * private JPanel createCloseUpDownButtonStack(
  *         JButton close, JButton up, JButton down) {
- *     ButtonStackBuilder builder = new ButtonStackBuilder();
- *     builder.addGridded(close);
- *     builder.addUnrelatedGap();
- *     builder.addGridded(up);
- *     builder.addRelatedGap();
- *     builder.addGridded(down);
- *     return builder.getPanel();
+ *     return new ButtonStackBuilder()
+ *     		.addGridded(close)
+ *     		.addUnrelatedGap()
+ *     		.addGridded(up)
+ *     		.addRelatedGap()
+ *     		.addGridded(down)
+ *     		.build();
  * }
  * </pre>
  *
@@ -103,7 +103,7 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
 
     /**
      * Constructs a ButtonStackBuilder  on a default JPanel
-     * using a preconfigured FormLayout as layout manager.
+     * using a pre-configured FormLayout as layout manager.
      */
     public ButtonStackBuilder() {
         this(new JPanel(null));
@@ -112,7 +112,7 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
 
     /**
      * Constructs a ButtonStackBuilder on the given panel
-     * using a preconfigured FormLayout as layout manager.
+     * using a pre-configured FormLayout as layout manager.
      *
      * @param panel   the layout container
      */
@@ -223,22 +223,22 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
     // Configuration **********************************************************
     
     @Override
-    public ButtonStackBuilder setBackground(Color background) {
-        super.setBackground(background);
+    public ButtonStackBuilder background(Color background) {
+        super.background(background);
         return this;
     }
 
 
     @Override
-    public ButtonStackBuilder setBorder(Border border) {
-        super.setBorder(border);
+    public ButtonStackBuilder border(Border border) {
+        super.border(border);
         return this;
     }
 
 
     @Override
-    public ButtonStackBuilder setOpaque(boolean b) {
-    	super.setOpaque(b);
+    public ButtonStackBuilder opaque(boolean b) {
+    	super.opaque(b);
     	return this;
     }
     

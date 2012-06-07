@@ -60,26 +60,26 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     .addButton(editButton)
  *     .addRelatedGap()
  *     .addButton(deleteButton)
- *     .getPanel();
+ *     .build();
  *
  * // 2) Short hand for example 1) 
  * return new ButtonBarBuilder()
  *     .addButton(newButton, editButton, deleteButton)
- *     .getPanel();
+ *     .build();
  *
  * // 3) Build and return a bar with two sections
  * return new ButtonBarBuilder()
  *     .addButton(newButton, editButton, deleteButton)
  *     .addUnrelatedGap()
  *     .addButton(moveUpButton, moveDownButton)
- *     .getPanel();
+ *     .build();
  *
  * // 4) Short hand for example 3)
  * return new ButtonBarBuilder()
  *     .addButton(newButton, editButton, deleteButton, 
  *                null, 
  *                moveUpButton, moveDownButton)
- *     .getPanel();
+ *     .build();
  *
  * // 5) Build and return a complex button bar
  * return new ButtonBarBuilder()
@@ -88,7 +88,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     .addButton(moveUpButton, moveDownButton)
  *     .addGlue()
  *     .addGrowing(legendComponent)
- *     .getPanel();
+ *     .build();
  * </pre>
  *
  * @author	Karsten Lentzsch
@@ -277,22 +277,22 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
     // Configuration **********************************************************
     
     @Override
-    public ButtonBarBuilder setBackground(Color background) {
-        super.setBackground(background);
+    public ButtonBarBuilder background(Color background) {
+        super.background(background);
         return this;
     }
 
 
     @Override
-    public ButtonBarBuilder setBorder(Border border) {
-        super.setBorder(border);
+    public ButtonBarBuilder border(Border border) {
+        super.border(border);
         return this;
     }
 
 
     @Override
-    public ButtonBarBuilder setOpaque(boolean b) {
-    	super.setOpaque(b);
+    public ButtonBarBuilder opaque(boolean b) {
+    	super.opaque(b);
     	return this;
     }
     

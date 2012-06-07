@@ -53,19 +53,19 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * <strong>Examples:</strong><pre>
  * return new ListViewBuilder()
- *     .setLabel("&Contacts:")
- *     .setListView(contactsTable)
- *     .setListBar(newButton, editButton, deleteButton)
- *     .getPanel();
+ *     .label("&Contacts:")
+ *     .listView(contactsTable)
+ *     .listBar(newButton, editButton, deleteButton)
+ *     .build();
  *
  * return new ListViewBuilder()
- *     .setBorder(Borders.DLU14)
- *     .setLabelView(contactsLabel)
- *     .setFilterView(contactsSearchField)
- *     .setListView(contactsTable)
- *     .setListBar(newButton, editButton, deleteButton, null, printButton)
- *     .setDetailsView(contactDetailsView)
- *     .getPanel();
+ *     .border(Borders.DLU14)
+ *     .labelView(contactsLabel)
+ *     .filterView(contactsSearchField)
+ *     .listView(contactsTable)
+ *     .listBar(newButton, editButton, deleteButton, null, printButton)
+ *     .detailsView(contactDetailsView)
+ *     .build();
  * </pre>
  * 
  * @author  Karsten Lentzsch
@@ -99,7 +99,7 @@ public final class ListViewBuilder {
     /**
      * Constructs a ListViewBuilder using the AbstractBuilder's
      * default component factory. The factory is required by
-     * {@link #setLabel(String)} and {@link #setHeaderLabel(String)}.
+     * {@link #label(String)} and {@link #headerLabel(String)}.
      */
     public ListViewBuilder() {
     	this(AbstractBuilder.getComponentFactoryDefault());
@@ -109,7 +109,7 @@ public final class ListViewBuilder {
     /**
      * Constructs a ListViewBuilder using the given component factory. 
      * The factory is required by
-     * {@link #setLabel(String)} and {@link #setHeaderLabel(String)}.
+     * {@link #label(String)} and {@link #headerLabel(String)}.
      * 
      * @param factory   the component factory used to create labels and headers
      */
@@ -121,6 +121,19 @@ public final class ListViewBuilder {
     // API ********************************************************************
 
     /**
+     * Sets an optional border that surrounds the list view including
+     * the label and details.
+     * 
+     * @param border   the border to set
+     */
+    public ListViewBuilder border(Border border) {
+    	this.border = border;
+    	invalidatePanel();
+    	return this;
+    }
+    
+    
+    /**
      * Sets the mandatory label view. Useful to set a bound label that updates
      * its text when the list content changes, for example to provide the
      * number of list elements.
@@ -128,24 +141,24 @@ public final class ListViewBuilder {
      * @param labelView   the component that shall label the list view,
      *    often a bound label
      */
-    public ListViewBuilder setLabelView(JComponent labelView) {
+    public ListViewBuilder labelView(JComponent labelView) {
         this.labelView = labelView;
         invalidatePanel();
         return this;
     }
 
 
-    /**
+	/**
      * Creates a plain label for the given marked text and sets it as label view.
      * Equivalent to:
      * <pre>
-     * setLabelView(aComponentFactory.createLabel(markedText));
+     * labelView(aComponentFactory.createLabel(markedText));
      * </pre>
      * 
      * @param markedText   the label's text, may contain a mnemonic marker
      */
-    public ListViewBuilder setLabel(String markedText) {
-        setLabelView(factory.createLabel(markedText));
+    public ListViewBuilder label(String markedText) {
+        labelView(factory.createLabel(markedText));
         return this;
     }
 
@@ -154,13 +167,13 @@ public final class ListViewBuilder {
      * Creates a header label for the given marked text and sets it as label view.
      * Equivalent to:
      * <pre>
-     * setLabelView(aComponentFactory.createHeaderLabel(markedText));
+     * labelView(aComponentFactory.createHeaderLabel(markedText));
      * </pre>
      * 
      * @param markedText   the label's text, may contain a mnemonic marker
      */
-    public ListViewBuilder setHeaderLabel(String markedText) {
-        setLabelView(factory.createHeaderLabel(markedText));
+    public ListViewBuilder headerLabel(String markedText) {
+        labelView(factory.createHeaderLabel(markedText));
         return this;
     }
     
@@ -172,7 +185,7 @@ public final class ListViewBuilder {
      * 
      * @param filterView    the view to be added.
      */
-    public ListViewBuilder setFilterView(JComponent filterView) {
+    public ListViewBuilder filterView(JComponent filterView) {
         this.filterView = filterView;
         invalidatePanel();
         return this;
@@ -191,7 +204,7 @@ public final class ListViewBuilder {
      * 
      * @throws NullPointerException if {@code colSpec} is {@code null}
      */
-    public ListViewBuilder setFilterViewColSpec(String colSpec) {
+    public ListViewBuilder filterViewColSpec(String colSpec) {
     	checkNotNull(colSpec, "The filter view column specification must not be null.");
     	this.filterViewColSpec = colSpec;
         invalidatePanel();
@@ -209,7 +222,7 @@ public final class ListViewBuilder {
      * 
      * @throws NullPointerException if {@code listView} is {@code null}
      */
-    public ListViewBuilder setListView(JComponent listView) {
+    public ListViewBuilder listView(JComponent listView) {
     	checkNotNull(listView, "The list view must not be null.");
     	if (listView instanceof JTable || listView instanceof JList || listView instanceof JTree) {
     		this.listView = new JScrollPane(listView);
@@ -231,16 +244,16 @@ public final class ListViewBuilder {
      * 
      * <strong>Examples:</strong>
      * <pre>
-     * builder.setListViewRowSpec("fill:100dlu");  // fixed height
-     * builder.setListViewRowSpec("f:100dlu:g");   // fixed start height, grows
-     * builder.setListViewRowSpec("f:p");          // no minimum height
+     * .listViewRowSpec("fill:100dlu");  // fixed height
+     * .listViewRowSpec("f:100dlu:g");   // fixed start height, grows
+     * .listViewRowSpec("f:p");          // no minimum height
      * </pre>
      * 
      * @param rowSpec   specifies the vertical layout of the list view
      * 
      * @throws NullPointerException if {@code rowSpec} is {@code null}
      */
-    public ListViewBuilder setListViewRowSpec(String rowSpec) {
+    public ListViewBuilder listViewRowSpec(String rowSpec) {
     	checkNotNull(rowSpec, "The list view row specification must not be null.");
     	this.listViewRowSpec = rowSpec;
         invalidatePanel();
@@ -252,11 +265,11 @@ public final class ListViewBuilder {
      * Sets an optional list bar - often a button bar - 
      * that will be located in the lower left corner of the list view. 
      * If the list bar view consists only of buttons, 
-     * use {@link #setListBar(JComponent...)} instead.
+     * use {@link #listBar(JComponent...)} instead.
      * 
      * @param listBarView   the component to set
      */
-    public ListViewBuilder setListBarView(JComponent listBarView) {
+    public ListViewBuilder listBarView(JComponent listBarView) {
         this.listBarView = listBarView;
         invalidatePanel();
         return this;
@@ -268,7 +281,7 @@ public final class ListViewBuilder {
      * Although JButtons are expected, any JComponent is accepted
      * to allow custom button component types.<p>
      * 
-     * Equivalent to {@code setListBarView(Forms.buildButtonBar(buttons))}.
+     * Equivalent to {@code listBarView(Forms.buildButtonBar(buttons))}.
      * 
      * @param buttons    the buttons in the list bar
      * 
@@ -277,8 +290,8 @@ public final class ListViewBuilder {
      * 
      * @see ButtonBarBuilder#addButton(JComponent...)
      */
-    public ListViewBuilder setListBar(JComponent... buttons) {
-        setListBarView(Forms.buttonBar(buttons));
+    public ListViewBuilder listBar(JComponent... buttons) {
+        listBarView(Forms.buttonBar(buttons));
         return this;
     }
 
@@ -289,7 +302,7 @@ public final class ListViewBuilder {
      * 
      * @param listExtrasView    the component to set
      */
-    public ListViewBuilder setListExtrasView(JComponent listExtrasView) {
+    public ListViewBuilder listExtrasView(JComponent listExtrasView) {
         this.listExtrasView = listExtrasView;
         invalidatePanel();
         return this;
@@ -302,21 +315,8 @@ public final class ListViewBuilder {
      * 
      * @param detailsView    the component to set
      */
-    public ListViewBuilder setDetailsView(JComponent detailsView) {
+    public ListViewBuilder detailsView(JComponent detailsView) {
         this.detailsView = detailsView;
-        invalidatePanel();
-        return this;
-    }
-
-
-    /**
-     * Sets an optional border that surrounds the list view including
-     * the label and details.
-     * 
-     * @param border   the border to set
-     */
-    public ListViewBuilder setBorder(Border border) {
-        this.border = border;
         invalidatePanel();
         return this;
     }
@@ -327,7 +327,7 @@ public final class ListViewBuilder {
      * 
      * @return the built panel
      */
-    public JComponent getPanel() {
+    public JComponent build() {
         if (panel == null) {
             panel = buildPanel();
         }
@@ -351,7 +351,7 @@ public final class ListViewBuilder {
                 columnSpec,
                 "[14dlu,p], $lcg, " + listViewRowSpec + ", p, p");
         PanelBuilder builder = new PanelBuilder(layout);
-        builder.setBorder(border);
+        builder.border(border);
         builder.add(labelView,                   CC.xy (1, 1));
         builder.add(listView,   			     CC.xyw(1, 3, 3));
         if (filterView != null) {
@@ -364,7 +364,7 @@ public final class ListViewBuilder {
             builder.add(buildDecoratedDetailsView(), CC.xyw(1, 5, 3));
         }
 
-        return builder.getPanel();
+        return builder.build();
     }
 
 
@@ -379,7 +379,7 @@ public final class ListViewBuilder {
         if (listExtrasView != null) {
             builder.add(listExtrasView,  CC.xy(3, 2));
         }
-        return builder.getPanel();
+        return builder.build();
     }
 
 
@@ -389,7 +389,8 @@ public final class ListViewBuilder {
                 "14, p");
         PanelBuilder builder = new PanelBuilder(layout);
         builder.add(detailsView, CC.xy(1, 2));
-        return builder.getPanel();
+        return builder.build();
     }
 
+    
 }

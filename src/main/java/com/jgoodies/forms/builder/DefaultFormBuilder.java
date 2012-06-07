@@ -100,8 +100,8 @@ import com.jgoodies.forms.layout.RowSpec;
  *         "right:max(40dlu;pref), 3dlu, 80dlu, 7dlu, " // 1st major colum
  *       + "right:max(40dlu;pref), 3dlu, 80dlu",        // 2nd major column
  *         "");                                         // add rows dynamically
- *     DefaultFormBuilder builder = new DefaultFormBuilder(layout);
- *     builder.setDefaultDialogBorder();
+ *     DefaultFormBuilder builder = new DefaultFormBuilder(layout)
+ *     		.border(Borders.DIALOG);
  *
  *     builder.appendSeparator("Flange");
  *
@@ -150,11 +150,9 @@ import com.jgoodies.forms.layout.RowSpec;
  *     FormLayout layout = new FormLayout(
  *             "right:pref, 3dlu, default:grow",
  *             "");
- *     DefaultFormBuilder builder = new DefaultFormBuilder(layout);
- *     builder.setDefaultDialogBorder();
- *     builder.setRowGroupingEnabled(true);
- *
- *     CellConstraints cc = new CellConstraints();
+ *     DefaultFormBuilder builder = new DefaultFormBuilder(layout)
+ *     	    .border(Borders.DIALOG)
+ *          .rowGroupingEnabled(true);
  *
  *     // In this approach, we add a gap and a custom row.
  *     // The advantage of this approach is, that we can express
@@ -198,7 +196,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *     builder.add(new JScrollPane(comment3Area),
  *                 CC.xywh(builder.getColumn(), builder.getRow(), 1, 3));
  *
- *     return builder.getPanel();
+ *     return builder.build();
  * }
  * </pre><p>
  *
@@ -350,36 +348,103 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     // Frequently Used Panel Properties ***************************************
 
     @Override
-    public DefaultFormBuilder setBackground(Color background) {
-        super.setBackground(background);
+    public DefaultFormBuilder background(Color background) {
+        super.background(background);
         return this;
     }
 
 
     @Override
-    public DefaultFormBuilder setBorder(Border border) {
-        super.setBorder(border);
+    public DefaultFormBuilder border(Border border) {
+        super.border(border);
         return this;
     }
     
     
     @Override
-    public DefaultFormBuilder setBorder(String emptyBorderSpec) {
-    	super.setBorder(emptyBorderSpec);
+    public DefaultFormBuilder border(String emptyBorderSpec) {
+    	super.border(emptyBorderSpec);
     	return this;
     }
 
 
     @Override
-    public DefaultFormBuilder setDefaultDialogBorder() {
-        super.setDefaultDialogBorder();
+    public DefaultFormBuilder opaque(boolean b) {
+        super.opaque(b);
         return this;
     }
 
 
-    @Override
-    public DefaultFormBuilder setOpaque(boolean b) {
-        super.setOpaque(b);
+    /**
+     * Sets the row specification that shall be used for component rows.
+     * It is {@link FormSpecs#PREF_ROWSPEC} by default.
+     *
+     * @param defaultRowSpec   the RowSpec to be used for component rows
+     */
+    public DefaultFormBuilder defaultRowSpec(RowSpec defaultRowSpec) {
+        this.defaultRowSpec = defaultRowSpec;
+        return this;
+    }
+
+
+    /**
+     * Sets the size of gaps between component lines using the given
+     * constant size.<p>
+     *
+     * <strong>Examples:</strong><pre>
+     * .lineGapSize(Sizes.ZERO);
+     * .lineGapSize(Sizes.DLUY9);
+     * .lineGapSize(Sizes.pixel(1));
+     * </pre>
+     *
+     * @param lineGapSize   the {@code ConstantSize} that describes
+     *     the size of the gaps between component lines
+     */
+    public DefaultFormBuilder lineGapSize(ConstantSize lineGapSize) {
+        RowSpec rowSpec = RowSpec.createGap(lineGapSize);
+        this.lineGapSpec = rowSpec;
+        return this;
+    }
+
+
+    /**
+     * Sets the size of gaps between paragraphs using the given
+     * constant size.<p>
+     *
+     * <strong>Examples:</strong><pre>
+     * .setParagraphGapSize(Sizes.DLUY14);
+     * .setParagraphGapSize(Sizes.dluY(22));
+     * .setParagraphGapSize(Sizes.pixel(42));
+     * </pre>
+     *
+     * @param paragraphGapSize   the {@code ConstantSize} that describes
+     *     the size of the gaps between paragraphs
+     */
+    public DefaultFormBuilder paragraphGapSize(ConstantSize paragraphGapSize) {
+        RowSpec rowSpec = RowSpec.createGap(paragraphGapSize);
+        this.paragraphGapSpec = rowSpec;
+        return this;
+    }
+
+
+    /**
+     * Sets the offset of the leading column, often 0 or 1.
+     *
+     * @param columnOffset  the new offset of the leading column
+     */
+    public DefaultFormBuilder leadingColumnOffset(int columnOffset) {
+        this.leadingColumnOffset = columnOffset;
+        return this;
+    }
+
+
+    /**
+     * Enables or disables the grouping of new data rows.
+     *
+     * @param enabled  indicates grouping enabled, false disabled
+     */
+    public DefaultFormBuilder rowGroupingEnabled(boolean enabled) {
+        rowGroupingEnabled = enabled;
         return this;
     }
 
@@ -392,7 +457,9 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the {@code RowSpec} used for component rows
      *
      * @since 1.2
+     * @deprecated Obsolete; will be deleted from the next version
      */
+    @Deprecated
     public RowSpec getDefaultRowSpec() {
         return defaultRowSpec;
     }
@@ -405,7 +472,9 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @param defaultRowSpec   the RowSpec to be used for component rows
      *
      * @since 1.2
+     * @deprecated Replaced by {@link #defaultRowSpec(RowSpec)}
      */
+    @Deprecated
     public void setDefaultRowSpec(RowSpec defaultRowSpec) {
         this.defaultRowSpec = defaultRowSpec;
     }
@@ -415,7 +484,9 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * Returns the row specification that is used to separate component row.
      *
      * @return the {@code RowSpec} that is used to separate component rows
+     * @deprecated Obsolete; will be deleted from the next version
      */
+    @Deprecated
     public RowSpec getLineGapSpec() {
         return lineGapSpec;
     }
@@ -426,14 +497,16 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * constant size.<p>
      *
      * <strong>Examples:</strong><pre>
-     * builder.setLineGapSize(Sizes.ZERO);
-     * builder.setLineGapSize(Sizes.DLUY9);
-     * builder.setLineGapSize(Sizes.pixel(1));
+     * .setLineGapSize(Sizes.ZERO);
+     * .setLineGapSize(Sizes.DLUY9);
+     * .setLineGapSize(Sizes.pixel(1));
      * </pre>
      *
      * @param lineGapSize   the {@code ConstantSize} that describes
      *     the size of the gaps between component lines
+     * @deprecated Replaced by {@link #lineGapSize(ConstantSize)}
      */
+    @Deprecated
     public void setLineGapSize(ConstantSize lineGapSize) {
         RowSpec rowSpec = RowSpec.createGap(lineGapSize);
         this.lineGapSpec = rowSpec;
@@ -445,14 +518,16 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * constant size.<p>
      *
      * <strong>Examples:</strong><pre>
-     * builder.setParagraphGapSize(Sizes.DLUY14);
-     * builder.setParagraphGapSize(Sizes.dluY(22));
-     * builder.setParagraphGapSize(Sizes.pixel(42));
+     * .setParagraphGapSize(Sizes.DLUY14);
+     * .setParagraphGapSize(Sizes.dluY(22));
+     * .setParagraphGapSize(Sizes.pixel(42));
      * </pre>
      *
      * @param paragraphGapSize   the {@code ConstantSize} that describes
      *     the size of the gaps between paragraphs
+     * @deprecated Replaced by {@link #lineGapSize(ConstantSize)}
      */
+    @Deprecated
     public void setParagraphGapSize(ConstantSize paragraphGapSize) {
         RowSpec rowSpec = RowSpec.createGap(paragraphGapSize);
         this.paragraphGapSpec = rowSpec;
@@ -463,7 +538,9 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * Returns the offset of the leading column, often 0 or 1.
      *
      * @return the offset of the leading column
+     * @deprecated Obsolete; will be deleted from the next version
      */
+    @Deprecated
     public int getLeadingColumnOffset() {
         return leadingColumnOffset;
     }
@@ -473,7 +550,9 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * Sets the offset of the leading column, often 0 or 1.
      *
      * @param columnOffset  the new offset of the leading column
+     * @deprecated Replaced by {@link #leadingColumnOffset(int)}
      */
+    @Deprecated
     public void setLeadingColumnOffset(int columnOffset) {
         this.leadingColumnOffset = columnOffset;
     }
@@ -483,7 +562,9 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * Returns whether new data rows are being grouped or not.
      *
      * @return true indicates grouping enabled, false disabled
+     * @deprecated Obsolete; will be deleted from the next version
      */
+    @Deprecated
     public boolean isRowGroupingEnabled() {
         return rowGroupingEnabled;
     }
@@ -493,7 +574,9 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * Enables or disables the grouping of new data rows.
      *
      * @param enabled  indicates grouping enabled, false disabled
+     * @deprecated Replaced by {@link #rowGroupingEnabled(boolean)}
      */
+    @Deprecated
     public void setRowGroupingEnabled(boolean enabled) {
         rowGroupingEnabled = enabled;
     }
