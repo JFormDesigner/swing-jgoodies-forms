@@ -97,7 +97,7 @@ public final class Example4 {
         fl.setRowGroups   (new int[][]{ {1, 3, 5} });
 
         PanelBuilder builder = new PanelBuilder(fl);
-        builder.setDefaultDialogBorder();
+        builder.border(Borders.DIALOG);
         
         builder.add(new JLabel("Label1"));  
         builder.nextColumn(2);

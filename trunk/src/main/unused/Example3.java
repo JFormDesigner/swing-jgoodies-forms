@@ -90,7 +90,7 @@ public final class Example3 extends JPanel {
                 "");
 
         DefaultFormBuilder builder = new DefaultFormBuilder(this, layout);
-        builder.setDefaultDialogBorder();
+        builder.border(Borders.DIALOG);
         
         builder.append("Name",           nameField, 2);
         builder.append("Description",    descriptionField, 2);

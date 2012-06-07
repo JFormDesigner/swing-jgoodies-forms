@@ -68,7 +68,7 @@ public class Forms {
 		FormLayout layout = new FormLayout(columnSpec, rowSpec);
 		PanelBuilder builder = new PanelBuilder(layout);
 		builder.add(component, CC.xy(1, 1));
-		return builder.getPanel();
+		return builder.build();
 	}
 	
 	
@@ -94,7 +94,7 @@ public class Forms {
 		checkNotNull(components, "The component array must not be null.");
 		FormLayout layout = new FormLayout();
 		PanelBuilder builder = new PanelBuilder(layout);
-		return builder.getPanel();
+		return builder.build();
 	}
 	
 	
@@ -103,14 +103,14 @@ public class Forms {
 		checkNotNull(components, "The component array must not be null.");
 		FormLayout layout = new FormLayout();
 		PanelBuilder builder = new PanelBuilder(layout);
-		return builder.getPanel();
+		return builder.build();
 	}
 	
 
 	public static JComponent buttonBar(JComponent... buttons) {
 		return new ButtonBarBuilder()
 			.addButton(buttons)
-			.getPanel();
+			.build();
 	}
 
 
@@ -169,7 +169,7 @@ public class Forms {
             columnCount += 2;
         }
         FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
-        return builder.getPanel();
+        return builder.build();
     }
     
     
