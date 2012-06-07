@@ -177,7 +177,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public PanelBuilder(FormLayout layout, JPanel panel){
         super(layout, panel);
-        setOpaque(getOpaqueDefault());
+        opaque(getOpaqueDefault());
         labelForFeatureEnabled = labelForFeatureEnabledDefault;
     }
 
@@ -187,7 +187,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * Returns the global default for the enablement of the setLabelFor feature.
      * This can be overridden per PanelBuilder using
-     * {@link #setLabelForFeatureEnabled(boolean)}.
+     * {@link #labelForFeatureEnabled(boolean)}.
      * The feature is globally disabled by default.
      *
      * @return true for globally enabled, false for globally disabled
@@ -200,7 +200,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * Sets the default value for the setLabelFor feature enablement.
      * This can be overridden per PanelBuilder using
-     * {@link #setLabelForFeatureEnabled(boolean)}.
+     * {@link #labelForFeatureEnabled(boolean)}.
      * The default value is used to set the initial PanelBuilder
      * setting for this feature.
      * The feature is globally disabled by default.
@@ -234,34 +234,6 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
 
-    // Configuration **********************************************************
-
-    /**
-     * Returns whether the setLabelFor feature is enabled for this PanelBuilder.
-     * The value is initialized from the global default value for this feature
-     * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
-     * by default.
-     *
-     * @return true for enabled, false for disabled
-     */
-    public boolean isLabelForFeatureEnabled() {
-        return labelForFeatureEnabled;
-    }
-
-
-    /**
-     * Enables or disables the setLabelFor feature for this PanelBuilder.
-     * The value is initialized from the global default value
-     * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
-     * by default.
-     *
-     * @param b true for enabled, false for disabled
-     */
-    public void setLabelForFeatureEnabled(boolean b) {
-        labelForFeatureEnabled = b;
-    }
-
-
     // Accessors **************************************************************
 
     /**
@@ -271,6 +243,48 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public final JPanel getPanel() {
         return (JPanel) getContainer();
+    }
+
+
+    /**
+     * Sets the panel's border.
+     *
+     * @param border	the border to set
+     *
+     * @see JComponent#setBorder(Border)
+     * @deprecated Replaced by {@link #border(Border)}
+     */
+    @Deprecated
+    public void setBorder(Border border) {
+    	getPanel().setBorder(border);
+    }
+    
+    
+    /**
+     * Sets the default dialog border.
+     *
+     * @see Borders
+     * @deprecated Replaced by {@code #border(Borders.DIALOG)}
+     */
+    @Deprecated
+    public void setDefaultDialogBorder() {
+        border(Borders.DIALOG);
+    }
+
+
+    /**
+     * Sets the panel's opaque state.
+     *
+     * @param b   true for opaque, false for non-opaque
+     *
+     * @see JComponent#setOpaque(boolean)
+     *
+     * @since 1.1
+     * @deprecated Replaced by {@link #opaque(boolean)}
+     */
+    @Deprecated
+    public void setOpaque(boolean b) {
+    	getPanel().setOpaque(b);
     }
 
 
@@ -285,9 +299,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @since 1.1
      */
-    public PanelBuilder setBackground(Color background) {
-        getPanel().setBackground(background);
-        setOpaque(true);
+    public PanelBuilder background(Color background) {
+    	getPanel().setBackground(background);
+        opaque(true);
         return this;
     }
 
@@ -299,8 +313,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @see JComponent#setBorder(Border)
      */
-    public PanelBuilder setBorder(Border border) {
-        getPanel().setBorder(border);
+    public PanelBuilder border(Border border) {
+    	getPanel().setBorder(border);
         return this;
     }
     
@@ -319,20 +333,9 @@ public class PanelBuilder extends AbstractFormBuilder {
      *    
      * @see Borders#createEmptyBorder(String)
      */
-    public PanelBuilder setBorder(String emptyBorderSpec) {
-    	setBorder(Borders.createEmptyBorder(emptyBorderSpec));
+    public PanelBuilder border(String emptyBorderSpec) {
+    	border(Borders.createEmptyBorder(emptyBorderSpec));
     	return this;
-    }
-
-
-    /**
-     * Sets the default dialog border.
-     *
-     * @see Borders
-     */
-    public PanelBuilder setDefaultDialogBorder() {
-        setBorder(Borders.DIALOG);
-        return this;
     }
 
 
@@ -345,9 +348,33 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @since 1.1
      */
-    public PanelBuilder setOpaque(boolean b) {
+    public PanelBuilder opaque(boolean b) {
         getPanel().setOpaque(b);
         return this;
+    }
+
+
+    /**
+     * Enables or disables the setLabelFor feature for this PanelBuilder.
+     * The value is initialized from the global default value
+     * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
+     * by default.
+     *
+     * @param b true for enabled, false for disabled
+     */
+    public PanelBuilder labelForFeatureEnabled(boolean b) {
+        labelForFeatureEnabled = b;
+        return this;
+    }
+
+
+    /**
+     * Returns the panel used to build the form.
+     *
+     * @return the panel used by this builder to build the form
+     */
+    public final JPanel build() {
+        return getPanel();
     }
 
 
@@ -845,13 +872,12 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param cellConstraints  the component's cell constraints
      * @return the added component
      *
-     * @see #isLabelForFeatureEnabled()
      * @see #isLabelForApplicable(JLabel, Component)
      */
     @Override
     public Component add(Component component, CellConstraints cellConstraints) {
         Component result = super.add(component, cellConstraints);
-        if (!isLabelForFeatureEnabled()) {
+        if (!labelForFeatureEnabled) {
             return result;
         }
         JLabel mostRecentlyAddedLabel = getMostRecentlyAddedLabel();

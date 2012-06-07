@@ -127,7 +127,7 @@ import com.jgoodies.forms.util.MacLayoutStyle;
  * public JComponent buildPanel() {
  *     FormLayout layout = new FormLayout("pref");
  *     DefaultFormBuilder rowBuilder = new DefaultFormBuilder(layout);
- *     rowBuilder.setDefaultDialogBorder();
+ *     rowBuilder.border(Borders.DIALOG);
  *
  *     rowBuilder.append(buildButtonSequence(new ButtonBarBuilder2()));
  *     rowBuilder.append(buildButtonSequence(ButtonBarBuilder2.createLeftToRightBuilder()));
@@ -264,7 +264,7 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @return this builder
      */
     public ButtonBarBuilder2 setDefaultButtonBarGapBorder() {
-        setBorder(Borders.BUTTON_BAR_PAD);
+        border(Borders.BUTTON_BAR_PAD);
         return this;
     }
 

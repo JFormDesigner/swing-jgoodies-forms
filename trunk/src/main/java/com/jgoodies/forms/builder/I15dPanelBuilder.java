@@ -185,36 +185,29 @@ public class I15dPanelBuilder extends PanelBuilder {
     // Frequently Used Panel Properties ***************************************
 
     @Override
-    public I15dPanelBuilder setBackground(Color background) {
-        super.setBackground(background);
+    public I15dPanelBuilder background(Color background) {
+        super.background(background);
         return this;
     }
 
 
     @Override
-    public I15dPanelBuilder setBorder(Border border) {
-        super.setBorder(border);
+    public I15dPanelBuilder border(Border border) {
+        super.border(border);
         return this;
     }
     
     
     @Override
-    public I15dPanelBuilder setBorder(String emptyBorderSpec) {
-    	super.setBorder(emptyBorderSpec);
+    public I15dPanelBuilder border(String emptyBorderSpec) {
+    	super.border(emptyBorderSpec);
     	return this;
     }
 
 
     @Override
-    public I15dPanelBuilder setDefaultDialogBorder() {
-        super.setDefaultDialogBorder();
-        return this;
-    }
-
-
-    @Override
-    public I15dPanelBuilder setOpaque(boolean b) {
-        super.setOpaque(b);
+    public I15dPanelBuilder opaque(boolean b) {
+        super.opaque(b);
         return this;
     }
 

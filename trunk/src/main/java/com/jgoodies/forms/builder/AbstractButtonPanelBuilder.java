@@ -99,7 +99,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 
 
     /**
-     * Indicates whether a focus group has been built in {@link #getPanel()}.
+     * Indicates whether a focus group has been built in {@link #build()}.
      * Reset to {@code false} whenever a component is added.
      */
     protected boolean focusGrouped = false;
@@ -118,15 +118,15 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      */
     protected AbstractButtonPanelBuilder(FormLayout layout, JPanel container) {
         super(layout, container);
-        setOpaque(false);
+        opaque(false);
         ComponentOrientation orientation = container.getComponentOrientation();
         leftToRight = orientation.isLeftToRight()
                   || !orientation.isHorizontal();
     }
 
 
-    // Accessors ************************************************************
-
+    // Accessors **************************************************************
+    
     /**
      * Returns the panel used to build the form and lazily builds
      * a focus traversal group for all contained AbstractButtons.
@@ -134,6 +134,17 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @return the panel used by this builder to build the form
      */
     public JPanel getPanel() {
+    	return build();
+    }
+    
+
+    /**
+     * Returns the panel used to build the form and lazily builds
+     * a focus traversal group for all contained AbstractButtons.
+     *
+     * @return the panel used by this builder to build the form
+     */
+    public JPanel build() {
     	if (!focusGrouped) {
 	    	List<AbstractButton> buttons = new ArrayList<AbstractButton>();
 	    	for (Component component : getContainer().getComponents()) {
@@ -157,9 +168,9 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      *
      * @see JComponent#setBackground(Color)
      */
-    protected AbstractButtonPanelBuilder setBackground(Color background) {
+    protected AbstractButtonPanelBuilder background(Color background) {
         getPanel().setBackground(background);
-        setOpaque(true);
+        opaque(true);
         return this;
     }
 
@@ -171,9 +182,47 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      *
      * @see JComponent#setBorder(Border)
      */
-    protected AbstractButtonPanelBuilder setBorder(Border border) {
-        getPanel().setBorder(border);
+    protected AbstractButtonPanelBuilder border(Border border) {
+    	getPanel().setBorder(border);
         return this;
+    }
+
+
+    /**
+     * Sets the panel's opaque state.
+     *
+     * @param b   true for opaque, false for non-opaque
+     *
+     * @see JComponent#setOpaque(boolean)
+     */
+    protected AbstractButtonPanelBuilder opaque(boolean b) {
+    	getPanel().setOpaque(b);
+        return this;
+    }
+
+
+    /**
+     * Sets the panel's background color and makes the panel opaque.
+     *
+     * @param background  the color to set as new background
+     *
+     * @see JComponent#setBackground(Color)
+     */
+    public void setBackground(Color background) {
+        getPanel().setBackground(background);
+        opaque(true);
+    }
+
+
+    /**
+     * Sets the panel's border.
+     *
+     * @param border    the border to set
+     *
+     * @see JComponent#setBorder(Border)
+     */
+    public void setBorder(Border border) {
+    	getPanel().setBorder(border);
     }
 
 
@@ -186,9 +235,8 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      *
      * @since 1.1
      */
-    protected AbstractButtonPanelBuilder setOpaque(boolean b) {
-        getPanel().setOpaque(b);
-        return this;
+    public void setOpaque(boolean b) {
+    	getPanel().setOpaque(b);
     }
 
 
