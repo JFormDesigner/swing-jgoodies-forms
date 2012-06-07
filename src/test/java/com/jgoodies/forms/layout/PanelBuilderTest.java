@@ -135,9 +135,8 @@ public final class PanelBuilderTest extends TestCase {
         FormLayout layout = new FormLayout(
                 "p, $lcgap, p",
                 "10*(p, $lg), p");
-        PanelBuilder aBuilder = new PanelBuilder(layout);
-        aBuilder.setLabelForFeatureEnabled(true);
-        return aBuilder;
+        return new PanelBuilder(layout)
+        	.labelForFeatureEnabled(true);
     }
 
 }

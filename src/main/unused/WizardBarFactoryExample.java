@@ -84,7 +84,7 @@ public final class WizardBarFactoryExample {
                         "0:grow");
                         
         PanelBuilder builder = new PanelBuilder(layout);
-        builder.setDefaultDialogBorder();
+        builder.border(Borders.DIALOG);
         
         // Wizard Bars: No Help, No Cancel, Finish replaces Next
         builder.add(WizardBarFactory.createNextBar(
@@ -159,7 +159,7 @@ public final class WizardBarFactoryExample {
                         "0:grow");
                         
         PanelBuilder builder = new PanelBuilder(layout);
-        builder.setDefaultDialogBorder();
+        builder.border(Borders.DIALOG);
         
         // Wizard Bars: Help, No Cancel, Finish replaces Next
         builder.add(WizardBarFactory.createHelpNextBar(
@@ -230,7 +230,7 @@ public final class WizardBarFactoryExample {
                         "0:grow");
                         
         PanelBuilder builder = new PanelBuilder(layout);
-        builder.setDefaultDialogBorder();
+        builder.border(Borders.DIALOG);
         
         // Wizard Bars: No Help, Cancel in left, Finish replaces Next
         builder.add(WizardBarFactory.createCancelNextBar(
