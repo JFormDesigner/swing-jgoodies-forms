@@ -150,7 +150,6 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
     @Override
     public ButtonBarBuilder addButton(JComponent button) {
         checkNotNull(button, "The button to add must not be null.");
-        button.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormSpecs.BUTTON_COLSPEC);
         add(button);
         nextColumn();
@@ -185,7 +184,6 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      * @return this builder
      */
     public ButtonBarBuilder addFixed(JComponent component) {
-        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormSpecs.PREF_COLSPEC);
         add(component);
         nextColumn();
@@ -203,7 +201,6 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      * @return this builder
      */
     public ButtonBarBuilder addGrowing(JComponent component) {
-    	component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormSpecs.GROWING_BUTTON_COLSPEC);
         add(component);
         nextColumn();

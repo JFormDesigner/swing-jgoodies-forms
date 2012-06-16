@@ -335,7 +335,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      */
     @Override
     public ButtonBarBuilder2 addButton(JComponent button) {
-        button.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormSpecs.BUTTON_COLSPEC);
         add(button);
         nextColumn();
@@ -418,7 +417,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      */
     public ButtonBarBuilder2 addGrowing(JComponent component) {
         getLayout().appendColumn(FormSpecs.GROWING_BUTTON_COLSPEC);
-        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         add(component);
         nextColumn();
         return this;
@@ -460,7 +458,6 @@ public class ButtonBarBuilder2 extends AbstractButtonPanelBuilder {
      * @return this builder
      */
     public ButtonBarBuilder2 addFixed(JComponent component) {
-        component.putClientProperty(NARROW_KEY, Boolean.TRUE);
         getLayout().appendColumn(FormSpecs.PREF_COLSPEC);
         add(component);
         nextColumn();

@@ -70,20 +70,6 @@ import com.jgoodies.forms.util.LayoutStyle;
 public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 
 
-    // Static Fields **********************************************************
-
-    /**
-     * The client property key used to indicate that a button shall
-     * get narrow margins on the left and right hand side.<p>
-     *
-     * This optional setting will be honored by all JGoodies Look&amp;Feel
-     * implementations. The Mac Aqua l&amp;f uses narrow margins only.
-     * Other look&amp;feel implementations will likely ignore this key
-     * and so may render a wider button margin.
-     */
-    protected static final String NARROW_KEY = "jgoodies.isNarrow";
-
-
     // Instance Fields ********************************************************
 
     /**
