@@ -139,7 +139,6 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
     @Override
 	public ButtonStackBuilder addButton(JComponent button) {
         checkNotNull(button, "The button must not be null.");
-        button.putClientProperty(NARROW_KEY, Boolean.TRUE);
 	    getLayout().appendRow(FormSpecs.PREF_ROWSPEC);
 	    getLayout().addGroupedRow(getRow());
 	    add(button);
