@@ -135,7 +135,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 	    	List<AbstractButton> buttons = new ArrayList<AbstractButton>();
 	    	for (Component component : getContainer().getComponents()) {
 				if (component instanceof AbstractButton) {
-					buttons.add((JButton) component);
+					buttons.add((AbstractButton) component);
 				}
 			}
 	    	FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons.toArray(new AbstractButton[0]));
