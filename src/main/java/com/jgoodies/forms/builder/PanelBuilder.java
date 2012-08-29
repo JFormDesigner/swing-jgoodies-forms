@@ -238,6 +238,8 @@ public class PanelBuilder extends AbstractFormBuilder {
 
     /**
      * Returns the panel used to build the form.
+     * Intended to access panel properties. For returning the built panel,
+     * you should use {@link #build()}. 
      *
      * @return the panel used by this builder to build the form
      */
@@ -246,49 +248,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
 
-    /**
-     * Sets the panel's border.
-     *
-     * @param border	the border to set
-     *
-     * @see JComponent#setBorder(Border)
-     * @deprecated Replaced by {@link #border(Border)}
-     */
-    @Deprecated
-    public void setBorder(Border border) {
-    	getPanel().setBorder(border);
-    }
-    
-    
-    /**
-     * Sets the default dialog border.
-     *
-     * @see Borders
-     * @deprecated Replaced by {@code #border(Borders.DIALOG)}
-     */
-    @Deprecated
-    public void setDefaultDialogBorder() {
-        border(Borders.DIALOG);
-    }
-
-
-    /**
-     * Sets the panel's opaque state.
-     *
-     * @param b   true for opaque, false for non-opaque
-     *
-     * @see JComponent#setOpaque(boolean)
-     *
-     * @since 1.1
-     * @deprecated Replaced by {@link #opaque(boolean)}
-     */
-    @Deprecated
-    public void setOpaque(boolean b) {
-    	getPanel().setOpaque(b);
-    }
-
-
-    // Frequently Used Panel Properties ***************************************
+    // Modern (Cascading) Style Configuration *********************************
 
     /**
      * Sets the panel's background color and the panel to be opaque.
@@ -368,8 +328,55 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
 
+    // Old Style Configuration ************************************************
+    
     /**
-     * Returns the panel used to build the form.
+     * Sets the panel's border.
+     *
+     * @param border	the border to set
+     *
+     * @see JComponent#setBorder(Border)
+     * @deprecated Replaced by {@link #border(Border)}
+     */
+    @Deprecated
+    public void setBorder(Border border) {
+    	getPanel().setBorder(border);
+    }
+    
+    
+    /**
+     * Sets the default dialog border.
+     *
+     * @see Borders
+     * @deprecated Replaced by {@code #border(Borders.DIALOG)}
+     */
+    @Deprecated
+    public void setDefaultDialogBorder() {
+        border(Borders.DIALOG);
+    }
+
+
+    /**
+     * Sets the panel's opaque state.
+     *
+     * @param b   true for opaque, false for non-opaque
+     *
+     * @see JComponent#setOpaque(boolean)
+     *
+     * @since 1.1
+     * @deprecated Replaced by {@link #opaque(boolean)}
+     */
+    @Deprecated
+    public void setOpaque(boolean b) {
+    	getPanel().setOpaque(b);
+    }
+
+
+    // Building ***************************************************************
+    
+    /**
+     * Returns the panel used to build the form. 
+     * Intended to return the panel in build methods.
      *
      * @return the panel used by this builder to build the form
      */
