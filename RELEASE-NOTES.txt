@@ -2,6 +2,11 @@
                             Release Notes
                         
 
+CHANGES IN 1.7.0  -----------------------------------------------------
+
+    Removed deprecated classes, methods, and constants.
+    
+    
 CHANGES IN 1.6.0  -----------------------------------------------------
 
     This version is binary incompatible with previous releases.
