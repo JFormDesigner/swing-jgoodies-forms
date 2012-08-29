@@ -375,6 +375,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     }
 
 
+    // Modern (Cascading) Style Configuration *********************************
+
     /**
      * Sets the row specification that shall be used for component rows.
      * It is {@link FormSpecs#PREF_ROWSPEC} by default.
@@ -449,7 +451,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     }
 
 
-    // Configuration **********************************************************
+    // Old Style Configuration ************************************************
 
     /**
      * Returns the row specification that is used for component rows.
@@ -579,6 +581,19 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     @Deprecated
     public void setRowGroupingEnabled(boolean enabled) {
         rowGroupingEnabled = enabled;
+    }
+
+
+    // Appending Rows ********************************************************
+
+    /**
+     * Appends a row with this builder's line gap size.
+     *
+     * @see #lineGapSize(ConstantSize)
+     * @see #appendRow(String)
+     */
+    public final void appendLineGapRow() {
+        appendRow(lineGapSpec);
     }
 
 
@@ -1021,7 +1036,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     @Override
     protected int getLeadingColumn() {
         int column = super.getLeadingColumn();
-        return column + getLeadingColumnOffset() * getColumnIncrementSign();
+        return column + leadingColumnOffset * getColumnIncrementSign();
     }
 
 
@@ -1071,8 +1086,8 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
         if (getRow() <= getRowCount()) {
             return;
         }
-        appendRow(getDefaultRowSpec());
-        if (isRowGroupingEnabled()) {
+        appendRow(defaultRowSpec);
+        if (rowGroupingEnabled) {
             getLayout().addGroupedRow(getRow());
         }
     }
