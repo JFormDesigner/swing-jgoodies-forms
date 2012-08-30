@@ -339,7 +339,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @since 1.7
      */
-    public PanelBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
+    public PanelBuilder focusTraversal(FocusTraversalPolicy policy) {
         getPanel().setFocusTraversalPolicy(policy);
         getPanel().setFocusTraversalPolicyProvider(true);
         return this;
