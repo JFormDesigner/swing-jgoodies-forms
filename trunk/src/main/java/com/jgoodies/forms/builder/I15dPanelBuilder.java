@@ -34,6 +34,7 @@ import static com.jgoodies.common.base.Preconditions.checkState;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FocusTraversalPolicy;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -208,6 +209,13 @@ public class I15dPanelBuilder extends PanelBuilder {
     @Override
     public I15dPanelBuilder opaque(boolean b) {
         super.opaque(b);
+        return this;
+    }
+
+
+    @Override
+    public I15dPanelBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
+        super.focusTraversalPolicy(policy);
         return this;
     }
 

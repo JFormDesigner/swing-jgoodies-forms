@@ -4,7 +4,9 @@
 
 CHANGES IN 1.7.0  -----------------------------------------------------
 
-    Removed deprecated classes, methods, and constants.
+    o Removed deprecated classes, methods, and constants.
+    o Added PanelBuilder#focusTraversalPolicy(FocusTraversalPolicy).
+    o Fixed some @since tags.
     
     
 CHANGES IN 1.6.0  -----------------------------------------------------
