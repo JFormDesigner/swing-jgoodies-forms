@@ -214,8 +214,8 @@ public class I15dPanelBuilder extends PanelBuilder {
 
 
     @Override
-    public I15dPanelBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
-        super.focusTraversalPolicy(policy);
+    public I15dPanelBuilder focusTraversal(FocusTraversalPolicy policy) {
+        super.focusTraversal(policy);
         return this;
     }
 
