@@ -96,6 +96,8 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
+ * 
+ * @since 1.6
  */
 public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
 

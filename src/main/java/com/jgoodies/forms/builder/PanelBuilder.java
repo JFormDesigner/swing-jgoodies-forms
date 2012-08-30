@@ -34,6 +34,7 @@ import static com.jgoodies.common.base.Preconditions.checkArgument;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FocusTraversalPolicy;
 import java.lang.ref.WeakReference;
 
 import javax.swing.JComponent;
@@ -215,6 +216,8 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * @return the global default value for a builder's opaque state
      *     that can be overridden per builder
+     *     
+     * @since 1.6
      */
     public static boolean getOpaqueDefault() {
     	return opaqueDefault;
@@ -228,6 +231,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      * in other words, panels will not be opaque.
      *    
      * @param b   the new value
+     *     
+     * @since 1.6
      */
     public static void setOpaqueDefault(boolean b) {
     	opaqueDefault = b;
@@ -257,7 +262,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @see JComponent#setBackground(Color)
      *
-     * @since 1.1
+     * @since 1.6
      */
     public PanelBuilder background(Color background) {
     	getPanel().setBackground(background);
@@ -272,6 +277,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param border	the border to set
      *
      * @see JComponent#setBorder(Border)
+     *
+     * @since 1.6
      */
     public PanelBuilder border(Border border) {
     	getPanel().setBorder(border);
@@ -292,6 +299,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      *    of the EmptyBorder to create
      *    
      * @see Borders#createEmptyBorder(String)
+     *
+     * @since 1.6
      */
     public PanelBuilder border(String emptyBorderSpec) {
     	border(Borders.createEmptyBorder(emptyBorderSpec));
@@ -306,10 +315,33 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @see JComponent#setOpaque(boolean)
      *
-     * @since 1.1
+     * @since 1.6
      */
     public PanelBuilder opaque(boolean b) {
         getPanel().setOpaque(b);
+        return this;
+    }
+
+
+    /**
+     * Sets the panel's focus traversal policy and sets the panel
+     * as focus traversal policy provider. Hence, this call is equivalent to:
+     * <pre>
+     * builder.getPanel().setFocusTraversalPolicy(policy);
+     * builder.getPanel().setFocusTraversalPolicyProvider(true);
+     * </pre>
+     *
+     * @param policy   the focus traversal policy that will manage 
+     * 	keyboard traversal of the children in this builder's panel
+     *
+     * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
+     * @see JComponent#setFocusTraversalPolicyProvider(boolean)
+     *
+     * @since 1.7
+     */
+    public PanelBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
+        getPanel().setFocusTraversalPolicy(policy);
+        getPanel().setFocusTraversalPolicyProvider(true);
         return this;
     }
 
@@ -379,6 +411,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      * Intended to return the panel in build methods.
      *
      * @return the panel used by this builder to build the form
+     * 
+     * @since 1.6
      */
     public final JPanel build() {
         return getPanel();
