@@ -221,9 +221,9 @@ public final class FormSpecParser {
             return;
         }
         List<String> subTokenList = split(multiplier.expression, offset + multiplier.offset);
-        for (int i=0; i < multiplier.multiplier; i++) {
-            encodedSpecs.addAll(subTokenList);
-        }
+		for (int i = 0; i < multiplier.multiplier; i++) {
+			encodedSpecs.addAll(subTokenList);
+		}
     }
 
 
@@ -249,7 +249,7 @@ public final class FormSpecParser {
         if (number <= 0) {
             fail(offset, "illegal 0 multiplier");
         }
-        String subexpression = expression.substring(matcher.end(),expression.length()-1);
+        String subexpression = expression.substring(matcher.end(), expression.length() - 1);
         return new Multiplier(number, subexpression, matcher.end());
     }
 

@@ -419,7 +419,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     }
 
 
-    abstract protected AbstractButtonPanelBuilder addButton(JComponent button);
+    protected abstract AbstractButtonPanelBuilder addButton(JComponent button);
 
 
     /**
@@ -490,13 +490,13 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     /**
      * Adds the standard gap for related components.
      */
-	abstract protected AbstractButtonPanelBuilder addRelatedGap();
+	protected abstract AbstractButtonPanelBuilder addRelatedGap();
 
 
     /**
      * Adds the standard gap for unrelated components.
      */
-    abstract protected AbstractButtonPanelBuilder addUnrelatedGap();
+	protected abstract AbstractButtonPanelBuilder addUnrelatedGap();
 
 
     /**

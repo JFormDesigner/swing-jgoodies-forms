@@ -871,7 +871,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 if (colIndex < 1 || colIndex > maxColumn) {
                     throw new IndexOutOfBoundsException(
                         "Invalid column group index " + colIndex +
-                        " in group " + (group+1));
+                        " in group " + (group + 1));
                 }
                 if (usedIndices[colIndex]) {
                     throw new IllegalArgumentException(
@@ -895,10 +895,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
         if (newColGroups.length == 0) {
             newColGroups = new int[][]{{columnIndex}};
         } else {
-            int lastGroupIndex = newColGroups.length-1;
+            int lastGroupIndex = newColGroups.length - 1;
             int[] lastGroup = newColGroups[lastGroupIndex];
             int groupSize = lastGroup.length;
-            int[] newLastGroup = new int[groupSize+1];
+            int[] newLastGroup = new int[groupSize + 1];
             System.arraycopy(lastGroup, 0, newLastGroup, 0, groupSize);
             newLastGroup[groupSize] = columnIndex;
             newColGroups[lastGroupIndex] = newLastGroup;
@@ -941,7 +941,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 if (rowIndex < 1 || rowIndex > rowCount) {
                     throw new IndexOutOfBoundsException(
                         "Invalid row group index " + rowIndex +
-                        " in group " + (i+1));
+                        " in group " + (i + 1));
                 }
                 if (usedIndices[rowIndex]) {
                     throw new IllegalArgumentException(
@@ -968,7 +968,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
             int lastGroupIndex = newRowGroups.length-1;
             int[] lastGroup = newRowGroups[lastGroupIndex];
             int groupSize = lastGroup.length;
-            int[] newLastGroup = new int[groupSize+1];
+            int[] newLastGroup = new int[groupSize + 1];
             System.arraycopy(lastGroup, 0, newLastGroup, 0, groupSize);
             newLastGroup[groupSize] = rowIndex;
             newRowGroups[lastGroupIndex] = newLastGroup;
@@ -1285,12 +1285,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private void initializeColAndRowComponentLists() {
         colComponents = new List[getColumnCount()];
-        for (int i=0; i < getColumnCount(); i++) {
+        for (int i = 0; i < getColumnCount(); i++) {
             colComponents[i] = new ArrayList<Component>();
         }
 
         rowComponents = new List[getRowCount()];
-        for (int i=0; i < getRowCount(); i++) {
+        for (int i = 0; i < getRowCount(); i++) {
             rowComponents[i] = new ArrayList<Component>();
         }
 
@@ -1586,7 +1586,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
 //      System.out.println("Max compression space  =" + maxCompressionSpace);
 //      System.out.println("Compression factor     =" + compressionFactor);
 
-        for (int i=0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             FormSpec formSpec = (FormSpec) formSpecs.get(i);
             sizes[i] = prefSizes[i];
             if (formSpec.getSize().compressible()) {
@@ -1658,7 +1658,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
         // Compute the total weight.
         int count = formSpecs.size();
         double totalWeight = 0.0;
-        for (int i=0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             FormSpec formSpec = (FormSpec) formSpecs.get(i);
             totalWeight += formSpec.getResizeWeight();
         }
@@ -1672,21 +1672,21 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
         double restSpace = totalFreeSpace;
         int roundedRestSpace = (int) totalFreeSpace;
-        for (int i=0; i < count; i++) {
-            FormSpec formSpec = (FormSpec) formSpecs.get(i);
-            double weight = formSpec.getResizeWeight();
-            if (weight == FormSpec.NO_GROW) {
-                sizes[i] = inputSizes[i];
-            } else {
-                double roundingCorrection = restSpace - roundedRestSpace;
-                double extraSpace = totalFreeSpace * weight / totalWeight;
-                double correctedExtraSpace = extraSpace - roundingCorrection;
-                int roundedExtraSpace = (int) Math.round(correctedExtraSpace);
-                sizes[i] = inputSizes[i] + roundedExtraSpace;
-                restSpace -= extraSpace;
-                roundedRestSpace -= roundedExtraSpace;
-            }
-        }
+		for (int i = 0; i < count; i++) {
+			FormSpec formSpec = (FormSpec) formSpecs.get(i);
+			double weight = formSpec.getResizeWeight();
+			if (weight == FormSpec.NO_GROW) {
+				sizes[i] = inputSizes[i];
+			} else {
+				double roundingCorrection = restSpace - roundedRestSpace;
+				double extraSpace = totalFreeSpace * weight / totalWeight;
+				double correctedExtraSpace = extraSpace - roundingCorrection;
+				int roundedExtraSpace = (int) Math.round(correctedExtraSpace);
+				sizes[i] = inputSizes[i] + roundedExtraSpace;
+				restSpace -= extraSpace;
+				roundedRestSpace -= roundedExtraSpace;
+			}
+		}
         return sizes;
     }
 

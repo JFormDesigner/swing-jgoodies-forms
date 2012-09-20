@@ -80,11 +80,11 @@ public final class FormLayoutUtils {
     public static boolean columnContainsComponent(
             Container container,
             int columnIndex) {
-        for (ConstraintIterator iterator = new ConstraintIterator(container); iterator.hasNext(); ) {
-            if (columnIndex == iterator.nextConstraints().gridX) {
-                return true;
-            }
-        }
+		for (ConstraintIterator iterator = new ConstraintIterator(container); iterator.hasNext();) {
+			if (columnIndex == iterator.nextConstraints().gridX) {
+				return true;
+			}
+		}
         return false;
     }
 

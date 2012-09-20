@@ -342,7 +342,7 @@ public class DefaultComponentFactory implements ComponentFactory {
                     return super.getAccessibleName();
                 }
                 return text.endsWith(":")
-                    ? text.substring(0, text.length()-1)
+                    ? text.substring(0, text.length() - 1)
                     : text;
             }
 
@@ -540,8 +540,8 @@ public class DefaultComponentFactory implements ComponentFactory {
                 if (alignment == SwingConstants.LEFT) {
                     int x = insets.left;
                     label.setBounds(x, y, labelWidth, labelHeight);
-                    x+= labelWidth;
-                    x+= hGap;
+                    x += labelWidth;
+                    x += hGap;
                     int separatorWidth = size.width - insets.right - x;
                     separator1.setBounds(x, y + vOffset, separatorWidth, separatorHeight);
                 } else if (alignment == SwingConstants.RIGHT) {
@@ -552,7 +552,7 @@ public class DefaultComponentFactory implements ComponentFactory {
                     int separatorWidth = x - insets.left;
                     separator1.setBounds(insets.left, y + vOffset, separatorWidth, separatorHeight);
                 } else {
-                    int xOffset = (width - labelWidth - 2*hGap) / 2;
+                    int xOffset = (width - labelWidth - 2 * hGap) / 2;
                     int x = insets.left;
                     separator1.setBounds(x, y + vOffset, xOffset-1, separatorHeight);
                     x += xOffset;
@@ -562,7 +562,7 @@ public class DefaultComponentFactory implements ComponentFactory {
                     x += hGap;
                     Component separator2 = parent.getComponent(2);
                     int separatorWidth = size.width - insets.right - x;
-                    separator2.setBounds(x, y + vOffset,separatorWidth ,separatorHeight);
+                    separator2.setBounds(x, y + vOffset, separatorWidth, separatorHeight);
                 }
             }
         }
