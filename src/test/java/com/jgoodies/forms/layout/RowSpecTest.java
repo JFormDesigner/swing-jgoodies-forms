@@ -32,7 +32,6 @@ package com.jgoodies.forms.layout;
 
 import java.util.Locale;
 
-
 import junit.framework.TestCase;
 
 
