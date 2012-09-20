@@ -33,8 +33,8 @@ package com.jgoodies.forms.factories;
 import java.io.Serializable;
 
 import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
+import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * A factory for CellConstraints objects.
