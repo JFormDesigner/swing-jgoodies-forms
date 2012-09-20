@@ -40,7 +40,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * @see	com.jgoodies.forms.layout.FormLayout
  * @see	ColumnSpec
- * 
+ *
  * @since 1.6  This class was the FormFactory before.
  */
 public final class FormSpecs {

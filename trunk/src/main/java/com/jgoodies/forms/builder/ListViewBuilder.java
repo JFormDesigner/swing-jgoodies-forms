@@ -46,11 +46,11 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Builds list/table views from a set of mandatory and optional components:
- * label, filter/search, 
- * list (table), 
+ * label, filter/search,
+ * list (table),
  * list buttons, list extras,
  * details view (or preview).<p>
- * 
+ *
  * <strong>Examples:</strong><pre>
  * return new ListViewBuilder()
  *     .label("&Contacts:")
@@ -67,14 +67,14 @@ import com.jgoodies.forms.layout.FormLayout;
  *     .detailsView(contactDetailsView)
  *     .build();
  * </pre>
- * 
+ *
  * @author  Karsten Lentzsch
  * @version $Revision: 1.2 $
- * 
+ *
  * @since 1.6
  */
 public final class ListViewBuilder {
-	
+
 	private final ComponentFactory factory;
 
     private JComponent labelView;
@@ -83,7 +83,7 @@ public final class ListViewBuilder {
     private JComponent listBarView;
     private JComponent listExtrasView;
     private JComponent detailsView;
-    
+
     private Border border;
     private String filterViewColSpec = "[100dlu, p]";
     private String listViewRowSpec   = "fill:100dlu:grow";
@@ -92,10 +92,10 @@ public final class ListViewBuilder {
      * Holds the panel that has been lazily built in {@code #buildPanel}.
      */
     private JComponent panel;
-    
-    
+
+
     // Instance Creation ******************************************************
-    
+
     /**
      * Constructs a ListViewBuilder using the AbstractBuilder's
      * default component factory. The factory is required by
@@ -104,13 +104,13 @@ public final class ListViewBuilder {
     public ListViewBuilder() {
     	this(AbstractBuilder.getComponentFactoryDefault());
     }
-    
-    
+
+
     /**
-     * Constructs a ListViewBuilder using the given component factory. 
+     * Constructs a ListViewBuilder using the given component factory.
      * The factory is required by
      * {@link #label(String)} and {@link #headerLabel(String)}.
-     * 
+     *
      * @param factory   the component factory used to create labels and headers
      */
     public ListViewBuilder(ComponentFactory factory) {
@@ -123,7 +123,7 @@ public final class ListViewBuilder {
     /**
      * Sets an optional border that surrounds the list view including
      * the label and details.
-     * 
+     *
      * @param border   the border to set
      */
     public ListViewBuilder border(Border border) {
@@ -131,13 +131,13 @@ public final class ListViewBuilder {
     	invalidatePanel();
     	return this;
     }
-    
-    
+
+
     /**
      * Sets the mandatory label view. Useful to set a bound label that updates
      * its text when the list content changes, for example to provide the
      * number of list elements.
-     * 
+     *
      * @param labelView   the component that shall label the list view,
      *    often a bound label
      */
@@ -154,7 +154,7 @@ public final class ListViewBuilder {
      * <pre>
      * labelView(aComponentFactory.createLabel(markedText));
      * </pre>
-     * 
+     *
      * @param markedText   the label's text, may contain a mnemonic marker
      */
     public ListViewBuilder label(String markedText) {
@@ -169,20 +169,20 @@ public final class ListViewBuilder {
      * <pre>
      * labelView(aComponentFactory.createHeaderLabel(markedText));
      * </pre>
-     * 
+     *
      * @param markedText   the label's text, may contain a mnemonic marker
      */
     public ListViewBuilder headerLabel(String markedText) {
         labelView(factory.createHeaderLabel(markedText));
         return this;
     }
-    
-    
+
+
     /**
      * Sets an optional view that will be placed in the upper right corner
      * of the built list view panel. This can be a search field, a panel
      * with filtering check boxes ("Only valid items"), etc.
-     * 
+     *
      * @param filterView    the view to be added.
      */
     public ListViewBuilder filterView(JComponent filterView) {
@@ -193,15 +193,15 @@ public final class ListViewBuilder {
 
 
     /**
-     * Changes the FormLayout column specification used to lay out 
+     * Changes the FormLayout column specification used to lay out
      * the filter view.
      * The default value is {@code "[100dlu, p]"}, which is a column where
      * the width is determined by the filter view's preferred width,
      * but a minimum width of 100dlu is ensured. The filter view won't grow
      * horizontally, if the container gets more space.
-     * 
+     *
      * @param colSpec   specifies the horizontal layout of the filter view
-     * 
+     *
      * @throws NullPointerException if {@code colSpec} is {@code null}
      */
     public ListViewBuilder filterViewColSpec(String colSpec) {
@@ -213,13 +213,13 @@ public final class ListViewBuilder {
 
 
     /**
-     * Sets the given component as the the mandatory list view. 
-     * If {@code listView} is a JTable, JList, or JTree, it is 
+     * Sets the given component as the the mandatory list view.
+     * If {@code listView} is a JTable, JList, or JTree, it is
      * automatically wrapped with a JScrollPane, before the scroll pane
      * is set as list view.
-     * 
+     *
      * @param listView   the component to be used as scrollable list view
-     * 
+     *
      * @throws NullPointerException if {@code listView} is {@code null}
      */
     public ListViewBuilder listView(JComponent listView) {
@@ -232,25 +232,25 @@ public final class ListViewBuilder {
         invalidatePanel();
         return this;
     }
-    
-    
+
+
     /**
      * Changes the FormLayout row specification used to lay out the list view.
      * The default value is {@code "fill:[100dlu, pref]:grow"}, which is a row
-     * that is filled by the list view; the height is determined 
+     * that is filled by the list view; the height is determined
      * by the list view's preferred height, but a minimum of 100dlu is ensured.
-     * The list view grows vertically, if the container gets more vertical 
+     * The list view grows vertically, if the container gets more vertical
      * space.<p>
-     * 
+     *
      * <strong>Examples:</strong>
      * <pre>
      * .listViewRowSpec("fill:100dlu");  // fixed height
      * .listViewRowSpec("f:100dlu:g");   // fixed start height, grows
      * .listViewRowSpec("f:p");          // no minimum height
      * </pre>
-     * 
+     *
      * @param rowSpec   specifies the vertical layout of the list view
-     * 
+     *
      * @throws NullPointerException if {@code rowSpec} is {@code null}
      */
     public ListViewBuilder listViewRowSpec(String rowSpec) {
@@ -262,11 +262,11 @@ public final class ListViewBuilder {
 
 
     /**
-     * Sets an optional list bar - often a button bar - 
-     * that will be located in the lower left corner of the list view. 
-     * If the list bar view consists only of buttons, 
+     * Sets an optional list bar - often a button bar -
+     * that will be located in the lower left corner of the list view.
+     * If the list bar view consists only of buttons,
      * use {@link #listBar(JComponent...)} instead.
-     * 
+     *
      * @param listBarView   the component to set
      */
     public ListViewBuilder listBarView(JComponent listBarView) {
@@ -280,14 +280,14 @@ public final class ListViewBuilder {
      * Builds a button bar using the given buttons and sets it as list bar.
      * Although JButtons are expected, any JComponent is accepted
      * to allow custom button component types.<p>
-     * 
+     *
      * Equivalent to {@code listBarView(Forms.buildButtonBar(buttons))}.
-     * 
+     *
      * @param buttons    the buttons in the list bar
-     * 
+     *
      * @throws NullPointerException if {@code buttons} is {@code null}
      * @throws IllegalArgumentException if no buttons are provided
-     * 
+     *
      * @see ButtonBarBuilder#addButton(JComponent...)
      */
     public ListViewBuilder listBar(JComponent... buttons) {
@@ -299,7 +299,7 @@ public final class ListViewBuilder {
     /**
      * Sets an optional view that is located in the lower right corner
      * of the list view, aligned with the list bar.
-     * 
+     *
      * @param listExtrasView    the component to set
      */
     public ListViewBuilder listExtrasView(JComponent listExtrasView) {
@@ -312,7 +312,7 @@ public final class ListViewBuilder {
     /**
      * Sets an optional details view that is located under the list view.
      * Often this is the details view or preview of a master-details view.
-     * 
+     *
      * @param detailsView    the component to set
      */
     public ListViewBuilder detailsView(JComponent detailsView) {
@@ -324,7 +324,7 @@ public final class ListViewBuilder {
 
     /**
      * Lazily builds and returns the list view panel.
-     * 
+     *
      * @return the built panel
      */
     public JComponent build() {
@@ -336,7 +336,7 @@ public final class ListViewBuilder {
 
 
     // Implementation *********************************************************
-    
+
     private void invalidatePanel() {
     	panel = null;
     }
@@ -392,5 +392,5 @@ public final class ListViewBuilder {
         return builder.build();
     }
 
-    
+
 }

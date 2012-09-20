@@ -53,7 +53,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * and gaps.<p>
  *
  * <strong>Examples:</strong><pre>
- * // 1) Build and return a bar with three related buttons 
+ * // 1) Build and return a bar with three related buttons
  * return new ButtonBarBuilder()
  *     .addButton(newButton)
  *     .addRelatedGap()
@@ -62,7 +62,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     .addButton(deleteButton)
  *     .build();
  *
- * // 2) Short hand for example 1) 
+ * // 2) Short hand for example 1)
  * return new ButtonBarBuilder()
  *     .addButton(newButton, editButton, deleteButton)
  *     .build();
@@ -76,8 +76,8 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * // 4) Short hand for example 3)
  * return new ButtonBarBuilder()
- *     .addButton(newButton, editButton, deleteButton, 
- *                null, 
+ *     .addButton(newButton, editButton, deleteButton,
+ *                null,
  *                moveUpButton, moveDownButton)
  *     .build();
  *
@@ -96,7 +96,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * @see ButtonStackBuilder
  * @see com.jgoodies.forms.util.LayoutStyle
- * 
+ *
  * @since 1.6
  */
 public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
@@ -112,8 +112,8 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      */
     private static final RowSpec[] ROW_SPECS  =
         new RowSpec[]{ RowSpec.decode("center:pref") };
-    
-    
+
+
     // Instance Creation ******************************************************
 
     /**
@@ -274,7 +274,7 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
 
 
     // Configuration **********************************************************
-    
+
     @Override
     public ButtonBarBuilder background(Color background) {
         super.background(background);
@@ -294,6 +294,6 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
     	super.opaque(b);
     	return this;
     }
-    
-    
+
+
 }

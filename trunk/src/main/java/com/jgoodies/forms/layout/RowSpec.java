@@ -223,7 +223,7 @@ public final class RowSpec extends FormSpec {
      * @return a RowSpec for the given encoded row spec
      */
     static RowSpec decodeExpanded(String expandedTrimmedLowerCaseSpec) {
-        RowSpec spec = (RowSpec) CACHE.get(expandedTrimmedLowerCaseSpec);
+        RowSpec spec = CACHE.get(expandedTrimmedLowerCaseSpec);
         if (spec == null) {
             spec = new RowSpec(expandedTrimmedLowerCaseSpec);
             CACHE.put(expandedTrimmedLowerCaseSpec, spec);

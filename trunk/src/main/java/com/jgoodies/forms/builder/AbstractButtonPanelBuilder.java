@@ -112,7 +112,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 
 
     // Accessors **************************************************************
-    
+
     /**
      * Returns the panel used to build the form and lazily builds
      * a focus traversal group for all contained AbstractButtons.
@@ -122,7 +122,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     public JPanel getPanel() {
     	return build();
     }
-    
+
 
     /**
      * Returns the panel used to build the form and lazily builds
@@ -143,8 +143,8 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
     	}
         return (JPanel) getContainer();
     }
-    
-    
+
+
     // Frequently Used Panel Properties ***************************************
 
     /**
@@ -417,22 +417,22 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
        focusGrouped = false;
        return component;
     }
-    
-    
+
+
     abstract protected AbstractButtonPanelBuilder addButton(JComponent button);
 
 
     /**
      * Adds one or many sequences of related buttons. A new sequence starts
      * when a button is {@code null}. The next sequence is separated by an
-     * unrelated gap. 
+     * unrelated gap.
      * Each button has the minimum width as specified by
      * {@link LayoutStyle#getDefaultButtonWidth()}. The gap width between
      * the buttons is {@link LayoutStyle#getRelatedComponentsPadX()}.<p>
      *
      * Although JButtons are expected, general JComponents are accepted
      * to allow custom button component types.<p>
-     * 
+     *
      * <strong>Examples:</strong>
      * <pre>
      * builder.addButtons(newButton, editButton, deleteButton);
@@ -485,8 +485,8 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 	    }
 	    return addButton(buttons);
 	}
-	
-	
+
+
     /**
      * Adds the standard gap for related components.
      */
@@ -506,8 +506,8 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * the accessible name and accessible description from Actions
      * that provide these information.<p>
      *
-     * This default implementation delegates the button creation 
-     * to this builder's component factory, 
+     * This default implementation delegates the button creation
+     * to this builder's component factory,
      * see {@link ComponentFactory#createButton(Action)}).
      *
      * @param action    provides bound visual properties for the button

@@ -229,7 +229,7 @@ public final class ColumnSpec extends FormSpec {
      * @return a ColumnSpec for the given encoded column spec
      */
     static ColumnSpec decodeExpanded(String expandedTrimmedLowerCaseSpec) {
-        ColumnSpec spec = (ColumnSpec) CACHE.get(expandedTrimmedLowerCaseSpec);
+        ColumnSpec spec = CACHE.get(expandedTrimmedLowerCaseSpec);
         if (spec == null) {
             spec = new ColumnSpec(expandedTrimmedLowerCaseSpec);
             CACHE.put(expandedTrimmedLowerCaseSpec, spec);

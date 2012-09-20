@@ -183,8 +183,8 @@ public class DefaultComponentFactory implements ComponentFactory {
         label.setVerticalAlignment(SwingConstants.CENTER);
         return label;
     }
-    
-    
+
+
     @Override
     public JLabel createHeaderLabel(String markedText) {
     	return createTitle(markedText);
