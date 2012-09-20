@@ -155,7 +155,7 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
 
 
 	// Convenience Methods ***************************************************
-	
+
 	@Override
 	public ButtonStackBuilder addButton(Action... actions) {
 	    super.addButton(actions);
@@ -175,7 +175,7 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
         return this;
     }
 
-    
+
     // Spacing ****************************************************************
 
     /**
@@ -220,7 +220,7 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
 
 
     // Configuration **********************************************************
-    
+
     @Override
     public ButtonStackBuilder background(Color background) {
         super.background(background);
@@ -240,6 +240,6 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
     	super.opaque(b);
     	return this;
     }
-    
-    
+
+
 }

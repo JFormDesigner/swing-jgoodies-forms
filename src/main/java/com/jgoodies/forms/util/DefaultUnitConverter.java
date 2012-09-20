@@ -113,7 +113,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * Since 1.6 the default value is the balanced average character test
      * string, where it was just &quot;X&quot; before.
      */
-    private String averageCharWidthTestString = 
+    private String averageCharWidthTestString =
     		BALANCED_AVERAGE_CHARACTER_TEST_STRING;
 
 
@@ -183,7 +183,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Returns the string used to compute the average character width.
-     * By default it is initialized to 
+     * By default it is initialized to
      * {@link #BALANCED_AVERAGE_CHARACTER_TEST_STRING}.
      *
      * @return the test string used to compute the average character width
@@ -194,7 +194,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
 
     /**
      * Sets a string that will be used to compute the average character width.
-     * By default it is initialized to 
+     * By default it is initialized to
      * {@link #BALANCED_AVERAGE_CHARACTER_TEST_STRING}. You can provide
      * other test strings, for example:
      * <ul>

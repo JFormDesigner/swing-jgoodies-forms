@@ -107,7 +107,7 @@ public final class Borders {
 
     /**
      * A prepared and reusable Border with 9dlu on all sides.
-     * 
+     *
      * @since 1.6
      */
     public static final Border DLU9 =

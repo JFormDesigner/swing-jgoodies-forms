@@ -38,7 +38,7 @@ import javax.swing.AbstractButton;
 /**
  * Provides access to the FocusTraversalUtils class that ships with the
  * JGoodies Standard Dialog Library (JSDL).
- * 
+ *
  * <strong>Note: This class is not part of the public Forms API.
  * It's intended for implementation purposes only.
  * The class's API may change at any time.</strong>
@@ -47,23 +47,23 @@ import javax.swing.AbstractButton;
  * @version $Revision: 1.1 $
  */
 public final class FocusTraversalUtilsAccessor {
-	
+
 	/**
 	 * The name of the {@code FocusTraversalUtils} from the JSDL Common library.
 	 * This utility can group buttons if the focus traversal policy supports
 	 * grouping, such as the {@code JGContainerOrderFocusTraversalPolicy} and
 	 * {@code JGLayoutFocusTraversalPolicy} from the JSDL Common.
 	 */
-	private static final String FOCUS_TRAVERSAL_UTILS_NAME = 
+	private static final String FOCUS_TRAVERSAL_UTILS_NAME =
 			"com.jgoodies.jsdl.common.focus.FocusTraversalUtils";
-	
+
     /**
-     * Holds the public static method 
+     * Holds the public static method
      * {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils#group}.
      */
     private static Method groupMethod = null;
-    
-    
+
+
     static {
     	groupMethod = getGroupMethod();
     }
@@ -92,8 +92,8 @@ public final class FocusTraversalUtilsAccessor {
             // Do nothing
         }
     }
-    
-    
+
+
     // Private Helper Code ****************************************************
 
     private static Method getGroupMethod() {

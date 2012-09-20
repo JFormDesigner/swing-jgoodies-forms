@@ -137,18 +137,18 @@ public interface ComponentFactory {
      * For example if {@code markedText} is &quot;&Charge Codes&quot;, the text
      * will be set to &quot;Charge Codes&quot;, the mnemonic is 'C', and the
      * mnemonic index is 0.<p>
-     * 
-     * A simple implementation may just delegate to 
+     *
+     * A simple implementation may just delegate to
      * {@link #createTitle(String)}.
      *
      * @param markedText   the label text with optional mnemonic marker
      * @return a label intended for pane headers
-     * 
+     *
      * @since 1.6
      */
     JLabel createHeaderLabel(String markedText);
-    
-    
+
+
     /**
      * Creates and returns a labeled separator. Useful to separate
      * paragraphs in a panel, which is often a better choice than a

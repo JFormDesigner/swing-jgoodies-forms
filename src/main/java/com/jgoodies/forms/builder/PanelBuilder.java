@@ -126,7 +126,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * in other words, panels will not be opaque.
      */
     private static boolean opaqueDefault = false;
-    
+
 
     // Instance Fields ********************************************************
 
@@ -216,22 +216,22 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * @return the global default value for a builder's opaque state
      *     that can be overridden per builder
-     *     
+     *
      * @since 1.6
      */
     public static boolean getOpaqueDefault() {
     	return opaqueDefault;
     }
-    
-    
+
+
     /**
-     * Sets the global default value for a builder's opaque state 
-     * that can be overridden per builder. 
+     * Sets the global default value for a builder's opaque state
+     * that can be overridden per builder.
      * Since the Forms 1.6, the default value is {@code false},
      * in other words, panels will not be opaque.
-     *    
+     *
      * @param b   the new value
-     *     
+     *
      * @since 1.6
      */
     public static void setOpaqueDefault(boolean b) {
@@ -244,7 +244,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * Returns the panel used to build the form.
      * Intended to access panel properties. For returning the built panel,
-     * you should use {@link #build()}. 
+     * you should use {@link #build()}.
      *
      * @return the panel used by this builder to build the form
      */
@@ -284,20 +284,20 @@ public class PanelBuilder extends AbstractFormBuilder {
     	getPanel().setBorder(border);
         return this;
     }
-    
-    
+
+
     /**
      * Sets the panel's border as an EmptyBorder using the given specification
-     * for the top, left, bottom, right in DLU. For example 
+     * for the top, left, bottom, right in DLU. For example
      * "1dlu, 2dlu, 3dlu, 4dlu" sets an empty border with 1dlu in the top,
-     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand 
+     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
      * side.<p>
-     * 
+     *
      * Equivalent to {@code setBorder(Borders.createEmptyBorder(emptyBorderSpec))}.
-     *  
+     *
      * @param emptyBorderSpec   describes the top, left, bottom, right sizes
      *    of the EmptyBorder to create
-     *    
+     *
      * @see Borders#createEmptyBorder(String)
      *
      * @since 1.6
@@ -331,7 +331,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      * builder.getPanel().setFocusTraversalPolicyProvider(true);
      * </pre>
      *
-     * @param policy   the focus traversal policy that will manage 
+     * @param policy   the focus traversal policy that will manage
      * 	keyboard traversal of the children in this builder's panel
      *
      * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
@@ -361,7 +361,7 @@ public class PanelBuilder extends AbstractFormBuilder {
 
 
     // Old Style Configuration ************************************************
-    
+
     /**
      * Sets the panel's border.
      *
@@ -374,8 +374,8 @@ public class PanelBuilder extends AbstractFormBuilder {
     public void setBorder(Border border) {
     	getPanel().setBorder(border);
     }
-    
-    
+
+
     /**
      * Sets the default dialog border.
      *
@@ -405,13 +405,13 @@ public class PanelBuilder extends AbstractFormBuilder {
 
 
     // Building ***************************************************************
-    
+
     /**
-     * Returns the panel used to build the form. 
+     * Returns the panel used to build the form.
      * Intended to return the panel in build methods.
      *
      * @return the panel used by this builder to build the form
-     * 
+     *
      * @since 1.6
      */
     public final JPanel build() {

@@ -52,15 +52,15 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version $Revision: 1.1 $
  */
 public class Forms {
-	
+
 	private Forms() {
 		// Overrides default constructor; prevents instantiation.
 	}
 
 
 	// Public API *************************************************************
-	
-	public static JComponent single(String columnSpec, String rowSpec, 
+
+	public static JComponent single(String columnSpec, String rowSpec,
 			JComponent component) {
 		checkNotBlank(columnSpec, "The column specification must not be null, empty, or white space.");
 		checkNotBlank(rowSpec,    "The row specification must not be null, empty, or white space.");
@@ -70,25 +70,25 @@ public class Forms {
 		builder.add(component, CC.xy(1, 1));
 		return builder.build();
 	}
-	
-	
+
+
 	public static JComponent centered(JComponent component) {
 		return single("fill:pref:grow", "f:p:g", component);
 	}
-	
-	
+
+
 	public static JComponent border(Border border, JComponent component) {
 		JComponent container = single("fill:pref", "f:p", component);
 		container.setBorder(border);
 		return container;
 	}
-	
-	
+
+
 	public static JComponent border(String emptyBorderSpec, JComponent component) {
 		return border(Borders.createEmptyBorder(emptyBorderSpec), component);
 	}
-	
-	
+
+
 	public static JComponent horizontal(String gapColSpec, JComponent... components) {
 		checkNotBlank(gapColSpec, "The gap column specification must not be null, empty, or white space.");
 		checkNotNull(components, "The component array must not be null.");
@@ -96,8 +96,8 @@ public class Forms {
 		PanelBuilder builder = new PanelBuilder(layout);
 		return builder.build();
 	}
-	
-	
+
+
 	public static JComponent vertical(String gapRowSpec, JComponent... components) {
 		checkNotBlank(gapRowSpec, "The gap row specification must not be null, empty, or white space.");
 		checkNotNull(components, "The component array must not be null.");
@@ -105,7 +105,7 @@ public class Forms {
 		PanelBuilder builder = new PanelBuilder(layout);
 		return builder.build();
 	}
-	
+
 
 	public static JComponent buttonBar(JComponent... buttons) {
 		return new ButtonBarBuilder()
@@ -117,11 +117,11 @@ public class Forms {
     /**
      * Builds and returns a panel where the given check boxes are laid out
      * in a row.<p>
-     * 
-     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils} 
-     * from the JSDL Common library is in the class path, 
-     * it is used to group the radio buttons. Focus is transferred to/from 
-     * the selected button in a group; and cursor-left/-right change 
+     *
+     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
+     * from the JSDL Common library is in the class path,
+     * it is used to group the radio buttons. Focus is transferred to/from
+     * the selected button in a group; and cursor-left/-right change
      * the selection in the group.
      *
      * @return the built panel
@@ -134,11 +134,11 @@ public class Forms {
     /**
      * Builds and returns a panel where the given radio buttons are laid out
      * in a row.<p>
-     * 
-     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils} 
-     * from the JSDL Common library is in the class path, 
-     * it is used to group the radio buttons. Focus is transferred to/from 
-     * the selected button in a group; and cursor-left/-right change 
+     *
+     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
+     * from the JSDL Common library is in the class path,
+     * it is used to group the radio buttons. Focus is transferred to/from
+     * the selected button in a group; and cursor-left/-right change
      * the selection in the group.
      *
      * @return the built panel
@@ -171,6 +171,6 @@ public class Forms {
         FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
         return builder.build();
     }
-    
-    
+
+
 }

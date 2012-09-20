@@ -65,7 +65,7 @@ public abstract class AbstractBuilder {
      * per-instance component factory.
      */
     private static ComponentFactory componentFactoryDefault;
-    
+
     /**
      * Holds the layout container that we are building.
      */
@@ -137,8 +137,8 @@ public abstract class AbstractBuilder {
     public static void setComponentFactoryDefault(ComponentFactory factory) {
         componentFactoryDefault = factory;
     }
-    
-    
+
+
     /**
      * Returns the container used to build the form.
      *

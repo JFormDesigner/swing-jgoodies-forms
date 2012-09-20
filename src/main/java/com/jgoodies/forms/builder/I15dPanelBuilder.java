@@ -52,8 +52,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * A general purpose builder class that uses the FormLayout to lay out JPanels. 
- * In addition to its superclass {@link PanelBuilder} this class provides 
+ * A general purpose builder class that uses the FormLayout to lay out JPanels.
+ * In addition to its superclass {@link PanelBuilder} this class provides
  * convenience behavior to map
  * resource keys to their associated internationalized (i15d) strings
  * when adding labels, titles and titled separators.<p>
@@ -77,7 +77,7 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * @author	Karsten Lentzsch
  * @version $Revision: 1.12 $
- * 
+ *
  * @see ResourceBundle
  *
  * @since 1.1
@@ -197,8 +197,8 @@ public class I15dPanelBuilder extends PanelBuilder {
         super.border(border);
         return this;
     }
-    
-    
+
+
     @Override
     public I15dPanelBuilder border(String emptyBorderSpec) {
     	super.border(emptyBorderSpec);
@@ -510,13 +510,13 @@ public class I15dPanelBuilder extends PanelBuilder {
     // Helper Class **********************************************************
 
     private static final class ResourceBundleLocalizer implements StringLocalizer {
-    	
+
     	private final ResourceBundle bundle;
-    	
+
     	private ResourceBundleLocalizer(ResourceBundle bundle) {
     		this.bundle = Preconditions.checkNotNull(bundle, "The resource bundle must not be null.");
     	}
-    
+
 	    /**
 	     * Looks up and returns the internationalized (i15d) string for the given
 	     * resource key from the ResourceBundle that has been provided during
@@ -536,9 +536,9 @@ public class I15dPanelBuilder extends PanelBuilder {
 	            return resourceKey;
 	        }
 	    }
-	
+
     }
-    
+
 
 
 }
