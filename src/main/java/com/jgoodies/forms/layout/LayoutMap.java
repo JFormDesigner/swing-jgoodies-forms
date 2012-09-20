@@ -212,7 +212,7 @@ public final class LayoutMap {
      *
      * @return the LayoutMap that is used, if no custom LayoutMap is provided
      */
-    public synchronized static LayoutMap getRoot() {
+    public static synchronized LayoutMap getRoot() {
         if (root == null) {
             root = createRoot();
         }
@@ -522,7 +522,7 @@ public final class LayoutMap {
             && Character.isUnicodeIdentifierPart(expression.charAt(end))) {
             end++;
         }
-        return expression.substring(start+1, end);
+        return expression.substring(start + 1, end);
     }
 
 

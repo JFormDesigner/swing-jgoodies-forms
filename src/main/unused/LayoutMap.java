@@ -529,7 +529,7 @@ public final class LayoutMap {
             && Character.isUnicodeIdentifierPart(expression.charAt(end))) {
             end++;
         }
-        return expression.substring(start+1, end);
+        return expression.substring(start + 1, end);
     }
 
 
@@ -635,7 +635,7 @@ public final class LayoutMap {
 
     private void columnPut(String key, String[] aliases, ColumnSpec value) {
         columnPut(key, value);
-        for (int i=0; i < aliases.length; i++) {
+        for (int i = 0; i < aliases.length; i++) {
             columnAddAlias(key, aliases[i]);
         }
     }
@@ -643,9 +643,9 @@ public final class LayoutMap {
 
     private void rowPut(String key, String[] aliases, RowSpec value) {
         rowPut(key, value);
-        for (int i=0; i < aliases.length; i++) {
-            rowAddAlias(key, aliases[i]);
-        }
+		for (int i = 0; i < aliases.length; i++) {
+			rowAddAlias(key, aliases[i]);
+		}
     }
 
 

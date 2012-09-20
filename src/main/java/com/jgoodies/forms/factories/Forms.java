@@ -51,7 +51,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Karsten Lentzsch
  * @version $Revision: 1.1 $
  */
-public class Forms {
+public final class Forms {
 
 	private Forms() {
 		// Overrides default constructor; prevents instantiation.
@@ -160,7 +160,7 @@ public class Forms {
     protected static JComponent buildGroupedButtonBar(AbstractButton... buttons) {
         checkArgument(buttons.length > 1, "You must provide more than one button.");
         FormLayout layout = new FormLayout(
-                buttons.length-1 + "*(pref, $rgap), pref",
+                buttons.length - 1 + "*(pref, $rgap), pref",
                 "p");
         PanelBuilder builder = new PanelBuilder(layout);
         int columnCount = 1;

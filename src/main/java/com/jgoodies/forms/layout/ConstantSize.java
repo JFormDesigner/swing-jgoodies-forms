@@ -379,7 +379,7 @@ public final class ConstantSize implements Size, Serializable {
         int len = encodedValueAndUnit.length();
         int firstLetterIndex = len;
         while (firstLetterIndex > 0
-                && Character.isLetter(encodedValueAndUnit.charAt(firstLetterIndex-1))) {
+                && Character.isLetter(encodedValueAndUnit.charAt(firstLetterIndex - 1))) {
                 firstLetterIndex--;
         }
         result[0] = encodedValueAndUnit.substring(0, firstLetterIndex);

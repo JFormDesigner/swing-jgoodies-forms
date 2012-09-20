@@ -260,10 +260,10 @@ public class FormDebugPanel extends JPanel {
             int x = layoutInfo.columnOrigins[col];
             int start = firstOrLast ? 0 : top;
             int stop = firstOrLast ? getHeight() : (top + height);
-            for (int i=start; i < stop; i+=5) {
-                int length = Math.min(3, stop - i);
-                g.fillRect(x, i, 1, length);
-            }
+			for (int i = start; i < stop; i += 5) {
+				int length = Math.min(3, stop - i);
+				g.fillRect(x, i, 1, length);
+			}
         }
 
         // Paint the row bounds.
@@ -274,10 +274,10 @@ public class FormDebugPanel extends JPanel {
             int start = firstOrLast ? 0 : left;
             int stop = firstOrLast ? getWidth() : (left + width);
             if (firstOrLast  || paintRows) {
-                for (int i=start; i < stop; i+=5) {
-                    int length = Math.min(3, stop - i);
-                    g.fillRect(i, y, length, 1);
-                }
+				for (int i = start; i < stop; i += 5) {
+					int length = Math.min(3, stop - i);
+					g.fillRect(i, y, length, 1);
+				}
             }
         }
 

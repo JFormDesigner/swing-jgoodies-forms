@@ -363,7 +363,7 @@ public abstract class FormSpec implements Serializable {
     private Size parseOldBoundedSize(String token, boolean setMax) {
         int semicolonIndex = token.indexOf(';');
         String sizeToken1 = token.substring(4, semicolonIndex);
-        String sizeToken2 = token.substring(semicolonIndex+1, token.length()-1);
+        String sizeToken2 = token.substring(semicolonIndex + 1, token.length() - 1);
 
         Size size1 = parseAtomicSize(sizeToken1);
         Size size2 = parseAtomicSize(sizeToken2);
