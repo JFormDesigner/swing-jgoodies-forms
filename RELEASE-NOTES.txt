@@ -7,6 +7,8 @@ CHANGES IN 1.7.0  -----------------------------------------------------
     o Removed deprecated classes, methods, and constants.
     o Added PanelBuilder#focusTraversal(FocusTraversalPolicy).
     o Fixed some @since tags.
+    o Compiled against the JGoodies Common 1.5.
+    o Source code cleanup.
     
     
 CHANGES IN 1.6.0  -----------------------------------------------------
