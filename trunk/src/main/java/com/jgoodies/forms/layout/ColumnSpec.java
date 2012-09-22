@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012 JGoodies Karsten Lentzsch. All Rights Reserved.
+ * Copyright (c) 2002-2012 JGoodies Software GmbH. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- *  o Neither the name of JGoodies Karsten Lentzsch nor the names of
+ *  o Neither the name of JGoodies Software GmbH nor the names of
  *    its contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
  *
