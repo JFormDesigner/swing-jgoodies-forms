@@ -9,6 +9,11 @@ CHANGES IN 1.7.0  -----------------------------------------------------
     o Fixed some @since tags.
     o Compiled against the JGoodies Common 1.5.
     o Source code cleanup.
+    o Fixed and extended the pom.xml:
+      - added schema
+      - fixed scope for dependencies
+      - added Maven Central deployer
+      - added build data
     
     
 CHANGES IN 1.6.0  -----------------------------------------------------

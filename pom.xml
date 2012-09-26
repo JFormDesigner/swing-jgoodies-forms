@@ -1,5 +1,11 @@
-<project>
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
 	<groupId>com.jgoodies</groupId>
 	<artifactId>jgoodies-forms</artifactId>
 	<version>@impl.version@</version>
@@ -15,7 +21,6 @@
 	        <groupId>com.jgoodies</groupId>
 	        <artifactId>jgoodies-common</artifactId>
 	        <version>@common.version@</version>
-	        <scope>runtime</scope>
 	    </dependency>
 	    <dependency>
 	    	<groupId>junit</groupId>
@@ -31,14 +36,14 @@
         </license>
     </licenses>
     <organization>
-        <name>JGoodies</name>
+        <name>JGoodies Software GmbH</name>
         <url>http://www.jgoodies.com/</url>
     </organization>
     <developers>
         <developer>
             <id>karsten</id>
             <name>Karsten Lentzsch</name>
-            <organization>JGoodies</organization>
+            <organization>JGoodies Software GmbH</organization>
             <organizationUrl>http://www.jgoodies.com/</organizationUrl>
             <timezone>+0100</timezone>
             <roles>
@@ -47,6 +52,22 @@
             </roles>
         </developer>
     </developers>
+    <contributors>
+        <contributor>
+            <name>Markus Karg</name>
+            <email>markus@headcrashing.eu</email>
+            <url>http://www.headcrashing.eu</url>
+            <organization>Head Crashing Informatics</organization>
+            <organizationUrl>http://www.headcrashing.eu</organizationUrl>
+            <roles>
+                <role>Maven Central deployer</role>
+            </roles>
+            <timezone>+0100</timezone>
+            <properties>
+                <picUrl>http://weblogs.java.net/images/people/markus_karg.jpg</picUrl>
+            </properties>
+        </contributor>
+    </contributors>
     <issueManagement>
         <system>JIRA</system>
         <url>http://java.net/jira/browse/FORMS/</url>
@@ -63,4 +84,16 @@
         <tag>head</tag>
         <url>https://svn.java.net/svn/forms~svn</url>
     </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                 </configuration>
+             </plugin>
+         </plugins>
+     </build>
 </project>
