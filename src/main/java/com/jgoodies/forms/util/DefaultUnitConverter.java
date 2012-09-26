@@ -31,6 +31,7 @@
 package com.jgoodies.forms.util;
 
 import static com.jgoodies.common.base.Preconditions.checkNotBlank;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_BLANK;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -208,7 +209,7 @@ public final class DefaultUnitConverter extends AbstractUnitConverter {
      * @throws IllegalArgumentException if {@code newTestString} is empty or whitespace
      */
     public void setAverageCharacterWidthTestString(String newTestString) {
-        checkNotBlank(newTestString, "The test string must not be null, empty, or whitespace.");
+        checkNotBlank(newTestString, MUST_NOT_BE_BLANK, "test string");
         String oldTestString = averageCharWidthTestString;
         averageCharWidthTestString = newTestString;
         firePropertyChange(

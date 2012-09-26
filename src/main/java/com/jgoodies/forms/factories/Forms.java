@@ -33,6 +33,8 @@ package com.jgoodies.forms.factories;
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotBlank;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_BLANK;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
@@ -62,9 +64,9 @@ public final class Forms {
 
 	public static JComponent single(String columnSpec, String rowSpec,
 			JComponent component) {
-		checkNotBlank(columnSpec, "The column specification must not be null, empty, or white space.");
-		checkNotBlank(rowSpec,    "The row specification must not be null, empty, or white space.");
-		checkNotNull (component,  "The component must not be null.");
+		checkNotBlank(columnSpec, MUST_NOT_BE_BLANK, "column specification");
+		checkNotBlank(rowSpec,    MUST_NOT_BE_BLANK, "row specification");
+		checkNotNull (component,  MUST_NOT_BE_NULL, "component");
 		FormLayout layout = new FormLayout(columnSpec, rowSpec);
 		PanelBuilder builder = new PanelBuilder(layout);
 		builder.add(component, CC.xy(1, 1));
@@ -90,8 +92,8 @@ public final class Forms {
 
 
 	public static JComponent horizontal(String gapColSpec, JComponent... components) {
-		checkNotBlank(gapColSpec, "The gap column specification must not be null, empty, or white space.");
-		checkNotNull(components, "The component array must not be null.");
+		checkNotBlank(gapColSpec, MUST_NOT_BE_BLANK, "gap column specification");
+		checkNotNull(components, MUST_NOT_BE_NULL, "component array");
 		FormLayout layout = new FormLayout();
 		PanelBuilder builder = new PanelBuilder(layout);
 		return builder.build();
@@ -99,8 +101,8 @@ public final class Forms {
 
 
 	public static JComponent vertical(String gapRowSpec, JComponent... components) {
-		checkNotBlank(gapRowSpec, "The gap row specification must not be null, empty, or white space.");
-		checkNotNull(components, "The component array must not be null.");
+		checkNotBlank(gapRowSpec, MUST_NOT_BE_BLANK, "gap row specification");
+		checkNotNull(components, MUST_NOT_BE_NULL, "component array");
 		FormLayout layout = new FormLayout();
 		PanelBuilder builder = new PanelBuilder(layout);
 		return builder.build();
