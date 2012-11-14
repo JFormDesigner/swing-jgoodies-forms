@@ -78,7 +78,7 @@ public final class Forms {
 	 * @param component     the component to lay out
 	 * @return the built panel
 	 * @throws NullPointerException if {@code columnSpec}, {@code rowSpec},
-	 *   or {@component} is {@code null}
+	 *   or {@code component} is {@code null}
 	 * @throws IllegalArgumentException if {@code columnSpec} or {@code rowSpec}
 	 *   is empty or whitespace
 	 */
@@ -104,7 +104,7 @@ public final class Forms {
 	 * 
 	 * @param component     the component to center
 	 * @return the built panel
-	 * @throws NullPointerException if {@component} is {@code null}
+	 * @throws NullPointerException if {@code component} is {@code null}
 	 */
 	public static JComponent centered(JComponent component) {
 		return single("center:pref:grow", "c:p:g", component);
@@ -122,7 +122,8 @@ public final class Forms {
 	 * @param border        the border used to surround the component
 	 * @param component     the component to wrap
 	 * @return the built panel
-	 * @throws NullPointerException if {@code border}  or {@component} is {@code null}
+	 * @throws NullPointerException if {@code border}  or {@code component}
+	 *     is {@code null}
 	 */
 	public static JComponent border(Border border, JComponent component) {
 		JComponent container = single("fill:pref", "f:p", component);
@@ -141,7 +142,8 @@ public final class Forms {
 	 * 
 	 * @param component     the component to wrap
 	 * @return the built panel
-	 * @throws NullPointerException if {@code emptyBorderSpec} or {@component} is {@code null}
+	 * @throws NullPointerException if {@code emptyBorderSpec}
+	 *     or {@code component} is {@code null}
 	 */
 	public static JComponent border(String emptyBorderSpec, JComponent component) {
 		return border(Borders.createEmptyBorder(emptyBorderSpec), component);
@@ -244,6 +246,7 @@ public final class Forms {
      * the selected button in a group; and cursor-left/-right change
      * the selection in the group.
      *
+	 * @param checkBoxes  the check boxes to lay out in a row
      * @return the built panel
      * @throws NullPointerException if {@code checkBoxes} is {@code null}
      * @throws IllegalArgumentException if {@code checkBoxes} is empty
@@ -263,6 +266,7 @@ public final class Forms {
      * the selected button in a group; and cursor-left/-right change
      * the selection in the group.
      *
+	 * @param radioButtons  the radio buttons to lay out in a row
      * @return the built panel
      * @throws NullPointerException if {@code radioButtons} is {@code null}
      * @throws IllegalArgumentException if {@code radioButtons} is empty
