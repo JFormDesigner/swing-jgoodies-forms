@@ -5,7 +5,9 @@
 CHANGES IN 1.7.0  -----------------------------------------------------
 
     o Removed deprecated classes, methods, and constants.
+    o Fixed Forms#centered, #horizontal, #vertical.
     o Added PanelBuilder#focusTraversal(FocusTraversalPolicy).
+    o Completed JavaDocs for the Forms class.
     o Fixed some @since tags.
     o Compiled against the JGoodies Common 1.5.
     o Source code cleanup.
