@@ -209,7 +209,7 @@ public final class Forms {
         PanelBuilder builder = new PanelBuilder(layout);
         int row = 1;
         for (JComponent component : components) {
-            builder.add(component, CC.xy(row, 1));
+            builder.add(component, CC.xy(1, row));
             row += 2;
         }
 		return builder.build();
