@@ -67,6 +67,7 @@ import com.jgoodies.forms.layout.FormLayout;
  *     .detailsView(contactDetailsView)
  *     .build();
  * </pre>
+ * For more examples see the JGoodies Showcase application.
  *
  * @author  Karsten Lentzsch
  * @version $Revision: 1.2 $
@@ -85,6 +86,7 @@ public final class ListViewBuilder {
     private JComponent detailsView;
 
     private Border border;
+    private boolean honorsVisibility = true;
     private String filterViewColSpec = "[100dlu, p]";
     private String listViewRowSpec   = "fill:100dlu:grow";
 
@@ -128,6 +130,34 @@ public final class ListViewBuilder {
      */
     public ListViewBuilder border(Border border) {
     	this.border = border;
+    	invalidatePanel();
+    	return this;
+    }
+    
+    
+    /**
+     * Specifies whether invisible components shall be taken into account by
+     * this builder for computing the layout size and setting component bounds.
+     * If set to {@code true} invisible components will be ignored by
+     * the layout. If set to {@code false} components will be taken into
+     * account regardless of their visibility. Visible components are always
+     * used for sizing and positioning.<p>
+     *
+     * The default value for this setting is {@code true}.
+     * It is useful to set the value to {@code false} (in other words
+     * to ignore the visibility) if you switch the component visibility
+     * dynamically and want the container to retain the size and
+     * component positions.
+     *
+     * @param b   {@code true} to honor the visibility, i.e. to exclude
+     *    invisible components from the sizing and positioning,
+     *    {@code false} to ignore the visibility, in other words to
+     *    layout visible and invisible components
+     *
+     * @since 1.7.1
+     */
+    public ListViewBuilder honorVisibility(boolean b) {
+    	this.honorsVisibility = b;
     	invalidatePanel();
     	return this;
     }
@@ -350,6 +380,7 @@ public final class ListViewBuilder {
         FormLayout layout = new FormLayout(
                 columnSpec,
                 "[14dlu,p], $lcg, " + listViewRowSpec + ", p, p");
+        layout.setHonorsVisibility(honorsVisibility);
         PanelBuilder builder = new PanelBuilder(layout);
         builder.border(border);
         builder.add(labelView,                   CC.xy (1, 1));
@@ -372,6 +403,7 @@ public final class ListViewBuilder {
         FormLayout layout = new FormLayout(
                 "left:default, 9dlu:grow, right:pref",
                 "$rgap, p");
+        layout.setHonorsVisibility(honorsVisibility);
         PanelBuilder builder = new PanelBuilder(layout);
         if (listBarView != null) {
             builder.add(listBarView, CC.xy(1, 2));
@@ -387,6 +419,7 @@ public final class ListViewBuilder {
         FormLayout layout = new FormLayout(
                 "fill:default:grow",
                 "14, p");
+        layout.setHonorsVisibility(honorsVisibility);
         PanelBuilder builder = new PanelBuilder(layout);
         builder.add(detailsView, CC.xy(1, 2));
         return builder.build();
