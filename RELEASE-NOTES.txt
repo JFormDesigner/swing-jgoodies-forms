@@ -2,6 +2,12 @@
                             Release Notes
                         
 
+CHANGES IN 1.7.1  -----------------------------------------------------
+
+    o ListViewBuilder doesn't honor visibility of the details view
+      to keep this area stable, even if it is invisible.
+
+
 CHANGES IN 1.7.0  -----------------------------------------------------
 
     o Removed deprecated classes, methods, and constants.
