@@ -45,7 +45,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.jgoodies.common.base.Preconditions;
 import com.jgoodies.common.internal.StringLocalizer;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -505,40 +504,6 @@ public class I15dPanelBuilder extends PanelBuilder {
             return false;
         }
     }
-
-
-    // Helper Class **********************************************************
-
-    private static final class ResourceBundleLocalizer implements StringLocalizer {
-
-    	private final ResourceBundle bundle;
-
-    	private ResourceBundleLocalizer(ResourceBundle bundle) {
-    		this.bundle = Preconditions.checkNotNull(bundle, "The resource bundle must not be null.");
-    	}
-
-	    /**
-	     * Looks up and returns the internationalized (i15d) string for the given
-	     * resource key from the ResourceBundle that has been provided during
-	     * the builder construction.
-	     *
-	     * @param resourceKey  the key to look for in the resource bundle
-	     * @return the associated internationalized string, or the resource key
-	     *     itself in case of a missing resource
-	     * @throws IllegalStateException  if no ResourceBundle
-	     *     has been set
-	     */
-	    @Override
-	    public String getString(String resourceKey) {
-	        try {
-	            return bundle.getString(resourceKey);
-	        } catch (MissingResourceException mre) {
-	            return resourceKey;
-	        }
-	    }
-
-    }
-
 
 
 }
