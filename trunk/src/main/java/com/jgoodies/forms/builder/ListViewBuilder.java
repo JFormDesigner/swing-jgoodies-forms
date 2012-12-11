@@ -39,6 +39,7 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.border.Border;
 
+import com.jgoodies.common.base.Strings;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.Forms;
@@ -87,6 +88,7 @@ public final class ListViewBuilder {
 
     private Border border;
     private boolean honorsVisibility = true;
+    private String namePrefix        = "ListView";
     private String filterViewColSpec = "[100dlu, p]";
     private String listViewRowSpec   = "fill:100dlu:grow";
 
@@ -161,6 +163,19 @@ public final class ListViewBuilder {
     	invalidatePanel();
     	return this;
     }
+    
+    
+    /**
+     * Sets the prefix that is prepended to component name of components
+     * that have no name set or that are are implicitly created by this builder,
+     * e.g. the (header) label. The default name prefix is "ListView".
+
+     * @param namePrefix   the prefix to be used
+     */
+    public ListViewBuilder namePrefix(String namePrefix) {
+    	this.namePrefix = namePrefix;
+    	return this;
+    }
 
 
     /**
@@ -173,6 +188,7 @@ public final class ListViewBuilder {
      */
     public ListViewBuilder labelView(JComponent labelView) {
         this.labelView = labelView;
+        setName(labelView, "label");
         invalidatePanel();
         return this;
     }
@@ -217,6 +233,7 @@ public final class ListViewBuilder {
      */
     public ListViewBuilder filterView(JComponent filterView) {
         this.filterView = filterView;
+        setName(filterView, "filter");
         invalidatePanel();
         return this;
     }
@@ -259,6 +276,7 @@ public final class ListViewBuilder {
     	} else {
     		this.listView = listView;
     	}
+    	setName(listView, "listView");
         invalidatePanel();
         return this;
     }
@@ -301,6 +319,7 @@ public final class ListViewBuilder {
      */
     public ListViewBuilder listBarView(JComponent listBarView) {
         this.listBarView = listBarView;
+        setName(listBarView, "listBarView");
         invalidatePanel();
         return this;
     }
@@ -334,6 +353,7 @@ public final class ListViewBuilder {
      */
     public ListViewBuilder listExtrasView(JComponent listExtrasView) {
         this.listExtrasView = listExtrasView;
+        setName(listExtrasView, "listExtrasView");
         invalidatePanel();
         return this;
     }
@@ -347,6 +367,7 @@ public final class ListViewBuilder {
      */
     public ListViewBuilder detailsView(JComponent detailsView) {
         this.detailsView = detailsView;
+        setName(detailsView, "detailsView");
         invalidatePanel();
         return this;
     }
@@ -423,6 +444,16 @@ public final class ListViewBuilder {
         PanelBuilder builder = new PanelBuilder(layout);
         builder.add(detailsView, CC.xy(1, 2));
         return builder.build();
+    }
+    
+    
+    // Helper Code ************************************************************
+    
+    private void setName(JComponent component, String suffix) {
+    	if (Strings.isNotBlank(component.getName())) {
+    		return;
+    	}
+    	component.setName(namePrefix + '.' + suffix);
     }
 
 
