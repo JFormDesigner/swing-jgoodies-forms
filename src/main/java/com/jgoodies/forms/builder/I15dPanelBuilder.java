@@ -45,6 +45,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.jgoodies.common.internal.ResourceBundleLocalizer;
 import com.jgoodies.common.internal.StringLocalizer;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.CellConstraints;
