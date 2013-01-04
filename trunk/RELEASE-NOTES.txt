@@ -4,12 +4,15 @@
 
 CHANGES IN 1.7.1  -----------------------------------------------------
 
-    o Added ListViewBuilder#honorsVisibility to enabled API users to
-      to keep the overall layout stable, even if sub views, e.g. 
-      the details view, are invisible.
+    o Requires the JGoodies Common 1.6.0.
+    o Added ListViewBuilder#honorsVisibility to enable API users
+      to keep the overall layout stable, even if a sub view, 
+      for example a details view, becomes invisible.
     o The ListViewBuilder sets names for unnamed components and
       those that are implicitly created by the builder.
-    o Requires the JGoodies Common 1.5.1.
+    o Added ListViewBuilder#namePrefix to specify a prefix for
+      the component names set by the builder.
+    o Updated copyright date.
 
 
 CHANGES IN 1.7.0  -----------------------------------------------------
