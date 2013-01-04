@@ -171,6 +171,8 @@ public final class ListViewBuilder {
      * e.g. the (header) label. The default name prefix is "ListView".
 
      * @param namePrefix   the prefix to be used
+     * 
+     * @since 1.7.1
      */
     public ListViewBuilder namePrefix(String namePrefix) {
     	this.namePrefix = namePrefix;
