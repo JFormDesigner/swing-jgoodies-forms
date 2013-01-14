@@ -12,6 +12,7 @@ CHANGES IN 1.7.1  -----------------------------------------------------
       those that are implicitly created by the builder.
     o Added ListViewBuilder#namePrefix to specify a prefix for
       the component names set by the builder.
+    o Fixed docs.
     o Updated copyright date.
 
 
