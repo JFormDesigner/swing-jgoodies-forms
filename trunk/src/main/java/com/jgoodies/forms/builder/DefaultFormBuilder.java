@@ -161,8 +161,8 @@ import com.jgoodies.forms.layout.RowSpec;
  *     // Also the row's height may be inconsistent with other rows.
  *     builder.appendSeparator("Single Custom Row");
  *     builder.append("Name", name1Field);
- *     builder.appendRow(builder.getLineGapSpec());
- *     builder.appendRow(new RowSpec("top:31dlu")); // Assumes line is 14, gap is 3
+ *     builder.appendLineGapRow();
+ *     builder.appendRow(RowSpec.decode("top:31dlu")); // Assumes line is 14, gap is 3
  *     builder.nextLine(2);
  *     builder.append("Comment");
  *     builder.add(new JScrollPane(comment1Area),
@@ -177,7 +177,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *     builder.appendSeparator("Standard + Custom Row");
  *     builder.append("Name", name2Field);
  *     builder.append("Comment");
- *     builder.appendRow(new RowSpec("17dlu")); // Assumes line is 14, gap is 3
+ *     builder.appendRow(RowSpec.decode("17dlu")); // Assumes line is 14, gap is 3
  *     builder.add(new JScrollPane(comment2Area),
  *                 CC.xywh(builder.getColumn(), builder.getRow(), 1, 2));
  *     builder.nextLine(2);
