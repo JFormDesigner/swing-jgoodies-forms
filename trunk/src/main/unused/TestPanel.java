@@ -120,12 +120,12 @@ public final class TestPanel {
         panel.add(new JButton("3, 7, 3, 1"),   "3, 9, 3, 1");
         
         fl.removeColumn(4);
-        fl.insertColumn(4, new ColumnSpec("20dlu"));
+        fl.insertColumn(4, ColumnSpec.decode("20dlu"));
         fl.removeColumn(2);
-        fl.insertColumn(2, new ColumnSpec("4dlu"));
+        fl.insertColumn(2, ColumnSpec.decode("4dlu"));
         fl.removeRow(6);
         fl.removeRow(4);
-        fl.insertRow(4, new RowSpec("5dlu:grow"));
+        fl.insertRow(4, RowSpec.decode("5dlu:grow"));
         
         return panel;
     }
