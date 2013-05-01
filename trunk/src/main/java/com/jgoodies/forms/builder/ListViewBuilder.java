@@ -395,8 +395,8 @@ public final class ListViewBuilder {
     }
 
     private JComponent buildPanel() {
-    	checkNotNull(labelView, "The label must be set before #getPanel is invoked.");
-    	checkNotNull(listView,  "The list view must be set before #getPanel is invoked.");
+    	checkNotNull(labelView, "The label must be set before #build is invoked.");
+    	checkNotNull(listView,  "The list view must be set before #build is invoked.");
     	String columnSpec = filterView != null
     			? "default:grow, 9dlu, " + filterViewColSpec
     		    : "default:grow, 0, 0";
