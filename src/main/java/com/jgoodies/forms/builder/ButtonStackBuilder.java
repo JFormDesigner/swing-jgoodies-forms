@@ -140,7 +140,6 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
 	public ButtonStackBuilder addButton(JComponent button) {
         checkNotNull(button, "The button must not be null.");
 	    getLayout().appendRow(FormSpecs.PREF_ROWSPEC);
-	    getLayout().addGroupedRow(getRow());
 	    add(button);
 	    nextRow();
 	    return this;

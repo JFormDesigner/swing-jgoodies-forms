@@ -4,6 +4,11 @@
 
 CHANGES IN 1.7.2  -----------------------------------------------------
 
+    o Fixed ButtonStackBuilder layout that does no longer 
+      group the layout rows for the contained buttons.
+      Unlike the old behavior, invisible buttons now reduce
+      the layout size of the button stack. Also, we could now 
+      potentially switch the 'honorsVisibility' property.
     o Fixed exception message references to API methods 
       that have been replaced.
     o Fixed ListViewBuilder argument check messages.
