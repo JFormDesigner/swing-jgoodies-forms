@@ -32,6 +32,8 @@ package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
+import java.awt.FocusTraversalPolicy;
+
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -88,6 +90,7 @@ public final class ListViewBuilder {
 
     private Border border;
     private boolean honorsVisibility = true;
+    private FocusTraversalPolicy focusTraversalPolicy;
     private String namePrefix        = "ListView";
     private String filterViewColSpec = "[100dlu, p]";
     private String listViewRowSpec   = "fill:100dlu:grow";
@@ -137,6 +140,28 @@ public final class ListViewBuilder {
     }
     
     
+    /**
+     * Sets the panel's focus traversal policy and sets the panel
+     * as focus traversal policy provider. Hence, this call is equivalent to:
+     * <pre>
+     * builder.getPanel().setFocusTraversalPolicy(policy);
+     * builder.getPanel().setFocusTraversalPolicyProvider(true);
+     * </pre>
+     *
+     * @param policy   the focus traversal policy that will manage
+     *  keyboard traversal of the children in this builder's panel
+     *
+     * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
+     * @see JComponent#setFocusTraversalPolicyProvider(boolean)
+     *
+     * @since 1.7.2
+     */
+    public ListViewBuilder focusTraversal(FocusTraversalPolicy policy) {
+        this.focusTraversalPolicy = policy;
+        return this;
+    }
+
+
     /**
      * Specifies whether invisible components shall be taken into account by
      * this builder for computing the layout size and setting component bounds.
@@ -395,7 +420,6 @@ public final class ListViewBuilder {
     }
 
     private JComponent buildPanel() {
-    	checkNotNull(labelView, "The label must be set before #build is invoked.");
     	checkNotNull(listView,  "The list view must be set before #build is invoked.");
     	String columnSpec = filterView != null
     			? "default:grow, 9dlu, " + filterViewColSpec
@@ -406,11 +430,14 @@ public final class ListViewBuilder {
         layout.setHonorsVisibility(honorsVisibility);
         PanelBuilder builder = new PanelBuilder(layout);
         builder.border(border);
+        if (focusTraversalPolicy != null) {
+            builder.focusTraversal(focusTraversalPolicy);
+        }
         builder.add(labelView,                   CC.xy (1, 1));
-        builder.add(listView,   			     CC.xyw(1, 3, 3));
         if (filterView != null) {
             builder.add(filterView,              CC.xy (3, 1));
         }
+        builder.add(listView,   			     CC.xyw(1, 3, 3));
         if (listBarView != null || listExtrasView != null) {
             builder.add(buildDecoratedListBarAndExtras(), CC.xyw(1, 4, 3));
         }
