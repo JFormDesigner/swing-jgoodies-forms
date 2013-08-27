@@ -35,6 +35,7 @@ import static com.jgoodies.common.base.Preconditions.checkNotNull;
 import java.awt.FocusTraversalPolicy;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -421,30 +422,52 @@ public final class ListViewBuilder {
 
     private JComponent buildPanel() {
     	checkNotNull(listView,  "The list view must be set before #build is invoked.");
-    	String columnSpec = filterView != null
-    			? "default:grow, 9dlu, " + filterViewColSpec
-    		    : "default:grow, 0, 0";
         FormLayout layout = new FormLayout(
-                columnSpec,
-                "[14dlu,p], $lcg, " + listViewRowSpec + ", p, p");
+                "fill:default:grow",
+                "p, " + listViewRowSpec + ", p, p");
         layout.setHonorsVisibility(honorsVisibility);
         PanelBuilder builder = new PanelBuilder(layout);
         builder.border(border);
         if (focusTraversalPolicy != null) {
             builder.focusTraversal(focusTraversalPolicy);
         }
-        builder.add(labelView,                   CC.xy (1, 1));
+        if (labelView != null || filterView != null) {
+            builder.add(buildDecoratedHeaderView(),       CC.xy(1, 1));
+        }
+        builder.add(listView,   			              CC.xy(1, 2));
+        if (listBarView != null || listExtrasView != null) {
+            builder.add(buildDecoratedListBarAndExtras(), CC.xy(1, 3));
+        }
+        if (detailsView != null) {
+            builder.add(buildDecoratedDetailsView(),      CC.xy(1, 4));
+        }
+
+        // Set up the label-for relation - if not already set.
+        if (labelView instanceof JLabel) {
+            JLabel theLabelView = (JLabel) labelView;
+            if (theLabelView.getLabelFor() == null) {
+                theLabelView.setLabelFor(listView);
+            }
+        }
+        return builder.build();
+    }
+    
+    
+    private JComponent buildDecoratedHeaderView() {
+        String columnSpec = filterView != null
+                ? "default:grow, 9dlu, " + filterViewColSpec
+                : "default:grow, 0, 0";
+        FormLayout layout = new FormLayout(
+                columnSpec,
+                "[14dlu,p], $lcg");
+        PanelBuilder builder = new PanelBuilder(layout)
+            .labelForFeatureEnabled(false);
+        if (labelView != null) {
+            builder.add(labelView,               CC.xy (1, 1));
+        }
         if (filterView != null) {
             builder.add(filterView,              CC.xy (3, 1));
         }
-        builder.add(listView,   			     CC.xyw(1, 3, 3));
-        if (listBarView != null || listExtrasView != null) {
-            builder.add(buildDecoratedListBarAndExtras(), CC.xyw(1, 4, 3));
-        }
-        if (detailsView != null) {
-            builder.add(buildDecoratedDetailsView(), CC.xyw(1, 5, 3));
-        }
-
         return builder.build();
     }
 
