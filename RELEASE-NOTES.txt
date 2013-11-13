@@ -14,6 +14,7 @@ CHANGES IN 1.7.2  -----------------------------------------------------
     o Fixed ListViewBuilder argument check messages.
     o Added ListViewBuilder#focusTraversal to specify
       a custom focus traversal policy.
+    o ListViewBuilder allows to use custom headers.
     
 
 CHANGES IN 1.7.1  -----------------------------------------------------
