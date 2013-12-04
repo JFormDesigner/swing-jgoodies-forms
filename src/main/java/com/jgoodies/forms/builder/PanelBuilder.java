@@ -687,6 +687,23 @@ public class PanelBuilder extends AbstractFormBuilder {
 
 
 
+    // Convenience Behavior ***************************************************
+
+    /**
+     * Wraps the given component with a JScrollPane
+     * and adds it to the container using the specified constraints.
+     * Layout equivalent to: {@code add(new JScrollPane(c), constraints);}
+     *
+     * @param c              the component to be wrapped and added
+     * @param constraints    the cell constraints
+     * 
+     * @since 1.8
+     */
+    public final void addScrolled(JComponent c, CellConstraints constraints) {
+        add(new JScrollPane(c), constraints);
+    }
+    
+    
     // Adding Titles ----------------------------------------------------------
 
     /**
@@ -900,7 +917,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
 
-    // Accessing the ComponentFactory *****************************************
+    // Overriding Superclass Behavior *****************************************
 
     /**
      * Adds a component to the panel using the given cell constraints.
