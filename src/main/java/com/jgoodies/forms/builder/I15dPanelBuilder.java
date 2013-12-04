@@ -45,8 +45,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.jgoodies.common.internal.ResourceBundleLocalizer;
-import com.jgoodies.common.internal.StringLocalizer;
+import com.jgoodies.common.internal.ResourceBundleAccessor;
+import com.jgoodies.common.internal.StringResourceAccessor;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -95,7 +95,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      * Holds the ResourceBundle used to look up internationalized
      * (i15d) String resources.
      */
-    private final StringLocalizer localizer;
+    private final StringResourceAccessor localizer;
 
 
     // Instance Creation ****************************************************
@@ -127,7 +127,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      *    or {@code container} is {@code null}
      */
     public I15dPanelBuilder(FormLayout layout, ResourceBundle bundle, JPanel container){
-        this(layout, new ResourceBundleLocalizer(bundle), container);
+        this(layout, new ResourceBundleAccessor(bundle), container);
     }
 
 
@@ -140,7 +140,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      *
      * @throws NullPointerException if {@code layout} is {@code null}
      */
-    public I15dPanelBuilder(FormLayout layout, StringLocalizer localizer){
+    public I15dPanelBuilder(FormLayout layout, StringResourceAccessor localizer){
         this(layout, localizer, new JPanel(null));
     }
 
@@ -155,7 +155,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      *
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
-    public I15dPanelBuilder(FormLayout layout, StringLocalizer localizer, JPanel container){
+    public I15dPanelBuilder(FormLayout layout, StringResourceAccessor localizer, JPanel container){
         super(layout, container);
         this.localizer = localizer;
     }
@@ -231,7 +231,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      * @return the added label
      */
     public final JLabel addI15dLabel(String resourceKey, CellConstraints constraints) {
-        JLabel label = addLabel(getI15dString(resourceKey), constraints);
+        JLabel label = addLabel(getResourceString(resourceKey), constraints);
         if (isDebugToolTipsEnabled()) {
             label.setToolTipText(resourceKey);
         }
@@ -296,7 +296,7 @@ public class I15dPanelBuilder extends PanelBuilder {
             String resourceKey,   CellConstraints labelConstraints,
 			Component component,  CellConstraints componentConstraints) {
 
-        JLabel label = addLabel(getI15dString(resourceKey), labelConstraints,
+        JLabel label = addLabel(getResourceString(resourceKey), labelConstraints,
                         component, componentConstraints);
         if (isDebugToolTipsEnabled()) {
             label.setToolTipText(resourceKey);
@@ -318,7 +318,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      * @since 1.3
      */
     public final JLabel addI15dROLabel(String resourceKey, CellConstraints constraints) {
-        JLabel label = addROLabel(getI15dString(resourceKey), constraints);
+        JLabel label = addROLabel(getResourceString(resourceKey), constraints);
         if (isDebugToolTipsEnabled()) {
             label.setToolTipText(resourceKey);
         }
@@ -399,7 +399,7 @@ public class I15dPanelBuilder extends PanelBuilder {
             String resourceKey,   CellConstraints labelConstraints,
             Component component,  CellConstraints componentConstraints) {
         JLabel label = addROLabel(
-                getI15dString(resourceKey), labelConstraints,
+                getResourceString(resourceKey), labelConstraints,
                 component, componentConstraints);
         if (isDebugToolTipsEnabled()) {
             label.setToolTipText(resourceKey);
@@ -419,7 +419,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      * @return the added titled separator
      */
     public final JComponent addI15dSeparator(String resourceKey, CellConstraints constraints) {
-        JComponent component = addSeparator(getI15dString(resourceKey), constraints);
+        JComponent component = addSeparator(getResourceString(resourceKey), constraints);
         if (isDebugToolTipsEnabled()) {
             component.setToolTipText(resourceKey);
         }
@@ -448,7 +448,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      * @return the added title label
      */
     public final JLabel addI15dTitle(String resourceKey, CellConstraints constraints) {
-        JLabel label = addTitle(getI15dString(resourceKey), constraints);
+        JLabel label = addTitle(getResourceString(resourceKey), constraints);
         if (isDebugToolTipsEnabled()) {
             label.setToolTipText(resourceKey);
         }
@@ -482,7 +482,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      *     for example, because no ResourceBundle or StringLocalizer
      *     has been set
      */
-    protected final String getI15dString(String resourceKey) {
+    protected final String getResourceString(String resourceKey) {
         checkState(localizer != null,
                 "To use the internationalization support " +
                 "a ResourceBundle or StringLocalizer " +
