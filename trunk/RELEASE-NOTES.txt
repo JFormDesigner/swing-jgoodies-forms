@@ -2,6 +2,17 @@
                             Release Notes
                         
 
+CHANGES IN 1.8.0  -----------------------------------------------------
+
+    This version is behavior and layout compatible with version 1.7.
+    The internal interface StringLocalizer from JGoodies Common 1.7
+    has been renamed to StringResourceAccessor, and it has been
+    slightly extended. 
+    To migrate, update to the JGoodies Common 1.8.
+    
+    o Added PanelBuilder#addScrolled(JComponent, CellConstraints).
+
+
 CHANGES IN 1.7.2  -----------------------------------------------------
 
     o Fixed ButtonStackBuilder layout that does no longer 
