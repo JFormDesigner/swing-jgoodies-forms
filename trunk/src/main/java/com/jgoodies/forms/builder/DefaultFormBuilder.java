@@ -39,7 +39,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.jgoodies.common.internal.StringLocalizer;
+import com.jgoodies.common.internal.StringResourceAccessor;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
@@ -281,7 +281,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
     public DefaultFormBuilder(FormLayout layout, JPanel container) {
-        this(layout, (StringLocalizer) null, container);
+        this(layout, (StringResourceAccessor) null, container);
     }
 
 
@@ -325,7 +325,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      *
      * @throws NullPointerException if {@code layout} is {@code null}
      */
-    public DefaultFormBuilder(FormLayout layout, StringLocalizer localizer) {
+    public DefaultFormBuilder(FormLayout layout, StringResourceAccessor localizer) {
         super(layout, localizer);
     }
 
@@ -340,7 +340,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      *
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
-    public DefaultFormBuilder(FormLayout layout, StringLocalizer localizer, JPanel container) {
+    public DefaultFormBuilder(FormLayout layout, StringResourceAccessor localizer, JPanel container) {
         super(layout, localizer, container);
     }
 
@@ -820,7 +820,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey) {
-        return append(getI15dString(resourceKey));
+        return append(getResourceString(resourceKey));
     }
 
 
@@ -836,7 +836,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey, Component component) {
-        return append(getI15dString(resourceKey), component, 1);
+        return append(getResourceString(resourceKey), component, 1);
     }
 
 
@@ -854,7 +854,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey, Component component, boolean nextLine) {
-        return append(getI15dString(resourceKey), component, nextLine);
+        return append(getResourceString(resourceKey), component, nextLine);
     }
 
 
@@ -873,7 +873,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey, Component c, int columnSpan) {
-        return append(getI15dString(resourceKey), c, columnSpan);
+        return append(getResourceString(resourceKey), c, columnSpan);
     }
 
 
@@ -891,7 +891,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey, Component c1, Component c2) {
-        return append(getI15dString(resourceKey), c1, c2);
+        return append(getResourceString(resourceKey), c1, c2);
     }
 
 
@@ -910,7 +910,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey, Component c1, Component c2, int colSpan) {
-        return append(getI15dString(resourceKey), c1, c2, colSpan);
+        return append(getResourceString(resourceKey), c1, c2, colSpan);
     }
 
 
@@ -929,7 +929,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey, Component c1, Component c2, Component c3) {
-        return append(getI15dString(resourceKey), c1, c2, c3);
+        return append(getResourceString(resourceKey), c1, c2, c3);
     }
 
 
@@ -949,7 +949,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added label
      */
     public JLabel appendI15d(String resourceKey, Component c1, Component c2, Component c3, Component c4) {
-        return append(getI15dString(resourceKey), c1, c2, c3, c4);
+        return append(getResourceString(resourceKey), c1, c2, c3, c4);
     }
 
 
@@ -976,7 +976,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added title label
      */
     public JLabel appendI15dTitle(String resourceKey) {
-        return appendTitle(getI15dString(resourceKey));
+        return appendTitle(getResourceString(resourceKey));
     }
 
 
@@ -1021,7 +1021,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @return the added titled separator
      */
     public JComponent appendI15dSeparator(String resourceKey) {
-        return appendSeparator(getI15dString(resourceKey));
+        return appendSeparator(getResourceString(resourceKey));
     }
 
 
