@@ -132,6 +132,16 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
     public ButtonBarBuilder(JPanel panel) {
         super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
     }
+    
+    
+    /**
+     * @return an empty ButtonBarBuilder on a JPanel
+     * 
+     * @since 1.8
+     */
+    public ButtonBarBuilder create() {
+        return new ButtonBarBuilder();
+    }
 
 
     // Buttons ****************************************************************

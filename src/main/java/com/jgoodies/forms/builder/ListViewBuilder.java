@@ -124,6 +124,20 @@ public final class ListViewBuilder {
     public ListViewBuilder(ComponentFactory factory) {
     	this.factory = factory;
     }
+    
+    
+    /**
+     * Creates and returns a ListViewBuilder using the AbstractBuilder's
+     * default component factory. The factory is required by
+     * {@link #label(String)} and {@link #headerLabel(String)}.
+     * 
+     * @return the ListViewBuilder
+     * 
+     * @since 1.8
+     */
+    public static ListViewBuilder create() {
+        return new ListViewBuilder();
+    }
 
 
     // API ********************************************************************
