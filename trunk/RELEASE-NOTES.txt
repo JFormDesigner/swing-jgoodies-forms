@@ -10,6 +10,8 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     slightly extended. 
     To migrate, update to the JGoodies Common 1.8.
     
+    o Added ButtonBarBuilder#create().
+    o Added ListViewBuilder#create().
     o Added PanelBuilder#addScrolled(JComponent, CellConstraints).
 
 
