@@ -56,13 +56,13 @@ import com.jgoodies.forms.layout.FormLayout;
  * details view (or preview).<p>
  *
  * <strong>Examples:</strong><pre>
- * return new ListViewBuilder()
+ * return ListViewBuilder.create()
  *     .label("&Contacts:")
  *     .listView(contactsTable)
  *     .listBar(newButton, editButton, deleteButton)
  *     .build();
  *
- * return new ListViewBuilder()
+ * return ListViewBuilder.create()
  *     .border(Borders.DLU14)
  *     .labelView(contactsLabel)
  *     .filterView(contactsSearchField)
@@ -136,7 +136,7 @@ public final class ListViewBuilder {
      * @since 1.8
      */
     public static ListViewBuilder create() {
-        return new ListViewBuilder();
+        return ListViewBuilder.create();
     }
 
 

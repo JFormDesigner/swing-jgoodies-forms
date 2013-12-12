@@ -220,7 +220,7 @@ public final class Forms {
 	 * Creates and returns a panel where the given buttons are laid out
 	 * using a ButtonBarBuilder. Equivalent to:
      * <blockquote><pre>
-     * new ButtonBarBuilder().addButton(buttons).build();
+     * ButtonBarBuilder.create().addButton(buttons).build();
      * </pre></blockquote>
 	 * 
 	 * @param buttons  the buttons to add to the button bar
@@ -230,7 +230,7 @@ public final class Forms {
 	 * @see ButtonBarBuilder
 	 */
 	public static JComponent buttonBar(JComponent... buttons) {
-		return new ButtonBarBuilder()
+		return ButtonBarBuilder.create()
 			.addButton(buttons)
 			.build();
 	}
