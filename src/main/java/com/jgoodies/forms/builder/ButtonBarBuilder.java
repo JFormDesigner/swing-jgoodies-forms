@@ -54,7 +54,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * <strong>Examples:</strong><pre>
  * // 1) Build and return a bar with three related buttons
- * return new ButtonBarBuilder()
+ * return ButtonBarBuilder.create()
  *     .addButton(newButton)
  *     .addRelatedGap()
  *     .addButton(editButton)
@@ -63,26 +63,26 @@ import com.jgoodies.forms.util.LayoutStyle;
  *     .build();
  *
  * // 2) Short hand for example 1)
- * return new ButtonBarBuilder()
+ * return ButtonBarBuilder.create()
  *     .addButton(newButton, editButton, deleteButton)
  *     .build();
  *
  * // 3) Build and return a bar with two sections
- * return new ButtonBarBuilder()
+ * return ButtonBarBuilder.create()
  *     .addButton(newButton, editButton, deleteButton)
  *     .addUnrelatedGap()
  *     .addButton(moveUpButton, moveDownButton)
  *     .build();
  *
  * // 4) Short hand for example 3)
- * return new ButtonBarBuilder()
+ * return ButtonBarBuilder.create()
  *     .addButton(newButton, editButton, deleteButton,
  *                null,
  *                moveUpButton, moveDownButton)
  *     .build();
  *
  * // 5) Build and return a complex button bar
- * return new ButtonBarBuilder()
+ * return ButtonBarBuilder.create()
  *     .addButton(newButton, editButton, deleteButton)
  *     .addUnrelatedGap()
  *     .addButton(moveUpButton, moveDownButton)
@@ -139,8 +139,8 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      * 
      * @since 1.8
      */
-    public ButtonBarBuilder create() {
-        return new ButtonBarBuilder();
+    public static ButtonBarBuilder create() {
+        return ButtonBarBuilder.create();
     }
 
 

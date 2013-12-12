@@ -63,7 +63,7 @@ public final class WizardBarFactory {
      * Next.
      */
     public static JPanel createNextBar(JButton next) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGriddedButtons(new JButton[] { next });
         return builder.getPanel();
@@ -74,7 +74,7 @@ public final class WizardBarFactory {
      * Back and Next.
      */
     public static JPanel createBackNextBar(JButton back, JButton next) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGridded(back);
         builder.addGridded(next);
@@ -86,7 +86,7 @@ public final class WizardBarFactory {
      * Back and Finish.
      */
     public static JPanel createBackFinishBar(JButton back, JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGridded(back);
         builder.addGridded(finish);
@@ -100,7 +100,7 @@ public final class WizardBarFactory {
      * Finish.
      */
     public static JPanel createFinishBar(JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGriddedButtons(new JButton[] { finish });
         return builder.getPanel();
@@ -111,7 +111,7 @@ public final class WizardBarFactory {
      * Next and Finish.
      */
     public static JPanel createNextFinishBar(JButton next, JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGriddedButtons(new JButton[] { next, finish });
         return builder.getPanel();
@@ -124,7 +124,7 @@ public final class WizardBarFactory {
         JButton back,
         JButton next,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGridded(back);
         builder.addGriddedButtons(new JButton[] { next, finish });
@@ -137,7 +137,7 @@ public final class WizardBarFactory {
      * Creates and returns a button bar with Next and Cancel.
      */
     public static JPanel createNextCancelBar(JButton next, JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGriddedButtons(new JButton[] { next, cancel });
         return builder.getPanel();
@@ -150,7 +150,7 @@ public final class WizardBarFactory {
         JButton back,
         JButton next,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGridded(back);
         builder.addGriddedButtons(new JButton[] { next, cancel });
@@ -164,7 +164,7 @@ public final class WizardBarFactory {
         JButton back,
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGridded(back);
         builder.addGriddedButtons(new JButton[] { finish, cancel });
@@ -179,7 +179,7 @@ public final class WizardBarFactory {
     public static JPanel createFinishCancelBar(
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGriddedButtons(new JButton[] { finish, cancel });
         return builder.getPanel();
@@ -192,7 +192,7 @@ public final class WizardBarFactory {
         JButton next,
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGriddedButtons(new JButton[] { next, finish, cancel });
         return builder.getPanel();
@@ -206,7 +206,7 @@ public final class WizardBarFactory {
         JButton next,
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGlue();
         builder.addGridded(back);
         builder.addGriddedButtons(new JButton[] { next, finish, cancel });
@@ -220,7 +220,7 @@ public final class WizardBarFactory {
      * Help and Next.
      */
     public static JPanel createHelpNextBar(JButton help, JButton next) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -236,7 +236,7 @@ public final class WizardBarFactory {
         JButton help,
         JButton back,
         JButton next) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -253,7 +253,7 @@ public final class WizardBarFactory {
         JButton help,
         JButton back,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -269,7 +269,7 @@ public final class WizardBarFactory {
      * Finish.
      */
     public static JPanel createHelpFinishBar(JButton help, JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -285,7 +285,7 @@ public final class WizardBarFactory {
         JButton help,
         JButton next,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -301,7 +301,7 @@ public final class WizardBarFactory {
         JButton back,
         JButton next,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -321,7 +321,7 @@ public final class WizardBarFactory {
         JButton back,
         JButton next,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -339,7 +339,7 @@ public final class WizardBarFactory {
         JButton back,
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -357,7 +357,7 @@ public final class WizardBarFactory {
         JButton help,
         JButton next,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -372,7 +372,7 @@ public final class WizardBarFactory {
         JButton help,
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -388,7 +388,7 @@ public final class WizardBarFactory {
         JButton next,
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -405,7 +405,7 @@ public final class WizardBarFactory {
         JButton next,
         JButton finish,
         JButton cancel) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(help);
         builder.addRelatedGap();
         builder.addGlue();
@@ -421,7 +421,7 @@ public final class WizardBarFactory {
      * Next.
      */
     public static JPanel createCancelNextBar(JButton cancel, JButton next) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(cancel);
         builder.addRelatedGap();
         builder.addGlue();
@@ -437,7 +437,7 @@ public final class WizardBarFactory {
         JButton cancel,
         JButton back,
         JButton next) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(cancel);
         builder.addRelatedGap();
         builder.addGlue();
@@ -454,7 +454,7 @@ public final class WizardBarFactory {
         JButton cancel,
         JButton back,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(cancel);
         builder.addRelatedGap();
         builder.addGlue();
@@ -472,7 +472,7 @@ public final class WizardBarFactory {
     public static JPanel createCancelFinishBar(
         JButton cancel,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(cancel);
         builder.addRelatedGap();
         builder.addGlue();
@@ -488,7 +488,7 @@ public final class WizardBarFactory {
         JButton cancel,
         JButton next,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(cancel);
         builder.addRelatedGap();
         builder.addGlue();
@@ -504,7 +504,7 @@ public final class WizardBarFactory {
         JButton back,
         JButton next,
         JButton finish) {
-        ButtonBarBuilder builder = new ButtonBarBuilder();
+        ButtonBarBuilder builder = ButtonBarBuilder.create();
         builder.addGridded(cancel);
         builder.addRelatedGap();
         builder.addGlue();
