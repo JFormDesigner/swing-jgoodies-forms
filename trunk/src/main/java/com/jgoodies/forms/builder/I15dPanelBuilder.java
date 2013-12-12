@@ -485,7 +485,7 @@ public class I15dPanelBuilder extends PanelBuilder {
     protected final String getResourceString(String resourceKey) {
         checkState(localizer != null,
                 "To use the internationalization support " +
-                "a ResourceBundle or StringLocalizer " +
+                "a ResourceBundle, ResourceMap, or StringResourceAccessor " +
                 "must be provided during the builder construction.");
     	try {
 			return localizer.getString(resourceKey);
