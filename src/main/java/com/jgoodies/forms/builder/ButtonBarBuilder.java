@@ -140,7 +140,7 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
      * @since 1.8
      */
     public static ButtonBarBuilder create() {
-        return ButtonBarBuilder.create();
+        return new ButtonBarBuilder();
     }
 
 
