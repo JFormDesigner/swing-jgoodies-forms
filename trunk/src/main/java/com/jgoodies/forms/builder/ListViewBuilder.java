@@ -136,7 +136,7 @@ public final class ListViewBuilder {
      * @since 1.8
      */
     public static ListViewBuilder create() {
-        return ListViewBuilder.create();
+        return new ListViewBuilder();
     }
 
 
