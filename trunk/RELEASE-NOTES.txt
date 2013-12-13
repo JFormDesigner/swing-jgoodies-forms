@@ -11,8 +11,11 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     To migrate, update to the JGoodies Common 1.8.
     
     o Added ButtonBarBuilder#create().
+    o Added ButtonStackBuilder#create().
     o Added ListViewBuilder#create().
-
+    o PanelBuilder's label-for feature honors that a label 
+      is already labelling a component.
+     
 
 CHANGES IN 1.7.2  -----------------------------------------------------
 
