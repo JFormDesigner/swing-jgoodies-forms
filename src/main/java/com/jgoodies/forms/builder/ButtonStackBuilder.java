@@ -119,6 +119,17 @@ public final class ButtonStackBuilder extends AbstractButtonPanelBuilder {
     public ButtonStackBuilder(JPanel panel) {
         super(new FormLayout(COL_SPECS, ROW_SPECS), panel);
     }
+    
+    
+    /**
+     * Creates and returns an empty ButtonStackBuilder.
+     * 
+     * @return the created builder
+     * @since 1.8
+     */
+    public static ButtonStackBuilder create() {
+        return new ButtonStackBuilder();
+    }
 
 
     // Adding Components ****************************************************
