@@ -917,24 +917,32 @@ public class PanelBuilder extends AbstractFormBuilder {
     @Override
     public Component add(Component component, CellConstraints cellConstraints) {
         Component result = super.add(component, cellConstraints);
-        if (!labelForFeatureEnabled) {
-            return result;
-        }
-        JLabel mostRecentlyAddedLabel = getMostRecentlyAddedLabel();
-        if (   mostRecentlyAddedLabel != null
-            && isLabelForApplicable(mostRecentlyAddedLabel, component)) {
-            setLabelFor(mostRecentlyAddedLabel, component);
-            clearMostRecentlyAddedLabel();
-        }
-        if (component instanceof JLabel) {
-            setMostRecentlyAddedLabel((JLabel) component);
-        }
+        manageLabelsAndComponents(component);
         return result;
     }
 
 
     // Default Behavior *******************************************************
 
+    private void manageLabelsAndComponents(Component c) {
+        if (c instanceof JLabel) {
+            JLabel label = (JLabel) c;
+            if (label.getLabelFor() == null) {
+                setMostRecentlyAddedLabel(label);
+            } else {
+                clearMostRecentlyAddedLabel();
+            }
+            return;
+        }
+        JLabel mostRecentlyAddedLabel = getMostRecentlyAddedLabel();
+        if (   mostRecentlyAddedLabel != null
+            && isLabelForApplicable(mostRecentlyAddedLabel, c)) {
+            setLabelFor(mostRecentlyAddedLabel, c);
+            clearMostRecentlyAddedLabel();
+        }
+    }
+    
+    
     /**
      * Checks and answers whether the given component shall be set
      * as component for a previously added label using
