@@ -44,6 +44,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -99,6 +100,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class PanelBuilder extends AbstractFormBuilder {
 
+    
     // Constants **************************************************************
 
     /**
@@ -108,33 +110,13 @@ public class PanelBuilder extends AbstractFormBuilder {
     private static final String LABELED_BY_PROPERTY = "labeledBy";
 
 
-    // Static Fields **********************************************************
-
-    /**
-     * The global default for the enablement of the setLabelFor feature.
-     * Turned on by default.
-     *
-     * @see #setLabelForFeatureEnabledDefault(boolean)
-     * @see #setLabelForFeatureEnabled(boolean)
-     */
-    private static boolean labelForFeatureEnabledDefault = true;
-
-
-    /**
-     * Holds the global default opaque state that can be overridden
-     * per builder. Since the Forms 1.6, the default value is {@code false},
-     * in other words, panels will not be opaque.
-     */
-    private static boolean opaqueDefault = false;
-
-
     // Instance Fields ********************************************************
 
     /**
      * The instance value for the setLabelFor feature.
      * Is initialized using the global default.
      *
-     * @see #setLabelForFeatureEnabled(boolean)
+     * @see #setLabelForFeatureEnabledDefault(boolean)
      * @see #setLabelForFeatureEnabledDefault(boolean)
      */
     private boolean labelForFeatureEnabled;
@@ -178,64 +160,8 @@ public class PanelBuilder extends AbstractFormBuilder {
      */
     public PanelBuilder(FormLayout layout, JPanel panel){
         super(layout, panel);
-        opaque(getOpaqueDefault());
-        labelForFeatureEnabled = labelForFeatureEnabledDefault;
-    }
-
-
-    // Global Defaults ********************************************************
-
-    /**
-     * Returns the global default for the enablement of the setLabelFor feature.
-     * This can be overridden per PanelBuilder using
-     * {@link #labelForFeatureEnabled(boolean)}.
-     * The feature is globally disabled by default.
-     *
-     * @return true for globally enabled, false for globally disabled
-     */
-    public static boolean getLabelForFeatureEnabledDefault() {
-        return labelForFeatureEnabledDefault;
-    }
-
-
-    /**
-     * Sets the default value for the setLabelFor feature enablement.
-     * This can be overridden per PanelBuilder using
-     * {@link #labelForFeatureEnabled(boolean)}.
-     * The default value is used to set the initial PanelBuilder
-     * setting for this feature.
-     * The feature is globally disabled by default.
-     *
-     * @param b true for globally enabled, false for globally disabled
-     */
-    public static void setLabelForFeatureEnabledDefault(boolean b) {
-        labelForFeatureEnabledDefault = b;
-    }
-
-
-    /**
-     * @return the global default value for a builder's opaque state
-     *     that can be overridden per builder
-     *
-     * @since 1.6
-     */
-    public static boolean getOpaqueDefault() {
-    	return opaqueDefault;
-    }
-
-
-    /**
-     * Sets the global default value for a builder's opaque state
-     * that can be overridden per builder.
-     * Since the Forms 1.6, the default value is {@code false},
-     * in other words, panels will not be opaque.
-     *
-     * @param b   the new value
-     *
-     * @since 1.6
-     */
-    public static void setOpaqueDefault(boolean b) {
-    	opaqueDefault = b;
+        opaque(FormsSetup.getOpaqueDefault());
+        labelForFeatureEnabled = FormsSetup.getLabelForFeatureEnabledDefault();
     }
 
 
@@ -349,8 +275,8 @@ public class PanelBuilder extends AbstractFormBuilder {
     /**
      * Enables or disables the setLabelFor feature for this PanelBuilder.
      * The value is initialized from the global default value
-     * {@link #getLabelForFeatureEnabledDefault()}. It is globally disabled
-     * by default.
+     * {@link FormsSetup#getLabelForFeatureEnabledDefault()}.
+     * It is globally disabled by default.
      *
      * @param b true for enabled, false for disabled
      */
