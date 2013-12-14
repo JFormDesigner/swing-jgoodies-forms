@@ -4,16 +4,20 @@
 
 CHANGES IN 1.8.0  -----------------------------------------------------
 
-    This version is behavior and layout compatible with version 1.7.
+    This version is layout compatible with version 1.7. Since only 
+    rarely used features have been changed, migration should be easy.
+    
     The internal interface StringLocalizer from JGoodies Common 1.7
     has been renamed to StringResourceAccessor, and it has been
-    slightly extended. 
-    To migrate, update to the JGoodies Common 1.8.
+    slightly extended. To migrate, update to the JGoodies Common 1.8.
     
     o Added ButtonBarBuilder#create().
     o Added ButtonStackBuilder#create().
     o Added ListViewBuilder#create().
-    o PanelBuilder's label-for feature honors that a label 
+    o Moved all global default values to the new FormsSetup:
+      opaque, label-for feature, factory, debug tooltips.
+    o Added internationalization support to the ListViewBuilder.
+    o PanelBuilder's label-for feature honors if a label 
       is already labelling a component.
      
 
