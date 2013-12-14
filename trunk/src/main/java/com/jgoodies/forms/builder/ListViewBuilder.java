@@ -31,8 +31,13 @@
 package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.base.Preconditions.checkState;
 
 import java.awt.FocusTraversalPolicy;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -43,6 +48,9 @@ import javax.swing.JTree;
 import javax.swing.border.Border;
 
 import com.jgoodies.common.base.Strings;
+import com.jgoodies.common.internal.ResourceBundleAccessor;
+import com.jgoodies.common.internal.StringResourceAccessor;
+import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.Forms;
@@ -80,7 +88,9 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public final class ListViewBuilder {
 
-	private final ComponentFactory factory;
+	private ComponentFactory factory;
+
+    private StringResourceAccessor resources;
 
     private JComponent labelView;
     private JComponent filterView;
@@ -105,12 +115,12 @@ public final class ListViewBuilder {
     // Instance Creation ******************************************************
 
     /**
-     * Constructs a ListViewBuilder using the AbstractBuilder's
-     * default component factory. The factory is required by
-     * {@link #label(String)} and {@link #headerLabel(String)}.
+     * Constructs a ListViewBuilder using the global default component factory.
+     * The factory is required by {@link #label(String)} and
+     * {@link #headerLabel(String)}.
      */
     public ListViewBuilder() {
-    	this(AbstractBuilder.getComponentFactoryDefault());
+    	// Do nothing.
     }
 
 
@@ -127,9 +137,10 @@ public final class ListViewBuilder {
     
     
     /**
-     * Creates and returns a ListViewBuilder using the AbstractBuilder's
-     * default component factory. The factory is required by
-     * {@link #label(String)} and {@link #headerLabel(String)}.
+     * Creates and returns a ListViewBuilder using the global default
+     * component factory.
+     * The factory is required by {@link #label(String)} and
+     * {@link #headerLabel(String)}.
      * 
      * @return the ListViewBuilder
      * 
@@ -218,8 +229,40 @@ public final class ListViewBuilder {
     	this.namePrefix = namePrefix;
     	return this;
     }
+    
+    
+    public ListViewBuilder factory(ComponentFactory factory) {
+        this.factory = factory;
+        return this;
+    }
 
 
+    /**
+     * Sets the accessor that is used to localize label and header texts.
+     * @param resources    maps resource keys to Strings
+     * @return a reference to this builder
+     * 
+     * @since 1.8
+     */
+    public ListViewBuilder resources(StringResourceAccessor resources) {
+        this.resources = resources;
+        return this;
+    }
+
+
+    /**
+     * Sets the accessor that is used to localize label and header texts.
+     * @param bundle    maps resource keys to Strings
+     * @return a reference to this builder
+     * 
+     * @since 1.8
+     */
+    public ListViewBuilder resources(ResourceBundle bundle) {
+        this.resources = new ResourceBundleAccessor(bundle);
+        return this;
+    }
+    
+    
     /**
      * Sets the mandatory label view. Useful to set a bound label that updates
      * its text when the list content changes, for example to provide the
@@ -246,7 +289,21 @@ public final class ListViewBuilder {
      * @param markedText   the label's text, may contain a mnemonic marker
      */
     public ListViewBuilder label(String markedText) {
-        labelView(factory.createLabel(markedText));
+        labelView(getFactory().createLabel(markedText));
+        return this;
+    }
+
+
+    /**
+     * Looks up the String resource for the given key and then creates
+     * a plain label for it and sets it as label view.
+     *
+     * @param key   the key used to look up the label text resource
+     * 
+     * @since 1.8
+     */
+    public ListViewBuilder labelKey(String key) {
+        label(getResourceString(key));
         return this;
     }
 
@@ -261,7 +318,21 @@ public final class ListViewBuilder {
      * @param markedText   the label's text, may contain a mnemonic marker
      */
     public ListViewBuilder headerLabel(String markedText) {
-        labelView(factory.createHeaderLabel(markedText));
+        labelView(getFactory().createHeaderLabel(markedText));
+        return this;
+    }
+
+
+    /**
+     * Looks up the String resource for the given key and then creates
+     * a header label for it and sets it as label view.
+     *
+     * @param key   the key used to look up the header label text resource
+     * 
+     * @since 1.8
+     */
+    public ListViewBuilder headerLabelKey(String key) {
+        headerLabel(getResourceString(key));
         return this;
     }
 
@@ -429,6 +500,14 @@ public final class ListViewBuilder {
 
 
     // Implementation *********************************************************
+    
+    private ComponentFactory getFactory() {
+        if (factory == null) {
+            factory = FormsSetup.getComponentFactoryDefault();
+        }
+        return factory;
+    }
+    
 
     private void invalidatePanel() {
     	panel = null;
@@ -520,6 +599,24 @@ public final class ListViewBuilder {
     		return;
     	}
     	component.setName(namePrefix + '.' + suffix);
+    }
+
+
+    /**
+     * Returns a localized String for the given key and format arguments - if any.
+     */
+    private String getResourceString(String key, Object... args) {
+        checkState(resources != null,
+                "To use the internationalization support " +
+                "a ResourceBundle, ResourceMap, or a StringResourceAccessor " +
+                "must be provided. See ListViewBuilder#resources.");
+        try {
+            return resources.getString(key, args);
+        } catch (MissingResourceException ex) {
+            Logger.getLogger(getClass().getName()).log(
+                    Level.WARNING, "Missing internationalized label", ex);
+            return key;
+        }
     }
 
 
