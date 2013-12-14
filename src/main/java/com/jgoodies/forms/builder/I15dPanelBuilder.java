@@ -48,6 +48,7 @@ import javax.swing.border.Border;
 import com.jgoodies.common.internal.ResourceBundleAccessor;
 import com.jgoodies.common.internal.StringResourceAccessor;
 import com.jgoodies.common.swing.MnemonicUtils;
+import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -84,18 +85,14 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class I15dPanelBuilder extends PanelBuilder {
 
-    private static final String DEBUG_TOOL_TIPS_ENABLED_KEY =
-            "I15dPanelBuilder.debugToolTipsEnabled";
-
-    private static boolean debugToolTipsEnabled =
-            getDebugToolTipSystemProperty();
-
-
     /**
      * Holds the ResourceBundle used to look up internationalized
      * (i15d) String resources.
      */
-    private final StringResourceAccessor localizer;
+    private final StringResourceAccessor resources;
+    
+    
+    private boolean debugToolTipsEnabled = FormsSetup.getDebugToolTipsEnabledDefault();
 
 
     // Instance Creation ****************************************************
@@ -157,29 +154,7 @@ public class I15dPanelBuilder extends PanelBuilder {
      */
     public I15dPanelBuilder(FormLayout layout, StringResourceAccessor localizer, JPanel container){
         super(layout, container);
-        this.localizer = localizer;
-    }
-
-
-    // Debug ToolTip Settings *************************************************
-
-    /**
-     * Returns whether the debug tool tips are enabled or not.
-     *
-     * @return true if debug tool tips are enabled, false if disabled
-     */
-    public static boolean isDebugToolTipsEnabled() {
-        return debugToolTipsEnabled;
-    }
-
-
-    /**
-     * Enables or disables the debug tool tips.
-     *
-     * @param b true to enable, false to disable
-     */
-    public static void setDebugToolTipsEnabled(boolean b) {
-        debugToolTipsEnabled = b;
+        this.resources = localizer;
     }
 
 
@@ -216,6 +191,12 @@ public class I15dPanelBuilder extends PanelBuilder {
     @Override
     public I15dPanelBuilder focusTraversal(FocusTraversalPolicy policy) {
         super.focusTraversal(policy);
+        return this;
+    }
+    
+    
+    public I15dPanelBuilder debugToolTipsEnabled(boolean b) {
+        this.debugToolTipsEnabled = b;
         return this;
     }
 
@@ -470,6 +451,11 @@ public class I15dPanelBuilder extends PanelBuilder {
 
     // Helper Code ************************************************************
 
+    protected final boolean isDebugToolTipsEnabled() {
+        return debugToolTipsEnabled;
+    }
+    
+    
     /**
      * Looks up and returns the internationalized (i15d) string for the given
      * resource key, for example from a {@code ResourceBundle} or
@@ -483,27 +469,17 @@ public class I15dPanelBuilder extends PanelBuilder {
      *     has been set
      */
     protected final String getResourceString(String resourceKey) {
-        checkState(localizer != null,
+        checkState(resources != null,
                 "To use the internationalization support " +
                 "a ResourceBundle, ResourceMap, or StringResourceAccessor " +
                 "must be provided during the builder construction.");
     	try {
-			return localizer.getString(resourceKey);
+			return resources.getString(resourceKey);
 		} catch (MissingResourceException ex) {
 			Logger.getLogger(getClass().getName()).log(
 					Level.WARNING, "Missing internationalized label", ex);
 			return resourceKey;
 		}
-    }
-
-
-    private static boolean getDebugToolTipSystemProperty() {
-        try {
-            String value = System.getProperty(DEBUG_TOOL_TIPS_ENABLED_KEY);
-            return "true".equalsIgnoreCase(value);
-        } catch (SecurityException e) {
-            return false;
-        }
     }
 
 
