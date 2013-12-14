@@ -851,6 +851,9 @@ public class PanelBuilder extends AbstractFormBuilder {
     // Default Behavior *******************************************************
 
     private void manageLabelsAndComponents(Component c) {
+        if (!labelForFeatureEnabled) {
+            return;
+        }
         if (c instanceof JLabel) {
             JLabel label = (JLabel) c;
             if (label.getLabelFor() == null) {
