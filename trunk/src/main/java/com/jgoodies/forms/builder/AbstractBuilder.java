@@ -34,8 +34,8 @@ import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
 import java.awt.Container;
 
+import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.ComponentFactory;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -59,12 +59,6 @@ import com.jgoodies.forms.layout.FormLayout;
  * @see    DefaultFormBuilder
  */
 public abstract class AbstractBuilder {
-
-    /**
-     * Holds the global factory that is used as default for the
-     * per-instance component factory.
-     */
-    private static ComponentFactory componentFactoryDefault;
 
     /**
      * Holds the layout container that we are building.
@@ -112,33 +106,6 @@ public abstract class AbstractBuilder {
 
     // Accessors ************************************************************
 
-	/**
-     * Returns the factory that is used as default for new builder's
-     * as they are created. This default itself is lazily initialized
-     * as the {@link DefaultComponentFactory}.
-     *
-     * @return the factory that is used as default for new builder instances
-     */
-    public static ComponentFactory getComponentFactoryDefault() {
-        if (componentFactoryDefault == null) {
-            componentFactoryDefault = new DefaultComponentFactory();
-        }
-        return componentFactoryDefault;
-    }
-
-
-    /**
-     * Sets the global default that is used to initialize the per-instance
-     * component factory.
-     *
-     * @param factory  the factory to be used for all new builder instances
-     *    that do not override the default
-     */
-    public static void setComponentFactoryDefault(ComponentFactory factory) {
-        componentFactoryDefault = factory;
-    }
-
-
     /**
      * Returns the container used to build the form.
      *
@@ -182,7 +149,7 @@ public abstract class AbstractBuilder {
     /**
      * Returns this builder's component factory. If no factory
      * has been set before, it is lazily initialized from the global
-     * default as returned by {@link #getComponentFactoryDefault()}.
+     * default as returned by {@link FormsSetup#getComponentFactoryDefault()}.
      *
      * @return the component factory
      *
@@ -199,7 +166,7 @@ public abstract class AbstractBuilder {
     /**
      * Sets a new component factory for this builder,
      * overriding the default as provided by
-     * {@link #getComponentFactoryDefault()}.
+     * {@link FormsSetup#getComponentFactoryDefault()}.
      *
      * @param newFactory   the component factory to be used for this builder
      *
@@ -222,7 +189,7 @@ public abstract class AbstractBuilder {
      *    the per-instance component factory
      */
     protected ComponentFactory createComponentFactory() {
-        return getComponentFactoryDefault();
+        return FormsSetup.getComponentFactoryDefault();
     }
 
 
