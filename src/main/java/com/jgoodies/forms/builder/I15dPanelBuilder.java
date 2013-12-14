@@ -30,15 +30,10 @@
 
 package com.jgoodies.forms.builder;
 
-import static com.jgoodies.common.base.Preconditions.checkState;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FocusTraversalPolicy;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -46,6 +41,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.jgoodies.common.internal.ResourceBundleAccessor;
+import com.jgoodies.common.internal.StringResourceAccess;
 import com.jgoodies.common.internal.StringResourceAccessor;
 import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.FormsSetup;
@@ -461,25 +457,15 @@ public class I15dPanelBuilder extends PanelBuilder {
      * resource key, for example from a {@code ResourceBundle} or
      * {@code ResourceMap}.
      *
-     * @param resourceKey  the key to look for in the resource map
+     * @param key  the key to look for in the resource map
      * @return the associated internationalized string, or the resource key
      *     itself in case of a missing resource
      * @throws IllegalStateException  if the localization is not possible,
      *     for example, because no ResourceBundle or StringLocalizer
      *     has been set
      */
-    protected final String getResourceString(String resourceKey) {
-        checkState(resources != null,
-                "To use the internationalization support " +
-                "a ResourceBundle, ResourceMap, or StringResourceAccessor " +
-                "must be provided during the builder construction.");
-    	try {
-			return resources.getString(resourceKey);
-		} catch (MissingResourceException ex) {
-			Logger.getLogger(getClass().getName()).log(
-					Level.WARNING, "Missing internationalized label", ex);
-			return resourceKey;
-		}
+    protected final String getResourceString(String key) {
+        return StringResourceAccess.getResourceString(resources, key);
     }
 
 
