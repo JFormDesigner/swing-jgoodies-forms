@@ -40,7 +40,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  * @author  Karsten Lentzsch
  * @version $Revision: 1.21 $
  *
- * @ince 1.8
+ * @since 1.8
  */
 public class FormsSetup {
 
