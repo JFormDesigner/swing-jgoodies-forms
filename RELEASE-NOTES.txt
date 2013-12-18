@@ -5,7 +5,7 @@
 CHANGES IN 1.8.0  -----------------------------------------------------
 
     This version is layout compatible with version 1.7. Since only 
-    rarely used features have been changed, migration should be easy.
+    rarely used features have been changed, migration is easy.
     
     The internal interface StringLocalizer from JGoodies Common 1.7
     has been renamed to StringResourceAccessor, and it has been
@@ -19,6 +19,10 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o Added internationalization support to the ListViewBuilder.
     o PanelBuilder's label-for feature honors if a label 
       is already labelling a component.
+    o Added FormLayout#setColumnGroup(int... indices)
+    o Added FormLayout#setRowGroup(int... indices)
+    o FormLayout#setColumnGroups and #setRowGroups check 
+      that each group of indices contains at least two indices.
      
 
 CHANGES IN 1.7.2  -----------------------------------------------------
