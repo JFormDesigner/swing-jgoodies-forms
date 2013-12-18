@@ -30,6 +30,7 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 import static com.jgoodies.common.base.Preconditions.checkState;
 
@@ -52,6 +53,7 @@ import java.util.Set;
 import javax.swing.JComponent;
 
 import com.jgoodies.common.base.Objects;
+import com.jgoodies.common.internal.Messages;
 
 
 /**
@@ -858,16 +860,20 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * setColumnGroups(new int[][]{ {1, 3, 4}, {7, 9}});
      * </pre>
      *
-     * @param colGroupIndices	a two-dimensional array of column groups indices
+     * @param groupOfIndices	a two-dimensional array of column groups indices
+     * 
      * @throws	IndexOutOfBoundsException if an index is outside the grid
-     * @throws IllegalArgumentException if a column index is used twice
+     * @throws IllegalArgumentException if a column index is used twice,
+     *     or of a group of indices contains only a single element
      */
-    public void setColumnGroups(int[][] colGroupIndices) {
+    public void setColumnGroups(int[][] groupOfIndices) {
         int maxColumn = getColumnCount();
         boolean[] usedIndices = new boolean[maxColumn + 1];
-        for (int group = 0; group < colGroupIndices.length; group++) {
-            for (int j = 0; j < colGroupIndices[group].length; j++) {
-                int colIndex = colGroupIndices[group][j];
+        for (int group = 0; group < groupOfIndices.length; group++) {
+            int[] indices = groupOfIndices[group];
+            checkArgument(indices.length >= 2, "Each indice group must contain at least two indices.");
+            for (int indice : indices) {
+                int colIndex = indice;
                 if (colIndex < 1 || colIndex > maxColumn) {
                     throw new IndexOutOfBoundsException(
                         "Invalid column group index " + colIndex +
@@ -880,9 +886,35 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 usedIndices[colIndex] = true;
             }
         }
-        this.colGroupIndices = deepClone(colGroupIndices);
+        this.colGroupIndices = deepClone(groupOfIndices);
+    }
+    
+    
+    /**
+     * Sets a single column group, where each column gets the same width.<p>
+     *
+     * <strong>Example:</strong><pre>
+     * // Group columns 1, 3 and 4.
+     * setColumnGroup(1, 3, 4);
+     * </pre>
+     *
+     * @param indices   the indices for a single column group
+     * @throws  IndexOutOfBoundsException if an index is outside the grid
+     * @throws IllegalArgumentException if a column index is used twice
+     *     or if there is only a single index
+     * @throws NullPointerException if {@code indices} is {@code null}
+     * 
+     * @see #setColumnGroups(int[][])
+     * 
+     * @since 1.8
+     */
+    public void setColumnGroup(int... indices) {
+        checkNotNull(indices, Messages.MUST_NOT_BE_NULL, "column group indices");
+        checkArgument(indices.length >= 2, "You must specify at least two indices.");
+        setColumnGroups(new int[][]{indices});
     }
 
+    
     /**
      * Adds the specified column index to the last column group.
      * In case there are no groups, a new group will be created.
@@ -929,19 +961,24 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * setRowGroups(new int[][]{ {1, 2}, {5, 7, 9}});
      * </pre>
      *
-     * @param rowGroupIndices a two-dimensional array of row group indices.
+     * @param groupOfIndices a two-dimensional array of row group indices
+     * 
      * @throws IndexOutOfBoundsException if an index is outside the grid
+     * @throws IllegalArgumentException if a column index is used twice,
+     *     or of a group of indices contains only a single element
      */
-    public void setRowGroups(int[][] rowGroupIndices) {
+    public void setRowGroups(int[][] groupOfIndices) {
         int rowCount = getRowCount();
         boolean[] usedIndices = new boolean[rowCount + 1];
-        for (int i = 0; i < rowGroupIndices.length; i++) {
-            for (int j = 0; j < rowGroupIndices[i].length; j++) {
-                int rowIndex = rowGroupIndices[i][j];
+        for (int group = 0; group < groupOfIndices.length; group++) {
+            int[] indices = groupOfIndices[group];
+            checkArgument(indices.length >= 2, "Each indice group must contain at least two indices.");
+            for (int indice : indices) {
+                int rowIndex = indice;
                 if (rowIndex < 1 || rowIndex > rowCount) {
                     throw new IndexOutOfBoundsException(
                         "Invalid row group index " + rowIndex +
-                        " in group " + (i + 1));
+                        " in group " + (group + 1));
                 }
                 if (usedIndices[rowIndex]) {
                     throw new IllegalArgumentException(
@@ -950,8 +987,34 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 usedIndices[rowIndex] = true;
             }
         }
-        this.rowGroupIndices = deepClone(rowGroupIndices);
+        this.rowGroupIndices = deepClone(groupOfIndices);
     }
+
+    
+    /**
+     * Sets a single row group, where each row gets the same height.<p>
+     *
+     * <strong>Example:</strong><pre>
+     * // Group rows 1 and 2.
+     * setRowGroup(1, 2);
+     * </pre>
+     *
+     * @param indices   the indices for a single row group
+     * @throws  IndexOutOfBoundsException if an index is outside the grid
+     * @throws IllegalArgumentException if a row index is used twice
+     *     or if there is only a single index
+     * @throws NullPointerException if {@code indices} is {@code null}
+     * 
+     * @see #setRowGroups(int[][])
+     * 
+     * @since 1.8
+     */
+    public void setRowGroup(int... indices) {
+        checkNotNull(indices, Messages.MUST_NOT_BE_NULL, "row group indices");
+        checkArgument(indices.length >= 2, "You must specify at least two indices.");
+        setRowGroups(new int[][]{indices});
+    }
+
 
     /**
      * Adds the specified row index to the last row group.
