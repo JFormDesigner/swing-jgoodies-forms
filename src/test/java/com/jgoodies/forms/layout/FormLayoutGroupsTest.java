@@ -106,24 +106,48 @@ public final class FormLayoutGroupsTest extends TestCase {
     }
 
     /**
+     * Tests if null column indices are rejected.
+     */
+    public void testRejectNullColumnIndices() {
+        try {
+            layout.setColumnGroup(null);
+            fail("A null column group should be rejected.");
+        } catch (NullPointerException e) {
+            // The expected behavior
+        }
+    }
+
+    /**
+     * Tests if a single column index is rejected.
+     */
+    public void testRejectSingleColumnIndex() {
+        try {
+            layout.setColumnGroup(1);
+            fail("A single column index should be rejected.");
+        } catch (IllegalArgumentException e) {
+            // The expected behavior
+        }
+    }
+
+    /**
+     * Tests if a single column index in one of many groups is rejected.
+     */
+    public void testRejectSingleColumnIndexInGroups() {
+        try {
+            layout.setColumnGroups(new int[][]{{1,2},{3}});
+            fail("A single column index should be rejected.");
+        } catch (IllegalArgumentException e) {
+            // The expected behavior
+        }
+    }
+
+    /**
      * Tests if invalid column indices are rejected.
      */
     public void testRejectInvalidColumnIndex() {
         try {
             layout.setColumnGroups(new int[][]{{1, 5}});
             fail("An invalid column index should be rejected.");
-        } catch (IndexOutOfBoundsException e) {
-            // The expected behavior
-        }
-    }
-
-    /**
-     * Tests if invalid row indices are rejected.
-     */
-    public void testRejectInvalidRowIndex() {
-        try {
-            layout.setRowGroups(new int[][]{{1, 5}});
-            fail("An invalid row index should be rejected.");
         } catch (IndexOutOfBoundsException e) {
             // The expected behavior
         }
@@ -137,6 +161,54 @@ public final class FormLayoutGroupsTest extends TestCase {
             layout.setColumnGroups(new int[][]{{1, 2}, {2, 3}});
             fail("A duplicate column index should be rejected.");
         } catch (IllegalArgumentException e) {
+            // The expected behavior
+        }
+    }
+
+    /**
+     * Tests if null row indices are rejected.
+     */
+    public void testRejectNullRowIndices() {
+        try {
+            layout.setRowGroup(null);
+            fail("A null row group should be rejected.");
+        } catch (NullPointerException e) {
+            // The expected behavior
+        }
+    }
+
+    /**
+     * Tests if a single row index is rejected.
+     */
+    public void testRejectSingleRowIndex() {
+        try {
+            layout.setRowGroup(1);
+            fail("A single row index should be rejected.");
+        } catch (IllegalArgumentException e) {
+            // The expected behavior
+        }
+    }
+
+    /**
+     * Tests if a single row index in one of many groups is rejected.
+     */
+    public void testRejectSingleRowIndexInGroups() {
+        try {
+            layout.setRowGroups(new int[][]{{1,2},{3}});
+            fail("A single row index should be rejected.");
+        } catch (IllegalArgumentException e) {
+            // The expected behavior
+        }
+    }
+
+    /**
+     * Tests if invalid row indices are rejected.
+     */
+    public void testRejectInvalidRowIndex() {
+        try {
+            layout.setRowGroups(new int[][]{{1, 5}});
+            fail("An invalid row index should be rejected.");
+        } catch (IndexOutOfBoundsException e) {
             // The expected behavior
         }
     }
