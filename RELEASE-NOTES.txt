@@ -23,6 +23,7 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o Added FormLayout#setRowGroup(int... indices)
     o FormLayout#setColumnGroups and #setRowGroups check 
       that each group of indices contains at least two indices.
+    o Added CellConstraints#translate(int dx, int dy).
      
 
 CHANGES IN 1.7.2  -----------------------------------------------------

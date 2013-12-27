@@ -355,6 +355,24 @@ public final class CellConstraints implements Cloneable, Serializable {
         this();
         initFromConstraints(encodedConstraints);
     }
+    
+    
+    // Translation ************************************************************
+    
+    /**
+     * Creates and returns a new CellConstraints instance where the origin
+     * has been moved along the X and Y axis as specified by {@code dx}
+     * and {@code dy} respectively.
+     * 
+     * @param dx  the distance to move along the X axis
+     * @param dy  the distance to move along the Y axis
+     * @return  the new CellConstraints instance with a translated grid origin
+     * 
+     * @since 1.8
+     */
+    public CellConstraints translate(int dx, int dy) {
+        return new CellConstraints(gridX + dx, gridY + dy, gridWidth, gridHeight, hAlign, vAlign, insets);
+    }
 
 
     // Setters with Column-Row Order ******************************************
