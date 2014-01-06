@@ -16,7 +16,6 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o Added ListViewBuilder#create().
     o Moved all global default values to the new FormsSetup:
       opaque, label-for feature, factory, debug tooltips.
-    o Added internationalization support to the ListViewBuilder.
     o PanelBuilder's label-for feature honors if a label 
       is already labelling a component.
     o Added FormLayout#setColumnGroup(int... indices)
@@ -24,6 +23,9 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o FormLayout#setColumnGroups and #setRowGroups check 
       that each group of indices contains at least two indices.
     o Added CellConstraints#translate(int dx, int dy).
+    o Extended ListViewBuilder:
+      - Added internationalization support
+      - label and header label text support formatting
      
 
 CHANGES IN 1.7.2  -----------------------------------------------------

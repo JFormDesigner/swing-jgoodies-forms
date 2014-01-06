@@ -116,8 +116,8 @@ public final class ListViewBuilder {
 
     /**
      * Constructs a ListViewBuilder using the global default component factory.
-     * The factory is required by {@link #label(String)} and
-     * {@link #headerLabel(String)}.
+     * The factory is required by {@link #label(String, Object...)} and
+     * {@link #headerLabel(String, Object...)}.
      */
     public ListViewBuilder() {
     	// Do nothing.
@@ -127,7 +127,7 @@ public final class ListViewBuilder {
     /**
      * Constructs a ListViewBuilder using the given component factory.
      * The factory is required by
-     * {@link #label(String)} and {@link #headerLabel(String)}.
+     * {@link #label(String, Object...)} and {@link #headerLabel(String, Object...)}.
      *
      * @param factory   the component factory used to create labels and headers
      */
@@ -139,8 +139,8 @@ public final class ListViewBuilder {
     /**
      * Creates and returns a ListViewBuilder using the global default
      * component factory.
-     * The factory is required by {@link #label(String)} and
-     * {@link #headerLabel(String)}.
+     * The factory is required by {@link #label(String, Object...)} and
+     * {@link #headerLabel(String, Object...)}.
      * 
      * @return the ListViewBuilder
      * 
@@ -281,58 +281,82 @@ public final class ListViewBuilder {
 
 	/**
      * Creates a plain label for the given marked text and sets it as label view.
+     * If no arguments are provided, the plain String is used.
+     * Otherwise the string will be formatted using {@code String.format}
+     * with the given arguments.
      * Equivalent to:
      * <pre>
-     * labelView(aComponentFactory.createLabel(markedText));
+     * labelView(aComponentFactory.createLabel(Strings.get(markedText, args)));
      * </pre>
      *
      * @param markedText   the label's text, may contain a mnemonic marker
+     * @param args  optional format arguments forwarded to {@code String#format}
+     * 
+     * @see String#format(String, Object...)
      */
-    public ListViewBuilder label(String markedText) {
-        labelView(getFactory().createLabel(markedText));
+    public ListViewBuilder label(String markedText, Object... args) {
+        labelView(getFactory().createLabel(Strings.get(markedText, args)));
         return this;
     }
 
 
     /**
-     * Looks up the String resource for the given key and then creates
-     * a plain label for it and sets it as label view.
+     * Looks up the String associated with the given resource key
+     * and creates a plain label for it and sets it as label view.
+     * If no arguments are provided, the plain String resource is used.
+     * Otherwise the string will be formatted using {@code String.format}
+     * with the given arguments.
      *
      * @param key   the key used to look up the label text resource
+     * @param args  optional format arguments forwarded to {@code String#format}
+     * 
+     * @see String#format(String, Object...)
      * 
      * @since 1.8
      */
-    public ListViewBuilder labelKey(String key) {
-        label(getResourceString(key));
+    public ListViewBuilder labelKey(String key, Object... args) {
+        label(getResourceString(key, args));
         return this;
     }
 
 
     /**
      * Creates a header label for the given marked text and sets it as label view.
+     * If no arguments are provided, the plain String is used.
+     * Otherwise the string will be formatted using {@code String.format}
+     * with the given arguments.
      * Equivalent to:
      * <pre>
-     * labelView(aComponentFactory.createHeaderLabel(markedText));
+     * labelView(aComponentFactory.createHeaderLabel(Strings.get(markedText, args)));
      * </pre>
      *
      * @param markedText   the label's text, may contain a mnemonic marker
+     * @param args  optional format arguments forwarded to {@code String#format}
+     * 
+     * @see String#format(String, Object...)
      */
-    public ListViewBuilder headerLabel(String markedText) {
-        labelView(getFactory().createHeaderLabel(markedText));
+    public ListViewBuilder headerLabel(String markedText, Object... args) {
+        labelView(getFactory().createHeaderLabel(Strings.get(markedText, args)));
         return this;
     }
 
 
     /**
-     * Looks up the String resource for the given key and then creates
-     * a header label for it and sets it as label view.
+     * Looks up the String associated with the given resource key
+     * and creates a header label for it and sets it as label view.
+     * If no arguments are provided, the plain String resource is used.
+     * Otherwise the string will be formatted using {@code String.format}
+     * with the given arguments.
      *
      * @param key   the key used to look up the header label text resource
+     * @param args  optional format arguments forwarded to {@code String#format}
+     * 
+     * @see String#format(String, Object...)
      * 
      * @since 1.8
      */
-    public ListViewBuilder headerLabelKey(String key) {
-        headerLabel(getResourceString(key));
+    public ListViewBuilder headerLabelKey(String key, Object... args) {
+        headerLabel(getResourceString(key, args));
         return this;
     }
 
@@ -363,8 +387,27 @@ public final class ListViewBuilder {
      * @param colSpec   specifies the horizontal layout of the filter view
      *
      * @throws NullPointerException if {@code colSpec} is {@code null}
+     * @deprecated Use {@link #filterViewColumn(String)} instead
      */
+    @Deprecated
     public ListViewBuilder filterViewColSpec(String colSpec) {
+        return filterViewColumn(colSpec);
+    }
+
+
+    /**
+     * Changes the FormLayout column specification used to lay out
+     * the filter view.
+     * The default value is {@code "[100dlu, p]"}, which is a column where
+     * the width is determined by the filter view's preferred width,
+     * but a minimum width of 100dlu is ensured. The filter view won't grow
+     * horizontally, if the container gets more space.
+     *
+     * @param colSpec   specifies the horizontal layout of the filter view
+     *
+     * @throws NullPointerException if {@code colSpec} is {@code null}
+     */
+    public ListViewBuilder filterViewColumn(String colSpec) {
     	checkNotNull(colSpec, "The filter view column specification must not be null.");
     	this.filterViewColSpec = colSpec;
         invalidatePanel();
@@ -413,8 +456,34 @@ public final class ListViewBuilder {
      * @param rowSpec   specifies the vertical layout of the list view
      *
      * @throws NullPointerException if {@code rowSpec} is {@code null}
+     * @deprecated Use {@link #listViewRow(String)} instead
      */
+    @Deprecated
     public ListViewBuilder listViewRowSpec(String rowSpec) {
+        return listViewRow(rowSpec);
+    }
+
+
+    /**
+     * Changes the FormLayout row specification used to lay out the list view.
+     * The default value is {@code "fill:[100dlu, pref]:grow"}, which is a row
+     * that is filled by the list view; the height is determined
+     * by the list view's preferred height, but a minimum of 100dlu is ensured.
+     * The list view grows vertically, if the container gets more vertical
+     * space.<p>
+     *
+     * <strong>Examples:</strong>
+     * <pre>
+     * .listViewRow("fill:100dlu");  // fixed height
+     * .listViewRow("f:100dlu:g");   // fixed start height, grows
+     * .listViewRow("f:p");          // no minimum height
+     * </pre>
+     *
+     * @param rowSpec   specifies the vertical layout of the list view
+     *
+     * @throws NullPointerException if {@code rowSpec} is {@code null}
+     */
+    public ListViewBuilder listViewRow(String rowSpec) {
     	checkNotNull(rowSpec, "The list view row specification must not be null.");
     	this.listViewRowSpec = rowSpec;
         invalidatePanel();
