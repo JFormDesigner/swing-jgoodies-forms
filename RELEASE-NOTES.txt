@@ -26,6 +26,7 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o Extended ListViewBuilder:
       - Added internationalization support
       - label and header label text support formatting
+      - #filterColumn and #listViewRow accept optional format arguments
      
 
 CHANGES IN 1.7.2  -----------------------------------------------------

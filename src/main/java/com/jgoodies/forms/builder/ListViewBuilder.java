@@ -387,7 +387,7 @@ public final class ListViewBuilder {
      * @param colSpec   specifies the horizontal layout of the filter view
      *
      * @throws NullPointerException if {@code colSpec} is {@code null}
-     * @deprecated Use {@link #filterViewColumn(String)} instead
+     * @deprecated Use {@link #filterViewColumn(String, Object...)} instead
      */
     @Deprecated
     public ListViewBuilder filterViewColSpec(String colSpec) {
@@ -404,12 +404,14 @@ public final class ListViewBuilder {
      * horizontally, if the container gets more space.
      *
      * @param colSpec   specifies the horizontal layout of the filter view
+     * @param args   optional {@code colSpec} format arguments
+     *     forwarded to {@code String#format}
      *
      * @throws NullPointerException if {@code colSpec} is {@code null}
      */
-    public ListViewBuilder filterViewColumn(String colSpec) {
+    public ListViewBuilder filterViewColumn(String colSpec, Object... args) {
     	checkNotNull(colSpec, "The filter view column specification must not be null.");
-    	this.filterViewColSpec = colSpec;
+    	this.filterViewColSpec = Strings.get(colSpec, args);
         invalidatePanel();
         return this;
     }
@@ -456,7 +458,7 @@ public final class ListViewBuilder {
      * @param rowSpec   specifies the vertical layout of the list view
      *
      * @throws NullPointerException if {@code rowSpec} is {@code null}
-     * @deprecated Use {@link #listViewRow(String)} instead
+     * @deprecated Use {@link #listViewRow(String, Object...)} instead
      */
     @Deprecated
     public ListViewBuilder listViewRowSpec(String rowSpec) {
@@ -480,12 +482,14 @@ public final class ListViewBuilder {
      * </pre>
      *
      * @param rowSpec   specifies the vertical layout of the list view
+     * @param args   optional {@code rowSpec} format arguments
+     *     forwarded to {@code String#format}
      *
      * @throws NullPointerException if {@code rowSpec} is {@code null}
      */
-    public ListViewBuilder listViewRow(String rowSpec) {
+    public ListViewBuilder listViewRow(String rowSpec, Object... args) {
     	checkNotNull(rowSpec, "The list view row specification must not be null.");
-    	this.listViewRowSpec = rowSpec;
+    	this.listViewRowSpec = Strings.get(rowSpec, args);
         invalidatePanel();
         return this;
     }
