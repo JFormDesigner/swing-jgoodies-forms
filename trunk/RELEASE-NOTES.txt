@@ -27,6 +27,7 @@ CHANGES IN 1.8.0  -----------------------------------------------------
       - Added internationalization support
       - label and header label text support formatting
       - #filterColumn and #listViewRow accept optional format arguments
+    o Fixed the conversion from DTP points to pixels.
      
 
 CHANGES IN 1.7.2  -----------------------------------------------------

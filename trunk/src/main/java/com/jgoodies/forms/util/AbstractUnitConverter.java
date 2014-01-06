@@ -205,8 +205,8 @@ public abstract class AbstractUnitConverter extends Bean implements UnitConverte
      * @param dpi   the resolution in dpi
      * @return the given Points as pixels
      */
-    protected static final int pointAsPixel(int pt, int dpi) {
-        return Math.round(dpi * pt / DTP_RESOLUTION);
+    protected static final int pointAsPixel(double pt, int dpi) {
+        return (int) Math.round(dpi * pt / DTP_RESOLUTION);
     }
 
 
