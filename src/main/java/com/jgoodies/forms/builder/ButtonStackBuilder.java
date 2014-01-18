@@ -48,8 +48,9 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.util.LayoutStyle;
 
 /**
- * A non-visual builder that assists you in building consistent button stacks
- * using the {@link FormLayout}.<p>
+ * Builds consistent button stacks that comply with popular style guides.
+ * Utilizes the JGoodies {@link FormLayout} and honors the platform's
+ * {@link LayoutStyle} regarding button sizes, and gaps.<p>
  *
  * This builder sets a hint for narrow  margin for the gridded buttons.
  * This can reduce the button stack's width if some buttons have long texts.
@@ -68,7 +69,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  * <pre>
  * private JPanel createCloseUpDownButtonStack(
  *         JButton close, JButton up, JButton down) {
- *     return new ButtonStackBuilder()
+ *     return ButtonStackBuilder().create()
  *     		.addGridded(close)
  *     		.addUnrelatedGap()
  *     		.addGridded(up)

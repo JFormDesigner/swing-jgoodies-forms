@@ -47,10 +47,9 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.util.LayoutStyle;
 
 /**
- * A non-visual builder for building consistent button bars that comply
- * with popular style guides. Utilizes the JGoodies {@link FormLayout}
- * and honors the platform's {@link LayoutStyle} regarding button sizes,
- * and gaps.<p>
+ * Builds consistent button bars that comply with popular style guides.
+ * Utilizes the JGoodies {@link FormLayout} and honors the platform's
+ * {@link LayoutStyle} regarding button sizes, and gaps.<p>
  *
  * <strong>Examples:</strong><pre>
  * // 1) Build and return a bar with three related buttons

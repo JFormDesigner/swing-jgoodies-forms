@@ -11,6 +11,7 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     has been renamed to StringResourceAccessor, and it has been
     slightly extended. To migrate, update to the JGoodies Common 1.8.
     
+    o Added Forms#buttonStack, #checkBoxStack, #radioButtonStack.
     o Added ButtonBarBuilder#create().
     o Added ButtonStackBuilder#create().
     o Added ListViewBuilder#create().
