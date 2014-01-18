@@ -43,6 +43,7 @@ import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.builder.ButtonBarBuilder;
+import com.jgoodies.forms.builder.ButtonStackBuilder;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.internal.FocusTraversalUtilsAccessor;
 import com.jgoodies.forms.layout.FormLayout;
@@ -217,11 +218,17 @@ public final class Forms {
 
 
 	/**
-	 * Creates and returns a panel where the given buttons are laid out
-	 * using a ButtonBarBuilder. Equivalent to:
+	 * Creates and returns a panel where the given buttons
+	 * are laid out horizontally using a ButtonBarBuilder.
+	 * Equivalent to:
      * <blockquote><pre>
      * ButtonBarBuilder.create().addButton(buttons).build();
-     * </pre></blockquote>
+     * </pre></blockquote><p>
+     *
+     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
+     * from the JSDL Common library is in the class path,
+     * it is used to build a focus group for the buttons. Focus is transferred
+     * between the buttons with cursor-left/-right.
 	 * 
 	 * @param buttons  the buttons to add to the button bar
 	 * @return the built button bar
@@ -237,8 +244,36 @@ public final class Forms {
 
 
     /**
-     * Builds and returns a panel where the given check boxes are laid out
-     * in a row.<p>
+     * Creates and returns a panel where the given buttons
+     * are laid out vertically using a ButtonStackBuilder.
+     * Equivalent to:
+     * <blockquote><pre>
+     * ButtonStackBuilder.create().addButton(buttons).build();
+     * </pre></blockquote><p>
+     *
+     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
+     * from the JSDL Common library is in the class path,
+     * it is used to build a focus group for the buttons. Focus is transferred
+     * between the buttons with cursor-left/-right.
+     * 
+     * @param buttons  the buttons to add to the button stack
+     * @return the built button stack
+     * @throws NullPointerException if {@code buttons} is {@code null}
+     * @throws IllegalArgumentException if {@code buttons} is empty
+     * @see ButtonStackBuilder
+     * 
+     * @since 1.8
+     */
+    public static JComponent buttonStack(JComponent... buttons) {
+        return ButtonStackBuilder.create()
+            .addButton(buttons)
+            .build();
+    }
+
+
+    /**
+     * Builds and returns a panel where the given check boxes
+     * are laid out horizontally.<p>
      *
      * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
      * from the JSDL Common library is in the class path,
@@ -257,8 +292,30 @@ public final class Forms {
 
 
     /**
-     * Builds and returns a panel where the given radio buttons are laid out
-     * in a row.<p>
+     * Builds and returns a panel where the given check boxes
+     * are laid out vertically.<p>
+     *
+     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
+     * from the JSDL Common library is in the class path,
+     * it is used to group the radio buttons. Focus is transferred to/from
+     * the selected button in a group; and cursor-left/-right change
+     * the selection in the group.
+     *
+     * @param checkBoxes  the check boxes to lay out in a stack
+     * @return the built panel
+     * @throws NullPointerException if {@code checkBoxes} is {@code null}
+     * @throws IllegalArgumentException if {@code checkBoxes} is empty
+     * 
+     * @since 1.8
+     */
+    public static JComponent checkBoxStack(JCheckBox... checkBoxes) {
+        return buildGroupedButtonStack(checkBoxes);
+    }
+
+
+    /**
+     * Builds and returns a panel where the given radio buttons
+     * are laid horizontally.<p>
      *
      * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
      * from the JSDL Common library is in the class path,
@@ -276,25 +333,70 @@ public final class Forms {
     }
 
 
+    /**
+     * Builds and returns a panel where the given radio buttons
+     * are laid vertically.<p>
+     *
+     * If class {@code com.jgoodies.jsdl.common.focus.FocusTraversalUtils}
+     * from the JSDL Common library is in the class path,
+     * it is used to group the radio buttons. Focus is transferred to/from
+     * the selected button in a group; and cursor-left/-right change
+     * the selection in the group.
+     *
+     * @param radioButtons  the radio buttons to lay out in a stack
+     * @return the built panel
+     * @throws NullPointerException if {@code radioButtons} is {@code null}
+     * @throws IllegalArgumentException if {@code radioButtons} is empty
+     * 
+     * @since 1.8
+     */
+    public static JComponent radioButtonStack(JRadioButton... radioButtons) {
+        return buildGroupedButtonStack(radioButtons);
+    }
+
+
     // Implementation *********************************************************
 
     /**
      * Builds and returns a button bar that consists of the given buttons.
      * Aims to build a focus group via the {@code FocusTraversalUtils},
-     * if in the classpath.
+     * if in the class path.
      *
      * @return the built panel
      */
-    protected static JComponent buildGroupedButtonBar(AbstractButton... buttons) {
+    private static JComponent buildGroupedButtonBar(AbstractButton... buttons) {
         checkArgument(buttons.length > 1, "You must provide more than one button.");
         FormLayout layout = new FormLayout(
-                buttons.length - 1 + "*(pref, $rgap), pref",
+                String.format("pref, %s*($rgap, pref)", buttons.length - 1),
                 "p");
         PanelBuilder builder = new PanelBuilder(layout);
         int column = 1;
         for (AbstractButton button : buttons) {
             builder.add(button, CC.xy(column, 1));
             column += 2;
+        }
+        FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
+        return builder.build();
+    }
+
+
+    /**
+     * Builds and returns a button bar that consists of the given buttons.
+     * Aims to build a focus group via the {@code FocusTraversalUtils},
+     * if in the class path.
+     *
+     * @return the built panel
+     */
+    private static JComponent buildGroupedButtonStack(AbstractButton... buttons) {
+        checkArgument(buttons.length > 1, "You must provide more than one button.");
+        FormLayout layout = new FormLayout(
+                "pref",
+                String.format("p, %s*(0, p)", buttons.length - 1));
+        PanelBuilder builder = new PanelBuilder(layout);
+        int row = 1;
+        for (AbstractButton button : buttons) {
+            builder.add(button, CC.xy(1, row));
+            row += 2;
         }
         FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
         return builder.build();
