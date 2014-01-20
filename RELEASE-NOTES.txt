@@ -26,8 +26,10 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o Added CellConstraints#translate(int dx, int dy).
     o Extended ListViewBuilder:
       - Added internationalization support
-      - label and header label text support formatting
-      - #filterColumn and #listViewRow accept optional format arguments
+      - Label and header label text support formatting.
+      - #filterColumn and #listViewRow accept optional format arguments.
+      - Reduced the gap between listBar and listBarExtras to 0
+        if the listBar or listBarExtras is absent.
     o Fixed the conversion from DTP points to pixels.
      
 

@@ -639,8 +639,11 @@ public final class ListViewBuilder {
 
 
     private JComponent buildDecoratedListBarAndExtras() {
+        String gap = listBarView != null && listExtrasView != null
+                ? "9dlu:grow"
+                : "0:grow";
         FormLayout layout = new FormLayout(
-                "left:default, 9dlu:grow, right:pref",
+                String.format("left:default, %s, right:pref", gap),
                 "$rgap, p");
         layout.setHonorsVisibility(honorsVisibility);
         PanelBuilder builder = new PanelBuilder(layout);
