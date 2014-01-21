@@ -4,8 +4,11 @@
 
 CHANGES IN 1.8.0  -----------------------------------------------------
 
-    This version is layout compatible with version 1.7. Since only 
-    rarely used features have been changed, migration is easy.
+    This version is binary incompatible with previous versions. However
+    migration is easy, because only rarely used features and internal
+    interfaces have changed. Just check whether you set default values
+    that have been moved to the new FormsSetup class.
+    
     
     The internal interface StringLocalizer from JGoodies Common 1.7
     has been renamed to StringResourceAccessor, and it has been
