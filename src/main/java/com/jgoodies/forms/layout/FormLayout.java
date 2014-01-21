@@ -867,11 +867,18 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     or of a group of indices contains only a single element
      */
     public void setColumnGroups(int[][] groupOfIndices) {
+        setColumnGroupsImpl(groupOfIndices, true);
+    }
+    
+    
+    private void setColumnGroupsImpl(int[][] groupOfIndices, boolean checkIndices) {
         int maxColumn = getColumnCount();
         boolean[] usedIndices = new boolean[maxColumn + 1];
         for (int group = 0; group < groupOfIndices.length; group++) {
             int[] indices = groupOfIndices[group];
-            checkArgument(indices.length >= 2, "Each indice group must contain at least two indices.");
+            if (checkIndices) {
+                checkArgument(indices.length >= 2, "Each indice group must contain at least two indices.");
+            }
             for (int indice : indices) {
                 int colIndex = indice;
                 if (colIndex < 1 || colIndex > maxColumn) {
@@ -935,7 +942,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
             newLastGroup[groupSize] = columnIndex;
             newColGroups[lastGroupIndex] = newLastGroup;
         }
-        setColumnGroups(newColGroups);
+        setColumnGroupsImpl(newColGroups, false);
     }
 
     /**
@@ -968,11 +975,18 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     or of a group of indices contains only a single element
      */
     public void setRowGroups(int[][] groupOfIndices) {
+        setRowGroupsImpl(groupOfIndices, true);
+    }
+
+    
+    private void setRowGroupsImpl(int[][] groupOfIndices, boolean checkIndices) {
         int rowCount = getRowCount();
         boolean[] usedIndices = new boolean[rowCount + 1];
         for (int group = 0; group < groupOfIndices.length; group++) {
             int[] indices = groupOfIndices[group];
-            checkArgument(indices.length >= 2, "Each indice group must contain at least two indices.");
+            if (checkIndices) {
+                checkArgument(indices.length >= 2, "Each indice group must contain at least two indices.");
+            }
             for (int indice : indices) {
                 int rowIndex = indice;
                 if (rowIndex < 1 || rowIndex > rowCount) {
@@ -1036,7 +1050,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
             newLastGroup[groupSize] = rowIndex;
             newRowGroups[lastGroupIndex] = newLastGroup;
         }
-        setRowGroups(newRowGroups);
+        setRowGroupsImpl(newRowGroups, false);
     }
 
 
