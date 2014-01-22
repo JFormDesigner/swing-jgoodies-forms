@@ -14,6 +14,7 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     has been renamed to StringResourceAccessor, and it has been
     slightly extended. To migrate, update to the JGoodies Common 1.8.
     
+    o Fixed the conversion from DTP points to pixels.
     o Added Forms#buttonStack, #checkBoxStack, #radioButtonStack.
     o Added ButtonBarBuilder#create().
     o Added ButtonStackBuilder#create().
@@ -33,7 +34,8 @@ CHANGES IN 1.8.0  -----------------------------------------------------
       - #filterColumn and #listViewRow accept optional format arguments.
       - Reduced the gap between listBar and listBarExtras to 0
         if the listBar or listBarExtras is absent.
-    o Fixed the conversion from DTP points to pixels.
+    o FormSpecs can tell whether the default alignment has been
+      explicitly set.
      
 
 CHANGES IN 1.7.2  -----------------------------------------------------

@@ -132,6 +132,14 @@ public abstract class FormSpec implements Serializable {
      * override this default.
      */
     private DefaultAlignment defaultAlignment;
+    
+    /**
+     * Describes whether the default alignment has been explictly set.
+     * 
+     * @see #getDefaultAlignmentExplicitlySet()
+     * 
+     */
+    private boolean defaultAlignmentExplicitlySet;
 
     /**
      * Holds the size that describes how to size this column or row.
@@ -192,6 +200,19 @@ public abstract class FormSpec implements Serializable {
     public final DefaultAlignment getDefaultAlignment() {
         return defaultAlignment;
     }
+    
+    
+    /**
+     * Returns whether the default alignment has been explicitly set or not.
+     * 
+     * @return {@code true} if the default alignment has been provided
+     *    during the parse process, {@code false} if the default alignment
+     *    has been set by the constructor at the instance creation time
+     */
+    public final boolean getDefaultAlignmentExplictlySet() {
+        return defaultAlignmentExplicitlySet;
+    }
+    
 
     /**
      * Returns the size.
@@ -238,6 +259,7 @@ public abstract class FormSpec implements Serializable {
 
     void setDefaultAlignment(DefaultAlignment defaultAlignment) {
         this.defaultAlignment = defaultAlignment;
+        this.defaultAlignmentExplicitlySet = true;
     }
 
 
