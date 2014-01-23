@@ -89,6 +89,15 @@ public final class ColumnSpec extends FormSpec {
     public static final DefaultAlignment FILL = FormSpec.FILL_ALIGN;
 
     /**
+     * A special alignment value for table column alignment specifications.
+     * Some cell renderers shall not be aligned during the renderer
+     * preparation.
+     * 
+     * @since 1.8
+     */
+    public static final DefaultAlignment NONE = FormSpec.NO_ALIGN;
+
+    /**
      * Unless overridden the default alignment for a column is FILL.
      */
     public static final DefaultAlignment DEFAULT = FILL;
