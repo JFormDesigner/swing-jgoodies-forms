@@ -52,7 +52,7 @@ public final class MacLayoutStyle extends LayoutStyle {
 
     // Component Sizes ******************************************************
 
-    private static final Size         BUTTON_WIDTH              = Sizes.dluX(54);
+    private static final Size         BUTTON_WIDTH              = Sizes.dluX(55);
     private static final Size         BUTTON_HEIGHT             = Sizes.dluY(14);
 
 
@@ -64,9 +64,9 @@ public final class MacLayoutStyle extends LayoutStyle {
     private static final ConstantSize TABBED_DIALOG_MARGIN_X    = Sizes.DLUX4;
     private static final ConstantSize TABBED_DIALOG_MARGIN_Y    = Sizes.DLUY4;
 
-    private static final ConstantSize LABEL_COMPONENT_PADX      = Sizes.DLUX3;
-    private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX4;
-    private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX8;
+    private static final ConstantSize LABEL_COMPONENT_PADX      = Sizes.DLUX1;
+    private static final ConstantSize RELATED_COMPONENTS_PADX   = Sizes.DLUX2;
+    private static final ConstantSize UNRELATED_COMPONENTS_PADX = Sizes.DLUX4;
 
     private static final ConstantSize LABEL_COMPONENT_PADY      = Sizes.DLUY2;
     private static final ConstantSize RELATED_COMPONENTS_PADY   = Sizes.DLUY3;
