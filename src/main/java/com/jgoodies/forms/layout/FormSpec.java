@@ -96,11 +96,17 @@ public abstract class FormSpec implements Serializable {
     static final DefaultAlignment FILL_ALIGN = new DefaultAlignment("fill");
 
     /**
+     * A special alignment intended for table columns only,
+     * where some cell renderers are not aligned.
+     */
+    static final DefaultAlignment NO_ALIGN = new DefaultAlignment("none");
+
+    /**
      * An array of all enumeration values used to canonicalize
      * deserialized default alignments.
      */
     private static final DefaultAlignment[] VALUES =
-        { LEFT_ALIGN, RIGHT_ALIGN, TOP_ALIGN, BOTTOM_ALIGN, CENTER_ALIGN, FILL_ALIGN};
+        { LEFT_ALIGN, RIGHT_ALIGN, TOP_ALIGN, BOTTOM_ALIGN, CENTER_ALIGN, FILL_ALIGN, NO_ALIGN};
 
 
     // Resizing Weights *****************************************************
@@ -136,7 +142,7 @@ public abstract class FormSpec implements Serializable {
     /**
      * Describes whether the default alignment has been explictly set.
      * 
-     * @see #getDefaultAlignmentExplicitlySet()
+     * @see #getDefaultAlignmentExplictlySet()
      * 
      */
     private boolean defaultAlignmentExplicitlySet;
@@ -635,6 +641,8 @@ public abstract class FormSpec implements Serializable {
                     return RIGHT_ALIGN;
                 } else if (str.equals("l") || str.equals("left")) {
                     return LEFT_ALIGN;
+                } else if (str.equals("none")) {
+                    return NO_ALIGN;
                 } else {
                     return null;
                 }
