@@ -47,7 +47,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.ComponentFactory;
-import com.jgoodies.forms.internal.FocusTraversalUtilsAccessor;
+import com.jgoodies.forms.internal.InternalJSDLFocusClassesAccessor;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -138,7 +138,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 					buttons.add((AbstractButton) component);
 				}
 			}
-	    	FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons.toArray(new AbstractButton[0]));
+	    	InternalJSDLFocusClassesAccessor.tryToBuildAFocusGroup(buttons.toArray(new AbstractButton[0]));
 	    	focusGrouped = true;
     	}
         return (JPanel) getContainer();
