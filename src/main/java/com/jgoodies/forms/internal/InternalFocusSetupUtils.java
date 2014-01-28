@@ -51,6 +51,8 @@ import com.jgoodies.forms.builder.FocusTraversalType;
  *
  * @author Karsten Lentzsch
  * @version $Revision: 1.1 $
+ * 
+ * @since 1.8
  */
 public final class InternalFocusSetupUtils {
 
