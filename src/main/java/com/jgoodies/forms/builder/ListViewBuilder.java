@@ -181,8 +181,31 @@ public final class ListViewBuilder {
      * @see JComponent#setFocusTraversalPolicyProvider(boolean)
      *
      * @since 1.7.2
+     * @deprecated Use {@link #focusTraversalPolicy(FocusTraversalPolicy)} instead
      */
+    @Deprecated
     public ListViewBuilder focusTraversal(FocusTraversalPolicy policy) {
+        return focusTraversalPolicy(policy);
+    }
+
+
+    /**
+     * Sets the panel's focus traversal policy and sets the panel
+     * as focus traversal policy provider. Hence, this call is equivalent to:
+     * <pre>
+     * builder.getPanel().setFocusTraversalPolicy(policy);
+     * builder.getPanel().setFocusTraversalPolicyProvider(true);
+     * </pre>
+     *
+     * @param policy   the focus traversal policy that will manage
+     *  keyboard traversal of the children in this builder's panel
+     *
+     * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
+     * @see JComponent#setFocusTraversalPolicyProvider(boolean)
+     *
+     * @since 1.8
+     */
+    public ListViewBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
         this.focusTraversalPolicy = policy;
         return this;
     }
