@@ -39,6 +39,9 @@ import javax.swing.LayoutFocusTraversalPolicy;
  * Used by the {@link ListViewBuilder} and {@code FormBuilder}.
  * 
  * @author Karsten Lentzsch
+ * @version $Revision: 1.2 $
+ * 
+ * @since 1.8
  */
 public enum FocusTraversalType { 
     
