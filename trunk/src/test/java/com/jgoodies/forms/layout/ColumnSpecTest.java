@@ -210,6 +210,22 @@ public final class ColumnSpecTest extends TestCase {
     }
 
 
+    public static void testAccceptZeroMultiplier()  {
+        ColumnSpec[] specs = ColumnSpec.decodeSpecs("0*(pref)");
+        assertEquals(0, specs.length);
+    }
+
+
+    public static void testRejectNegativeMultiplier()  {
+        try {
+            ColumnSpec.decode("-1*(pref)");
+            fail("The parser should reject negative multiplier designation.");
+        } catch (Exception e) {
+            // The expected behavior
+        }
+    }
+
+
     public static void testMultiplierWithBlanks() {
         ColumnSpec prefSpec = ColumnSpec.decode("pref");
         ColumnSpec[] specs = ColumnSpec.decodeSpecs("2* (pref)");
