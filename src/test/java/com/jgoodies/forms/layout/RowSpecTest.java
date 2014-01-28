@@ -200,7 +200,7 @@ public final class RowSpecTest extends TestCase {
     }
 
 
-    public static void testMissingColumnSpecVariable() {
+    public static void testMissingRowSpecVariable() {
         String variable = "$rumpelstilzchen";
         try {
             RowSpec.decode(variable);
@@ -208,6 +208,48 @@ public final class RowSpecTest extends TestCase {
         } catch (Exception e) {
             // The expected behavior
         }
+    }
+
+
+    public static void testMultiplier()  {
+        RowSpec prefSpec = RowSpec.decode("pref");
+        RowSpec[] specs = RowSpec.decodeSpecs("2*(pref)");
+        assertEquals(prefSpec, 2, specs);
+    }
+
+
+    public static void testAccceptZeroMultiplier()  {
+        RowSpec[] specs = RowSpec.decodeSpecs("0*(pref)");
+        assertEquals(0, specs.length);
+    }
+
+
+    public static void testRejectNegativeMultiplier()  {
+        try {
+            RowSpec.decode("-1*(pref)");
+            fail("The parser should reject negative multiplier designation.");
+        } catch (Exception e) {
+            // The expected behavior
+        }
+    }
+
+
+    public static void testMultiplierWithBlanks() {
+        RowSpec prefSpec = RowSpec.decode("pref");
+        RowSpec[] specs = RowSpec.decodeSpecs("2* (pref)");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = RowSpec.decodeSpecs("2 *(pref)");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = RowSpec.decodeSpecs("2 * (pref)");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = RowSpec.decodeSpecs(" 2 * (pref) ");
+        assertEquals(prefSpec, 2, specs);
+
+        specs = RowSpec.decodeSpecs(" 2 * ( pref ) ");
+        assertEquals(prefSpec, 2, specs);
     }
 
 
@@ -353,6 +395,16 @@ public final class RowSpecTest extends TestCase {
         }
         for (int i = 0; i < specs1.length; i++) {
             assertEquals(specs1[i], specs2[i]);
+        }
+    }
+
+
+    private static void assertEquals(RowSpec expectedSpec, int expectedLength, RowSpec[] specs) {
+        assertEquals("Multiplier", expectedLength, specs.length);
+        for (int i = 0; i < specs.length; i++) {
+            assertEquals("RowSpec[" + i + "]",
+                    expectedSpec,
+                    specs[i]);
         }
     }
 

@@ -36,10 +36,12 @@ CHANGES IN 1.8.0  -----------------------------------------------------
         if the listBar or listBarExtras is absent.
     o FormSpecs can tell whether the default alignment has been
       explicitly set.
-    o Smaller gaps on the Mac.
-    o Added a specal "none" column alignment intended only 
+    o Added a special "none" column alignment intended only 
       for JTable column configurations as implemented 
       by the classes TableUtils and TableColumns.
+    o Smaller gaps on the Mac.
+    o Column and row specs accept a 0 multiplier, e.g. "0*(p, $lg)".
+    o Improved parser message for negative multiplier designation.
      
 
 CHANGES IN 1.7.2  -----------------------------------------------------

@@ -53,10 +53,10 @@ public final class FormSpecParser {
     // Parser Patterns ******************************************************
 
     private static final Pattern MULTIPLIER_PREFIX_PATTERN =
-        Pattern.compile("\\d+\\s*\\*\\s*\\(");
+        Pattern.compile("-?\\d+\\s*\\*\\s*\\(");
 
     private static final Pattern DIGIT_PATTERN =
-        Pattern.compile("\\d+");
+        Pattern.compile("-?\\d+");
 
 
 
@@ -240,14 +240,18 @@ public final class FormSpecParser {
             return null;
         }
         String digitStr = expression.substring(0, digitMatcher.end());
+        if (digitStr.startsWith("-")) {
+            fail(offset, "illegal negative multiplier designation");
+        }
+        System.out.println(digitStr);
         int number = 0;
         try {
             number = Integer.parseInt(digitStr);
-        } catch (NumberFormatException e) {
-            fail(offset, e);
+        } catch (NumberFormatException ex) {
+            fail(offset, ex);
         }
-        if (number <= 0) {
-            fail(offset, "illegal 0 multiplier");
+        if (number < 0) {
+            fail(offset, "illegal negative multiplier");
         }
         String subexpression = expression.substring(matcher.end(), expression.length() - 1);
         return new Multiplier(number, subexpression, matcher.end());
