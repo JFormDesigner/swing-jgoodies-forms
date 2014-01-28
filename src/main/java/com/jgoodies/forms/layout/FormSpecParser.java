@@ -243,14 +243,13 @@ public final class FormSpecParser {
         if (digitStr.startsWith("-")) {
             fail(offset, "illegal negative multiplier designation");
         }
-        System.out.println(digitStr);
         int number = 0;
         try {
             number = Integer.parseInt(digitStr);
         } catch (NumberFormatException ex) {
             fail(offset, ex);
         }
-        if (number < 0) {
+        if (number < 0) {  // Due to integer overflow
             fail(offset, "illegal negative multiplier");
         }
         String subexpression = expression.substring(matcher.end(), expression.length() - 1);
