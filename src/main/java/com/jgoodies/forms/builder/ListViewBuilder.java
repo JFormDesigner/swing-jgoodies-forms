@@ -32,7 +32,9 @@ package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 import static com.jgoodies.common.base.Preconditions.checkState;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
+import java.awt.Component;
 import java.awt.FocusTraversalPolicy;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -54,6 +56,7 @@ import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.Forms;
+import com.jgoodies.forms.internal.InternalFocusSetupUtils;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -101,6 +104,8 @@ public final class ListViewBuilder {
 
     private Border border;
     private boolean honorsVisibility = true;
+    private Component initialComponent;
+    private FocusTraversalType focusTraversalType;
     private FocusTraversalPolicy focusTraversalPolicy;
     private String namePrefix        = "ListView";
     private String filterViewColSpec = "[100dlu, p]";
@@ -167,6 +172,71 @@ public final class ListViewBuilder {
     
     
     /**
+     * 
+     * @param initialComponent   the component that shall receive the focus
+     *    if the panel is made visible the first time
+     * @return a reference to this builder
+     * 
+     * @see #focusTraversalType(FocusTraversalType)
+     * 
+     * @since 1.8
+     */
+    public ListViewBuilder initialComponent(JComponent initialComponent) {
+        checkNotNull(initialComponent, MUST_NOT_BE_NULL, "initial component");
+        checkState(this.initialComponent == null, 
+                "The initial component must be set once only.");
+        checkValidFocusTraversalSetup();
+        this.initialComponent = initialComponent;
+        return this;
+    }
+    
+    
+    /**
+     * 
+     * @param focusTraversalType   either: layout or container order
+     * @return a reference to this builder
+     * 
+     * @see #initialComponent(JComponent)
+     * 
+     * @since 1.8
+     */
+    public ListViewBuilder focusTraversalType(FocusTraversalType focusTraversalType) {
+        checkNotNull(focusTraversalType, MUST_NOT_BE_NULL, "focus traversal type");
+        checkState(this.focusTraversalType == null, 
+                "The focus traversal type must be set once only.");
+        checkValidFocusTraversalSetup();
+        this.focusTraversalType = focusTraversalType;
+        return this;
+    }
+    
+    
+    /**
+     * Sets the panel's focus traversal policy and sets the panel
+     * as focus traversal policy provider. Hence, this call is equivalent to:
+     * <pre>
+     * builder.getPanel().setFocusTraversalPolicy(policy);
+     * builder.getPanel().setFocusTraversalPolicyProvider(true);
+     * </pre>
+     *
+     * @param policy   the focus traversal policy that will manage
+     *  keyboard traversal of the children in this builder's panel
+     *
+     * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
+     * @see JComponent#setFocusTraversalPolicyProvider(boolean)
+     * 
+     * @since 1.8
+     */
+    public ListViewBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
+        checkNotNull(policy, MUST_NOT_BE_NULL, "focus traversal policy");
+        checkState(this.focusTraversalPolicy == null, 
+                "The focus traversal policy must be set once only.");
+        checkValidFocusTraversalSetup();
+        this.focusTraversalPolicy = policy;
+        return this;
+    }
+    
+    
+    /**
      * Sets the panel's focus traversal policy and sets the panel
      * as focus traversal policy provider. Hence, this call is equivalent to:
      * <pre>
@@ -186,28 +256,6 @@ public final class ListViewBuilder {
     @Deprecated
     public ListViewBuilder focusTraversal(FocusTraversalPolicy policy) {
         return focusTraversalPolicy(policy);
-    }
-
-
-    /**
-     * Sets the panel's focus traversal policy and sets the panel
-     * as focus traversal policy provider. Hence, this call is equivalent to:
-     * <pre>
-     * builder.getPanel().setFocusTraversalPolicy(policy);
-     * builder.getPanel().setFocusTraversalPolicyProvider(true);
-     * </pre>
-     *
-     * @param policy   the focus traversal policy that will manage
-     *  keyboard traversal of the children in this builder's panel
-     *
-     * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
-     * @see JComponent#setFocusTraversalPolicyProvider(boolean)
-     *
-     * @since 1.8
-     */
-    public ListViewBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
-        this.focusTraversalPolicy = policy;
-        return this;
     }
 
 
@@ -638,6 +686,11 @@ public final class ListViewBuilder {
                 theLabelView.setLabelFor(listView);
             }
         }
+        InternalFocusSetupUtils.setupFocusTraversalPolicyAndProvider(
+                builder.getPanel(), 
+                focusTraversalPolicy, 
+                focusTraversalType, 
+                initialComponent);
         return builder.build();
     }
     
@@ -719,4 +772,14 @@ public final class ListViewBuilder {
     }
 
 
+    /**
+     * Checks that if the API user has set a focus traversal policy,
+     * no focus traversal type and no initial component has been set.
+     */
+    private void checkValidFocusTraversalSetup() {
+        InternalFocusSetupUtils.checkValidFocusTraversalSetup(
+                focusTraversalPolicy, focusTraversalType, initialComponent);
+    }
+    
+    
 }
