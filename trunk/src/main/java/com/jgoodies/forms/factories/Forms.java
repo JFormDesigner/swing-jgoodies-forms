@@ -45,7 +45,7 @@ import javax.swing.border.Border;
 import com.jgoodies.forms.builder.ButtonBarBuilder;
 import com.jgoodies.forms.builder.ButtonStackBuilder;
 import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.internal.InternalJSDLFocusClassesAccessor;
+import com.jgoodies.forms.internal.FocusTraversalUtilsAccessor;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -375,7 +375,7 @@ public final class Forms {
             builder.add(button, CC.xy(column, 1));
             column += 2;
         }
-        InternalJSDLFocusClassesAccessor.tryToBuildAFocusGroup(buttons);
+        FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
         return builder.build();
     }
 
@@ -398,7 +398,7 @@ public final class Forms {
             builder.add(button, CC.xy(1, row));
             row += 2;
         }
-        InternalJSDLFocusClassesAccessor.tryToBuildAFocusGroup(buttons);
+        FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
         return builder.build();
     }
 
