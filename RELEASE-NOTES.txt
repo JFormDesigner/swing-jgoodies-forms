@@ -18,7 +18,6 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o Added Forms#buttonStack, #checkBoxStack, #radioButtonStack.
     o Added ButtonBarBuilder#create().
     o Added ButtonStackBuilder#create().
-    o Added ListViewBuilder#create().
     o Moved all global default values to the new FormsSetup:
       opaque, label-for feature, factory, debug tooltips.
     o PanelBuilder's label-for feature honors if a label 
@@ -28,12 +27,6 @@ CHANGES IN 1.8.0  -----------------------------------------------------
     o FormLayout#setColumnGroups and #setRowGroups check 
       that each group of indices contains at least two indices.
     o Added CellConstraints#translate(int dx, int dy).
-    o Extended ListViewBuilder:
-      - Added internationalization support
-      - Label and header label text support formatting.
-      - #filterColumn and #listViewRow accept optional format arguments.
-      - Reduced the gap between listBar and listBarExtras to 0
-        if the listBar or listBarExtras is absent.
     o FormSpecs can tell whether the default alignment has been
       explicitly set.
     o Added a special "none" column alignment intended only 
