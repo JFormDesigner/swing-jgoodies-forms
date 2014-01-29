@@ -31,15 +31,8 @@
 package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
-import static com.jgoodies.common.base.Preconditions.checkState;
-import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
-import java.awt.Component;
 import java.awt.FocusTraversalPolicy;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -50,13 +43,10 @@ import javax.swing.JTree;
 import javax.swing.border.Border;
 
 import com.jgoodies.common.base.Strings;
-import com.jgoodies.common.internal.ResourceBundleAccessor;
-import com.jgoodies.common.internal.StringResourceAccessor;
 import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.Forms;
-import com.jgoodies.forms.internal.InternalFocusSetupUtils;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -67,13 +57,13 @@ import com.jgoodies.forms.layout.FormLayout;
  * details view (or preview).<p>
  *
  * <strong>Examples:</strong><pre>
- * return ListViewBuilder.create()
+ * return new ListViewBuilder()
  *     .label("&Contacts:")
  *     .listView(contactsTable)
  *     .listBar(newButton, editButton, deleteButton)
  *     .build();
  *
- * return ListViewBuilder.create()
+ * return new ListViewBuilder()
  *     .border(Borders.DLU14)
  *     .labelView(contactsLabel)
  *     .filterView(contactsSearchField)
@@ -91,9 +81,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public final class ListViewBuilder {
 
-	private ComponentFactory factory;
-
-    private StringResourceAccessor resources;
+	private final ComponentFactory factory;
 
     private JComponent labelView;
     private JComponent filterView;
@@ -104,8 +92,6 @@ public final class ListViewBuilder {
 
     private Border border;
     private boolean honorsVisibility = true;
-    private Component initialComponent;
-    private FocusTraversalType focusTraversalType;
     private FocusTraversalPolicy focusTraversalPolicy;
     private String namePrefix        = "ListView";
     private String filterViewColSpec = "[100dlu, p]";
@@ -120,39 +106,24 @@ public final class ListViewBuilder {
     // Instance Creation ******************************************************
 
     /**
-     * Constructs a ListViewBuilder using the global default component factory.
-     * The factory is required by {@link #label(String, Object...)} and
-     * {@link #headerLabel(String, Object...)}.
+     * Constructs a ListViewBuilder using the AbstractBuilder's
+     * default component factory. The factory is required by
+     * {@link #label(String)} and {@link #headerLabel(String)}.
      */
     public ListViewBuilder() {
-    	// Do nothing.
+    	this(FormsSetup.getComponentFactoryDefault());
     }
 
 
     /**
      * Constructs a ListViewBuilder using the given component factory.
      * The factory is required by
-     * {@link #label(String, Object...)} and {@link #headerLabel(String, Object...)}.
+     * {@link #label(String)} and {@link #headerLabel(String)}.
      *
      * @param factory   the component factory used to create labels and headers
      */
     public ListViewBuilder(ComponentFactory factory) {
     	this.factory = factory;
-    }
-    
-    
-    /**
-     * Creates and returns a ListViewBuilder using the global default
-     * component factory.
-     * The factory is required by {@link #label(String, Object...)} and
-     * {@link #headerLabel(String, Object...)}.
-     * 
-     * @return the ListViewBuilder
-     * 
-     * @since 1.8
-     */
-    public static ListViewBuilder create() {
-        return new ListViewBuilder();
     }
 
 
@@ -172,71 +143,6 @@ public final class ListViewBuilder {
     
     
     /**
-     * 
-     * @param initialComponent   the component that shall receive the focus
-     *    if the panel is made visible the first time
-     * @return a reference to this builder
-     * 
-     * @see #focusTraversalType(FocusTraversalType)
-     * 
-     * @since 1.8
-     */
-    public ListViewBuilder initialComponent(JComponent initialComponent) {
-        checkNotNull(initialComponent, MUST_NOT_BE_NULL, "initial component");
-        checkState(this.initialComponent == null, 
-                "The initial component must be set once only.");
-        checkValidFocusTraversalSetup();
-        this.initialComponent = initialComponent;
-        return this;
-    }
-    
-    
-    /**
-     * 
-     * @param focusTraversalType   either: layout or container order
-     * @return a reference to this builder
-     * 
-     * @see #initialComponent(JComponent)
-     * 
-     * @since 1.8
-     */
-    public ListViewBuilder focusTraversalType(FocusTraversalType focusTraversalType) {
-        checkNotNull(focusTraversalType, MUST_NOT_BE_NULL, "focus traversal type");
-        checkState(this.focusTraversalType == null, 
-                "The focus traversal type must be set once only.");
-        checkValidFocusTraversalSetup();
-        this.focusTraversalType = focusTraversalType;
-        return this;
-    }
-    
-    
-    /**
-     * Sets the panel's focus traversal policy and sets the panel
-     * as focus traversal policy provider. Hence, this call is equivalent to:
-     * <pre>
-     * builder.getPanel().setFocusTraversalPolicy(policy);
-     * builder.getPanel().setFocusTraversalPolicyProvider(true);
-     * </pre>
-     *
-     * @param policy   the focus traversal policy that will manage
-     *  keyboard traversal of the children in this builder's panel
-     *
-     * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
-     * @see JComponent#setFocusTraversalPolicyProvider(boolean)
-     * 
-     * @since 1.8
-     */
-    public ListViewBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
-        checkNotNull(policy, MUST_NOT_BE_NULL, "focus traversal policy");
-        checkState(this.focusTraversalPolicy == null, 
-                "The focus traversal policy must be set once only.");
-        checkValidFocusTraversalSetup();
-        this.focusTraversalPolicy = policy;
-        return this;
-    }
-    
-    
-    /**
      * Sets the panel's focus traversal policy and sets the panel
      * as focus traversal policy provider. Hence, this call is equivalent to:
      * <pre>
@@ -251,11 +157,10 @@ public final class ListViewBuilder {
      * @see JComponent#setFocusTraversalPolicyProvider(boolean)
      *
      * @since 1.7.2
-     * @deprecated Use {@link #focusTraversalPolicy(FocusTraversalPolicy)} instead
      */
-    @Deprecated
     public ListViewBuilder focusTraversal(FocusTraversalPolicy policy) {
-        return focusTraversalPolicy(policy);
+        this.focusTraversalPolicy = policy;
+        return this;
     }
 
 
@@ -300,40 +205,8 @@ public final class ListViewBuilder {
     	this.namePrefix = namePrefix;
     	return this;
     }
-    
-    
-    public ListViewBuilder factory(ComponentFactory factory) {
-        this.factory = factory;
-        return this;
-    }
 
 
-    /**
-     * Sets the accessor that is used to localize label and header texts.
-     * @param resources    maps resource keys to Strings
-     * @return a reference to this builder
-     * 
-     * @since 1.8
-     */
-    public ListViewBuilder resources(StringResourceAccessor resources) {
-        this.resources = resources;
-        return this;
-    }
-
-
-    /**
-     * Sets the accessor that is used to localize label and header texts.
-     * @param bundle    maps resource keys to Strings
-     * @return a reference to this builder
-     * 
-     * @since 1.8
-     */
-    public ListViewBuilder resources(ResourceBundle bundle) {
-        this.resources = new ResourceBundleAccessor(bundle);
-        return this;
-    }
-    
-    
     /**
      * Sets the mandatory label view. Useful to set a bound label that updates
      * its text when the list content changes, for example to provide the
@@ -352,82 +225,30 @@ public final class ListViewBuilder {
 
 	/**
      * Creates a plain label for the given marked text and sets it as label view.
-     * If no arguments are provided, the plain String is used.
-     * Otherwise the string will be formatted using {@code String.format}
-     * with the given arguments.
      * Equivalent to:
      * <pre>
-     * labelView(aComponentFactory.createLabel(Strings.get(markedText, args)));
+     * labelView(aComponentFactory.createLabel(markedText));
      * </pre>
      *
      * @param markedText   the label's text, may contain a mnemonic marker
-     * @param args  optional format arguments forwarded to {@code String#format}
-     * 
-     * @see String#format(String, Object...)
      */
-    public ListViewBuilder label(String markedText, Object... args) {
-        labelView(getFactory().createLabel(Strings.get(markedText, args)));
-        return this;
-    }
-
-
-    /**
-     * Looks up the String associated with the given resource key
-     * and creates a plain label for it and sets it as label view.
-     * If no arguments are provided, the plain String resource is used.
-     * Otherwise the string will be formatted using {@code String.format}
-     * with the given arguments.
-     *
-     * @param key   the key used to look up the label text resource
-     * @param args  optional format arguments forwarded to {@code String#format}
-     * 
-     * @see String#format(String, Object...)
-     * 
-     * @since 1.8
-     */
-    public ListViewBuilder labelKey(String key, Object... args) {
-        label(getResourceString(key, args));
+    public ListViewBuilder label(String markedText) {
+        labelView(factory.createLabel(markedText));
         return this;
     }
 
 
     /**
      * Creates a header label for the given marked text and sets it as label view.
-     * If no arguments are provided, the plain String is used.
-     * Otherwise the string will be formatted using {@code String.format}
-     * with the given arguments.
      * Equivalent to:
      * <pre>
-     * labelView(aComponentFactory.createHeaderLabel(Strings.get(markedText, args)));
+     * labelView(aComponentFactory.createHeaderLabel(markedText));
      * </pre>
      *
      * @param markedText   the label's text, may contain a mnemonic marker
-     * @param args  optional format arguments forwarded to {@code String#format}
-     * 
-     * @see String#format(String, Object...)
      */
-    public ListViewBuilder headerLabel(String markedText, Object... args) {
-        labelView(getFactory().createHeaderLabel(Strings.get(markedText, args)));
-        return this;
-    }
-
-
-    /**
-     * Looks up the String associated with the given resource key
-     * and creates a header label for it and sets it as label view.
-     * If no arguments are provided, the plain String resource is used.
-     * Otherwise the string will be formatted using {@code String.format}
-     * with the given arguments.
-     *
-     * @param key   the key used to look up the header label text resource
-     * @param args  optional format arguments forwarded to {@code String#format}
-     * 
-     * @see String#format(String, Object...)
-     * 
-     * @since 1.8
-     */
-    public ListViewBuilder headerLabelKey(String key, Object... args) {
-        headerLabel(getResourceString(key, args));
+    public ListViewBuilder headerLabel(String markedText) {
+        labelView(factory.createHeaderLabel(markedText));
         return this;
     }
 
@@ -458,31 +279,10 @@ public final class ListViewBuilder {
      * @param colSpec   specifies the horizontal layout of the filter view
      *
      * @throws NullPointerException if {@code colSpec} is {@code null}
-     * @deprecated Use {@link #filterViewColumn(String, Object...)} instead
      */
-    @Deprecated
     public ListViewBuilder filterViewColSpec(String colSpec) {
-        return filterViewColumn(colSpec);
-    }
-
-
-    /**
-     * Changes the FormLayout column specification used to lay out
-     * the filter view.
-     * The default value is {@code "[100dlu, p]"}, which is a column where
-     * the width is determined by the filter view's preferred width,
-     * but a minimum width of 100dlu is ensured. The filter view won't grow
-     * horizontally, if the container gets more space.
-     *
-     * @param colSpec   specifies the horizontal layout of the filter view
-     * @param args   optional {@code colSpec} format arguments
-     *     forwarded to {@code String#format}
-     *
-     * @throws NullPointerException if {@code colSpec} is {@code null}
-     */
-    public ListViewBuilder filterViewColumn(String colSpec, Object... args) {
     	checkNotNull(colSpec, "The filter view column specification must not be null.");
-    	this.filterViewColSpec = Strings.get(colSpec, args);
+    	this.filterViewColSpec = colSpec;
         invalidatePanel();
         return this;
     }
@@ -529,38 +329,10 @@ public final class ListViewBuilder {
      * @param rowSpec   specifies the vertical layout of the list view
      *
      * @throws NullPointerException if {@code rowSpec} is {@code null}
-     * @deprecated Use {@link #listViewRow(String, Object...)} instead
      */
-    @Deprecated
     public ListViewBuilder listViewRowSpec(String rowSpec) {
-        return listViewRow(rowSpec);
-    }
-
-
-    /**
-     * Changes the FormLayout row specification used to lay out the list view.
-     * The default value is {@code "fill:[100dlu, pref]:grow"}, which is a row
-     * that is filled by the list view; the height is determined
-     * by the list view's preferred height, but a minimum of 100dlu is ensured.
-     * The list view grows vertically, if the container gets more vertical
-     * space.<p>
-     *
-     * <strong>Examples:</strong>
-     * <pre>
-     * .listViewRow("fill:100dlu");  // fixed height
-     * .listViewRow("f:100dlu:g");   // fixed start height, grows
-     * .listViewRow("f:p");          // no minimum height
-     * </pre>
-     *
-     * @param rowSpec   specifies the vertical layout of the list view
-     * @param args   optional {@code rowSpec} format arguments
-     *     forwarded to {@code String#format}
-     *
-     * @throws NullPointerException if {@code rowSpec} is {@code null}
-     */
-    public ListViewBuilder listViewRow(String rowSpec, Object... args) {
     	checkNotNull(rowSpec, "The list view row specification must not be null.");
-    	this.listViewRowSpec = Strings.get(rowSpec, args);
+    	this.listViewRowSpec = rowSpec;
         invalidatePanel();
         return this;
     }
@@ -644,14 +416,6 @@ public final class ListViewBuilder {
 
 
     // Implementation *********************************************************
-    
-    private ComponentFactory getFactory() {
-        if (factory == null) {
-            factory = FormsSetup.getComponentFactoryDefault();
-        }
-        return factory;
-    }
-    
 
     private void invalidatePanel() {
     	panel = null;
@@ -686,11 +450,6 @@ public final class ListViewBuilder {
                 theLabelView.setLabelFor(listView);
             }
         }
-        InternalFocusSetupUtils.setupFocusTraversalPolicyAndProvider(
-                builder.getPanel(), 
-                focusTraversalPolicy, 
-                focusTraversalType, 
-                initialComponent);
         return builder.build();
     }
     
@@ -715,11 +474,8 @@ public final class ListViewBuilder {
 
 
     private JComponent buildDecoratedListBarAndExtras() {
-        String gap = listBarView != null && listExtrasView != null
-                ? "9dlu:grow"
-                : "0:grow";
         FormLayout layout = new FormLayout(
-                String.format("left:default, %s, right:pref", gap),
+                "left:default, 9dlu:grow, right:pref",
                 "$rgap, p");
         layout.setHonorsVisibility(honorsVisibility);
         PanelBuilder builder = new PanelBuilder(layout);
@@ -754,32 +510,4 @@ public final class ListViewBuilder {
     }
 
 
-    /**
-     * Returns a localized String for the given key and format arguments - if any.
-     */
-    private String getResourceString(String key, Object... args) {
-        checkState(resources != null,
-                "To use the internationalization support " +
-                "a ResourceBundle, ResourceMap, or a StringResourceAccessor " +
-                "must be provided. See ListViewBuilder#resources.");
-        try {
-            return resources.getString(key, args);
-        } catch (MissingResourceException ex) {
-            Logger.getLogger(getClass().getName()).log(
-                    Level.WARNING, "Missing internationalized label", ex);
-            return key;
-        }
-    }
-
-
-    /**
-     * Checks that if the API user has set a focus traversal policy,
-     * no focus traversal type and no initial component has been set.
-     */
-    private void checkValidFocusTraversalSetup() {
-        InternalFocusSetupUtils.checkValidFocusTraversalSetup(
-                focusTraversalPolicy, focusTraversalType, initialComponent);
-    }
-    
-    
 }
