@@ -33,6 +33,8 @@ package com.jgoodies.forms.util;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
+import com.jgoodies.common.base.SystemUtils;
+
 /**
  * A library-internal class that consists only of static utility methods.
  *
@@ -64,7 +66,7 @@ public final class FormUtils {
     public static boolean isLafAqua() {
         ensureValidCache();
         if (cachedIsLafAqua == null) {
-            cachedIsLafAqua = Boolean.valueOf(computeIsLafAqua());
+            cachedIsLafAqua = Boolean.valueOf(SystemUtils.isLafAqua());
         }
         return cachedIsLafAqua.booleanValue();
     }
@@ -105,17 +107,6 @@ public final class FormUtils {
      * in {@code #ensureValidCache}.
      */
     private static Boolean cachedIsLafAqua;
-
-    /**
-     * Computes and answers whether an Aqua look&amp;feel is active.
-     * This may be Apple's Aqua L&amp;f, or a sub-L&amp;f that
-     * uses the same ID, because it doesn't substantially change the look.
-     *
-     * @return true if the current look&amp;feel is Aqua
-     */
-    private static boolean computeIsLafAqua() {
-        return UIManager.getLookAndFeel().getID().equals("Aqua");
-    }
 
 
     static void ensureValidCache() {
