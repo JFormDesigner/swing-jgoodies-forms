@@ -628,17 +628,16 @@ public final class FormLayout implements LayoutManager2, Serializable {
     }
 
     /**
-     * Inserts the specified column at the specified position. Shifts
-     * components that intersect the new column to the right and readjusts
-     * column groups.<p>
+     * Inserts the specified row at the specified position. Shifts
+     * components that intersect the new row to the bottom and readjusts
+     * row groups.<p>
      *
-     * The component shift works as follows: components that were located on
-     * the right hand side of the inserted column are shifted one column to
-     * the right; component column span is increased by one if it intersects
-     * the new column.<p>
+     * The component shift works as follows: components that were located
+     * below the inserted row are shifted one row to the bottom;
+     * component row span is increased by one if it intersects the new row.<p>
      *
-     * Column group indices that are greater or equal than the given column
-     * index will be increased by one.
+     * Row group indices that are greater or equal than the given row index
+     * will be increased by one.
      *
      * @param rowIndex  index of the row to be inserted
      * @param rowSpec   specification of the row to be inserted
