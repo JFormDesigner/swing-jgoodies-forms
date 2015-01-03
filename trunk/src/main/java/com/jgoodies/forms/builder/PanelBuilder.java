@@ -97,7 +97,10 @@ import com.jgoodies.forms.layout.FormLayout;
  * @see	com.jgoodies.forms.factories.ComponentFactory
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
+ * 
+ * @deprecated Replaced by {@link FormBuilder}.
  */
+@Deprecated
 public class PanelBuilder extends AbstractFormBuilder {
 
     
@@ -283,50 +286,6 @@ public class PanelBuilder extends AbstractFormBuilder {
     public PanelBuilder labelForFeatureEnabled(boolean b) {
         labelForFeatureEnabled = b;
         return this;
-    }
-
-
-    // Old Style Configuration ************************************************
-
-    /**
-     * Sets the panel's border.
-     *
-     * @param border	the border to set
-     *
-     * @see JComponent#setBorder(Border)
-     * @deprecated Replaced by {@link #border(Border)}
-     */
-    @Deprecated
-    public void setBorder(Border border) {
-    	getPanel().setBorder(border);
-    }
-
-
-    /**
-     * Sets the default dialog border.
-     *
-     * @see Borders
-     * @deprecated Replaced by {@code #border(Borders.DIALOG)}
-     */
-    @Deprecated
-    public void setDefaultDialogBorder() {
-        border(Borders.DIALOG);
-    }
-
-
-    /**
-     * Sets the panel's opaque state.
-     *
-     * @param b   true for opaque, false for non-opaque
-     *
-     * @see JComponent#setOpaque(boolean)
-     *
-     * @since 1.1
-     * @deprecated Replaced by {@link #opaque(boolean)}
-     */
-    @Deprecated
-    public void setOpaque(boolean b) {
-    	getPanel().setOpaque(b);
     }
 
 
