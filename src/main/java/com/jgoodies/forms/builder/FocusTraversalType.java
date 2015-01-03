@@ -37,12 +37,12 @@ import javax.swing.LayoutFocusTraversalPolicy;
 
 /**
  * An abstraction for frequently used focus traversal policy types.
- * Used by the {@link ListViewBuilder} and {@code FormBuilder}.
+ * Used by the {@link ListViewBuilder} and {@link FormBuilder}.
  * 
  * @author Karsten Lentzsch
  * @version $Revision: 1.2 $
  * 
- * @since 1.8
+ * @since 1.9
  */
 public enum FocusTraversalType {
     
