@@ -2,6 +2,29 @@
                             Release Notes
                         
 
+CHANGES IN 1.9.0  -----------------------------------------------------
+
+    This version is binary incompatible with previous versions. 
+    
+    The previously closed-source FormBuilder and ListViewBuilder
+    have been open sourced and added to this library.
+    
+    o Added the FormBuilder. It offers a simplified approach
+      for specifying the layout and adding components.
+    o Replaced the ListViewBuilder with the commercial ListViewBuilder.
+    o Removed deprecated code from PanelBuilder and DefaultFormBuilder.
+    o Marked PanelBuilder as deprecated. 
+      Use the FormBuilder instead.
+    o Marked I15dPanelBuilder as deprecated. 
+      Instead provide the localized resources to the FormBuilder.
+      A simple and safe approach to do so is the internationalization
+      support provided by the JGoodies Smart Client Resources class.
+    o Marked DefaultFormBuilder as deprecated.
+      Although useful in very simple forms, this class's API 
+      has frequently added confusion.
+      Use the FormBuilder instead.
+
+
 CHANGES IN 1.8.0  -----------------------------------------------------
 
     This version is binary incompatible with previous versions. However
