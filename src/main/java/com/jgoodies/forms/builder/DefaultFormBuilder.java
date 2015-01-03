@@ -211,7 +211,10 @@ import com.jgoodies.forms.layout.RowSpec;
  * @see	com.jgoodies.forms.builder.AbstractFormBuilder
  * @see	com.jgoodies.forms.layout.FormSpecs
  * @see	com.jgoodies.forms.layout.FormLayout
+ * 
+ * @deprecated Replaced by the {@link FormBuilder}.
  */
+@Deprecated
 public final class DefaultFormBuilder extends I15dPanelBuilder {
 
     /**
@@ -448,139 +451,6 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     public DefaultFormBuilder rowGroupingEnabled(boolean enabled) {
         rowGroupingEnabled = enabled;
         return this;
-    }
-
-
-    // Old Style Configuration ************************************************
-
-    /**
-     * Returns the row specification that is used for component rows.
-     *
-     * @return the {@code RowSpec} used for component rows
-     *
-     * @since 1.2
-     * @deprecated Obsolete; will be deleted from the next version
-     */
-    @Deprecated
-    public RowSpec getDefaultRowSpec() {
-        return defaultRowSpec;
-    }
-
-
-    /**
-     * Sets the row specification that shall be used for component rows.
-     * It is {@link FormSpecs#PREF_ROWSPEC} by default.
-     *
-     * @param defaultRowSpec   the RowSpec to be used for component rows
-     *
-     * @since 1.2
-     * @deprecated Replaced by {@link #defaultRowSpec(RowSpec)}
-     */
-    @Deprecated
-    public void setDefaultRowSpec(RowSpec defaultRowSpec) {
-        this.defaultRowSpec = defaultRowSpec;
-    }
-
-
-    /**
-     * Returns the row specification that is used to separate component row.
-     *
-     * @return the {@code RowSpec} that is used to separate component rows
-     * @deprecated Obsolete; will be deleted from the next version
-     */
-    @Deprecated
-    public RowSpec getLineGapSpec() {
-        return lineGapSpec;
-    }
-
-
-    /**
-     * Sets the size of gaps between component lines using the given
-     * constant size.<p>
-     *
-     * <strong>Examples:</strong><pre>
-     * .setLineGapSize(Sizes.ZERO);
-     * .setLineGapSize(Sizes.DLUY9);
-     * .setLineGapSize(Sizes.pixel(1));
-     * </pre>
-     *
-     * @param lineGapSize   the {@code ConstantSize} that describes
-     *     the size of the gaps between component lines
-     * @deprecated Replaced by {@link #lineGapSize(ConstantSize)}
-     */
-    @Deprecated
-    public void setLineGapSize(ConstantSize lineGapSize) {
-        RowSpec rowSpec = RowSpec.createGap(lineGapSize);
-        this.lineGapSpec = rowSpec;
-    }
-
-
-    /**
-     * Sets the size of gaps between paragraphs using the given
-     * constant size.<p>
-     *
-     * <strong>Examples:</strong><pre>
-     * .setParagraphGapSize(Sizes.DLUY14);
-     * .setParagraphGapSize(Sizes.dluY(22));
-     * .setParagraphGapSize(Sizes.pixel(42));
-     * </pre>
-     *
-     * @param paragraphGapSize   the {@code ConstantSize} that describes
-     *     the size of the gaps between paragraphs
-     * @deprecated Replaced by {@link #lineGapSize(ConstantSize)}
-     */
-    @Deprecated
-    public void setParagraphGapSize(ConstantSize paragraphGapSize) {
-        RowSpec rowSpec = RowSpec.createGap(paragraphGapSize);
-        this.paragraphGapSpec = rowSpec;
-    }
-
-
-    /**
-     * Returns the offset of the leading column, often 0 or 1.
-     *
-     * @return the offset of the leading column
-     * @deprecated Obsolete; will be deleted from the next version
-     */
-    @Deprecated
-    public int getLeadingColumnOffset() {
-        return leadingColumnOffset;
-    }
-
-
-    /**
-     * Sets the offset of the leading column, often 0 or 1.
-     *
-     * @param columnOffset  the new offset of the leading column
-     * @deprecated Replaced by {@link #leadingColumnOffset(int)}
-     */
-    @Deprecated
-    public void setLeadingColumnOffset(int columnOffset) {
-        this.leadingColumnOffset = columnOffset;
-    }
-
-
-    /**
-     * Returns whether new data rows are being grouped or not.
-     *
-     * @return true indicates grouping enabled, false disabled
-     * @deprecated Obsolete; will be deleted from the next version
-     */
-    @Deprecated
-    public boolean isRowGroupingEnabled() {
-        return rowGroupingEnabled;
-    }
-
-
-    /**
-     * Enables or disables the grouping of new data rows.
-     *
-     * @param enabled  indicates grouping enabled, false disabled
-     * @deprecated Replaced by {@link #rowGroupingEnabled(boolean)}
-     */
-    @Deprecated
-    public void setRowGroupingEnabled(boolean enabled) {
-        rowGroupingEnabled = enabled;
     }
 
 
