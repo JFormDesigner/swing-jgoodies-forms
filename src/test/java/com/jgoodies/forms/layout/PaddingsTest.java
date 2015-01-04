@@ -42,7 +42,7 @@ import com.jgoodies.forms.factories.Paddings;
  * @author	Karsten Lentzsch
  * @version $Revision: 1.5 $
  */
-public final class BordersTest extends TestCase {
+public final class PaddingsTest extends TestCase {
 
 
     /**

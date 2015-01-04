@@ -11,7 +11,15 @@ CHANGES IN 1.9.0  -----------------------------------------------------
     
     o Added the FormBuilder. It offers a simplified approach
       for specifying the layout and adding components.
+      Please read the FormBuilder's class comment for its features.
     o Replaced the ListViewBuilder with the commercial ListViewBuilder.
+    o Introduced the concept of paddings as special (empty) borders
+      that are used for white space around forms and panels.
+      - Added a dlu-based empty border, see class Padding.
+      - Added a factory for reusable paddings, see class Paddings.
+      - Added FormBuilder#padding(EmptyBorder) and #padding(String)
+      - Added ListViewBuilder#padding(EmptyBorder).
+      - Marked the factory class Borders as deprecated; use Paddings.
     o Removed deprecated code from PanelBuilder and DefaultFormBuilder.
     o Marked PanelBuilder as deprecated. 
       Use the FormBuilder instead.

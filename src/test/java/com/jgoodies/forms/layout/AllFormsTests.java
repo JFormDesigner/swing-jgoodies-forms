@@ -43,7 +43,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    BordersTest.class,
+    PaddingsTest.class,
     CellConstraintsTest.class,
     ClassLoaderTest.class,
     ColumnSpecTest.class,
