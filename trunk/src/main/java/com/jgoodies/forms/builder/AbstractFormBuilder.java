@@ -55,9 +55,6 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
- * @see    PanelBuilder
- * @see    I15dPanelBuilder
- * @see    DefaultFormBuilder
  */
 public abstract class AbstractFormBuilder extends AbstractBuilder {
 

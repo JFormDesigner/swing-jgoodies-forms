@@ -45,6 +45,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.common.base.Strings;
 import com.jgoodies.forms.FormsSetup;
@@ -135,19 +136,6 @@ public final class ListViewBuilder {
 
     // API ********************************************************************
 
-//    /**
-//     * Sets an optional border that surrounds the list view including
-//     * the label and details.
-//     *
-//     * @param border   the border to set
-//     */
-//    public ListViewBuilder border(Border border) {
-//        this.border = border;
-//        invalidatePanel();
-//        return this;
-//    }
-
-    
     /**
      * Sets an optional border that surrounds the list view including
      * the label and details.
@@ -155,23 +143,23 @@ public final class ListViewBuilder {
      * @param border   the border to set
      */
     public ListViewBuilder border(Border border) {
-    	this.border = border;
-    	invalidatePanel();
-    	return this;
+        this.border = border;
+        invalidatePanel();
+        return this;
     }
+
     
-    
-//    /**
-//     * Sets an optional padding (an empty border) that surrounds
-//     * the list view including the label and details.
-//     *
-//     * @param padding   the empty border to set
-//     *
-//     * @since 1.9
-//     */
-//    public ListViewBuilder padding(EmptyBorder padding) {
-//        return border(padding);
-//    }
+    /**
+     * Sets an optional padding (an empty border) that surrounds the list view
+     * including the label and details.
+     *
+     * @param padding   the white space to use around the list view panel
+     * 
+     * @since 1.9
+     */
+    public ListViewBuilder padding(EmptyBorder padding) {
+    	return border(padding);
+    }
     
     
     /**

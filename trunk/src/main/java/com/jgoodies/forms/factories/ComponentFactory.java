@@ -35,9 +35,12 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.builder.ListViewBuilder;
+
 /**
  * An interface that defines the factory methods as used by the
- * {@link com.jgoodies.forms.builder.PanelBuilder} and its subclasses.<p>
+ * {@link FormBuilder}, {@link ListViewBuilder}, and other builders.<p>
  *
  * The String arguments passed to the methods {@code #createLabel(String)},
  * {@code #createTitle(String)}, and
@@ -52,7 +55,7 @@ import javax.swing.JLabel;
  * @version $Revision: 1.10 $
  *
  * @see    DefaultComponentFactory
- * @see    com.jgoodies.forms.builder.PanelBuilder
+ * @see    FormBuilder
  */
 public interface ComponentFactory {
 

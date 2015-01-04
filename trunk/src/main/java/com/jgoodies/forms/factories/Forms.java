@@ -49,7 +49,7 @@ import com.jgoodies.forms.internal.FocusTraversalUtilsAccessor;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Provides convenience behavior for building forms.
+ * Provides convenience behavior for building frequently used categories of forms.
  *
  * @author Karsten Lentzsch
  * @version $Revision: 1.1 $
@@ -147,7 +147,7 @@ public final class Forms {
 	 *     or {@code component} is {@code null}
 	 */
 	public static JComponent border(String emptyBorderSpec, JComponent component) {
-		return border(Borders.createEmptyBorder(emptyBorderSpec), component);
+		return border(Paddings.createPadding(emptyBorderSpec), component);
 	}
 
 
