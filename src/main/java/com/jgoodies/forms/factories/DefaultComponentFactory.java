@@ -54,13 +54,15 @@ import javax.swing.UIManager;
 import com.jgoodies.common.base.Preconditions;
 import com.jgoodies.common.base.Strings;
 import com.jgoodies.common.swing.MnemonicUtils;
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.builder.ListViewBuilder;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.FormUtils;
 
 /**
  * A singleton implementation of the {@link ComponentFactory} interface
  * that creates UI components as required by the
- * {@link com.jgoodies.forms.builder.PanelBuilder}.<p>
+ * {@link FormBuilder}, {@link ListViewBuilder}, and other builders.<p>
  *
  * The texts used in methods {@code #createLabel(String)} and
  * {@code #createTitle(String)} can contain an optional mnemonic marker.

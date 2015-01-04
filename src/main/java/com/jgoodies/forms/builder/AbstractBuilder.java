@@ -54,9 +54,6 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * @see    ButtonBarBuilder
  * @see    ButtonStackBuilder
- * @see    PanelBuilder
- * @see    I15dPanelBuilder
- * @see    DefaultFormBuilder
  */
 public abstract class AbstractBuilder {
 

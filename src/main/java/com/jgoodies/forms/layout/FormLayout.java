@@ -127,31 +127,15 @@ import com.jgoodies.common.internal.Messages;
  * return builder.getPanel();
  * </pre><p>
  *
- * <strong>Example 3</strong> (Using DefaultFormBuilder):<br>
- * This example utilizes the
- * {@link com.jgoodies.forms.builder.DefaultFormBuilder} that
- * ships with the source distribution.
- * <pre>
- * FormLayout layout = new FormLayout(
- *      "right:pref, 6dlu, 50dlu, 4dlu, default"); // 5 columns; add rows later
- *
- * DefaultFormBuilder builder = new DefaultFormBuilder(layout);
- * builder.append("Label1", new JTextField(), 3);
- * builder.append("Label2", new JTextField());
- * builder.append("Label3", new JTextField());
- * builder.append(new JButton("/u2026"));
- * return builder.getPanel();
- * </pre>
- *
  * @author Karsten Lentzsch
  * @version $Revision: 1.30 $
  *
+ * @see	com.jgoodies.forms.builder.FormBuilder
+ * @see com.jgoodies.forms.builder.ListViewBuilder
+ * @see	com.jgoodies.forms.builder.ButtonBarBuilder
  * @see	ColumnSpec
  * @see	RowSpec
  * @see	CellConstraints
- * @see	com.jgoodies.forms.builder.AbstractFormBuilder
- * @see	com.jgoodies.forms.builder.ButtonBarBuilder
- * @see	com.jgoodies.forms.builder.DefaultFormBuilder
  * @see	com.jgoodies.forms.layout.FormSpecs
  * @see	Size
  * @see	Sizes

@@ -56,14 +56,15 @@ import javax.swing.JTree;
 import javax.swing.LayoutFocusTraversalPolicy;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.common.base.Strings;
 import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.debug.FormDebugPanel;
-import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.Forms;
+import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.internal.FocusTraversalUtilsAccessor;
 import com.jgoodies.forms.internal.InternalFocusSetupUtils;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -325,6 +326,7 @@ public final class FormBuilder {
      *
      * @param border	the border to set
      *
+     * @see #padding(EmptyBorder)
      * @see JComponent#setBorder(Border)
      */
     public FormBuilder border(Border border) {
@@ -334,21 +336,60 @@ public final class FormBuilder {
 
 
     /**
-     * Sets the panel's border as an EmptyBorder using the given specification
-     * for the top, left, bottom, right in DLU. For example
+     * Sets the panel's padding as an EmptyBorder using the given specification
+     * for the top, left, bottom, right margins in DLU. For example
+     * "1dlu, 2dlu, 3dlu, 4dlu" sets a padding with 1dlu in the top,
+     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
+     * side.<p>
+     *
+     * Equivalent to {@code setPadding(Paddings.createPadding(paddingSpec))}.
+     *
+     * @param paddingSpec   describes the top, left, bottom, right margins
+     *    of the padding (an EmptyBorder) to use
+     *
+     * @see Paddings#createPadding(String)
+     * @deprecated Use {@link #padding(String)} instead
+     */
+    @Deprecated
+    public FormBuilder border(String paddingSpec) {
+        return padding(paddingSpec);
+    }
+
+
+    /**
+     * Sets the panel's padding, an empty border.
+     *
+     * @param padding    the white space around this form
+     *
+     * @see #border
+     * 
+     * @since 1.9
+     */
+    public FormBuilder padding(EmptyBorder padding) {
+        getPanel().setBorder(padding);
+        return this;
+    }
+
+
+    /**
+     * Sets the panel's padding as an EmptyBorder using the given specification
+     * for the top, left, bottom, right margins in DLU. For example
      * "1dlu, 2dlu, 3dlu, 4dlu" sets an empty border with 1dlu in the top,
      * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
      * side.<p>
      *
-     * Equivalent to {@code setBorder(Borders.createEmptyBorder(emptyBorderSpec))}.
+     * Equivalent to {@code setPadding(Paddings.createPadding(paddingSpec))}.
      *
-     * @param emptyBorderSpec   describes the top, left, bottom, right sizes
-     *    of the EmptyBorder to create
+     * @param paddingSpec   describes the top, left, bottom, right margins
+     *    of the padding (an EmptyBorder) to use
      *
-     * @see Borders#createEmptyBorder(String)
+     * @see #padding(EmptyBorder)
+     * @see Paddings#createPadding(String)
+     * 
+     * @since 1.9
      */
-    public FormBuilder border(String emptyBorderSpec) {
-    	border(Borders.createEmptyBorder(emptyBorderSpec));
+    public FormBuilder padding(String paddingSpec) {
+    	padding(Paddings.createPadding(paddingSpec));
     	return this;
     }
 

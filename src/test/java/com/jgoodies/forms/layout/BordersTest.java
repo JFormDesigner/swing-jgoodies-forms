@@ -34,10 +34,10 @@ import javax.swing.border.Border;
 
 import junit.framework.TestCase;
 
-import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.factories.Paddings;
 
 /**
- * A test case for class {@link Borders}.
+ * A test case for class {@link Paddings}.
  *
  * @author	Karsten Lentzsch
  * @version $Revision: 1.5 $
@@ -50,14 +50,14 @@ public final class BordersTest extends TestCase {
      */
     public static void testValidEncodings() {
         assertInsetsEquals(
-                Borders.DLU14,
-                Borders.createEmptyBorder("14dlu, 14dlu, 14dlu, 14dlu"));
+                Paddings.DLU14,
+                Paddings.createPadding("14dlu, 14dlu, 14dlu, 14dlu"));
         assertInsetsEquals(
-                Borders.DLU14,
-                Borders.createEmptyBorder("   14dlu , 14dlu , 14dlu , 14dlu "));
+                Paddings.DLU14,
+                Paddings.createPadding("   14dlu , 14dlu , 14dlu , 14dlu "));
         assertInsetsEquals(
-                Borders.createEmptyBorder(Sizes.DLUY1, Sizes.DLUX2, Sizes.DLUY3, Sizes.DLUX4),
-                Borders.createEmptyBorder("   1dlu , 2dlu , 3dlu , 4dlu "));
+                Paddings.createPadding(Sizes.DLUY1, Sizes.DLUX2, Sizes.DLUY3, Sizes.DLUX4),
+                Paddings.createPadding("   1dlu , 2dlu , 3dlu , 4dlu "));
     }
 
 

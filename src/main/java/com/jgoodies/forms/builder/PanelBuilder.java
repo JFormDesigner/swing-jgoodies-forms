@@ -45,7 +45,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.FormsSetup;
-import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -227,12 +227,12 @@ public class PanelBuilder extends AbstractFormBuilder {
      * @param emptyBorderSpec   describes the top, left, bottom, right sizes
      *    of the EmptyBorder to create
      *
-     * @see Borders#createEmptyBorder(String)
+     * @see Paddings#createPadding(String)
      *
      * @since 1.6
      */
     public PanelBuilder border(String emptyBorderSpec) {
-    	border(Borders.createEmptyBorder(emptyBorderSpec));
+    	border(Paddings.createPadding(emptyBorderSpec));
     	return this;
     }
 

@@ -224,6 +224,10 @@ public final class ConstantSize implements Size, Serializable {
     public int getPixelSize(Component component) {
         if (unit == PIXEL) {
             return intValue();
+        } else if (unit == DIALOG_UNITS_X) {
+            return Sizes.dialogUnitXAsPixel(intValue(), component);
+        } else if (unit == DIALOG_UNITS_Y) {
+            return Sizes.dialogUnitYAsPixel(intValue(), component);
         } else if (unit == POINT) {
             return Sizes.pointAsPixel(intValue(), component);
         } else if (unit == INCH) {
@@ -232,10 +236,6 @@ public final class ConstantSize implements Size, Serializable {
             return Sizes.millimeterAsPixel(value, component);
         } else if (unit == CENTIMETER) {
             return Sizes.centimeterAsPixel(value, component);
-        } else if (unit == DIALOG_UNITS_X) {
-            return Sizes.dialogUnitXAsPixel(intValue(), component);
-        } else if (unit == DIALOG_UNITS_Y) {
-            return Sizes.dialogUnitYAsPixel(intValue(), component);
         } else {
             throw new IllegalStateException("Invalid unit " + unit);
         }

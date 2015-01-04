@@ -50,7 +50,7 @@ import com.jgoodies.forms.layout.Size;
  * @see com.jgoodies.forms.util.MacLayoutStyle
  * @see com.jgoodies.forms.util.WindowsLayoutStyle
  * @see com.jgoodies.forms.layout.FormSpecs
- * @see com.jgoodies.forms.factories.Borders
+ * @see com.jgoodies.forms.factories.Paddings
  */
 public abstract class LayoutStyle {
 
