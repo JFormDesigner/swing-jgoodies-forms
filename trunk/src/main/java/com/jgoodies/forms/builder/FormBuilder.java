@@ -112,7 +112,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * 
  * @since 1.9
  */
-public final class FormBuilder {
+public class FormBuilder {
     
 
     // Constants **************************************************************
