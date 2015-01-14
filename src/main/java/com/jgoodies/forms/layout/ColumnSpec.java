@@ -50,9 +50,9 @@ import java.util.Map;
  * new ColumnSpec(Sizes.dluX(10));
  * new ColumnSpec(ColumnSpec.FILL, Sizes.dluX(10), 0.0);
  * new ColumnSpec(ColumnSpec.FILL, Sizes.dluX(10), ColumnSpec.NO_GROW);
- * ColumnSpec.parse("10dlu");
- * ColumnSpec.parse("10dlu:0");
- * ColumnSpec.parse("fill:10dlu:0");
+ * ColumnSpec.decode("10dlu");
+ * ColumnSpec.decode("10dlu:0");
+ * ColumnSpec.decode("fill:10dlu:0");
  * </pre><p>
  *
  * The {@link com.jgoodies.forms.layout.FormSpecs} provides
