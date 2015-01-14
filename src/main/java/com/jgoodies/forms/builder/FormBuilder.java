@@ -177,13 +177,16 @@ public class FormBuilder {
 
     // Instance Creation ******************************************************
 
-    private FormBuilder(){
+    protected FormBuilder() {
         labelForFeatureEnabled(FormsSetup.getLabelForFeatureEnabledDefault());
         offsetX = 0;
         offsetY = 0;
     }
     
     
+    /**
+     * Creates and return a new FormBuilder instance.
+     */
     public static FormBuilder create() {
         return new FormBuilder();
     }
@@ -204,12 +207,46 @@ public class FormBuilder {
     
     // Layout Setup ***********************************************************
     
+    /**
+     * Configures this builder's FormLayout to use the given layout map
+     * for expanding layout variables.<p>
+     * 
+     * <strong>Example:</strong><pre>
+     * return FormBuilder.create()
+     *     .columns("left:pref, $lcgap, 200dlu")
+     *     .rows("p, $lg, p, $lg, p")
+     *     .layoutMap(aCustomLayoutMap)
+     *     ...
+     * </pre>
+     * 
+     * @param layoutMap     expands layout column and row variables
+     * @return a reference to this builder
+     */
     public FormBuilder layoutMap(LayoutMap layoutMap) {
         this.layoutMap = layoutMap;
         return this;
     }
     
 
+    /**
+     * Configures this builder's layout columns using a comma-separated
+     * string of column specifications. The string can be a format string
+     * and will then use the optional format arguments, see
+     * {@link String#format(String, Object...)}.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .columns("left:90dlu, 3dlu, 200dlu")
+     * .columns("left:90dlu, 3dlu, %sdlu", "200")  // Format string
+     * .columns("$label, $lcgap, 200dlu")          // Layout variables
+     * </pre>
+     * 
+     * @param encodedColumnSpecs    a comma-separated list of column specifications
+     * @param args                  optional format arguments
+     * @return a reference to this builder
+     * 
+     * @see ColumnSpec
+     */
     public FormBuilder columns(String encodedColumnSpecs, Object... args) {
         columnSpecs = ColumnSpec.decodeSpecs(
                 Strings.get(encodedColumnSpecs, args), getLayoutMap());
@@ -217,6 +254,26 @@ public class FormBuilder {
     }
     
 
+    /**
+     * Appends the given columns to this builder's layout.
+     * The columns to append are provided as a comma-separated
+     * string of column specifications. The string can be a format string
+     * and will then use the optional format arguments, see
+     * {@link String#format(String, Object...)}.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .appendColumns("50dlu, 3dlu, 50dlu")
+     * .appendColumns("%sdlu, 3dlu, %sdlu", "50")    // Format string
+     * .appendColumns("$button, $rgap, $button")     // Layout variable
+     * </pre>
+     * 
+     * @param encodedColumnSpecs    a comma-separated list of column specifications
+     * @param args                  optional format arguments
+     * @return a reference to this builder
+     * 
+     * @see ColumnSpec
+     */
     public FormBuilder appendColumns(String encodedColumnSpecs, Object... args) {
         ColumnSpec[] newColumnSpecs = ColumnSpec.decodeSpecs(
                 Strings.get(encodedColumnSpecs, args), getLayoutMap());
@@ -227,6 +284,25 @@ public class FormBuilder {
     }
     
 
+    /**
+     * Configures this builder's layout rows using a comma-separated
+     * string of row specifications.The string can be a format string
+     * and will then use the optional format arguments, see
+     * {@link String#format(String, Object...)}.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .rows("p, 3dlu, p, 14dlu, p")
+     * .rows("p, 3dlu, p, %sdlu, p", "14")  // Format string
+     * .rows("p, $pg, p, $pg, p")           // Layout variables
+     * </pre>
+     * 
+     * @param encodedRowSpecs    a comma-separated list of row specifications
+     * @param args               optional format arguments
+     * @return a reference to this builder
+     * 
+     * @see RowSpec
+     */
     public FormBuilder rows(String encodedRowSpecs, Object... args) {
         rowSpecs = RowSpec.decodeSpecs(
                 Strings.get(encodedRowSpecs, args), getLayoutMap());
@@ -234,6 +310,26 @@ public class FormBuilder {
     }
     
 
+    /**
+     * Appends the given rows to this builder's layout.
+     * The rows to append are provided as a comma-separated
+     * string of row specifications. The string can be a format string
+     * and will then use the optional format arguments, see
+     * {@link String#format(String, Object...)}.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .appendRows("10dlu, p, 3dlu, p")
+     * .appendRows("%sdlu, p, 3dlu, p", "10")    // Format string
+     * .appendRows("10dlu, p, $lg,  p")          // Layout variable
+     * </pre>
+     * 
+     * @param encodedRowSpecs       a comma-separated list of row specifications
+     * @param args                  optional format arguments
+     * @return a reference to this builder
+     * 
+     * @see RowSpec
+     */
     public FormBuilder appendRows(String encodedRowSpecs, Object... args) {
         RowSpec[] newRowSpecs = RowSpec.decodeSpecs(
                 Strings.get(encodedRowSpecs, args), getLayoutMap());
@@ -244,48 +340,130 @@ public class FormBuilder {
     }
     
 
-    public FormBuilder columnGroup(int... singleGroupIndices) {
-        getLayout().setColumnGroup(singleGroupIndices);
+    /**
+     * Configures this builder's layout to group (make equally wide)
+     * the columns with the given indices.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .columnGroup(3, 5)
+     * </pre>
+     * 
+     * @param columnIndices   the indices of the columns to group
+     * @return a reference to this builder
+     */
+    public FormBuilder columnGroup(int... columnIndices) {
+        getLayout().setColumnGroup(columnIndices);
         return this;
     }
     
     
-    public FormBuilder columnGroups(int[]... multipleGroups) {
-        getLayout().setColumnGroups(multipleGroups);
+    /**
+     * Configures this builder's layout to group (make equally wide)
+     * the columns per array of column indices.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .columnGroups(new int[]{3, 5}, new int[]{7, 9})
+     * </pre>
+     * 
+     * @param multipleColumnGroups  multiple arrays of column indices
+     * @return a reference to this builder
+     */
+    public FormBuilder columnGroups(int[]... multipleColumnGroups) {
+        getLayout().setColumnGroups(multipleColumnGroups);
         return this;
     }
     
 
-    public FormBuilder rowGroup(int... singleGroupIndices) {
-        getLayout().setRowGroup(singleGroupIndices);
+    /**
+     * Configures this builder's layout to group (make equally high)
+     * the rows with the given indices.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .rowGroup(3, 5)
+     * </pre>
+     * 
+     * @param rowIndices   the indices of the rows to group
+     * @return a reference to this builder
+     */
+    public FormBuilder rowGroup(int... rowIndices) {
+        getLayout().setRowGroup(rowIndices);
         return this;
     }
     
 
-    public FormBuilder rowGroups(int[]... multipleGroups) {
-        getLayout().setRowGroups(multipleGroups);
+    /**
+     * Configures this builder's layout to group (make equally wide)
+     * the rows per array of row indices.<p>
+     * 
+     * <strong>Examples:</strong><br>
+     * <pre>
+     * .rowGroups(new int[]{3, 5}, new int[]{7, 9})
+     * </pre>
+     * 
+     * @param multipleRowGroups  multiple arrays of row indices
+     * @return a reference to this builder
+     */
+    public FormBuilder rowGroups(int[]... multipleRowGroups) {
+        getLayout().setRowGroups(multipleRowGroups);
         return this;
     }
     
 
+    /**
+     * Configures how this builder's layout shall handle invisible components.
+     * By default the visibility is honored. In other words, layout may be
+     * affected if a component becomes visible/invisible.
+     * 
+     * @param b    {@code true} to use only visible components for layout computations,
+     *             {@code false} to ignore the visibility of all components
+     * @return a reference to this builder
+     * 
+     * @see FormLayout#setHonorsVisibility(boolean)
+     */
     public FormBuilder honorsVisibility(boolean b) {
         getLayout().setHonorsVisibility(b);
         return this;
     }
     
 
+    /**
+     * Configures how this builder's layout shall handle the visibility
+     * of the given component.
+     * 
+     * @param c    the component to configure
+     * @param b    {@code true} to use {@code c} for layout computations only if visible,
+     *             {@code false} to take {@code c} into account even if invisible
+     * @return a reference to this builder
+     * 
+     * @see FormLayout#setHonorsVisibility(Component, Boolean)
+     */
     public FormBuilder honorsVisibility(JComponent c, boolean b) {
         getLayout().setHonorsVisibility(c, b);
         return this;
     }
     
 
+    /**
+     * Sets {@code layout} as the layout to use by this builder.
+     * 
+     * @param layout    the layout to be used by this builder
+     * @return a reference to this builder
+     */
     public FormBuilder layout(FormLayout layout) {
         this.layout = checkNotNull(layout, MUST_NOT_BE_NULL, "layout");
         return this;
     }
     
 
+    /**
+     * Sets {@code panel} as the panel that this builder shall work with.
+     * 
+     * @param panel     the panel to work with
+     * @return a reference to this builder
+     */
     public FormBuilder panel(JPanel panel) {
         this.panel = checkNotNull(panel, MUST_NOT_BE_NULL, "panel");
         this.panel.setLayout(getLayout());
@@ -293,12 +471,28 @@ public class FormBuilder {
     }
     
 
+    /**
+     * Enables or disables the display of layout debug information.
+     * If enabled, the layout grid lines will be painted with red lines.
+     * By default the debug mode is disabled.
+     * 
+     * @param b      {@code true} to paint grid lines, {@code false} to disable it
+     * @return a reference to this builder
+     * 
+     * @see FormDebugPanel
+     */
     public FormBuilder debug(boolean b) {
         this.debug = b;
         return this;
     }
     
     
+    /**
+     * Sets the name of the panel this builder works with.
+     * 
+     * @param panelName     the name to set
+     * @return a reference to this builder
+     */
     public FormBuilder name(String panelName) {
         getPanel().setName(panelName);
         return this;
@@ -311,6 +505,7 @@ public class FormBuilder {
      * Sets the panel's background color and the panel to be opaque.
      *
      * @param background  the color to set as new background
+     * @return a reference to this builder
      *
      * @see JComponent#setBackground(Color)
      */
@@ -322,9 +517,11 @@ public class FormBuilder {
 
 
     /**
-     * Sets the panel's border.
+     * Sets the panel's border. If you just want to wrap a panel
+     * with white space, use {@link #padding(EmptyBorder)} instead.
      *
      * @param border	the border to set
+     * @return a reference to this builder
      *
      * @see #padding(EmptyBorder)
      * @see JComponent#setBorder(Border)
@@ -346,6 +543,7 @@ public class FormBuilder {
      *
      * @param paddingSpec   describes the top, left, bottom, right margins
      *    of the padding (an EmptyBorder) to use
+     * @return a reference to this builder
      *
      * @see Paddings#createPadding(String)
      * @deprecated Use {@link #padding(String)} instead
@@ -360,6 +558,7 @@ public class FormBuilder {
      * Sets the panel's padding, an empty border.
      *
      * @param padding    the white space around this form
+     * @return a reference to this builder
      *
      * @see #border
      * 
@@ -382,6 +581,7 @@ public class FormBuilder {
      *
      * @param paddingSpec   describes the top, left, bottom, right margins
      *    of the padding (an EmptyBorder) to use
+     * @return a reference to this builder
      *
      * @see #padding(EmptyBorder)
      * @see Paddings#createPadding(String)
@@ -398,6 +598,7 @@ public class FormBuilder {
      * Sets the panel's opaque state.
      *
      * @param b   true for opaque, false for non-opaque
+     * @return a reference to this builder
      *
      * @see JComponent#setOpaque(boolean)
      */
@@ -472,6 +673,7 @@ public class FormBuilder {
      *
      * @param policy   the focus traversal policy that will manage
      * 	keyboard traversal of the children in this builder's panel
+     * @return a reference to this builder
      *
      * @see #focusTraversalType(FocusTraversalType)
      * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
@@ -489,12 +691,22 @@ public class FormBuilder {
         return this;
     }
     
-    
+
+    /**
+     * Tries to build a focus group for the given buttons.
+     * Within a focus group, focus can be transferred from one group member
+     * to another using the arrow keys.<p>
+     * 
+     * To succeed, the commercial {@code FocusTraversalUtils} class must be
+     * in the class path. To make focus grouping work, a focus traversal policy
+     * must be set that is capable of transferring focus with the arrow keys
+     * such as {@code JGContainerOrderFocusTraversalPolicy} or
+     * {@code JGLayoutFocusTraversalPolicy}.
+     * 
+     * @param buttons   the buttons to be grouped
+     * @return a reference to this builder
+     */
     public FormBuilder focusGroup(AbstractButton... buttons) {
-        // The following call requires that the FocusTraversalUtils class
-        // is in the class path. If we move the FormBuilder to a lower level
-        // library, the call should be replaced by the commented line.
-        // FocusTraversalUtils.group(buttons);
         FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
         return this;
     }
@@ -502,10 +714,12 @@ public class FormBuilder {
 
     /**
      * Returns the panel used to build the form.
-     * Intended to access panel properties. For returning the built panel,
-     * you should use {@link #build()}.
+     * Intended to access panel properties. For returning the built panel
+     * use {@link #build()} instead.
      *
      * @return the panel used by this builder to build the form
+     * 
+     * @see #build()
      */
     public JPanel getPanel() {
         if (panel == null) {
@@ -524,6 +738,16 @@ public class FormBuilder {
     
     // Adding Components ******************************************************
 
+    /**
+     * Sets the given component factory to be used if this builder
+     * shall add implicitly created components such as labels, titles, or
+     * titled separators. If not called, the default factory will be used
+     * that can be configured via
+     * {@link FormsSetup#setComponentFactoryDefault(ComponentFactory)}.
+     * 
+     * @param factory    the factory to be used to create components
+     * @return a reference to this builder
+     */
     public FormBuilder factory(ComponentFactory factory) {
         this.factory = factory;
         return this;
@@ -532,11 +756,17 @@ public class FormBuilder {
     
     /**
      * Enables or disables the setLabelFor feature for this builder.
+     * If enabled, a label that has just been added by this builder
+     * will be set as the label for the next component added by this builder.<p>
+     * 
      * The value is initialized from the global default value
      * {@link FormsSetup#getLabelForFeatureEnabledDefault()}.
-     * It is globally disabled by default.
-     *
-     * @param b true for enabled, false for disabled
+     * It is globally disabled by default.<p>
+     * 
+     * @param b {@code true} for enabled, {@code false} for disabled
+     * @return a reference to this builder
+     * 
+     * @see JLabel#setLabelFor(Component)
      */
     public FormBuilder labelForFeatureEnabled(boolean b) {
         labelForFeatureEnabled = b;
@@ -560,6 +790,7 @@ public class FormBuilder {
      * 
      * @param offsetX  the distance to move cell constraints along the X axis
      * @param offsetY  the distance to move cell constraints along the Y axis
+     * @return a reference to this builder
      * 
      * @see #translate(int, int)
      */
@@ -584,6 +815,7 @@ public class FormBuilder {
      * 
      * @param dX  the distance to move the offset along the X axis
      * @param dY  the distance to move the offset along the Y axis
+     * @return a reference to this builder
      * 
      * @see #offset(int, int)
      */
@@ -610,8 +842,8 @@ public class FormBuilder {
 
 
     /**
-     * Gets a component that will be added to this builder's panel,
-     * if the cell constraints are specified.<p>
+     * The first step of adding a component to this builder's panel.
+     * This component will be added, once the cell constraints are specified.<p>
      * 
      * <pre>
      * return FormBuilder.create()
@@ -623,7 +855,7 @@ public class FormBuilder {
      * </pre>
 
      * If the label-for-feature is enabled, the most recently added label
-     * is tracked and associate with the next added component
+     * is tracked and associated with the next added component
      * that is applicable for being set as component for the label.
      *
      * @param c        the component to add
