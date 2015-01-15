@@ -59,6 +59,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.common.base.Strings;
+import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.factories.CC;
@@ -76,25 +77,22 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * An general purpose form builder that uses the {@link FormLayout}
- * to lay out {@code JPanel}s. It provides convenience methods
- * to set a default border and to add labels, titles and titled separators.
- * The FormBuilder is the working horse for layouts when more specialized
- * builders like the {@link ButtonBarBuilder} are inappropriate.<p>
- *
- * The text arguments passed to the methods {@code #addLabel},
- * {@code #addTitle}, and {@code #addSeparator} can contain
- * an optional mnemonic marker. The mnemonic and mnemonic index
- * are indicated by a single ampersand (<tt>&amp;</tt>). For example
- * <tt>&quot;&amp;Save&quot</tt>, or <tt>&quot;Save&nbsp;&amp;as&quot</tt>.
- * To use the ampersand itself duplicate it, for example
- * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
- *
- * <strong>Example:</strong><br>
- * This example creates a panel with 3 columns and 3 rows.
+ * to lay out and populate {@code JPanel}s. It is the working horse
+ * for forms and panels where more specialized builders such as the
+ * {@link ListViewBuilder} or the {@link ButtonBarBuilder} are inappropriate.
+ * Since FormBuilder supports the frequently used methods for setting up
+ * and configuring a FormLayout, the vast majority of forms can be built
+ * with just the FormBuilder. In other words, you will typically not
+ * work with FormLayout instances directly.<p>
+ * 
+ * Forms are built as a two-step process:
+ * first, you setup and configure the layout, then add the components.<p>
+ * <strong>Example:</strong> (creates a panel with 3 columns and 3 rows)
  * <pre>
  * return FormBuilder.create()
- *     .columns("pref, $lcgap, 50dlu, $rgap, default")
- *     .rows("pref, $lg, pref, $lg, pref")
+ *     .columns("left:pref, $lcgap, 50dlu, $rgap, default")
+ *     .rows("p, $lg, p, $lg, p")
+ *     .padding(Paddings.DIALOG)
  * 
  *     .add("&Title:")   .xy  (1, 1)
  *     .add(titleField)  .xywh(3, 1, 3, 1)
@@ -105,6 +103,39 @@ import com.jgoodies.forms.layout.RowSpec;
  *     .add(browseButton).xy  (5, 5)
  *     .build();
  * </pre>
+ * 
+ * FormBuilder provides convenience methods for adding labels, titles, and
+ * titled separators. These components will be created by the builder's
+ * component factory that can be set via {@link #factory(ComponentFactory)},
+ * and that is by default initialized from
+ * {@link FormsSetup#getComponentFactoryDefault()}.<p>
+ *
+ * The text arguments passed to the methods {@code #addLabel},
+ * {@code #addTitle}, and {@code #addSeparator} can contain
+ * an optional mnemonic marker. The mnemonic and mnemonic index
+ * are indicated by a single ampersand (<tt>&amp;</tt>). For example
+ * <tt>&quot;&amp;Save&quot</tt>, or <tt>&quot;Save&nbsp;&amp;as&quot</tt>.
+ * To use the ampersand itself duplicate it, for example
+ * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * 
+ * <strong>Feature Overview:</strong>
+ * <pre>
+ *     .columns("pref, $lcgap, %sdlu, p, p", "50")  // Format string
+ *     .columnGroup(4, 5)                           // Grouping short hand
+ *     .debug(true)                                 // Installs FormDebugPanel
+ * 
+ *     .add("Title:")         .xy(1, 1)             // Implicitly created label
+ *     .add("&Price:")        .xy(1, 1)             // Label with mnemonic
+ * 
+ *     .add(hasCountry, combo).xy(3, 1)             // Conditional adding
+ * 
+ *     .add(aTable)           .xywh(1, 1, 3, 5)    // Auto-wrapped with scrollpane
+ *     .addScrolled(aTextArea).xywh(1, 1, 1, 3)    // scrollpane shorthand
+ * 
+ *     .addBar(newBtn, editBtn, deleteBtn).xy(1, 5) // button bar
+ *     .addBar(landscapeRadio, portraitRadio).xy(1, 1) // Radio button bar
+ * </pre>
+ *
  *
  * @author  Karsten Lentzsch
  *
@@ -413,12 +444,23 @@ public class FormBuilder {
     
 
     /**
-     * Configures how this builder's layout shall handle invisible components.
-     * By default the visibility is honored. In other words, layout may be
-     * affected if a component becomes visible/invisible.
+     * Specifies whether invisible components shall be taken into account by
+     * this builder for computing the layout size and setting component bounds.
+     * If set to {@code true} invisible components will be ignored by
+     * the layout. If set to {@code false} components will be taken into
+     * account regardless of their visibility. Visible components are always
+     * used for sizing and positioning.<p>
+     *
+     * The default value for this setting is {@code true}.
+     * It is useful to set the value to {@code false} (in other words
+     * to ignore the visibility) if you switch the component visibility
+     * dynamically and want the container to retain the size and
+     * component positions.
      * 
-     * @param b    {@code true} to use only visible components for layout computations,
-     *             {@code false} to ignore the visibility of all components
+     * @param  b   {@code true} to honor the visibility, i.e. to exclude
+     *    invisible components from the sizing and positioning,
+     *    {@code false} to ignore the visibility, in other words to
+     *    layout visible and invisible components
      * @return a reference to this builder
      * 
      * @see FormLayout#setHonorsVisibility(boolean)
@@ -739,9 +781,10 @@ public class FormBuilder {
     // Adding Components ******************************************************
 
     /**
-     * Sets the given component factory to be used if this builder
-     * shall add implicitly created components such as labels, titles, or
-     * titled separators. If not called, the default factory will be used
+     * Sets {@code factory} as this builder's new component factory
+     * that is used when adding implicitly created components such as
+     * labels, titles, or titled separators.
+     * If not called, the default factory will be used
      * that can be configured via
      * {@link FormsSetup#setComponentFactoryDefault(ComponentFactory)}.
      * 
@@ -842,8 +885,14 @@ public class FormBuilder {
 
 
     /**
-     * The first step of adding a component to this builder's panel.
+     * The first of two steps for adding a component to this builder's panel.
      * This component will be added, once the cell constraints are specified.<p>
+     * 
+     * JTables, JLists, and JTrees will be automatically wrapped
+     * by a default JScrollPane. If no scroll pane is desired, use
+     * {@link #addRaw(Component)} instead. If a scroll pane is desired
+     * for other components (frequent case are JTextAreas) use
+     * {@link #addScrolled(Component)}.
      * 
      * <pre>
      * return FormBuilder.create()
@@ -853,12 +902,13 @@ public class FormBuilder {
      *    ...
      *    .build();
      * </pre>
-
+     * 
      * If the label-for-feature is enabled, the most recently added label
      * is tracked and associated with the next added component
      * that is applicable for being set as component for the label.
      *
-     * @param c        the component to add
+     * @param c        the component to add; will be wrapped if it is an
+     *                 instance of JTable, JList, or JTree
      * @return the fluent interface part used to set the cell constraints
      *
      * @see #isLabelForApplicable(JLabel, Component)
@@ -868,51 +918,205 @@ public class FormBuilder {
     }
     
     
-    public ComponentAdder addBar(JButton... buttons) {
-        return addBar(true, buttons);
-    }
-
-
-    public ComponentAdder addBar(JCheckBox... checkBoxes) {
-        return addBar(true, checkBoxes);
-    }
-
-
-    public ComponentAdder addBar(JRadioButton... radioButtons) {
-        return addBar(true, radioButtons);
-    }
-
-
-    public ComponentAdder addStack(JButton... buttons) {
-        return addStack(true, buttons);
-    }
-
-
-    public ComponentAdder addStack(JCheckBox... checkBoxes) {
-        return addStack(true, checkBoxes);
-    }
-
-
-    public ComponentAdder addStack(JRadioButton... radioButtons) {
-        return addStack(true, radioButtons);
-    }
-
-
+    /**
+     * The first of two steps for adding a component to this builder's panel.
+     * This component will be added, once the cell constraints are specified.<p>
+     * 
+     * Unlike {@link #add(Component)}, this method won't wrap
+     * JTables, JLists, and JTrees automatically with a JScrollPane.
+     * Useful for tables, list, and trees that either need no scroll pane,
+     * or have another kind of decoration.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addRaw(aTreeThatNeedsNoScrollPane).xy(1, 1)
+     *    ...
+     *    .build();
+     * </pre>
+     * 
+     * If the label-for-feature is enabled, the most recently added label
+     * is tracked and associated with the next added component
+     * that is applicable for being set as component for the label.
+     *
+     * @param c        the component to add
+     * @return the fluent interface part used to set the cell constraints
+     *
+     * @see #isLabelForApplicable(JLabel, Component)
+     */
     public ComponentAdder addRaw(Component c) {
         return addRaw(true, c);
     }
-    
-    
+
+
     /**
-     * Wraps the given component with a JScrollPane
-     * and adds it to the container using the specified constraints.
-     * Layout equivalent to: {@code add(new JScrollPane(c), constraints);}
+     * The first of two steps for adding the given component wrapped
+     * with a JScrollPane to this builder's panel. The wrapped component
+     * will be added once the cell constraints have been specified.
+     * 
+     * A frequent case for this method are JTextAreas that shall be scrolled.<p>
+     * 
+     * The layout is equivalent to:
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .add(new JScrollPane(c), constraints)
+     *    ...
+     *    .build();
+     * </pre>
      *
      * @param c              the component to be wrapped and added
      * @return the fluent interface part used to set the cell constraints
      */
     public ComponentAdder addScrolled(Component c) {
         return addScrolled(true, c);
+    }
+
+
+    /**
+     * The first of two steps for adding a button bar to this builder's panel.
+     * This bar will be added, once the cell constraints are specified.<p>
+     * 
+     * The buttons will be laid out horizontally in a subpanel, where all buttons
+     * use the platform's minimum width. If focus grouping is possible,
+     * focus can be transferred between buttons using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addBar(newButton, editButton, deleteButton).xy(1, 9)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param buttons        the buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     */
+    public ComponentAdder addBar(JButton... buttons) {
+        return addBar(true, buttons);
+    }
+
+
+    /**
+     * The first of two steps for adding a check box bar to this builder's panel.
+     * This bar will be added, once the cell constraints are specified.<p>
+     * 
+     * The check boxes will be laid out as a row in a subpanel.
+     * If focus grouping is possible, focus can be transferred
+     * between the check boxes using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addBar(visibleBox, editableBox, enabledBox).xy(1, 9)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param checkBoxes        the check boxes to add
+     * @return the fluent interface part used to set the cell constraints
+     */
+    public ComponentAdder addBar(JCheckBox... checkBoxes) {
+        return addBar(true, checkBoxes);
+    }
+
+
+    /**
+     * The first of two steps for adding a radio button bar to this builder's panel.
+     * This bar will be added, once the cell constraints are specified.<p>
+     * 
+     * The radio buttons will be laid out as a row in a subpanel.
+     * If focus grouping is possible, focus can be transferred
+     * between the radio buttons using the arrow keys. Also, focus will be
+     * transferred to/from the selected radio button of the group - if any.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addBar(verticalRadio, horizontalRadio).xy(1, 9)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param radioButtons        the radio buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     */
+    public ComponentAdder addBar(JRadioButton... radioButtons) {
+        return addBar(true, radioButtons);
+    }
+
+
+    /**
+     * The first of two steps for adding a button stack to this builder's panel.
+     * This stack will be added, once the cell constraints are specified.<p>
+     * 
+     * The buttons will be laid out vertically in a subpanel, where all buttons
+     * use the platform's minimum width. If focus grouping is possible,
+     * focus can be transferred between buttons using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addStack(newButton, editButton, deleteButton).xywh(5, 1, 1, 7)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param buttons        the buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     */
+    public ComponentAdder addStack(JButton... buttons) {
+        return addStack(true, buttons);
+    }
+
+
+    /**
+     * The first of two steps for adding a check box stack to this builder's panel.
+     * This stack will be added, once the cell constraints are specified.<p>
+     * 
+     * The check boxes will be laid out vertically in a subpanel.
+     * If focus grouping is possible,
+     * focus can be transferred between the check boxes using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addStack(visibleBox, editableBox, enabledBox).xywh(5, 1, 1, 7)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param checkBoxes        the check boxes to add
+     * @return the fluent interface part used to set the cell constraints
+     */
+    public ComponentAdder addStack(JCheckBox... checkBoxes) {
+        return addStack(true, checkBoxes);
+    }
+
+
+    /**
+     * The first of two steps for adding a radio button stack to this builder's panel.
+     * This stack will be added, once the cell constraints are specified.<p>
+     * 
+     * The radio buttons will be laid out vertically in a subpanel.
+     * If focus grouping is possible,
+     * focus can be transferred between the check boxes using the arrow keys.
+     * Also, focus will be
+     * transferred to/from the selected radio button of the group - if any.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addStack(verticalRadio, horizontalRadio).xywh(5, 1, 1, 7)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param radioButtons        the radio buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     */
+    public ComponentAdder addStack(JRadioButton... radioButtons) {
+        return addStack(true, radioButtons);
     }
 
 
@@ -932,15 +1136,30 @@ public class FormBuilder {
 
 
     /**
-     * Adds a label; equivalent to: {@code addLabel(markedLabelText)}
+     * The first of two steps for adding a textual label.
+     * Equivalent to: {@code addLabel(markedLabelText)}
      * or {@code addROLabel(markedLabelText)} depending on
-     * the <em>defaultLabelType</em> property.
+     * the current <em>defaultLabelType</em>.
+     * The label will be created and added,
+     * once the cell constraints are specified.<p>
+     *
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .add("Name:")      .xy(1, 1) // No Mnemonic
+     *    .add("N&ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .add("Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
+     *    .add("Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
+     * </pre>
      * 
      * @param markedLabelText  the text of the label to be added,
-     *     may contain a mnemonic marker
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the fluent interface part used to set the cell constraints
      * 
      * @see #defaultLabelType(LabelType)
+     * @see MnemonicUtils
      */
     public ComponentAdder add(String markedLabelText, Object... args) {
         return add(true, markedLabelText, args);
@@ -948,19 +1167,26 @@ public class FormBuilder {
 
 
     /**
-     * Adds a textual label to the form using the default constraints.<p>
+     * The first of two steps for adding a plain label to the form.
+     * The label will be created and added,
+     * once the cell constraints are specified.
      *
      * <pre>
-     * addLabel("Name:");       // No Mnemonic
-     * addLabel("N&ame:");      // Mnemonic is 'a'
-     * addLabel("Save &as:");   // Mnemonic is the second 'a'
-     * addLabel("Look&&Feel:"); // No mnemonic, text is "look&feel"
+     * return FormBuilder.create()
+     *    ...
+     *    .addLabel("Name:")      .xy(1, 1) // No Mnemonic
+     *    .addLabel("N&ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addLabel("Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
+     *    .addLabel("Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
      * </pre>
      *
      * @param markedText   the label's text -
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the fluent interface part used to set the cell constraints
      *
+     * @see MnemonicUtils
      * @see ComponentFactory
      */
     public ComponentAdder addLabel(String markedText, Object... args) {
@@ -969,19 +1195,28 @@ public class FormBuilder {
 
 
     /**
-     * Adds a textual label intended for labeling read-only components
-     * to the form.<p>
+     * The first of two steps for adding a textual label to the form
+     * that is intended for labeling read-only components.
+     * The label will be created and added,
+     * once the cell constraints are specified.
      *
      * <pre>
-     * addROLabel("Name:");       // No Mnemonic
-     * addROLabel("N&ame:");      // Mnemonic is 'a'
-     * addROLabel("Save &as:");   // Mnemonic is the second 'a'
-     * addROLabel("Look&&Feel:"); // No mnemonic, text is "look&feel"
+     * return FormBuilder.create()
+     *    ...
+     *    .addROLabel("Name:")      .xy(1, 1) // No Mnemonic
+     *    .addROLabel("N&ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addROLabel("Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
+     *    .addROLabel("Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
      * </pre>
      *
      * @param markedText   the label's text -
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the fluent interface part used to set the cell constraints
+     *
+     * @see MnemonicUtils
+     * @see ComponentFactory
      */
     public ComponentAdder addROLabel(String markedText, Object... args) {
         return addROLabel(true, markedText, args);
@@ -992,16 +1227,21 @@ public class FormBuilder {
      * Adds a title label to the form using the default constraints.<p>
      *
      * <pre>
-     * addTitle("Name");       // No mnemonic
-     * addTitle("N&ame");      // Mnemonic is 'a'
-     * addTitle("Save &as");   // Mnemonic is the second 'a'
-     * addTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * return FormBuilder.create()
+     *    ...
+     *    .addTitle("Name");       // No mnemonic
+     *    .addTitle("N&ame");      // Mnemonic is 'a'
+     *    .addTitle("Save &as");   // Mnemonic is the second 'a'
+     *    .addTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     *    ...
+     *    .build();
      * </pre>
      *
      * @param markedText   the title label's text -
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the fluent interface part used to set the cell constraints
      *
+     * @see MnemonicUtils
      * @see ComponentFactory
      */
     public ComponentAdder addTitle(String markedText, Object... args) {
@@ -1064,6 +1304,30 @@ public class FormBuilder {
     }
 
 
+    public ComponentAdder addRaw(boolean expression, Component c) {
+        if (!expression || c == null) {
+            return new NoOpComponentAdder(this);
+        }
+        return addImpl(c);
+    }
+
+
+    /**
+     * Wraps the given component with a JScrollPane
+     * and adds it to the container using the specified constraints.
+     * Layout equivalent to: {@code add(new JScrollPane(c), constraints);}
+     *
+     * @param c              the component to be wrapped and added
+     * @return the fluent interface part used to set the cell constraints
+     */
+    public ComponentAdder addScrolled(boolean expression, Component c) {
+        if (!expression || c == null) {
+            return new NoOpComponentAdder(this);
+        }
+        return addImpl(new JScrollPane(c));
+    }
+
+
     public ComponentAdder addBar(boolean expression, JButton... buttons) {
         if (!expression || buttons == null) {
             return new NoOpComponentAdder(this);
@@ -1109,30 +1373,6 @@ public class FormBuilder {
             return new NoOpComponentAdder(this);
         }
         return addImpl(Forms.radioButtonStack(radioButtons));
-    }
-
-
-    public ComponentAdder addRaw(boolean expression, Component c) {
-        if (!expression || c == null) {
-            return new NoOpComponentAdder(this);
-        }
-        return addImpl(c);
-    }
-
-
-    /**
-     * Wraps the given component with a JScrollPane
-     * and adds it to the container using the specified constraints.
-     * Layout equivalent to: {@code add(new JScrollPane(c), constraints);}
-     *
-     * @param c              the component to be wrapped and added
-     * @return the fluent interface part used to set the cell constraints
-     */
-    public ComponentAdder addScrolled(boolean expression, Component c) {
-        if (!expression || c == null) {
-            return new NoOpComponentAdder(this);
-        }
-        return addImpl(new JScrollPane(c));
     }
 
 
