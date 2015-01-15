@@ -163,6 +163,8 @@ public final class ListViewBuilder {
     
     
     /**
+     * Sets the component that shall receive the focus if this panel's
+     * parent is made visible the first time.
      * 
      * @param initialComponent   the component that shall receive the focus
      *    if the panel is made visible the first time
@@ -207,6 +209,7 @@ public final class ListViewBuilder {
      *
      * @param policy   the focus traversal policy that will manage
      *  keyboard traversal of the children in this builder's panel
+     * @return a reference to this builder
      *
      * @see JComponent#setFocusTraversalPolicy(FocusTraversalPolicy)
      * @see JComponent#setFocusTraversalPolicyProvider(boolean)
@@ -233,7 +236,13 @@ public final class ListViewBuilder {
      * It is useful to set the value to {@code false} (in other words
      * to ignore the visibility) if you switch the component visibility
      * dynamically and want the container to retain the size and
-     * component positions.
+     * component positions.<p>
+     * 
+     * A typical use case for ignoring the visibility is here:
+     * if the list selection is empty, the details view is made invisible
+     * to hide the then obsolete read-only labels. If visibility is honored,
+     * the list view would grow and shrink on list selection. If ignored,
+     * the layout remains stable.
      *
      * @param b   {@code true} to honor the visibility, i.e. to exclude
      *    invisible components from the sizing and positioning,
@@ -248,11 +257,12 @@ public final class ListViewBuilder {
     
     
     /**
-     * Sets the prefix that is prepended to component name of components
+     * Sets the prefix that is prepended to the component name of components
      * that have no name set or that are are implicitly created by this builder,
      * e.g. the (header) label. The default name prefix is "ListView".
 
      * @param namePrefix   the prefix to be used
+     * @return a reference to this builder
      */
     public ListViewBuilder namePrefix(String namePrefix) {
     	this.namePrefix = namePrefix;
@@ -260,6 +270,16 @@ public final class ListViewBuilder {
     }
     
     
+    /**
+     * Sets {@code factory} as this builder's new component factory
+     * that is used to create the label or header components.
+     * If not called, the default factory will be used
+     * that can be configured via
+     * {@link FormsSetup#setComponentFactoryDefault(ComponentFactory)}.
+     * 
+     * @param factory    the factory to be used to create the header or label
+     * @return a reference to this builder
+     */
     public ListViewBuilder factory(ComponentFactory factory) {
         this.factory = factory;
         return this;
@@ -273,6 +293,7 @@ public final class ListViewBuilder {
      *
      * @param labelView   the component that shall label the list view,
      *    often a bound label
+     * @return a reference to this builder
      */
     public ListViewBuilder label(JComponent labelView) {
         this.label = labelView;
@@ -294,6 +315,7 @@ public final class ListViewBuilder {
      *
      * @param markedText   the label's text, may contain a mnemonic marker
      * @param args  optional format arguments forwarded to {@code String#format}
+     * @return a reference to this builder
      * 
      * @see String#format(String, Object...)
      */
@@ -315,6 +337,7 @@ public final class ListViewBuilder {
      *
      * @param markedText   the label's text, may contain a mnemonic marker
      * @param args  optional format arguments forwarded to {@code String#format}
+     * @return a reference to this builder
      * 
      * @see String#format(String, Object...)
      */
@@ -330,6 +353,7 @@ public final class ListViewBuilder {
      * with filtering check boxes ("Only valid items"), etc.
      *
      * @param filterView    the view to be added.
+     * @return a reference to this builder
      */
     public ListViewBuilder filterView(JComponent filterView) {
         this.filterView = filterView;
@@ -350,6 +374,7 @@ public final class ListViewBuilder {
      * @param colSpec   specifies the horizontal layout of the filter view
      * @param args   optional {@code colSpec} format arguments
      *     forwarded to {@code String#format}
+     * @return a reference to this builder
      *
      * @throws NullPointerException if {@code colSpec} is {@code null}
      */
@@ -368,6 +393,7 @@ public final class ListViewBuilder {
      * is set as list view.
      *
      * @param listView   the component to be used as scrollable list view
+     * @return a reference to this builder
      *
      * @throws NullPointerException if {@code listView} is {@code null}
      */
@@ -402,6 +428,7 @@ public final class ListViewBuilder {
      * @param rowSpec   specifies the vertical layout of the list view
      * @param args   optional {@code rowSpec} format arguments
      *     forwarded to {@code String#format}
+     * @return a reference to this builder
      *
      * @throws NullPointerException if {@code rowSpec} is {@code null}
      */
@@ -420,6 +447,7 @@ public final class ListViewBuilder {
      * use {@link #listBar(JComponent...)} instead.
      *
      * @param listBarView   the component to set
+     * @return a reference to this builder
      */
     public ListViewBuilder listBarView(JComponent listBarView) {
         this.listBarView = listBarView;
@@ -437,11 +465,12 @@ public final class ListViewBuilder {
      * Equivalent to {@code listBarView(Forms.buttonBar(buttons))}.
      *
      * @param buttons    the buttons in the list bar
+     * @return a reference to this builder
      *
      * @throws NullPointerException if {@code buttons} is {@code null}
      * @throws IllegalArgumentException if no buttons are provided
      *
-     * @see ButtonBarBuilder#addButton(JComponent...)
+     * @see Forms#buttonBar(JComponent...)
      */
     public ListViewBuilder listBar(JComponent... buttons) {
         listBarView(Forms.buttonBar(buttons));
@@ -456,6 +485,7 @@ public final class ListViewBuilder {
      * use {@link #listStack(JComponent...)} instead.
      *
      * @param listStackView   the component to set
+     * @return a reference to this builder
      */
     public ListViewBuilder listStackView(JComponent listStackView) {
         this.listStackView = listStackView;
@@ -473,11 +503,12 @@ public final class ListViewBuilder {
      * Equivalent to {@code listStackView(Forms.buttonStack(buttons))}.
      *
      * @param buttons    the buttons in the list stack
+     * @return a reference to this builder
      *
      * @throws NullPointerException if {@code buttons} is {@code null}
      * @throws IllegalArgumentException if no buttons are provided
      *
-     * @see ButtonStackBuilder#addButton(JComponent...)
+     * @see Forms#buttonStack(JComponent...)
      */
     public ListViewBuilder listStack(JComponent... buttons) {
         listStackView(Forms.buttonStack(buttons));
@@ -490,6 +521,7 @@ public final class ListViewBuilder {
      * of the list view, aligned with the list bar.
      *
      * @param listExtrasView    the component to set
+     * @return a reference to this builder
      */
     public ListViewBuilder listExtrasView(JComponent listExtrasView) {
         this.listExtrasView = listExtrasView;
@@ -504,6 +536,7 @@ public final class ListViewBuilder {
      * Often this is the details view or preview of a master-details view.
      *
      * @param detailsView    the component to set
+     * @return a reference to this builder
      */
     public ListViewBuilder detailsView(JComponent detailsView) {
         this.detailsView = detailsView;
@@ -540,6 +573,7 @@ public final class ListViewBuilder {
     	panel = null;
     }
 
+    
     private JComponent buildPanel() {
     	checkNotNull(listView, "The list view must be set before #build is invoked.");
     	String stackGap = hasStack() ? "$rg" : "0";
