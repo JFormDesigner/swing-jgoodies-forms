@@ -22,6 +22,16 @@ CHANGES IN 1.9.0  -----------------------------------------------------
     The API of the modern ListViewBuilder is consistent with the
     FormBuilder's API and provides a few more features. 
     
+    Although PanelBuilder, I15dPanelBuilder, and DefaultFormBuilder
+    are now deprecated, they will remain in the Forms library 
+    for the next versions, because they are widely used by the
+    Forms community.
+    
+    JavaDocs have been significantly improved for FormBuilder.
+    A completely overhauled Forms tutorial is available in the
+    JGoodies Showcase application that you can download from
+    the JGoodies web pages, see Download -> Demos.
+    
     o Added the FormBuilder. It offers a simplified approach
       for specifying the layout and adding components.
       Please read the FormBuilder's class comment for its features.

@@ -45,8 +45,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.jgoodies.forms.FormsSetup;
-import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.factories.ComponentFactory;
+import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -98,7 +98,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * @see     I15dPanelBuilder
  * @see     DefaultFormBuilder
  * 
- * @deprecated Replaced by {@link FormBuilder}.
+ * @deprecated Replaced by {@link FormBuilder}. However, this class
+ *     will remain in the Forms library for the next versions.
  */
 @Deprecated
 public class PanelBuilder extends AbstractFormBuilder {
