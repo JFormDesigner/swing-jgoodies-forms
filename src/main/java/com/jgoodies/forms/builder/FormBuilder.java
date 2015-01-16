@@ -960,7 +960,7 @@ public class FormBuilder {
      * <pre>
      * return FormBuilder.create()
      *    ...
-     *    .add(new JScrollPane(c), constraints)
+     *    .add(new JScrollPane(c)).xy(..., ...)
      *    ...
      *    .build();
      * </pre>
@@ -991,6 +991,8 @@ public class FormBuilder {
      *
      * @param buttons        the buttons to add
      * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#buttonBar(JComponent...)
      */
     public ComponentAdder addBar(JButton... buttons) {
         return addBar(true, buttons);
@@ -1015,6 +1017,8 @@ public class FormBuilder {
      *
      * @param checkBoxes        the check boxes to add
      * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#checkBoxBar(JCheckBox...)
      */
     public ComponentAdder addBar(JCheckBox... checkBoxes) {
         return addBar(true, checkBoxes);
@@ -1040,6 +1044,8 @@ public class FormBuilder {
      *
      * @param radioButtons        the radio buttons to add
      * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#radioButtonBar(JRadioButton...)
      */
     public ComponentAdder addBar(JRadioButton... radioButtons) {
         return addBar(true, radioButtons);
@@ -1064,6 +1070,8 @@ public class FormBuilder {
      *
      * @param buttons        the buttons to add
      * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#buttonStack(JComponent...)
      */
     public ComponentAdder addStack(JButton... buttons) {
         return addStack(true, buttons);
@@ -1088,6 +1096,8 @@ public class FormBuilder {
      *
      * @param checkBoxes        the check boxes to add
      * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#checkBoxStack(JCheckBox...)
      */
     public ComponentAdder addStack(JCheckBox... checkBoxes) {
         return addStack(true, checkBoxes);
@@ -1114,6 +1124,8 @@ public class FormBuilder {
      *
      * @param radioButtons        the radio buttons to add
      * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#radioButtonStack(JRadioButton...)
      */
     public ComponentAdder addStack(JRadioButton... radioButtons) {
         return addStack(true, radioButtons);
@@ -1136,7 +1148,7 @@ public class FormBuilder {
 
 
     /**
-     * The first of two steps for adding a textual label.
+     * The first of two steps for adding a textual label to the form.
      * Equivalent to: {@code addLabel(markedLabelText)}
      * or {@code addROLabel(markedLabelText)} depending on
      * the current <em>defaultLabelType</em>.
@@ -1198,7 +1210,11 @@ public class FormBuilder {
      * The first of two steps for adding a textual label to the form
      * that is intended for labeling read-only components.
      * The label will be created and added,
-     * once the cell constraints are specified.
+     * once the cell constraints are specified.<p>
+     * 
+     * The read-only labels created by the default component factory
+     * are slightly lighter than plain labels. This makes it easier
+     * to differ between the labeling text and the text value that is labeled.
      *
      * <pre>
      * return FormBuilder.create()
@@ -1224,15 +1240,16 @@ public class FormBuilder {
 
 
     /**
-     * Adds a title label to the form using the default constraints.<p>
+     * The first of two steps for adding a title label to the form.
+     * The title label will be created and added,
+     * once the cell constraints are specified.
      *
      * <pre>
      * return FormBuilder.create()
      *    ...
-     *    .addTitle("Name");       // No mnemonic
-     *    .addTitle("N&ame");      // Mnemonic is 'a'
-     *    .addTitle("Save &as");   // Mnemonic is the second 'a'
-     *    .addTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     *    .addTitle("Name")      .xy(1, 1) // No mnemonic
+     *    .addTitle("N&ame")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addTitle("Look&&Feel").xy(1, 1) // No mnemonic, text is Look&Feel
      *    ...
      *    .build();
      * </pre>
@@ -1250,18 +1267,26 @@ public class FormBuilder {
 
 
     /**
-     * Adds a titled separator to the form that spans all columns.<p>
+     * The first of two steps for adding a titled separator to the form.
+     * The separator will be created and added,
+     * once the cell constraints are specified.
      *
      * <pre>
-     * addSeparator("Name");       // No Mnemonic
-     * addSeparator("N&ame");      // Mnemonic is 'a'
-     * addSeparator("Save &as");   // Mnemonic is the second 'a'
-     * addSeparator("Look&&Feel"); // No mnemonic, text is "look&feel"
+     * return FormBuilder.create()
+     *    ...
+     *    .addSeparator("Name")      .xyw(1, 1, 3) // No Mnemonic
+     *    .addSeparator("N&ame")     .xyw(1, 1, 3) // Mnemonic is 'a'
+     *    .addSeparator("Look&&Feel").xyw(1, 1, 3) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
      * </pre>
      *
      * @param markedText   the separator label's text -
      *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
      * @return the fluent interface part used to set the cell constraints
+     *
+     * @see MnemonicUtils
+     * @see ComponentFactory
      */
     public ComponentAdder addSeparator(String markedText, Object... args) {
         return addSeparator(true, markedText, args);
@@ -1271,8 +1296,15 @@ public class FormBuilder {
     // Adding Components Depending on an Expression ***************************
     
     /**
-     * Gets a component that will be added to this builder's panel,
-     * if the cell constraints are specified.<p>
+     * The first of two steps for conditionally adding a component to the form.
+     * The component will be added, once the cell constraints are specified,
+     * but only if {@code expression} is {@code true}.<p>
+     * 
+     * JTables, JLists, and JTrees will be automatically wrapped
+     * by a default JScrollPane. If no scroll pane is desired, use
+     * {@link #addRaw(boolean, Component)} instead. If a scroll pane is desired
+     * for other components (frequent case are JTextAreas) use
+     * {@link #addScrolled(boolean, Component)}.
      * 
      * <pre>
      * return FormBuilder.create()
@@ -1287,8 +1319,8 @@ public class FormBuilder {
      * is tracked and associate with the next added component
      * that is applicable for being set as component for the label.
      *
-     * @param expression    the precondition to add the component
-     * @param c        the component to add
+     * @param expression    the precondition for adding the component
+     * @param c             the component to add
      * @return the fluent interface part used to set the cell constraints
      *
      * @see #isLabelForApplicable(JLabel, Component)
@@ -1304,6 +1336,33 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding a component to the form.
+     * This component will be added, once the cell constraints are specified.<p>
+     * 
+     * Unlike {@link #add(boolean, Component)}, this method won't wrap
+     * JTables, JLists, and JTrees automatically with a JScrollPane.
+     * Useful for tables, list, and trees that either need no scroll pane,
+     * or have another kind of decoration.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addRaw(showTree, aTreeThatNeedsNoScrollPane).xy(1, 1)
+     *    ...
+     *    .build();
+     * </pre>
+     * 
+     * If the label-for-feature is enabled, the most recently added label
+     * is tracked and associated with the next added component
+     * that is applicable for being set as component for the label.
+     *
+     * @param expression    the precondition for adding the component
+     * @param c             the component to add
+     * @return the fluent interface part used to set the cell constraints
+     *
+     * @see #isLabelForApplicable(JLabel, Component)
+     */
     public ComponentAdder addRaw(boolean expression, Component c) {
         if (!expression || c == null) {
             return new NoOpComponentAdder(this);
@@ -1313,11 +1372,23 @@ public class FormBuilder {
 
 
     /**
-     * Wraps the given component with a JScrollPane
-     * and adds it to the container using the specified constraints.
-     * Layout equivalent to: {@code add(new JScrollPane(c), constraints);}
+     * The first of two steps for conditionally adding the given component
+     * wrapped with a JScrollPane to this builder's panel. The wrapped component
+     * will be added once the cell constraints have been specified.
+     * 
+     * A frequent case for this method are JTextAreas that shall be scrolled.<p>
+     * 
+     * The layout is equivalent to:
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .add(expression, new JScrollPane(c)).xy(..., ...)
+     *    ...
+     *    .build();
+     * </pre>
      *
-     * @param c              the component to be wrapped and added
+     * @param expression    the precondition for adding the component
+     * @param c             the component to be wrapped and added
      * @return the fluent interface part used to set the cell constraints
      */
     public ComponentAdder addScrolled(boolean expression, Component c) {
@@ -1328,6 +1399,28 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding a button bar to the form.
+     * This bar will be added, once the cell constraints are specified.<p>
+     * 
+     * The buttons will be laid out horizontally in a subpanel, where all buttons
+     * use the platform's minimum width. If focus grouping is possible,
+     * focus can be transferred between buttons using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addBar(!readOnly, newButton, editButton, deleteButton).xy(1, 9)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param expression    the precondition for adding the bar
+     * @param buttons       the buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#buttonBar(JComponent...)
+     */
     public ComponentAdder addBar(boolean expression, JButton... buttons) {
         if (!expression || buttons == null) {
             return new NoOpComponentAdder(this);
@@ -1336,6 +1429,28 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding a check box bar to the form.
+     * This bar will be added, once the cell constraints are specified.<p>
+     * 
+     * The check boxes will be laid out as a row in a subpanel.
+     * If focus grouping is possible, focus can be transferred
+     * between the check boxes using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addBar(!readOnly, visibleBox, editableBox, enabledBox).xy(1, 9)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param expression    the precondition for adding the bar
+     * @param checkBoxes    the check boxes to add
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#checkBoxBar(JCheckBox...)
+     */
     public ComponentAdder addBar(boolean expression, JCheckBox... checkBoxes) {
         if (!expression) {
             return new NoOpComponentAdder(this);
@@ -1344,6 +1459,31 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding a radio button bar
+     * to this builder's panel. This bar will be added,
+     * once the cell constraints are specified.<p>
+     * 
+     * The radio buttons will be laid out as a row in a subpanel.
+     * If focus grouping is possible, focus can be transferred
+     * between the radio buttons using the arrow keys. Also, focus will be
+     * transferred to/from the selected radio button of the group - if any.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .add   ( readOnly, orientationText)               .xy(1, 9)
+     *    .addBar(!readOnly, verticalRadio, horizontalRadio).xy(1, 9)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param expression          the precondition for adding the bar
+     * @param radioButtons        the radio buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#radioButtonBar(JRadioButton...)
+     */
     public ComponentAdder addBar(boolean expression, JRadioButton... radioButtons) {
         if (!expression) {
             return new NoOpComponentAdder(this);
@@ -1352,6 +1492,29 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding a button stack
+     * to this builder's panel.
+     * This stack will be added, once the cell constraints are specified.<p>
+     * 
+     * The buttons will be laid out vertically in a subpanel, where all buttons
+     * use the platform's minimum width. If focus grouping is possible,
+     * focus can be transferred between buttons using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addStack(!readOnly, newButton, editButton, deleteButton).xywh(5, 1, 1, 7)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param expression     the precondition for adding the bar
+     * @param buttons        the buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#buttonStack(JComponent...)
+     */
     public ComponentAdder addStack(boolean expression, JButton... buttons) {
         if (!expression || buttons == null) {
             return new NoOpComponentAdder(this);
@@ -1763,7 +1926,7 @@ public class FormBuilder {
         }
         
         
-        public ComponentAdder labelFor(Component c) {
+        public final ComponentAdder labelFor(Component c) {
             checkArgument(component instanceof JLabel, "#labelFor is applicable only to JLabels");
             checkArgument(!labelForSet, "You must set the label-for-relation only once.");
             ((JLabel) component).setLabelFor(c);
@@ -1773,7 +1936,12 @@ public class FormBuilder {
         
         
         /**
-         * Sets the given cell constraints.
+         * Sets the given cell constraints.<p>
+         *
+         * <strong>Examples:</strong><pre>
+         * .add(aComponent).at(cellConstraints)
+         * </pre>
+         * 
          * @param constraints    specifies where an how to place a component
          * @return a reference to the builder
          */
@@ -1782,7 +1950,6 @@ public class FormBuilder {
         }
         
         
-
         // Column-Row Order ---------------------------------------------------
 
         /**
@@ -1790,15 +1957,15 @@ public class FormBuilder {
          * uses the default alignments.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xy(1, 1);
-         * CC.xy(1, 3);
+         * .add(aComponent).xy(1, 1)
+         * .add(aComponent).xy(1, 3)
          * </pre>
          *
-         * @param col     the new column index
-         * @param row     the new row index
+         * @param col     the column index
+         * @param row     the row index
          * @return a reference to the builder
          */
-        public FormBuilder xy(int col, int row) {
+        public final FormBuilder xy(int col, int row) {
             return at(CC.xy(col, row));
         }
 
@@ -1808,39 +1975,40 @@ public class FormBuilder {
          * decodes horizontal and vertical alignments from the given string.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xy(1, 3, "left, bottom");
-         * CC.xy(1, 3, "l, b");
-         * CC.xy(1, 3, "center, fill");
-         * CC.xy(1, 3, "c, f");
+         * .add(aComponent).xy(1, 3, "left, bottom");
+         * .add(aComponent).xy(1, 3, "l, b");
+         * .add(aComponent).xy(1, 3, "center, fill");
+         * .add(aComponent).xy(1, 3, "c, f");
          * </pre>
          *
-         * @param col                the new column index
-         * @param row                the new row index
+         * @param col                the column index
+         * @param row                the  row index
          * @param encodedAlignments  describes the horizontal and vertical alignments
          * @return a reference to the builder
          *
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder xy(int col, int row, String encodedAlignments) {
+        public final FormBuilder xy(int col, int row, String encodedAlignments) {
             return at(CC.xy(col, row, encodedAlignments));
         }
 
+        
         /**
          * Sets the column and row origins; sets width and height to 1;
          * set horizontal and vertical alignment using the specified objects.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xy(1, 3, CellConstraints.LEFT,   CellConstraints.BOTTOM);
-         * CC.xy(1, 3, CellConstraints.CENTER, CellConstraints.FILL);
+         * .add(aComponent).xy(1, 3, CellConstraints.LEFT,   CellConstraints.BOTTOM);
+         * .add(aComponent).xy(1, 3, CellConstraints.CENTER, CellConstraints.FILL);
          * </pre>
          *
-         * @param col       the new column index
-         * @param row       the new row index
+         * @param col       the column index
+         * @param row       the row index
          * @param colAlign  horizontal component alignment
          * @param rowAlign  vertical component alignment
          * @return a reference to the builder
          */
-        public FormBuilder xy(int col, int row,
+        public final FormBuilder xy(int col, int row,
                                   Alignment colAlign, Alignment rowAlign) {
             return at(CC.xy(col, row, colAlign, rowAlign));
         }
@@ -1851,16 +2019,16 @@ public class FormBuilder {
          * and the horizontal and vertical default alignments.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xyw(1, 3, 7);
-         * CC.xyw(1, 3, 2);
+         * .add(aComponent).xyw(1, 3, 7);
+         * .add(aComponent).xyw(1, 3, 2);
          * </pre>
          *
-         * @param col      the new column index
-         * @param row      the new row index
+         * @param col      the column index
+         * @param row      the row index
          * @param colSpan  the column span or grid width
          * @return a reference to the builder
          */
-        public FormBuilder xyw(int col, int row, int colSpan) {
+        public final FormBuilder xyw(int col, int row, int colSpan) {
             return at(CC.xyw(col, row, colSpan));
         }
 
@@ -1871,20 +2039,20 @@ public class FormBuilder {
          * The row span (height) is set to 1.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xyw(1, 3, 7, "left, bottom");
-         * CC.xyw(1, 3, 7, "l, b");
-         * CC.xyw(1, 3, 2, "center, fill");
-         * CC.xyw(1, 3, 2, "c, f");
+         * .add(aComponent).xyw(1, 3, 7, "left, bottom")
+         * .add(aComponent).xyw(1, 3, 7, "l, b");
+         * .add(aComponent).xyw(1, 3, 2, "center, fill");
+         * .add(aComponent).xyw(1, 3, 2, "c, f");
          * </pre>
          *
-         * @param col                the new column index
-         * @param row                the new row index
+         * @param col                the column index
+         * @param row                the row index
          * @param colSpan            the column span or grid width
          * @param encodedAlignments  describes the horizontal and vertical alignments
          * @return a reference to the builder
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder xyw(int col, int row, int colSpan,
+        public final FormBuilder xyw(int col, int row, int colSpan,
                                      String encodedAlignments) {
             return at(CC.xyw(col, row, colSpan, encodedAlignments));
         }
@@ -1896,19 +2064,19 @@ public class FormBuilder {
          * The row span (height) is set to 1.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xyw(1, 3, 2, CellConstraints.LEFT,   CellConstraints.BOTTOM);
-         * CC.xyw(1, 3, 7, CellConstraints.CENTER, CellConstraints.FILL);
+         * .add(aComponent).xyw(1, 3, 2, CellConstraints.LEFT,   CellConstraints.BOTTOM);
+         * .add(aComponent).xyw(1, 3, 7, CellConstraints.CENTER, CellConstraints.FILL);
          * </pre>
          *
-         * @param col       the new column index
-         * @param row       the new row index
+         * @param col       the column index
+         * @param row       the row index
          * @param colSpan   the column span or grid width
          * @param colAlign  horizontal component alignment
          * @param rowAlign  vertical component alignment
          * @return a reference to the builder
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder xyw(int col, int row, int colSpan,
+        public final FormBuilder xyw(int col, int row, int colSpan,
                                      Alignment colAlign, Alignment rowAlign) {
             return at(CC.xyw(col, row, colSpan, colAlign, rowAlign));
         }
@@ -1918,17 +2086,17 @@ public class FormBuilder {
          * Sets the column, row, width, and height; uses default alignments.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xywh(1, 3, 2, 1);
-         * CC.xywh(1, 3, 7, 3);
+         * .add(aComponent).xywh(1, 3, 2, 1);
+         * .add(aComponent).xywh(1, 3, 7, 3);
          * </pre>
          *
-         * @param col      the new column index
-         * @param row      the new row index
+         * @param col      the column index
+         * @param row      the row index
          * @param colSpan  the column span or grid width
          * @param rowSpan  the row span or grid height
          * @return a reference to the builder
          */
-        public FormBuilder xywh(int col, int row, int colSpan, int rowSpan) {
+        public final FormBuilder xywh(int col, int row, int colSpan, int rowSpan) {
             return at(CC.xywh(col, row, colSpan, rowSpan));
         }
 
@@ -1938,21 +2106,21 @@ public class FormBuilder {
          * decodes the horizontal and vertical alignments from the given string.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xywh(1, 3, 2, 1, "left, bottom");
-         * CC.xywh(1, 3, 2, 1, "l, b");
-         * CC.xywh(1, 3, 7, 3, "center, fill");
-         * CC.xywh(1, 3, 7, 3, "c, f");
+         * .add(aComponent).xywh(1, 3, 2, 1, "left, bottom");
+         * .add(aComponent).xywh(1, 3, 2, 1, "l, b");
+         * .add(aComponent).xywh(1, 3, 7, 3, "center, fill");
+         * .add(aComponent).xywh(1, 3, 7, 3, "c, f");
          * </pre>
          *
-         * @param col                the new column index
-         * @param row                the new row index
+         * @param col                the column index
+         * @param row                the row index
          * @param colSpan            the column span or grid width
          * @param rowSpan            the row span or grid height
          * @param encodedAlignments  describes the horizontal and vertical alignments
          * @return a reference to the builder
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder xywh(int col, int row, int colSpan, int rowSpan,
+        public final FormBuilder xywh(int col, int row, int colSpan, int rowSpan,
                                      String encodedAlignments) {
             return at(CC.xywh(col, row, colSpan, rowSpan, encodedAlignments));
         }
@@ -1963,12 +2131,12 @@ public class FormBuilder {
          * and vertical alignment using the specified alignment objects.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.xywh(1, 3, 2, 1, CellConstraints.LEFT,   CellConstraints.BOTTOM);
-         * CC.xywh(1, 3, 7, 3, CellConstraints.CENTER, CellConstraints.FILL);
+         * .add(aComponent).xywh(1, 3, 2, 1, CellConstraints.LEFT,   CellConstraints.BOTTOM);
+         * .add(aComponent).xywh(1, 3, 7, 3, CellConstraints.CENTER, CellConstraints.FILL);
          * </pre>
          *
-         * @param col       the new column index
-         * @param row       the new row index
+         * @param col       the column index
+         * @param row       the row index
          * @param colSpan   the column span or grid width
          * @param rowSpan   the row span or grid height
          * @param colAlign  horizontal component alignment
@@ -1976,7 +2144,7 @@ public class FormBuilder {
          * @return a reference to the builder
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder xywh(int col, int row, int colSpan, int rowSpan,
+        public final FormBuilder xywh(int col, int row, int colSpan, int rowSpan,
                                      Alignment colAlign, Alignment rowAlign) {
             return at(CC.xywh(col, row, colSpan, rowSpan, colAlign, rowAlign));
         }
@@ -1989,15 +2157,15 @@ public class FormBuilder {
          * uses the default alignments.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rc(1, 1);
-         * CC.rc(3, 1);
+         * .add(aComponent).rc(1, 1)
+         * .add(aComponent).rc(3, 1)
          * </pre>
          *
-         * @param row     the new row index
-         * @param col     the new column index
+         * @param row     the row index
+         * @param col     the column index
          * @return a reference to the builder
          */
-        public FormBuilder rc(int row, int col) {
+        public final FormBuilder rc(int row, int col) {
             return at(CC.rc(row, col));
         }
 
@@ -2007,20 +2175,20 @@ public class FormBuilder {
          * decodes vertical and horizontal alignments from the given string.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rc(3, 1, "bottom, left");
-         * CC.rc(3, 1, "b, l");
-         * CC.rc(3, 1, "fill, center");
-         * CC.rc(3, 1, "f, c");
+         * .add(aComponent).rc(3, 1, "bottom, left")
+         * .add(aComponent).rc(3, 1, "b, l")
+         * .add(aComponent).rc(3, 1, "fill, center")
+         * .add(aComponent).rc(3, 1, "f, c")
          * </pre>
          *
-         * @param row                the new row index
-         * @param col                the new column index
+         * @param row                the row index
+         * @param col                the column index
          * @param encodedAlignments  describes the vertical and horizontal alignments
          * @return a reference to the builder
          *
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder rc(int row, int col, String encodedAlignments) {
+        public final FormBuilder rc(int row, int col, String encodedAlignments) {
             return at(CC.rc(row, col, encodedAlignments));
         }
 
@@ -2030,17 +2198,17 @@ public class FormBuilder {
          * set horizontal and vertical alignment using the specified objects.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rc(3, 1, CellConstraints.BOTTOM, CellConstraints.LEFT);
-         * CC.rc(3, 1, CellConstraints.FILL,   CellConstraints.CENTER);
+         * .add(aComponent).rc(3, 1, CellConstraints.BOTTOM, CellConstraints.LEFT);
+         * .add(aComponent).rc(3, 1, CellConstraints.FILL,   CellConstraints.CENTER);
          * </pre>
          *
-         * @param row       the new row index
-         * @param col       the new column index
+         * @param row       the row index
+         * @param col       the column index
          * @param rowAlign  vertical component alignment
          * @param colAlign  horizontal component alignment
          * @return a reference to the builder
          */
-        public FormBuilder rc(int row, int col,
+        public final FormBuilder rc(int row, int col,
                                   Alignment rowAlign, Alignment colAlign) {
             return at(CC.rc(row, col, rowAlign, colAlign));
         }
@@ -2051,16 +2219,16 @@ public class FormBuilder {
          * and the vertical and horizontal default alignments.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rcw(3, 1, 7);
-         * CC.rcw(3, 1, 2);
+         * .add(aComponent).rcw(3, 1, 7);
+         * .add(aComponent).rcw(3, 1, 2);
          * </pre>
          *
-         * @param row      the new row index
-         * @param col      the new column index
+         * @param row      the row index
+         * @param col      the column index
          * @param colSpan  the column span or grid width
          * @return a reference to the builder
          */
-        public FormBuilder rcw(int row, int col, int colSpan) {
+        public final FormBuilder rcw(int row, int col, int colSpan) {
             return at(CC.rcw(row, col, colSpan));
         }
 
@@ -2071,21 +2239,21 @@ public class FormBuilder {
          * The row span (height) is set to 1.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rcw(3, 1, 7, "bottom, left");
-         * CC.rcw(3, 1, 7, "b, l");
-         * CC.rcw(3, 1, 2, "fill, center");
-         * CC.rcw(3, 1, 2, "f, c");
+         * .add(aComponent).rcw(3, 1, 7, "bottom, left");
+         * .add(aComponent).rcw(3, 1, 7, "b, l");
+         * .add(aComponent).rcw(3, 1, 2, "fill, center");
+         * .add(aComponent).rcw(3, 1, 2, "f, c");
          * </pre>
          *
-         * @param row                the new row index
-         * @param col                the new column index
+         * @param row                the row index
+         * @param col                the column index
          * @param colSpan            the column span or grid width
          * @param encodedAlignments  describes the vertical and horizontal alignments
          * @return a reference to the builder
          *
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder rcw(int row, int col, int colSpan,
+        public final FormBuilder rcw(int row, int col, int colSpan,
                                      String encodedAlignments) {
             return at(CC.rcw(row, col, colSpan, encodedAlignments));
         }
@@ -2097,12 +2265,12 @@ public class FormBuilder {
          * The row span (height) is set to 1.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rcw(3, 1, 2, CellConstraints.BOTTOM, CellConstraints.LEFT);
-         * CC.rcw(3, 1, 7, CellConstraints.FILL,   CellConstraints.CENTER);
+         * .add(aComponent).rcw(3, 1, 2, CellConstraints.BOTTOM, CellConstraints.LEFT);
+         * .add(aComponent).rcw(3, 1, 7, CellConstraints.FILL,   CellConstraints.CENTER);
          * </pre>
          *
-         * @param row       the new row index
-         * @param col       the new column index
+         * @param row       the row index
+         * @param col       the column index
          * @param colSpan   the column span or grid width
          * @param rowAlign  vertical component alignment
          * @param colAlign  horizontal component alignment
@@ -2110,7 +2278,7 @@ public class FormBuilder {
          *
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder rcw(int row, int col, int colSpan,
+        public final FormBuilder rcw(int row, int col, int colSpan,
                                      Alignment rowAlign, Alignment colAlign) {
             return at(CC.rcw(row, col, colSpan, rowAlign, colAlign));
         }
@@ -2120,17 +2288,17 @@ public class FormBuilder {
          * Sets the row, column, height, and width; uses default alignments.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rchw(1, 3, 2, 1);
-         * CC.rchw(1, 3, 7, 3);
+         * .add(aComponent).rchw(1, 3, 2, 1);
+         * .add(aComponent).rchw(1, 3, 7, 3);
          * </pre>
          *
-         * @param row      the new row index
-         * @param col      the new column index
+         * @param row      the row index
+         * @param col      the column index
          * @param rowSpan  the row span or grid height
          * @param colSpan  the column span or grid width
          * @return a reference to the builder
          */
-        public FormBuilder rchw(int row, int col, int rowSpan, int colSpan) {
+        public final FormBuilder rchw(int row, int col, int rowSpan, int colSpan) {
             return at(CC.rchw(row, col, rowSpan, colSpan));
         }
 
@@ -2140,21 +2308,21 @@ public class FormBuilder {
          * decodes the vertical and horizontal alignments from the given string.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rchw(3, 1, 1, 2, "bottom, left");
-         * CC.rchw(3, 1, 1, 2, "b, l");
-         * CC.rchw(3, 1, 3, 7, "fill, center");
-         * CC.rchw(3, 1, 3, 7, "f, c");
+         * .add(aComponent).rchw(3, 1, 1, 2, "bottom, left");
+         * .add(aComponent).rchw(3, 1, 1, 2, "b, l");
+         * .add(aComponent).rchw(3, 1, 3, 7, "fill, center");
+         * .add(aComponent).rchw(3, 1, 3, 7, "f, c");
          * </pre>
          *
-         * @param row                the new row index
-         * @param col                the new column index
+         * @param row                the row index
+         * @param col                the column index
          * @param rowSpan            the row span or grid height
          * @param colSpan            the column span or grid width
          * @param encodedAlignments  describes the vertical and horizontal alignments
          * @return a reference to the builder
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder rchw(int row, int col, int rowSpan, int colSpan,
+        public final FormBuilder rchw(int row, int col, int rowSpan, int colSpan,
                                      String encodedAlignments) {
             return at(CC.rchw(row, col, rowSpan, colSpan, encodedAlignments));
         }
@@ -2165,12 +2333,12 @@ public class FormBuilder {
          * horizontal alignment using the specified alignment objects.<p>
          *
          * <strong>Examples:</strong><pre>
-         * CC.rchw(3, 1, 1, 2, CellConstraints.BOTTOM, CellConstraints.LEFT);
-         * CC.rchw(3, 1, 3, 7, CellConstraints.FILL,   CellConstraints.CENTER);
+         * .add(aComponent).rchw(3, 1, 1, 2, CellConstraints.BOTTOM, CellConstraints.LEFT);
+         * .add(aComponent).rchw(3, 1, 3, 7, CellConstraints.FILL,   CellConstraints.CENTER);
          * </pre>
          *
-         * @param row       the new row index
-         * @param col       the new column index
+         * @param row       the row index
+         * @param col       the column index
          * @param rowSpan   the row span or grid height
          * @param colSpan   the column span or grid width
          * @param rowAlign  vertical component alignment
@@ -2179,7 +2347,7 @@ public class FormBuilder {
          *
          * @throws IllegalArgumentException if an alignment orientation is invalid
          */
-        public FormBuilder rchw(int row, int col, int rowSpan, int colSpan,
+        public final FormBuilder rchw(int row, int col, int rowSpan, int colSpan,
                                      Alignment rowAlign, Alignment colAlign) {
             return at(CC.rchw(col, row, rowSpan, colSpan, colAlign, rowAlign));
         }
