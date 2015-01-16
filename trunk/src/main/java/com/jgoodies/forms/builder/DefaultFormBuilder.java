@@ -212,7 +212,11 @@ import com.jgoodies.forms.layout.RowSpec;
  * @see	com.jgoodies.forms.layout.FormSpecs
  * @see	com.jgoodies.forms.layout.FormLayout
  * 
- * @deprecated Replaced by the {@link FormBuilder}.
+ * @deprecated Replaced by the {@link FormBuilder} and
+ *   the internationalization support provided
+ *   by the JGoodies Smart Client {@code Resources} class.
+ *   Although deprecated, this class will remain in the Forms library
+ *   for the next versions.
  */
 @Deprecated
 public final class DefaultFormBuilder extends I15dPanelBuilder {

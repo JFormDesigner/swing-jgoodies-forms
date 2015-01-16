@@ -81,6 +81,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @deprecated Replaced by the internationalization support provided
  *   by the JGoodies Smart Client {@code Resources} class.
+ *   Although deprecated, this class will remain in the Forms library
+ *   for the next versions.
  */
 @Deprecated
 public class I15dPanelBuilder extends PanelBuilder {
