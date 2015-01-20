@@ -77,7 +77,20 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * An general purpose form builder that uses the {@link FormLayout}
- * to lay out and populate {@code JPanel}s. It is the working horse
+ * to lay out and populate {@code JPanel}s. It provides the following features:
+ * <ul>
+ * <li>Short code, good readability.</li>
+ * <li>Layout and panel building in a single class.</li>
+ * <li>Layout construction easier to understand (compared to FormLayout constructors).</li>
+ * <li>Implicitly creates frequently used components such as labels.</li>
+ * <li>Convenience code for adding button bars, radio button groups, etc.</li>
+ * <li>Can add components only if a condition evaluates to {@code true}.</li>
+ * <li>Toolkit-independent code, see {@link #focusTraversalType} vs.
+ * {@link #focusTraversalPolicy}.</li>
+ * </ul>
+ * See also the feature overview below.<p>
+ * 
+ * The FormBuilder is the working horse
  * for forms and panels where more specialized builders such as the
  * {@link ListViewBuilder} or the {@link ButtonBarBuilder} are inappropriate.
  * Since FormBuilder supports the frequently used methods for setting up
@@ -1149,8 +1162,8 @@ public class FormBuilder {
 
     /**
      * The first of two steps for adding a textual label to the form.
-     * Equivalent to: {@code addLabel(markedLabelText)}
-     * or {@code addROLabel(markedLabelText)} depending on
+     * Equivalent to: {@code addLabel(markedLabelText, args)}
+     * or {@code addROLabel(markedLabelText, args)} depending on
      * the current <em>defaultLabelType</em>.
      * The label will be created and added,
      * once the cell constraints are specified.<p>
@@ -1167,11 +1180,14 @@ public class FormBuilder {
      * </pre>
      * 
      * @param markedLabelText  the text of the label to be added,
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      * 
      * @see #defaultLabelType(LabelType)
      * @see MnemonicUtils
+     * @see String#format(String, Object...)
      */
     public ComponentAdder add(String markedLabelText, Object... args) {
         return add(true, markedLabelText, args);
@@ -1195,11 +1211,14 @@ public class FormBuilder {
      * </pre>
      *
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
      * @see MnemonicUtils
      * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addLabel(String markedText, Object... args) {
         return addLabel(true, markedText, args);
@@ -1228,11 +1247,14 @@ public class FormBuilder {
      * </pre>
      *
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
      * @see MnemonicUtils
      * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addROLabel(String markedText, Object... args) {
         return addROLabel(true, markedText, args);
@@ -1255,11 +1277,14 @@ public class FormBuilder {
      * </pre>
      *
      * @param markedText   the title label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
      * @see MnemonicUtils
      * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addTitle(String markedText, Object... args) {
         return addTitle(true, markedText, args);
@@ -1282,11 +1307,14 @@ public class FormBuilder {
      * </pre>
      *
      * @param markedText   the separator label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
      * @see MnemonicUtils
      * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addSeparator(String markedText, Object... args) {
         return addSeparator(true, markedText, args);
@@ -1509,7 +1537,7 @@ public class FormBuilder {
      *    .build();
      * </pre>
      *
-     * @param expression     the precondition for adding the bar
+     * @param expression     the precondition for adding the stack
      * @param buttons        the buttons to add
      * @return the fluent interface part used to set the cell constraints
      * 
@@ -1523,6 +1551,29 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding a check box stack
+     * to this builder's panel.
+     * This stack will be added, once the cell constraints are specified.<p>
+     * 
+     * The check boxes will be laid out vertically in a subpanel.
+     * If focus grouping is possible,
+     * focus can be transferred between the check boxes using the arrow keys.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addStack(!readOnly, visibleBox, editableBox, enabledBox).xywh(5, 1, 1, 7)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param expression        the precondition for adding the stack
+     * @param checkBoxes        the check boxes to add
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#checkBoxStack(JCheckBox...)
+     */
     public ComponentAdder addStack(boolean expression, JCheckBox... checkBoxes) {
         if (!expression) {
             return new NoOpComponentAdder(this);
@@ -1531,6 +1582,31 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding a radio button stack
+     * to this builder's panel.
+     * This stack will be added, once the cell constraints are specified.<p>
+     * 
+     * The radio buttons will be laid out vertically in a subpanel.
+     * If focus grouping is possible,
+     * focus can be transferred between the check boxes using the arrow keys.
+     * Also, focus will be
+     * transferred to/from the selected radio button of the group - if any.
+     * 
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addStack(!readOnly, verticalRadio, horizontalRadio).xywh(5, 1, 1, 7)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @param expression          the precondition for adding the stack
+     * @param radioButtons        the radio buttons to add
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see Forms#radioButtonStack(JRadioButton...)
+     */
     public ComponentAdder addStack(boolean expression, JRadioButton... radioButtons) {
         if (!expression || radioButtons == null) {
             return new NoOpComponentAdder(this);
@@ -1540,9 +1616,11 @@ public class FormBuilder {
 
 
     /**
-     * Builds the given view into this FormBuilder's form.
+     * Builds the given view into this FormBuilder's form,
+     * if {@code expression} is {@code true}.
      * 
-     * @param view   the view to integrate
+     * @param expression   the precondition for adding the view
+     * @param view         the view to integrate
      * @return the fluent interface part used to set the view's origin
      */
     public ViewAdder add(boolean expression, FormBuildingView view) {
@@ -1551,15 +1629,36 @@ public class FormBuilder {
 
 
     /**
-     * Adds a label; equivalent to: {@code addLabel(markedLabelText)}
-     * or {@code addROLabel(markedLabelText)} depending on
-     * the <em>defaultLabelType</em> property.
+     * The first of two steps for conditionally adding a textual label
+     * to the form.
+     * Equivalent to: {@code addLabel(expression, markedLabelText, args)}
+     * or {@code addROLabel(expression, markedLabelText, args)} depending on
+     * the current <em>defaultLabelType</em>.
+     * The label will be created and added,
+     * once the cell constraints are specified.<p>
+     *
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .add(condition, "Name:")      .xy(1, 1) // No Mnemonic
+     *    .add(condition, "N&ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .add(condition, "Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
+     *    .add(condition, "Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
+     * </pre>
      * 
+     * @param expression   the precondition for adding the label
      * @param markedLabelText  the text of the label to be added,
-     *     may contain a mnemonic marker
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      * 
      * @see #defaultLabelType(LabelType)
+     * @see MnemonicUtils
+     * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder add(boolean expression, String markedLabelText, Object... args) {
         return defaultLabelType == LabelType.DEFAULT
@@ -1569,20 +1668,31 @@ public class FormBuilder {
 
 
     /**
-     * Adds a textual label to the form using the default constraints.<p>
+     * The first of two steps for conditionally adding a plain label to the form.
+     * The label will be created and added,
+     * once the cell constraints are specified.
      *
      * <pre>
-     * addLabel("Name:");       // No Mnemonic
-     * addLabel("N&ame:");      // Mnemonic is 'a'
-     * addLabel("Save &as:");   // Mnemonic is the second 'a'
-     * addLabel("Look&&Feel:"); // No mnemonic, text is "look&feel"
+     * return FormBuilder.create()
+     *    ...
+     *    .addLabel(condition, "Name:")      .xy(1, 1) // No Mnemonic
+     *    .addLabel(condition, "N&ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addLabel(condition, "Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
+     *    .addLabel(condition, "Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
      * </pre>
      *
+     * @param expression   the precondition for adding the label
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
+     * @see MnemonicUtils
      * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addLabel(boolean expression, String markedText, Object... args) {
         return addRaw(expression,
@@ -1591,19 +1701,36 @@ public class FormBuilder {
 
 
     /**
-     * Adds a textual label intended for labeling read-only components
-     * to the form.<p>
+     * The first of two steps for conditionally adding a textual label to the form
+     * that is intended for labeling read-only components.
+     * The label will be created and added,
+     * once the cell constraints are specified.<p>
+     * 
+     * The read-only labels created by the default component factory
+     * are slightly lighter than plain labels. This makes it easier
+     * to differ between the labeling text and the text value that is labeled.
      *
      * <pre>
-     * addROLabel("Name:");       // No Mnemonic
-     * addROLabel("N&ame:");      // Mnemonic is 'a'
-     * addROLabel("Save &as:");   // Mnemonic is the second 'a'
-     * addROLabel("Look&&Feel:"); // No mnemonic, text is "look&feel"
+     * return FormBuilder.create()
+     *    ...
+     *    .addROLabel(condition, "Name:")      .xy(1, 1) // No Mnemonic
+     *    .addROLabel(condition, "N&ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addROLabel(condition, "Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
+     *    .addROLabel(condition, "Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
      * </pre>
      *
+     * @param expression   the precondition for adding the read-only label
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
+     *
+     * @see MnemonicUtils
+     * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addROLabel(boolean expression,
             String markedText, Object... args) {
@@ -1613,20 +1740,30 @@ public class FormBuilder {
 
 
     /**
-     * Adds a title label to the form using the default constraints.<p>
+     * The first of two steps for conditionally adding a title label to the form.
+     * The title label will be created and added,
+     * once the cell constraints are specified.
      *
      * <pre>
-     * addTitle("Name");       // No mnemonic
-     * addTitle("N&ame");      // Mnemonic is 'a'
-     * addTitle("Save &as");   // Mnemonic is the second 'a'
-     * addTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * return FormBuilder.create()
+     *    ...
+     *    .addTitle(condition, "Name")      .xy(1, 1) // No mnemonic
+     *    .addTitle(condition, "N&ame")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addTitle(condition, "Look&&Feel").xy(1, 1) // No mnemonic, text is Look&Feel
+     *    ...
+     *    .build();
      * </pre>
      *
+     * @param expression   the precondition for adding the title
      * @param markedText   the title label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
+     * @see MnemonicUtils
      * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addTitle(boolean expression,
             String markedText, Object... args) {
@@ -1636,18 +1773,30 @@ public class FormBuilder {
 
 
     /**
-     * Adds a titled separator to the form that spans all columns.<p>
+     * The first of two steps for conditionally adding a titled separator to the form.
+     * The separator will be created and added,
+     * once the cell constraints are specified.
      *
      * <pre>
-     * addSeparator("Name");       // No Mnemonic
-     * addSeparator("N&ame");      // Mnemonic is 'a'
-     * addSeparator("Save &as");   // Mnemonic is the second 'a'
-     * addSeparator("Look&&Feel"); // No mnemonic, text is "look&feel"
+     * return FormBuilder.create()
+     *    ...
+     *    .addSeparator(condition, "Name")      .xyw(1, 1, 3) // No Mnemonic
+     *    .addSeparator(condition, "N&ame")     .xyw(1, 1, 3) // Mnemonic is 'a'
+     *    .addSeparator(condition, "Look&&Feel").xyw(1, 1, 3) // No mnemonic, text is "look&feel"
+     *    ...
+     *    .build();
      * </pre>
      *
+     * @param expression   the precondition for adding the separator
      * @param markedText   the separator label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
+     *     and it may be a format string
+     * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
+     *
+     * @see MnemonicUtils
+     * @see ComponentFactory
+     * @see String#format(String, Object...)
      */
     public ComponentAdder addSeparator(boolean expression,
             String markedText, Object... args) {
