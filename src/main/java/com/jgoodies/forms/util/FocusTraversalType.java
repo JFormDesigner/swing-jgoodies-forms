@@ -28,11 +28,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.jgoodies.forms.builder;
+package com.jgoodies.forms.util;
 
 import java.awt.ContainerOrderFocusTraversalPolicy;
 
 import javax.swing.LayoutFocusTraversalPolicy;
+
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.builder.ListViewBuilder;
 
 
 /**

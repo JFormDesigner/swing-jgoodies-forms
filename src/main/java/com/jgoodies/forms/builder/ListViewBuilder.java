@@ -52,6 +52,7 @@ import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.Forms;
 import com.jgoodies.forms.internal.InternalFocusSetupUtils;
+import com.jgoodies.forms.util.FocusTraversalType;
 
 /**
  * Builds list/table views from a set of mandatory and optional components:

@@ -28,11 +28,12 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.jgoodies.forms.builder;
+package com.jgoodies.forms.internal;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
-import java.awt.Container;
+
+import javax.swing.JPanel;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -52,11 +53,9 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  * @author Karsten Lentzsch
  * @version $Revision: 1.16 $
- *
- * @see    ButtonBarBuilder
- * @see    ButtonStackBuilder
  */
-public abstract class AbstractFormBuilder extends AbstractBuilder {
+public abstract class AbstractFormBuilder<B extends AbstractFormBuilder<B>>
+    extends AbstractBuilder<B> {
 
 
     /**
@@ -79,13 +78,13 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * for the given FormLayout and layout container.
      *
      * @param layout     the FormLayout to use
-     * @param container  the layout container
+     * @param panel  the layout container
      *
      * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
      */
-    public AbstractFormBuilder(FormLayout layout, Container container) {
-        super(layout, container);
-        ComponentOrientation orientation = container.getComponentOrientation();
+    protected AbstractFormBuilder(FormLayout layout, JPanel panel) {
+        super(layout, panel);
+        ComponentOrientation orientation = panel.getComponentOrientation();
         leftToRight = orientation.isLeftToRight()
                   || !orientation.isHorizontal();
     }
@@ -485,7 +484,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @return the added component
      */
     public Component add(Component component, CellConstraints cellConstraints) {
-        getContainer().add(component, cellConstraints);
+        getPanel().add(component, cellConstraints);
         return component;
     }
 
@@ -498,7 +497,7 @@ public abstract class AbstractFormBuilder extends AbstractBuilder {
      * @return the added component
      */
     public final Component add(Component component, String encodedCellConstraints) {
-        getContainer().add(component, new CellConstraints(encodedCellConstraints));
+        getPanel().add(component, new CellConstraints(encodedCellConstraints));
         return component;
     }
 

@@ -32,7 +32,6 @@ package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.FocusTraversalPolicy;
 import java.lang.ref.WeakReference;
@@ -42,11 +41,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.ComponentFactory;
-import com.jgoodies.forms.factories.Paddings;
+import com.jgoodies.forms.internal.AbstractFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -102,7 +100,7 @@ import com.jgoodies.forms.layout.FormLayout;
  *     will remain in the Forms library for the next versions.
  */
 @Deprecated
-public class PanelBuilder extends AbstractFormBuilder {
+public class PanelBuilder extends AbstractFormBuilder<PanelBuilder> {
 
     
     // Constants **************************************************************
@@ -169,89 +167,7 @@ public class PanelBuilder extends AbstractFormBuilder {
     }
 
 
-    // Accessors **************************************************************
-
-    /**
-     * Returns the panel used to build the form.
-     * Intended to access panel properties. For returning the built panel,
-     * you should use {@link #build()}.
-     *
-     * @return the panel used by this builder to build the form
-     */
-    public final JPanel getPanel() {
-        return (JPanel) getContainer();
-    }
-
-
     // Modern (Cascading) Style Configuration *********************************
-
-    /**
-     * Sets the panel's background color and the panel to be opaque.
-     *
-     * @param background  the color to set as new background
-     *
-     * @see JComponent#setBackground(Color)
-     *
-     * @since 1.6
-     */
-    public PanelBuilder background(Color background) {
-    	getPanel().setBackground(background);
-        opaque(true);
-        return this;
-    }
-
-
-    /**
-     * Sets the panel's border.
-     *
-     * @param border	the border to set
-     *
-     * @see JComponent#setBorder(Border)
-     *
-     * @since 1.6
-     */
-    public PanelBuilder border(Border border) {
-    	getPanel().setBorder(border);
-        return this;
-    }
-
-
-    /**
-     * Sets the panel's border as an EmptyBorder using the given specification
-     * for the top, left, bottom, right in DLU. For example
-     * "1dlu, 2dlu, 3dlu, 4dlu" sets an empty border with 1dlu in the top,
-     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
-     * side.<p>
-     *
-     * Equivalent to {@code setBorder(Borders.createEmptyBorder(emptyBorderSpec))}.
-     *
-     * @param emptyBorderSpec   describes the top, left, bottom, right sizes
-     *    of the EmptyBorder to create
-     *
-     * @see Paddings#createPadding(String)
-     *
-     * @since 1.6
-     */
-    public PanelBuilder border(String emptyBorderSpec) {
-    	border(Paddings.createPadding(emptyBorderSpec));
-    	return this;
-    }
-
-
-    /**
-     * Sets the panel's opaque state.
-     *
-     * @param b   true for opaque, false for non-opaque
-     *
-     * @see JComponent#setOpaque(boolean)
-     *
-     * @since 1.6
-     */
-    public PanelBuilder opaque(boolean b) {
-        getPanel().setOpaque(b);
-        return this;
-    }
-
 
     /**
      * Sets the panel's focus traversal policy and sets the panel
@@ -300,6 +216,7 @@ public class PanelBuilder extends AbstractFormBuilder {
      *
      * @since 1.6
      */
+    @Override
     public final JPanel build() {
         return getPanel();
     }

@@ -41,6 +41,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.forms.builder.ButtonBarBuilder;
 import com.jgoodies.forms.builder.ButtonStackBuilder;
@@ -113,41 +114,84 @@ public final class Forms {
 
 
 	/**
-	 * Creates and returns a panel where {@code component} is surrounded
-	 * by the given border.
+     * Creates and returns a panel where {@code component} is surrounded
+     * by the given border.
      * <blockquote><pre>
-     * Forms.border(Borders.DLU14, aComponent);
      * Forms.border(new LineBorder(Color.GRAY), aComponent);
      * </pre></blockquote>
-	 * 
-	 * @param border        the border used to surround the component
-	 * @param component     the component to wrap
-	 * @return the built panel
-	 * @throws NullPointerException if {@code border}  or {@code component}
-	 *     is {@code null}
-	 */
-	public static JComponent border(Border border, JComponent component) {
-		JComponent container = single("fill:pref", "f:p", component);
-		container.setBorder(border);
-		return container;
-	}
+     * 
+     * @param border        the border used to surround the component
+     * @param component     the component to wrap
+     * @return the built panel
+     * @throws NullPointerException if {@code border}  or {@code component}
+     *     is {@code null}
+     */
+    public static JComponent border(Border border, JComponent component) {
+        JComponent container = single("fill:pref", "f:p", component);
+        container.setBorder(border);
+        return container;
+    }
 
 
-	/**
-	 * Creates and returns a panel where {@code component} is surrounded
-	 * by an empty border as described by {@code emptyBorderSpec}.
+    /**
+     * Creates and returns a panel where {@code component} is surrounded
+     * by an empty border as described by {@code emptyBorderSpec}.
      * <blockquote><pre>
      * Forms.border("4dlu, 0, 4dlu, 8dlu", aComponent);
      * Forms.border("10px 4px, 10px, 4px", aComponent);
      * </pre></blockquote>
+     * 
+     * @param component     the component to wrap
+     * @return the built panel
+     * @throws NullPointerException if {@code emptyBorderSpec}
+     *     or {@code component} is {@code null}
+     * @deprecated Use {@link #padding(String,JComponent)} instead
+     */
+    @Deprecated
+    public static JComponent border(String emptyBorderSpec, JComponent component) {
+        return padding(emptyBorderSpec, component);
+    }
+
+
+    /**
+     * Creates and returns a panel where {@code component} is surrounded
+     * by the given empty border.
+     * <blockquote><pre>
+     * Forms.padding(Paddings.DLU14, aComponent);
+     * </pre></blockquote>
+     * 
+     * @param padding       the empty border used to surround the component
+     * @param component     the component to wrap
+     * @return the built panel
+     * @throws NullPointerException if {@code border}  or {@code component}
+     *     is {@code null}
+     */
+    public static JComponent padding(EmptyBorder padding, JComponent component) {
+    	JComponent container = single("fill:pref", "f:p", component);
+    	container.setBorder(padding);
+    	return container;
+    }
+
+
+    /**
+	 * Creates and returns a panel where {@code component} is surrounded
+	 * by white space (an empty border) as described by {@code paddingSpec}.
+     * <blockquote><pre>
+     * Forms.padding("4dlu, 0, 4dlu, 8dlu", aComponent);
+     * Forms.padding("10px 4px, 10px, 4px", aComponent);
+     * </pre></blockquote>
 	 * 
+	 * @param paddingSpec   describes the white space: top, left, bottom, right
 	 * @param component     the component to wrap
 	 * @return the built panel
-	 * @throws NullPointerException if {@code emptyBorderSpec}
+	 * @throws NullPointerException if {@code paddingSpec}
 	 *     or {@code component} is {@code null}
+     *
+     * @see #padding(EmptyBorder, JComponent)
+     * @see Paddings#createPadding(String)
 	 */
-	public static JComponent border(String emptyBorderSpec, JComponent component) {
-		return border(Paddings.createPadding(emptyBorderSpec), component);
+	public static JComponent padding(String paddingSpec, JComponent component) {
+		return padding(Paddings.createPadding(paddingSpec), component);
 	}
 
 
