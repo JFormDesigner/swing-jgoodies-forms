@@ -28,14 +28,22 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.jgoodies.forms.builder;
+package com.jgoodies.forms.internal;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
+import java.awt.Color;
 import java.awt.Container;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.ComponentFactory;
+import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -51,16 +59,15 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * @author Karsten Lentzsch
  * @version $Revision: 1.3 $
- *
- * @see    ButtonBarBuilder
- * @see    ButtonStackBuilder
+ * 
+ * @param <B>  the type of the builder, e.g. ButtonBarBuilder
  */
-public abstract class AbstractBuilder {
+public abstract class AbstractBuilder<B extends AbstractBuilder<B>> {
 
     /**
      * Holds the layout container that we are building.
      */
-    private final Container container;
+    private final JPanel panel;
 
     /**
      * Holds the FormLayout instance that is used
@@ -85,18 +92,17 @@ public abstract class AbstractBuilder {
     // Instance Creation ****************************************************
 
     /**
-     * Constructs an AbstractBuilder
-     * for the given FormLayout and layout container.
+     * Constructs an AbstractBuilder for the given layout and panel.
      *
      * @param layout     the FormLayout to use
-     * @param container  the layout container
+     * @param panel      the layout container
      *
-     * @throws NullPointerException if {@code layout} or {@code container} is {@code null}
+     * @throws NullPointerException if {@code layout} or {@code panel} is {@code null}
      */
-    protected AbstractBuilder(FormLayout layout, Container container) {
-        this.layout    = checkNotNull(layout, "The layout must not be null.");
-        this.container = checkNotNull(container, "The layout container must not be null.");
-        container.setLayout(layout);
+    protected AbstractBuilder(FormLayout layout, JPanel panel) {
+        this.layout    = checkNotNull(layout, MUST_NOT_BE_NULL, "layout");
+        this.panel = checkNotNull(panel,  MUST_NOT_BE_NULL, "panel");
+        panel.setLayout(layout);
         currentCellConstraints = new CellConstraints();
     }
 
@@ -104,12 +110,30 @@ public abstract class AbstractBuilder {
     // Accessors ************************************************************
 
     /**
+     * Returns the panel used to build the form.
+     * Intended to access panel properties. For returning the built panel,
+     * you should use {@link #build()}.
+     *
+     * @return the panel used by this builder to build the form
+     */
+    public final JPanel getPanel() {
+        return panel;
+    }
+    
+    
+    public abstract JPanel build();
+
+
+    /**
      * Returns the container used to build the form.
      *
      * @return the layout container
+     * 
+     * @deprecated Replaced by {@link #getPanel()}
      */
+    @Deprecated
     public final Container getContainer() {
-        return container;
+        return panel;
     }
 
 
@@ -143,6 +167,114 @@ public abstract class AbstractBuilder {
     }
 
 
+    // Frequently Used Panel Properties ***************************************
+
+    /**
+     * Sets the panel's background color and makes the panel opaque.
+     *
+     * @param background  the color to set as new background
+     *
+     * @see JComponent#setBackground(Color)
+     */
+    public B background(Color background) {
+        getPanel().setBackground(background);
+        opaque(true);
+        return (B) this;
+    }
+
+
+    /**
+     * Sets the panel's border.
+     *
+     * @param border    the border to set
+     *
+     * @see JComponent#setBorder(Border)
+     */
+    public B border(Border border) {
+        getPanel().setBorder(border);
+        return (B) this;
+    }
+
+
+    /**
+     * Sets the panel's border as an EmptyBorder using the given specification
+     * for the top, left, bottom, right in DLU. For example
+     * "1dlu, 2dlu, 3dlu, 4dlu" sets an empty border with 1dlu in the top,
+     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
+     * side.<p>
+     *
+     * Equivalent to {@code padding(Paddings.createPadding(paddingSpec))}.
+     *
+     * @param paddingSpec   describes the top, left, bottom, right sizes
+     *    of the EmptyBorder to create
+     *
+     * @see Paddings#createPadding(String)
+     *
+     * @since 1.6
+     * 
+     * @deprecated Replaced by {@link #padding(String)}
+     */
+    @Deprecated
+    public B border(String paddingSpec) {
+        padding(Paddings.createPadding(paddingSpec));
+        return (B) this;
+    }
+
+
+    /**
+     * Sets a padding around this builder's panel.
+     *
+     * @param padding    the empty border to set
+     *
+     * @see JComponent#setBorder(Border)
+     * 
+     * @since 1.9
+     */
+    public B padding(EmptyBorder padding) {
+        getPanel().setBorder(padding);
+        return (B) this;
+    }
+
+
+    /**
+     * Sets the panel's padding as an EmptyBorder using the given specification
+     * for the top, left, bottom, right margins in DLU. For example
+     * "1dlu, 2dlu, 3dlu, 4dlu" sets an empty border with 1dlu in the top,
+     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
+     * side.<p>
+     *
+     * Equivalent to {@code setPadding(Paddings.createPadding(paddingSpec))}.
+     *
+     * @param paddingSpec   describes the top, left, bottom, right margins
+     *    of the padding (an EmptyBorder) to use
+     * @return a reference to this builder
+     *
+     * @see #padding(EmptyBorder)
+     * @see Paddings#createPadding(String)
+     * 
+     * @since 1.9
+     */
+    public B padding(String paddingSpec) {
+        padding(Paddings.createPadding(paddingSpec));
+        return (B) this;
+    }
+
+
+    /**
+     * Sets the panel's opaque state.
+     *
+     * @param b   true for opaque, false for non-opaque
+     *
+     * @see JComponent#setOpaque(boolean)
+     */
+    public B opaque(boolean b) {
+        getPanel().setOpaque(b);
+        return (B) this;
+    }
+
+
+    // Factory Access and Setup ***********************************************
+    
     /**
      * Returns this builder's component factory. If no factory
      * has been set before, it is lazily initialized from the global
@@ -188,6 +320,9 @@ public abstract class AbstractBuilder {
     protected ComponentFactory createComponentFactory() {
         return FormsSetup.getComponentFactoryDefault();
     }
+    
+    
+    
 
 
 }

@@ -41,7 +41,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JComponent;
 import javax.swing.LayoutFocusTraversalPolicy;
 
-import com.jgoodies.forms.builder.FocusTraversalType;
+import com.jgoodies.forms.util.FocusTraversalType;
 
 
 /**

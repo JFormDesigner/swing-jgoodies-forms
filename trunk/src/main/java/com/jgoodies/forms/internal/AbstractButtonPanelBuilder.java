@@ -28,7 +28,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.jgoodies.forms.builder;
+package com.jgoodies.forms.internal;
 
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
@@ -46,8 +46,9 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.jgoodies.forms.builder.ButtonBarBuilder;
+import com.jgoodies.forms.builder.ButtonStackBuilder;
 import com.jgoodies.forms.factories.ComponentFactory;
-import com.jgoodies.forms.internal.FocusTraversalUtilsAccessor;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -55,19 +56,21 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.util.LayoutStyle;
 
 /**
- * The abstract superclass for {@link ButtonBarBuilder}.
+ * The abstract superclass for {@link ButtonBarBuilder} and
+ * {@link ButtonStackBuilder}.
  * Provides a cell cursor for traversing
  * the button bar/stack while components are added. It also offers
- * convenience methods to append logical columns and rows.<p>
- *
- * TODO: Mention the ButtonStackBuilder2 subclass as soon as it is available.
+ * convenience methods to append logical columns and rows.
  *
  * @author Karsten Lentzsch
  * @version $Revision: 1.11 $
  *
  * @since 1.2
+ * 
+ * @param <B>  the type of the builder, e.g. ButtonBarBuilder
  */
-public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
+public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBuilder<B>>
+    extends AbstractBuilder<B> {
 
 
     // Instance Fields ********************************************************
@@ -119,21 +122,11 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      *
      * @return the panel used by this builder to build the form
      */
-    public JPanel getPanel() {
-    	return build();
-    }
-
-
-    /**
-     * Returns the panel used to build the form and lazily builds
-     * a focus traversal group for all contained AbstractButtons.
-     *
-     * @return the panel used by this builder to build the form
-     */
-    public JPanel build() {
+    @Override
+    public final JPanel build() {
     	if (!focusGrouped) {
 	    	List<AbstractButton> buttons = new ArrayList<AbstractButton>();
-	    	for (Component component : getContainer().getComponents()) {
+	    	for (Component component : getPanel().getComponents()) {
 				if (component instanceof AbstractButton) {
 					buttons.add((AbstractButton) component);
 				}
@@ -141,7 +134,7 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
 	    	FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons.toArray(new AbstractButton[0]));
 	    	focusGrouped = true;
     	}
-        return (JPanel) getContainer();
+        return getPanel();
     }
 
 
@@ -153,48 +146,11 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @param background  the color to set as new background
      *
      * @see JComponent#setBackground(Color)
+     * 
+     * @deprecated Replaced by {@link #background(Color)}
      */
-    protected AbstractButtonPanelBuilder background(Color background) {
-        getPanel().setBackground(background);
-        opaque(true);
-        return this;
-    }
-
-
-    /**
-     * Sets the panel's border.
-     *
-     * @param border    the border to set
-     *
-     * @see JComponent#setBorder(Border)
-     */
-    protected AbstractButtonPanelBuilder border(Border border) {
-    	getPanel().setBorder(border);
-        return this;
-    }
-
-
-    /**
-     * Sets the panel's opaque state.
-     *
-     * @param b   true for opaque, false for non-opaque
-     *
-     * @see JComponent#setOpaque(boolean)
-     */
-    protected AbstractButtonPanelBuilder opaque(boolean b) {
-    	getPanel().setOpaque(b);
-        return this;
-    }
-
-
-    /**
-     * Sets the panel's background color and makes the panel opaque.
-     *
-     * @param background  the color to set as new background
-     *
-     * @see JComponent#setBackground(Color)
-     */
-    public void setBackground(Color background) {
+    @Deprecated
+    public final void setBackground(Color background) {
         getPanel().setBackground(background);
         opaque(true);
     }
@@ -206,8 +162,11 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @param border    the border to set
      *
      * @see JComponent#setBorder(Border)
+     * 
+     * @deprecated Replaced by {@link #border(Border)}
      */
-    public void setBorder(Border border) {
+    @Deprecated
+    public final void setBorder(Border border) {
     	getPanel().setBorder(border);
     }
 
@@ -220,8 +179,11 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @see JComponent#setOpaque(boolean)
      *
      * @since 1.1
+     * 
+     * @deprecated Replaced by {@link #opaque(boolean)}
      */
-    public void setOpaque(boolean b) {
+    @Deprecated
+    public final void setOpaque(boolean b) {
     	getPanel().setOpaque(b);
     }
 
@@ -412,8 +374,8 @@ public abstract class AbstractButtonPanelBuilder extends AbstractBuilder {
      * @param component	the component to add
      * @return the added component
      */
-    protected Component add(Component component) {
-        getContainer().add(component, currentCellConstraints);
+    protected final Component add(Component component) {
+        getPanel().add(component, currentCellConstraints);
        focusGrouped = false;
        return component;
     }

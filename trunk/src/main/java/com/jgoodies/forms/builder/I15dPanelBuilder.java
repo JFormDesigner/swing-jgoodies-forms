@@ -39,6 +39,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.common.internal.ResourceBundleAccessor;
 import com.jgoodies.common.internal.StringResourceAccess;
@@ -178,8 +179,22 @@ public class I15dPanelBuilder extends PanelBuilder {
 
     @Override
     public I15dPanelBuilder border(String emptyBorderSpec) {
-    	super.border(emptyBorderSpec);
-    	return this;
+        super.border(emptyBorderSpec);
+        return this;
+    }
+
+
+    @Override
+    public I15dPanelBuilder padding(EmptyBorder padding) {
+        super.padding(padding);
+        return this;
+    }
+
+
+    @Override
+    public I15dPanelBuilder padding(String paddingSpec) {
+        super.padding(paddingSpec);
+        return this;
     }
 
 

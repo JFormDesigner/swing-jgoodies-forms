@@ -54,6 +54,7 @@ CHANGES IN 1.9.0  -----------------------------------------------------
       Although useful in very simple forms, this class's API 
       has frequently added confusion.
       Use the FormBuilder instead.
+    o Rearranged the builder class hierarchy.
 
 
 CHANGES IN 1.8.0  -----------------------------------------------------

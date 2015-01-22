@@ -32,13 +32,11 @@ package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
-import java.awt.Color;
-
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
+import com.jgoodies.forms.internal.AbstractButtonPanelBuilder;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
@@ -98,7 +96,7 @@ import com.jgoodies.forms.util.LayoutStyle;
  *
  * @since 1.6
  */
-public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
+public final class ButtonBarBuilder extends AbstractButtonPanelBuilder<ButtonBarBuilder> {
 
     /**
      * Specifies the columns of the initial FormLayout used in constructors.
@@ -279,29 +277,6 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder {
         getLayout().appendColumn(ColumnSpec.createGap(width));
         nextColumn();
         return this;
-    }
-
-
-    // Configuration **********************************************************
-
-    @Override
-    public ButtonBarBuilder background(Color background) {
-        super.background(background);
-        return this;
-    }
-
-
-    @Override
-    public ButtonBarBuilder border(Border border) {
-        super.border(border);
-        return this;
-    }
-
-
-    @Override
-    public ButtonBarBuilder opaque(boolean b) {
-    	super.opaque(b);
-    	return this;
     }
 
 

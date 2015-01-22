@@ -74,6 +74,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.LayoutMap;
 import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.util.FocusTraversalType;
 
 /**
  * An general purpose form builder that uses the {@link FormLayout}

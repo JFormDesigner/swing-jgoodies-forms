@@ -38,6 +38,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.jgoodies.common.internal.StringResourceAccessor;
 import com.jgoodies.common.swing.MnemonicUtils;
@@ -81,7 +82,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  * Sometimes a form consists of many standardized rows but has a few
  * rows that require a customization. The DefaultFormBuilder can do everything
- * that the superclasses {@link com.jgoodies.forms.builder.AbstractFormBuilder}
+ * that the superclasses {@link com.jgoodies.forms.internal.AbstractFormBuilder}
  * and {@link com.jgoodies.forms.builder.PanelBuilder} can do;
  * among other things: appending new rows and moving the cursor.
  * Again, ask yourself if the DefaultFormBuilder is the appropriate builder.
@@ -208,7 +209,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * @version $Revision: 1.16 $
  * @since 1.0.3
  *
- * @see	com.jgoodies.forms.builder.AbstractFormBuilder
+ * @see	com.jgoodies.forms.internal.AbstractFormBuilder
  * @see	com.jgoodies.forms.layout.FormSpecs
  * @see	com.jgoodies.forms.layout.FormLayout
  * 
@@ -372,6 +373,20 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
     public DefaultFormBuilder border(String emptyBorderSpec) {
     	super.border(emptyBorderSpec);
     	return this;
+    }
+
+
+    @Override
+    public DefaultFormBuilder padding(EmptyBorder padding) {
+        super.padding(padding);
+        return this;
+    }
+
+
+    @Override
+    public DefaultFormBuilder padding(String paddingSpec) {
+        super.padding(paddingSpec);
+        return this;
     }
 
 
