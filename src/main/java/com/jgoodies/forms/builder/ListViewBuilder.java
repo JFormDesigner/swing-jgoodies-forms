@@ -51,6 +51,7 @@ import com.jgoodies.common.base.Strings;
 import com.jgoodies.forms.FormsSetup;
 import com.jgoodies.forms.factories.ComponentFactory;
 import com.jgoodies.forms.factories.Forms;
+import com.jgoodies.forms.factories.Paddings;
 import com.jgoodies.forms.internal.InternalFocusSetupUtils;
 import com.jgoodies.forms.util.FocusTraversalType;
 
@@ -159,10 +160,37 @@ public final class ListViewBuilder {
      * @since 1.9
      */
     public ListViewBuilder padding(EmptyBorder padding) {
-    	return border(padding);
+    	border(padding);
+    	return this;
     }
     
     
+    /**
+     * Sets the panel's padding as an EmptyBorder using the given specification
+     * for the top, left, bottom, right margins in DLU. For example
+     * "1dlu, 2dlu, 3dlu, 4dlu" sets an empty border with 1dlu in the top,
+     * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
+     * side.<p>
+     *
+     * Equivalent to {@code padding(Paddings.createPadding(paddingSpec, args))}.
+     *
+     * @param paddingSpec   describes the top, left, bottom, right margins
+     *    of the padding (an EmptyBorder) to use
+     * @param args          optional format arguments,
+     *                      used if {@code paddingSpec} is a format string
+     * @return a reference to this builder
+     *
+     * @see #padding(EmptyBorder)
+     * @see Paddings#createPadding(String, Object...)
+     * 
+     * @since 1.9
+     */
+    public ListViewBuilder padding(String paddingSpec, Object... args) {
+        padding(Paddings.createPadding(paddingSpec, args));
+        return this;
+    }
+
+
     /**
      * Sets the component that shall receive the focus if this panel's
      * parent is made visible the first time.
