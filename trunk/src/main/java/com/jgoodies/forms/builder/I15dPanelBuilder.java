@@ -192,7 +192,7 @@ public class I15dPanelBuilder extends PanelBuilder {
 
 
     @Override
-    public I15dPanelBuilder padding(String paddingSpec) {
+    public I15dPanelBuilder padding(String paddingSpec, Object... args) {
         super.padding(paddingSpec);
         return this;
     }

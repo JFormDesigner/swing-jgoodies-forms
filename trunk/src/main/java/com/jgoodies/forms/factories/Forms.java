@@ -145,11 +145,11 @@ public final class Forms {
      * @return the built panel
      * @throws NullPointerException if {@code emptyBorderSpec}
      *     or {@code component} is {@code null}
-     * @deprecated Use {@link #padding(String,JComponent)} instead
+     * @deprecated Use {@link #padding(JComponent,String, Object...)} instead
      */
     @Deprecated
     public static JComponent border(String emptyBorderSpec, JComponent component) {
-        return padding(emptyBorderSpec, component);
+        return padding(component, emptyBorderSpec);
     }
 
 
@@ -157,16 +157,16 @@ public final class Forms {
      * Creates and returns a panel where {@code component} is surrounded
      * by the given empty border.
      * <blockquote><pre>
-     * Forms.padding(Paddings.DLU14, aComponent);
+     * Forms.padding(aComponent, Paddings.DLU14);
      * </pre></blockquote>
-     * 
-     * @param padding       the empty border used to surround the component
      * @param component     the component to wrap
+     * @param padding       the empty border used to surround the component
+     * 
      * @return the built panel
      * @throws NullPointerException if {@code border}  or {@code component}
      *     is {@code null}
      */
-    public static JComponent padding(EmptyBorder padding, JComponent component) {
+    public static JComponent padding(JComponent component, EmptyBorder padding) {
     	JComponent container = single("fill:pref", "f:p", component);
     	container.setBorder(padding);
     	return container;
@@ -177,21 +177,21 @@ public final class Forms {
 	 * Creates and returns a panel where {@code component} is surrounded
 	 * by white space (an empty border) as described by {@code paddingSpec}.
      * <blockquote><pre>
-     * Forms.padding("4dlu, 0, 4dlu, 8dlu", aComponent);
-     * Forms.padding("10px 4px, 10px, 4px", aComponent);
+     * Forms.padding(aComponent, "4dlu, 0, 4dlu,  8dlu");
+     * Forms.padding(aComponent, "10px 4px, 10px, %spx", left);
      * </pre></blockquote>
+     * @param component     the component to wrap
+     * @param paddingSpec   describes the white space: top, left, bottom, right
 	 * 
-	 * @param paddingSpec   describes the white space: top, left, bottom, right
-	 * @param component     the component to wrap
 	 * @return the built panel
 	 * @throws NullPointerException if {@code paddingSpec}
 	 *     or {@code component} is {@code null}
      *
-     * @see #padding(EmptyBorder, JComponent)
-     * @see Paddings#createPadding(String)
+     * @see #padding(JComponent, EmptyBorder)
+     * @see Paddings#createPadding(String, Object...)
 	 */
-	public static JComponent padding(String paddingSpec, JComponent component) {
-		return padding(Paddings.createPadding(paddingSpec), component);
+	public static JComponent padding(JComponent component, String paddingSpec, Object... args) {
+		return padding(component, Paddings.createPadding(paddingSpec, args));
 	}
 
 

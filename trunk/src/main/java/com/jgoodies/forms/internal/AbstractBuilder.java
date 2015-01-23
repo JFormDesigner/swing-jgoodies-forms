@@ -208,11 +208,11 @@ public abstract class AbstractBuilder<B extends AbstractBuilder<B>> {
      * @param paddingSpec   describes the top, left, bottom, right sizes
      *    of the EmptyBorder to create
      *
-     * @see Paddings#createPadding(String)
+     * @see Paddings#createPadding(String, Object...)
      *
      * @since 1.6
      * 
-     * @deprecated Replaced by {@link #padding(String)}
+     * @deprecated Replaced by {@link #padding(String, Object...)}
      */
     @Deprecated
     public B border(String paddingSpec) {
@@ -247,15 +247,17 @@ public abstract class AbstractBuilder<B extends AbstractBuilder<B>> {
      *
      * @param paddingSpec   describes the top, left, bottom, right margins
      *    of the padding (an EmptyBorder) to use
+     * @param args          optional format arguments,
+     *  used if {@code paddingSpec} is a format string
      * @return a reference to this builder
      *
      * @see #padding(EmptyBorder)
-     * @see Paddings#createPadding(String)
+     * @see Paddings#createPadding(String, Object...)
      * 
      * @since 1.9
      */
-    public B padding(String paddingSpec) {
-        padding(Paddings.createPadding(paddingSpec));
+    public B padding(String paddingSpec, Object... args) {
+        padding(Paddings.createPadding(paddingSpec, args));
         return (B) this;
     }
 

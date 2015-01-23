@@ -384,7 +384,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
 
 
     @Override
-    public DefaultFormBuilder padding(String paddingSpec) {
+    public DefaultFormBuilder padding(String paddingSpec, Object... args) {
         super.padding(paddingSpec);
         return this;
     }
