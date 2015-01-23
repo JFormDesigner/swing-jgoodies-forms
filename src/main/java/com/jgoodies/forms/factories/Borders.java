@@ -172,7 +172,7 @@ public final class Borders {
      *
      * @see #createEmptyBorder(ConstantSize, ConstantSize, ConstantSize, ConstantSize)
      * 
-     * @deprecated Replaced by {@link Paddings#createPadding(String)}.
+     * @deprecated Replaced by {@link Paddings#createPadding(String, Object...)}.
      */
     @Deprecated
     public static Padding createEmptyBorder(String encodedSizes) {
