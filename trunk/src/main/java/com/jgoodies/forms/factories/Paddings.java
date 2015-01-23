@@ -38,6 +38,7 @@ import java.awt.Insets;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import com.jgoodies.common.base.Strings;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.LayoutStyle;
@@ -174,7 +175,7 @@ public final class Paddings {
      *
      * @throws NullPointerException if top, left, bottom, or right is {@code null}
      *
-     * @see #createPadding(String)
+     * @see #createPadding(String, Object...)
      */
     public static Padding createPadding(ConstantSize top,    ConstantSize left,
                                         ConstantSize bottom, ConstantSize right) {
@@ -188,15 +189,18 @@ public final class Paddings {
      * This string is a comma-separated encoding of 4 {@code ConstantSize}s.
      *
      * @param encodedSizes	 top, left, bottom, right gap encoded as String
+     * @param args           optional format arguments,
+     *                       used if {@code encodedSizes} is a format string
      * @return a padding with the specified margins
      *
      * @see #createPadding(ConstantSize, ConstantSize, ConstantSize, ConstantSize)
      */
-    public static Padding createPadding(String encodedSizes) {
-        String[] token = encodedSizes.split("\\s*,\\s*");
+    public static Padding createPadding(String encodedSizes, Object... args) {
+        String formattedSizes = Strings.get(encodedSizes, args);
+        String[] token = formattedSizes.split("\\s*,\\s*");
         int tokenCount = token.length;
         checkArgument(token.length == 4,
-                "The padding requires 4 sizes, but \"%s\" has %d.", encodedSizes, Integer.valueOf(tokenCount));
+                "The padding requires 4 sizes, but \"%s\" has %d.", formattedSizes, Integer.valueOf(tokenCount));
         ConstantSize top    = Sizes.constant(token[0], false);
         ConstantSize left   = Sizes.constant(token[1], true);
         ConstantSize bottom = Sizes.constant(token[2], false);
