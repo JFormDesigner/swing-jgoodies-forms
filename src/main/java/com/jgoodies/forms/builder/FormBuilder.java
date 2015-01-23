@@ -43,6 +43,7 @@ import java.awt.FocusTraversalPolicy;
 import java.lang.ref.WeakReference;
 
 import javax.swing.AbstractButton;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -601,8 +602,8 @@ public class FormBuilder {
      *    of the padding (an EmptyBorder) to use
      * @return a reference to this builder
      *
-     * @see Paddings#createPadding(String)
-     * @deprecated Use {@link #padding(String)} instead
+     * @see Paddings#createPadding(String, Object...)
+     * @deprecated Use {@link #padding(String, Object...)} instead
      */
     @Deprecated
     public FormBuilder border(String paddingSpec) {
@@ -633,19 +634,21 @@ public class FormBuilder {
      * 2dlu in the left side, 3dlu at the bottom, and 4dlu in the right hand
      * side.<p>
      *
-     * Equivalent to {@code setPadding(Paddings.createPadding(paddingSpec))}.
+     * Equivalent to {@code padding(Paddings.createPadding(paddingSpec, args))}.
      *
      * @param paddingSpec   describes the top, left, bottom, right margins
      *    of the padding (an EmptyBorder) to use
+     * @param args          optional format arguments,
+     *                      used if {@code paddingSpec} is a format string
      * @return a reference to this builder
      *
      * @see #padding(EmptyBorder)
-     * @see Paddings#createPadding(String)
+     * @see Paddings#createPadding(String, Object...)
      * 
      * @since 1.9
      */
-    public FormBuilder padding(String paddingSpec) {
-    	padding(Paddings.createPadding(paddingSpec));
+    public FormBuilder padding(String paddingSpec, Object... args) {
+    	padding(Paddings.createPadding(paddingSpec, args));
     	return this;
     }
 
@@ -1322,6 +1325,23 @@ public class FormBuilder {
     }
     
     
+    /**
+     * The first of two steps for adding an icon label to the form.
+     * The icon label will be added, once the cell constraints are specified.
+     * If {@code image} is null, nothing will be added.
+     * 
+     * @param image   the image to be displayed by the added label
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see JLabel#JLabel(Icon)
+     * 
+     * @since 1.9
+     */
+    public ComponentAdder add(Icon image) {
+        return add(true, image);
+    }
+    
+    
     // Adding Components Depending on an Expression ***************************
     
     /**
@@ -1810,6 +1830,27 @@ public class FormBuilder {
     }
 
 
+    /**
+     * The first of two steps for conditionally adding an icon label to the form.
+     * The icon label will be added, once the cell constraints are specified.
+     * If {@code image} is null, nothing will be added.
+     * 
+     * @param expression   the precondition for adding the icon
+     * @param image   the image to be displayed by the added label
+     * @return the fluent interface part used to set the cell constraints
+     * 
+     * @see JLabel#JLabel(Icon)
+     * 
+     * @since 1.9
+     */
+    public ComponentAdder add(boolean expression, Icon image) {
+        if (!expression || image == null) {
+            return new NoOpComponentAdder(this);
+        }
+        return addImpl(new JLabel(image));
+    }
+    
+    
     // Access to Lazily Created Objects ***************************************
     
     protected LayoutMap getLayoutMap() {
