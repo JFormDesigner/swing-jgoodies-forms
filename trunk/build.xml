@@ -52,6 +52,7 @@
         <pathelement location="${build.test.dir}" 	/> 
         <pathelement location="${lib.common.jar}"   /> 
         <pathelement location="${junit4.jar}" 		/> 
+        <pathelement location="${hamcrest.jar}"     /> 
     </path>
   
     <path id="classpath.javadoc">
