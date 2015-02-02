@@ -741,7 +741,7 @@ public class FormBuilder {
      * @throws NullPointerException if {@code focusTraversalType} is {@code null}
      */
     public FormBuilder focusTraversalPolicy(FocusTraversalPolicy policy) {
-        checkNotNull(focusTraversalPolicy, MUST_NOT_BE_NULL, "focus traversal policy");
+        checkNotNull(policy, MUST_NOT_BE_NULL, "focus traversal policy");
         checkState(this.focusTraversalPolicy == null,
                 "The focus traversal policy must be set once only.");
         checkValidFocusTraversalSetup();

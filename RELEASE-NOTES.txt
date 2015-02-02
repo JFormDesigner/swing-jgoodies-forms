@@ -55,6 +55,7 @@ CHANGES IN 1.9.0  -----------------------------------------------------
       has frequently added confusion.
       Use the FormBuilder instead.
     o Rearranged the builder class hierarchy.
+    o Fixed a FormBuilder focus traversal policy setter bug.
 
 
 CHANGES IN 1.8.0  -----------------------------------------------------
