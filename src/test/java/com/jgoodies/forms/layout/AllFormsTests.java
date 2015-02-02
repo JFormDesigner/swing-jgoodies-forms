@@ -48,9 +48,10 @@ import org.junit.runners.Suite;
     ClassLoaderTest.class,
     ColumnSpecTest.class,
     DefaultComponentFactoryTest.class,
+    PanelBuilderTest.class,
     FormLayoutTest.class,
     FormLayoutGroupsTest.class,
-    PanelBuilderTest.class,
+    FormBuilderTest.class,
     RowSpecTest.class,
     SerializationTest.class,
     UnitConversionTest.class
