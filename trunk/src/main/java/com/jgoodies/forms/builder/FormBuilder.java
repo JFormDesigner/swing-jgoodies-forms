@@ -149,8 +149,18 @@ import com.jgoodies.forms.util.FocusTraversalType;
  * 
  *     .addBar(newBtn, editBtn, deleteBtn).xy(1, 5) // button bar
  *     .addBar(landscapeRadio, portraitRadio).xy(1, 1) // Radio button bar
- * </pre>
- *
+ * </pre><p>
+ * 
+ * TODO: Consider moving almost everything from this class to an abstract
+ * and generified superclass that reduces the effort to implement subclasses
+ * with extra features. FormBuilder has been designed and documented as
+ * final class. The final marker has been removed to allow API users to add
+ * an internationalization feature similar to PanelBuilder/I15PanelBuilder.
+ * But other extensions and complemens may show up.<p>
+ * 
+ * TODO: Consider changing the {@link #build()} signature to return
+ * a JComponent, so subclasses can return a component other than the
+ * panel, the builder adds components to.
  *
  * @author  Karsten Lentzsch
  *
