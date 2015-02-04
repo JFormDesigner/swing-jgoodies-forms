@@ -156,7 +156,7 @@ import com.jgoodies.forms.util.FocusTraversalType;
  * with extra features. FormBuilder has been designed and documented as
  * final class. The final marker has been removed to allow API users to add
  * an internationalization feature similar to PanelBuilder/I15PanelBuilder.
- * But other extensions and complemens may show up.<p>
+ * But other extensions and complements may show up.<p>
  * 
  * TODO: Consider changing the {@link #build()} signature to return
  * a JComponent, so subclasses can return a component other than the
