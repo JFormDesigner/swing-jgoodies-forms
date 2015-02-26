@@ -424,19 +424,21 @@ public final class ConstantSize implements Size, Serializable {
                     return defaultUnit;
                 }
                 return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            } else if (name.equals("px")) {
+            }
+            switch (name) {
+            case "px":
                 return PIXEL;
-            } else if (name.equals("dlu")) {
+            case "dlu":
                 return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            } else if (name.equals("pt")) {
+            case "pt":
                 return POINT;
-            } else if (name.equals("in")) {
+            case "in":
                 return INCH;
-            } else if (name.equals("mm")) {
+            case "mm":
                 return MILLIMETER;
-            } else if (name.equals("cm")) {
+            case "cm":
                 return CENTIMETER;
-            } else {
+            default:
                 throw new IllegalArgumentException(
                     "Invalid unit name '" + name + "'. Must be one of: " +
                     "px, dlu, pt, mm, cm, in");

@@ -231,21 +231,11 @@ public final class SerializationTest extends TestCase {
      * @param object   the object to be serialized
      */
     private static void serialize(OutputStream out, Object object) {
-        ObjectOutputStream objectOut = null;
-        try {
-            objectOut = new ObjectOutputStream(out);
+        try (ObjectOutputStream objectOut = new ObjectOutputStream(out)) {
             objectOut.writeObject(object);
         } catch (IOException e) {
             e.printStackTrace();
             fail("IO Exception");
-        } finally {
-            if (objectOut != null) {
-                try {
-                    objectOut.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
         }
     }
 
@@ -258,9 +248,7 @@ public final class SerializationTest extends TestCase {
      * @return the deserialized object
      */
     private static Object deserialize(InputStream in) {
-        ObjectInputStream objectIn = null;
-        try {
-            objectIn = new ObjectInputStream(in);
+        try (ObjectInputStream objectIn  = new ObjectInputStream(in)) {
             return objectIn.readObject();
         } catch (IOException e) {
             e.printStackTrace();
@@ -268,14 +256,6 @@ public final class SerializationTest extends TestCase {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             fail("Class not found");
-        } finally {
-            if (objectIn != null) {
-                try {
-                    objectIn.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
         }
         return null;
     }

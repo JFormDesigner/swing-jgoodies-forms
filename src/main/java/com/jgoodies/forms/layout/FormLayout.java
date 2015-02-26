@@ -48,11 +48,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.swing.JComponent;
 
-import com.jgoodies.common.base.Objects;
 import com.jgoodies.common.internal.Messages;
 
 
@@ -109,8 +109,8 @@ import com.jgoodies.common.internal.Messages;
  * </pre><p>
  *
  * <strong>Example 2</strong> (Using PanelBuilder):<br>
- * This example creates the same panel as above using the
- * {@link com.jgoodies.forms.builder.PanelBuilder} to add components to the form.
+ * This example creates the same panel as above using the PanelBuilder
+ * to add components to the form.
  * <pre>
  * FormLayout layout = new FormLayout(
  *      "right:pref, 6dlu, 50dlu, 4dlu, default",  // columns
@@ -426,12 +426,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
     public FormLayout(ColumnSpec[] colSpecs, RowSpec[] rowSpecs) {
         checkNotNull(colSpecs, "The column specifications must not be null.");
         checkNotNull(rowSpecs, "The row specifications must not be null.");
-        this.colSpecs  = new ArrayList<ColumnSpec>(Arrays.asList(colSpecs));
-        this.rowSpecs  = new ArrayList<RowSpec>(Arrays.asList(rowSpecs));
+        this.colSpecs  = new ArrayList<>(Arrays.asList(colSpecs));
+        this.rowSpecs  = new ArrayList<>(Arrays.asList(rowSpecs));
         colGroupIndices = new int[][]{};
         rowGroupIndices = new int[][]{};
         int initialCapacity = colSpecs.length * rowSpecs.length / 4;
-        constraintMap       = new HashMap<Component, CellConstraints>(initialCapacity);
+        constraintMap       = new HashMap<>(initialCapacity);
         componentSizeCache  = new ComponentSizeCache(initialCapacity);
         minimumWidthMeasure    = new MinimumWidthMeasure(componentSizeCache);
         minimumHeightMeasure   = new MinimumHeightMeasure(componentSizeCache);
@@ -1346,12 +1346,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
     private void initializeColAndRowComponentLists() {
         colComponents = new List[getColumnCount()];
         for (int i = 0; i < getColumnCount(); i++) {
-            colComponents[i] = new ArrayList<Component>();
+            colComponents[i] = new ArrayList<>();
         }
 
         rowComponents = new List[getRowCount()];
         for (int i = 0; i < getRowCount(); i++) {
-            rowComponents[i] = new ArrayList<Component>();
+            rowComponents[i] = new ArrayList<>();
         }
 
         for (Object element : constraintMap.entrySet()) {
@@ -1959,8 +1959,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
          * @param initialCapacity	the initial cache capacity
          */
         private ComponentSizeCache(int initialCapacity) {
-            minimumSizes   = new HashMap<Component, Dimension>(initialCapacity);
-            preferredSizes = new HashMap<Component, Dimension>(initialCapacity);
+            minimumSizes   = new HashMap<>(initialCapacity);
+            preferredSizes = new HashMap<>(initialCapacity);
         }
 
         /**

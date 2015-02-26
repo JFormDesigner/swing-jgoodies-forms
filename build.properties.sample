@@ -10,4 +10,4 @@
 
 
 # Set the path to the Java runtime used to compile this project
-# build.boot.classpath=C:/Programme/Java/Jdk1.6.0_31/jre/lib/rt.jar
+# build.boot.classpath=C:/Programme/Java/Jdk1.7.0_76/jre/lib/rt.jar

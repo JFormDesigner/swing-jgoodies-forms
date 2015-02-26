@@ -86,9 +86,7 @@ public final class FocusTraversalUtilsAccessor {
     	}
         try {
             groupMethod.invoke(null, (Object) buttons);
-        } catch (IllegalAccessException e) {
-            // Do nothing
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             // Do nothing
         }
     }
@@ -100,14 +98,9 @@ public final class FocusTraversalUtilsAccessor {
         try {
             Class<?> clazz = Class.forName(FOCUS_TRAVERSAL_UTILS_NAME);
             return clazz.getMethod("group", new Class[] {AbstractButton[].class});
-        } catch (ClassNotFoundException e) {
-            // Ignore
-        } catch (SecurityException e) {
-        	// Ignore
-        } catch (NoSuchMethodException e) {
-        	// Ignore
+        } catch (ClassNotFoundException | SecurityException | NoSuchMethodException e) {
+            return null;
         }
-        return null;
     }
 
 

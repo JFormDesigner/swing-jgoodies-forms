@@ -108,8 +108,7 @@ public final class ColumnSpec extends FormSpec {
     /**
      * Maps encoded column specifications to ColumnSpec instances.
      */
-    private static final Map<String, ColumnSpec> CACHE =
-        new HashMap<String, ColumnSpec>();
+    private static final Map<String, ColumnSpec> CACHE = new HashMap<>();
 
 
     // Instance Creation ****************************************************

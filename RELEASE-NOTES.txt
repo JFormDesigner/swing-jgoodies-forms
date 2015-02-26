@@ -2,6 +2,12 @@
                             Release Notes
                         
 
+CHANGES IN 1.10.0  ----------------------------------------------------
+
+    o Moved to Java 7.
+    o Requires JGoodies Common 1.9.
+
+
 CHANGES IN 1.9.0  -----------------------------------------------------
 
     This version is binary incompatible with previous versions,
