@@ -125,7 +125,7 @@ public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBu
     @Override
     public final JPanel build() {
     	if (!focusGrouped) {
-	    	List<AbstractButton> buttons = new ArrayList<AbstractButton>();
+	    	List<AbstractButton> buttons = new ArrayList<>();
 	    	for (Component component : getPanel().getComponents()) {
 				if (component instanceof AbstractButton) {
 					buttons.add((AbstractButton) component);

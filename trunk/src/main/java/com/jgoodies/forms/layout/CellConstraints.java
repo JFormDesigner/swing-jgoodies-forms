@@ -1294,21 +1294,30 @@ public final class CellConstraints implements Cloneable, Serializable {
 
         static Alignment valueOf(String nameOrAbbreviation) {
             String str = nameOrAbbreviation.toLowerCase(Locale.ENGLISH);
-            if (str.equals("d") || str.equals("default")) {
+            switch (str) {
+            
+            case "d":
+            case "default":
                 return DEFAULT;
-            } else if (str.equals("f") || str.equals("fill")) {
+            case "f":
+            case "fill":
                 return FILL;
-            } else if (str.equals("c") || str.equals("center")) {
+            case "c":
+            case "center":
                 return CENTER;
-            } else if (str.equals("l") || str.equals("left")) {
+            case "l":
+            case "left":
                 return LEFT;
-            } else if (str.equals("r") || str.equals("right")) {
+            case "r":
+            case "right":
                 return RIGHT;
-            } else if (str.equals("t") || str.equals("top")) {
+            case "t":
+            case "top":
                 return TOP;
-            } else if (str.equals("b") || str.equals("bottom")) {
+            case "b":
+            case "bottom":
                 return BOTTOM;
-            } else {
+            default:
                 throw new IllegalArgumentException(
                     "Invalid alignment " + nameOrAbbreviation
                     + ". Must be one of: left, center, right, top, bottom, "

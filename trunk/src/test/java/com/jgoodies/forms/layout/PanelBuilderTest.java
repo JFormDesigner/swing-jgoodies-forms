@@ -39,7 +39,7 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.factories.CC;
 
 /**
- * A test case for class {@link PanelBuilder}.
+ * A test case for the PanelBuilder.
  *
  * @author	Karsten Lentzsch
  * @version $Revision: 1.5 $

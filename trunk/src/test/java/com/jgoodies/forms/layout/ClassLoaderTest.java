@@ -30,6 +30,7 @@
 
 package com.jgoodies.forms.layout;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -70,8 +71,12 @@ public final class ClassLoaderTest extends TestCase{
     private Class loadClass(String className) throws ClassNotFoundException {
         URL url = getClass().getResource("/");
         ClassLoader parent = ClassLoader.getSystemClassLoader().getParent();
-        ClassLoader loader = new URLClassLoader(new URL[]{url}, parent);
-        return loader.loadClass(className);
+        
+        try (URLClassLoader loader = new URLClassLoader(new URL[]{url}, parent);) {
+            return loader.loadClass(className);
+        } catch (IOException ex) {
+            return null;
+        }
     }
 
 

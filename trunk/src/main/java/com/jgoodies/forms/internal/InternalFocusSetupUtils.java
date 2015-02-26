@@ -163,13 +163,10 @@ public final class InternalFocusSetupUtils {
         if (layoutFTPConstructor != null) {
             try {
                 return layoutFTPConstructor.newInstance(initialComponent);
-            } catch (IllegalArgumentException ex) {
-                // Ignore
-            } catch (InstantiationException ex) {
-                // Ignore
-            } catch (IllegalAccessException ex) {
-                // Ignore
-            } catch (InvocationTargetException ex) {
+            } catch (IllegalArgumentException
+                    | InstantiationException
+                    | IllegalAccessException
+                    | InvocationTargetException ex) {
                 // Ignore
             }
         }
@@ -180,28 +177,18 @@ public final class InternalFocusSetupUtils {
     private static Constructor<FocusTraversalPolicy> getContainerOrderFTPConstructor() {
         try {
             return (Constructor<FocusTraversalPolicy>) Class.forName(JGContainerOrderFocusTraversalPolicy_NAME).getConstructor(Component.class);
-        } catch (SecurityException ex) {
-            // Ignore
-        } catch (NoSuchMethodException ex) {
-            // Ignore
-        } catch (ClassNotFoundException ex) {
-            // Ignore
+        } catch (ClassNotFoundException | SecurityException | NoSuchMethodException e) {
+            return null;
         }
-        return null;
     }
     
 
     private static Constructor<FocusTraversalPolicy> getLayoutFTPConstructor() {
         try {
             return (Constructor<FocusTraversalPolicy>) Class.forName(JGLayoutFocusTraversalPolicy_NAME).getConstructor(Component.class);
-        } catch (SecurityException ex) {
-            // Ignore
-        } catch (NoSuchMethodException ex) {
-            // Ignore
-        } catch (ClassNotFoundException ex) {
-            // Ignore
+        } catch (ClassNotFoundException | SecurityException | NoSuchMethodException e) {
+            return null;
         }
-        return null;
     }
 
     
