@@ -32,6 +32,7 @@ package com.jgoodies.forms.layout;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
@@ -143,26 +144,29 @@ public final class BoundedSize implements Size, Serializable {
      * @param prefMeasure     the measure used to determine the preferred size
      * @param defaultMeasure  the measure used to determine the default size
      * @return the maximum size in pixels
-     * @see FormSpec#maximumSize(Container, List, FormLayout.Measure, FormLayout.Measure, FormLayout.Measure)
+     * @see FormSpec#maximumSize(Container, List, FormLayout.Measure, FormLayout.Measure, FormLayout.Measure, boolean)
      */
     @Override
 	public int maximumSize(Container container,
-                    List components,
+                    List<Component> components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
-                    FormLayout.Measure defaultMeasure) {
+                    FormLayout.Measure defaultMeasure,
+                    boolean horizontal) {
         int size = basis.maximumSize(container,
                                      components,
                                      minMeasure,
                                      prefMeasure,
-                                     defaultMeasure);
+                                     defaultMeasure,
+                                     horizontal);
         if (lowerBound != null) {
             size = Math.max(size, lowerBound.maximumSize(
                                      container,
                                      components,
                                      minMeasure,
                                      prefMeasure,
-                                     defaultMeasure));
+                                     defaultMeasure,
+                                     horizontal));
         }
         if (upperBound != null) {
             size = Math.min(size, upperBound.maximumSize(
@@ -170,7 +174,8 @@ public final class BoundedSize implements Size, Serializable {
                                      components,
                                      minMeasure,
                                      prefMeasure,
-                                     defaultMeasure));
+                                     defaultMeasure,
+                                     horizontal));
         }
         return size;
     }

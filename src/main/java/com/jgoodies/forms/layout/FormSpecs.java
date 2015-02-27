@@ -60,7 +60,7 @@ public final class FormSpecs {
      * @see #DEFAULT_COLSPEC
      */
     public static final ColumnSpec MIN_COLSPEC =
-        new ColumnSpec(Sizes.MINIMUM);
+        new ColumnSpec(ComponentSize.MINIMUM);
 
 
     /**
@@ -71,7 +71,7 @@ public final class FormSpecs {
      * @see #DEFAULT_COLSPEC
      */
     public static final ColumnSpec PREF_COLSPEC =
-        new ColumnSpec(Sizes.PREFERRED);
+        new ColumnSpec(ComponentSize.PREFERRED);
 
 
     /**
@@ -86,7 +86,7 @@ public final class FormSpecs {
      * @see #PREF_COLSPEC
      */
     public static final ColumnSpec DEFAULT_COLSPEC =
-        new ColumnSpec(Sizes.DEFAULT);
+        new ColumnSpec(ComponentSize.DEFAULT);
 
 
     /**
@@ -152,7 +152,7 @@ public final class FormSpecs {
      * @see #GROWING_BUTTON_COLSPEC
      */
     public static final ColumnSpec BUTTON_COLSPEC =
-        new ColumnSpec(Sizes.bounded(Sizes.PREFERRED,
+        new ColumnSpec(Sizes.bounded(ComponentSize.PREFERRED,
                                      LayoutStyle.getCurrent().getDefaultButtonWidth(),
                                      null));
 
@@ -182,7 +182,7 @@ public final class FormSpecs {
      * @see #DEFAULT_ROWSPEC
      */
     public static final RowSpec MIN_ROWSPEC =
-        new RowSpec(Sizes.MINIMUM);
+        new RowSpec(ComponentSize.MINIMUM);
 
 
     /**
@@ -193,7 +193,7 @@ public final class FormSpecs {
      * @see #DEFAULT_ROWSPEC
      */
     public static final RowSpec PREF_ROWSPEC =
-        new RowSpec(Sizes.PREFERRED);
+        new RowSpec(ComponentSize.PREFERRED);
 
 
     /**
@@ -208,7 +208,7 @@ public final class FormSpecs {
      * @see #PREF_COLSPEC
      */
     public static final RowSpec DEFAULT_ROWSPEC =
-        new RowSpec(Sizes.DEFAULT);
+        new RowSpec(ComponentSize.DEFAULT);
 
 
     /**
@@ -317,7 +317,7 @@ public final class FormSpecs {
      * @since 1.2
      */
     public static final RowSpec BUTTON_ROWSPEC =
-        new RowSpec(Sizes.bounded(Sizes.PREFERRED,
+        new RowSpec(Sizes.bounded(ComponentSize.PREFERRED,
                                   LayoutStyle.getCurrent().getDefaultButtonHeight(),
                                   null));
 

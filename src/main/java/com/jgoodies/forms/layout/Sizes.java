@@ -30,14 +30,12 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
+
 import java.awt.Component;
-import java.awt.Container;
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
-import com.jgoodies.forms.layout.ConstantSize.Unit;
+import com.jgoodies.common.base.Preconditions;
 import com.jgoodies.forms.util.DefaultUnitConverter;
 import com.jgoodies.forms.util.UnitConverter;
 
@@ -98,33 +96,6 @@ public final class Sizes {
     public static final ConstantSize DLUY21 = dluY(21);
 
 
-    // Static Component Sizes ***********************************************
-
-    /**
-     * Use the maximum of all component minimum sizes as column or row size.
-     */
-    public static final ComponentSize MINIMUM  = new ComponentSize("minimum");
-
-    /**
-     * Use the maximum of all component preferred sizes as column or row size.
-     */
-    public static final ComponentSize PREFERRED = new ComponentSize("preferred");
-
-    /**
-     * Use the maximum of all component sizes as column or row size;
-     * measures preferred sizes when asked for the preferred size
-     * and minimum sizes when asked for the minimum size.
-     */
-    public static final ComponentSize DEFAULT = new ComponentSize("default");
-
-    /**
-     * An array of all enumeration values used to canonicalize
-     * deserialized component sizes.
-     */
-    private static final ComponentSize[] VALUES =
-        { MINIMUM, PREFERRED, DEFAULT};
-
-
     // Singleton State *******************************************************
 
     /**
@@ -141,7 +112,7 @@ public final class Sizes {
      *
      * @see #setDefaultUnit(ConstantSize.Unit)
      */
-    private static Unit defaultUnit = ConstantSize.PIXEL;
+    private static Unit defaultUnit = Unit.PIXEL;
 
 
     // Instance Creation ******************************************************
@@ -158,14 +129,12 @@ public final class Sizes {
      * given encoded size and unit description.
      *
      * @param encodedValueAndUnit  value and unit in string representation
-     * @param horizontal			true for horizontal, false for vertical
      * @return a {@code ConstantSize} for the given value and unit
      */
-    public static ConstantSize constant(String encodedValueAndUnit,
-                                         boolean horizontal) {
+    public static ConstantSize constant(String encodedValueAndUnit) {
         String lowerCase = encodedValueAndUnit.toLowerCase(Locale.ENGLISH);
         String trimmed = lowerCase.trim();
-        return ConstantSize.valueOf(trimmed, horizontal);
+        return ConstantSize.decode(trimmed);
     }
 
     /**
@@ -198,7 +167,7 @@ public final class Sizes {
      * @return the associated {@code ConstantSize}
      */
     public static ConstantSize pixel(int value) {
-        return new ConstantSize(value, ConstantSize.PIXEL);
+        return new ConstantSize(value, Unit.PIXEL);
     }
 
     /**
@@ -350,136 +319,17 @@ public final class Sizes {
      *
      * @param unit    the new default Unit, {@code null} for dialog units
      *
-     * @throws IllegalArgumentException if {@code unit} is
-     *    {@link ConstantSize#DLUX} or {@link ConstantSize#DLUY}.
+     * @throws NullPointerException if {@code unit} is {@code null}
      *
      * @since 1.2
      */
     public static void setDefaultUnit(Unit unit) {
-        if ((unit == ConstantSize.DLUX) || (unit == ConstantSize.DLUY)) {
-            throw new IllegalArgumentException(
-                    "The unit must not be DLUX or DLUY. "
-                  + "To use DLU as default unit, invoke this method with null.");
-        }
-        defaultUnit = unit;
+        defaultUnit = Preconditions.checkNotNull(unit, MUST_NOT_BE_NULL, "default unit");
     }
 
 
     // Helper Class *********************************************************
 
-    /**
-     * An ordinal-based serializable typesafe enumeration that implements
-     * the {@link Size} interface for the component sizes:
-     * <em>min, pref, default</em>.
-     */
-    static final class ComponentSize implements Size, Serializable {
-
-        private final transient String name;
-
-        private ComponentSize(String name) {
-            this.name = name;
-        }
-
-        /**
-         * Returns an instance of {@code ComponentSize} that corresponds
-         * to the specified string.
-         * @param str   		the encoded component size
-         * @return the corresponding ComponentSize or null if none matches
-         */
-        static ComponentSize valueOf(String str) {
-            if (str.equals("m") || str.equals("min")) {
-                return MINIMUM;
-            }
-            if (str.equals("p") || str.equals("pref")) {
-                return PREFERRED;
-            }
-            if (str.equals("d") || str.equals("default")) {
-                return DEFAULT;
-            }
-            return null;
-        }
-
-        /**
-         * Computes the maximum size for the given list of components, using
-         * this form spec and the specified measure.
-         * <p>
-         * Invoked by FormLayout to determine the size of one of my elements
-         *
-         * @param container       the layout container
-         * @param components      the list of components to measure
-         * @param minMeasure      the measure used to determine the minimum size
-         * @param prefMeasure     the measure used to determine the preferred size
-         * @param defaultMeasure  the measure used to determine the default size
-         * @return the maximum size in pixels for the given list of components
-         */
-        @Override
-		public int maximumSize(
-            Container container,
-            List components,
-            FormLayout.Measure minMeasure,
-            FormLayout.Measure prefMeasure,
-            FormLayout.Measure defaultMeasure) {
-
-            FormLayout.Measure measure = this == MINIMUM
-                    ? minMeasure
-                    : (this == PREFERRED ? prefMeasure : defaultMeasure);
-            int maximum = 0;
-            for (Iterator i = components.iterator(); i.hasNext();) {
-                Component c = (Component) i.next();
-                maximum = Math.max(maximum, measure.sizeOf(c));
-            }
-            return maximum;
-        }
-
-        /**
-         * Describes if this Size can be compressed, if container space gets scarce.
-         * Used by the FormLayout size computations in {@code #compressedSizes}
-         * to check whether a column or row can be compressed or not.<p>
-         *
-         * The DEFAULT ComponentSize is compressible, MINIMUM and PREFERRED
-         * are incompressible.
-         *
-         * @return {@code true} for the DEFAULT size,
-         *      {@code false} otherwise
-         *
-         * @since 1.1
-         */
-        @Override
-		public boolean compressible() {
-            return this == DEFAULT;
-        }
-
-
-        @Override
-        public String toString() {
-            return encode();
-        }
-
-
-        /**
-         * Returns a parseable string representation of this ComponentSize.
-         *
-         * @return a String that can be parsed by the Forms parser
-         *
-         * @since 1.2
-         */
-        @Override
-		public String encode() {
-            return name.substring(0, 1);
-        }
-
-
-        // Serialization *****************************************************
-
-        private static int nextOrdinal = 0;
-
-        private final int ordinal = nextOrdinal++;
-
-        private Object readResolve() {
-            return VALUES[ordinal];  // Canonicalize
-        }
-
-    }
 
 
 }

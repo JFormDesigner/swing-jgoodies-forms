@@ -30,6 +30,7 @@
 
 package com.jgoodies.forms.layout;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.util.List;
 
@@ -65,13 +66,15 @@ public interface Size {
      * @param minMeasure      the measure that determines the minimum sizes
      * @param prefMeasure     the measure that determines the preferred sizes
      * @param defaultMeasure  the measure that determines the default sizes
+     * @param horizontal      {@code true} for columns, {@code false} for rows
      * @return the maximum size in pixels for the given list of components
      */
     int maximumSize(Container container,
-                    List components,
+                    List<Component> components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
-                    FormLayout.Measure defaultMeasure);
+                    FormLayout.Measure defaultMeasure,
+                    boolean horizontal);
 
 
     /**

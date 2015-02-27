@@ -75,32 +75,6 @@ import java.util.List;
  */
 public final class ConstantSize implements Size, Serializable {
 
-    // Public Units *********************************************************
-
-    public static final Unit PIXEL          = new Unit("Pixel",          "px",   null,  true);
-    public static final Unit POINT          = new Unit("Point",          "pt",   null,  true);
-    public static final Unit DIALOG_UNITS_X = new Unit("Dialog units X", "dluX", "dlu", true);
-    public static final Unit DIALOG_UNITS_Y = new Unit("Dialog units Y", "dluY", "dlu", true);
-    public static final Unit MILLIMETER     = new Unit("Millimeter",     "mm",   null,  false);
-    public static final Unit CENTIMETER     = new Unit("Centimeter",     "cm",   null,  false);
-    public static final Unit INCH           = new Unit("Inch",           "in",   null,  false);
-
-    public static final Unit PX             = PIXEL;
-    public static final Unit PT             = POINT;
-    public static final Unit DLUX           = DIALOG_UNITS_X;
-    public static final Unit DLUY           = DIALOG_UNITS_Y;
-    public static final Unit MM             = MILLIMETER;
-    public static final Unit CM             = CENTIMETER;
-    public static final Unit IN             = INCH;
-
-    /**
-     * An array of all enumeration values used to canonicalize
-     * deserialized units.
-     */
-    private static final Unit[] VALUES =
-        { PIXEL, POINT, DIALOG_UNITS_X, DIALOG_UNITS_Y, MILLIMETER, CENTIMETER, INCH};
-
-
     // Fields ***************************************************************
 
     private final double value;
@@ -149,11 +123,11 @@ public final class ConstantSize implements Size, Serializable {
      * @throws IllegalArgumentException   if the unit requires integer
      *    but the value is not an integer
      */
-    static ConstantSize valueOf(String encodedValueAndUnit, boolean horizontal) {
+    static ConstantSize decode(String encodedValueAndUnit) {
         String[] split = ConstantSize.splitValueAndUnit(encodedValueAndUnit);
         String encodedValue = split[0];
         String encodedUnit  = split[1];
-        Unit unit = Unit.valueOf(encodedUnit, horizontal);
+        Unit unit = Unit.decode(encodedUnit);
         double value = Double.parseDouble(encodedValue);
         if (unit.requiresIntegers) {
             checkArgument(value == (int) value,
@@ -165,13 +139,27 @@ public final class ConstantSize implements Size, Serializable {
 
     /**
      * Creates and returns a ConstantSize for the specified size value
+     * in dialog units.
+     *
+     * @param value    size value in dialog units
+     * @return the associated Size instance
+     */
+    static ConstantSize dlu(int value) {
+        return new ConstantSize(value, Unit.DIALOG_UNITS);
+    }
+    
+    
+    /**
+     * Creates and returns a ConstantSize for the specified size value
      * in horizontal dialog units.
      *
      * @param value	size value in horizontal dialog units
      * @return the associated Size instance
+     * @deprecated Replaced by {@link #dlu(int)}
      */
+    @Deprecated
     static ConstantSize dluX(int value) {
-        return new ConstantSize(value, DLUX);
+        return dlu(value);
     }
 
 
@@ -181,9 +169,11 @@ public final class ConstantSize implements Size, Serializable {
      *
      * @param value    size value in vertical dialog units
      * @return the associated Size instance
+     * @deprecated Replaced by {@link #dlu(int)}
      */
+    @Deprecated
     static ConstantSize dluY(int value) {
-        return new ConstantSize(value, DLUY);
+        return dlu(value);
     }
 
 
@@ -221,22 +211,23 @@ public final class ConstantSize implements Size, Serializable {
      * @param component  the associated component
      * @return the size in pixels
      */
-    public int getPixelSize(Component component) {
-        if (unit == PIXEL) {
+    public int getPixelSize(Component component, boolean horizontal) {
+        switch (unit) {
+        case PIXEL:
             return intValue();
-        } else if (unit == DIALOG_UNITS_X) {
-            return Sizes.dialogUnitXAsPixel(intValue(), component);
-        } else if (unit == DIALOG_UNITS_Y) {
-            return Sizes.dialogUnitYAsPixel(intValue(), component);
-        } else if (unit == POINT) {
+        case DIALOG_UNITS:
+            return horizontal
+                 ? Sizes.dialogUnitXAsPixel(intValue(), component)
+                 : Sizes.dialogUnitYAsPixel(intValue(), component);
+        case POINT:
             return Sizes.pointAsPixel(intValue(), component);
-        } else if (unit == INCH) {
+        case INCH:
             return Sizes.inchAsPixel(value, component);
-        } else if (unit == MILLIMETER) {
+        case MILLIMETER:
             return Sizes.millimeterAsPixel(value, component);
-        } else if (unit == CENTIMETER) {
+        case CENTIMETER:
             return Sizes.centimeterAsPixel(value, component);
-        } else {
+        default:
             throw new IllegalStateException("Invalid unit " + unit);
         }
     }
@@ -244,27 +235,14 @@ public final class ConstantSize implements Size, Serializable {
 
     // Implementing the Size Interface **************************************
 
-    /**
-     * Returns this size as pixel size. Neither requires the component
-     * list nor the specified measures.<p>
-     *
-     * Invoked by {@link com.jgoodies.forms.layout.FormSpec} to determine
-     * the size of a column or row.
-     *
-     * @param container       the layout container
-     * @param components      the list of components used to compute the size
-     * @param minMeasure      the measure that determines the minimum sizes
-     * @param prefMeasure     the measure that determines the preferred sizes
-     * @param defaultMeasure  the measure that determines the default sizes
-     * @return the computed maximum size in pixel
-     */
     @Override
 	public int maximumSize(Container container,
-                    List components,
+                    List<Component> components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
-                    FormLayout.Measure defaultMeasure) {
-        return getPixelSize(container);
+                    FormLayout.Measure defaultMeasure,
+                    boolean horizontal) {
+        return getPixelSize(container, horizontal);
     }
 
 
@@ -390,113 +368,6 @@ public final class ConstantSize implements Size, Serializable {
 
     // Helper Class *********************************************************
 
-    /**
-     * An ordinal-based serializable typesafe enumeration for units
-     * as used in instances of {@link ConstantSize}.
-     */
-    public static final class Unit implements Serializable {
-
-        private final transient String name;
-        private final transient String abbreviation;
-        private final transient String parseAbbreviation;
-                final transient boolean requiresIntegers;
-
-        private Unit(String name, String abbreviation, String parseAbbreviation, boolean requiresIntegers) {
-            this.name = name;
-            this.abbreviation = abbreviation;
-            this.parseAbbreviation = parseAbbreviation;
-            this.requiresIntegers = requiresIntegers;
-        }
-
-
-        /**
-         * Returns a Unit that corresponds to the specified string.
-         *
-         * @param name   the encoded unit, trimmed and in lower case
-         * @param horizontal  true for a horizontal unit, false for vertical
-         * @return the corresponding Unit
-         * @throws IllegalArgumentException if no Unit exists for the string
-         */
-        static Unit valueOf(String name, boolean horizontal) {
-            if (name.length() == 0) {
-                Unit defaultUnit = Sizes.getDefaultUnit();
-                if (defaultUnit != null) {
-                    return defaultUnit;
-                }
-                return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            }
-            switch (name) {
-            case "px":
-                return PIXEL;
-            case "dlu":
-                return horizontal ? DIALOG_UNITS_X : DIALOG_UNITS_Y;
-            case "pt":
-                return POINT;
-            case "in":
-                return INCH;
-            case "mm":
-                return MILLIMETER;
-            case "cm":
-                return CENTIMETER;
-            default:
-                throw new IllegalArgumentException(
-                    "Invalid unit name '" + name + "'. Must be one of: " +
-                    "px, dlu, pt, mm, cm, in");
-            }
-        }
-
-
-        /**
-         * Returns a string representation of this unit object.
-         *
-         * <strong>Note:</strong> This implementation may change at any time.
-         * It is intended for debugging purposes. For parsing, use
-         * {@link #encode()} instead.
-         *
-         * @return  a string representation of the constant size
-         */
-        @Override
-        public String toString() {
-            return name;
-        }
-
-
-        /**
-         * Returns a parseable string representation of this unit.
-         *
-         * @return a String that can be parsed by the Forms parser
-         *
-         * @since 1.2
-         */
-        public String encode() {
-            return parseAbbreviation != null
-                ? parseAbbreviation
-                : abbreviation;
-        }
-
-
-        /**
-         * Returns the first character of this Unit's name.
-         * Used to identify it in short format strings.
-         *
-         * @return the first character of this Unit's name.
-         */
-        public String abbreviation() {
-            return abbreviation;
-        }
-
-
-        // Serialization *****************************************************
-
-        private static int nextOrdinal = 0;
-
-        private final int ordinal = nextOrdinal++;
-
-        private Object readResolve() {
-            return VALUES[ordinal];  // Canonicalize
-        }
-
-    }
 
 
 }
