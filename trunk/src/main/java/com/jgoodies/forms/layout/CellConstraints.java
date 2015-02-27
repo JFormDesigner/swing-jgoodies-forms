@@ -1109,9 +1109,9 @@ public final class CellConstraints implements Cloneable, Serializable {
                                FormLayout.Measure prefMeasure) {
         if (formSpec == null) {
             return prefMeasure.sizeOf(component);
-        } else if (formSpec.getSize() == Sizes.MINIMUM) {
+        } else if (formSpec.getSize() == ComponentSize.MINIMUM) {
             return minMeasure.sizeOf(component);
-        } else if (formSpec.getSize() == Sizes.PREFERRED) {
+        } else if (formSpec.getSize() == ComponentSize.PREFERRED) {
             return prefMeasure.sizeOf(component);
         } else {  // default mode
             return Math.min(cellSize, prefMeasure.sizeOf(component));

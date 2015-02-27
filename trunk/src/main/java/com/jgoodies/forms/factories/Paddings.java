@@ -201,10 +201,10 @@ public final class Paddings {
         int tokenCount = token.length;
         checkArgument(token.length == 4,
                 "The padding requires 4 sizes, but \"%s\" has %d.", formattedSizes, Integer.valueOf(tokenCount));
-        ConstantSize top    = Sizes.constant(token[0], false);
-        ConstantSize left   = Sizes.constant(token[1], true);
-        ConstantSize bottom = Sizes.constant(token[2], false);
-        ConstantSize right  = Sizes.constant(token[3], true);
+        ConstantSize top    = Sizes.constant(token[0]);
+        ConstantSize left   = Sizes.constant(token[1]);
+        ConstantSize bottom = Sizes.constant(token[2]);
+        ConstantSize right  = Sizes.constant(token[3]);
         return createPadding(top, left, bottom, right);
     }
 
@@ -252,10 +252,10 @@ public final class Paddings {
 
         @Override
         public Insets getBorderInsets(Component c, Insets insets) {
-            insets.top    = topMargin.getPixelSize(c);
-            insets.left   = leftMargin.getPixelSize(c);
-            insets.bottom = bottomMargin.getPixelSize(c);
-            insets.right  = rightMargin.getPixelSize(c);
+            insets.top    = topMargin.getPixelSize(c, false);
+            insets.left   = leftMargin.getPixelSize(c, true);
+            insets.bottom = bottomMargin.getPixelSize(c, false);
+            insets.right  = rightMargin.getPixelSize(c, true);
             return insets;
         }
 

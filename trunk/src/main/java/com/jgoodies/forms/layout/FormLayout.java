@@ -1318,7 +1318,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                          colComponents,
                                          colGroupIndices,
                                          minimumWidthMeasure,
-                                         preferredWidthMeasure
+                                         preferredWidthMeasure,
+                                         true
                                          );
             int[] y = computeGridOrigins(parent,
                                          totalHeight, insets.top,
@@ -1326,7 +1327,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                          rowComponents,
                                          rowGroupIndices,
                                          minimumHeightMeasure,
-                                         preferredHeightMeasure
+                                         preferredHeightMeasure,
+                                         false
                                          );
 
             layoutComponents(x, y);
@@ -1388,11 +1390,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
             int[] colWidths  = maximumSizes(parent, colSpecs, colComponents,
                                             minimumWidthMeasure,
                                             preferredWidthMeasure,
-                                            defaultWidthMeasure);
+                                            defaultWidthMeasure,
+                                            true);
             int[] rowHeights = maximumSizes(parent, rowSpecs, rowComponents,
                                             minimumHeightMeasure,
                                             preferredHeightMeasure,
-                                            defaultHeightMeasure);
+                                            defaultHeightMeasure,
+                                            false);
             int[] groupedWidths  = groupedSizes(colGroupIndices, colWidths);
             int[] groupedHeights = groupedSizes(rowGroupIndices, rowHeights);
 
@@ -1475,18 +1479,21 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private static int[] computeGridOrigins(Container container,
                                       int totalSize, int offset,
-                                      List formSpecs,
-                                      List[] componentLists,
+                                      List<? extends FormSpec> formSpecs,
+                                      List<Component>[] componentLists,
                                       int[][] groupIndices,
                                       Measure minMeasure,
-                                      Measure prefMeasure) {
+                                      Measure prefMeasure,
+                                      boolean horizontal) {
         /* For each spec compute the minimum and preferred size that is
          * the maximum of all component minimum and preferred sizes resp.
          */
         int[] minSizes   = maximumSizes(container, formSpecs, componentLists,
-                                        minMeasure, prefMeasure, minMeasure);
+                                        minMeasure, prefMeasure, minMeasure,
+                                        horizontal);
         int[] prefSizes  = maximumSizes(container, formSpecs, componentLists,
-                                        minMeasure, prefMeasure, prefMeasure);
+                                        minMeasure, prefMeasure, prefMeasure,
+                                        horizontal);
 
         int[] groupedMinSizes  = groupedSizes(groupIndices, minSizes);
         int[] groupedPrefSizes = groupedSizes(groupIndices, prefSizes);
@@ -1585,21 +1592,21 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @return the column or row sizes
      */
     private static int[] maximumSizes(Container container,
-                                List formSpecs,
-                                List[] componentLists,
+                                List<? extends FormSpec> formSpecs,
+                                List<Component>[] componentLists,
                                 Measure minMeasure,
                                 Measure prefMeasure,
-                                Measure defaultMeasure) {
-        FormSpec formSpec;
+                                Measure defaultMeasure,
+                                boolean horizontal) {
         int size = formSpecs.size();
         int[] result = new int[size];
         for (int i = 0; i < size; i++) {
-            formSpec = (FormSpec) formSpecs.get(i);
-            result[i] = formSpec.maximumSize(container,
+            result[i] = formSpecs.get(i).maximumSize(container,
                                              componentLists[i],
                                              minMeasure,
                                              prefMeasure,
-                                             defaultMeasure);
+                                             defaultMeasure,
+                                             horizontal);
         }
         return result;
     }
@@ -2042,7 +2049,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                          colComponents,
                                          colGroupIndices,
                                          minimumWidthMeasure,
-                                         preferredWidthMeasure
+                                         preferredWidthMeasure,
+                                         true
                                          );
             int[] y = computeGridOrigins(parent,
                                          totalHeight, insets.top,
@@ -2050,7 +2058,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                          rowComponents,
                                          rowGroupIndices,
                                          minimumHeightMeasure,
-                                         preferredHeightMeasure
+                                         preferredHeightMeasure,
+                                         false
                                          );
             return new LayoutInfo(x, y);
         }

@@ -6,6 +6,12 @@ CHANGES IN 1.10.0  ----------------------------------------------------
 
     o Moved to Java 7.
     o Requires JGoodies Common 1.9.
+    o Turned ComponentSize into an enumeration.
+    o Replaced Sizes#MINIMUM, #PREFERRED, #DEFAULT 
+      by the ComponentSize enum values.
+    o Turned Unit into an enumeration.
+    o Removed ConstantSize duplicate constants: 
+      #PX, #PT, #MM, #IN, #CM, #DLUX, #DLUY.  
 
 
 CHANGES IN 1.9.0  -----------------------------------------------------

@@ -30,6 +30,9 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
+
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -106,17 +109,22 @@ public final class PrototypeSize implements Size, Serializable {
      * @param minMeasure      the measure that determines the minimum sizes
      * @param prefMeasure     the measure that determines the preferred sizes
      * @param defaultMeasure  the measure that determines the default sizes
+     * @param horizontal      {@code true} for horizontal (mandatory here)
      *
      * @return the {@code stringWidth} for this size's prototype string
      *    computed by the {@code container}'s FontMetrics for the
      *    {@code DefaultUnitConverter}'s default dialog font
+     * 
+     * @throws IllegalArgumentException if vertical
      */
     @Override
 	public int maximumSize(Container container,
-                    List components,
+                    List<Component> components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
-                    FormLayout.Measure defaultMeasure) {
+                    FormLayout.Measure defaultMeasure,
+                    boolean horizontal) {
+        checkArgument(horizontal, "Prototype sizes are allowed only for columns.");
         Font font = DefaultUnitConverter.getInstance().getDefaultDialogFont();
         FontMetrics fm = container.getFontMetrics(font);
         return fm.stringWidth(getPrototype());

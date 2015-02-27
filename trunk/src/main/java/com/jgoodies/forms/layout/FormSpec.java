@@ -34,6 +34,7 @@ import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotBlank;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.io.Serializable;
 import java.util.List;
@@ -191,7 +192,7 @@ public abstract class FormSpec implements Serializable {
      * @param encodedDescription	the encoded description
      */
     protected FormSpec(DefaultAlignment defaultAlignment, String encodedDescription) {
-        this(defaultAlignment, Sizes.DEFAULT, NO_GROW);
+        this(defaultAlignment, ComponentSize.DEFAULT, NO_GROW);
         parseAndInitValues(encodedDescription.toLowerCase(Locale.ENGLISH));
     }
 
@@ -319,7 +320,7 @@ public abstract class FormSpec implements Serializable {
      * @param token    a token that represents a size, either bounded or plain
      * @return the decoded Size
      */
-    private Size parseSize(String token) {
+    private static Size parseSize(String token) {
         if (token.startsWith("[") && token.endsWith("]")) {
             return parseBoundedSize(token);
         }
@@ -333,7 +334,7 @@ public abstract class FormSpec implements Serializable {
     }
 
 
-    private Size parseBoundedSize(String token) {
+    private static Size parseBoundedSize(String token) {
         String content = token.substring(1, token.length()-1);
         String[] subtoken = BOUNDS_SEPARATOR_PATTERN.split(content);
         Size basis = null;
@@ -388,7 +389,7 @@ public abstract class FormSpec implements Serializable {
      * @param setMax  if true we set a maximum size, otherwise a minimum size
      * @return a Size that represents the parse result
      */
-    private Size parseOldBoundedSize(String token, boolean setMax) {
+    private static Size parseOldBoundedSize(String token, boolean setMax) {
         int semicolonIndex = token.indexOf(';');
         String sizeToken1 = token.substring(4, semicolonIndex);
         String sizeToken2 = token.substring(semicolonIndex + 1, token.length() - 1);
@@ -398,7 +399,7 @@ public abstract class FormSpec implements Serializable {
 
         // Check valid combinations and set min or max.
         if (isConstant(size1)) {
-            if (size2 instanceof Sizes.ComponentSize) {
+            if (size2 instanceof ComponentSize) {
                 return new BoundedSize(size2, setMax ? null : size1,
                                                setMax ? size1 : null);
             }
@@ -421,7 +422,7 @@ public abstract class FormSpec implements Serializable {
      * @param token	the encoded size
      * @return the decoded size either a constant or component size
      */
-    private Size parseAtomicSize(String token) {
+    private static Size parseAtomicSize(String token) {
         String trimmedToken = token.trim();
         if (   trimmedToken.startsWith("'") && trimmedToken.endsWith("'")) {
             int length = trimmedToken.length();
@@ -430,11 +431,11 @@ public abstract class FormSpec implements Serializable {
             }
             return new PrototypeSize(trimmedToken.substring(1, length - 1));
         }
-        Sizes.ComponentSize componentSize = Sizes.ComponentSize.valueOf(trimmedToken);
+        ComponentSize componentSize = ComponentSize.decode(trimmedToken);
         if (componentSize != null) {
             return componentSize;
         }
-        return ConstantSize.valueOf(trimmedToken, isHorizontal());
+        return ConstantSize.decode(trimmedToken);
     }
 
 
@@ -599,15 +600,17 @@ public abstract class FormSpec implements Serializable {
      * @return the maximum size in pixels
      */
     final int maximumSize(Container container,
-                    List components,
+                    List<Component> components,
                     FormLayout.Measure minMeasure,
                     FormLayout.Measure prefMeasure,
-                    FormLayout.Measure defaultMeasure) {
+                    FormLayout.Measure defaultMeasure,
+                    boolean horizontal) {
         return size.maximumSize(container,
                                  components,
                                  minMeasure,
                                  prefMeasure,
-                                 defaultMeasure);
+                                 defaultMeasure,
+                                 horizontal);
     }
 
 
