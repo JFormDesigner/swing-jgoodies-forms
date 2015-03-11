@@ -691,9 +691,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private void shiftComponentsHorizontally(int columnIndex, boolean remove) {
         final int offset = remove ? -1 : 1;
-        for (Object element : constraintMap.entrySet()) {
-            Map.Entry entry = (Map.Entry) element;
-            CellConstraints constraints = (CellConstraints) entry.getValue();
+        for (Map.Entry<Component, CellConstraints> entry : constraintMap.entrySet()) {
+            CellConstraints constraints = entry.getValue();
             int x1 = constraints.gridX;
             int w  = constraints.gridWidth;
             int x2 = x1 + w - 1;
@@ -720,9 +719,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private void shiftComponentsVertically(int rowIndex, boolean remove) {
         final int offset = remove ? -1 : 1;
-        for (Object element : constraintMap.entrySet()) {
-            Map.Entry entry = (Map.Entry) element;
-            CellConstraints constraints = (CellConstraints) entry.getValue();
+        for (Map.Entry<Component, CellConstraints> entry : constraintMap.entrySet()) {
+            CellConstraints constraints = entry.getValue();
             int y1 = constraints.gridY;
             int h  = constraints.gridHeight;
             int y2 = y1 + h - 1;
@@ -1093,11 +1091,11 @@ public final class FormLayout implements LayoutManager2, Serializable {
             return;
         }
         honorsVisibility = b;
-        Set componentSet = constraintMap.keySet();
+        Set<Component> componentSet = constraintMap.keySet();
         if (componentSet.isEmpty()) {
             return;
         }
-        Component firstComponent = (Component) componentSet.iterator().next();
+        Component firstComponent = componentSet.iterator().next();
         Container container = firstComponent.getParent();
         invalidateAndRepaint(container);
     }
@@ -1356,10 +1354,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
             rowComponents[i] = new ArrayList<>();
         }
 
-        for (Object element : constraintMap.entrySet()) {
-            Map.Entry entry = (Map.Entry) element;
-            Component component = (Component) entry.getKey();
-            CellConstraints constraints = (CellConstraints) entry.getValue();
+        for (Map.Entry<Component, CellConstraints> entry : constraintMap.entrySet()) {
+            final Component component         = entry.getKey();
+            final CellConstraints constraints = entry.getValue();
             if (takeIntoAccount(component, constraints)) {
                 if (constraints.gridWidth == 1) {
                     colComponents[constraints.gridX-1].add(component);
@@ -1382,31 +1379,31 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param defaultHeightMeasure  the measure used to compute the default height
      * @return the layout size of the {@code parent} container
      */
-    private Dimension computeLayoutSize(Container parent,
-                                         Measure defaultWidthMeasure,
-                                         Measure defaultHeightMeasure) {
+    private Dimension computeLayoutSize(final Container parent,
+                                        final Measure defaultWidthMeasure,
+                                        final Measure defaultHeightMeasure) {
         synchronized (parent.getTreeLock()) {
             initializeColAndRowComponentLists();
-            int[] colWidths  = maximumSizes(parent, colSpecs, colComponents,
+            final int[] colWidths  = maximumSizes(parent, colSpecs, colComponents,
                                             minimumWidthMeasure,
                                             preferredWidthMeasure,
                                             defaultWidthMeasure,
                                             true);
-            int[] rowHeights = maximumSizes(parent, rowSpecs, rowComponents,
+            final int[] rowHeights = maximumSizes(parent, rowSpecs, rowComponents,
                                             minimumHeightMeasure,
                                             preferredHeightMeasure,
                                             defaultHeightMeasure,
                                             false);
-            int[] groupedWidths  = groupedSizes(colGroupIndices, colWidths);
-            int[] groupedHeights = groupedSizes(rowGroupIndices, rowHeights);
+            final int[] groupedWidths  = groupedSizes(colGroupIndices, colWidths);
+            final int[] groupedHeights = groupedSizes(rowGroupIndices, rowHeights);
 
             // Convert sizes to origins.
-            int[] xOrigins = computeOrigins(groupedWidths,  0);
-            int[] yOrigins = computeOrigins(groupedHeights, 0);
+            final int[] xOrigins = computeOrigins(groupedWidths,  0);
+            final int[] yOrigins = computeOrigins(groupedHeights, 0);
 
-            int width1  = sum(groupedWidths);
-            int height1 = sum(groupedHeights);
-            int maxWidth = width1;
+            final int width1  = sum(groupedWidths);
+            final int height1 = sum(groupedHeights);
+            int maxWidth  = width1;
             int maxHeight = height1;
 
             /*
@@ -1416,13 +1413,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
              */
             // First computes the maximum number of cols/rows a component
             // can span without spanning a growing column.
-            int[] maxFixedSizeColsTable = computeMaximumFixedSpanTable(colSpecs);
-            int[] maxFixedSizeRowsTable = computeMaximumFixedSpanTable(rowSpecs);
+            final int[] maxFixedSizeColsTable = computeMaximumFixedSpanTable(colSpecs);
+            final int[] maxFixedSizeRowsTable = computeMaximumFixedSpanTable(rowSpecs);
 
-            for (Object element : constraintMap.entrySet()) {
-                Map.Entry entry = (Map.Entry) element;
-                Component component = (Component) entry.getKey();
-                CellConstraints constraints = (CellConstraints) entry.getValue();
+            for (Map.Entry<Component, CellConstraints> entry : constraintMap.entrySet()) {
+                final Component component         = entry.getKey();
+                final CellConstraints constraints = entry.getValue();
                 if (!takeIntoAccount(component, constraints)) {
                     continue;
                 }
@@ -1430,13 +1426,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 if (   constraints.gridWidth > 1
                     && constraints.gridWidth > maxFixedSizeColsTable[constraints.gridX-1]) {
                     //int compWidth = minimumWidthMeasure.sizeOf(component);
-                    int compWidth = defaultWidthMeasure.sizeOf(component);
+                    final int compWidth = defaultWidthMeasure.sizeOf(component);
                     //int compWidth = preferredWidthMeasure.sizeOf(component);
-                    int gridX1 = constraints.gridX-1;
-                    int gridX2 = gridX1 + constraints.gridWidth;
-                    int lead  = xOrigins[gridX1];
-                    int trail = width1 - xOrigins[gridX2];
-                    int myWidth = lead + compWidth + trail;
+                    final int gridX1 = constraints.gridX-1;
+                    final int gridX2 = gridX1 + constraints.gridWidth;
+                    final int lead  = xOrigins[gridX1];
+                    final int trail = width1 - xOrigins[gridX2];
+                    final int myWidth = lead + compWidth + trail;
                     if (myWidth > maxWidth) {
                         maxWidth = myWidth;
                     }
@@ -1445,21 +1441,21 @@ public final class FormLayout implements LayoutManager2, Serializable {
                 if (   constraints.gridHeight > 1
                     && constraints.gridHeight > maxFixedSizeRowsTable[constraints.gridY-1]) {
                     //int compHeight = minimumHeightMeasure.sizeOf(component);
-                    int compHeight = defaultHeightMeasure.sizeOf(component);
+                    final int compHeight = defaultHeightMeasure.sizeOf(component);
                     //int compHeight = preferredHeightMeasure.sizeOf(component);
-                    int gridY1 = constraints.gridY-1;
-                    int gridY2 = gridY1 + constraints.gridHeight;
-                    int lead  = yOrigins[gridY1];
-                    int trail = height1 - yOrigins[gridY2];
-                    int myHeight = lead + compHeight + trail;
+                    final int gridY1 = constraints.gridY-1;
+                    final int gridY2 = gridY1 + constraints.gridHeight;
+                    final int lead  = yOrigins[gridY1];
+                    final int trail = height1 - yOrigins[gridY2];
+                    final int myHeight = lead + compHeight + trail;
                     if (myHeight > maxHeight) {
                         maxHeight = myHeight;
                     }
                 }
             }
-            Insets insets = parent.getInsets();
-            int width  = maxWidth  + insets.left + insets.right;
-            int height = maxHeight + insets.top  + insets.bottom;
+            final Insets insets = parent.getInsets();
+            final int width  = maxWidth  + insets.left + insets.right;
+            final int height = maxHeight + insets.top  + insets.bottom;
             return new Dimension(width, height);
         }
     }
@@ -1477,37 +1473,38 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param groupIndices		the group specification
      * @return an int array with the origins
      */
-    private static int[] computeGridOrigins(Container container,
-                                      int totalSize, int offset,
-                                      List<? extends FormSpec> formSpecs,
-                                      List<Component>[] componentLists,
-                                      int[][] groupIndices,
-                                      Measure minMeasure,
-                                      Measure prefMeasure,
-                                      boolean horizontal) {
+    private static int[] computeGridOrigins(final Container container,
+            final int totalSize, 
+            final int offset,
+            final List<? extends FormSpec> formSpecs,
+            final List<Component>[] componentLists,
+            final int[][] groupIndices,
+            final Measure minMeasure,
+            final Measure prefMeasure,
+            final boolean horizontal) {
         /* For each spec compute the minimum and preferred size that is
          * the maximum of all component minimum and preferred sizes resp.
          */
-        int[] minSizes   = maximumSizes(container, formSpecs, componentLists,
+        final int[] minSizes   = maximumSizes(container, formSpecs, componentLists,
                                         minMeasure, prefMeasure, minMeasure,
                                         horizontal);
-        int[] prefSizes  = maximumSizes(container, formSpecs, componentLists,
+        final int[] prefSizes  = maximumSizes(container, formSpecs, componentLists,
                                         minMeasure, prefMeasure, prefMeasure,
                                         horizontal);
 
-        int[] groupedMinSizes  = groupedSizes(groupIndices, minSizes);
-        int[] groupedPrefSizes = groupedSizes(groupIndices, prefSizes);
-        int   totalMinSize     = sum(groupedMinSizes);
-        int   totalPrefSize    = sum(groupedPrefSizes);
-        int[] compressedSizes  = compressedSizes(formSpecs,
+        final int[] groupedMinSizes  = groupedSizes(groupIndices, minSizes);
+        final int[] groupedPrefSizes = groupedSizes(groupIndices, prefSizes);
+        final int   totalMinSize     = sum(groupedMinSizes);
+        final int   totalPrefSize    = sum(groupedPrefSizes);
+        final int[] compressedSizes  = compressedSizes(formSpecs,
                                                totalSize,
                                                totalMinSize,
                                                totalPrefSize,
                                                groupedMinSizes,
                                                prefSizes);
-        int[] groupedSizes     = groupedSizes(groupIndices, compressedSizes);
-        int   totalGroupedSize = sum(groupedSizes);
-        int[] sizes            = distributedSizes(formSpecs,
+        final int[] groupedSizes     = groupedSizes(groupIndices, compressedSizes);
+        final int   totalGroupedSize = sum(groupedSizes);
+        final int[] sizes            = distributedSizes(formSpecs,
                                                  totalSize,
                                                  totalGroupedSize,
                                                  groupedSizes);
@@ -1522,9 +1519,9 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param offset    an offset for the first origin
      * @return an array of origins
      */
-    private static int[] computeOrigins(int[] sizes, int offset) {
-        int count = sizes.length;
-        int[] origins = new int[count + 1];
+    private static int[] computeOrigins(final int[] sizes, final int offset) {
+        final int count = sizes.length;
+        final int[] origins = new int[count + 1];
         origins[0] = offset;
         for (int i = 1; i <= count; i++) {
             origins[i] = origins[i-1] + sizes[i-1];
@@ -1548,17 +1545,16 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param x     an int array of the horizontal origins
      * @param y     an int array of the vertical origins
      */
-    private void layoutComponents(int[] x, int[] y) {
-        Rectangle cellBounds = new Rectangle();
-        for (Object element : constraintMap.entrySet()) {
-            Map.Entry entry = (Map.Entry) element;
-            Component       component   = (Component)       entry.getKey();
-            CellConstraints constraints = (CellConstraints) entry.getValue();
+    private void layoutComponents(final int[] x, final int[] y) {
+        final Rectangle cellBounds = new Rectangle();
+        for (Map.Entry<Component, CellConstraints> entry : constraintMap.entrySet()) {
+            final Component       component   = entry.getKey();
+            final CellConstraints constraints = entry.getValue();
 
-            int gridX      = constraints.gridX-1;
-            int gridY      = constraints.gridY-1;
-            int gridWidth  = constraints.gridWidth;
-            int gridHeight = constraints.gridHeight;
+            final int gridX      = constraints.gridX-1;
+            final int gridY      = constraints.gridY-1;
+            final int gridWidth  = constraints.gridWidth;
+            final int gridHeight = constraints.gridHeight;
             cellBounds.x = x[gridX];
             cellBounds.y = y[gridY];
             cellBounds.width  = x[gridX + gridWidth ] - cellBounds.x;
@@ -1591,15 +1587,16 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param defaultMeasure    the measure used to determine default sizes
      * @return the column or row sizes
      */
-    private static int[] maximumSizes(Container container,
-                                List<? extends FormSpec> formSpecs,
-                                List<Component>[] componentLists,
-                                Measure minMeasure,
-                                Measure prefMeasure,
-                                Measure defaultMeasure,
-                                boolean horizontal) {
-        int size = formSpecs.size();
-        int[] result = new int[size];
+    private static int[] maximumSizes(
+            final Container container,
+            final List<? extends FormSpec> formSpecs,
+            final List<Component>[] componentLists,
+            final Measure minMeasure,
+            final Measure prefMeasure,
+            final Measure defaultMeasure,
+            final boolean horizontal) {
+        final int size = formSpecs.size();
+        final int[] result = new int[size];
         for (int i = 0; i < size; i++) {
             result[i] = formSpecs.get(i).maximumSize(container,
                                              componentLists[i],
@@ -1629,9 +1626,10 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param prefSizes      an int array of column/row preferred sizes
      * @return an int array of compressed column/row sizes
      */
-    private static int[] compressedSizes(List formSpecs,
-                                 int totalSize, int totalMinSize, int totalPrefSize,
-                                 int[] minSizes, int[] prefSizes) {
+    private static int[] compressedSizes(
+            final List<? extends FormSpec> formSpecs,
+            final int totalSize, final int totalMinSize, final int totalPrefSize,
+            final int[] minSizes, final int[] prefSizes) {
 
         // If we have less space than the total min size, answer the min sizes.
         if (totalSize < totalMinSize) {
@@ -1642,19 +1640,19 @@ public final class FormLayout implements LayoutManager2, Serializable {
             return prefSizes;
         }
 
-        int count = formSpecs.size();
-        int[] sizes = new int[count];
+        final int count = formSpecs.size();
+        final int[] sizes = new int[count];
 
-        double totalCompressionSpace = totalPrefSize - totalSize;
-        double maxCompressionSpace   = totalPrefSize - totalMinSize;
-        double compressionFactor     = totalCompressionSpace / maxCompressionSpace;
+        final double totalCompressionSpace = totalPrefSize - totalSize;
+        final double maxCompressionSpace   = totalPrefSize - totalMinSize;
+        final double compressionFactor     = totalCompressionSpace / maxCompressionSpace;
 
 //      System.out.println("Total compression space=" + totalCompressionSpace);
 //      System.out.println("Max compression space  =" + maxCompressionSpace);
 //      System.out.println("Compression factor     =" + compressionFactor);
 
         for (int i = 0; i < count; i++) {
-            FormSpec formSpec = (FormSpec) formSpecs.get(i);
+            final FormSpec formSpec = formSpecs.get(i);
             sizes[i] = prefSizes[i];
             if (formSpec.getSize().compressible()) {
                 sizes[i] -= (int) Math.round((prefSizes[i] - minSizes[i])
@@ -1673,14 +1671,14 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param rawSizes	the raw sizes before the grouping
      * @return the grouped sizes
      */
-    private static int[] groupedSizes(int[][] groups, int[] rawSizes) {
+    private static int[] groupedSizes(final int[][] groups, final int[] rawSizes) {
         // Return the compressed sizes if there are no groups.
         if (groups == null || groups.length == 0) {
             return rawSizes;
         }
 
         // Initialize the result with the given compressed sizes.
-        int[] sizes = new int[rawSizes.length];
+        final int[] sizes = new int[rawSizes.length];
         for (int i = 0; i < sizes.length; i++) {
             sizes[i] = rawSizes[i];
         }
@@ -1689,13 +1687,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
         for (int[] groupIndices : groups) {
             int groupMaxSize = 0;
             // Compute the group's maximum size.
-            for (int groupIndice : groupIndices) {
-                int index = groupIndice - 1;
+            for (int groundIndex : groupIndices) {
+                final int index = groundIndex - 1;
                 groupMaxSize = Math.max(groupMaxSize, sizes[index]);
             }
             // Set all sizes of this group to the group's maximum size.
-            for (int groupIndice : groupIndices) {
-                int index = groupIndice - 1;
+            for (int groupIndex : groupIndices) {
+                final int index = groupIndex - 1;
                 sizes[index] = groupMaxSize;
             }
         }
@@ -1713,20 +1711,20 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @param inputSizes     the input sizes
      * @return the distributed sizes
      */
-    private static int[] distributedSizes(List formSpecs,
-                                    int totalSize, int totalPrefSize,
-                                    int[] inputSizes) {
-        double totalFreeSpace = totalSize - totalPrefSize;
+    private static int[] distributedSizes(
+            final List<? extends FormSpec> formSpecs,
+            final int totalSize, 
+            final int totalPrefSize,
+            final int[] inputSizes) {
+        final double totalFreeSpace = totalSize - totalPrefSize;
         // Do nothing if there's no free space.
         if (totalFreeSpace < 0) {
             return inputSizes;
         }
 
         // Compute the total weight.
-        int count = formSpecs.size();
         double totalWeight = 0.0;
-        for (int i = 0; i < count; i++) {
-            FormSpec formSpec = (FormSpec) formSpecs.get(i);
+        for (FormSpec formSpec : formSpecs) {
             totalWeight += formSpec.getResizeWeight();
         }
 
@@ -1735,20 +1733,21 @@ public final class FormLayout implements LayoutManager2, Serializable {
             return inputSizes;
         }
 
-        int[] sizes = new int[count];
+        final int count = formSpecs.size();
+        final int[] sizes = new int[count];
 
         double restSpace = totalFreeSpace;
         int roundedRestSpace = (int) totalFreeSpace;
 		for (int i = 0; i < count; i++) {
-			FormSpec formSpec = (FormSpec) formSpecs.get(i);
-			double weight = formSpec.getResizeWeight();
+			final FormSpec formSpec = formSpecs.get(i);
+			final double weight = formSpec.getResizeWeight();
 			if (weight == FormSpec.NO_GROW) {
 				sizes[i] = inputSizes[i];
 			} else {
-				double roundingCorrection = restSpace - roundedRestSpace;
-				double extraSpace = totalFreeSpace * weight / totalWeight;
-				double correctedExtraSpace = extraSpace - roundingCorrection;
-				int roundedExtraSpace = (int) Math.round(correctedExtraSpace);
+				final double roundingCorrection = restSpace - roundedRestSpace;
+				final double extraSpace = totalFreeSpace * weight / totalWeight;
+				final double correctedExtraSpace = extraSpace - roundingCorrection;
+				final int roundedExtraSpace = (int) Math.round(correctedExtraSpace);
 				sizes[i] = inputSizes[i] + roundedExtraSpace;
 				restSpace -= extraSpace;
 				roundedRestSpace -= roundedExtraSpace;
@@ -1782,12 +1781,12 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @return a table that maps a spec index to the maximum span for
      *    fixed size specs
      */
-    private static int[] computeMaximumFixedSpanTable(List formSpecs) {
-        int size = formSpecs.size();
-        int[] table = new int[size];
+    private static int[] computeMaximumFixedSpanTable(final List<? extends FormSpec> formSpecs) {
+        final int size = formSpecs.size();
+        final int[] table = new int[size];
         int maximumFixedSpan = Integer.MAX_VALUE;        // Could be 1
         for (int i = size-1; i >= 0; i--) {
-            FormSpec spec = (FormSpec) formSpecs.get(i); // ArrayList access
+            final FormSpec spec = formSpecs.get(i); // ArrayList access
             if (spec.canGrow()) {
                 maximumFixedSpan = 0;
             }
@@ -1843,7 +1842,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     c) {@code cc} indicates that this individual component
      *        ignores the visibility.
      */
-    private boolean takeIntoAccount(Component component, CellConstraints cc) {
+    private boolean takeIntoAccount(final Component component, final CellConstraints cc) {
         return   component.isVisible()
               || cc.honorsVisibility == null && !getHonorsVisibility()
               || Boolean.FALSE.equals(cc.honorsVisibility);
@@ -1875,7 +1874,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * An abstract implementation of the {@code Measure} interface
      * that caches component sizes.
      */
-    private abstract static class CachingMeasure implements Measure, Serializable {
+    abstract static class CachingMeasure implements Measure, Serializable {
 
         /**
          * Holds previously requested component sizes.
@@ -1883,7 +1882,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
          */
         protected final ComponentSizeCache cache;
 
-        private CachingMeasure(ComponentSizeCache cache) {
+        protected CachingMeasure(ComponentSizeCache cache) {
             this.cache = cache;
         }
 
@@ -1893,8 +1892,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Measures a component by computing its minimum width.
      */
-    private static final class MinimumWidthMeasure extends CachingMeasure {
-        private MinimumWidthMeasure(ComponentSizeCache cache) {
+    static final class MinimumWidthMeasure extends CachingMeasure {
+        MinimumWidthMeasure(ComponentSizeCache cache) {
             super(cache);
         }
         @Override
@@ -1907,8 +1906,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Measures a component by computing its minimum height.
      */
-    private static final class MinimumHeightMeasure extends CachingMeasure {
-        private MinimumHeightMeasure(ComponentSizeCache cache) {
+    static final class MinimumHeightMeasure extends CachingMeasure {
+        MinimumHeightMeasure(ComponentSizeCache cache) {
             super(cache);
         }
         @Override
@@ -1921,8 +1920,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Measures a component by computing its preferred width.
      */
-    private static final class PreferredWidthMeasure extends CachingMeasure {
-        private PreferredWidthMeasure(ComponentSizeCache cache) {
+    static final class PreferredWidthMeasure extends CachingMeasure {
+        PreferredWidthMeasure(ComponentSizeCache cache) {
             super(cache);
         }
         @Override
@@ -1935,8 +1934,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
     /**
      * Measures a component by computing its preferred height.
      */
-    private static final class PreferredHeightMeasure extends CachingMeasure {
-        private PreferredHeightMeasure(ComponentSizeCache cache) {
+    static final class PreferredHeightMeasure extends CachingMeasure {
+        PreferredHeightMeasure(ComponentSizeCache cache) {
             super(cache);
         }
         @Override
@@ -1952,8 +1951,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * A cache for component minimum and preferred sizes.
      * Used to reduce the requests to determine a component's size.
      */
-    private static final class ComponentSizeCache implements Serializable {
-
+     static final class ComponentSizeCache implements Serializable {
+         
         /** Maps components to their minimum sizes.  */
         private final Map<Component, Dimension> minimumSizes;
 
@@ -1965,7 +1964,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
          *
          * @param initialCapacity	the initial cache capacity
          */
-        private ComponentSizeCache(int initialCapacity) {
+        ComponentSizeCache(int initialCapacity) {
             minimumSizes   = new HashMap<>(initialCapacity);
             preferredSizes = new HashMap<>(initialCapacity);
         }
@@ -2037,13 +2036,13 @@ public final class FormLayout implements LayoutManager2, Serializable {
     public LayoutInfo getLayoutInfo(Container parent) {
         synchronized (parent.getTreeLock()) {
             initializeColAndRowComponentLists();
-            Dimension size = parent.getSize();
+            final Dimension size = parent.getSize();
 
-            Insets insets = parent.getInsets();
-            int totalWidth  = size.width - insets.left - insets.right;
-            int totalHeight = size.height- insets.top  - insets.bottom;
+            final Insets insets = parent.getInsets();
+            final int totalWidth  = size.width - insets.left - insets.right;
+            final int totalHeight = size.height- insets.top  - insets.bottom;
 
-            int[] x = computeGridOrigins(parent,
+            final int[] x = computeGridOrigins(parent,
                                          totalWidth, insets.left,
                                          colSpecs,
                                          colComponents,
@@ -2052,7 +2051,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
                                          preferredWidthMeasure,
                                          true
                                          );
-            int[] y = computeGridOrigins(parent,
+            final int[] y = computeGridOrigins(parent,
                                          totalHeight, insets.top,
                                          rowSpecs,
                                          rowComponents,
@@ -2138,8 +2137,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @see Object#clone()
      */
-    private static int[][] deepClone(int[][] array) {
-        int[][] result = new int[array.length][];
+    private static int[][] deepClone(final int[][] array) {
+        final int[][] result = new int[array.length][];
         for (int i = 0; i < result.length; i++) {
             result[i] = array[i].clone();
         }

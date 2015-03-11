@@ -12,6 +12,8 @@ CHANGES IN 1.10.0  ----------------------------------------------------
     o Turned Unit into an enumeration.
     o Removed ConstantSize duplicate constants: 
       #PX, #PT, #MM, #IN, #CM, #DLUX, #DLUY.  
+    o Improved code readability.
+    o Added generics.
 
 
 CHANGES IN 1.9.0  -----------------------------------------------------
