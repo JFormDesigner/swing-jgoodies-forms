@@ -61,14 +61,14 @@ public final class ClassLoaderTest extends TestCase{
     private void testStaticAccess(String className, String methodName)
         throws ClassNotFoundException, IllegalAccessException, SecurityException,
                IllegalArgumentException, NoSuchMethodException, InvocationTargetException {
-        Class classVersion1 = loadClass(className);
+        Class<?> classVersion1 = loadClass(className);
         staticAccess(classVersion1, methodName);
-        Class classVersion2 = loadClass(className);
+        Class<?> classVersion2 = loadClass(className);
         staticAccess(classVersion2, methodName);
     }
 
 
-    private Class loadClass(String className) throws ClassNotFoundException {
+    private Class<?> loadClass(String className) throws ClassNotFoundException {
         URL url = getClass().getResource("/");
         ClassLoader parent = ClassLoader.getSystemClassLoader().getParent();
         
@@ -80,7 +80,7 @@ public final class ClassLoaderTest extends TestCase{
     }
 
 
-    private static void staticAccess(Class classVersion, String methodName)
+    private static void staticAccess(Class<?> classVersion, String methodName)
         throws IllegalAccessException, SecurityException, NoSuchMethodException,
                IllegalArgumentException, InvocationTargetException {
         Method method = classVersion.getMethod(methodName, (Class[]) null);

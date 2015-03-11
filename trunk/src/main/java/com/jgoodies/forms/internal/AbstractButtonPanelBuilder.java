@@ -381,7 +381,7 @@ public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBu
     }
 
 
-    protected abstract AbstractButtonPanelBuilder addButton(JComponent button);
+    protected abstract AbstractButtonPanelBuilder<B> addButton(JComponent button);
 
 
     /**
@@ -410,7 +410,7 @@ public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBu
      *
      * @see #addButton(JComponent)
      */
-    protected AbstractButtonPanelBuilder addButton(JComponent... buttons) {
+    protected AbstractButtonPanelBuilder<B> addButton(JComponent... buttons) {
         checkNotNull(buttons, "The button array must not be null.");
         checkArgument(buttons.length > 0, "The button array must not be empty.");
         boolean needsGap = false;
@@ -436,7 +436,7 @@ public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBu
 	 *
 	 * @param actions  an array of buttons to add
 	 */
-	protected AbstractButtonPanelBuilder addButton(Action... actions) {
+	protected AbstractButtonPanelBuilder<B> addButton(Action... actions) {
 	    checkNotNull(actions, "The Action array must not be null.");
 	    int length = actions.length;
 	    checkArgument(length > 0, "The Action array must not be empty.");
@@ -452,13 +452,13 @@ public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBu
     /**
      * Adds the standard gap for related components.
      */
-	protected abstract AbstractButtonPanelBuilder addRelatedGap();
+	protected abstract AbstractButtonPanelBuilder<B> addRelatedGap();
 
 
     /**
      * Adds the standard gap for unrelated components.
      */
-	protected abstract AbstractButtonPanelBuilder addUnrelatedGap();
+	protected abstract AbstractButtonPanelBuilder<B> addUnrelatedGap();
 
 
     /**
