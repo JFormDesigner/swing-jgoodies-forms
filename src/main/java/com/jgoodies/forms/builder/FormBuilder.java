@@ -228,7 +228,7 @@ public class FormBuilder {
      *
      * @see #add(Component, CellConstraints)
      */
-    private WeakReference mostRecentlyAddedLabelReference = null;
+    private WeakReference<JLabel> mostRecentlyAddedLabelReference = null;
 
 
     // Instance Creation ******************************************************
@@ -2001,7 +2001,7 @@ public class FormBuilder {
         if (mostRecentlyAddedLabelReference == null) {
             return null;
         }
-        JLabel label = (JLabel) mostRecentlyAddedLabelReference.get();
+        JLabel label = mostRecentlyAddedLabelReference.get();
         if (label == null) {
             return null;
         }
@@ -2015,7 +2015,7 @@ public class FormBuilder {
      * @param label  the label to be set
      */
     private void setMostRecentlyAddedLabel(JLabel label) {
-        mostRecentlyAddedLabelReference = new WeakReference(label);
+        mostRecentlyAddedLabelReference = new WeakReference<>(label);
     }
 
 
