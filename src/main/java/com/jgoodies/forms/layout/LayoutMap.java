@@ -465,14 +465,14 @@ public final class LayoutMap {
     public String toString() {
         StringBuffer buffer = new StringBuffer(super.toString());
         buffer.append("\n  Column associations:");
-        for (Entry entry : columnMap.entrySet()) {
+        for (Entry<String, String> entry : columnMap.entrySet()) {
             buffer.append("\n    ");
             buffer.append(entry.getKey());
             buffer.append("->");
             buffer.append(entry.getValue());
         }
         buffer.append("\n  Row associations:");
-        for (Entry entry : rowMap.entrySet()) {
+        for (Entry<String, String> entry : rowMap.entrySet()) {
             buffer.append("\n    ");
             buffer.append(entry.getKey());
             buffer.append("->");

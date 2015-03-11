@@ -122,11 +122,11 @@ public final class FormSpecParser {
     // Parser Implementation **************************************************
 
     private ColumnSpec[] parseColumnSpecs() {
-        List encodedColumnSpecs = split(source, 0);
-        int columnCount = encodedColumnSpecs.size();
+        final List<String> encodedColumnSpecs = split(source, 0);
+        final int columnCount = encodedColumnSpecs.size();
         ColumnSpec[] columnSpecs = new ColumnSpec[columnCount];
         for (int i = 0; i < columnCount; i++) {
-            String encodedSpec = (String) encodedColumnSpecs.get(i);
+            String encodedSpec = encodedColumnSpecs.get(i);
             columnSpecs[i] = ColumnSpec.decodeExpanded(encodedSpec);
         }
         return columnSpecs;
@@ -134,11 +134,11 @@ public final class FormSpecParser {
 
 
     private RowSpec[] parseRowSpecs() {
-        List encodedRowSpecs = split(source, 0);
-        int rowCount = encodedRowSpecs.size();
+        final List<String> encodedRowSpecs = split(source, 0);
+        final int rowCount = encodedRowSpecs.size();
         RowSpec[] rowSpecs = new RowSpec[rowCount];
         for (int i = 0; i < rowCount; i++) {
-            String encodedSpec = (String) encodedRowSpecs.get(i);
+            String encodedSpec = encodedRowSpecs.get(i);
             rowSpecs[i] = RowSpec.decodeExpanded(encodedSpec);
         }
         return rowSpecs;
