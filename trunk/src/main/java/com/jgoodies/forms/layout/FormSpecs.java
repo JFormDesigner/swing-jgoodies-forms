@@ -97,7 +97,7 @@ public final class FormSpecs {
      * @see #GLUE_ROWSPEC
      */
     public static final ColumnSpec GLUE_COLSPEC =
-        new ColumnSpec(ColumnSpec.DEFAULT, Sizes.ZERO, ColumnSpec.DEFAULT_GROW);
+        new ColumnSpec(ColumnSpec.DEFAULT, Sizes.ZERO, FormSpec.DEFAULT_GROW);
 
 
     // Layout Style Dependent Column Specs ***********************************
@@ -169,7 +169,7 @@ public final class FormSpecs {
     public static final ColumnSpec GROWING_BUTTON_COLSPEC =
         new ColumnSpec(ColumnSpec.DEFAULT,
                        BUTTON_COLSPEC.getSize(),
-                       ColumnSpec.DEFAULT_GROW);
+                       FormSpec.DEFAULT_GROW);
 
 
     // Frequently used Row Specifications ***********************************
@@ -219,7 +219,7 @@ public final class FormSpecs {
      * @see #GLUE_COLSPEC
      */
     public static final RowSpec GLUE_ROWSPEC =
-        new RowSpec(RowSpec.DEFAULT, Sizes.ZERO, RowSpec.DEFAULT_GROW);
+        new RowSpec(RowSpec.DEFAULT, Sizes.ZERO, FormSpec.DEFAULT_GROW);
 
 
     // Layout Style Dependent Row Specs *************************************
