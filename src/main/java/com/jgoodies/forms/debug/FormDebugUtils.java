@@ -32,6 +32,7 @@ package com.jgoodies.forms.debug;
 
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -260,7 +261,7 @@ public final class FormDebugUtils {
      * @throws IllegalArgumentException   if {@code container}'s layout is not FormLayout
      */
     public static FormLayout.LayoutInfo getLayoutInfo(Container container) {
-        checkNotNull(container, "The container must not be null.");
+        checkNotNull(container, MUST_NOT_BE_NULL, "container");
         checkArgument(container.getLayout() instanceof FormLayout,
                 "The container must use an instance of FormLayout.");
         FormLayout layout = (FormLayout) container.getLayout();

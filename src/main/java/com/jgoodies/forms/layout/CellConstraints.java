@@ -32,6 +32,7 @@ package com.jgoodies.forms.layout;
 
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.awt.Component;
 import java.awt.Insets;
@@ -332,8 +333,8 @@ public final class CellConstraints implements Cloneable, Serializable {
         if (gridHeight <= 0) {
             throw new IndexOutOfBoundsException("The grid height must be a positive number.");
         }
-        checkNotNull(hAlign, "The horizontal alignment must not be null.");
-        checkNotNull(vAlign, "The vertical alignment must not be null.");
+        checkNotNull(hAlign, MUST_NOT_BE_NULL, "horizontal alignment");
+        checkNotNull(vAlign, MUST_NOT_BE_NULL, "vertical alignment");
         ensureValidOrientations(hAlign, vAlign);
     }
 

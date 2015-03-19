@@ -31,6 +31,8 @@
 package com.jgoodies.forms.factories;
 
 import static com.jgoodies.common.base.Preconditions.checkArgument;
+import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.awt.Component;
 import java.awt.Insets;
@@ -226,16 +228,10 @@ public final class Paddings {
                 ConstantSize bottom,
                 ConstantSize right) {
             super(0, 0, 0, 0);
-            if (   top == null
-                || left == null
-                || bottom == null
-                || right == null) {
-                throw new NullPointerException("The top, left, bottom, and right must not be null.");
-            }
-            this.topMargin    = top;
-            this.leftMargin   = left;
-            this.bottomMargin = bottom;
-            this.rightMargin  = right;
+            this.topMargin    = checkNotNull(top,    MUST_NOT_BE_NULL, "top");
+            this.leftMargin   = checkNotNull(left,   MUST_NOT_BE_NULL, "left");
+            this.bottomMargin = checkNotNull(bottom, MUST_NOT_BE_NULL, "bottom");
+            this.rightMargin  = checkNotNull(right,  MUST_NOT_BE_NULL, "right");
         }
 
         @Override

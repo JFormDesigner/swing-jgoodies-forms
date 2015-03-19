@@ -31,6 +31,7 @@
 package com.jgoodies.forms.layout;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -293,7 +294,7 @@ public final class LayoutMap {
      * @see Map#put(Object, Object)
      */
     public String columnPut(String key, String value) {
-        checkNotNull(value, "The column expression value must not be null.");
+        checkNotNull(value, MUST_NOT_BE_NULL, "column expression value");
         String resolvedKey = resolveColumnKey(key);
         columnMapCache.clear();
         return columnMap.put(
@@ -391,7 +392,7 @@ public final class LayoutMap {
 
 
     public String rowPut(String key, String value) {
-        checkNotNull(value, "The row expression value must not be null.");
+        checkNotNull(value, MUST_NOT_BE_NULL, "row expression value");
         String resolvedKey = resolveRowKey(key);
         rowMapCache.clear();
         return rowMap.put(
@@ -545,7 +546,7 @@ public final class LayoutMap {
     // Helper Code ************************************************************
 
     private static String resolveColumnKey(String key) {
-        checkNotNull(key, "The column key must not be null.");
+        checkNotNull(key, MUST_NOT_BE_NULL, "column key");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
         String defaultKey = COLUMN_ALIASES.get(lowercaseKey);
         return defaultKey == null ? lowercaseKey : defaultKey;
@@ -553,7 +554,7 @@ public final class LayoutMap {
 
 
     private static String resolveRowKey(String key) {
-        checkNotNull(key, "The row key must not be null.");
+        checkNotNull(key, MUST_NOT_BE_NULL, "row key");
         String lowercaseKey = key.toLowerCase(Locale.ENGLISH);
         String defaultKey = ROW_ALIASES.get(lowercaseKey);
         return defaultKey == null ? lowercaseKey : defaultKey;
