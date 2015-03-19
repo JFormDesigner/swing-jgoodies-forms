@@ -31,6 +31,7 @@
 package com.jgoodies.forms.factories;
 
 import static com.jgoodies.common.base.Preconditions.checkArgument;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -273,7 +274,7 @@ public class DefaultComponentFactory implements ComponentFactory {
      * @since 1.0.6
      */
     public JComponent createSeparator(JLabel label) {
-        Preconditions.checkNotNull(label, "The label must not be null.");
+        Preconditions.checkNotNull(label, MUST_NOT_BE_NULL, "label");
         int horizontalAlignment = label.getHorizontalAlignment();
         checkArgument(
                 horizontalAlignment == SwingConstants.LEFT

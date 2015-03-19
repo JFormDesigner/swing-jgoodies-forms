@@ -33,6 +33,7 @@ package com.jgoodies.forms.layout;
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
 import static com.jgoodies.common.base.Preconditions.checkState;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -424,8 +425,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     is {@code null}
      */
     public FormLayout(ColumnSpec[] colSpecs, RowSpec[] rowSpecs) {
-        checkNotNull(colSpecs, "The column specifications must not be null.");
-        checkNotNull(rowSpecs, "The row specifications must not be null.");
+        checkNotNull(colSpecs, MUST_NOT_BE_NULL, "column specifications");
+        checkNotNull(rowSpecs, MUST_NOT_BE_NULL, "row specifications");
         this.colSpecs  = new ArrayList<>(Arrays.asList(colSpecs));
         this.rowSpecs  = new ArrayList<>(Arrays.asList(rowSpecs));
         colGroupIndices = new int[][]{};
@@ -473,7 +474,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @throws IndexOutOfBoundsException if the column index is out of range
      */
     public void setColumnSpec(int columnIndex, ColumnSpec columnSpec) {
-        checkNotNull(columnSpec, "The column spec must not be null.");
+        checkNotNull(columnSpec, MUST_NOT_BE_NULL, "column spec");
         colSpecs.set(columnIndex - 1, columnSpec);
     }
 
@@ -486,7 +487,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @throws NullPointerException if {@code columnSpec} is {@code null}
      */
     public void appendColumn(ColumnSpec columnSpec) {
-        checkNotNull(columnSpec, "The column spec must not be null.");
+        checkNotNull(columnSpec, MUST_NOT_BE_NULL, "column spec");
         colSpecs.add(columnSpec);
     }
 
@@ -595,7 +596,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @throws IndexOutOfBoundsException if the row index is out of range
      */
     public void setRowSpec(int rowIndex, RowSpec rowSpec) {
-        checkNotNull(rowSpec, "The row spec must not be null.");
+        checkNotNull(rowSpec, MUST_NOT_BE_NULL, "row spec");
         rowSpecs.set(rowIndex - 1, rowSpec);
     }
 
@@ -607,7 +608,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @throws NullPointerException if {@code rowSpec} is {@code null}
      */
     public void appendRow(RowSpec rowSpec) {
-        checkNotNull(rowSpec, "The row spec must not be null.");
+        checkNotNull(rowSpec, MUST_NOT_BE_NULL, "row spec");
         rowSpecs.add(rowSpec);
     }
 
@@ -782,7 +783,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
 
 
     private CellConstraints getConstraints0(Component component) {
-        checkNotNull(component, "The component must not be null.");
+        checkNotNull(component, MUST_NOT_BE_NULL, "component");
         CellConstraints constraints = constraintMap.get(component);
         checkState(constraints != null, "The component has not been added to the container.");
         return constraints;
@@ -798,8 +799,8 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *     is {@code null}
      */
     public void setConstraints(Component component, CellConstraints constraints) {
-        checkNotNull(component, "The component must not be null.");
-        checkNotNull(constraints, "The constraints must not be null.");
+        checkNotNull(component,   MUST_NOT_BE_NULL, "component");
+        checkNotNull(constraints, MUST_NOT_BE_NULL, "constraints");
         constraints.ensureValidGridBounds(getColumnCount(), getRowCount());
         constraintMap.put(component, (CellConstraints) constraints.clone());
     }
@@ -1156,7 +1157,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     @Override
 	public void addLayoutComponent(Component comp, Object constraints) {
-        checkNotNull(constraints, "The constraints must not be null.");
+        checkNotNull(constraints, MUST_NOT_BE_NULL, "constraints");
         if (constraints instanceof String) {
             setConstraints(comp, new CellConstraints((String) constraints));
         } else if (constraints instanceof CellConstraints) {
@@ -1474,7 +1475,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      * @return an int array with the origins
      */
     private static int[] computeGridOrigins(final Container container,
-            final int totalSize, 
+            final int totalSize,
             final int offset,
             final List<? extends FormSpec> formSpecs,
             final List<Component>[] componentLists,
@@ -1713,7 +1714,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      */
     private static int[] distributedSizes(
             final List<? extends FormSpec> formSpecs,
-            final int totalSize, 
+            final int totalSize,
             final int totalPrefSize,
             final int[] inputSizes) {
         final double totalFreeSpace = totalSize - totalPrefSize;

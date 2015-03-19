@@ -31,6 +31,7 @@
 package com.jgoodies.forms.layout;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,8 +87,8 @@ public final class FormSpecParser {
             String description,
             LayoutMap layoutMap,
             boolean horizontal) {
-        checkNotNull(source, "The %S must not be null.", description);
-        checkNotNull(layoutMap, "The LayoutMap must not be null.");
+        checkNotNull(source,    MUST_NOT_BE_NULL, description);
+        checkNotNull(layoutMap, MUST_NOT_BE_NULL, "LayoutMap");
         this.layoutMap = layoutMap;
         this.source = this.layoutMap.expand(source, horizontal);
     }

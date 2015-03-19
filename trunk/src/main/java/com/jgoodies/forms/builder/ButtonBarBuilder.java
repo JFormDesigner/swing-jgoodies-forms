@@ -31,6 +31,7 @@
 package com.jgoodies.forms.builder;
 
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import javax.swing.Action;
 import javax.swing.JComponent;
@@ -158,7 +159,7 @@ public final class ButtonBarBuilder extends AbstractButtonPanelBuilder<ButtonBar
      */
     @Override
     public ButtonBarBuilder addButton(JComponent button) {
-        checkNotNull(button, "The button to add must not be null.");
+        checkNotNull(button, MUST_NOT_BE_NULL, "button to add");
         getLayout().appendColumn(FormSpecs.BUTTON_COLSPEC);
         add(button);
         nextColumn();

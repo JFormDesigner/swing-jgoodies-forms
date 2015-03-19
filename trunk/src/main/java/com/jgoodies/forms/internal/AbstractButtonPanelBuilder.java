@@ -30,8 +30,8 @@
 
 package com.jgoodies.forms.internal;
 
-import static com.jgoodies.common.base.Preconditions.checkArgument;
-import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.base.Preconditions.checkNotNullOrEmpty;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL_OR_EMPTY;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -411,8 +411,7 @@ public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBu
      * @see #addButton(JComponent)
      */
     protected AbstractButtonPanelBuilder<B> addButton(JComponent... buttons) {
-        checkNotNull(buttons, "The button array must not be null.");
-        checkArgument(buttons.length > 0, "The button array must not be empty.");
+        checkNotNullOrEmpty(buttons, MUST_NOT_BE_NULL_OR_EMPTY, "button array");
         boolean needsGap = false;
         for (JComponent button : buttons) {
             if (button == null) {
@@ -437,9 +436,8 @@ public abstract class AbstractButtonPanelBuilder<B extends AbstractButtonPanelBu
 	 * @param actions  an array of buttons to add
 	 */
 	protected AbstractButtonPanelBuilder<B> addButton(Action... actions) {
-	    checkNotNull(actions, "The Action array must not be null.");
+	    checkNotNullOrEmpty(actions, MUST_NOT_BE_NULL_OR_EMPTY, "Action array");
 	    int length = actions.length;
-	    checkArgument(length > 0, "The Action array must not be empty.");
 	    JButton[] buttons = new JButton[length];
 	    for (int i = 0; i < length; i++) {
 	    	Action action = actions[i];

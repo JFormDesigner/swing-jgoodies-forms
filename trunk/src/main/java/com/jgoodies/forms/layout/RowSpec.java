@@ -32,6 +32,8 @@ package com.jgoodies.forms.layout;
 
 import static com.jgoodies.common.base.Preconditions.checkNotBlank;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_BLANK;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -202,10 +204,8 @@ public final class RowSpec extends FormSpec {
      * @since 1.2
      */
     public static RowSpec decode(String encodedRowSpec, LayoutMap layoutMap) {
-        checkNotBlank(encodedRowSpec,
-                "The encoded row specification must not be null, empty or whitespace.");
-        checkNotNull(layoutMap,
-                "The LayoutMap must not be null.");
+        checkNotBlank(encodedRowSpec, MUST_NOT_BE_BLANK, "encoded row specification");
+        checkNotNull(layoutMap,       MUST_NOT_BE_NULL,  "LayoutMap");
         String trimmed = encodedRowSpec.trim();
         String lower = trimmed.toLowerCase(Locale.ENGLISH);
         return decodeExpanded(layoutMap.expand(lower, false));

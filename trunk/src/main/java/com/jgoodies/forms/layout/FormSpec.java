@@ -33,6 +33,8 @@ package com.jgoodies.forms.layout;
 import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotBlank;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_BLANK;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -177,7 +179,7 @@ public abstract class FormSpec implements Serializable {
     protected FormSpec(DefaultAlignment defaultAlignment,
                         Size size,
                         double resizeWeight) {
-        checkNotNull(size, "The size must not be null.");
+        checkNotNull(size, MUST_NOT_BE_NULL, "size");
         checkArgument(resizeWeight >= 0, "The resize weight must be non-negative.");
     	this.defaultAlignment = defaultAlignment;
         this.size             = size;
@@ -293,8 +295,8 @@ public abstract class FormSpec implements Serializable {
      *     is empty, whitespace, has no size, or is otherwise invalid
      */
     private void parseAndInitValues(String encodedDescription) {
-        checkNotBlank(encodedDescription,
-                "The encoded form specification must not be null, empty or whitespace.");
+        checkNotBlank(encodedDescription, MUST_NOT_BE_BLANK,
+                "encoded form specification");
         String[] token = TOKEN_SEPARATOR_PATTERN.split(encodedDescription);
         checkArgument(token.length > 0, "The form spec must not be empty.");
         int nextIndex = 0;

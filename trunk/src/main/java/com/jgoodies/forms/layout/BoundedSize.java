@@ -30,7 +30,9 @@
 
 package com.jgoodies.forms.layout;
 
+import static com.jgoodies.common.base.Preconditions.checkArgument;
 import static com.jgoodies.common.base.Preconditions.checkNotNull;
+import static com.jgoodies.common.internal.Messages.MUST_NOT_BE_NULL;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -81,13 +83,11 @@ public final class BoundedSize implements Size, Serializable {
      * @since 1.1
      */
     public BoundedSize(Size basis, Size lowerBound, Size upperBound) {
-        this.basis      = checkNotNull(basis,      "The basis must not be null.");
+        this.basis      = checkNotNull(basis, MUST_NOT_BE_NULL, "basis");
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
-        if (lowerBound == null && upperBound == null) {
-            throw new IllegalArgumentException(
-                    "A bounded size must have a non-null lower or upper bound.");
-        }
+        checkArgument(lowerBound != null || upperBound != null,
+                "A bounded size must have a non-null lower or upper bound.");
     }
 
 
