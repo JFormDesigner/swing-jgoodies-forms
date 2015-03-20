@@ -75,6 +75,11 @@ public final class CC implements Cloneable, Serializable {
     public static final Alignment CENTER  = CellConstraints.CENTER;
     public static final Alignment TOP     = CellConstraints.TOP;
     public static final Alignment BOTTOM  = CellConstraints.BOTTOM;
+    
+    
+    private CC() {
+        // Override default constructor; prevents instantiation.
+    }
 
 
     // Setters with Column-Row Order ******************************************
