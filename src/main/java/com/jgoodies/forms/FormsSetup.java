@@ -42,7 +42,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  *
  * @since 1.8
  */
-public class FormsSetup {
+public final class FormsSetup {
 
 
     // Constants **************************************************************

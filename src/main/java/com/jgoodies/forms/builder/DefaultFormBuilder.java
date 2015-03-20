@@ -481,7 +481,7 @@ public final class DefaultFormBuilder extends I15dPanelBuilder {
      * @see #lineGapSize(ConstantSize)
      * @see #appendRow(String)
      */
-    public final void appendLineGapRow() {
+    public void appendLineGapRow() {
         appendRow(lineGapSpec);
     }
 

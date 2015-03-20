@@ -1859,7 +1859,7 @@ public final class FormLayout implements LayoutManager2, Serializable {
      *
      * @since 1.1
      */
-    public static interface Measure {
+    public interface Measure {
 
         /**
          * Computes and returns the size of the given {@code Component}.
