@@ -41,6 +41,7 @@ import java.awt.ComponentOrientation;
 import java.awt.ContainerOrderFocusTraversalPolicy;
 import java.awt.FocusTraversalPolicy;
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
@@ -778,6 +779,27 @@ public class FormBuilder {
     public FormBuilder focusGroup(AbstractButton... buttons) {
         FocusTraversalUtilsAccessor.tryToBuildAFocusGroup(buttons);
         return this;
+    }
+
+
+    /**
+     * Tries to build a focus group for the given buttons.
+     * Within a focus group, focus can be transferred from one group member
+     * to another using the arrow keys.<p>
+     * 
+     * To succeed, the commercial {@code FocusTraversalUtils} class must be
+     * in the class path. To make focus grouping work, a focus traversal policy
+     * must be set that is capable of transferring focus with the arrow keys
+     * such as {@code JGContainerOrderFocusTraversalPolicy} or
+     * {@code JGLayoutFocusTraversalPolicy}.
+     * 
+     * @param buttons   the buttons to be grouped
+     * @return a reference to this builder
+     * 
+     * @since 1.10
+     */
+    public FormBuilder focusGroup(List<AbstractButton> buttons) {
+        return focusGroup(buttons.toArray(new AbstractButton[buttons.size()]));
     }
 
 
