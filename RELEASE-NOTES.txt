@@ -2,6 +2,13 @@
                             Release Notes
                         
 
+CHANGES IN 1.10.1  ----------------------------------------------------
+
+    o Changed some JavaDocs regarding marked text, because the
+      underlying MnemonicUtils now accept the ampersand ('&'),
+      underscore ('_'), or both as mnemonic markers.
+      
+
 CHANGES IN 1.10.0  ----------------------------------------------------
 
     o Moved to Java 7.

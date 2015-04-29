@@ -1208,16 +1208,14 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .add("Name:")      .xy(1, 1) // No Mnemonic
-     *    .add("N&ame:")     .xy(1, 1) // Mnemonic is 'a'
-     *    .add("Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
-     *    .add("Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    .add("N_ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .add("Save _as:")  .xy(1, 1) // Mnemonic is the second 'a'
      *    ...
      *    .build();
      * </pre>
      * 
      * @param markedLabelText  the text of the label to be added,
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      * 
@@ -1239,16 +1237,14 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .addLabel("Name:")      .xy(1, 1) // No Mnemonic
-     *    .addLabel("N&ame:")     .xy(1, 1) // Mnemonic is 'a'
-     *    .addLabel("Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
-     *    .addLabel("Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    .addLabel("N_ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addLabel("Save _as:")  .xy(1, 1) // Mnemonic is the second 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
@@ -1275,16 +1271,14 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .addROLabel("Name:")      .xy(1, 1) // No Mnemonic
-     *    .addROLabel("N&ame:")     .xy(1, 1) // Mnemonic is 'a'
-     *    .addROLabel("Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
-     *    .addROLabel("Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    .addROLabel("N_ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addROLabel("Save _as:")  .xy(1, 1) // Mnemonic is the second 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
@@ -1306,15 +1300,13 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .addTitle("Name")      .xy(1, 1) // No mnemonic
-     *    .addTitle("N&ame")     .xy(1, 1) // Mnemonic is 'a'
-     *    .addTitle("Look&&Feel").xy(1, 1) // No mnemonic, text is Look&Feel
+     *    .addTitle("N_ame")     .xy(1, 1) // Mnemonic is 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param markedText   the title label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
@@ -1336,15 +1328,13 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .addSeparator("Name")      .xyw(1, 1, 3) // No Mnemonic
-     *    .addSeparator("N&ame")     .xyw(1, 1, 3) // Mnemonic is 'a'
-     *    .addSeparator("Look&&Feel").xyw(1, 1, 3) // No mnemonic, text is "look&feel"
+     *    .addSeparator("N_ame")     .xyw(1, 1, 3) // Mnemonic is 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param markedText   the separator label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
@@ -1694,17 +1684,15 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .add(condition, "Name:")      .xy(1, 1) // No Mnemonic
-     *    .add(condition, "N&ame:")     .xy(1, 1) // Mnemonic is 'a'
-     *    .add(condition, "Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
-     *    .add(condition, "Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    .add(condition, "N_ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .add(condition, "Save _as:")  .xy(1, 1) // Mnemonic is the second 'a'
      *    ...
      *    .build();
      * </pre>
      * 
      * @param expression   the precondition for adding the label
      * @param markedLabelText  the text of the label to be added,
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      * 
@@ -1729,17 +1717,15 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .addLabel(condition, "Name:")      .xy(1, 1) // No Mnemonic
-     *    .addLabel(condition, "N&ame:")     .xy(1, 1) // Mnemonic is 'a'
-     *    .addLabel(condition, "Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
-     *    .addLabel(condition, "Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    .addLabel(condition, "N_ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addLabel(condition, "Save _as:")  .xy(1, 1) // Mnemonic is the second 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param expression   the precondition for adding the label
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
@@ -1767,17 +1753,15 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .addROLabel(condition, "Name:")      .xy(1, 1) // No Mnemonic
-     *    .addROLabel(condition, "N&ame:")     .xy(1, 1) // Mnemonic is 'a'
-     *    .addROLabel(condition, "Save &as:")  .xy(1, 1) // Mnemonic is the second 'a'
-     *    .addROLabel(condition, "Look&&Feel:").xy(1, 1) // No mnemonic, text is "look&feel"
+     *    .addROLabel(condition, "N_ame:")     .xy(1, 1) // Mnemonic is 'a'
+     *    .addROLabel(condition, "Save _as:")  .xy(1, 1) // Mnemonic is the second 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param expression   the precondition for adding the read-only label
      * @param markedText   the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
@@ -1801,16 +1785,14 @@ public class FormBuilder {
      * return FormBuilder.create()
      *    ...
      *    .addTitle(condition, "Name")      .xy(1, 1) // No mnemonic
-     *    .addTitle(condition, "N&ame")     .xy(1, 1) // Mnemonic is 'a'
-     *    .addTitle(condition, "Look&&Feel").xy(1, 1) // No mnemonic, text is Look&Feel
+     *    .addTitle(condition, "N_ame")     .xy(1, 1) // Mnemonic is 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param expression   the precondition for adding the title
      * @param markedText   the title label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
@@ -1833,17 +1815,15 @@ public class FormBuilder {
      * <pre>
      * return FormBuilder.create()
      *    ...
-     *    .addSeparator(condition, "Name")      .xyw(1, 1, 3) // No Mnemonic
-     *    .addSeparator(condition, "N&ame")     .xyw(1, 1, 3) // Mnemonic is 'a'
-     *    .addSeparator(condition, "Look&&Feel").xyw(1, 1, 3) // No mnemonic, text is "look&feel"
+     *    .addSeparator(condition, "Name")   .xyw(1, 1, 3) // No Mnemonic
+     *    .addSeparator(condition, "N_ame")  .xyw(1, 1, 3) // Mnemonic is 'a'
      *    ...
      *    .build();
      * </pre>
      *
      * @param expression   the precondition for adding the separator
      * @param markedText   the separator label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic,
-     *     and it may be a format string
+     *     may contain a mnemonic marker, and it may be a format string
      * @param args             optional format arguments
      * @return the fluent interface part used to set the cell constraints
      *
