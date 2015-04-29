@@ -103,14 +103,15 @@ public class DefaultComponentFactory implements ComponentFactory {
      *
      * <pre>
      * createLabel("Name");       // No mnemonic
-     * createLabel("N&ame");      // Mnemonic is 'a'
-     * createLabel("Save &as");   // Mnemonic is the second 'a'
-     * createLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * createLabel("N_ame");      // Mnemonic is 'a'
+     * createLabel("Save _as");   // Mnemonic is the second 'a'
      * </pre>
      *
      * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain a mnemonic marker
      * @return an label with optional mnemonic
+     * 
+     * @see MnemonicUtils
      */
     @Override
 	public JLabel createLabel(String textWithMnemonic) {
@@ -126,15 +127,16 @@ public class DefaultComponentFactory implements ComponentFactory {
      *
      * <pre>
      * createReadOnlyLabel("Name");       // No mnemonic
-     * createReadOnlyLabel("N&ame");      // Mnemonic is 'a'
-     * createReadOnlyLabel("Save &as");   // Mnemonic is the second 'a'
-     * createReadOnlyLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * createReadOnlyLabel("N_ame");      // Mnemonic is 'a'
+     * createReadOnlyLabel("Save _as");   // Mnemonic is the second 'a'
      * </pre>
      *
      * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain a mnemonic marker
      * @return an label with optional mnemonic intended for read-only
      *     components
+     *     
+     * @see MnemonicUtils
      *
      * @since 1.3
      */
@@ -170,14 +172,15 @@ public class DefaultComponentFactory implements ComponentFactory {
      *
      * <pre>
      * createTitle("Name");       // No mnemonic
-     * createTitle("N&ame");      // Mnemonic is 'a'
-     * createTitle("Save &as");   // Mnemonic is the second 'a'
-     * createTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * createTitle("N_ame");      // Mnemonic is 'a'
+     * createTitle("Save _as");   // Mnemonic is the second 'a'
      * </pre>
      *
      * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     *     may contain a mnemonic marker
      * @return an emphasized title label
+     * 
+     * @see MnemonicUtils
      */
     @Override
 	public JLabel createTitle(String textWithMnemonic) {
