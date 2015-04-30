@@ -98,94 +98,32 @@ public class DefaultComponentFactory implements ComponentFactory {
 
     // Component Creation ***************************************************
 
-    /**
-     * Creates and returns a label with an optional mnemonic.<p>
-     *
-     * <pre>
-     * createLabel("Name");       // No mnemonic
-     * createLabel("N_ame");      // Mnemonic is 'a'
-     * createLabel("Save _as");   // Mnemonic is the second 'a'
-     * </pre>
-     *
-     * @param textWithMnemonic  the label's text -
-     *     may contain a mnemonic marker
-     * @return an label with optional mnemonic
-     * 
-     * @see MnemonicUtils
-     */
     @Override
-	public JLabel createLabel(String textWithMnemonic) {
+	public JLabel createLabel(String markedText) {
         JLabel label = new FormsLabel();
-        MnemonicUtils.configure(label, textWithMnemonic);
+        MnemonicUtils.configure(label, markedText);
         return label;
     }
 
 
-    /**
-     * Creates and returns a label with an optional mnemonic
-     * that is intended to label a read-only component.<p>
-     *
-     * <pre>
-     * createReadOnlyLabel("Name");       // No mnemonic
-     * createReadOnlyLabel("N_ame");      // Mnemonic is 'a'
-     * createReadOnlyLabel("Save _as");   // Mnemonic is the second 'a'
-     * </pre>
-     *
-     * @param textWithMnemonic  the label's text -
-     *     may contain a mnemonic marker
-     * @return an label with optional mnemonic intended for read-only
-     *     components
-     *     
-     * @see MnemonicUtils
-     *
-     * @since 1.3
-     */
     @Override
-	public JLabel createReadOnlyLabel(String textWithMnemonic) {
+	public JLabel createReadOnlyLabel(String markedText) {
         JLabel label = new ReadOnlyLabel();
-        MnemonicUtils.configure(label, textWithMnemonic);
+        MnemonicUtils.configure(label, markedText);
         return label;
     }
 
 
-    /**
-     * Creates and returns a button that is bound to the given Action.
-     * Useful to return customized buttons, for example, the JGoodies
-     * {@code JGButton} is bound to some custom Action properties.<p>
-     *
-     * This default implementation just returns a {@code JButton}.
-     *
-     * @param action    provides [bound] visual properties for the button
-     * @return the created button
-     *
-     * @since 1.4
-     */
     @Override
 	public JButton createButton(Action action) {
         return new JButton(action);
     }
 
 
-    /**
-     * Creates and returns a title label that uses the foreground color
-     * and font of a {@code TitledBorder}.<p>
-     *
-     * <pre>
-     * createTitle("Name");       // No mnemonic
-     * createTitle("N_ame");      // Mnemonic is 'a'
-     * createTitle("Save _as");   // Mnemonic is the second 'a'
-     * </pre>
-     *
-     * @param textWithMnemonic  the label's text -
-     *     may contain a mnemonic marker
-     * @return an emphasized title label
-     * 
-     * @see MnemonicUtils
-     */
     @Override
-	public JLabel createTitle(String textWithMnemonic) {
+	public JLabel createTitle(String markedText) {
         JLabel label = new TitleLabel();
-        MnemonicUtils.configure(label, textWithMnemonic);
+        MnemonicUtils.configure(label, markedText);
         label.setVerticalAlignment(SwingConstants.CENTER);
         return label;
     }
@@ -204,45 +142,24 @@ public class DefaultComponentFactory implements ComponentFactory {
      *
      * <pre>
      * createSeparator("Name");       // No mnemonic
-     * createSeparator("N&ame");      // Mnemonic is 'a'
-     * createSeparator("Save &as");   // Mnemonic is the second 'a'
-     * createSeparator("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * createSeparator("N_ame");      // Mnemonic is 'a'
+     * createSeparator("Save _as");   // Mnemonic is the second 'a'
      * </pre>
      *
-     * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @param markedText  the label's text - may contain a mnemonic marker
      * @return a title label with separator on the side
      */
-    public JComponent createSeparator(String textWithMnemonic) {
-        return createSeparator(textWithMnemonic, SwingConstants.LEFT);
+    public JComponent createSeparator(String markedText) {
+        return createSeparator(markedText, SwingConstants.LEFT);
     }
 
 
-    /**
-     * Creates and returns a labeled separator. Useful to separate
-     * paragraphs in a panel, which is often a better choice than a
-     * {@code TitledBorder}.<p>
-     *
-     * <pre>
-     * final int LEFT = SwingConstants.LEFT;
-     * createSeparator("Name",       LEFT); // No mnemonic
-     * createSeparator("N&ame",      LEFT); // Mnemonic is 'a'
-     * createSeparator("Save &as",   LEFT); // Mnemonic is the second 'a'
-     * createSeparator("Look&&Feel", LEFT); // No mnemonic, text is Look&Feel
-     * </pre>
-     *
-     * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
-     * @param alignment text alignment, one of {@code SwingConstants.LEFT},
-     *     {@code SwingConstants.CENTER}, {@code SwingConstants.RIGHT}
-     * @return a separator with title label
-     */
     @Override
-	public JComponent createSeparator(String textWithMnemonic, int alignment) {
-        if (Strings.isBlank(textWithMnemonic)) {
+	public JComponent createSeparator(String markedText, int alignment) {
+        if (Strings.isBlank(markedText)) {
             return new JSeparator();
         }
-        JLabel title = createTitle(textWithMnemonic);
+        JLabel title = createTitle(markedText);
         title.setHorizontalAlignment(alignment);
         return createSeparator(title);
     }
@@ -512,11 +429,6 @@ public class DefaultComponentFactory implements ComponentFactory {
             return new Dimension(width, height);
         }
 
-        /**
-         * Lays out the specified container.
-         *
-         * @param parent the container to be laid out
-         */
         @Override
 		public void layoutContainer(Container parent) {
             synchronized (parent.getTreeLock()) {

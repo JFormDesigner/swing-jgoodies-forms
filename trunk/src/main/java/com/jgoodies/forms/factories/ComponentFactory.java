@@ -35,6 +35,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+import com.jgoodies.common.swing.MnemonicUtils;
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.builder.ListViewBuilder;
 
@@ -77,16 +78,16 @@ public interface ComponentFactory {
 	 *
 	 * <pre>
 	 * createLabel("Name");       // No mnemonic
-	 * createLabel("N&ame");      // Mnemonic is 'a'
-	 * createLabel("Save &as");   // Mnemonic is the second 'a'
-	 * createLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+	 * createLabel("N_ame");      // Mnemonic is 'a'
+	 * createLabel("Save _as");   // Mnemonic is the second 'a'
 	 * </pre>
 	 *
-	 * @param textWithMnemonic  the label's text -
-	 *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+	 * @param markedText  the label's text - may contain a mnemonic marker
 	 * @return an label with optional mnemonic
+	 * 
+	 * @see MnemonicUtils
 	 */
-	JLabel createLabel(String textWithMnemonic);
+	JLabel createLabel(String markedText);
 
 
 	/**
@@ -95,19 +96,19 @@ public interface ComponentFactory {
      *
      * <pre>
      * createReadOnlyLabel("Name");       // No mnemonic
-     * createReadOnlyLabel("N&ame");      // Mnemonic is 'a'
-     * createReadOnlyLabel("Save &as");   // Mnemonic is the second 'a'
-     * createReadOnlyLabel("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * createReadOnlyLabel("N_ame");      // Mnemonic is 'a'
+     * createReadOnlyLabel("Save _as");   // Mnemonic is the second 'a'
      * </pre>
      *
-     * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @param markedText  the label's text - may contain a mnemonic marker
      * @return an label with optional mnemonic intended for read-only
      *     components
      *
+     * @see MnemonicUtils
+     *
      * @since 1.3
      */
-    JLabel createReadOnlyLabel(String textWithMnemonic);
+    JLabel createReadOnlyLabel(String markedText);
 
 
     /**
@@ -116,16 +117,16 @@ public interface ComponentFactory {
      *
      * <pre>
      * createTitle("Name");       // No mnemonic
-     * createTitle("N&ame");      // Mnemonic is 'a'
-     * createTitle("Save &as");   // Mnemonic is the second 'a'
-     * createTitle("Look&&Feel"); // No mnemonic, text is Look&Feel
+     * createTitle("N_ame");      // Mnemonic is 'a'
+     * createTitle("Save _as");   // Mnemonic is the second 'a'
      * </pre>
      *
-     * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @param markedText  the title's text - may contain a mnemonic marker
      * @return an emphasized title label
+     * 
+     * @see MnemonicUtils
      */
-    JLabel createTitle(String textWithMnemonic);
+    JLabel createTitle(String markedText);
 
 
     /**
@@ -135,9 +136,9 @@ public interface ComponentFactory {
      * size, and color of the TaskDialog main instruction as described
      * by the MS User Experience Guide.<p>
      *
-     * If the label text is marked with the mnemonic marker '&amp',
+     * If the label text is marked with the mnemonic marker,
      * the mnemonic and mnemonic index will be configured.
-     * For example if {@code markedText} is &quot;&Charge Codes&quot;, the text
+     * For example if {@code markedText} is &quot;_Charge Codes&quot;, the text
      * will be set to &quot;Charge Codes&quot;, the mnemonic is 'C', and the
      * mnemonic index is 0.<p>
      *
@@ -146,6 +147,8 @@ public interface ComponentFactory {
      *
      * @param markedText   the label text with optional mnemonic marker
      * @return a label intended for pane headers
+     * 
+     * @see MnemonicUtils
      *
      * @since 1.6
      */
@@ -160,18 +163,18 @@ public interface ComponentFactory {
      * <pre>
      * final int LEFT = SwingConstants.LEFT;
      * createSeparator("Name",       LEFT); // No mnemonic
-     * createSeparator("N&ame",      LEFT); // Mnemonic is 'a'
-     * createSeparator("Save &as",   LEFT); // Mnemonic is the second 'a'
-     * createSeparator("Look&&Feel", LEFT); // No mnemonic, text is Look&Feel
+     * createSeparator("N_ame",      LEFT); // Mnemonic is 'a'
+     * createSeparator("Save _as",   LEFT); // Mnemonic is the second 'a'
      * </pre>
      *
-     * @param textWithMnemonic  the label's text -
-     *     may contain an ampersand (<tt>&amp;</tt>) to mark a mnemonic
+     * @param markedText  the label's text - may contain a mnemonic marker
      * @param alignment text alignment, one of {@code SwingConstants.LEFT},
      *     {@code SwingConstants.CENTER}, {@code SwingConstants.RIGHT}
      * @return a title label with separator on the side
+     * 
+     * @see MnemonicUtils
      */
-    JComponent createSeparator(String textWithMnemonic, int alignment);
+    JComponent createSeparator(String markedText, int alignment);
 
 
 }
