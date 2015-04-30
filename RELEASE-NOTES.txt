@@ -2,11 +2,15 @@
                             Release Notes
                         
 
-CHANGES IN 1.10.1  ----------------------------------------------------
+CHANGES IN 1.11.0  ----------------------------------------------------
 
     o Changed some JavaDocs regarding marked text, because the
       underlying MnemonicUtils now accept the ampersand ('&'),
       underscore ('_'), or both as mnemonic markers.
+    o Added AbstractFormBuilder to reduce the effort for adding
+      features to the FormBuilder.
+    o Added FormBuilder#readOnlyLabels which is equivalent to
+      builder#defaultLabelType(LabelType.READ_ONLY).
       
 
 CHANGES IN 1.10.0  ----------------------------------------------------
