@@ -707,7 +707,7 @@ public class AbstractFormBuilder<B extends AbstractFormBuilder<B>> {
      * @param buttons   the buttons to be grouped
      * @return a reference to this builder
      * 
-     * @since 1.10
+     * @since 1.11
      */
     public B focusGroup(List<AbstractButton> buttons) {
         return focusGroup(buttons.toArray(new AbstractButton[buttons.size()]));
@@ -841,6 +841,22 @@ public class AbstractFormBuilder<B extends AbstractFormBuilder<B>> {
     public B defaultLabelType(LabelType newValue) {
         this.defaultLabelType = newValue;
         return (B) this;
+    }
+    
+    
+    /**
+     * Sets the default label type to {@code LabelType#READ_ONLY}.
+     * Equivalent to:
+     * <pre>
+     * builder.defaultLabelType(LabelType.READ_ONLY);
+     * </pre>
+     * 
+     * @return a reference to this builder
+     * 
+     * @since 1.11
+     */
+    public B readOnlyLabels() {
+        return defaultLabelType(LabelType.READ_ONLY);
     }
 
 
@@ -1102,7 +1118,7 @@ public class AbstractFormBuilder<B extends AbstractFormBuilder<B>> {
      * @param view   the view to integrate
      * @return the fluent interface part used to set the view's origin
      */
-    public ViewAdder<B> add(FormBuildingView view) {
+    public ViewAdder<B> add(FormBuildingView<B> view) {
         return add(true, view);
     }
 
@@ -1577,7 +1593,7 @@ public class AbstractFormBuilder<B extends AbstractFormBuilder<B>> {
      * @param view         the view to integrate
      * @return the fluent interface part used to set the view's origin
      */
-    public ViewAdder<B> add(boolean expression, FormBuildingView view) {
+    public ViewAdder<B> add(boolean expression, FormBuildingView<B> view) {
         return new ViewAdder<>((B) this, expression, view);
     }
 
@@ -1977,15 +1993,17 @@ public class AbstractFormBuilder<B extends AbstractFormBuilder<B>> {
      * <b>Note: This is an experimental interface that is not yet
      * part of the public FormBuilder API.</b> It may change without
      * further notice.
+     * 
+     * @param <T> the type of the builder
      */
-    public interface FormBuildingView {
+    public interface FormBuildingView<T> {
         
         /**
          * Integrates this view into the form that is built by the given builder.
          * 
          * @param builder   provides the layout, grid, panel, etc.
          */
-        void buildInto(AbstractFormBuilder<?> builder);
+        void buildInto(T builder);
         
     }
     
@@ -1996,9 +2014,9 @@ public class AbstractFormBuilder<B extends AbstractFormBuilder<B>> {
         
         private final T builder;
         private final boolean expression;
-        private final FormBuildingView view;
+        private final FormBuildingView<T> view;
         
-        ViewAdder(T builder, boolean expression, FormBuildingView view) {
+        ViewAdder(T builder, boolean expression, FormBuildingView<T> view) {
             this.builder = builder;
             this.expression = expression;
             this.view = view;
