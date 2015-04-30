@@ -80,11 +80,11 @@ import com.jgoodies.forms.layout.FormLayout;
  *      "pref, $lg, pref, $lg, pref");          // rows
  *
  * PanelBuilder builder = new PanelBuilder(layout);
- * builder.addLabel("&Title:",        CC.xy  (1, 1));
+ * builder.addLabel("_Title:",        CC.xy  (1, 1));
  * builder.add(new JTextField(),      CC.xywh(3, 1, 3, 1));
- * builder.addLabel("&Price:",        CC.xy  (1, 3));
+ * builder.addLabel("_Price:",        CC.xy  (1, 3));
  * builder.add(new JTextField(),      CC.xy  (3, 3));
- * builder.addLabel("&Author:",       CC.xy  (1, 5));
+ * builder.addLabel("_Author:",       CC.xy  (1, 5));
  * builder.add(new JTextField(),      CC.xy  (3, 5));
  * builder.add(new JButton("\u2026"), CC.xy  (5, 5));
  * return builder.getPanel();
