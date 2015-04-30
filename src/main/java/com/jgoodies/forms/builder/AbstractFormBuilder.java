@@ -1247,6 +1247,30 @@ public class AbstractFormBuilder<B extends AbstractFormBuilder<B>> {
 
 
     /**
+     * The first of two steps for adding a eparator to the form.
+     * The separator will be created and added,
+     * once the cell constraints are specified.
+     *
+     * <pre>
+     * return FormBuilder.create()
+     *    ...
+     *    .addSeparator()      .xyw(1, 1, 3)
+     *    ...
+     *    .build();
+     * </pre>
+     *
+     * @return the fluent interface part used to set the cell constraints
+     *
+     * @see ComponentFactory
+     * 
+     * @since 1.11
+     */
+    public ComponentAdder<B> addSeparator() {
+        return addSeparator(true, "");
+    }
+    
+    
+    /**
      * The first of two steps for adding a titled separator to the form.
      * The separator will be created and added,
      * once the cell constraints are specified.

@@ -66,11 +66,11 @@ import com.jgoodies.forms.layout.FormLayout;
  *     .rows("p, $lg, p, $lg, p")
  *     .padding(Paddings.DIALOG)
  * 
- *     .add("&Title:")   .xy  (1, 1)
+ *     .add("_Title:")   .xy  (1, 1)
  *     .add(titleField)  .xywh(3, 1, 3, 1)
- *     .add("&Price:")   .xy  (1, 3)
+ *     .add("_Price:")   .xy  (1, 3)
  *     .add(priceField)  .xy  (3, 3)
- *     .add("&Author:")  .xy  (1, 5)
+ *     .add("_Author:")  .xy  (1, 5)
  *     .add(authorField) .xy  (3, 5)
  *     .add(browseButton).xy  (5, 5)
  *     .build();
@@ -82,13 +82,11 @@ import com.jgoodies.forms.layout.FormLayout;
  * and that is by default initialized from
  * {@link FormsSetup#getComponentFactoryDefault()}.<p>
  *
- * The text arguments passed to the methods {@code #addLabel},
+ * The text arguments passed to the methods {@code #add(String)}, {@code #addLabel},
  * {@code #addTitle}, and {@code #addSeparator} can contain
  * an optional mnemonic marker. The mnemonic and mnemonic index
- * are indicated by a single ampersand (<tt>&amp;</tt>). For example
- * <tt>&quot;&amp;Save&quot</tt>, or <tt>&quot;Save&nbsp;&amp;as&quot</tt>.
- * To use the ampersand itself duplicate it, for example
- * <tt>&quot;Look&amp;&amp;Feel&quot</tt>.<p>
+ * are indicated by an underscore (<tt>'_'</tt>). For example
+ * <tt>&quot;_Save&quot</tt>, or <tt>&quot;Save&nbsp;_as&quot</tt>.<p>
  * 
  * <strong>Feature Overview:</strong>
  * <pre>
@@ -97,7 +95,7 @@ import com.jgoodies.forms.layout.FormLayout;
  *     .debug(true)                                 // Installs FormDebugPanel
  * 
  *     .add("Title:")         .xy(1, 1)             // Implicitly created label
- *     .add("&Price:")        .xy(1, 1)             // Label with mnemonic
+ *     .add("_Price:")        .xy(1, 1)             // Label with mnemonic
  * 
  *     .add(hasCountry, combo).xy(3, 1)             // Conditional adding
  * 
@@ -107,13 +105,6 @@ import com.jgoodies.forms.layout.FormLayout;
  *     .addBar(newBtn, editBtn, deleteBtn).xy(1, 5) // button bar
  *     .addBar(landscapeRadio, portraitRadio).xy(1, 1) // Radio button bar
  * </pre><p>
- * 
- * TODO: Consider moving almost everything from this class to an abstract
- * and generified superclass that reduces the effort to implement subclasses
- * with extra features. FormBuilder has been designed and documented as
- * final class. The final marker has been removed to allow API users to add
- * an internationalization feature similar to PanelBuilder/I15PanelBuilder.
- * But other extensions and complements may show up.<p>
  * 
  * TODO: Consider changing the {@link #build()} signature to return
  * a JComponent, so subclasses can return a component other than the
@@ -125,7 +116,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @since 1.9
  */
-public class FormBuilder extends AbstractFormBuilder<FormBuilder> {
+public final class FormBuilder extends AbstractFormBuilder<FormBuilder> {
     
 
     // Instance Creation ******************************************************

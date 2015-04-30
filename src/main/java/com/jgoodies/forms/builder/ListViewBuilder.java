@@ -64,7 +64,7 @@ import com.jgoodies.forms.util.FocusTraversalType;
  *
  * <strong>Examples:</strong><pre>
  * return ListViewBuilder.create()
- *     .labelText("&Contacts:")
+ *     .labelText("_Contacts:")
  *     .listView(contactsTable)
  *     .listBar(newButton, editButton, deleteButton)
  *     .build();
